@@ -3,7 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  keycloak: {
+    // issuer: "http://10.0.0.103:8000/auth/realms/webhookie",
+    issuer: "https://webhookie.au.auth0.com/",
+    redirectUri: "http://localhost:4200/",
+    clientId: "nvKDmIK9Q5Zw1UKwpON8LE3tg9vZcXb4",
+    // clientId: "webhookie-client",
+    responseType: "code",
+    scope: "openid profile email",
+    requireHttps: false,
+    showDebugInformation: true,
+    disableAtHashCheck: true
+  }
 };
 
 /*
