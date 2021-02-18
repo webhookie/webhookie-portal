@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "auth0": "ng serve -c auth0",
+    "kc": "ng serve -c kc",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
