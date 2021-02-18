@@ -59,6 +59,22 @@
                   "maximumError": "4kb"
                 }
               ]
+            },
+            "kc": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment-kc.ts"
+                }
+              ]
+            },
+            "auth0": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment-auth0.ts"
+                }
+              ]
             }
           }
         },
@@ -70,6 +86,12 @@
           "configurations": {
             "production": {
               "browserTarget": "webhookie-portal:build:production"
+            },
+            "kc": {
+              "browserTarget": "webhookie-portal:build:kc"
+            },
+            "auth0": {
+              "browserTarget": "webhookie-portal:build:auth0"
             }
           }
         },
