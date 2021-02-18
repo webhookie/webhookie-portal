@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {NullValidationHandler, OAuthService} from "angular-oauth2-oidc";
-import {authConfig} from "../../../auth-config/auth-config";
+import {authConfig} from "../../auth-config";
 
 @Component({
   selector: 'webhookie-main-layout',
