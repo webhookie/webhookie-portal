@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {OAuthService} from "angular-oauth2-oidc";
+import {NullValidationHandler, OAuthService} from "angular-oauth2-oidc";
+import {authConfig} from "./auth-config/auth-config";
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,10 @@ export class AppComponent {
   title = 'Webhookie';
 
   constructor(private readonly oauthService: OAuthService) {
+    this.oauthService.configure(authConfig);
+    this.oauthService.tokenValidationHandler = new NullValidationHandler();
+    this.oauthService.loadDiscoveryDocumentAndTryLogin()
+      .then(it => console.warn(it));
   }
 
   logout() {
@@ -17,13 +22,16 @@ export class AppComponent {
   }
 
   login() {
-    this.oauthService.loadDiscoveryDocumentAndLogin().then(isLoggedIn => {
-      console.log(isLoggedIn)
-      if (isLoggedIn) {
-        this.oauthService.setupAutomaticSilentRefresh();
-      } else {
-        this.oauthService.initCodeFlow();
-      }
-    });
+    this.oauthService.initCodeFlow();
+  }
+
+  get givenName() {
+    const claims = this.oauthService.getIdentityClaims();
+    if(!claims) {
+      return null;
+    }
+
+    // @ts-ignore
+    return claims['name'];
   }
 }

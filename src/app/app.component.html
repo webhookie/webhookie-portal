@@ -93,22 +93,25 @@
 
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
+  <!--suppress CheckImageSize -->
   <img
     width="100"
     alt="Webhookie Logo"
     src="assets/images/logo.png"
   />
-  <h2>Webhookie</h2>
+  <h2>Welcome to {{title}}</h2>
   <div class="spacer"></div>
-<!--  <a href="https://login.com">Login</a>&nbsp;|&nbsp;-->
-<!--  <a href="https://login.com">Register</a>-->
-  <a href="#" (click)="login()">Login</a>
-  <a href="#" (click)="logout()">Logout</a>
+
+  <div *ngIf="givenName">
+    <h2>Hi, {{givenName}}</h2>
+    <button (click)="logout()">Logout</button>
+  </div>
+  <div *ngIf="!givenName">
+    <button (click)="login()">Login</button>
+  </div>
 </div>
 
 <div class="content" role="main">
-  Hello!!!
-  Hello!!!
   <!-- Footer -->
   <footer>
   </footer>
