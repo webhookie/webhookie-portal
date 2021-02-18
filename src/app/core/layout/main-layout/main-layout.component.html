@@ -1,17 +1,21 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
   <!--suppress CheckImageSize -->
-  <img
-    width="100"
-    alt="Webhookie Logo"
-    src="assets/images/logo.png"
-  />
-  <h2>Welcome to {{title}}</h2>
+  <a routerLink="home" routerLinkActive="active">
+    <img
+      width="100"
+      alt="Webhookie Logo"
+      src="assets/images/logo.png"
+    />
+  </a>
+  <div class="spacer"></div>
+  <a routerLink="webhooks" routerLinkActive="active">Webhooks</a>&nbsp; | &nbsp;
+  <a routerLink="subscriptions" routerLinkActive="active">Subscriptions</a>&nbsp; | &nbsp;
+  <a routerLink="audit" routerLinkActive="active">Audit Log</a>&nbsp;
   <div class="spacer"></div>
 
   <div *ngIf="givenName">
-    <h2>Hi, {{givenName}}</h2>
-    <button (click)="logout()">Logout</button>
+    <div><h5>Hi, {{givenName}}</h5><button (click)="logout()">Logout</button></div>
   </div>
   <div *ngIf="!givenName">
     <button (click)="login()">Login</button>
@@ -19,9 +23,7 @@
 </div>
 
 <div class="content" role="main">
-  <!-- Footer -->
-  <footer>
-  </footer>
+  <router-outlet></router-outlet>
 </div>
 
 
