@@ -1,0 +1,27 @@
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <!--suppress CheckImageSize -->
+  <img
+    width="100"
+    alt="Webhookie Logo"
+    src="assets/images/logo.png"
+  />
+  <h2>Welcome to {{title}}</h2>
+  <div class="spacer"></div>
+
+  <div *ngIf="givenName">
+    <h2>Hi, {{givenName}}</h2>
+    <button (click)="logout()">Logout</button>
+  </div>
+  <div *ngIf="!givenName">
+    <button (click)="login()">Login</button>
+  </div>
+</div>
+
+<div class="content" role="main">
+  <!-- Footer -->
+  <footer>
+  </footer>
+</div>
+
+
