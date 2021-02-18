@@ -11,34 +11,25 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () =>
       import('./features/home/home.module')
-        .then(m => {
-          console.warn("home")
-          return m.HomeModule
-        })
+        .then(m => m.HomeModule)
   },
   {
     path: 'webhooks',
     loadChildren: () =>
-      import('./features/webhooks/webhooks.module').then(m => {
-        console.warn("webhooks")
-        return m.WebhooksModule
-      })
+      import('./features/webhooks/webhooks.module')
+        .then(m => m.WebhooksModule)
   },
   {
     path: 'subscriptions',
     loadChildren: () =>
-      import('./features/subscriptions/subscriptions.module').then(m => {
-        console.warn("subscriptions")
-        return m.SubscriptionsModule
-      })
+      import('./features/subscriptions/subscriptions.module')
+        .then(m => m.SubscriptionsModule)
   },
   {
     path: 'audit',
     loadChildren: () =>
-      import('./features/audit/audit.module').then(m => {
-        console.warn("audit")
-        return m.AuditModule
-      })
+      import('./features/audit/audit.module')
+        .then(m => m.AuditModule)
   },
   {
     path: '**',
