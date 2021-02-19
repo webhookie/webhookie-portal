@@ -34,6 +34,10 @@ export class AuthService {
     this.oauthService.initCodeFlow();
   }
 
+  get loggedIn() {
+    return this.oauthService.hasValidAccessToken() || this.oauthService.hasValidIdToken()
+  }
+
   get givenName() {
     const claims = this.oauthService.getIdentityClaims();
     if(!claims) {

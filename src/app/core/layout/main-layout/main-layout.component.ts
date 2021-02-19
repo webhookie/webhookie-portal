@@ -19,7 +19,7 @@ export class MainLayoutComponent {
     this.authService.login();
   }
 
-  get givenName() {
-    return this.authService.givenName
+  get loggedIn() {
+    return this.authService.loggedIn
   }
 }

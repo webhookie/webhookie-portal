@@ -14,10 +14,10 @@
   <a routerLink="audit" routerLinkActive="active">Audit Log</a>&nbsp;
   <div class="spacer"></div>
 
-  <div *ngIf="givenName">
-    <div><h5>Hi, {{givenName}}</h5><button (click)="logout()">Logout</button></div>
+  <div *ngIf="loggedIn">
+    <button (click)="logout()">Logout</button>
   </div>
-  <div *ngIf="!givenName">
+  <div *ngIf="!loggedIn">
     <button (click)="login()">Login</button>
   </div>
 </div>
