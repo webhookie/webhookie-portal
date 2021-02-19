@@ -4,12 +4,9 @@
 
 export const environment = {
   production: false,
+  apiUrl: "http://localhost:8080",
   iam: {
-    issuer: "https://webhookie.au.auth0.com/",
-    redirectUri: "http://localhost:4200/",
-    clientId: "nvKDmIK9Q5Zw1UKwpON8LE3tg9vZcXb4",
-    responseType: "code",
-    scope: "openid profile email",
+    redirectUri: "http://localhost:4200",
     requireHttps: false,
     showDebugInformation: true,
     disableAtHashCheck: true

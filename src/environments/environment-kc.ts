@@ -4,12 +4,9 @@
 
 export const environment = {
   production: false,
+  apiUrl: "http://localhost:8080",
   iam: {
-    issuer: "http://localhost:8000/auth/realms/webhookie",
-    redirectUri: "http://localhost:4200/",
-    clientId: "webhookie-client",
-    responseType: "code",
-    scope: "openid profile email",
+    redirectUri: "http://localhost:4200",
     requireHttps: false,
     showDebugInformation: true,
     disableAtHashCheck: true

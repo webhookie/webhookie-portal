@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ConfigService} from "./shared/config.service";
 
 @Component({
   selector: 'webhookie-root',
@@ -6,4 +7,7 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(private readonly configService: ConfigService) {
+    this.configService.read()
+  }
 }

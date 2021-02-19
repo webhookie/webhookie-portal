@@ -1,3 +1,8 @@
 export const environment = {
-  production: true
+  production: true,
+  iam: {
+    requireHttps: true,
+    showDebugInformation: false,
+    disableAtHashCheck: false
+  }
 };

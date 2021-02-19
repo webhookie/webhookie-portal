@@ -8,11 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class HomeMainComponent implements OnInit {
 
   constructor() {
-    console.warn("HomeMainComponent");
   }
 
   ngOnInit(): void {
-    console.warn("HomeMainComponent");
   }
 
 }
