@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  keycloak: {
+  iam: {
     issuer: "http://localhost:8000/auth/realms/webhookie",
     redirectUri: "http://localhost:4200/",
     clientId: "webhookie-client",
