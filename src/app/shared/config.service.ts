@@ -28,8 +28,4 @@ export class ConfigService {
       .pipe(tap( it => console.debug(it)))
       .subscribe(it => this._config$.next(it))
   }
-
-  get currentConfig() {
-    return this._config$.value
-  }
 }
