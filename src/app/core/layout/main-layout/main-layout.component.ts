@@ -18,6 +18,8 @@ export class MainLayoutComponent {
   }
 
   logout() {
+    this.oauthService.revokeTokenAndLogout()
+      .then(r => console.info(r));
     this.oauthService.logOut();
   }
 
