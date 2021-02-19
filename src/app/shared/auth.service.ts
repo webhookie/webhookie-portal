@@ -5,6 +5,7 @@ import {AuthConfig} from "angular-oauth2-oidc/auth.config";
 import {environment} from "../../environments/environment";
 import {WebhookieConfig} from "./model/webhookie-config";
 import {map} from "rxjs/operators";
+import {LogService} from "./log.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,11 @@ import {map} from "rxjs/operators";
 export class AuthService {
   constructor(
     private readonly oauthService: OAuthService,
+    private readonly log: LogService,
     private readonly configService: ConfigService
   ) {
     this.oauthService.events
-      .subscribe(it => console.warn(it));
+      .subscribe(it => this.log.warn(it));
 
     this.configService.config
       .pipe(map(it => AuthService.toAuthConfig(it)))
@@ -57,10 +59,10 @@ export class AuthService {
   }
 
   private init(config: AuthConfig) {
-    console.info(`Setting up auth module for '${config.issuer}', '${config.clientId}'`)
+    this.log.info(`Setting up auth module for '${config.issuer}', '${config.clientId}'`)
     this.oauthService.configure(config);
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
-      .then(it => console.info(`loadDiscoveryDocumentAndTryLogin result is: ${it}`));
+      .then(it => this.log.info(`loadDiscoveryDocumentAndTryLogin result is: ${it}`));
   }
 }
