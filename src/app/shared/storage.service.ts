@@ -13,4 +13,8 @@ export class StorageService {
   read(key: string): string | null {
     return localStorage.getItem(key)
   }
+
+  remove(key: string) {
+    localStorage.removeItem(key);
+  }
 }

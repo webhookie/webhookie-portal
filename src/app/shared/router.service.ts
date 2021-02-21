@@ -13,7 +13,7 @@ export class RouterService {
   ) { }
 
   saveCurrent() {
-    this.storage.store(Constants.STORAGE_KEY_CALLBACK, this.router.url)
+    this.storage.store(Constants.STORAGE_KEY_CALLBACK, this.router.url);
   }
 
   navigateTo(page: string) {
@@ -22,13 +22,14 @@ export class RouterService {
   }
 
   navigateToHome() {
-    this.navigateTo(Constants.ROUTE_HOME)
+    this.navigateTo(Constants.ROUTE_HOME);
   }
 
   navigateToSaved() {
     let callback = this.storage.read(Constants.STORAGE_KEY_CALLBACK)
     if(callback) {
       this.navigateTo(callback);
+      this.storage.remove(callback);
     }
   }
 }
