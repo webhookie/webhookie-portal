@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import {ApiService} from "../../shared/api.service";
+import {LogService} from "../../shared/log.service";
+import {Observable} from "rxjs";
+import {tap} from "rxjs/operators";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class WebhookGroupService {
+  private WEBHOOKGROUPS_URI = "/webhookgroups"
+
+  constructor(
+    private readonly api: ApiService,
+    private readonly log: LogService,
+  ) { }
+
+  public myWebhookGroups(): Observable<any> {
+    this.log.info("Fetching user's webhook groups...");
+    return this.api.json(this.WEBHOOKGROUPS_URI)
+      .pipe(tap(it => this.log.info(`Fetched '${it.length}' webhook groups`)));
+  }
+}

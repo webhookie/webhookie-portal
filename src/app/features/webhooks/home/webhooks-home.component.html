@@ -1,1 +1,11 @@
 <p>Webhooks</p>
+<ul class="search-result">
+  <li *ngFor="let group of groups$ | async" >
+    {{group.title}}
+    <ul>
+      <li *ngFor="let topic of group.topics" >
+        {{topic.name}}
+      </li>
+    </ul>
+  </li>
+</ul>
