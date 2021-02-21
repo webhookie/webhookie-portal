@@ -6,6 +6,7 @@ import {environment} from "../../environments/environment";
 import {WebhookieConfig} from "./model/webhookie-config";
 import {map} from "rxjs/operators";
 import {LogService} from "./log.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +69,9 @@ export class AuthService {
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
       .then(it => this.log.info(`loadDiscoveryDocumentAndTryLogin result is: ${it}`));
+  }
+
+  getToken() {
+    return this.oauthService.getIdToken()
   }
 }
