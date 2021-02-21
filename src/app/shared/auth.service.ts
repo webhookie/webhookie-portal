@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
 import {ConfigService} from "./config.service";
-import {NullValidationHandler, OAuthService} from "angular-oauth2-oidc";
+import {NullValidationHandler, OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
 import {AuthConfig} from "angular-oauth2-oidc/auth.config";
 import {environment} from "../../environments/environment";
 import {WebhookieConfig} from "./model/webhookie-config";
-import {map} from "rxjs/operators";
+import {filter, map} from "rxjs/operators";
 import {LogService} from "./log.service";
+import {Router} from "@angular/router";
+import {Constants} from "./constants";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +16,18 @@ export class AuthService {
   constructor(
     private readonly oauthService: OAuthService,
     private readonly log: LogService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly router: Router
   ) {
     this.oauthService.events
-      .subscribe(it => this.log.warn(it));
+      .pipe(filter(it => (it instanceof OAuthSuccessEvent) && it.type === Constants.AUTH_EVENT_TOKEN_REFRESHED))
+      .subscribe(() => {
+        let callback = localStorage.getItem(Constants.STORAGE_KEY_CALLBACK)
+        if(callback) {
+          this.router.navigateByUrl(callback)
+            .then();
+        }
+      });
 
     this.configService.config
       .pipe(map(it => AuthService.toAuthConfig(it)))
@@ -28,9 +38,12 @@ export class AuthService {
     this.oauthService.revokeTokenAndLogout()
       .then();
     this.oauthService.logOut();
+    this.router.navigateByUrl(Constants.ROUTE_HOME)
+      .then();
   }
 
   login() {
+    localStorage.setItem(Constants.STORAGE_KEY_CALLBACK, this.router.url)
     this.oauthService.initCodeFlow();
   }
 
