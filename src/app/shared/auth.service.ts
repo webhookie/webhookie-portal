@@ -6,8 +6,8 @@ import {environment} from "../../environments/environment";
 import {WebhookieConfig} from "./model/webhookie-config";
 import {filter, map} from "rxjs/operators";
 import {LogService} from "./log.service";
-import {Router} from "@angular/router";
 import {Constants} from "./constants";
+import {RouterService} from "./router.service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,17 +17,11 @@ export class AuthService {
     private readonly oauthService: OAuthService,
     private readonly log: LogService,
     private readonly configService: ConfigService,
-    private readonly router: Router
+    private readonly router: RouterService
   ) {
     this.oauthService.events
       .pipe(filter(it => (it instanceof OAuthSuccessEvent) && it.type === Constants.AUTH_EVENT_TOKEN_REFRESHED))
-      .subscribe(() => {
-        let callback = localStorage.getItem(Constants.STORAGE_KEY_CALLBACK)
-        if(callback) {
-          this.router.navigateByUrl(callback)
-            .then();
-        }
-      });
+      .subscribe(() => this.router.navigateToSaved());
 
     this.configService.config
       .pipe(map(it => AuthService.toAuthConfig(it)))
@@ -38,12 +32,11 @@ export class AuthService {
     this.oauthService.revokeTokenAndLogout()
       .then();
     this.oauthService.logOut();
-    this.router.navigateByUrl(Constants.ROUTE_HOME)
-      .then();
+    this.router.navigateToHome();
   }
 
   login() {
-    localStorage.setItem(Constants.STORAGE_KEY_CALLBACK, this.router.url)
+    this.router.saveCurrent();
     this.oauthService.initCodeFlow();
   }
 
