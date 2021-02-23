@@ -1,11 +1,14 @@
-<p>Webhooks</p>
-<ul class="search-result">
-  <li *ngFor="let group of groups$ | async" >
-    {{group.title}}
-    <ul>
-      <li *ngFor="let topic of group.topics" >
-        {{topic.name}}
+<div class="wrapper">
+  <div class="left">
+    <ul class="search-result">
+      <li *ngFor="let group of groups$ | async">
+        <a (click)="selectWebhookGroup(group)">{{group.title}}</a>
       </li>
     </ul>
-  </li>
-</ul>
+  </div>
+  <div class="right">
+    <div *ngIf="schema$ | async">
+      <asyncapi-component [schema]="schema$ | async"></asyncapi-component>
+    </div>
+  </div>
+</div>

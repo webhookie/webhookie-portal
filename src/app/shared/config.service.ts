@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
-import {BehaviorSubject, Observable} from "rxjs";
+import {Observable, ReplaySubject, Subject} from "rxjs";
 import {WebhookieConfig} from "./model/webhookie-config";
-import {WebhookieConfigAdapter} from "./adapter/webhookie-config-adapter";
+import {WebhookieConfigAdapter} from "./adapter/webhookie-config.adapter";
 import {filter, map, tap} from "rxjs/operators";
 import {LogService} from "./log.service";
 
@@ -12,8 +12,7 @@ import {LogService} from "./log.service";
 export class ConfigService {
   private CONFIG_URI: string = "/public/config"
 
-  // @ts-ignore
-  private readonly _config$: BehaviorSubject<WebhookieConfig> = new BehaviorSubject<WebhookieConfig>(null)
+  private readonly _config$: Subject<WebhookieConfig> = new ReplaySubject<WebhookieConfig>()
   public readonly config: Observable<WebhookieConfig> = this._config$
     .asObservable()
     .pipe(filter(it => it !== null))
