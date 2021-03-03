@@ -1,0 +1,76 @@
+<!-- <header>
+    <div class="container-fluid custom-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <a class="navbar-brand text-uppercase" href="#">Your company</a>
+                     
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link active" href="#">Webhoooks</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Subscriptions</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Audit log</a>
+                </li>
+              </ul>
+            <a href="#" class="btn btn-default w-100 text-left d-lg-none d-md-none">Login</a>
+            <a href="#" class="btn btn-primary btn-primary-gradient d-lg-none d-md-none">Get started</a>
+              </div>
+
+            <form class="searchbox">
+              <input type="search" placeholder="Search..." name="search" class="searchbox-input">
+              <input type="submit" class="searchbox-submit" value="">
+              <span class="searchbox-icon"><i class="fa fa-search"></i></span>
+          </form>
+          <a href="#" class="btn btn-default d-none d-md-inline d-lg-inline">Login</a>
+          <a href="#" class="btn btn-primary btn-primary-gradient d-none d-md-inline d-lg-inline ">Get started</a>
+
+          </nav>
+    </div>
+</header> -->
+
+
+<header>
+  <div class="container-fluid custom-header">
+      <nav class="navbar navbar-expand-lg navbar-light mobile-menu">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          <a class="navbar-brand text-uppercase" routerLink="/home" routerLinkActive="active">Your company</a>
+                   
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link active" routerLink="/home/webhooks" routerLinkActive="active">Webhoooks</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/home/subscriptions" routerLinkActive="active">Subscriptions</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/home/auditlog" routerLinkActive="active">Audit log</a>
+              </li>
+            </ul>
+            <div class="d-block d-md-none">
+              <a routerLink="/home/login" routerLinkActive="active" class="btn btn-default w-100 text-left">Login</a>
+              <a routerLink="/" routerLinkActive="active" class="btn btn-primary btn-primary-gradient">Get started</a>
+            </div>
+          </div>
+
+          <div class="ml-auto d-flex align-items-center mobile-search mr-3 mr-md-0">
+            <form class="searchbox d-flex align-items-center">
+              <input type="search" placeholder="Search..." name="search" class="form-control search__input">
+              <span class="searchbox-icon"><i class="fa fa-search"></i></span>
+            </form>
+            <div class="d-none d-md-block">
+              <a routerLink="/home/login" routerLinkActive="active" class="btn btn-default">Login</a>
+              <a routerLink="/" routerLinkActive="active" class="btn btn-primary btn-primary-gradient">Get started</a>
+            </div>
+          </div>
+        </nav>
+  </div>
+</header>

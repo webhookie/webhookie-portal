@@ -1,0 +1,36 @@
+p {
+    font-family: Lato;
+  }
+  .breadcrumb {
+      display: inline-block;
+      padding: .25rem 0.25rem !important;
+         margin-bottom: 0 !important; 
+        background-color: transparent !important;
+  }
+  .breadcrumb:first-child:before {
+      display: none;
+  }
+  .breadcrumb:before {
+      content: '>';
+      vertical-align: top;
+      display: inline-block;
+      margin: 0 10px 0 8px;
+      -webkit-font-smoothing: antialiased;
+  }
+  .breadcrumb-item{
+      min-width: 85px;
+      padding: 0 8px;
+      font-weight: 400;
+      text-align: left;
+      line-height: 20px;
+  }
+  .breadcrumb-item.active{
+      font-weight: 500;
+  }
+  
+  .mat-toolbar{
+      background: #ffffffa3;
+      height: 30px;
+      margin-bottom: 20px;
+  }
+ 
