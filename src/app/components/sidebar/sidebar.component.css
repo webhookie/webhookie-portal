@@ -30,7 +30,7 @@
 
 @media (min-width: 768px) {
   #sidebar-wrapper {
-    margin-left: 0;
+    margin-left: 15rem;
   }
 
   #page-content-wrapper {
@@ -39,6 +39,6 @@
   }
 
   #wrapper.toggled #sidebar-wrapper {
-    margin-left: -15rem;
+    margin-left: 0rem;
   }
 }

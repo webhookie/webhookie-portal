@@ -4,7 +4,7 @@
 
 #sidebar-wrapper {
 min-height: 100vh;
-margin-left: -15rem;
+margin-left: 0rem;
 -webkit-transition: margin .25s ease-out;
 -moz-transition: margin .25s ease-out;
 -o-transition: margin .25s ease-out;
@@ -25,12 +25,12 @@ min-width: 100vw;
 }
 
 #wrapper.toggled #sidebar-wrapper {
-margin-left: 0;
+margin-left: 15rem;
 }
 
 @media (min-width: 768px) {
 #sidebar-wrapper {
-  margin-left: 0;
+  margin-left: -15rem;
 }
 
 #page-content-wrapper {
@@ -39,6 +39,6 @@ margin-left: 0;
 }
 
 #wrapper.toggled #sidebar-wrapper {
-  margin-left: -15rem;
+  margin-left: -30rem;
 }
 }
