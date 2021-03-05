@@ -1,27 +1,3 @@
-
-.btn-primary{
-    background:#0151CC;
-    border-color:#0151CC;
-}
-.btn-primary:hover{
-    background:#0151CC;
-    border-color:#0151CC;
-}
-.btn-primary:focus{
-    box-shadow: none;
-}
-.btn-default:focus{
-    box-shadow: none;
-}
-.btn-primary-gradient{
-    background: linear-gradient(90deg, rgba(1,81,204,1) 0%, rgba(0,145,215,1) 37%, rgba(0,180,245,1) 100%);
-    border:0;
-    transition:all 400ms;
-}
-.btn-primary-gradient:hover{
-    background: linear-gradient(90deg, rgba(1,81,204,1) 0%, rgba(1,81,204,1) 37%, rgba(1,81,204,1) 100%);
-    transition:all 400ms;
-}
 .custom-header{
     font-family: "Open Sans";
     box-shadow: 0px 2px 10px #00000029;
@@ -31,44 +7,9 @@
     
     color: #fff;
 }
-.custom-header .navbar-nav li a{
-    color: #253858;
-    padding:0.5rem 1rem !important;
-}
-.custom-header .navbar-nav a.nav-link.active{
-    color: #0151CC;
-    font-weight: 600;
-}
-.custom-header .navbar-brand {
-    /* width:260px; */
-    width: 15rem;
-    color: #0151CC;
-    font-weight: 800;
-    font-size: 14px;
-}
-.btn-default{
-    color:#0A1E42;
-    font-weight: 600;
-    font-size: 14px;
-}
-.search__input{
-    margin-right:10px;
-    display:none;
-}
-.search__input.active {
-    display: block;
-    border: none;
-}
-
-
 .container-fluid.custom-header {
     padding-left: 0;
-}
-
-@media (max-width:1200px){
-.custom-header .navbar-brand {
-    width: 175px !important;
-}
+    padding-right: 0;
 }
 
 @media (max-width:992px){
@@ -80,9 +21,6 @@
         box-shadow: 0px 2px 10px #00000029;
         z-index: 1;
     }
-    .navbar-nav {
-        padding: 6px 0px;
-    }
  }
 
 @media (max-width:767px){
@@ -93,24 +31,6 @@
     .container-fluid.custom-header {
         padding-left: 0;
         padding-right: 0;
-    }
-    .search__input {
-        width: 100%;
-        position: absolute;
-        left: 0;
-        top: 56px;
-        background-color: #fff;
-        box-shadow: 0px 6px 22px #ddd;
-    }
-    .custom-header .navbar-brand {
-        width:auto;
-        margin: 0px;
-    }
-    .btn-default{
-        padding:0.5rem 1rem !important;
-    }
-    .btn-primary-gradient{
-        margin:0.5rem 1rem !important;
     }
     .navbar-collapse {
         position: absolute;

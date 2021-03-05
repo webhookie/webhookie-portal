@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { WebhooksComponent } from './components/webhooks/webhooks.component';
-import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
 import { LoginComponent } from './components/login/login.component';
-import { AuditLogComponent } from './components/audit-log/audit-log.component';
-import { Webhook1Component } from './components/webhook1/webhook1.component';
-import { OrderComponent } from './components/order/order.component';
+import { WebhooksComponent } from './components/home/webhooks/webhooks.component';
+import { SubscriptionsComponent } from './components/home/subscriptions/subscriptions.component';
+import { AuditLogComponent } from './components/home/audit-log/audit-log.component';
+import { OrderComponent } from './components/home/webhooks/details/order/order.component';
+import { Webhook1Component } from './components/home/webhooks/details/webhook1/webhook1.component';
 const routes: Routes = [
     {
         path: '',
