@@ -1,0 +1,47 @@
+.btn-primary{
+    background:#0151CC;
+    border-color:#0151CC;
+}
+.btn-primary:hover{
+    background:#0151CC;
+    border-color:#0151CC;
+}
+.btn-primary:focus{
+    box-shadow: none;
+}
+.btn-default:focus{
+    box-shadow: none;
+}
+.btn-primary-gradient{
+    background: linear-gradient(90deg, rgba(1,81,204,1) 0%, rgba(0,145,215,1) 37%, rgba(0,180,245,1) 100%);
+    border:0;
+    transition:all 400ms;
+}
+.btn-primary-gradient:hover{
+    background: linear-gradient(90deg, rgba(1,81,204,1) 0%, rgba(1,81,204,1) 37%, rgba(1,81,204,1) 100%);
+    transition:all 400ms;
+}
+.btn-default{
+    color:#0A1E42;
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 19px;
+    margin-right: 19px;
+}
+.btn-primary.btn-primary-gradient {
+    width: 96px;
+    height: 34px;
+    font-size: 14px;
+    padding: 6px;
+}
+@media (max-width:767px){
+    .btn-default{
+        padding:0.5rem 1rem !important;
+        width:100% !important;
+        margin-left: 0px;
+        font-weight: normal;
+    }
+    .btn-primary-gradient{
+        margin:0.5rem 1rem !important;
+    }        
+}

@@ -3,19 +3,23 @@ p {
   }
   .breadcrumb {
       display: inline-block;
-      padding: .25rem 0.25rem !important;
+      /* padding: .25rem 0.25rem !important; */
          margin-bottom: 0 !important; 
         background-color: transparent !important;
+        padding: 1px;
   }
   .breadcrumb:first-child:before {
       display: none;
   }
   .breadcrumb:before {
-      content: '>';
+      content: '\276F';
       vertical-align: top;
       display: inline-block;
       margin: 0 10px 0 8px;
       -webkit-font-smoothing: antialiased;
+      color: #0A1E42;
+      font-size: 11px;
+      margin-top: 5px;
   }
   .breadcrumb-item{
       min-width: 85px;
@@ -24,6 +28,11 @@ p {
       text-align: left;
       line-height: 20px;
   }
+  .breadcrumb a {
+    color: #0A1E42;
+    text-decoration: none;
+    font-size: 12px;
+}
   .breadcrumb-item.active{
       font-weight: 500;
   }
@@ -31,5 +40,6 @@ p {
   .mat-toolbar{
       background: #ffffffa3;
       height: 30px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      margin-top: 15px;
   }

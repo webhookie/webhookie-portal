@@ -1,0 +1,19 @@
+ .navbar-brand {
+    width: 15rem;
+    color: #0151CC;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+@media (max-width:1200px){
+ .navbar-brand {
+        width: 175px !important;
+    }
+ }
+
+ @media (max-width:767px){
+     .navbar-brand {
+        width:auto;
+        margin: 0px;
+    }
+ }    

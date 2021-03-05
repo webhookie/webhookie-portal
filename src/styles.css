@@ -3,3 +3,11 @@
 body{
     font-family: 'Open Sans', sans-serif !important;
 }
+
+@media (max-width:992px){
+    .custom-header .navbar {
+        position: inherit;
+        padding: .5rem 0rem;
+    }
+}
+
