@@ -9,7 +9,7 @@ import { Webhook1Component } from './components/home/webhooks/details/webhook1/w
 import { OrderComponent } from './components/home/webhooks/details/order/order.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { BreadcrumbModule } from 'angular-crumbs';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { LogoComponent } from './components/header/logo/logo.component';
 import { MenuComponent } from './components/header/menu/menu.component';
 import { SearchComponent } from './components/header/search/search.component';
@@ -19,6 +19,7 @@ import { SubscriptionsComponent } from './components/home/subscriptions/subscrip
 import { AuditLogComponent } from './components/home/audit-log/audit-log.component';
 import { SidebarComponent } from './components/home/webhooks/sidebar/sidebar.component';
 import { DetailsComponent } from './components/home/webhooks/details/details.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { DetailsComponent } from './components/home/webhooks/details/details.com
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BreadcrumbModule,
     MatToolbarModule
