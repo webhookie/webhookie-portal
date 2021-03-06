@@ -1,4 +1,5 @@
 <form class="searchbox d-flex align-items-center">
-    <input type="search" placeholder="Search..." name="search" class="form-control search__input">
-    <span class="searchbox-icon"><i class="fa fa-search"></i></span>
+    <input type="search" placeholder="Search..." name="search" class="form-control search__input" [(ngModel)]="keyword">
+    <button type="button" class="searchbox-icon btn" [ngClass]="keyword?'searchbox-icon-hide':''"><i
+            class="fa fa-search"></i></button>
 </form>

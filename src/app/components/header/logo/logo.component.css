@@ -4,16 +4,12 @@
     font-weight: 800;
     font-size: 14px;
 }
+.navbar-brand:hover {
+    color: #0151CC;
+}
 
-@media (max-width:1200px){
- .navbar-brand {
-        width: 175px !important;
-    }
- }
-
- @media (max-width:767px){
+@media (max-width:768px){
      .navbar-brand {
         width:auto;
-        margin: 0px;
     }
  }    

@@ -1,22 +1,14 @@
 .navbar-nav li a{
     color: #253858;
-    padding:0.5rem !important;
+    padding:0.5rem 1rem !important;
     font-size: 14px;
 }
-.navbar-nav a.nav-link.active{
+.navbar-nav li a.active{
     color: #0151CC;
     font-weight: 600;
 }
 @media (max-width:992px){
     .navbar-nav {
         padding: 6px 0px;
-    }
- 
- }
- @media (max-width:767px){
-    .navbar-nav {
-        padding-left: 10px;
-        padding-top: 6px;
-        padding-bottom: 0px;
     }
  }
