@@ -7,6 +7,9 @@ import { SubscriptionsComponent } from './components/home/subscriptions/subscrip
 import { AuditLogComponent } from './components/home/audit-log/audit-log.component';
 import { OrderComponent } from './components/home/webhooks/details/order/order.component';
 import { Webhook1Component } from './components/home/webhooks/details/webhook1/webhook1.component';
+import { WebhookDetailComponent } from './components/home/webhooks/details/order/webhook-detail/webhook-detail.component';
+import { ReviewsComponent } from './components/home/webhooks/details/order/reviews/reviews.component';
+import { SupportComponent } from './components/home/webhooks/details/order/support/support.component';
 const routes: Routes = [
     {
         path: '',
@@ -41,9 +44,40 @@ const routes: Routes = [
                 {
                     path: 'order',
                     component: OrderComponent,
-                    data: {
-                        breadcrumb: 'Order'
-                    }
+                    // data: {
+                    //     breadcrumb: 'Order'
+                    // },
+                    children: [
+                        {
+                            path: '',
+                            redirectTo:"webhook-detail",
+                            pathMatch:"full"
+                        },
+                        {
+                            path: 'webhook-detail',
+                            component: WebhookDetailComponent,
+                            // data: {
+                            //     breadcrumb: 'Webhook-detail'
+                            // }
+                            
+                        },
+                        {
+                            path: 'reviews',
+                            component: ReviewsComponent,
+                            data: {
+                                breadcrumb: 'Review'
+                            },
+                            
+                        },
+                        {
+                            path: 'support',
+                            component: SupportComponent,
+                            data: {
+                                breadcrumb: 'Support'
+                            },
+                            
+                        },
+                    ]
                     
                 },
                 {
