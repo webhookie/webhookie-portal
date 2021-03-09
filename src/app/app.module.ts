@@ -20,6 +20,17 @@ import { AuditLogComponent } from './components/home/audit-log/audit-log.compone
 import { SidebarComponent } from './components/home/webhooks/sidebar/sidebar.component';
 import { DetailsComponent } from './components/home/webhooks/details/details.component';
 import { FormsModule } from '@angular/forms';
+import { RequestExampleComponent } from './components/home/webhooks/details/request-example/request-example.component';
+import { TitleComponent } from './components/home/webhooks/title/title.component';
+import { SubTestDotButtonsComponent } from './components/home/webhooks/details/order/sub-test-dot-buttons/sub-test-dot-buttons.component';
+import { OrderMenuComponent } from './components/home/webhooks/details/order/order-menu/order-menu.component';
+import { OrderTitleComponent } from './components/home/webhooks/details/order/order-title/order-title.component';
+import { WebhookDetailComponent } from './components/home/webhooks/details/order/webhook-detail/webhook-detail.component';
+import { ReviewsComponent } from './components/home/webhooks/details/order/reviews/reviews.component';
+import { SupportComponent } from './components/home/webhooks/details/order/support/support.component';
+import { HeadersComponent } from './components/home/webhooks/details/order/webhook-detail/headers/headers.component';
+import { BodyComponent } from './components/home/webhooks/details/order/webhook-detail/body/body.component';
+import { SecurityOptionsComponent } from './components/home/webhooks/details/order/webhook-detail/security-options/security-options.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +48,18 @@ import { FormsModule } from '@angular/forms';
     LoginGetStartedComponent,
     SubscriptionsComponent,
     AuditLogComponent,
-    DetailsComponent
+    DetailsComponent,
+    RequestExampleComponent,
+    TitleComponent,
+    SubTestDotButtonsComponent,
+    OrderMenuComponent,
+    OrderTitleComponent,
+    WebhookDetailComponent,
+    ReviewsComponent,
+    SupportComponent,
+    HeadersComponent,
+    BodyComponent,
+    SecurityOptionsComponent
   ],
   imports: [
     BrowserModule,

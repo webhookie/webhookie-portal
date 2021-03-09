@@ -28,6 +28,10 @@ min-width: 100vw;
 margin-left: 260px;
 }
 
+.col-1{
+  flex:4% !important;
+  max-width: 4% !important;
+}
 @media (min-width: 768px) {
 #sidebar-wrapper {
   margin-left: -260px;
