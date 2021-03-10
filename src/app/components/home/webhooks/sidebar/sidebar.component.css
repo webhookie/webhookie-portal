@@ -12,8 +12,8 @@
 }
 
 #sidebar-wrapper .sidebar-heading {
-  padding: 0.875rem 1.25rem;
-  font-size: 1.2rem;
+  padding: 0rem 1.25rem 0.875rem 1.25rem;
+  font-size: 14px;
 }
 
 #sidebar-wrapper .list-group {
@@ -27,7 +27,123 @@
 #wrapper.toggled #sidebar-wrapper {
   margin-left: 0;
 }
+#sidebar-wrapper input.form-control {
+  border-right: 0;
+  height: 32px;
+}
+#sidebar-wrapper button.btn.btn-secondary {
+  background-color: transparent;
+  border-left: 0;
+  border-color: #ced4da;
+  height: 32px;
+}
+#sidebar-wrapper ::placeholder {
+  /* border-right: 0; */
+  font-size: 14px;
+}
+#sidebar-wrapper a.list-group-item {
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+}
+#sidebar-wrapper .btn-secondary:hover {
+  color: #0A1E42;
+}
+/***/
+#main {
+  margin: 5px 0;
+}
 
+#main #faq .card {
+  margin-bottom: 10px;
+  border: 0;
+}
+
+#main #faq .card .card-header {
+  border: 0;
+  padding: 0;
+ }
+
+#main #faq .card .card-header .btn-header-link {
+  color: #fff;
+  display: block;
+  text-align: left;
+  color: #222;
+}
+
+#main #faq .card .card-header .btn-header-link:after {
+  content: "\f107";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  float: left;
+  width: 21px;
+}
+
+#main #faq .card .card-header .btn-header-link.collapsed:after {
+  content: "\f105";
+}
+
+#main #faq .card .collapse {
+  border: 0;
+}
+
+/*qqqqq */
+#faq .card-body {
+  padding: 0px !important;
+}
+#main #faq .card-body ul{
+  list-style-type: none;
+  padding: 0px;
+}
+#main #faq .collapse.show li{
+  padding-bottom: 15px;
+}
+#main #faq .collapse.show li a{
+  color: #222;
+  text-decoration: none;
+  display: block;
+  padding:8px 33px;
+  font-size: 14px;
+  font-weight: normal;
+}
+#main #faq .collapse.show li a:hover{
+  background-color: #0151CC;
+  color: #fff;
+  font-weight: 600;
+ 
+}
+/*qqqqq close*/
+/* eeeee */
+
+#main #faq .collapsing li{
+  padding-bottom: 15px;
+  
+}
+#main #faq .collapsing li a{
+  color: #222;
+  text-decoration: none;
+  display: block;
+  padding:8px 33px;
+  font-size: 14px;
+}
+
+/* eeeee close */
+
+#sidebar-wrapper .badge{
+  float: right;
+  border-radius: 2px;
+  font-size: 10px;
+  line-height: 18px;
+  font-weight: normal;
+  color: #fff;
+}
+#sidebar-wrapper .badge-primary {
+  background-color: #0151CC;
+}
+#sidebar-wrapper .badge-warning{
+  background-color: #F69110;
+}
+/****/
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 260px;
@@ -45,3 +161,12 @@
     margin-left: 0rem;
   }
 }
+
+
+
+
+
+
+
+
+
