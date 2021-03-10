@@ -1,0 +1,10 @@
+.w-heading h2{
+    font-size: 35px;
+    font-weight: bold;
+    color: #0A1E42;
+}
+.w-heading p{
+    font-size: 14px;
+    font-weight: normal;
+    color: #253858;
+}
