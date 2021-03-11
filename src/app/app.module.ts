@@ -31,6 +31,9 @@ import { SupportComponent } from './components/home/webhooks/details/order/suppo
 import { HeadersComponent } from './components/home/webhooks/details/order/webhook-detail/headers/headers.component';
 import { BodyComponent } from './components/home/webhooks/details/order/webhook-detail/body/body.component';
 import { SecurityOptionsComponent } from './components/home/webhooks/details/order/webhook-detail/security-options/security-options.component';
+import { TitleToggleComponent } from './components/home/webhooks/sidebar/title-toggle/title-toggle.component';
+import { SidebarSearchComponent } from './components/home/webhooks/sidebar/sidebar-search/sidebar-search.component';
+import { SidebarListComponent } from './components/home/webhooks/sidebar/sidebar-list/sidebar-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +62,10 @@ import { SecurityOptionsComponent } from './components/home/webhooks/details/ord
     SupportComponent,
     HeadersComponent,
     BodyComponent,
-    SecurityOptionsComponent
+    SecurityOptionsComponent,
+    TitleToggleComponent,
+    SidebarSearchComponent,
+    SidebarListComponent,
   ],
   imports: [
     BrowserModule,
