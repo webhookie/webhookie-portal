@@ -1,0 +1,27 @@
+ input.form-control {
+     border: 0;
+     height: 32px;
+ }
+
+ button.btn.btn-secondary {
+     background-color: #fff;
+     border: 0;
+     border-color: #ced4da;
+     height: 32px;
+ }
+
+ ::placeholder {
+     font-size: 14px;
+ }
+
+ .text-primary {
+     color: #0151CC !important;
+ }
+
+ .btn-secondary:hover {
+     color: #0A1E42;
+ }
+
+ .sidebar-heading i {
+     float: right;
+ }

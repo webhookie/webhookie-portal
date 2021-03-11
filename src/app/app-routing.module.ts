@@ -98,10 +98,10 @@ const routes: Routes = [
             },
         } ,   
         {
-            path: 'auditlog',
+            path: 'traffic',
             component: AuditLogComponent,
             data: {
-                breadcrumb: 'AuditLog'
+                breadcrumb: 'Traffic'
             }, 
             
         } ,

@@ -1,0 +1,98 @@
+ a.list-group-item {
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+  }
+ .list-group {
+      background-color: #F4F5F7!important;
+  }
+  #main {
+    margin: 5px 0;
+  }
+  #main #faq .card {
+    margin-bottom: 10px;
+    border: 0;
+  }
+  #main #faq .card .card-header {
+    border: 0;
+    padding: 0;
+   }
+  #main #faq .card .card-header .btn-header-link {
+    text-align: left;
+    color: #0A1E42;
+  }
+  #main #faq .card .card-header .btn-header-link:after {
+    content: "\f107";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    float: left;
+    width: 21px;
+  }
+  #main #faq .card .card-header .btn-header-link.collapsed:after {
+    content: "\f105";
+  }
+  #main #faq .card .collapse {
+    border: 0;
+    background-color: #F4F5F7!important;
+  }
+  #faq .card-body {
+    padding: 0px !important;
+  }
+  #main #faq .card-body ul{
+    list-style-type: none;
+    padding: 0px;
+  }
+  #main #faq .collapse.show li{
+    padding-bottom: 2px;
+  }
+  #main #faq .collapse.show li a{
+    color: #0A1E42;
+    text-decoration: none;
+    display: block;
+    padding: 8px 23px 8px 42px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  #main #faq .collapse.show li a:hover{
+    background-color: #0151CC;
+    color: #fff;
+    font-weight: 600;
+  }
+  .card-header{
+    background-color:#F4F5F7;
+  }
+  #main #faq .collapsing li{
+    padding-bottom: 2px;
+    background-color:#F4F5F7;
+   }
+  #main #faq .collapsing li a{
+    color: #222;
+    text-decoration: none;
+    display: block;
+    padding: 8px 23px 8px 42px;
+    font-size: 14px;
+  }
+  .badge{
+    float: right;
+    border-radius: 2px;
+    font-size: 10px;
+    line-height: 18px;
+    font-weight: normal;
+    color: #fff;
+    padding: 1px 4px;
+  }
+  .badge-primary {
+    background-color: #0151CC;
+  }
+ .badge-warning{
+    background-color: #F69110;
+  }
+ 
+  @media (max-width:992px) {
+    #main #faq .collapse.show li a{
+      padding: 8px 4px 8px 34px; 
+    } 
+    #main #faq .collapsing li a{
+      padding: 8px 4px 8px 34px;
+    }
+  }

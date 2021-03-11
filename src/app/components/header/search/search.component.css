@@ -22,6 +22,7 @@
 .searchbox-icon-hide {
     z-index: -1;
 }
+
 @media (max-width:767px){
     .search__input {
         width: 100%;

@@ -1,0 +1,30 @@
+<div class="list-group list-group-flush">
+    <div id="main">
+        <div class="accordion" id="faq">
+            <div class="card custom-accordion" *ngFor="let list of sidebarList;let i=index">
+                <div class="card-header" id="faqhead{{i}}">
+                    <a href="#" class="btn btn-header-link" data-toggle="collapse" [attr.data-target]="'#faq' + i"
+                        aria-expanded="true" [attr.aria-controls]="'faq' + i" >{{list.title}}</a>
+                </div>
+
+                <div id="faq{{i}}" class="collapse" data-parent="#faq">
+                    <div class="card-body">
+                        <ul>
+                            <li *ngFor="let sub of list.subList">
+                                <a routerLink="{{sub.list}}" routerLinkActive="active">
+                                    {{sub.title}}
+                                    <span class="badge badge-primary" *ngIf="sub.isNew==1">
+                                        New
+                                    </span>
+                                    <span class="badge badge-warning" *ngIf="sub.isPublished==0">
+                                        Unpublished
+                                    </span>
+                               </a>
+                           </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,10 +9,11 @@ export class WebhooksComponent implements OnInit {
 
   constructor() {
     $(document).ready(function () {
-      
       $("#menu-toggle").click(function(e) {
       e.preventDefault();
+      $("#menu-toggle").toggleClass("slide")
       $("#wrapper").toggleClass("toggled");
+      $(this).find('i').toggleClass('fa-times fa-grip-lines');
      });
     });
    }
