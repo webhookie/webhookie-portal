@@ -20,7 +20,7 @@ import { AuditLogComponent } from './components/home/audit-log/audit-log.compone
 import { SidebarComponent } from './components/home/webhooks/sidebar/sidebar.component';
 import { DetailsComponent } from './components/home/webhooks/details/details.component';
 import { FormsModule } from '@angular/forms';
-import { RequestExampleComponent } from './components/home/webhooks/details/request-example/request-example.component';
+import { RequestExampleComponent } from './components/home/webhooks/request-example/request-example.component';
 import { TitleComponent } from './components/home/webhooks/title/title.component';
 import { SubTestDotButtonsComponent } from './components/home/webhooks/details/order/sub-test-dot-buttons/sub-test-dot-buttons.component';
 import { OrderMenuComponent } from './components/home/webhooks/details/order/order-menu/order-menu.component';
@@ -34,6 +34,7 @@ import { SecurityOptionsComponent } from './components/home/webhooks/details/ord
 import { TitleToggleComponent } from './components/home/webhooks/sidebar/title-toggle/title-toggle.component';
 import { SidebarSearchComponent } from './components/home/webhooks/sidebar/sidebar-search/sidebar-search.component';
 import { SidebarListComponent } from './components/home/webhooks/sidebar/sidebar-list/sidebar-list.component';
+import { OrderRateSubLinksComponent } from './components/home/webhooks/details/order/order-rate-sub-links/order-rate-sub-links.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +67,7 @@ import { SidebarListComponent } from './components/home/webhooks/sidebar/sidebar
     TitleToggleComponent,
     SidebarSearchComponent,
     SidebarListComponent,
+    OrderRateSubLinksComponent,
   ],
   imports: [
     BrowserModule,

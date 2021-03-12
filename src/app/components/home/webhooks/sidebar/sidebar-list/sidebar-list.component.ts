@@ -9,8 +9,9 @@ export class SidebarListComponent implements OnInit {
   sidebarList: any = [
     {
       'title': 'Order management',
+      'IsShow':false,
       'subList': [
-        { 'title': 'order', 'link': '/webhooks/order', 'isNew': '1', 'isPublished': '1' },
+        { 'title': 'Order', 'link': '/webhooks/order', 'isNew': '1', 'isPublished': '1' },
         { 'title': 'Webhook 2', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
         { 'title': 'Webhook 3', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
         { 'title': 'Webhook 4', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
@@ -20,8 +21,9 @@ export class SidebarListComponent implements OnInit {
     },
     {
       'title': 'Product catalog',
+      'IsShow':false,
       'subList': [
-        { 'title': 'order', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
+        { 'title': 'Order', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
         { 'title': 'Webhook 2', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
         { 'title': 'Webhook 3', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
         { 'title': 'Webhook 4', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
@@ -31,8 +33,9 @@ export class SidebarListComponent implements OnInit {
     },
     {
       'title': 'Order management',
+      'IsShow':false,
       'subList': [
-        { 'title': 'order', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
+        { 'title': 'Order', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
         { 'title': 'Webhook 2', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
         { 'title': 'Webhook 3', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
         { 'title': 'Webhook 4', 'link': '/webhooks/Webhook1', 'isNew': '0', 'isPublished': '1' },
@@ -45,5 +48,8 @@ export class SidebarListComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+ 
+  Show(val:any){
+  this.sidebarList[val].IsShow = !this.sidebarList[val].IsShow;
+ }
 }

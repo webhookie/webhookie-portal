@@ -1,0 +1,26 @@
+.user-rating ul{
+    list-style-type:none;
+    padding:0px;
+    margin-bottom: 7px;
+}
+.user-rating ul li{
+    font-size: 12px;
+    font-weight: 400;
+    color: #0A1E42;
+}
+.user-rating i{
+    font-size: 12px;
+}
+.user-rating .checked{
+    color: #FFC500;
+}
+.user-rating a{
+    text-decoration: none;
+    color: #1A73E8;
+    font-weight: 600;
+    font-size: 12px;
+} 
+.user-rating p{
+    font-size: 14px;
+    margin-bottom: 4px;
+}
