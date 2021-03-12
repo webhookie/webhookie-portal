@@ -1,5 +1,13 @@
+<!-- <form class="searchbox d-flex align-items-center">
+    <input type="search" placeholder="Search..." name="search" class="form-control search__input" [(ngModel)]="keyword">
+    <button type="button" class="searchbox-icon btn" [ngClass]="keyword?'searchbox-icon-hide':''"><i
+            class="fa fa-search"></i></button>
+    <a class="menu-toggle responsive-close d-inline-block d-md-none" href="javascript:void(0)" id=""><i class="fas fa-times text-primary"></i></a>
+</form> -->
+
 <form class="searchbox d-flex align-items-center">
     <input type="search" placeholder="Search..." name="search" class="form-control search__input" [(ngModel)]="keyword">
     <button type="button" class="searchbox-icon btn" [ngClass]="keyword?'searchbox-icon-hide':''"><i
             class="fa fa-search"></i></button>
+    <a class="menu-toggle-mobile responsive-close d-inline-block d-md-none" href="javascript:void(0)" id=""><i class="fas fa-grip-lines text-primary"></i></a>
 </form>

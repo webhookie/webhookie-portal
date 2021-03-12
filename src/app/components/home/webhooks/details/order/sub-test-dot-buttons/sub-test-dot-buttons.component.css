@@ -1,0 +1,14 @@
+.dot-buttons ul{
+    list-style-type:none;
+    padding:0px;
+}
+.dot-buttons button{
+    padding: 4px 10px;
+    font-weight: 400;
+}
+
+.dot-buttons .btn-default{
+    font-weight: 400;
+    border: 1px solid #ddd;
+}
+

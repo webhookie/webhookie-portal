@@ -14,7 +14,7 @@
         width: 100%;
         background-color: #fff;
         box-shadow: 0px 2px 10px #00000029;
-        z-index: 99;
+        z-index: 999;
     }
     .mobile-menu{
         justify-content: start;

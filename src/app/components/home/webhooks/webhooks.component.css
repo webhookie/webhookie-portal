@@ -46,6 +46,8 @@ i#menu-toggle {
 
 #page-content-wrapper {
   min-width: 0;
+  width: 100%;
+  margin-left: 20px;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -53,14 +55,15 @@ i#menu-toggle {
 }
 }
 
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
   div#page-content-wrapper {
     position: absolute;
+    margin: 0;
 }
 app-sidebar#sidebar-wrapper {
   z-index: 99;
   margin-left: 17px;
 }
-}
+} */
 
 
