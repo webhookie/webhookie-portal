@@ -10,6 +10,8 @@ export class WebhookDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
+
+
+}
 
 }

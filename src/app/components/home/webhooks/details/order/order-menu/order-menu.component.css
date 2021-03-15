@@ -8,7 +8,7 @@
     font-size: 12px;
     text-decoration: none;
 }
-.order-menu ul li.is-active a{
+.order-menu ul li .active{
     border-bottom: 1px solid #0151CC;
     color: #0151CC;
 }
