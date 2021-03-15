@@ -1,1 +1,98 @@
-<p>headers works!</p>
+<div id="header-accordion">
+    <div class="card">
+      <div class="card-header" id="sub-heading-1">
+          <a data-toggle="collapse" href="#main-collapse">Headings</a>
+      </div>
+        <div id="main-collapse" class="collapse show" data-parent="#header-accordion">
+            <div class="card-body">
+                <div id="sub-accordion-1">
+                    <div class="card">
+                    <div class="card-header" id="heading-1-1">
+                        <a class="collapsed" data-toggle="collapse" href="#sub-heading-collapse-1" >Authorization</a>             
+              </div>
+              <div id="sub-heading-collapse-1" class="collapse" data-parent="#sub-accordion-1">
+                <div class="card-body">
+                  <table class="table table-responsive">
+                    <tbody>
+                      <tr>
+                        <th scope="col">Description</th>
+                        <td>Authentication information provided in this header</td>
+                      </tr>
+                      <tr>
+                        <th scope="col">Format</th>
+                        <td>Signature keyId=“your key id”,algorithm=“rsa-sha256”, headers=“(request-target) host date digest content- length”, signature=“Base64(RSA-SHA256(signing string)</td>
+                      </tr>
+                      <tr>
+                        <th scope="col">Example</th>
+                        <td>Signature keyId=“your key id”,algorithm=“rsa-sha256”, headers=“(request-target) host date digest content- length”, signature=“Base64(RSA-SHA256(signing string)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-header" id="sub-heading-2">
+                    <a class="collapsed" data-toggle="collapse" href="#sub-heading-collapse-2">
+                     Header2
+                    </a>
+                </div>
+                <div id="sub-heading-collapse-2" class="collapse" data-parent="#sub-accordion-1">
+                  <div class="card-body">
+                    <table class="table table-responsive">
+                      <tbody>
+                        <tr>
+                          <th scope="col">Description</th>
+                          <td>Authentication information provided in this header</td>
+                        </tr>
+                        <tr>
+                          <th scope="col">Format</th>
+                          <td>Signature keyId=“your key id”,algorithm=“rsa-sha256”, headers=“(request-target) host date digest content- length”, signature=“Base64(RSA-SHA256(signing string)</td>
+                        </tr>
+                        <tr>
+                          <th scope="col">Example</th>
+                          <td>Signature keyId=“your key id”,algorithm=“rsa-sha256”, headers=“(request-target) host date digest content- length”, signature=“Base64(RSA-SHA256(signing string)</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+            <div class="card">
+                <div class="card-header" id="sub-heading-3">
+                    <a class="collapsed" data-toggle="collapse" href="#sub-heading-collapse-3">
+                     Header3
+                    </a>
+                </div>
+                <div id="sub-heading-collapse-3" class="collapse" data-parent="#sub-accordion-1">
+                  <div class="card-body">
+                    <table class="table table-responsive">
+                      <tbody>
+                        <tr>
+                          <th scope="col">Description</th>
+                          <td>Authentication information provided in this header</td>
+                        </tr>
+                        <tr>
+                          <th scope="col">Format</th>
+                          <td>Signature keyId=“your key id”,algorithm=“rsa-sha256”, headers=“(request-target) host date digest content- length”, signature=“Base64(RSA-SHA256(signing string)</td>
+                        </tr>
+                        <tr>
+                          <th scope="col">Example</th>
+                          <td>Signature keyId=“your key id”,algorithm=“rsa-sha256”, headers=“(request-target) host date digest content- length”, signature=“Base64(RSA-SHA256(signing string)</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+        </div> 
+        
+            </div>
+        </div>
+    </div>
+</div>
