@@ -1,93 +1,125 @@
 <div id="body-accordion">
-    <div class="card">
-      <div class="card-header">
-          <a data-toggle="collapse" href="#main-body-collapse">Body</a>
-      </div>
-        <div id="main-body-collapse" class="collapse show" data-parent="#body-accordion">
-            <div class="card-body">
-                <div id="body-accordion-1">
-                    <div class="card">
-                    <div class="card-header">
-                        <a class="collapsed" data-toggle="collapse" href="#body-heading-collapse-1" >Order<span class="badge badge-primary">object</span><span class="badge badge-warning">optional</span></a>             
-              </div>
-              <div id="body-heading-collapse-1" class="collapse" data-parent="#body-accordion-1">
-                <div class="card-body">
-                  <table class="table table-responsive">
-                    <tbody>
-                      <tr>
-                        <td>The ID of the order.</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                
-
-                <!-- inner-card -->
-                <div class="card">
-                    <div class="card-header">
-                        <a class="collapsed" data-toggle="collapse" href="#body-sub-collapse-2">
-                            FixedAmount<span class="badge badge-warning">optional</span>
-                        </a>
-                    </div>
-                    <div id="body-sub-collapse-2" class="collapse">
-                      <table class="table table-responsive">
-                        <tbody>
-                          <tr>
-                            <th scope="col">Value</th>
-                            <td>Number</td>
-                          </tr>
-                          <tr> 
-                            <td></td>
-                            <td>Value of the fixed amount.</td>
-                          </tr>
-                          <tr>
-                            <th scope="col">Min value</th>
-                            <td>0.01</td>
-                          </tr>
-                          <tr>
-                            <th scope="col">Max value</th>
-                            <td>9999999999.99</td>
-                          </tr>
-                          <tr>
-                            <th scope="col">Example</th>
-                            <td>99.95</td>
-                          </tr>
-                          <tr>
-                            <th scope="col">Currency</th>
-                          </tr>
-                          <tr>
-                            <th scope="col"></th>
-                            <td>Currency of the fixed amount. Currently the only supported value is EUR (Euros).</td>
-                          </tr>
-                          <tr>
-                            <th scope="col">Pattern EUR</th>
-                          </tr>
-                          <tr>
-                            <th scope="col">Example EUR</th>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-  <!-- inner-card close-->
-
-                </div>
-              </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <a class="collapsed" data-toggle="collapse" href="#body-heading-collapse-3">
-                    Nodes<span class="badge badge-primary">String</span><span class="badge badge-danger">Required</span></a>  
-                </div>
-                <div id="body-heading-collapse-3" class="collapse" data-parent="#body-accordion-1">
-                  <div class="card-body">
-                    <p>Dummy data</p>
-                  </div>
-                </div>
-              </div>
-
-        </div> 
-        
-            </div>
-        </div>
+  <div class="card">
+    <div class="card-header">
+      <a data-toggle="collapse" href="#main-body-collapse">Body</a>
     </div>
+    <div id="main-body-collapse" class="collapse show" data-parent="#body-accordion">
+      <div class="card-body">
+        <div id="body-accordion-1">
+          <div class="card">
+            <div class="card-header">
+              <a class="collapsed" data-toggle="collapse" href="#body-heading-collapse-1"
+                class="font14 font-weight-600">Order<span class="badge badge-primary ml-3 mr-2">object</span><span
+                  class="badge badge-warning">optional</span></a>
+            </div>
+            <div id="body-heading-collapse-1" class="collapse" data-parent="#body-accordion-1">
+              <div class="card-body">
+                <div class="order tree-view1">
+                  <div class="col-2-set">
+                    <div>
+                      <p class="font12 mb-0">The ID of the order.</p>
+                    </div>
+                  </div>
+               <!-- ..... -->
+                <div class="card">
+                  <div class="card-header">
+                    <a class="collapsed" data-toggle="collapse" href="#body-sub-collapse-2"
+                      class="font12 font-weight-600">
+                      FixedAmount<span class="badge badge-warning ml-3 mr-2">optional</span>
+                    </a>
+                  </div>
+                  <div id="body-sub-collapse-2" class="collapse">
+                    <div class="fixed-amount tree-view">
+                      <div class="col-2-set">
+                        <div>
+                          <h5 class="font12 mb-0 font-weight-600">Value</h5>
+                        </div>
+                        <div>
+                          <p class="font12 mb-0">Number<span class="badge badge-danger ml-3 mr-2">Required</span></p>
+                        </div>
+                      </div>
+                      <div class="col-2-set">
+                        <div>
+                          <p class="font12 mb-0">Value of the fixed amount.</p>
+                        </div>
+                      </div>
+                      <div class="col-2-set">
+                        <div>
+                          <h5 class="font12 mb-0 font-weight-600">Min value</h5>
+                        </div>
+                        <div>
+                          <p class="font12 mb-0">0.01</p>
+                        </div>
+                      </div>
+                      <div class="col-2-set">
+                        <div>
+                          <h5 class="font12 mb-0 font-weight-600">Max value</h5>
+                        </div>
+                        <div>
+                          <p class="font12 mb-0">9999999999.99</p>
+                        </div>
+                      </div>
+                      <div class="col-2-set">
+                        <div>
+                          <h5 class="font12 mb-0 font-weight-600">Example</h5>
+                        </div>
+                        <div>
+                          <p class="font12 mb-0">99.95</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="fixed-amount tree-view">
+                      <div class="col-2-set">
+                        <div>
+                          <h5 class="font12 mb-0 font-weight-600">Currency</h5>
+                        </div>
+                      </div>
+                      <div class="col-2-set">
+                        <div>
+                          <p class="font12 mb-0">Currency of the fixed amount. Currently the only supported value is EUR
+                            (Euros).</p>
+                        </div>
+                      </div>
+                      <div class="col-2-set">
+                        <div>
+                          <h5 class="font12 mb-0 font-weight-600">Pattern EUR</h5>
+                        </div>
+                      </div>
+                      <div class="col-2-set">
+                        <div>
+                          <h5 class="font12 mb-0 font-weight-600">Example EUR</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- start -->
+                  <div class="card">
+                    <div class="card-header">
+                      <a class="collapsed" data-toggle="collapse" href="#body-heading-collapse-3"
+                        class="font12 font-weight-600">
+                        Nodes<span class="badge badge-primary ml-3 mr-2">String</span><span
+                          class="badge badge-danger">Required</span></a>
+                    </div>
+                    <div id="body-heading-collapse-3" class="collapse">
+                      <div class="card-body">
+                        <div class="order">
+                          <div class="col-2-set">
+                            <div>
+                              <p class="font12 mb-0 ml-3">Dummy Data</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
