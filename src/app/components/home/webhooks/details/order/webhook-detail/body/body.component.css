@@ -1,57 +1,150 @@
 
- #body-accordion a{
-    text-decoration: none;
- }
- #body-accordion .card{
-   border:0;
-   background-color:transparent;
- }
- #body-accordion .card .card-header{
-   padding: 0;
-   background-color: transparent;
-   border: 0;
- }
- #body-accordion .card .card-header a{
-   display: block;
-   font-size: 16px;
-   text-align: left;
-   color: #0A1E42;
-   font-weight: normal;
-   padding: 9px 15px;
- }
-
- #main-body-collapse .card-body {
-   padding: 0rem !important;
-   margin: 0rem 1.25rem;
+#body-accordion a{
+  text-decoration: none;
 }
- #body-accordion .card .card-header a:after{
-   content: "\f105";
-   font-family: 'Font Awesome 5 Free';
-   font-weight: 900;
-   float: left;
-   width: 21px;
- }
- #body-accordion .card .card-header a.active{
-   font-weight:700;
- }
- #body-accordion .card .card-header a.active:after{
-   content: "\f107";
- }
+#body-accordion .card{
+  border:0;
+  background-color:transparent;
+}
+#body-accordion .card .card-header{
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+}
+#body-accordion .card .card-header a{
+  display: block;
+  font-size: 16px;
+  color: #0A1E42;
+  font-weight: normal;
+  padding: 9px 15px;
+}
 
-/* comment */
+#main-body-collapse .card-body {
+  padding: 0rem !important;
+  margin: 0rem 1.25rem;
+}
+#body-accordion .card .card-header a:after{
+  content: "\f105";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  float: left;
+  width: 21px;
+}
+#body-accordion .card .card-header a.active{
+  font-weight:700;
+}
+#body-accordion .card .card-header a.active:after{
+  content: "\f107";
+}
 #sub-accordion-1 .card .card-header a{
-   font-size: 14px;
-   font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 }
-#header-accordion .table td, .table th {
-   border: 0;
+.col-2-set{
+display: inline-flex;
+padding: 0.2rem 0;
+width: 100%;
 }
-#sub-accordion-1 .table th {
-   font-size: 12px;
-   font-weight: 700;
+.col-2-set div:first-child {
+flex: 0 0 15%;
+max-width:15%;
 }
-#sub-accordion-1 .table td {
-   font-size: 12px;
-   font-weight: 400;
+.col-2-set div:last-child {
+flex: 0 0 85%;
+max-width:85%;
 }
-/* comment close */
+.fixed-amount {
+margin: 0rem 1rem;
+}
+#body-accordion .badge{
+  font-size: 10px;
+  font-weight: 400;
+  color: #0A1E42;
+  padding: 3px 7px;
+  border-radius: 2px;
+}
+#body-accordion .badge.badge-primary {
+background-color: #E1F6FF;
+}
+#body-accordion .badge.badge-warning {
+background-color: #FFF4CC;
+}
+#body-accordion .badge.badge-danger {
+background-color: #FDEAE0;
+}
+/* start */
+.tree-view{
+  position:relative;
+  padding-left:20px;
+  }
+  .tree-view:before{
+  content: "";
+  position: absolute;
+  height: 100%;
+  border-left: 1px solid #E5E5E5;
+  left: 0;
+  top: 0;
+  }
+  .tree-view:last-child:before{
+  height:11px;
+  }
+  .tree-view:after{
+  content: "";
+  width: 15px;
+  height: 1px;
+  position: absolute;
+  top: 11px;
+  background-color: #E5E5E5;
+  left: 0;
+  }
+  /* end */
+
+  .tree-view1{
+    position:relative;
+    padding-left:20px;
+    }
+    .tree-view1:before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    border-left: 1px solid #E5E5E5;
+    left: 0;
+    top: 0;
+    }
+    .tree-view1:last-child:before{
+    height:100%;
+    }
+    .tree-view1:after{
+    content: "";
+    width: 15px;
+    height: 1px;
+    position: absolute;
+    top: 11px;
+    background-color: #E5E5E5;
+    left: 0;
+    }
+
+    @media (max-width: 1024px) {
+      .col-2-set{
+        display: inline-flex;
+        padding: 0.2rem 0;
+        width: 100%;
+        }
+        .col-2-set div:first-child {
+        flex: 0 0 28%;
+        max-width:28%;
+        }
+        .col-2-set div:last-child {
+        flex: 0 0 72%;
+        max-width:72%;
+        }
+    }
+    @media (max-width: 767px) {
+      #body-accordion .card .card-header a{
+        padding: 6px 0px;
+      }
+      #main-body-collapse .card-body {
+        padding: 0rem !important;
+        margin: 0rem 9px;
+      }
+    }

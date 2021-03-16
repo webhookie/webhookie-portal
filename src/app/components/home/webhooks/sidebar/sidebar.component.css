@@ -33,6 +33,7 @@
   #sidebar-wrapper {
     margin-left: 260px;
     width: 260px;
+    height: 100%;
   }
   #page-content-wrapper {
     min-width: 0;

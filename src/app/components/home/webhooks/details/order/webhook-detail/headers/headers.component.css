@@ -1,57 +1,98 @@
 
- #header-accordion a{
-     text-decoration: none;
-  }
-  #header-accordion .card{
-    border:0;
-    background-color:transparent;
-  }
-  #header-accordion .card .card-header{
-    padding: 0;
-    background-color: transparent;
-    border: 0;
-  }
-  #header-accordion .card .card-header a{
-    display: block;
-    font-size: 16px;
-    text-align: left;
-    color: #0A1E42;
-    font-weight: normal;
-    padding: 9px 15px;
-  }
- 
-  #main-collapse .card-body {
-    padding: 0rem !important;
-    margin: 0rem 1.25rem;
+#header-accordion a{
+    text-decoration: none;
 }
-  #header-accordion .card .card-header a:after{
-    content: "\f105";
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    float: left;
-    width: 21px;
-  }
-  #header-accordion .card .card-header a.active{
-    font-weight:700;
-  }
-  #header-accordion .card .card-header a.active:after{
-    content: "\f107";
-  }
+#header-accordion .card{
+  border:0;
+  background-color:transparent;
+}
+#header-accordion .card .card-header{
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+}
+#header-accordion .card .card-header a{
+  display: block;
+  font-size: 16px;
+  text-align: left;
+  color: #0A1E42;
+  font-weight: normal;
+  padding: 9px 15px;
+}
+#main-collapse .card-body {
+  padding: 0rem !important;
+  padding-left: 22px !important;
+}
+#header-accordion .card .card-header a:after{
+  content: "\f105";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  float: left;
+  width: 21px;
+}
+#header-accordion .card .card-header a.active{
+  font-weight:700;
+}
+#header-accordion .card .card-header a.active:after{
+  content: "\f107";
+}
 
-/* comment */
-#sub-accordion-1 .card .card-header a{
-    font-size: 14px;
-    font-weight: 600;
+.col-2-set{
+display: inline-flex;
+padding: 0.5rem 0;
+width: 100%;
 }
-#header-accordion .table td, .table th {
-    border: 0;
+.col-2-set div:first-child {
+flex: 0 0 15%;
+max-width:15%;
 }
-#sub-accordion-1 .table th {
-    font-size: 12px;
-    font-weight: 700;
+.col-2-set div:last-child {
+flex: 0 0 85%;
+max-width:85%;
 }
-#sub-accordion-1 .table td {
-    font-size: 12px;
-    font-weight: 400;
+.tree-view{
+position:relative;
+padding-left:20px;
 }
-/* comment close */
+.tree-view:before{
+content: "";
+position: absolute;
+height: 100%;
+border-left: 1px solid #E5E5E5;
+left: 0;
+top: 0;
+}
+.tree-view:last-child:before{
+height:16px;
+}
+.tree-view:after{
+content: "";
+width: 15px;
+height: 1px;
+position: absolute;
+top: 16px;
+background-color: #E5E5E5;
+left: 0;
+}
+@media (max-width: 1024px) {
+  .col-2-set div:first-child {
+    flex: 0 0 25%;
+    max-width:25%;
+    }
+    .col-2-set div:last-child {
+    flex: 0 0 75%;
+    max-width:75%;
+    }
+}
+@media (max-width: 767px) {
+    .col-2-set div:last-child {
+    padding-left: 12px;
+    }
+    #header-accordion .card .card-header a{
+      padding: 8px 0px;
+    }
+    #main-collapse .card-body {
+      padding: 0rem !important;
+      padding-left: 9px !important;
+    }
+}

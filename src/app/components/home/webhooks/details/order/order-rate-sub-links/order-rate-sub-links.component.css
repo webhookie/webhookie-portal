@@ -8,6 +8,7 @@
     font-weight: 400;
     color: #0A1E42;
 }
+
 .user-rating i{
     font-size: 12px;
 }
@@ -23,4 +24,7 @@
 .user-rating p{
     font-size: 14px;
     margin-bottom: 4px;
+}
+.user-rating .border-left{
+    border-left: 1px solid #041C39 !important;
 }
