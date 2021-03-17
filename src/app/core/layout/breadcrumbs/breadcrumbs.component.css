@@ -1,0 +1,32 @@
+
+  .mat-toolbar{
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  .breadcrumb {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    align-items:center;
+  }
+  .breadcrumb:first-child:before {
+      display: none;
+  }
+  .breadcrumb:before {
+    content: '\276F';
+    vertical-align: top;
+    display: inline-block;
+    margin: 0 10px;
+    -webkit-font-smoothing: antialiased;
+    color: #0A1E42;
+    font-size: 11px;
+  }
+  .breadcrumb span a {
+    color: #1A73E8;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px;
+}
+  .breadcrumb span:last-child a{
+      color: #0A1E42;
+  }

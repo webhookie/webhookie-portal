@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { WebhooksComponent } from './components/home/webhooks/webhooks.component';
-import { SubscriptionsComponent } from './components/home/subscriptions/subscriptions.component';
-import { AuditLogComponent } from './components/home/audit-log/audit-log.component';
-import { OrderComponent } from './components/home/webhooks/details/order/order.component';
-import { Webhook1Component } from './components/home/webhooks/details/webhook1/webhook1.component';
-import { WebhookDetailComponent } from './components/home/webhooks/details/order/webhook-detail/webhook-detail.component';
-import { ReviewsComponent } from './components/home/webhooks/details/order/reviews/reviews.component';
-import { SupportComponent } from './components/home/webhooks/details/order/support/support.component';
+import { HomeComponent } from './features/home/home.component';
+import { WebhooksComponent } from './features/webhooks/webhooks.component';
+import { OrderComponent } from './features/webhooks/details/order/order.component';
+import { WebhookDetailComponent } from './features/webhooks/details/order/webhook-detail/webhook-detail.component';
+import { ReviewsComponent } from './features/webhooks/details/order/reviews/reviews.component';
+import { SupportComponent } from './features/webhooks/details/order/support/support.component';
+import { Webhook1Component } from './features/webhooks/details/webhook1/webhook1.component';
+import { SubscriptionsComponent } from './features/subscriptions/subscriptions.component';
+import { AuditLogComponent } from './features/audit-log/audit-log.component';
+
 const routes: Routes = [
     {
         path: '',
@@ -104,13 +104,6 @@ const routes: Routes = [
                 breadcrumb: 'Traffic'
             }, 
             
-        } ,
-        {
-            path: 'login',
-            component: LoginComponent,
-            data: {
-                breadcrumb: 'login'
-            },
         }   
     ]
 }

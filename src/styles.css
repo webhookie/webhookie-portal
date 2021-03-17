@@ -57,6 +57,9 @@ h1{
 .font-weight-600{
     font-weight:600 !important;
   }
+  .font-weight-400{
+    font-weight:400 !important;
+  }
   .font12{
     font-size:12px !important;
     line-height: normal;
@@ -64,6 +67,15 @@ h1{
   .font14{
     font-size:14px !important;
   }
+  .font16{
+      font-size: 16px !important;
+  }
+  .light-mode span.key {
+    color: #1A73E8 !important;
+}
+.light-mode.dark-mode-active span.key {
+    color: #A0E3FF !important;
+}
 @media (max-width: 767px) {
 .responsive-close {
         width: 10px;

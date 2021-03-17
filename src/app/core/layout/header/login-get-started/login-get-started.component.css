@@ -1,0 +1,16 @@
+.user-buttons .btn-primary-gradient {
+    width: 96px;
+    height: 34px;
+    padding: 6px;
+}
+@media (max-width:767px){
+    .btn-default{
+        padding: 0rem 1rem .8rem 1rem!important;
+        width:100% !important;
+        margin-left: 0px;
+        font-weight: normal;
+    }
+    .btn-primary-gradient{
+        margin:0.5rem 1rem !important;
+    }        
+}
