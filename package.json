@@ -25,6 +25,7 @@
     "bootstrap": "^4.6.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
+    "pretty-print-json": "^1.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

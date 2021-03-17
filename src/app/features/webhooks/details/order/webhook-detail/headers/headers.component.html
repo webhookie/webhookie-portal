@@ -1,0 +1,49 @@
+<div id="header-accordion">
+  <div class="card">
+    <div class="card-header" id="sub-heading-1">
+      <a data-toggle="collapse" href="#main-collapse">{{headers.label}}</a>
+    </div>
+    <div id="main-collapse" class="collapse show" data-parent="#header-accordion">
+      <div class="card-body">
+        <div id="sub-accordion-1">
+          <div class="card" *ngFor="let item of headers.parent;let i=index;">
+            <div class="card-header" id="heading-1-1">
+              <a class="collapsed" data-toggle="collapse" href="#sub-heading-collapse-{{i}}"
+                class="font14 font-weight-600">{{item.label}}</a>
+            </div>
+            <div id="sub-heading-collapse-{{i}}" class="collapse" data-parent="#sub-accordion-1">
+              <div class="card-body">
+                <div class="authorization">
+                  <div class="col-2-set tree-view">
+                    <div>
+                      <h5 class="font12 mb-0 font-weight-600">Description</h5>
+                    </div>
+                    <div>
+                      <p class="font12 mb-0">{{item.child.description}}</p>
+                    </div>
+                  </div>
+                  <div class="col-2-set tree-view">
+                    <div>
+                      <h5 class="font12 mb-0 font-weight-600">Format</h5>
+                    </div>
+                    <div>
+                      <p class="font12 mb-0">{{item.child.format}}</p>
+                    </div>
+                  </div>
+                  <div class="col-2-set tree-view">
+                    <div>
+                      <h5 class="font12 mb-0 font-weight-600">Example</h5>
+                    </div>
+                    <div>
+                      <p class="font12 mb-0">{{item.child.example}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

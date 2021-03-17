@@ -1,0 +1,23 @@
+.dot-buttons ul{
+    list-style-type:none;
+}
+.dot-buttons button{
+    padding: 4px 10px;
+    font-weight: 400;
+}
+.dot-buttons .btn-default{
+    font-weight: 400;
+    border: 1px solid #ddd;
+    margin-left: 8px;
+}
+.dot-buttons ul{
+    list-style-type:none;
+}
+.dot-buttons i {
+    font-size: 12px;
+}
+@media (max-width: 767px) {
+    .dot-buttons ul{
+        padding:0px;
+    }
+}

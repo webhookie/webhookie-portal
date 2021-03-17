@@ -1,0 +1,68 @@
+
+ a.list-group-item {
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+  }
+  #sidebar-nav .card{
+    border:0;
+    background-color:transparent;
+  }
+  #sidebar-nav .card .card-header{
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+  }
+  #sidebar-nav .card .card-header a{
+    display: block;
+    text-align: left;
+    color: #0A1E42;
+    font-weight: normal;
+    padding: 9px 15px;
+  }
+  
+  #sidebar-nav .card .card-header a:after{
+    content: "\f105";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    float: left;
+    width: 21px;
+  }
+  #sidebar-nav .card .card-header a.active{
+    font-weight:700;
+  }
+  #sidebar-nav .card .card-header a.active:after{
+    content: "\f107";
+  }
+  #sidebar-nav .navbar-nav li a{
+    color: #0A1E42;
+    padding: 8px 15px 8px 44px;
+  }
+  #sidebar-nav .navbar-nav li a:hover{
+    background-color:#0151CC;
+    color:#fff;
+  }
+  .badge{
+    float: right;
+    border-radius: 2px;
+    font-size: 10px;
+    line-height: 18px;
+    font-weight: normal;
+    color: #fff;
+    padding: 1px 4px;
+  }
+  .badge-primary {
+    background-color: #0151CC;
+  }
+ .badge-warning{
+    background-color: #F69110;
+  }
+ 
+  @media (max-width:992px) {
+    #main #faq .collapse.show li a{
+      padding: 8px 4px 8px 34px; 
+    } 
+    #main #faq .collapsing li a{
+      padding: 8px 4px 8px 34px;
+    }
+  }
