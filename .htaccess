@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+  Options Indexes FollowSymLinks
+  RewriteEngine On
+  RewriteBase /LianWebhooks/dist/webhook               
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /LianWebhooks/dist/webhook/index.html [L]
+</IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# This domain inherits the “PHP” package.
+# php -- END cPanel-generated handler, do not edit

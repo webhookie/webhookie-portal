@@ -77,19 +77,26 @@ h1{
     color: #A0E3FF !important;
 }
 @media (max-width: 767px) {
-.responsive-close {
-        width: 10px;
-}
-#sidebar-wrapper {
-    position: absolute;
-    z-index: 999;
-    top: 50px;
-}
-#page-content-wrapper{
-    margin-left:0px;
-}
-.menu-toggle.slide {
-    margin-right: 0px;
-    margin-top: 0px;
-}
+    .disable-scroll-on-mobile {
+        overflow: hidden;
+    }
+    .responsive-close {
+            width: 10px;
+    }
+    #sidebar-wrapper {
+        position: fixed;
+        z-index: 99999;
+        top: 60px;
+        overflow: auto;
+        height: calc(100vh - 60px);
+        padding-bottom: 1rem;
+        min-height: auto !important;
+    }
+    #page-content-wrapper{
+        margin-left:0px;
+    }
+    .menu-toggle.slide {
+        margin-right: 0px;
+        margin-top: 0px;
+    }
 }
