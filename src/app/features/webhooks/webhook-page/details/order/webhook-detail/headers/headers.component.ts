@@ -42,11 +42,11 @@ export class HeadersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    $(document).ready(function () {
-      $(".collapse").click(function () {
-        $(this).find('a').toggleClass("active");
-      });
-    })
+  //   $(document).ready(function () {
+  //     $(".collapse").click(function () {
+  //       $(this).find('a').toggleClass("active");
+  //     });
+  //   })
   }
 
 }
