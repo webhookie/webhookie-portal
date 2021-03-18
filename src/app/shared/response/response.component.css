@@ -1,0 +1,10 @@
+.light-mode{
+    background-color: #F4F5F7;
+    padding: 20px;
+    height: 100%;
+}
+.light-mode .custom-control-label::before{
+    top:0.1rem !important;
+    background-color: #C6C6C6;
+    border: 0;
+}
