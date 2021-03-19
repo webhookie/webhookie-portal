@@ -30,14 +30,12 @@
   float: left;
   width: 21px;
 }
-
 #header-accordion .card .card-header a.active{
   font-weight:700;
-}
+  }
 #header-accordion .card .card-header a.active:after{
   content: "\f107";
 }
-
 .col-2-set{
 display: inline-flex;
 padding: 0.5rem 0;

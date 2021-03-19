@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
@@ -78,7 +78,12 @@ export class BodyComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // this.sidebarList[val].IsShow = !this.sidebarList[val].IsShow;
+    $(document).ready(function () {
+      $("#body-accordion a").click(function () {
+        $(this).toggleClass("active");
+        // $(this).find('a').toggleClass("active");
+      });
+    })
   }
 
 }

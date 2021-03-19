@@ -1,5 +1,6 @@
 .dot-buttons ul{
     list-style-type:none;
+    padding: 0;
 }
 .dot-buttons button{
     padding: 4px 10px;

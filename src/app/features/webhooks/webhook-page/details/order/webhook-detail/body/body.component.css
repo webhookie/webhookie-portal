@@ -96,27 +96,27 @@
   left: 0;
   }
 
-.tree-view1{
+.order-view{
   position:relative;
   padding-left:20px;
   }
-  .tree-view1:before{
+  .order-view:before{
   content: "";
   position: absolute;
   height: 100%;
   border-left: 1px solid #E5E5E5;
-  left: 0;
-  top: 0;
+  left: 18px;
+  top: 76px;
   }
-  .tree-view1:last-child:before{
+  .order-view:last-child:before{
   height:100%;
   }
-  .tree-view1:after{
+  .order-view:after{
   content: "";
   width: 15px;
   height: 1px;
   position: absolute;
-  top: 11px;
+  top: 77px;
   background-color: #E5E5E5;
   left: 0;
   }

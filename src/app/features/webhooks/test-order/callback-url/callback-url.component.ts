@@ -10,7 +10,7 @@ export class CallbackUrlComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    
+
     }
 
 }
