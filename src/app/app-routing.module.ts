@@ -106,7 +106,7 @@ const routes: Routes = [
                         path: 'test-order',
                         component: TestOrderComponent,
                         data: {
-                            breadcrumb: 'Test order webhook '
+                            breadcrumb: 'Test order webhook'
                         },
 
                     },
@@ -114,7 +114,7 @@ const routes: Routes = [
                         path: 'subscribe-order',
                         component: SubscribeOrderComponent,
                         data: {
-                            breadcrumb: 'Subscribe to order webhook '
+                            breadcrumb: 'Subscribe to order webhook'
                         },
 
                     },

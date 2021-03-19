@@ -6,6 +6,8 @@ import { BreadcrumbService } from 'angular-crumbs';
 })
 export class VariableService {
   breadcrumbs: any;
+  test_res:boolean=false;
+  subscribe_res:boolean=false;
   showText:boolean = false;
   constructor(private breadcrumbService: BreadcrumbService) { 
     this.breadCrumbs();

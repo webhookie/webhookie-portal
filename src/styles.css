@@ -76,6 +76,10 @@ h1{
 .light-mode.dark-mode-active span.key {
     color: #A0E3FF !important;
 }
+.number, .boolean, .string, .null[contenteditable]:focus {
+    outline: none;
+}
+
 @media (max-width: 767px) {
     .disable-scroll-on-mobile {
         overflow: hidden;

@@ -43,8 +43,8 @@ export class HeadersComponent implements OnInit {
 
   ngOnInit(): void {
     $(document).ready(function () {
-      $(".collapse").click(function () {
-        $(this).find('a').toggleClass("active");
+      $("#header-accordion a").click(function () {
+        $(this).toggleClass("active");
       });
     })
   }

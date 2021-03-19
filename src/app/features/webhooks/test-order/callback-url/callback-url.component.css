@@ -1,3 +1,22 @@
-fieldset {
-    border: 1px solid #ddd;
+.call-back-url fieldset {
+    border: 1px solid #E1E1E1;
+}
+.call-back-url form label {
+   color:#0A1E42;
+}
+.call-back-url input {
+   font-size: 12px;
+   border-radius: 2px;
+   border-color: #E1E1E1;
+}
+select.form-control {
+    font-size: 12px;
+    border-radius: 2px;
+    border-color:#E1E1E1;
+}
+.security-label label {
+    color: #253858;
+ }
+.call-back-url .form-check {
+    padding-right: 45px;
 }
