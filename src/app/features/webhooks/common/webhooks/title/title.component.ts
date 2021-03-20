@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VariableService } from 'src/app/shared/variable.service';
+import { VariableService } from '../../variable.service';
 
 @Component({
   selector: 'app-title',
@@ -20,5 +20,4 @@ export class TitleComponent implements OnInit {
     }
     return crumbs[crumbs.length-1].displayName;
   }
-  
 }

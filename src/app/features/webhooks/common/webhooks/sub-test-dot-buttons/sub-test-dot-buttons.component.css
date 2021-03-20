@@ -21,4 +21,8 @@
     .dot-buttons ul{
         padding:0px;
     }
+    .dot-buttons .btn-default{
+        margin-left: 0px;
+        margin-right: 8px;
+    }
 }

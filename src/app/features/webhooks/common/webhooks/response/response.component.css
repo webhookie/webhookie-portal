@@ -1,6 +1,7 @@
 .light-mode{
-    background-color: #F4F5F7;
+    background-color: #ffffff;
     padding: 20px;
+    border: 1px solid #e1e1e1;
 }
 .light-mode .custom-control-label::before{
     top:0.1rem !important;

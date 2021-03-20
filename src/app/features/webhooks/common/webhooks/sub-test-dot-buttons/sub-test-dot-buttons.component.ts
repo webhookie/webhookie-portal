@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VariableService } from 'src/app/shared/variable.service';
+import { VariableService } from '../../variable.service';
 @Component({
   selector: 'app-sub-test-dot-buttons',
   templateUrl: './sub-test-dot-buttons.component.html',

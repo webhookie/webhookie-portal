@@ -8,7 +8,6 @@ import * as $ from 'jquery';
 export class HeadersComponent implements OnInit {
   headers:any={
     'label':'Headings',
-    'IsShow':false,
     parent:[
       {
         'label':'Authorization',
@@ -20,7 +19,6 @@ export class HeadersComponent implements OnInit {
       },
       {
         'label':'Header 2',
-        'IsShow':false,
         'child':{
           'description':'Authentication information provided in this header',
            'format':'Signature keyId=“your key id”,algorithm=“rsa-sha256”, headers=“(request-target) host date digest content- length”, signature=“Base64(RSA-SHA256(signing string)',
@@ -29,7 +27,6 @@ export class HeadersComponent implements OnInit {
       },
       {
         'label':'header 3',
-        'IsShow':false,
         'child':{
           'description':'Authentication information provided in this header',
            'format':'Signature keyId=“your key id”,algorithm=“rsa-sha256”, headers=“(request-target) host date digest content- length”, signature=“Base64(RSA-SHA256(signing string)',

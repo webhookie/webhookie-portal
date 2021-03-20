@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { VariableService } from 'src/app/shared/variable.service';
 import * as $ from 'jquery';
+import { VariableService } from '../../common/variable.service';
 @Component({
   selector: 'app-request',
   templateUrl: './request.component.html',
