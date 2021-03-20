@@ -105,8 +105,8 @@
   position: absolute;
   height: 100%;
   border-left: 1px solid #E5E5E5;
-  left: 18px;
-  top: 76px;
+  left: 0px;
+  top: 0px;
   }
   .order-view:last-child:before{
   height:100%;
@@ -116,7 +116,7 @@
   width: 15px;
   height: 1px;
   position: absolute;
-  top: 77px;
+  top: 12px;
   background-color: #E5E5E5;
   left: 0;
   }

@@ -1,0 +1,14 @@
+.subscribe-call-back fieldset {
+    border: 1px solid #E1E1E1;
+}
+.subscribe-call-back form label {
+   color:#0A1E42;
+}
+.subscribe-call-back p {
+    color:#0A1E42;
+ }
+.subscribe-call-back select.form-control {
+    font-size: 12px;
+    border-radius: 2px;
+    border-color:#E1E1E1;
+}

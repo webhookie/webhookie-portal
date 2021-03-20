@@ -1,0 +1,14 @@
+.subscribe-application fieldset {
+    border: 1px solid #E1E1E1;
+}
+.subscribe-application form label {
+   color:#0A1E42;
+}
+.subscribe-application p {
+    color:#0A1E42;
+ }
+.subscribe-application select.form-control {
+    font-size: 12px;
+    border-radius: 2px;
+    border-color:#E1E1E1;
+}

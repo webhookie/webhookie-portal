@@ -14,7 +14,7 @@
             </button>
         </li>
         <li  *ngIf="(title()!='Subscribe to order webhook')">
-            <button class="btn" [disabled]="(title() == 'Test order webhook')?true:false" [ngClass]="(title() == 'Test order webhook')?'btn-default':'btn-primary'" routerLink="/home/webhooks/subscribe-order">
+            <button class="btn mr-2 mr-md-0" [disabled]="(title() == 'Test order webhook')?true:false" [ngClass]="(title() == 'Test order webhook')?'btn-default':'btn-primary'" routerLink="/home/webhooks/subscribe-order">
                 Subscribe
             </button> 
         </li>
@@ -24,7 +24,7 @@
             </button>
         </li>
         <li *ngIf="(title()=='Subscribe to order webhook')">
-            <button class="btn btn-primary" routerLink="/home/webhooks/subscribe-order">
+            <button class="btn btn-primary ml-md-2" routerLink="/home/webhooks/subscribe-order">
                 Activate
             </button>
         </li>

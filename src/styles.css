@@ -79,8 +79,15 @@ h1{
 .number, .boolean, .string, .null[contenteditable]:focus {
     outline: none;
 }
-
+@media (max-width: 1024px) {
+    h1{
+        font-size: 30px;
+    }
+}
 @media (max-width: 767px) {
+    h1{
+        font-size: 23px;
+    }
     .disable-scroll-on-mobile {
         overflow: hidden;
     }
