@@ -7,8 +7,9 @@
 .subscribe-application p {
     color:#0A1E42;
  }
-.subscribe-application select.form-control {
+.subscribe-application select.custom-select {
     font-size: 12px;
     border-radius: 2px;
     border-color:#E1E1E1;
+    height: 32px !important;
 }

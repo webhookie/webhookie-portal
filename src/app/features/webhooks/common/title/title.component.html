@@ -1,6 +1,6 @@
 <div class="container-fluid">
 <div class="row">
-<div class="col-md-12 mb-4" #parent >
+<div class="col-md-12" [ngClass]="title() != 'Webhooks' ? 'mb-4':''" #parent >
     <h1>{{title()}}</h1>
 </div>
 </div>

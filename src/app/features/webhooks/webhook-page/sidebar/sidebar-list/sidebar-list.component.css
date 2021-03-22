@@ -26,7 +26,7 @@
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     float: left;
-    width: 21px;
+    width: 15px;
   }
   #sidebar-nav .card .card-header a.active{
     font-weight:700;
@@ -46,7 +46,7 @@
     float: right;
     border-radius: 2px;
     font-size: 10px;
-    line-height: 18px;
+    line-height: 15px;
     font-weight: normal;
     color: #fff;
     padding: 1px 4px;

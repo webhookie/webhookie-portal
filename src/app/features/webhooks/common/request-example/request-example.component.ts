@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { VariableService } from '../../variable.service';
+import { VariableService } from '../variable.service';
+import * as $ from 'jquery';
 @Component({
-  selector: 'app-response',
-  templateUrl: './response.component.html',
-  styleUrls: ['./response.component.css']
+  selector: 'app-request-example',
+  templateUrl: './request-example.component.html',
+  styleUrls: ['./request-example.component.css']
 })
-export class ResponseComponent implements OnInit {
+export class RequestExampleComponent implements OnInit {
   jsonobj = {
-    "code": 200,
-    "status": "success",
+    "outcome": "success",
     "result": {
       "name": "messaging-sockets",
       "default-interface": "external",
@@ -33,18 +33,27 @@ export class ResponseComponent implements OnInit {
       }
     },
     "compensating-operation": null
-  }
+  };
 
   constructor(public variable: VariableService) { }
 
   ngOnInit(): void {
-    var str = JSON.stringify(this.jsonobj.result, null, '\t');
+    var str = JSON.stringify(this.jsonobj, null, '\t');
     this.output(this.variable.syntaxHighlight(str));
+    $(".key").attr('contentEditable', 'false');
+    $(".boolean").attr('contentEditable', 'true');
+    $(".string").attr('contentEditable', 'true');
+    $(".null").attr('contentEditable', 'true');
+    $(".number").attr('contentEditable', 'true');
   }
 
   output(inp: string) {
-    let myContainer = document.getElementById('json_res') as HTMLInputElement;
+    let myContainer = document.getElementById('json_str') as HTMLInputElement;
     myContainer.innerHTML = inp;
   }
-}
 
+  changeData(){
+    let myContainer = document.getElementById('json_str');
+    console.log(myContainer);   
+  }
+}

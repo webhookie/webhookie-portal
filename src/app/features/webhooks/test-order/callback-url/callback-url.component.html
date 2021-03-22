@@ -1,10 +1,10 @@
 <div class="call-back-url border-top">
   <fieldset class="p-3 mt-3 mr-lg-3">
     <form>
-      <label class="font14 font-weight-400">Callback URL</label>
+      <h4 class="font14 font-weight-400">Callback URL</h4>
       <div class="form-row">
         <div class="form-group col-md-2">
-          <select class="form-control text-uppercase">
+          <select class="custom-select text-uppercase">
             <option selected>Post</option>
             <option>Get</option>
           </select>
@@ -13,33 +13,25 @@
           <input type="text" class="form-control" value="https://www.volvocars.com/se">
         </div>
       </div>
-      <label class="font14 font-weight-400">Security</label>
-      <div class="form-group form-inline security-label">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="security">
-          <label class="font12">HMAC Signature</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="security">
-          <label class="font12">API key</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="security">
-          <label class="font12">None</label>
-        </div>
-      </div>
+      <h4 class="font14 font-weight-400">Security</h4>
+        <div class="custom-control custom-radio custom-control-inline security-label" *ngFor="let s of securityArr">  
+          <input class="custom-control-input" id="{{s}}" type="radio" name="security" (change)="security=s" [disabled]="s=='API key'" [checked]="security==s">
+          <label class="custom-control-label font12 pt-1" for="{{s}}">{{s}}</label>
+        </div>       
+      <div class="test-order-key" *ngIf="security=='HMAC Signature'">
       <div class="form-row">
         <div class="form-group col-md-8">
-          <label class="font14 font-weight-400">Key ID</label>
+          <label class="font14 font-weight-400 mb-1">Key ID</label>
           <input type="text" class="form-control" value="Key ID example">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-8">
-          <label class="font14 font-weight-400">Secret API Key</label>
+          <label class="font14 font-weight-400 mb-1">Secret API Key</label>
           <input type="text" class="form-control" value="Secret API Key example">
         </div>
       </div>
+    </div>
     </form>
   </fieldset>
 </div>

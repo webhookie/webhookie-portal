@@ -30,90 +30,91 @@
                       <p class="font12 mb-0">{{item.message}}</p>
                     </div>
                   </div>
-               <!-- ..... -->
-                <div class="card" *ngFor="let child of item.child;let l=index;">
-                  <div class="card-header">
-                    <a class="collapsed" data-toggle="collapse" href="#body-sub-collapse-{{l}}"
-                      class="font12 font-weight-600">
-                      {{child.label}}
-                      <span class="badge badge-primary ml-3 mr-2" *ngIf="child.type">
-                        {{child.type}}
-                      </span>
-                      <span class="badge badge-warning ml-3 mr-2" *ngIf="child.required==0">
-                        OPTIONAL
-                      </span>
-                      <span class="badge badge-danger ml-3 mr-2" *ngIf="child.required==1">
-                        REQUIRE
-                      </span>
-                    </a>
-                  </div>
-                  <div id="body-sub-collapse-{{l}}" class="collapse" *ngFor="let sub of child.sub_child">
-                    <div class="fixed-amount tree-view" *ngIf="sub.label=='Value'">
-                      <div class="col-2-set">
-                        <div>
-                          <h5 class="font12 mb-0 font-weight-600">{{sub.label}}</h5>
-                        </div>
-                        <div>
-                          <p class="font12 mb-0">
-                            <span *ngIf="sub.type">{{sub.type}}</span>
-                            <span class="badge badge-warning ml-3 mr-2" *ngIf="sub.required==0">
-                              OPTIONAL
-                            </span>
-                            <span class="badge badge-danger ml-3 mr-2" *ngIf="sub.required==1">
-                              REQUIRE
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="col-2-set">
-                        <div>
-                          <p class="font12 mb-0">{{sub.message}}</p>
-                        </div>
-                      </div>
-                      <div class="col-2-set">
-                        <div>
-                          <h5 class="font12 mb-0 font-weight-600">Min value</h5>
-                        </div>
-                        <div>
-                          <p class="font12 mb-0">{{sub.min_value}}</p>
-                        </div>
-                      </div>
-                      <div class="col-2-set">
-                        <div>
-                          <h5 class="font12 mb-0 font-weight-600">Max value</h5>
-                        </div>
-                        <div>
-                          <p class="font12 mb-0">{{sub.max_value}}</p>
-                        </div>
-                      </div>
-                      <div class="col-2-set">
-                        <div>
-                          <h5 class="font12 mb-0 font-weight-600">Example</h5>
-                        </div>
-                        <div>
-                          <p class="font12 mb-0">{{sub.example}}</p>
-                        </div>
-                      </div>
+                  <!-- ..... -->
+                  <div class="card" *ngFor="let child of item.child;let l=index;">
+                    <div class="card-header">
+                      <a class="collapsed" data-toggle="collapse" href="#body-sub-collapse-{{l}}"
+                        class="font12 font-weight-600">
+                        {{child.label}}
+                        <span class="badge badge-primary ml-3 mr-2" *ngIf="child.type">
+                          {{child.type}}
+                        </span>
+                        <span class="badge badge-warning ml-3 mr-2" *ngIf="child.required==0">
+                          OPTIONAL
+                        </span>
+                        <span class="badge badge-danger ml-3 mr-2" *ngIf="child.required==1">
+                          REQUIRE
+                        </span>
+                      </a>
                     </div>
-                    <div class="fixed-amount tree-view2" *ngIf="sub.label=='Currency'">
-                      <div class="col-2-set">
-                        <div>
-                          <h5 class="font12 mb-0 font-weight-600">{{sub.label}}</h5>
+                    <div id="body-sub-collapse-{{l}}" class="collapse" *ngFor="let sub of child.sub_child">
+                      <div class="fixed-amount tree-view" *ngIf="sub.label=='Value'">
+                        <div class="col-2-set">
+                          <div>
+                            <h5 class="font12 mb-0 font-weight-600">{{sub.label}}</h5>
+                          </div>
+                          <div>
+                            <p class="font12 mb-0">
+                              <span *ngIf="sub.type">{{sub.type}}</span>
+                              <span class="badge badge-warning ml-3 mr-2" *ngIf="sub.required==0">
+                                OPTIONAL
+                              </span>
+                              <span class="badge badge-danger ml-3 mr-2" *ngIf="sub.required==1">
+                                REQUIRE
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <div class="col-2-set">
+                          <div>
+                            <p class="font11 mb-0">{{sub.message}}</p>
+                          </div>
+                        </div>
+                        <div class="col-2-set">
+                          <div>
+                            <h5 class="font11 mb-0 font-weight-600">Min value</h5>
+                          </div>
+                          <div>
+                            <p class="font12 mb-0">{{sub.min_value}}</p>
+                          </div>
+                        </div>
+                        <div class="col-2-set">
+                          <div>
+                            <h5 class="font11 mb-0 font-weight-600">Max value</h5>
+                          </div>
+                          <div>
+                            <p class="font12 mb-0">{{sub.max_value}}</p>
+                          </div>
+                        </div>
+                        <div class="col-2-set">
+                          <div>
+                            <h5 class="font11 mb-0 font-weight-600">Example</h5>
+                          </div>
+                          <div>
+                            <p class="font12 mb-0">{{sub.example}}</p>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-2-set">
-                        <div>
-                          <p class="font12 mb-0">{{sub.message}}</p>
+                      <div class="fixed-amount tree-view2" *ngIf="sub.label=='Currency'">
+                        <div class="col-2-set">
+                          <div>
+                            <h5 class="font12 mb-0 font-weight-600">{{sub.label}}</h5>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-2-set">
-                        <div>
-                          <h5 class="font12 mb-0 font-weight-600">Pattern {{sub.pattern}}</h5>
+                        <div class="col-2-set">
+                          <div>
+                            <p class="font12 mb-0">{{sub.message}}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-2-set">
-                        <div>
-                          <h5 class="font12 mb-0 font-weight-600">Example {{sub.example}}</h5>
+                        <div class="col-2-set">
+                          <div>
+                            <h5 class="font11 mb-0 font-weight-600">Pattern {{sub.pattern}}</h5>
+                          </div>
+                        </div>
+                        <div class="col-2-set">
+                          <div>
+                            <h5 class="font11 mb-0 font-weight-600">Example {{sub.example}}</h5>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -126,5 +127,4 @@
       </div>
     </div>
   </div>
-</div>
 </div>
