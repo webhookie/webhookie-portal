@@ -22,7 +22,8 @@
 .sidebar-nav-before-active{
   color: #0A1E42;
   display: block;
-  margin: 0.8rem 1rem;
+  /* margin: 0.8rem 1rem; */
+  margin: 12px 16px 0px 21px;
   font-size: 14px;
 }
 .sidebar-nav-before-active:hover{

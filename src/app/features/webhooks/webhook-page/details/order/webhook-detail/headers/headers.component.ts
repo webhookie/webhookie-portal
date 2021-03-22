@@ -7,7 +7,7 @@ import * as $ from 'jquery';
 })
 export class HeadersComponent implements OnInit {
   headers:any={
-    'label':'Headings',
+    'label':'Headers',
     parent:[
       {
         'label':'Authorization',
@@ -40,8 +40,8 @@ export class HeadersComponent implements OnInit {
 
   ngOnInit(): void {
     $(document).ready(function () {
-      $("#header-accordion a").click(function () {
-        $(this).toggleClass("active");
+      $("#header-accordion a").click(function () { 
+        $(this).toggleClass("active").parent().parent().siblings().find('a').removeClass('active')
       });
     })
   }

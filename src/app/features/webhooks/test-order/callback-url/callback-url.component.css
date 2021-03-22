@@ -1,22 +1,38 @@
+.call-back-url .border-top{
+    border-color: #E5E5E5;
+}
 .call-back-url fieldset {
     border: 1px solid #E1E1E1;
-}
-.call-back-url form label {
-   color:#0A1E42;
 }
 .call-back-url input {
    font-size: 12px;
    border-radius: 2px;
    border-color: #E1E1E1;
+   height: 28px !important;
 }
-select.form-control {
+select.custom-select {
     font-size: 12px;
     border-radius: 2px;
     border-color:#E1E1E1;
+    height: 28px !important;
 }
 .security-label label {
     color: #253858;
+   
  }
-.call-back-url .form-check {
-    padding-right: 45px;
+.call-back-url .custom-control-inline {
+    padding-right: 25px;
 }
+.security-label .custom-control-input:checked~::after{
+    content: "\25CF" !important;
+    background-image: none;
+    font-size: 20px;
+    color: #1A73E8;
+    top: -3px;
+    left: -22px;
+}
+.security-label .custom-control-input:checked~::before{
+    background-color: #fff;
+    border-color: #B2B2B2;
+}
+

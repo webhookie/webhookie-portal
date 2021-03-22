@@ -47,6 +47,11 @@ export class SidebarListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    $(document).ready(function () {
+      $("#faq a").click(function () { 
+        $(this).toggleClass("active").parent().parent().siblings().find('a').removeClass('active')
+      });
+    })
   }
    Show(val:any){
   this.sidebarList[val].IsShow = !this.sidebarList[val].IsShow;

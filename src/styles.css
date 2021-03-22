@@ -7,7 +7,8 @@ body {
 }
 p{
     font-size:14px;
-    color:#253858;
+    /* color:#253858; */
+    color: #0A1E42;
 }
 h1{
     font-size: 35px;
@@ -56,21 +57,29 @@ h1{
 }
 .font-weight-600{
     font-weight:600 !important;
-  }
-  .font-weight-400{
+}
+.font-weight-400{
     font-weight:400 !important;
-  }
-  .font12{
+}
+.font11{
+    font-size:11px !important;
+    line-height: normal;
+}
+.font12{
     font-size:12px !important;
     line-height: normal;
-  }
-  .font14{
+}
+.font14{
     font-size:14px !important;
-  }
-  .font16{
-      font-size: 16px !important;
-  }
-  .light-mode span.key {
+}
+.font16{
+    font-size: 16px !important;
+}
+.font20{
+    font-size: 20px !important;
+}
+
+.light-mode span.key {
     color: #1A73E8 !important;
 }
 .light-mode.dark-mode-active span.key {

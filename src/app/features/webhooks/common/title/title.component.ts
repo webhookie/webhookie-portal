@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VariableService } from '../../variable.service';
+import { VariableService } from '../variable.service';
 
 @Component({
   selector: 'app-title',
