@@ -17,7 +17,6 @@ import { LogoComponent } from './core/layout/header/logo/logo.component';
 import { MenuComponent } from './core/layout/header/menu/menu.component';
 import { SearchComponent } from './core/layout/header/search/search.component';
 import { LoginGetStartedComponent } from './core/layout/header/login-get-started/login-get-started.component';
-import { SubscriptionsComponent } from './features/subscriptions/subscriptions.component';
 import { AuditLogComponent } from './features/audit-log/audit-log.component';
 import { DetailsComponent } from './features/webhooks/webhook-page/details/details.component';
 import { RequestExampleComponent } from './features/webhooks/common/request-example/request-example.component';
@@ -63,7 +62,6 @@ import {HttpClientModule} from "@angular/common/http";
     MenuComponent,
     SearchComponent,
     LoginGetStartedComponent,
-    SubscriptionsComponent,
     AuditLogComponent,
     DetailsComponent,
     RequestExampleComponent,

@@ -7,7 +7,6 @@ import { WebhookDetailComponent } from './features/webhooks/webhook-page/details
 import { ReviewsComponent } from './features/webhooks/webhook-page/details/order/reviews/reviews.component';
 import { SupportComponent } from './features/webhooks/webhook-page/details/order/support/support.component';
 import { Webhook1Component } from './features/webhooks/webhook-page/details/webhook1/webhook1.component';
-import { SubscriptionsComponent } from './features/subscriptions/subscriptions.component';
 import { AuditLogComponent } from './features/audit-log/audit-log.component';
 import { WebhookPageComponent } from './features/webhooks/webhook-page/webhook-page.component';
 import { TestOrderComponent } from './features/webhooks/test-order/test-order.component';
@@ -122,10 +121,11 @@ const routes: Routes = [
             },
             {
                 path: 'subscriptions',
-                component: SubscriptionsComponent,
                 data: {
                     breadcrumb: 'Subscriptions'
                 },
+                loadChildren: () => import('./features/subscriptions/subscriptions.module')
+                    .then(m => m.SubscriptionsModule)
             },
             {
                 path: 'traffic',
