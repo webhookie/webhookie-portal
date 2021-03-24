@@ -6,7 +6,7 @@ import { VariableService } from '../variable.service';
   styleUrls: ['./order-title.component.css']
 })
 export class OrderTitleComponent implements OnInit {
-  constructor(private variable:VariableService) { }
+  constructor(public variable:VariableService) { }
 
   ngOnInit(): void {}
   title(){

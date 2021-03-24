@@ -9,6 +9,7 @@ export class VariableService {
   test_res:boolean=false;
   subscribe_res:boolean=false;
   showText:boolean = false;
+  selectedWebhook:any;
   constructor(private breadcrumbService: BreadcrumbService) { 
     this.breadCrumbs();
   }

@@ -1,17 +1,22 @@
-<div class="subscribe-call-back">
+  <div class="subscribe-call-back">
     <fieldset class="p-3 mt-3 mr-lg-3">
-        <h4 class="font16">Add a callback URL</h4>
-        <p class="font12">Please select or create an application to add your callback URL.</p>
-      <form>
+      <h4 class="font16">Add a callback URL</h4>
+      <p class="font12">Please select or create an application to add your callback URL.</p>
+  
         <label class="font14 font-weight-400">Select your callback URL</label>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <select class="custom-select">
-              <option selected>Select your callback URL</option>
-              <option>Get</option>
-            </select>
+  
+        <div class="dropdown">
+          <button type="button" class="btn btn-warning dropdown-toggle w-50 text-left font12 font-weight-400 d-flex justify-content-between align-items-center" data-toggle="dropdown">
+            Select your callback URL
+          </button>
+          <div class="dropdown-menu w-50 font12 font-weight-400">
+            <!-- <button class="btn btn-default font-weight-400 font12" (click)="openModal(template1)"><i class="lni lni-plus mr-2"></i>Create New Application</button> -->
+            <!-- <div class="dropdown-divider"></div> -->
+            <a class="dropdown-item" href="javascript:void(0)">Ericsson</a>
+            <a class="dropdown-item" href="javascript:void(0)">Telia</a>
           </div>
         </div>
-      </form>
+  
     </fieldset>
   </div>
+

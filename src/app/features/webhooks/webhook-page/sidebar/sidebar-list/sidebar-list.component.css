@@ -39,7 +39,7 @@
     padding: 8px 15px 8px 44px;
   }
   #sidebar-nav .navbar-nav li a:hover{
-    background-color:#0151CC;
+    background-color:#0151ccab;
     color:#fff;
   }
   .badge{
@@ -57,7 +57,9 @@
  .badge-warning{
     background-color: #F69110;
   }
- 
+ .portionColor{
+   background-color: #0151CC !important;
+ }
   @media (max-width:992px) {
     #main #faq .collapse.show li a{
       padding: 8px 4px 8px 34px; 

@@ -1,19 +1,61 @@
 <div class="subscribe-application border-top">
   <fieldset class="p-3 mt-3 mr-lg-3">
-    <h4 class="font16">Your application</h4>
+    <h4 class="font16 font-weight-600">Your application</h4>
     <p class="font12">Please select or create an application to add your callback URL.</p>
-    <form>
-      <label class="font14 font-weight-400">Select your application</label>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <select class="custom-select">
-            <option selected disabled hidden>Select your application</option>         
-            <button class="btn btn-danger">anamika</button>         
-            <option>Ericsson</option>
-            <option>Telia</option>
-          </select>
+    <label class="font14 font-weight-400">Select your application</label>
+    <div class="dropdown">
+      <button type="button"
+        class="btn btn-warning dropdown-toggle w-50 text-left font-weight-400 font12 d-flex justify-content-between align-items-center"
+        data-toggle="dropdown">
+        Select your application
+      </button>
+      <div class="dropdown-menu w-50 font12 font-weight-400">
+        <button class="btn btn-default font-weight-400 font12" (click)="openModal(template1)"><i
+            class="lni lni-plus mr-2"></i>Create New Application</button>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="javascript:void(0)">Ericsson</a>
+        <a class="dropdown-item" href="javascript:void(0)">Telia</a>
+      </div>
+    </div>
+  </fieldset>
+</div>
+<div class="application-modal">
+  <ng-template #template1>
+    <div class="modal-header">
+      <h2 class="modal-title pull-left font16 font-weight-bold">Create new application</h2>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- **** -->
+      <div class="form-group">
+        <label for="name" class="font14 font-weight-400">Application name</label>
+        <input type="text" class="form-control" id="name" placeholder="Volvo cars">
+      </div>
+      <div class="form-group">
+        <label for="Description" class="font14 font-weight-400">Description</label>
+        <textarea class="form-control" rows="5" id="Description"
+          placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."></textarea>
+      </div>
+      <label for="name" class="font14 font-weight-400 mt-2">Consumer group</label>
+      <div class="dropdown">
+        <button type="button"
+          class="btn btn-warning dropdown-toggle w-50 text-left font12 font-weight-400 d-flex justify-content-between align-items-center"
+          data-toggle="dropdown">
+          2 consumers selected
+        </button>
+        <div class="dropdown-menu w-50 font12 font-weight-400">
+          <a class="dropdown-item" href="#">Consumers 1</a>
+          <a class="dropdown-item" href="#">Consumers 2</a>
         </div>
       </div>
-    </form>
-  </fieldset>
+      <!-- **** -->
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default  mx-2 cancel border" aria-label="Close"
+        (click)="modalRef.hide()">Cancel</button>
+      <button type="button" class="btn btn-primary mx-2">Create</button>
+    </div>
+  </ng-template>
 </div>
