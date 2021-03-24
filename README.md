@@ -1,6 +1,6 @@
-# Webhook
+# Webhookie Portal
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.0.
 
 ## Development server
 
@@ -25,3 +25,9 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+# Useful links:
+- [Angular App Architecture](https://medium.com/@tomastrajan/how-to-build-epic-angular-app-with-clean-architecture-91640ed1656)
+- [Angular HttpClient](https://www.techiediaries.com/angular/angular-httpclient-9-8-service-api-calls-and-fetching-data/)
+- [angular-oauth2-oidc](https://manfredsteyer.github.io/angular-oauth2-oidc/docs/index.html)
+- []()

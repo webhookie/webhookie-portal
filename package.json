@@ -1,9 +1,10 @@
 {
-  "name": "webhook",
+  "name": "webhookie-portal",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "auth0": "ng serve -c auth0",
+    "kc": "ng serve -c kc",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -22,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~11.2.1",
     "@angular/router": "~11.2.1",
     "angular-crumbs": "^3.0.1",
+    "angular-oauth2-oidc": "^10.0.3",
     "bootstrap": "^4.6.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",

@@ -1,4 +1,5 @@
 <div class="user-buttons">
-    <a routerLink="/" routerLinkActive="active" class="btn btn-default text-left">Login</a>
+    <button *ngIf="!loggedIn" (click)="login()" class="btn btn-default text-left">Login</button>
+    <button *ngIf="loggedIn" (click)="logout()" class="btn btn-default text-left">Logout</button>
     <a routerLink="/" routerLinkActive="active" class="btn btn-primary btn-primary-gradient">Get started</a>
 </div>

@@ -45,6 +45,7 @@ import { SubscribeOrderComponent } from './features/webhooks/subscribe-order/sub
 import { ApplicationComponent } from './features/webhooks/subscribe-order/application/application.component';
 import { CallbackComponent } from './features/webhooks/subscribe-order/callback/callback.component';
 import { RequestComponent } from './features/webhooks/webhook-page/request/request.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -91,13 +92,14 @@ import { RequestComponent } from './features/webhooks/webhook-page/request/reque
     RequestComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     CoreModule,
     AppRoutingModule,
     BreadcrumbModule,
     MatToolbarModule,
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../../../shared/auth.service";
 
 @Component({
   selector: 'app-login-get-started',
@@ -7,7 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginGetStartedComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly authService: AuthService) { }
+
+  logout() {
+    this.authService.logout();
+  }
+
+  login() {
+    this.authService.login();
+  }
+
+  get loggedIn() {
+    return this.authService.loggedIn
+  }
 
   ngOnInit(): void {
   }

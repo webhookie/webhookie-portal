@@ -1,26 +1,14 @@
-import { Component } from '@angular/core';
-import * as $ from 'jquery';
+import {Component} from '@angular/core';
+import {ConfigService} from "./shared/config.service";
 
 @Component({
-  selector: 'app-root',
+  selector: 'webhookie-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'webhook';
-  constructor(){
-
-  }
-  ngOnInit(){
-    // $(document).ready(function () {
-    //   $(".menu-toggle").click(function(e) {
-    //   e.preventDefault();
-    //   $(".menu-toggle").toggleClass("slide")
-    //   $("#wrapper").toggleClass("toggled");
-    //   $(this).find('i').toggleClass('fa-times fa-grip-lines');
-    //  });
-    // });
+  constructor(private readonly configService: ConfigService) {
+    this.configService.read()
   }
 }
-
-
