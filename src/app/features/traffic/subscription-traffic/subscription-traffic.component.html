@@ -10,7 +10,7 @@
       <th scope="col">Status</th>
     </tr>
     </thead>
-    <tr *ngFor="let span of spans$ | async">
+    <tr *ngFor="let span of spans() | async">
       <td>{{span.entity}}</td>
       <td>{{span.application}}</td>
       <td>{{span.topic}}</td>

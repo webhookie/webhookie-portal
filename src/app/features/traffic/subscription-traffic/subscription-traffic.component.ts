@@ -10,7 +10,6 @@ import {Span} from "../model/span";
 })
 export class SubscriptionTrafficComponent implements OnInit {
   private readonly _spans$: Subject<Span[]> = new ReplaySubject();
-  public readonly spans$: Observable<Span[]> = this._spans$.asObservable();
 
   constructor(
     private readonly spanService: SpanService,
@@ -19,5 +18,9 @@ export class SubscriptionTrafficComponent implements OnInit {
   ngOnInit(): void {
     this.spanService.readSpans()
       .subscribe( it => this._spans$.next(it));
+  }
+
+  spans(): Observable<Array<Span>> {
+    return this._spans$.asObservable();
   }
 }
