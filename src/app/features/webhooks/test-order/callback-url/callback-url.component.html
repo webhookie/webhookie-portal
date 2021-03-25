@@ -3,12 +3,23 @@
     <form>
       <h4 class="font14 font-weight-400">Callback URL</h4>
       <div class="form-row">
-        <div class="form-group col-md-2">
-          <select class="custom-select text-uppercase">
+        <!-- <div class="form-group col-md-2">
+          <select class="custom-select text-uppercase test-select">
             <option selected>Post</option>
             <option>Get</option>
           </select>
+        </div> -->
+        <div class="form-group col-md-2">
+        <div class="dropdown text-uppercase">
+          <button type="button" class="btn btn-warning dropdown-toggle text-left font12 font-weight-400 text-uppercase w-100 d-flex justify-content-between align-items-center" data-toggle="dropdown">
+           Post
+          </button>
+          <div class="dropdown-menu font12 font-weight-400">
+            <a class="dropdown-item" href="#">Post</a>
+            <a class="dropdown-item" href="#">Get</a>
+          </div>
         </div>
+      </div>
         <div class="form-group col-md-6">
           <input type="text" class="form-control" value="https://www.volvocars.com/se">
         </div>
@@ -18,7 +29,7 @@
           <input class="custom-control-input" id="{{s}}" type="radio" name="security" (change)="security=s" [disabled]="s=='API key'" [checked]="security==s">
           <label class="custom-control-label font12 pt-1" for="{{s}}">{{s}}</label>
         </div>       
-      <div class="test-order-key" *ngIf="security=='HMAC Signature'">
+      <div class="test-order-key mt-3" *ngIf="security=='HMAC Signature'">
       <div class="form-row">
         <div class="form-group col-md-8">
           <label class="font14 font-weight-400 mb-1">Key ID</label>

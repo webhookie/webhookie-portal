@@ -3,8 +3,8 @@
         <li *ngIf="variable.test_res && (title() == 'Test order webhook')">
             <form class="form-inline mr-2">
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="customCheck" (click)="subscribe=!subscribe" [checked]="subscribe">
-                  <label class="custom-control-label font12 pt-1" for="customCheck">Check this custom checkbox</label>
+                  <input type="checkbox" class="custom-control-input" id="customCheck" (change)="subscribe=!subscribe" [checked]="subscribe==true">
+                  <label class="custom-control-label font12 pt-1" for="customCheck">Use the same URL to subscribe</label>
                 </div>
               </form>
         </li>
@@ -16,24 +16,24 @@
         <li *ngIf="(title()!='Subscribe to order webhook')">
             <button class="btn mr-2 mr-md-0" [disabled]="(title() == 'Test order webhook')&& !subscribe?true:false"
                 [ngClass]="(title() == 'Test order webhook')&& !subscribe?'btn-default':'btn-primary'"
-                routerLink="/home/webhooks/subscribe-order">
+                routerLink="/webhooks/subscribe-order">
                 Subscribe
             </button>
         </li>
         <li>
-            <button class="btn btn-default" routerLink="/home/webhooks/test-order"
+            <button class="btn" routerLink="/webhooks/test-order"
                 [disabled]="(title() == 'Subscribe to order webhook')?true:false"
                 [ngClass]="(title() != 'Test order webhook')?'btn-default':'btn-primary test_color'" (click)="test()">
                 {{(variable.test_res && (title()=='Test order webhook'))?'Retest':'Test'}}
             </button>
         </li>
         <li *ngIf="(title()=='Subscribe to order webhook')">
-            <button class="btn btn-primary ml-md-2" routerLink="/home/webhooks/subscribe-order">
+            <button class="btn btn-primary ml-md-2" routerLink="/webhooks/subscribe-order">
                 Activate
             </button>
         </li>
         <!-- <li>
-            <button class="btn btn-primary" routerLink="/home/webhooks/subscribe-order">
+            <button class="btn btn-primary" routerLink="/webhooks/subscribe-order">
                 Publish
             </button>
         </li> -->
