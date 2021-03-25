@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {TraceService} from "../service/trace.service";
+import {Observable, ReplaySubject, Subject} from "rxjs";
+import {Span} from "../model/span";
+import {Trace} from "../model/trace";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -7,6 +10,7 @@ import {TraceService} from "../service/trace.service";
   styleUrls: ['./webhook-traffic.component.css']
 })
 export class WebhookTrafficComponent implements OnInit {
+  private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
 
   constructor(
     private readonly traceService: TraceService
@@ -14,7 +18,10 @@ export class WebhookTrafficComponent implements OnInit {
 
   ngOnInit(): void {
     this.traceService.readTraces()
-      .subscribe( i => console.warn("TRACES!"))
+      .subscribe( it => this._traces$.next(it))
   }
 
+  traces$(): Observable<Array<Trace>> {
+    return this._traces$.asObservable()
+  }
 }

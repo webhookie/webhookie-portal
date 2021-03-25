@@ -4,6 +4,8 @@ import {LogService} from "../../../shared/log.service";
 import {Observable} from "rxjs";
 import {HttpParams} from "@angular/common/http";
 import {map, tap} from "rxjs/operators";
+import {SpanAdapter} from "./span.adapter";
+import {TraceAdapter} from "./trace.adapter";
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +16,15 @@ export class TraceService {
   constructor(
     private readonly api: ApiService,
     private readonly log: LogService,
+    private readonly adapter: TraceAdapter
   ) { }
 
   readTraces(): Observable<any[]> {
-    const params = new HttpParams()
-      .set("status", "ISSUES");
+    const params = new HttpParams();
     return this.api.json(this.SPAN_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' traces`)))
       .pipe(map(list => {
-        return list.map((it: any) => {
-          this.log.warn(it);
-          return it
-          //this.adapter.adapt(it)
-        })
+        return list.map((it: any) => this.adapter.adapt(it))
       }))
   }
 }

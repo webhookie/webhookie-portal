@@ -9,7 +9,7 @@ import {Span} from "../model/span";
   styleUrls: ['./subscription-traffic.component.css']
 })
 export class SubscriptionTrafficComponent implements OnInit {
-  private readonly _spans$: Subject<Span[]> = new ReplaySubject();
+  private readonly _spans$: Subject<Array<Span>> = new ReplaySubject();
 
   constructor(
     private readonly spanService: SpanService,
@@ -20,7 +20,7 @@ export class SubscriptionTrafficComponent implements OnInit {
       .subscribe( it => this._spans$.next(it));
   }
 
-  spans(): Observable<Array<Span>> {
+  spans$(): Observable<Array<Span>> {
     return this._spans$.asObservable();
   }
 }
