@@ -20,7 +20,7 @@ export class SubTestDotButtonsComponent implements OnInit {
     return crumbs[crumbs.length-1].displayName;
   }  
   test(){
-    if(this.title()=='Test order webhook'){
+    if(this.title()!='Subscribe to order webhook'){
       this.router.navigateByUrl('/webhooks/test-order/'+this.variable.selectedWebhook.id)
       this.variable.test_res=true;
     }

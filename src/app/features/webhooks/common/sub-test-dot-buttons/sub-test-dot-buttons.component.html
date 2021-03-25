@@ -23,9 +23,9 @@
         </li>
         <li>
             <button class="btn"
-                [disabled]="!variable.callback?true:false"
-                [ngClass]="(title() != 'Test order webhook')?(!variable.callback?'disable-default':'btn-default'):'btn-primary test_color'" (click)="test()">
-                {{(variable.test_res || variable.subscribe_res  )?'Retest':'Test'}}
+                [disabled]="(title() != 'Webhooks') && !variable.callback?true:false"
+                [ngClass]="(title() != 'Test order webhook')?((title() != 'Webhooks') && !variable.callback?'disable-default':'btn-default'):'btn-primary test_color'" (click)="test()">
+                {{(variable.test_res && (title() == 'Test order webhook') || variable.subscribe_res && (title() == 'Subscribe to order webhook')  )?'Retest':'Test'}}
             </button>
         </li>
         <li *ngIf="(title()=='Subscribe to order webhook')">
