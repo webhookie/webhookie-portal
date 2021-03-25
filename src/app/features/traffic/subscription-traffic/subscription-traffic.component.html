@@ -1,1 +1,21 @@
-<p>subscription-traffic works!</p>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <caption>List of Spans</caption>
+    <thead>
+    <tr>
+      <th scope="col">Company</th>
+      <th scope="col">Application</th>
+      <th scope="col">Webhook</th>
+      <th scope="col">Callback URL</th>
+      <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tr *ngFor="let span of spans$ | async">
+      <td>{{span.entity}}</td>
+      <td>{{span.application}}</td>
+      <td>{{span.topic}}</td>
+      <td>{{span.callbackUrl}}</td>
+      <td>{{span.statusUpdate.status}}</td>
+    </tr>
+  </table>
+</div>
