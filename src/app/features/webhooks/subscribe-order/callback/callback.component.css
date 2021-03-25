@@ -11,6 +11,7 @@
     background-color: transparent;
     color: #253858;
     border-color: #E1E1E1;
+    width: 60%;
 }
 .subscribe-call-back .dropdown-divider{
     margin: .5rem;
@@ -28,8 +29,39 @@
     box-shadow: -2px 3px 10px #00000029;
     border-radius:2px;
     top: 2px !important;
+    width: 60%;
 }
 .subscribe-call-back  .dropdown-toggle:focus {
     border: 1px solid #006ADF;
     box-shadow: none;
+}
+
+.subscribe-call-back .dropdown-toggle::after{
+    content:url("../../../../../assets/images/Chevron_down.svg");
+  border: none;
+}
+.subscribe-call-back .dropdown-toggle.active:after{
+    /* content: "\f107"; */
+    content: url("../../../../../assets/images/Chevron_up.svg");
+  }
+.callback-read-only input{
+    height: 32px;
+    border: 1px solid #E1E1E1;
+    font-size: 12px;
+    color: #253858;
+}
+.callback-read-only input:focus{
+    box-shadow: none;
+    border: 1px solid #E1E1E1;
+}
+.callback-read-only label{
+    color: #253858 !important;
+}
+.isDisabled{
+    pointer-events:none;
+    color: #C6C6C6;
+}
+
+.isDisabled p{
+    color: #C6C6C6;
 }

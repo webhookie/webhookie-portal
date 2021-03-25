@@ -11,7 +11,11 @@ export class CallbackUrlComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    $(document).ready(function () {
+      $(".btn-warning").click(function () { 
+        $(this).toggleClass("active").parent().parent().siblings().find('after').removeClass('active')
+      });
+    })
   }
 
 }

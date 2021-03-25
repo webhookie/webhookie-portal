@@ -8,14 +8,16 @@
    font-size: 12px;
    border-radius: 2px;
    border-color: #E1E1E1;
-   height: 28px !important;
+   height: 32px !important;
 }
-/* select.custom-select {
-    font-size: 12px;
-    border-radius: 2px;
-    border-color:#E1E1E1;
-    height: 28px !important;
-} */
+.call-back-url .dropdown-toggle::after{
+    content:url("../../../../../assets/images/Chevron_down.svg");
+  border: none;
+}
+.call-back-url .dropdown-toggle.active:after{
+    /* content: "\f107"; */
+    content: url("../../../../../assets/images/Chevron_up.svg");
+  }
 .call-back-url .btn-warning{
     background-color: transparent;
     color: #253858;
@@ -25,15 +27,33 @@
     min-width: 7rem;
 }
 .call-back-url .btn-warning{
-    height: 28px;
+    height: 32px;
     border-radius: 2px;
 }
 .security-label label {
-    color: #253858;
-   
+    color: #253858; 
  }
 .call-back-url .custom-control-inline {
     padding-right: 25px;
+}
+.call-back-url .dropdown-menu.show {
+    border-color: #e1e1e1;
+    box-shadow: -2px 3px 10px #00000029;
+    border-radius:2px;
+    top: 2px !important;
+}
+.call-back-url .dropdown-toggle:focus {
+    border: 1px solid #006ADF;
+    box-shadow: none;
+}
+.call-back-url .form-control{
+    border:1px solid #e1e1e1;
+    font-size: 12px;
+    color: #253858;
+}
+.call-back-url .form-control:focus{
+    box-shadow: none;
+    border:1px solid #e1e1e1;
 }
 .security-label .custom-control-input:checked~::after{
     content: "\25CF" !important;
@@ -46,7 +66,13 @@
 .security-label .custom-control-input:checked~::before{
     background-color: #fff;
     border-color: #B2B2B2;
+    box-shadow: none;
 }
 .security-label input, label {
     cursor: pointer;
+}
+@media (max-width: 767px) {
+.call-back-url .custom-control-inline {
+    padding-right: 4px;
+}
 }

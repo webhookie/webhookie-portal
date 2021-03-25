@@ -10,6 +10,46 @@ export class VariableService {
   subscribe_res:boolean=false;
   showText:boolean = false;
   selectedWebhook:any;
+  app:boolean=false;
+  callback:boolean=false;
+  sideBarList:any=[
+    {
+      'title': 'Order management',
+      'IsShow':false,
+      'subList': [
+        {'id':'1' ,'title': 'Order', 'link': '/webhooks/webhooks-page/order', 'isNew': '1', 'isPublished': '1' },
+        { 'id':'2','title': 'Webhook 2', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        {  'id':'3','title': 'Webhook 3', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        { 'id':'4', 'title': 'Webhook 4', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        { 'id':'5', 'title': 'Webhook 5', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        { 'id':'6', 'title': 'Webhook 6', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '0' }
+      ]
+    },
+    {
+      'title': 'Product catalog',
+      'IsShow':false,
+      'subList': [
+        {  'id':'7','title': 'Order', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        { 'id':'8', 'title': 'Webhook 2', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        {  'id':'9','title': 'Webhook 3', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        {  'id':'10','title': 'Webhook 4', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        { 'id':'11', 'title': 'Webhook 5', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        {  'id':'12','title': 'Webhook 6', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' }
+      ]
+    },
+    {
+      'title': 'Order management',
+      'IsShow':false,
+      'subList': [
+        {  'id':'13','title': 'Order', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        { 'id':'14', 'title': 'Webhook 2', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        { 'id':'15', 'title': 'Webhook 3', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        { 'id':'16', 'title': 'Webhook 4', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        { 'id':'17', 'title': 'Webhook 5', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
+        {  'id':'18','title': 'Webhook 6', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' }
+      ]
+    }
+  ];
   constructor(private breadcrumbService: BreadcrumbService) { 
     this.breadCrumbs();
   }

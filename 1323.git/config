@@ -1,0 +1,53 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/narendra-sharma/LianWebhooks.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[branch "commitCode"]
+	remote = origin
+	merge = refs/heads/commitCode
+[branch "%march,Changes"]
+	remote = origin
+	merge = refs/heads/%march,Changes
+[branch "9March,changes"]
+	remote = origin
+	merge = refs/heads/9March,changes
+[branch "10marchChanges"]
+	remote = origin
+	merge = refs/heads/10marchChanges
+[branch "11March,Changes"]
+	remote = origin
+	merge = refs/heads/11March,Changes
+[branch "12MarchChanges"]
+	remote = origin
+	merge = refs/heads/12MarchChanges
+[branch "15marchChanges"]
+	remote = origin
+	merge = refs/heads/15marchChanges
+[branch "16MarchChanges"]
+	remote = origin
+	merge = refs/heads/16MarchChanges
+[branch "17MarchChanges"]
+	remote = origin
+	merge = refs/heads/17MarchChanges
+[branch "18MarchChanges"]
+	remote = origin
+	merge = refs/heads/18MarchChanges
+[branch "19marchChanges"]
+	remote = origin
+	merge = refs/heads/19marchChanges
+[branch "20MarchChanges"]
+	remote = origin
+	merge = refs/heads/20MarchChanges
+[branch "22MrachChanges"]
+	remote = origin
+	merge = refs/heads/22MrachChanges
+[branch "23MarchChanges"]
+	remote = origin
+	merge = refs/heads/23MarchChanges

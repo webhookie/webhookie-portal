@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TestOrderComponent } from './test-order/test-order.component';
 import { SubscribeOrderComponent } from './subscribe-order/subscribe-order.component';
 import { WebhookPageComponent } from './webhook-page/webhook-page.component';
+import { CongratsComponent } from './subscribe-order/congrats/congrats.component';
 const routes: Routes =  [
   
           {
@@ -16,7 +17,7 @@ const routes: Routes =  [
               loadChildren: () => import('./webhook-page/webhook-page.module').then(m => m.WebhookPageModule),            
           },
           {
-              path: 'test-order',
+              path: 'test-order/:webhookId',
               component: TestOrderComponent,
               data: {
                   breadcrumb: 'Test order webhook'
@@ -24,13 +25,16 @@ const routes: Routes =  [
 
           },
           {
-              path: 'subscribe-order',
+              path: 'subscribe-order/:webhookId',
               component: SubscribeOrderComponent,
               data: {
                   breadcrumb: 'Subscribe to order webhook'
               },
-
-          },    
+          },   
+          {
+            path: 'congrats',
+            component: CongratsComponent,               
+         } 
   
 ]
 @NgModule({

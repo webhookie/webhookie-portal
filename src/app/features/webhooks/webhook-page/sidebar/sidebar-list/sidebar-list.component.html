@@ -9,7 +9,7 @@
             <div id="faq{{i}}" class="collapse" data-parent="#faq">
                 <ul class="navbar-nav">
                     <li class="nav-item" *ngFor="let sub of list.subList" >
-                        <a class="nav-link" routerLink="{{sub.link}}" [ngClass]="(sub==variable.selectedWebhook)?'portionColor':''" routerLinkActive="active" (click)="variable.selectedWebhook=sub">
+                        <a class="nav-link" routerLink="{{sub.link}}" [ngClass]="(sub==variable.selectedWebhook)?'portionColor':''" routerLinkActive="active" (click)="selectedWeb(sub)">
                             {{sub.title}}
                             <span class="badge badge-primary" *ngIf="sub.isNew==1">
                                 New

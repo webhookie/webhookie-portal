@@ -11,6 +11,7 @@ import { HomeModule } from './features/home/home.module';
 import { WebhookCommonModule } from './features/webhooks/common/webhook-common.module';
 import { CommonModule } from '@angular/common';
 import { SubscriptionsModule } from './features/subscriptions/subscriptions.module';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { SubscriptionsModule } from './features/subscriptions/subscriptions.modu
     ModalModule.forRoot(), 
     HomeModule,
     SubscriptionsModule,
-    WebhookCommonModule
+    WebhookCommonModule,
+    ReactiveFormsModule
   ],
   
   providers: [BsModalRef],

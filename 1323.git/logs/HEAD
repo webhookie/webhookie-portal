@@ -1,0 +1,34 @@
+0000000000000000000000000000000000000000 6f62dc1543618900c9b863a1f4e0eba226c070e2 vision <visionvivante@gmail.com> 1614784621 +0530	commit (initial): first commit
+6f62dc1543618900c9b863a1f4e0eba226c070e2 c7e261004769ee1a5c3ebcb3776675f58cd66144 vision <visionvivante@gmail.com> 1614786010 +0530	commit: first commit-1
+c7e261004769ee1a5c3ebcb3776675f58cd66144 c7e261004769ee1a5c3ebcb3776675f58cd66144 vision <visionvivante@gmail.com> 1614844040 +0530	checkout: moving from master to commitCode
+c7e261004769ee1a5c3ebcb3776675f58cd66144 38da4dcad3f741f183abe581795f2824c09d9784 vision <visionvivante@gmail.com> 1614844139 +0530	commit: commitCode
+38da4dcad3f741f183abe581795f2824c09d9784 b4e6081501d404f19fc61ca6d4bad5c17a21e22b vision <visionvivante@gmail.com> 1614848217 +0530	commit: fonts
+b4e6081501d404f19fc61ca6d4bad5c17a21e22b b4e6081501d404f19fc61ca6d4bad5c17a21e22b vision <visionvivante@gmail.com> 1614954882 +0530	checkout: moving from commitCode to %march,Changes
+b4e6081501d404f19fc61ca6d4bad5c17a21e22b 5bcdda583a3013a8942fb5412f759dfa198df373 vision <visionvivante@gmail.com> 1614955005 +0530	commit: 5March,Changes
+5bcdda583a3013a8942fb5412f759dfa198df373 9b31ec5be0f404cc6cd4b08da6f112613e09524c vision <visionvivante@gmail.com> 1615018455 +0530	commit: design Changes
+9b31ec5be0f404cc6cd4b08da6f112613e09524c 9b31ec5be0f404cc6cd4b08da6f112613e09524c vision <visionvivante@gmail.com> 1615298794 +0530	checkout: moving from %march,Changes to 9March,changes
+9b31ec5be0f404cc6cd4b08da6f112613e09524c f87b0668eaf6c814cb5bfdd5e25e33241eb4ef6c vision <visionvivante@gmail.com> 1615298892 +0530	commit: 9March,Components
+f87b0668eaf6c814cb5bfdd5e25e33241eb4ef6c f87b0668eaf6c814cb5bfdd5e25e33241eb4ef6c vision <visionvivante@gmail.com> 1615385678 +0530	checkout: moving from 9March,changes to 10marchChanges
+f87b0668eaf6c814cb5bfdd5e25e33241eb4ef6c 17a417b7fc87a2b003f32839f95883536e8cacb7 vision <visionvivante@gmail.com> 1615385773 +0530	commit: 10mrachChanges
+17a417b7fc87a2b003f32839f95883536e8cacb7 17a417b7fc87a2b003f32839f95883536e8cacb7 vision <visionvivante@gmail.com> 1615473590 +0530	checkout: moving from 10marchChanges to 11March,Changes
+17a417b7fc87a2b003f32839f95883536e8cacb7 6adcaa5cc5c8c533373e107e8310af88e173423a vision <visionvivante@gmail.com> 1615473730 +0530	commit: 11March,Changes
+6adcaa5cc5c8c533373e107e8310af88e173423a 6adcaa5cc5c8c533373e107e8310af88e173423a vision <visionvivante@gmail.com> 1615557881 +0530	checkout: moving from 11March,Changes to 12MarchChanges
+6adcaa5cc5c8c533373e107e8310af88e173423a 30688599098e20f588ae3a3ebcdeccc72883bd5f vision <visionvivante@gmail.com> 1615558116 +0530	commit: 12marchchanges
+30688599098e20f588ae3a3ebcdeccc72883bd5f 30688599098e20f588ae3a3ebcdeccc72883bd5f vision <visionvivante@gmail.com> 1615817525 +0530	checkout: moving from 12MarchChanges to 15marchChanges
+30688599098e20f588ae3a3ebcdeccc72883bd5f 2956032567cde6c63cc671a8afff48da487aa94a vision <visionvivante@gmail.com> 1615817610 +0530	commit: 15march,Changes
+2956032567cde6c63cc671a8afff48da487aa94a 2956032567cde6c63cc671a8afff48da487aa94a vision <visionvivante@gmail.com> 1615905387 +0530	checkout: moving from 15marchChanges to 16MarchChanges
+2956032567cde6c63cc671a8afff48da487aa94a da7132b385834191812a834e98876947228a6dca vision <visionvivante@gmail.com> 1615905459 +0530	commit: 16marchChanges
+da7132b385834191812a834e98876947228a6dca da7132b385834191812a834e98876947228a6dca vision <visionvivante@gmail.com> 1615989668 +0530	checkout: moving from 16MarchChanges to 17MarchChanges
+da7132b385834191812a834e98876947228a6dca 10c97f9f314827d98fd3192a734886cc713b4ed4 vision <visionvivante@gmail.com> 1615989746 +0530	commit: 17MarchChanges
+10c97f9f314827d98fd3192a734886cc713b4ed4 10c97f9f314827d98fd3192a734886cc713b4ed4 vision vivante <visionvivante@gmail.com> 1616058393 +0530	checkout: moving from 17MarchChanges to 18MarchChanges
+10c97f9f314827d98fd3192a734886cc713b4ed4 46b96fb6b5e870c30e8489d3eee848ac5c527bc7 vision vivante <visionvivante@gmail.com> 1616075080 +0530	commit: 18MarchChanges
+46b96fb6b5e870c30e8489d3eee848ac5c527bc7 f1e4098dc1122787e8766dab7e968a82ff4193c0 vision vivante <visionvivante@gmail.com> 1616076366 +0530	commit: 18March,evening
+f1e4098dc1122787e8766dab7e968a82ff4193c0 f1e4098dc1122787e8766dab7e968a82ff4193c0 vision vivante <visionvivante@gmail.com> 1616162565 +0530	checkout: moving from 18MarchChanges to 19marchChanges
+f1e4098dc1122787e8766dab7e968a82ff4193c0 be2b8af6f0d71e332a87b5c04ed75f40438e0ed7 vision vivante <visionvivante@gmail.com> 1616162611 +0530	commit: 19MarchChanges
+be2b8af6f0d71e332a87b5c04ed75f40438e0ed7 be2b8af6f0d71e332a87b5c04ed75f40438e0ed7 vision vivante <visionvivante@gmail.com> 1616245347 +0530	checkout: moving from 19marchChanges to 20MarchChanges
+be2b8af6f0d71e332a87b5c04ed75f40438e0ed7 12260e60a1d318453b67ec04d08eb5206f52f845 vision vivante <visionvivante@gmail.com> 1616245383 +0530	commit: 20MarchChanges
+12260e60a1d318453b67ec04d08eb5206f52f845 f4bf5b82244581e74b946edf587405044d0c276d vision vivante <visionvivante@gmail.com> 1616247214 +0530	commit: 20MarchUpdate
+f4bf5b82244581e74b946edf587405044d0c276d f4bf5b82244581e74b946edf587405044d0c276d vision vivante <visionvivante@gmail.com> 1616421605 +0530	checkout: moving from 20MarchChanges to 22MrachChanges
+f4bf5b82244581e74b946edf587405044d0c276d c35851ada68d7aab9e00b216278ea0ae86826887 vision vivante <visionvivante@gmail.com> 1616421653 +0530	commit: 22MarchChanges
+c35851ada68d7aab9e00b216278ea0ae86826887 c35851ada68d7aab9e00b216278ea0ae86826887 vision vivante <visionvivante@gmail.com> 1616541630 +0530	checkout: moving from 22MrachChanges to 23MarchChanges
+c35851ada68d7aab9e00b216278ea0ae86826887 7f8503328b2d4f88f1ff1704c57e15ac1db8945c vision vivante <visionvivante@gmail.com> 1616541695 +0530	commit: 23MarchChanges
