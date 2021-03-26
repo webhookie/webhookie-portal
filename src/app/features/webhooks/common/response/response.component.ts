@@ -38,11 +38,15 @@ export class ResponseComponent implements OnInit {
   constructor(public variable: VariableService) { }
 
   ngOnInit(): void {
-      var str = JSON.stringify(this.jsonobj.result, null, '\t');
-      this.output(this.variable.syntaxHighlight(str));
+    this.variable.test_res=false;
+    this.variable.subscribe_res=false;
    
   }
-
+  getResponse(){
+    var str = JSON.stringify(this.jsonobj.result, null, '\t');
+    this.output(this.variable.syntaxHighlight(str));
+    return this.jsonobj.code;
+  }
   output(inp: string) {
     let myContainer = document.getElementById('json_res') as HTMLInputElement;
     myContainer.innerHTML = inp;

@@ -11,6 +11,7 @@ export class VariableService {
   showText:boolean = false;
   selectedWebhook:any;
   app:boolean=false;
+  appName:any='';
   callback:boolean=false;
   sideBarList:any=[
     {

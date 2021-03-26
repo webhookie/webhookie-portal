@@ -11,6 +11,7 @@ import { WebhookPageComponent } from './webhook-page.component';
 import { WebhookPageRoutingModule } from './webhook-page-routing.module';
 import { OrderModule } from './details/order/order.module'
 import { WebhookCommonModule } from '../common/webhook-common.module';
+import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
 @NgModule({
   declarations: [
     WebhookPageComponent,
@@ -21,6 +22,7 @@ import { WebhookCommonModule } from '../common/webhook-common.module';
     SidebarSearchComponent,
     TitleToggleComponent,
     SidebarListComponent,
+    CreateWebhookComponent,
 
     
   ],

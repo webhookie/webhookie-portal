@@ -33,7 +33,7 @@
 .security-label label {
     color: #253858; 
  }
-.call-back-url .custom-control-inline {
+.call-back-url .custom-control-padding {
     padding-right: 25px;
 }
 .call-back-url .dropdown-menu.show {
@@ -71,8 +71,11 @@
 .security-label input, label {
     cursor: pointer;
 }
+.fieldset_border{
+    border:none !important;
+}
 @media (max-width: 767px) {
-.call-back-url .custom-control-inline {
+.call-back-url .custom-control-padding {
     padding-right: 4px;
 }
 }

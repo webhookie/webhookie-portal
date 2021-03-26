@@ -29,8 +29,9 @@
     border-color:#BFBFBF;
 }
 .diable-primary{
-    color: #C6C6C6;
-    background-color: #E5E5E5;
+    color: #C6C6C6 !important;
+    background-color: #E5E5E5 !important;
+
 }    
 .dot-buttons input, label {
     cursor: pointer;

@@ -91,3 +91,19 @@
 .modal-footer .btn {
     padding: 4px 12px;
 }
+.consumer-value ul{
+    list-style-type:none;
+    padding: 0;
+}
+.consumer-value ul li{
+    margin-right: 8px;
+    background-color: #F4F5F7;
+    border-radius: 16px;
+    padding: 2px 6px;
+    font-size: 14px;
+    border: 1px solid #E1E1E1;
+}
+.consumer-value li a{
+   text-decoration: none;
+   color: #0A1E42;
+}

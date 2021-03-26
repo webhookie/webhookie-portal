@@ -20,12 +20,17 @@ export class SubTestDotButtonsComponent implements OnInit {
     return crumbs[crumbs.length-1].displayName;
   }  
   test(){
-    if(this.title()!='Subscribe to order webhook'){
-      this.router.navigateByUrl('/webhooks/test-order/'+this.variable.selectedWebhook.id)
+    if(this.title()=='Test order webhook'){  
+      this.router.navigateByUrl('/webhooks/test-order/'+this.variable.selectedWebhook.id);    
       this.variable.test_res=true;
     }
     if(this.title()=='Subscribe to order webhook'){
       this.variable.subscribe_res=true;
+    }
+    if(this.title()=='Webhooks'){
+      this.router.navigateByUrl('/webhooks/test-order/'+this.variable.selectedWebhook.id);
+      this.variable.test_res=false;
+      this.variable.appName='';
     }
   }
   openModal(template: TemplateRef<any>) {

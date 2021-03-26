@@ -23,13 +23,13 @@
         </li>
         <li>
             <button class="btn"
-                [disabled]="(title() != 'Webhooks') && !variable.callback?true:false"
+                [disabled]="(title() == 'Test order webhook')?false:((title() != 'Webhooks') && !variable.callback?true:false)"
                 [ngClass]="(title() != 'Test order webhook')?((title() != 'Webhooks') && !variable.callback?'disable-default':'btn-default'):'btn-primary test_color'" (click)="test()">
                 {{(variable.test_res && (title() == 'Test order webhook') || variable.subscribe_res && (title() == 'Subscribe to order webhook')  )?'Retest':'Test'}}
             </button>
         </li>
         <li *ngIf="(title()=='Subscribe to order webhook')">
-            <button class="btn ml-md-2" routerLink="/webhooks/congrats" [ngClass]="!variable.subscribe_res?'btn-primary':'btn-primary'" [disabled]="!variable.subscribe_res?true:false">
+            <button class="btn ml-md-2" routerLink="/webhooks/congrats" [ngClass]="!variable.subscribe_res?'diable-primary':'btn-primary'" [disabled]="!variable.subscribe_res?true:false">
                 Activate
             </button>
         </li>

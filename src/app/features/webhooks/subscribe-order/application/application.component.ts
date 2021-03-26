@@ -32,11 +32,11 @@ export class ApplicationComponent implements OnInit {
   }
 
   selectApp(val:any){
-    this.appSelected=val;
+    this.variable.appName=this.appSelected=val;
     this.variable.app=true;
   }
   create(){
-    this.appSelected='Volvo cars';
+    this.variable.appName=this.appSelected='Volvo cars';
     this.variable.app=true;
     this.modalRef.hide();
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import{VariableService}from 'src/app/features/webhooks/common/variable.service';
 import * as $ from 'jquery';
 @Component({
   selector: 'app-callback-url',
@@ -8,7 +9,7 @@ import * as $ from 'jquery';
 export class CallbackUrlComponent implements OnInit {
   securityArr:any=['HMAC Signature','API key','None'];
   security:any="None"
-  constructor() { }
+  constructor(public variable: VariableService) { }
 
   ngOnInit(): void {
     $(document).ready(function () {
