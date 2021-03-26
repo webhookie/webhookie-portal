@@ -29,7 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeModule,
     SubscriptionsModule,
     WebhookCommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   
   providers: [BsModalRef],

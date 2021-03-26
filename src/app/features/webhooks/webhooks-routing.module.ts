@@ -4,6 +4,7 @@ import { TestOrderComponent } from './test-order/test-order.component';
 import { SubscribeOrderComponent } from './subscribe-order/subscribe-order.component';
 import { WebhookPageComponent } from './webhook-page/webhook-page.component';
 import { CongratsComponent } from './subscribe-order/congrats/congrats.component';
+import { CreateWebhookComponent } from './webhook-page/create-webhook/create-webhook.component';
 const routes: Routes =  [
   
           {
@@ -30,7 +31,14 @@ const routes: Routes =  [
               data: {
                   breadcrumb: 'Subscribe to order webhook'
               },
-          },   
+          }, 
+          {
+            path: 'create-webhook',
+            component: CreateWebhookComponent,
+            data: {
+                breadcrumb: 'Create new webhook group'
+            },
+        },  
           {
             path: 'congrats',
             component: CongratsComponent,               

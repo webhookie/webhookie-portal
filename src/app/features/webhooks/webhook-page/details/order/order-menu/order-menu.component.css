@@ -11,4 +11,5 @@
 .order-menu ul li .active{
     border-bottom: 1px solid #0151CC;
     color: #0151CC;
+    font-weight: 600;
 }
