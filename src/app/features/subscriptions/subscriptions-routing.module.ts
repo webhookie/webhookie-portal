@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {SubscriptionsHomeComponent} from "./home/subscriptions-home.component";
-import {ConsumerSubscriptionsComponent} from "./consumer-subscriptions/consumer-subscriptions.component";
-import {ProviderSubscriptionsComponent} from "./provider-subscriptions/provider-subscriptions.component";
+import {SubscriptionsComponent} from "./subscriptions/subscriptions.component";
 
 
 const routes: Routes = [
@@ -12,11 +11,17 @@ const routes: Routes = [
     children: [
       {
         path: 'consumer',
-        component: ConsumerSubscriptionsComponent
+        component: SubscriptionsComponent,
+        data: {
+          role: "CONSUMER"
+        }
       },
       {
         path: 'provider',
-        component: ProviderSubscriptionsComponent
+        component: SubscriptionsComponent,
+        data: {
+          role: "PROVIDER"
+        }
       }
     ]
   }

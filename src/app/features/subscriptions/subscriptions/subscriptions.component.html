@@ -10,7 +10,7 @@
       <th scope="col">Status</th>
     </tr>
     </thead>
-    <tr *ngFor="let subscription of subscriptions$ | async">
+    <tr *ngFor="let subscription of _subscriptions$.asObservable() | async">
       <td>{{subscription.application.entity}}</td>
       <td>{{subscription.application.name}}</td>
       <td>{{subscription.topic}}</td>

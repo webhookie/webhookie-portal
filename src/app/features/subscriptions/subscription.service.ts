@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {Subscription} from "../../shared/model/subscription";
 import {ApiService} from "../../shared/api.service";
@@ -11,8 +11,6 @@ import {HttpParams} from "@angular/common/http";
   providedIn: 'root'
 })
 export class SubscriptionService {
-  private readonly CONSUMER_ROLE = "CONSUMER";
-  private readonly PROVIDER_ROLE = "PROVIDER";
   private SUBSCRIPTIONS_URI = "/subscriptions";
 
   constructor(
@@ -21,17 +19,9 @@ export class SubscriptionService {
     private readonly adapter: SubscriptionAdapter
   ) { }
 
-  mySubscriptions(): Observable<Subscription[]> {
-    return this.fetchSubscriptions(this.CONSUMER_ROLE);
-  }
-
-  myWebhookSubscriptions(): Observable<Subscription[]> {
-    return this.fetchSubscriptions(this.PROVIDER_ROLE);
-  }
-
-  private fetchSubscriptions(role: string): Observable<Subscription[]> {
+  fetchSubscriptions(role: String): Observable<Subscription[]> {
     const params = new HttpParams()
-      .set("role", role);
+      .set("role", role.valueOf());
     return this.api.json(this.SUBSCRIPTIONS_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' subscriptions`)))
       .pipe(map(list => {
