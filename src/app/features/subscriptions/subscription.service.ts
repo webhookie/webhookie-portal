@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {Subscription} from "../../shared/model/subscription";
+import {Subscription} from "./subscription";
 import {ApiService} from "../../shared/api.service";
 import {LogService} from "../../shared/log.service";
 import {map, tap} from "rxjs/operators";
-import {SubscriptionAdapter} from "../../shared/adapter/subscription.adapter";
+import {SubscriptionAdapter} from "./subscription.adapter";
 import {HttpParams} from "@angular/common/http";
 
 @Injectable({
