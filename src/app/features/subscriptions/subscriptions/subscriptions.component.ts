@@ -11,7 +11,7 @@ import {map, mergeMap} from "rxjs/operators";
   styleUrls: ['./subscriptions.component.css']
 })
 export class SubscriptionsComponent implements OnInit {
-  readonly _subscriptions$: Subject<Subscription[]> = new ReplaySubject();
+  readonly _subscriptions$: Subject<Array<Subscription>> = new ReplaySubject();
 
   constructor(
     private readonly route: ActivatedRoute,
