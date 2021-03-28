@@ -11,6 +11,8 @@ import {HttpParams} from "@angular/common/http";
   providedIn: 'root'
 })
 export class SubscriptionService {
+  private readonly CONSUMER_ROLE = "CONSUMER";
+  private readonly PROVIDER_ROLE = "PROVIDER";
   private SUBSCRIPTIONS_URI = "/subscriptions";
 
   constructor(
@@ -19,7 +21,15 @@ export class SubscriptionService {
     private readonly adapter: SubscriptionAdapter
   ) { }
 
-  mySubscriptions(role: string): Observable<Subscription[]> {
+  mySubscriptions(): Observable<Subscription[]> {
+    return this.fetchSubscriptions(this.CONSUMER_ROLE);
+  }
+
+  myWebhookSubscriptions(): Observable<Subscription[]> {
+    return this.fetchSubscriptions(this.PROVIDER_ROLE);
+  }
+
+  private fetchSubscriptions(role: string): Observable<Subscription[]> {
     const params = new HttpParams()
       .set("role", role);
     return this.api.json(this.SUBSCRIPTIONS_URI, params)

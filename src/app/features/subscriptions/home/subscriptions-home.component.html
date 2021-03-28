@@ -1,29 +1,11 @@
-<div class="table-responsive">
-  <ul class="nav nav-pills">
-    <li class="nav-item">
-      <button class="nav-link" (click)="asConsumer()">Your subscriptions</button>
-    </li>
-    <li class="nav-item">
-      <button class="nav-link" (click)="asProvider()">Your webhook subscriptions</button>
-    </li>
-  </ul>
-  <table class="table table-bordered table-hover">
-    <caption>List of subscriptions</caption>
-    <thead>
-    <tr>
-      <th scope="col">Company</th>
-      <th scope="col">Application</th>
-      <th scope="col">Webhook</th>
-      <th scope="col">Callback URL</th>
-      <th scope="col">Status</th>
-    </tr>
-    </thead>
-    <tr *ngFor="let subscription of subscriptions$ | async">
-      <td>{{subscription.application.entity}}</td>
-      <td>{{subscription.application.name}}</td>
-      <td>{{subscription.topic}}</td>
-      <td>{{subscription.callback.url}}</td>
-      <td>{{subscription.statusUpdate.status}}</td>
-    </tr>
-  </table>
-</div>
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a mat-button routerLink="consumer" routerLinkActive="selected">Your subscriptions</a>
+  </li>
+  &nbsp;|&nbsp;
+  <li class="nav-item">
+    <a mat-button routerLink="provider">Your webhook subscriptions</a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>
