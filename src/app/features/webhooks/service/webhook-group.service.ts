@@ -4,7 +4,7 @@ import {LogService} from "../../../shared/log.service";
 import {Observable} from "rxjs";
 import {map, tap} from "rxjs/operators";
 import {WebhookGroupAdapter} from "./webhook-group.adapter";
-import {WebhookGroup} from "./webhook-group";
+import {WebhookGroup} from "../model/webhook-group";
 
 @Injectable({
   providedIn: 'root'

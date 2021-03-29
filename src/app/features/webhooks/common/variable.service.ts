@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {BreadcrumbService} from 'angular-crumbs';
-import {Topic} from "../webhook-page/webhook-group";
 import {WebhookGroupElement} from "../webhook-page/sidebar/sidebar-list/webhook-group-element";
 import {ReplaySubject, Subject} from "rxjs";
+import {Topic} from "../model/webhook-group";
 
 @Injectable({
   providedIn: 'root'

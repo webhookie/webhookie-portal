@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {VariableService} from '../../../common/variable.service';
 import {ReplaySubject, Subject} from "rxjs";
-import {WebhookGroupService} from "../../webhook-group.service";
 import {filter, map} from "rxjs/operators";
 import {WebhookGroupElement} from "./webhook-group-element";
+import {WebhookGroupService} from "../../../service/webhook-group.service";
 
 @Component({
   selector: 'app-sidebar-list',

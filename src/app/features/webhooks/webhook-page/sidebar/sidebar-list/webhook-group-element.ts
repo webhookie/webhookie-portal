@@ -1,4 +1,4 @@
-import {Topic} from "../../webhook-group";
+import {Topic} from "../../../model/webhook-group";
 
 export class WebhookGroupElement {
   constructor(
