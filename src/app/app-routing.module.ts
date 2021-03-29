@@ -1,23 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './features/home/home.component';
 import {WebhooksComponent} from './features/webhooks/webhooks.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'webhooks',
     pathMatch: 'full'
 
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-    data: {
-      breadcrumb: 'Home',
-    },
-    loadChildren: () => import('./features/home/home.module')
-      .then(m => m.HomeModule),
   },
   {
     path: 'webhooks',

@@ -6,15 +6,14 @@ import { BreadcrumbModule } from 'angular-crumbs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
-import { ModalModule,BsModalRef } from 'ngx-bootstrap/modal';  
-import { HomeModule } from './features/home/home.module';
+import { ModalModule,BsModalRef } from 'ngx-bootstrap/modal';
 import { WebhookCommonModule } from './features/webhooks/common/webhook-common.module';
 import { CommonModule } from '@angular/common';
 import { SubscriptionsModule } from './features/subscriptions/subscriptions.module';
 @NgModule({
   declarations: [
     AppComponent,
-    
+
   ],
   imports: [
     CommonModule,
@@ -24,12 +23,11 @@ import { SubscriptionsModule } from './features/subscriptions/subscriptions.modu
     AppRoutingModule,
     BreadcrumbModule,
     MatToolbarModule,
-    ModalModule.forRoot(), 
-    HomeModule,
+    ModalModule.forRoot(),
     SubscriptionsModule,
     WebhookCommonModule
   ],
-  
+
   providers: [BsModalRef],
   bootstrap: [AppComponent],
 })
