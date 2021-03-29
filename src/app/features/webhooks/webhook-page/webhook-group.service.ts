@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {ApiService} from "../../shared/api.service";
-import {LogService} from "../../shared/log.service";
+import {ApiService} from "../../../shared/api.service";
+import {LogService} from "../../../shared/log.service";
 import {Observable} from "rxjs";
 import {map, tap} from "rxjs/operators";
-import {WebhookGroupAdapter} from "../../shared/adapter/webhook-group.adapter";
-import {WebhookGroup} from "../../shared/model/webhook-group";
+import {WebhookGroupAdapter} from "./webhook-group.adapter";
+import {WebhookGroup} from "./webhook-group";
 
 @Injectable({
   providedIn: 'root'
