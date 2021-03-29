@@ -25,11 +25,11 @@
         </div>
       </div>
       <h4 class="font14 font-weight-400">Security</h4>
-        <div class="custom-control custom-radio custom-control-inline security-label" *ngFor="let s of securityArr">  
+        <div class="custom-control custom-radio custom-control-inline security-label" *ngFor="let s of securityArr">
           <input class="custom-control-input" id="{{s}}" type="radio" name="security" (change)="security=s" [disabled]="s=='API key'" [checked]="security==s">
           <label class="custom-control-label font12 pt-1" for="{{s}}">{{s}}</label>
-        </div>       
-      <div class="test-order-key mt-3" *ngIf="security=='HMAC Signature'">
+        </div>
+      <div class="callback-test-key mt-3" *ngIf="security=='HMAC Signature'">
       <div class="form-row">
         <div class="form-group col-md-8">
           <label class="font14 font-weight-400 mb-1">Key ID</label>

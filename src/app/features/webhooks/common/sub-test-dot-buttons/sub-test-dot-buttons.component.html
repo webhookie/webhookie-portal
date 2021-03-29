@@ -21,7 +21,7 @@
             </button>
         </li>
         <li>
-            <button class="btn" routerLink="/webhooks/test-order"
+            <button class="btn" routerLink="/webhooks/callback-test"
                 [disabled]="(title() == 'Subscribe to order webhook')?true:false"
                 [ngClass]="(title() != 'Test order webhook')?'btn-default':'btn-primary test_color'" (click)="test()">
                 {{(variable.test_res && (title()=='Test order webhook'))?'Retest':'Test'}}
