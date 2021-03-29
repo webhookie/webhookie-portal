@@ -15,7 +15,7 @@
         </li>
     </ul>
     <div *ngIf="variable?.showText">
-        <p class="font14 mb-1">Subscribe to this Webhook to receive new orders when they are created.</p>
+        <p class="font14 mb-1">{{variable.selectedTopic.description}}</p>
         <div class="mt-1 mb-1"><a routerLink="/">Terms of service</a></div>
         <a routerLink="/">License</a>
     </div>

@@ -1,22 +1,16 @@
 <div id="sidebar-nav">
     <div class="accordion" id="faq">
-        <div class="card custom-accordion" *ngFor="let list of sidebarList;let i=index">
+        <div class="card custom-accordion" *ngFor="let webhookGroup of _webhooks$.asObservable() | async;let i=index">
             <div class="card-header" id="faqhead{{i}}">
-                <a href="#" class="btn btn-header-link" data-toggle="collapse" [ngClass]="list.IsShow?'bkactive':''"  (click)="Show(i)" [attr.data-target]="'#faq' + i"
-                    aria-expanded="true" [attr.aria-controls]="'faq' + i" >{{list.title}}</a>
+                <a href="#" class="btn btn-header-link" data-toggle="collapse" [ngClass]="webhookGroup.isShowing?'active':''"  (click)="show(webhookGroup)" [attr.data-target]="'#faq' + i"
+                    aria-expanded="true" [attr.aria-controls]="'faq' + i" >{{webhookGroup.title}}</a>
             </div>
 
-            <div id="faq{{i}}" class="collapse" data-parent="#faq">
+            <div id="faq{{i}}" [ngClass]="(webhookGroup == variable.selectedWebhook)?'show':'collapse'" data-parent="#faq">
                 <ul class="navbar-nav">
-                    <li class="nav-item" *ngFor="let sub of list.subList" >
-                        <a class="nav-link" routerLink="{{sub.link}}" [ngClass]="(sub==variable.selectedWebhook)?'portionColor':''" routerLinkActive="active" (click)="variable.selectedWebhook=sub">
-                            {{sub.title}}
-                            <span class="badge badge-primary" *ngIf="sub.isNew==1">
-                                New
-                            </span>
-                            <span class="badge badge-warning" *ngIf="sub.isPublished==0">
-                                Unpublished
-                            </span>
+                    <li class="nav-item" *ngFor="let topic of webhookGroup.topics" >
+                        <a class="nav-link" [ngClass]="(topic==variable.selectedTopic)?'portionColor':''" routerLinkActive="active" (click)="variable.selectTopic(webhookGroup, topic)">
+                            {{topic.name}}
                         </a>
                     </li>
                 </ul>

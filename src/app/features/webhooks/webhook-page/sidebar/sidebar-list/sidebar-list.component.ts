@@ -1,61 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { VariableService } from '../../../common/variable.service';
+import {Component, OnInit} from '@angular/core';
+import {VariableService} from '../../../common/variable.service';
+import {ReplaySubject, Subject} from "rxjs";
+import {WebhookGroupService} from "../../webhook-group.service";
+import {filter, map} from "rxjs/operators";
+import {WebhookGroupElement} from "./webhook-group-element";
+
 @Component({
   selector: 'app-sidebar-list',
   templateUrl: './sidebar-list.component.html',
   styleUrls: ['./sidebar-list.component.css']
 })
 export class SidebarListComponent implements OnInit {
-  sidebarList: any = [
-    {
-      'title': 'Order management',
-      'IsShow':false,
-      'subList': [
-        { 'title': 'Order', 'link': '/webhooks/webhooks-page/order', 'isNew': '1', 'isPublished': '1' },
-        { 'title': 'Webhook 2', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 3', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 4', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 5', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 6', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '0' }
-      ]
-    },
-    {
-      'title': 'Product catalog',
-      'IsShow':false,
-      'subList': [
-        { 'title': 'Order', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 2', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 3', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 4', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 5', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 6', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' }
-      ]
-    },
-    {
-      'title': 'Order management',
-      'IsShow':false,
-      'subList': [
-        { 'title': 'Order', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 2', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 3', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 4', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 5', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' },
-        { 'title': 'Webhook 6', 'link': '/webhooks/webhooks-page/order', 'isNew': '0', 'isPublished': '1' }
-      ]
-    }
-  ]
-  constructor(public variable:VariableService) {
-    this.variable.selectedWebhook=this.sidebarList[0].subList[0];
-   }
+  readonly _webhooks$: Subject<Array<WebhookGroupElement>> = new ReplaySubject();
+
+  constructor(
+    private readonly service: WebhookGroupService,
+    public variable:VariableService
+  ) {
+  }
 
   ngOnInit(): void {
-    $(document).ready(function () {
-      $("#faq a").click(function () { 
-        $(this).toggleClass("active").parent().parent().siblings().find('a').removeClass('active')
-      });
-    })
+    $(function() {
+      $(this).toggleClass("active").parent().parent().siblings().find('a').removeClass('active')
+    });
+
+    this.service.myWebhookGroups()
+      .pipe(map(list => list.map( it => new WebhookGroupElement(it.title, it.topics))))
+      .subscribe(it => this._webhooks$.next(it));
+
+    this._webhooks$.asObservable()
+      .pipe(filter(it => it.length > 0))
+      .subscribe(it => this.show(it[0]));
   }
-  Show(val:any){
-    this.sidebarList[val].IsShow = !this.sidebarList[val].IsShow;
+
+  show(webhookGroup: WebhookGroupElement){
+    this.variable._selectedWebhookGroup.next(webhookGroup);
   }
 }

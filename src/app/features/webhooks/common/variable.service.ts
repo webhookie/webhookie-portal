@@ -1,5 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BreadcrumbService } from 'angular-crumbs';
+import {Injectable} from '@angular/core';
+import {BreadcrumbService} from 'angular-crumbs';
+import {Topic} from "../webhook-page/webhook-group";
+import {WebhookGroupElement} from "../webhook-page/sidebar/sidebar-list/webhook-group-element";
+import {ReplaySubject, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +12,33 @@ export class VariableService {
   test_res:boolean=false;
   subscribe_res:boolean=false;
   showText:boolean = false;
-  selectedWebhook:any;
-  constructor(private breadcrumbService: BreadcrumbService) { 
+  selectedWebhook?: WebhookGroupElement;
+  readonly _selectedWebhookGroup: Subject<WebhookGroupElement> = new ReplaySubject()
+  selectedTopic?: Topic;
+
+  selectWebhookGroup(webhookGroup: WebhookGroupElement) {
+    this.selectTopic(webhookGroup, webhookGroup.topics[0]);
+  }
+
+  selectTopic(webhookGroup: WebhookGroupElement, topic: Topic) {
+    if(this.selectedWebhook) {
+      this.selectedWebhook?.hide();
+    }
+    this.selectedWebhook = webhookGroup;
+    this.selectedTopic = topic;
+    webhookGroup.toggle();
+  }
+
+  constructor(private breadcrumbService: BreadcrumbService) {
     this.breadCrumbs();
+
+    this._selectedWebhookGroup
+      .subscribe(it => this.selectWebhookGroup(it));
   }
 
    breadCrumbs(){
     this.breadcrumbService.breadcrumbChanged.subscribe(crumbs => {
-       this.breadcrumbs=crumbs;      
+       this.breadcrumbs=crumbs;
     });
     return this.breadcrumbs;
    }
