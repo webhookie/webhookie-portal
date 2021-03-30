@@ -1,13 +1,14 @@
  input.form-control {
      border: 0;
      height: 32px;
+     border: 1px solid #E1E1E1;
  }
 
  button.btn.btn-secondary {
      background-color: #fff;
-     border: 0;
-     border-color: #ced4da;
+     border: 1px solid #e1e1e1;
      height: 32px;
+     border-left: 0;
  }
 
  ::placeholder {

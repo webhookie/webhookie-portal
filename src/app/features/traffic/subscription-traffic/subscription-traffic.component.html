@@ -3,11 +3,16 @@
     <caption>List of Spans</caption>
     <thead>
     <tr>
-      <th scope="col">Company</th>
+      <th scope="col">Trace Id</th>
       <th scope="col">Application</th>
       <th scope="col">Webhook</th>
       <th scope="col">Callback URL</th>
+      <th scope="col">Timestamp</th>
+      <th scope="col">Span ID</th>
+      <th scope="col">Response Code</th>
       <th scope="col">Status</th>
+      <th scope="col">Tries</th>
+      <th scope="col"><img src="assets/images/Chevron.svg"></th>
     </tr>
     </thead>
     <tr *ngFor="let span of spans$() | async">
@@ -17,5 +22,11 @@
       <td>{{span.callbackUrl}}</td>
       <td>{{span.statusUpdate.status}}</td>
     </tr>
+    <tbody>
+      <tr>
+        <td>asdfaf</td>
+        <td>fdfdsf</td>
+      </tr>
+    </tbody>
   </table>
 </div>

@@ -78,7 +78,9 @@ h1{
 .font20{
     font-size: 20px !important;
 }
-
+.font35{
+    font-size: 35px !important;
+}
 .light-mode span.key {
     color: #1A73E8 !important;
 }
@@ -88,6 +90,27 @@ h1{
 .number, .boolean, .string, .null[contenteditable]:focus {
     outline: none;
 }
+
+.modal.fade.show {
+    background-color: rgb(0,0,0,0.8);
+}
+.modal-content {
+    width: 388px;
+    border-radius: 2px;
+    margin: 0 auto;
+}
+.modalSave .modal-dailog{
+    align-items: center !important;
+ }
+.modal-w{
+     width: 379px !important;
+ }
+/* button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #ff0000 !important;
+} */
+
 @media (max-width: 1024px) {
     h1{
         font-size: 30px;

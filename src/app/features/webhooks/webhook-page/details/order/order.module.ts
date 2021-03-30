@@ -22,6 +22,11 @@ import { WebhookCommonModule } from '../../../common/webhook-common.module';
     BodyComponent,
     SecurityOptionsComponent
   ],
+  exports:[
+    HeadersComponent,
+    BodyComponent,
+    SecurityOptionsComponent
+  ],
   imports: [  
     CommonModule,  
     OrderRoutingModule,

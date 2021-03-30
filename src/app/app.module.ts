@@ -10,6 +10,7 @@ import { ModalModule,BsModalRef } from 'ngx-bootstrap/modal';
 import { WebhookCommonModule } from './features/webhooks/common/webhook-common.module';
 import { CommonModule } from '@angular/common';
 import { SubscriptionsModule } from './features/subscriptions/subscriptions.module';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { SubscriptionsModule } from './features/subscriptions/subscriptions.modu
     MatToolbarModule,
     ModalModule.forRoot(),
     SubscriptionsModule,
-    WebhookCommonModule
+    WebhookCommonModule,
+    ReactiveFormsModule,
   ],
 
   providers: [BsModalRef],

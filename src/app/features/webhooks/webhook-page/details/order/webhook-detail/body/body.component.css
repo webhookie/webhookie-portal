@@ -23,9 +23,11 @@ padding: 0rem !important;
 margin: 0rem 1.25rem;
 }
 #body-accordion .card .card-header a:after{
-content: "\f105";
+/* content: "\f105";
 font-family: 'Font Awesome 5 Free';
-font-weight: 900;
+font-weight: 900; */
+content: url("../../../../../../../../assets/images/Chevron.svg");
+margin-top: -3px;
 float: left;
 width: 21px;
 }
@@ -33,7 +35,8 @@ width: 21px;
 font-weight:700;
 }
 #body-accordion .card .card-header a.active:after{
-content: "\f107";
+/* content: "\f107"; */
+content: url("../../../../../../../../assets/images/Chevron_down.svg");
 }
 #sub-accordion-1 .card .card-header a{
 font-size: 14px;

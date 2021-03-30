@@ -1,5 +1,6 @@
 import { Component, OnInit ,TemplateRef,Input} from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'; 
+import{VariableService}from 'src/app/features/webhooks/common/variable.service';
 import * as $ from 'jquery';
 @Component({
   selector: 'app-application',
@@ -7,12 +8,36 @@ import * as $ from 'jquery';
   styleUrls: ['./application.component.css']
 })
 export class ApplicationComponent implements OnInit {
-  constructor(public modalRef: BsModalRef,private modalService: BsModalService,) { }
+  appName:any;
+  Desc:any;
+  appSelected: any;
+  constructor(public modalRef: BsModalRef,
+    private modalService: BsModalService,
+    public variable: VariableService
+    ) { 
+      this.variable.app=false;
+    }
 
   ngOnInit(): void {
+    $(document).ready(function () {
+      $(".btn-warning").click(function () { 
+        $(this).toggleClass("active").parent().parent().siblings().find('after').removeClass('active')
+      });
+    })
+
     
   }
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template,{backdrop: true,ignoreBackdropClick: true });    
+    this.modalRef = this.modalService.show(template,{class:'modal-dialog-centered modal-w',backdrop: true,ignoreBackdropClick: true });    
+  }
+
+  selectApp(val:any){
+    this.variable.appName=this.appSelected=val;
+    this.variable.app=true;
+  }
+  create(){
+    this.variable.appName=this.appSelected='Volvo cars';
+    this.variable.app=true;
+    this.modalRef.hide();
   }
 }

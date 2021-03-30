@@ -24,17 +24,20 @@
   padding-left: 22px !important;
 }
 #header-accordion .card .card-header a:after{
-  content: "\f105";
+  /* content: "\f105";
   font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
+  font-weight: 900; */
+  content: url("../../../../../../../../assets/images/Chevron.svg");
   float: left;
   width: 21px;
+  margin-top: -3px;
 }
 #header-accordion .card .card-header a.active{
   font-weight:700;
   }
 #header-accordion .card .card-header a.active:after{
-  content: "\f107";
+  /* content: "\f107"; */
+  content: url("../../../../../../../../assets/images/Chevron_down.svg");
 }
 .col-2-set{
   display: inline-flex;

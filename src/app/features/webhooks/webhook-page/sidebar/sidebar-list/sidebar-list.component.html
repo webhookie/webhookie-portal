@@ -11,6 +11,15 @@
                     <li class="nav-item" *ngFor="let topic of webhookGroup.topics" >
                         <a class="nav-link" [ngClass]="(topic==variable.selectedTopic)?'portionColor':''" routerLinkActive="active" (click)="variable.selectTopic(webhookGroup, topic)">
                             {{topic.name}}
+                             <!-- <li class="nav-item" *ngFor="let sub of list.subList" >
+                        <a class="nav-link" routerLink="{{sub.link}}" [ngClass]="(sub==variable.selectedWebhook)?'portionColor':''" routerLinkActive="active" (click)="selectedWeb(sub)">
+                            {{sub.title}}
+                            <span class="badge badge-primary" *ngIf="sub.isNew==1">
+                                New
+                            </span>
+                            <span class="badge badge-warning" *ngIf="sub.isPublished==0">
+                                Unpublished
+                            </span> -->
                         </a>
                     </li>
                 </ul>

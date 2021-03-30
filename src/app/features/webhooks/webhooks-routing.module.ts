@@ -3,7 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {SubscribeOrderComponent} from './subscribe-order/subscribe-order.component';
 import {WebhookPageComponent} from './webhook-page/webhook-page.component';
 import {CallbackTestComponent} from "./callback-test/callback-test.component";
-
+import { CongratsComponent } from './subscribe-order/congrats/congrats.component';
+import { CreateWebhookComponent } from './webhook-page/create-webhook/create-webhook.component';
 const routes: Routes = [
   {
     path: '',
@@ -16,7 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./webhook-page/webhook-page.module').then(m => m.WebhookPageModule),
   },
   {
-    path: 'callback-test',
+    path: 'callback-test/:webhookId',
     component: CallbackTestComponent,
     data: {
       breadcrumb: 'Test order webhook'
@@ -24,14 +25,24 @@ const routes: Routes = [
 
   },
   {
-    path: 'subscribe-order',
+    path: 'subscribe-order/:webhookId',
     component: SubscribeOrderComponent,
     data: {
       breadcrumb: 'Subscribe to order webhook'
     },
 
   },
-
+  {
+    path: 'create-webhook',
+    component: CreateWebhookComponent,
+    data: {
+        breadcrumb: 'Create new webhook group'
+    },
+  },  
+  {
+    path: 'congrats',
+    component: CongratsComponent,               
+ } 
 ]
 
 @NgModule({
