@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Adapter} from "../../../shared/adapter/adapter";
-import {Topic, WebhookGroup} from "../model/webhook-group";
+import {Adapter} from "../../../../shared/adapter/adapter";
+import {Topic, WebhookGroup} from "../../model/webhook-group";
 
 @Injectable({
   providedIn: 'root'
