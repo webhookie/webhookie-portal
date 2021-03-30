@@ -3,7 +3,7 @@ import {ApiService} from "../../../shared/api.service";
 import {LogService} from "../../../shared/log.service";
 import {Observable} from "rxjs";
 import {map, tap} from "rxjs/operators";
-import {WebhookGroupAdapter} from "./webhook-group.adapter";
+import {WebhookGroupAdapter} from "./adapter/webhook-group.adapter";
 import {WebhookGroup} from "../model/webhook-group";
 
 @Injectable({

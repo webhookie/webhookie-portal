@@ -1,7 +1,7 @@
 export class Subscription {
   constructor(
     public id: string,
-    public application: Application,
+    public application: ApplicationDetails,
     public callback: CallbackDetails,
     public statusUpdate: StatusUpdate,
     public topic: string,
@@ -10,7 +10,7 @@ export class Subscription {
   }
 }
 
-export class Application {
+export class ApplicationDetails {
   constructor(
     public id: string,
     public name: string,
