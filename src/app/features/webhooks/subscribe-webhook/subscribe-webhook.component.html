@@ -5,7 +5,25 @@
         <app-order-title></app-order-title>
     </div>
     <div class="col-md-6">
-        <app-sub-test-dot-buttons></app-sub-test-dot-buttons>
+        <div class="dot-buttons">
+            <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
+                <li>
+                    <button class="btn btn-default" (click)="openModal(template1)">
+                        Save & finish later
+                    </button>
+                </li>
+                <li>
+                <button class="btn btn-primary"  (click)="test()">
+                    Test
+                </button>
+                </li>
+                <li>
+                <button class="btn btn-primary ml-md-2" routerLink="/webhooks/congrats">
+                    Activate
+                </button>
+            </li>
+            </ul>
+          </div>
     </div>
 </div>
 <div class="row ml-0 mr-0">
@@ -24,4 +42,24 @@
         <app-request-example></app-request-example>
     </div>
 </div>
+</div>
+
+<div class="modalSave">
+    <ng-template #template1>
+        <div class="modal-header">
+        <h2 class="modal-title pull-left font16 font-weight-bold">Are you sure you want to save and finish later?</h2>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
+        </button>
+        </div>
+        <div class="modal-body">
+        <p>You still can see and complete your unpublished subscriptions from the subscription page.</p>
+    
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default cancel border" aria-label="Close"
+            (click)="modalRef.hide()">No</button>
+        <button type="button" class="btn btn-primary" (click)="modalRef.hide()">Yes</button>
+        </div>
+    </ng-template>
 </div>

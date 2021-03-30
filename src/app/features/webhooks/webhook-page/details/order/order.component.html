@@ -3,7 +3,26 @@
         <app-order-title></app-order-title>
     </div>
     <div class="col-md-6">
-        <app-sub-test-dot-buttons></app-sub-test-dot-buttons>
+        <div class="dot-buttons">
+            <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
+               
+              <li>
+                <button class="btn mr-2 mr-md-0 btn-primary" routerLink="/webhooks/subscribe-webhook" >
+                  Subscribe
+                </button>
+              </li>
+              <li>
+                <button class="btn btn-primary" routerLink="/webhooks/callback-test">
+                  Test
+                </button>
+              </li>
+              <li>
+                <button class="btn btn-default">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </li>
+            </ul>
+          </div>
     </div>
 </div>
 
