@@ -14,14 +14,13 @@
           <button type="button" class="btn btn-warning dropdown-toggle text-left font12 font-weight-400 text-uppercase w-100 d-flex justify-content-between align-items-center" data-toggle="dropdown">
            Post
           </button>
-          <div class="dropdown-menu font12 font-weight-400">
-            <a class="dropdown-item" href="#">Post</a>
-            <a class="dropdown-item" href="#">Get</a>
+          <div class="dropdown-menu font12 font-weight-400" >
+            <a class="dropdown-item" *ngFor="let method of methods " (click)="setMethod(method)">{{method}}</a>
           </div>
         </div>
       </div>
         <div class="form-group col-md-6">
-          <input type="text" class="form-control" value="https://www.volvocars.com/se">
+          <input type="text" class="form-control" placeholder="https://yourserver/application/endpoint" [(ngModel)]="request.url" name="url">
         </div>
       </div>
       <h4 class="font14 font-weight-400">Security</h4>
@@ -33,13 +32,13 @@
       <div class="form-row">
         <div class="form-group col-md-8">
           <label class="font14 font-weight-400 mb-1">Key ID</label>
-          <input type="text" class="form-control" value="Key ID example">
+          <input type="text" class="form-control" placeholder="Key ID example">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-8">
           <label class="font14 font-weight-400 mb-1">Secret API Key</label>
-          <input type="text" class="form-control" value="Secret API Key example">
+          <input type="text" class="form-control" placeholder="Secret API Key example" [(ngModel)]="request.secret" name="secret">
         </div>
       </div>
     </div>

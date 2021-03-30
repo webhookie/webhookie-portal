@@ -1,7 +1,7 @@
 <div class="light-mode mt-3 mr-lg-3">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="font-weight-bold font16">Response <span *ngIf="variable.test_res">{{jsonobj.code}}</span></h4>
+        <h4 class="font-weight-bold font16">Response <span *ngIf="responseCode$ | async">{{responseCode$ | async}}</span></h4>
     </div>
-    <pre id="json_res"></pre>
+    <pre id="test_res"></pre>
 </div>
 <!-- Request {{jsonobj.code}} -->
