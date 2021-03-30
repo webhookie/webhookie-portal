@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SubscribeOrderComponent} from './subscribe-order/subscribe-order.component';
+import {SubscribeWebhookComponent} from './subscribe-webhook/subscribe-webhook.component';
 import {WebhookPageComponent} from './webhook-page/webhook-page.component';
 import {CallbackTestComponent} from "./callback-test/callback-test.component";
-import { CongratsComponent } from './subscribe-order/congrats/congrats.component';
+import { CongratsComponent } from './subscribe-webhook/congrats/congrats.component';
 import { CreateWebhookComponent } from './webhook-page/create-webhook/create-webhook.component';
 const routes: Routes = [
   {
@@ -25,8 +25,8 @@ const routes: Routes = [
 
   },
   {
-    path: 'subscribe-order/:webhookId',
-    component: SubscribeOrderComponent,
+    path: 'subscribe-webhook',
+    component: SubscribeWebhookComponent,
     data: {
       breadcrumb: 'Subscribe to order webhook'
     },

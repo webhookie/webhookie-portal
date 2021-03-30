@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubscribeOrderComponent } from './subscribe-order.component';
+import { SubscribeWebhookComponent } from './subscribe-webhook.component';
 
 describe('SubscribeOrderComponent', () => {
-  let component: SubscribeOrderComponent;
-  let fixture: ComponentFixture<SubscribeOrderComponent>;
+  let component: SubscribeWebhookComponent;
+  let fixture: ComponentFixture<SubscribeWebhookComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SubscribeOrderComponent ]
+      declarations: [ SubscribeWebhookComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SubscribeOrderComponent);
+    fixture = TestBed.createComponent(SubscribeWebhookComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,112 @@
+.subscribe-call-back fieldset {
+    border: 1px solid #E1E1E1;
+}
+.subscribe-call-back form label {
+   color:#0A1E42;
+}
+.subscribe-call-back p {
+    color:#0A1E42;
+ }
+ .subscribe-call-back .btn-warning{
+    background-color: transparent;
+    color: #253858;
+    border-color: #E1E1E1;
+    width: 60%;
+}
+.subscribe-call-back .dropdown-divider{
+    margin: .5rem;
+}
+.subscribe-call-back .btn-default{
+    color: #1A73E8;
+    padding: 0 6px;
+}
+.subscribe-call-back .dropdown-menu a{
+    color: #242424;
+    padding: 0px 0px 4px 11px;
+}
+.subscribe-call-back  .dropdown-menu.show {
+    border-color: #e1e1e1;
+    box-shadow: -2px 3px 10px #00000029;
+    border-radius:2px;
+    top: 2px !important;
+    width: 60%;
+}
+.subscribe-call-back  .dropdown-toggle:focus {
+    border: 1px solid #006ADF;
+    box-shadow: none;
+}
+
+.subscribe-call-back .dropdown-toggle::after{
+    content:url("../../../../../assets/images/Chevron_down.svg");
+  border: none;
+}
+.subscribe-call-back .dropdown-toggle.active:after{
+    /* content: "\f107"; */
+    content: url("../../../../../assets/images/Chevron_up.svg");
+  }
+.callback-read-only input{
+    height: 32px;
+    border: 1px solid #E1E1E1;
+    font-size: 12px;
+    color: #253858;
+}
+.callback-read-only input:focus{
+    box-shadow: none;
+    border: 1px solid #E1E1E1;
+}
+.callback-read-only label{
+    color: #253858 !important;
+}
+.isDisabled{
+    pointer-events:none;
+    color: #C6C6C6;
+}
+.isDisabled p{
+    color: #C6C6C6;
+}
+.isDisabled .btn-warning{
+    color: #C6C6C6;
+}
+
+.modal-header, .modal-footer{
+    border: 0px;
+}
+.modal-body{
+    padding: 0rem 1.1rem !important;
+}
+
+.modal-body input{
+    height: 32px;
+}
+.modal-body textarea{
+    height: 163px;
+}
+::placeholder{
+    font-size: 12px;
+    color: #253858;
+}
+.modal-body .btn-warning{
+    background-color: transparent;
+    color: #253858;
+    border-color: #E1E1E1;
+}
+.form-control{
+    border:1px solid #e1e1e1;
+    font-size: 12px;
+    color: #253858;
+}
+.form-control:focus{
+    box-shadow: none;
+    border:1px solid #e1e1e1;
+}
+.dropdown-toggle:focus{
+    box-shadow: none;
+    border:1px solid #e1e1e1;
+}
+.modal-body .btn-warning:focus {
+    box-shadow: none !important;
+    border-color: #e1e1e1;
+}
+.modal-footer .btn {
+    padding: 4px 12px;
+}
