@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Adapter} from "../../shared/adapter/adapter";
-import {Application, CallbackDetails, CallbackSecurity, StatusUpdate, Subscription} from "./subscription";
+import {ApplicationDetails, CallbackDetails, CallbackSecurity, StatusUpdate, Subscription} from "./subscription";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class SubscriptionAdapter implements Adapter<Subscription>{
 
   adapt(item: any): Subscription {
     let ia = item.application;
-    let application = new Application(
+    let application = new ApplicationDetails(
       ia.id,
       ia.name,
       ia.entity
