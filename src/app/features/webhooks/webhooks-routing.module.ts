@@ -17,7 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./webhook-page/webhook-page.module').then(m => m.WebhookPageModule),
   },
   {
-    path: 'callback-test/:webhookId',
+    path: 'callback-test',
     component: CallbackTestComponent,
     data: {
       breadcrumb: 'Test order webhook'
@@ -38,11 +38,11 @@ const routes: Routes = [
     data: {
         breadcrumb: 'Create new webhook group'
     },
-  },  
+  },
   {
     path: 'congrats',
-    component: CongratsComponent,               
- } 
+    component: CongratsComponent,
+ }
 ]
 
 @NgModule({

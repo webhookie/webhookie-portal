@@ -1,17 +1,8 @@
 <div class="head-order-title d-flex d-md-inline-block">
-    <a class="menu-toggle-mobile responsive-close d-inline-block d-md-none mr-2" href="javascript:void(0)" *ngIf="title()=='Webhooks'">
+    <a class="menu-toggle-mobile responsive-close d-inline-block d-md-none mr-2" href="javascript:void(0)" id=""
+        *ngIf="title()=='Webhooks'">
         <i class="fas fa-grip-lines text-primary"></i></a>
     <h2 class="d-flex align-items-center font-weight-bold font20">
         {{variable?.selectedTopic?.name}}
     </h2>
-
-    <!-- <h2 class="d-flex align-items-center font-weight-bold font20">        
-        {{webTitle().title}}
-        <span class=" ml-2 badge badge-primary font-weight-400" *ngIf="webTitle().isNew==1">
-            New
-        </span>
-        <span class=" ml-2 badge badge-warning font-weight-400" *ngIf="webTitle().isPublished==0">
-            Unpublished
-        </span>
-    </h2>     -->
 </div>

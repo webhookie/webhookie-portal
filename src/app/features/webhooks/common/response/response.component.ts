@@ -25,11 +25,19 @@ export class ResponseComponent implements OnInit {
   constructor(public variable: VariableService) { }
 
   ngOnInit(): void {
-  
-      this.variable.test_res=false;
-      this.variable.subscribe_res=false;
-     
-    }
+    this.response$
+      .subscribe(res => {
+        let body = res.responseBody;
+        if(res.headers.get("Content-Type")?.startsWith("application/json")) {
+          const str = JSON.stringify(body, null, '\t');
+          this.outputHtml(this.variable.syntaxHighlight(str));
+        } else if(res.headers.get("Content-Type")?.startsWith("text/plain")) {
+          this.output(body);
+        } else {
+          this.output(body);
+        }
+      })
+  }
 
   outputHtml(body: any) {
     let myContainer = document.getElementById('test_res') as HTMLInputElement;
@@ -44,20 +52,7 @@ export class ResponseComponent implements OnInit {
   update(response: CallbackResponse) {
     this._response$.next(response);
   }
-  getResponse(){
-    this.response$
-    .subscribe(res => {
-      let body = res.responseBody;
-      if(res.headers.get("Content-Type")?.startsWith("application/json")) {
-        const str = JSON.stringify(body, null, '\t');
-        this.outputHtml(this.variable.syntaxHighlight(str));
-      } else if(res.headers.get("Content-Type")?.startsWith("text/plain")) {
-        this.output(body);
-      } else {
-        this.output(body);
-      }
-    })
-  }
+
   invalidate() {
     // @ts-ignore
     this._response$.next(null);

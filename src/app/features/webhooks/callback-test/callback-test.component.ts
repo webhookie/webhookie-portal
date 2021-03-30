@@ -4,8 +4,6 @@ import {ResponseComponent} from "../common/response/response.component";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {VariableService} from "../common/variable.service";
 import {CallbackService} from "../service/callback.service";
-import {catchError} from "rxjs/operators";
-import {throwError} from "rxjs";
 
 @Component({
   selector: 'app-callback-test',
@@ -30,7 +28,7 @@ export class CallbackTestComponent implements OnInit {
 
   title(){
     let crumbs=this.variable.breadCrumbs();
-    return crumbs[crumbs.length-1].displayName;
+    return `Test ${this.variable.selectedTopic?.name} Webhook`
   }
 
   test() {
