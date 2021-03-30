@@ -1,24 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TitleComponent } from './title/title.component';
-import { OrderTitleComponent } from './order-title/order-title.component';
-import { OrderRateSubLinksComponent } from './order-rate-sub-links/order-rate-sub-links.component';
-import { RequestExampleComponent } from './request-example/request-example.component';
-import { ResponseComponent } from './response/response.component';
-import { RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {TitleComponent} from './title/title.component';
+import {OrderTitleComponent} from './order-title/order-title.component';
+import {OrderRateSubLinksComponent} from './order-rate-sub-links/order-rate-sub-links.component';
+import {RequestExampleComponent} from './request-example/request-example.component';
+import {ResponseComponent} from './response/response.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
     OrderTitleComponent,
     TitleComponent,
-    OrderRateSubLinksComponent,  
+    OrderRateSubLinksComponent,
     RequestExampleComponent,
     ResponseComponent,
   ],
-  exports:[
+  exports: [
     OrderTitleComponent,
     TitleComponent,
-    OrderRateSubLinksComponent, 
+    OrderRateSubLinksComponent,
     RequestExampleComponent,
     ResponseComponent,
   ],
@@ -26,9 +26,10 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     CommonModule,
   ],
-  
-  providers:[]
+
+  providers: []
 })
-export class WebhookCommonModule { }
+export class WebhookCommonModule {
+}
 
 

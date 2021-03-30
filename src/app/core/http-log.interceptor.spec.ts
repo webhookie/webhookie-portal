@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { HttpLogInterceptor } from './http-log.interceptor';
+import {HttpLogInterceptor} from './http-log.interceptor';
 
 describe('HttpLogInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       HttpLogInterceptor
-      ]
+    ]
   }));
 
   it('should be created', () => {

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { VariableService } from '../variable.service';
+import {Component, OnInit} from '@angular/core';
+import {VariableService} from '../variable.service';
 import * as $ from 'jquery';
+
 @Component({
   selector: 'app-request-example',
   templateUrl: './request-example.component.html',
@@ -35,7 +36,8 @@ export class RequestExampleComponent implements OnInit {
     "compensating-operation": null
   };
 
-  constructor(public variable: VariableService) { }
+  constructor(public variable: VariableService) {
+  }
 
   ngOnInit(): void {
     var str = JSON.stringify(this.jsonobj, null, '\t');
@@ -52,8 +54,8 @@ export class RequestExampleComponent implements OnInit {
     myContainer.innerHTML = inp;
   }
 
-  changeData(){
+  changeData() {
     let myContainer = document.getElementById('json_str');
-    console.log(myContainer);   
+    console.log(myContainer);
   }
 }

@@ -1,14 +1,16 @@
-.navbar-nav li a{
-    color: #253858;
-    padding:0.5rem 1rem !important;
-    font-size: 14px;
+.navbar-nav li a {
+  color: #253858;
+  padding: 0.5rem 1rem !important;
+  font-size: 14px;
 }
-.navbar-nav li a.active{
-    color: #0151CC;
-    font-weight: 600;
+
+.navbar-nav li a.active {
+  color: #0151CC;
+  font-weight: 600;
 }
-@media (max-width:992px){
-    .navbar-nav {
-        padding: 6px 0px;
-    }
- }
+
+@media (max-width: 992px) {
+  .navbar-nav {
+    padding: 6px 0px;
+  }
+}

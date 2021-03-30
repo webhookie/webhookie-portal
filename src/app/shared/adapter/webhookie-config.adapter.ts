@@ -5,7 +5,7 @@ import {IAMConfig, WebhookieConfig} from "../model/webhookie-config";
 @Injectable({
   providedIn: 'root'
 })
-export class WebhookieConfigAdapter implements Adapter<WebhookieConfig>{
+export class WebhookieConfigAdapter implements Adapter<WebhookieConfig> {
   adapt(item: any): WebhookieConfig {
     let iam = new IAMConfig(
       item.iam.issuer,

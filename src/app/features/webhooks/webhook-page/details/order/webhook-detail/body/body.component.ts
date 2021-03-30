@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as $ from 'jquery';
+
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
@@ -59,7 +60,7 @@ export class BodyComponent implements OnInit {
                     'min_value': '0.01',
                     'max_value': '99999999.99',
                     'example': '99.95'
-    
+
                   },
                   {
                     'label': 'Currency',
@@ -70,14 +71,16 @@ export class BodyComponent implements OnInit {
                     'example': 'EUR'
                   }
                 ]
-            }
+              }
             ]
           }
         ]
       },
-    ] 
-    };
-  constructor() { }
+    ]
+  };
+
+  constructor() {
+  }
 
   ngOnInit(): void {
     $(document).ready(function () {

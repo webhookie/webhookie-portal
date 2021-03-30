@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from "../../shared/shared.module";
 import {TrafficHomeComponent} from "./home/traffic-home.component";
 import {TrafficRoutingModule} from "./traffic-routing.module";
-import { SubscriptionTrafficComponent } from './subscription-traffic/subscription-traffic.component';
-import { WebhookTrafficComponent } from './webhook-traffic/webhook-traffic.component';
+import {SubscriptionTrafficComponent} from './subscription-traffic/subscription-traffic.component';
+import {WebhookTrafficComponent} from './webhook-traffic/webhook-traffic.component';
 
 
 @NgModule({
@@ -17,4 +17,5 @@ import { WebhookTrafficComponent } from './webhook-traffic/webhook-traffic.compo
     TrafficRoutingModule
   ]
 })
-export class TrafficModule { }
+export class TrafficModule {
+}

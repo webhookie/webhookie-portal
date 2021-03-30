@@ -1,14 +1,15 @@
 <div class="container-fluid">
   <div class="traffic">
-<p class="font35 font-weight-bold">Traffic</p>
-<ul class="nav nav-pills">
-  <li class="nav-item">
-    <a mat-button routerLink="subscription" routerLinkActive="active" class="mr-4">Subscription Traffic</a><!--routerLinkActive="selected"--> 
-  </li>
-  <li class="nav-item">
-    <a mat-button routerLink="webhook" routerLinkActive="active">Webhook Traffic</a>
-  </li>
-</ul>
-</div>
-<router-outlet></router-outlet>
+    <p class="font35 font-weight-bold">Traffic</p>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="mr-4" mat-button routerLink="subscription" routerLinkActive="active">Subscription Traffic</a>
+        <!--routerLinkActive="selected"-->
+      </li>
+      <li class="nav-item">
+        <a mat-button routerLink="webhook" routerLinkActive="active">Webhook Traffic</a>
+      </li>
+    </ul>
+  </div>
+  <router-outlet></router-outlet>
 </div>

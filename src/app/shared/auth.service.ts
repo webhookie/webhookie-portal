@@ -28,25 +28,13 @@ export class AuthService {
       .subscribe(it => this.init(it));
   }
 
-  logout() {
-    this.oauthService.revokeTokenAndLogout()
-      .then();
-    this.oauthService.logOut();
-    this.router.navigateToHome();
-  }
-
-  login() {
-    this.router.saveCurrent();
-    this.oauthService.initCodeFlow();
-  }
-
   get loggedIn(): boolean {
     return this.oauthService.hasValidAccessToken() || this.oauthService.hasValidIdToken()
   }
 
   get givenName() {
     const claims = this.oauthService.getIdentityClaims();
-    if(!claims) {
+    if (!claims) {
       return null;
     }
 
@@ -68,15 +56,27 @@ export class AuthService {
     };
   }
 
+  logout() {
+    this.oauthService.revokeTokenAndLogout()
+      .then();
+    this.oauthService.logOut();
+    this.router.navigateToHome();
+  }
+
+  login() {
+    this.router.saveCurrent();
+    this.oauthService.initCodeFlow();
+  }
+
+  getToken() {
+    return this.oauthService.getIdToken()
+  }
+
   private init(config: AuthConfig) {
     this.log.info(`Setting up auth module for '${config.issuer}', '${config.clientId}'`)
     this.oauthService.configure(config);
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
       .then(it => this.log.info(`loadDiscoveryDocumentAndTryLogin result is: ${it}`));
-  }
-
-  getToken() {
-    return this.oauthService.getIdToken()
   }
 }

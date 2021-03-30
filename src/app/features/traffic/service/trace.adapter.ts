@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Adapter} from "../../../shared/adapter/adapter";
 import {Trace, TraceStatus, TraceStatusUpdate} from "../model/trace";
 
 @Injectable({
   providedIn: 'root'
 })
-export class TraceAdapter implements Adapter<Trace>{
+export class TraceAdapter implements Adapter<Trace> {
 
-  constructor() { }
+  constructor() {
+  }
 
   adapt(item: any): Trace {
     let itemStatusUpdate = item.status

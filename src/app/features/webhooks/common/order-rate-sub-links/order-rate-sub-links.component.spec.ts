@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { OrderRateSubLinksComponent } from './order-rate-sub-links.component';
+import {OrderRateSubLinksComponent} from './order-rate-sub-links.component';
 
 describe('OrderRateSubLinksComponent', () => {
   let component: OrderRateSubLinksComponent;
@@ -8,9 +8,9 @@ describe('OrderRateSubLinksComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrderRateSubLinksComponent ]
+      declarations: [OrderRateSubLinksComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

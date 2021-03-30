@@ -1,45 +1,53 @@
-.light-mode{
-    background-color: #ffffff;
-    padding: 20px;
-    height: 100%;
-    border: 1px solid #e1e1e1;
-    
+.light-mode {
+  background-color: #ffffff;
+  padding: 20px;
+  height: 100%;
+  border: 1px solid #e1e1e1;
+
 }
-.light-mode .custom-control-label::before{
-    top:0.1rem !important;
-    background-color: #C6C6C6;
-    border: 0;
+
+.light-mode .custom-control-label::before {
+  top: 0.1rem !important;
+  background-color: #C6C6C6;
+  border: 0;
 }
+
 .light-mode .custom-switch .custom-control-label::after {
-    top: 3px !important;
-    background-color: #fff;
+  top: 3px !important;
+  background-color: #fff;
 }
-.custom-control-input:checked~.custom-control-label::before{
-    background-color: #1A73E8;
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #1A73E8;
 }
+
 .light-mode.dark-mode-active {
-    background-color: #2D2D2D !important;
-    color: #FFFFFF;
+  background-color: #2D2D2D !important;
+  color: #FFFFFF;
 }
-.light-mode pre{
-    font-family: 'Open Sans', sans-serif !important;
-    font-size: 14px;
-    font-weight: 400;
-    color: #000;
-    line-height: 1.9;
-    white-space: pre-wrap;
+
+.light-mode pre {
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.9;
+  white-space: pre-wrap;
 }
-.light-mode.dark-mode-active pre{
-    color: #fff;
+
+.light-mode.dark-mode-active pre {
+  color: #fff;
 }
+
 .mode-switcher {
-    cursor: pointer;
-    display: inline-block;
-    user-select: none;
+  cursor: pointer;
+  display: inline-block;
+  user-select: none;
 }
+
 @media (max-width: 767px) {
-    .light-mode pre{
-        font-size: 13px;
-        line-height: 1.6;
-    }
+  .light-mode pre {
+    font-size: 13px;
+    line-height: 1.6;
+  }
 }

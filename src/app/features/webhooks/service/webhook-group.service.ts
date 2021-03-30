@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "../../../shared/api.service";
 import {LogService} from "../../../shared/log.service";
 import {Observable} from "rxjs";
@@ -16,7 +16,8 @@ export class WebhookGroupService {
     private readonly api: ApiService,
     private readonly log: LogService,
     private readonly webhookGroupAdapter: WebhookGroupAdapter
-  ) { }
+  ) {
+  }
 
   public myWebhookGroups(): Observable<WebhookGroup[]> {
     this.log.info("Fetching user's webhook groups...");

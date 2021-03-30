@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "../../../shared/api.service";
 import {LogService} from "../../../shared/log.service";
 import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
@@ -14,7 +14,8 @@ export class CallbackService {
   constructor(
     private readonly api: ApiService,
     private readonly log: LogService,
-  ) { }
+  ) {
+  }
 
   testCallback(request: CallbackValidationRequest): Observable<CallbackResponse> {
     let params = new HttpParams()

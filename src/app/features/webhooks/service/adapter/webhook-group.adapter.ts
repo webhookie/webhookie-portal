@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Adapter} from "../../../../shared/adapter/adapter";
 import {Topic, WebhookGroup} from "../../model/webhook-group";
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebhookGroupAdapter implements Adapter<WebhookGroup>{
+export class WebhookGroupAdapter implements Adapter<WebhookGroup> {
 
-  constructor() { }
+  constructor() {
+  }
 
   adapt(item: any): WebhookGroup {
     let topics = item.topics.map((it: any) => new Topic(it.name, it.description))

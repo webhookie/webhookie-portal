@@ -13,11 +13,12 @@ export class SubscriptionTrafficComponent implements OnInit {
 
   constructor(
     private readonly spanService: SpanService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.spanService.readSpans()
-      .subscribe( it => this._spans$.next(it));
+      .subscribe(it => this._spans$.next(it));
   }
 
   spans$(): Observable<Array<Span>> {

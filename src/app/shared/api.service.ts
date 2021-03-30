@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {environment} from "../../environments/environment";
@@ -11,14 +11,15 @@ import {LogService} from "./log.service";
 export class ApiService {
   private apiUrl: string = environment.apiUrl
 
-  private static formatErrors(error: any) {
-    return throwError(error.error);
-  }
-
   constructor(
     private readonly log: LogService,
     private readonly http: HttpClient
-  ) { }
+  ) {
+  }
+
+  private static formatErrors(error: any) {
+    return throwError(error.error);
+  }
 
   //TODO: refactor
   public post(
@@ -39,7 +40,7 @@ export class ApiService {
     this.log.debug(`POST json: '${url}', '${strBody}'`)
     return this.http
       .post(url, body, option)
-    // @ts-ignore
+      // @ts-ignore
       .pipe(catchError(ApiService.formatErrors));
   }
 

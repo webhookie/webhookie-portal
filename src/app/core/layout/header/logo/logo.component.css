@@ -1,15 +1,16 @@
- .navbar-brand {
-    width: 15rem;
-    color: #0151CC;
-    font-weight: 800;
-    font-size: 14px;
-}
-.navbar-brand:hover {
-    color: #0151CC;
+.navbar-brand {
+  width: 15rem;
+  color: #0151CC;
+  font-weight: 800;
+  font-size: 14px;
 }
 
-@media (max-width:768px){
-     .navbar-brand {
-        width:auto;
-    }
- }    
+.navbar-brand:hover {
+  color: #0151CC;
+}
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    width: auto;
+  }
+}

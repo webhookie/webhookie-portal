@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { throwError as observableThrowError, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
+import {Observable, throwError as observableThrowError} from 'rxjs';
 import {AuthService} from "../shared/auth.service";
 import {LogService} from "../shared/log.service";
 
@@ -12,7 +12,8 @@ export class HttpTokenInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
     private readonly log: LogService
-  ) { }
+  ) {
+  }
 
   /**
    * Interceptor inject token in header Authorization
@@ -21,7 +22,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
    * @returns {Observable<HttpEvent<any>>}
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> | Observable<any> {
-    if(req.url.includes("/public/")) {
+    if (req.url.includes("/public/")) {
       return next.handle(req)
     }
 
@@ -31,9 +32,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       // @ts-ignore
       headersConfig["Authorization"] = `Bearer ${token}`;
     }
-    const request = req.clone({ setHeaders: headersConfig });
+    const request = req.clone({setHeaders: headersConfig});
     return next.handle(request).pipe(
-    // @ts-ignore
+      // @ts-ignore
       catchError(error => {
         switch (error.status) {
           case 401:

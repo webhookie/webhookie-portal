@@ -16,7 +16,8 @@ export class ApplicationService {
     private readonly api: ApiService,
     private readonly log: LogService,
     private readonly adapter: ApplicationAdapter
-  ) { }
+  ) {
+  }
 
   public myApplications(): Observable<Array<Application>> {
     this.log.info("Fetching user's applications...");

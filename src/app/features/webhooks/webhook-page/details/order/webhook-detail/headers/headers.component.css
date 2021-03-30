@@ -1,17 +1,20 @@
 
-#header-accordion a{
-    text-decoration: none;
+#header-accordion a {
+  text-decoration: none;
 }
-#header-accordion .card{
-  border:0;
-  background-color:transparent;
+
+#header-accordion .card {
+  border: 0;
+  background-color: transparent;
 }
-#header-accordion .card .card-header{
+
+#header-accordion .card .card-header {
   padding: 0;
   background-color: transparent;
   border: 0;
 }
-#header-accordion .card .card-header a{
+
+#header-accordion .card .card-header a {
   display: block;
   font-size: 16px;
   text-align: left;
@@ -19,11 +22,13 @@
   font-weight: normal;
   padding: 9px 15px;
 }
+
 #main-collapse .card-body {
   padding: 0rem !important;
   padding-left: 22px !important;
 }
-#header-accordion .card .card-header a:after{
+
+#header-accordion .card .card-header a:after {
   /* content: "\f105";
   font-family: 'Font Awesome 5 Free';
   font-weight: 900; */
@@ -32,31 +37,38 @@
   width: 21px;
   margin-top: -3px;
 }
-#header-accordion .card .card-header a.active{
-  font-weight:700;
-  }
-#header-accordion .card .card-header a.active:after{
+
+#header-accordion .card .card-header a.active {
+  font-weight: 700;
+}
+
+#header-accordion .card .card-header a.active:after {
   /* content: "\f107"; */
   content: url("../../../../../../../../assets/images/Chevron_down.svg");
 }
-.col-2-set{
+
+.col-2-set {
   display: inline-flex;
   padding: 0.5rem 0;
   width: 100%;
 }
+
 .col-2-set div:first-child {
   flex: 0 0 15%;
-  max-width:15%;
+  max-width: 15%;
 }
+
 .col-2-set div:last-child {
   flex: 0 0 85%;
-  max-width:85%;
+  max-width: 85%;
 }
-.tree-view{
-  position:relative;
-  padding-left:20px;
+
+.tree-view {
+  position: relative;
+  padding-left: 20px;
 }
-.tree-view:before{
+
+.tree-view:before {
   content: "";
   position: absolute;
   height: 100%;
@@ -64,10 +76,12 @@
   left: 0;
   top: 0;
 }
-.tree-view:last-child:before{
-  height:16px;
+
+.tree-view:last-child:before {
+  height: 16px;
 }
-.tree-view:after{
+
+.tree-view:after {
   content: "";
   width: 15px;
   height: 1px;
@@ -76,23 +90,28 @@
   background-color: #E5E5E5;
   left: 0;
 }
+
 @media (max-width: 1024px) {
   .col-2-set div:first-child {
-      flex: 0 0 25%;
-      max-width:25%;
-    }
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+
   .col-2-set div:last-child {
-      flex: 0 0 75%;
-      max-width:75%;
-    }
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
 }
+
 @media (max-width: 767px) {
   .col-2-set div:last-child {
     padding-left: 12px;
   }
-  #header-accordion .card .card-header a{
+
+  #header-accordion .card .card-header a {
     padding: 8px 0px;
   }
+
   #main-collapse .card-body {
     padding: 0rem !important;
     padding-left: 9px !important;

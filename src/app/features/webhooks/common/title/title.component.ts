@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { VariableService } from '../variable.service';
+import {VariableService} from '../variable.service';
 
 @Component({
   selector: 'app-title',
@@ -11,10 +11,13 @@ export class TitleComponent implements OnInit {
   // @ts-ignore
   @Input() headerTitle: string;
 
-  constructor(private variable:VariableService) { }
+  constructor(private variable: VariableService) {
+  }
 
-  ngOnInit(): void {}
-  title(){
+  ngOnInit(): void {
+  }
+
+  title() {
     return this.headerTitle;
     // let crumbs=this.variable.breadCrumbs();
     // if(crumbs[crumbs.length-1].displayName=='Webhooks'){

@@ -1,22 +1,24 @@
 .navbar-toggler {
-    border: 0;
-    padding: 0;
-    margin-right: 0.7rem;
-}
-.navbar{
-    padding: 0.7rem 1rem;
+  border: 0;
+  padding: 0;
+  margin-right: 0.7rem;
 }
 
-@media (max-width:992px){
-    .navbar-collapse {
-        position: absolute;
-        top: 58px;
-        width: 100%;
-        background-color: #fff;
-        box-shadow: 0px 2px 10px #00000029;
-        z-index: 999;
-    }
-    .mobile-menu{
-        justify-content: start;
-    }
+.navbar {
+  padding: 0.7rem 1rem;
+}
+
+@media (max-width: 992px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 58px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0px 2px 10px #00000029;
+    z-index: 999;
+  }
+
+  .mobile-menu {
+    justify-content: start;
+  }
 }

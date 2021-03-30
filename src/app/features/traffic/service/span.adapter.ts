@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Adapter} from "../../../shared/adapter/adapter";
 import {Span, SpanRetry, SpanStatus, SpanStatusUpdate} from "../model/span";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SpanAdapter implements Adapter<Span>{
+export class SpanAdapter implements Adapter<Span> {
 
-  constructor() { }
+  constructor() {
+  }
 
   adapt(item: any): Span {
     let itemStatus = item.status

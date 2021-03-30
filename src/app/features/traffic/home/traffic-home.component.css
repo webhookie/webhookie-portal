@@ -1,15 +1,17 @@
-.traffic{
-    margin: 15px 0px;
+.traffic {
+  margin: 15px 0px;
 }
+
 .traffic ul li a {
-    display: block;
-    padding: 6px 0px;
-    color: #0A1E42;
-    font-size: 12px;
-    text-decoration: none;
+  display: block;
+  padding: 6px 0px;
+  color: #0A1E42;
+  font-size: 12px;
+  text-decoration: none;
 }
-.traffic ul li .active{
-    border-bottom: 1px solid #0151CC;
-    color: #0151CC;
-    font-weight: 600;
+
+.traffic ul li .active {
+  border-bottom: 1px solid #0151CC;
+  color: #0151CC;
+  font-weight: 600;
 }

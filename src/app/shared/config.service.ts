@@ -21,12 +21,13 @@ export class ConfigService {
     private readonly api: ApiService,
     private readonly log: LogService,
     private readonly adapter: WebhookieConfigAdapter
-  ) { }
+  ) {
+  }
 
   public read() {
     return this.api.json(this.CONFIG_URI)
       .pipe(map(it => this.adapter.adapt(it)))
-      .pipe(tap( it => this.log.debug(it)))
+      .pipe(tap(it => this.log.debug(it)))
       .subscribe(it => this._config$.next(it))
   }
 }

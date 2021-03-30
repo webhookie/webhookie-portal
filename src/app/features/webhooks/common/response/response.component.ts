@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {VariableService} from '../variable.service';
 import {CallbackResponse} from "../../service/callback.service";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {filter, map} from "rxjs/operators";
 
 @Component({
@@ -22,16 +22,17 @@ export class ResponseComponent implements OnInit {
   readonly responseCode$: Observable<number> = this._response$.asObservable()
     .pipe(map(it => it?.responseCode))
 
-  constructor(public variable: VariableService) { }
+  constructor(public variable: VariableService) {
+  }
 
   ngOnInit(): void {
     this.response$
       .subscribe(res => {
         let body = res.responseBody;
-        if(res.headers.get("Content-Type")?.startsWith("application/json")) {
+        if (res.headers.get("Content-Type")?.startsWith("application/json")) {
           const str = JSON.stringify(body, null, '\t');
           this.outputHtml(this.variable.syntaxHighlight(str));
-        } else if(res.headers.get("Content-Type")?.startsWith("text/plain")) {
+        } else if (res.headers.get("Content-Type")?.startsWith("text/plain")) {
           this.output(body);
         } else {
           this.output(body);

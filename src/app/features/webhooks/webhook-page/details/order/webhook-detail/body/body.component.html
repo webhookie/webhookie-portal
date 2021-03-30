@@ -3,26 +3,26 @@
     <div class="card-header">
       <a data-toggle="collapse" href="#main-body-collapse">{{body.label}}</a>
     </div>
-    <div id="main-body-collapse" class="collapse" data-parent="#body-accordion">
+    <div class="collapse" data-parent="#body-accordion" id="main-body-collapse">
       <div class="card-body">
         <div id="body-accordion-1">
-          <div class="card" *ngFor="let item of body.parent;let i=index;">
+          <div *ngFor="let item of body.parent;let i=index;" class="card">
             <div class="card-header">
-              <a class="collapsed" data-toggle="collapse" href="#body-heading-collapse-{{i}}"
-                class="font14 font-weight-600">
+              <a class="collapsed" class="font14 font-weight-600" data-toggle="collapse"
+                 href="#body-heading-collapse-{{i}}">
                 {{item.label}}
-                <span class="badge badge-primary ml-3 mr-2" *ngIf="item.type">
+                <span *ngIf="item.type" class="badge badge-primary ml-3 mr-2">
                   {{item.type}}
                 </span>
-                <span class="badge badge-warning" *ngIf="item.required==0">
+                <span *ngIf="item.required==0" class="badge badge-warning">
                   OPTIONAL
                 </span>
-                <span class="badge badge-danger" *ngIf="item.required==1">
+                <span *ngIf="item.required==1" class="badge badge-danger">
                   REQUIRE
                 </span>
               </a>
             </div>
-            <div id="body-heading-collapse-{{i}}" class="collapse" data-parent="#body-accordion-1">
+            <div class="collapse" data-parent="#body-accordion-1" id="body-heading-collapse-{{i}}">
               <div class="card-body">
                 <div class="order order-view">
                   <div class="col-2-set">
@@ -31,24 +31,24 @@
                     </div>
                   </div>
                   <!-- ..... -->
-                  <div class="card" *ngFor="let child of item.child;let l=index;">
+                  <div *ngFor="let child of item.child;let l=index;" class="card">
                     <div class="card-header">
-                      <a class="collapsed" data-toggle="collapse" href="#body-sub-collapse-{{l}}"
-                        class="font12 font-weight-600">
+                      <a class="collapsed" class="font12 font-weight-600" data-toggle="collapse"
+                         href="#body-sub-collapse-{{l}}">
                         {{child.label}}
-                        <span class="badge badge-primary ml-3 mr-2" *ngIf="child.type">
+                        <span *ngIf="child.type" class="badge badge-primary ml-3 mr-2">
                           {{child.type}}
                         </span>
-                        <span class="badge badge-warning ml-3 mr-2" *ngIf="child.required==0">
+                        <span *ngIf="child.required==0" class="badge badge-warning ml-3 mr-2">
                           OPTIONAL
                         </span>
-                        <span class="badge badge-danger ml-3 mr-2" *ngIf="child.required==1">
+                        <span *ngIf="child.required==1" class="badge badge-danger ml-3 mr-2">
                           REQUIRE
                         </span>
                       </a>
                     </div>
-                    <div id="body-sub-collapse-{{l}}" class="collapse" *ngFor="let sub of child.sub_child">
-                      <div class="fixed-amount tree-view" *ngIf="sub.label=='Value'">
+                    <div *ngFor="let sub of child.sub_child" class="collapse" id="body-sub-collapse-{{l}}">
+                      <div *ngIf="sub.label=='Value'" class="fixed-amount tree-view">
                         <div class="col-2-set">
                           <div>
                             <h5 class="font12 mb-0 font-weight-600">{{sub.label}}</h5>
@@ -56,10 +56,10 @@
                           <div>
                             <p class="font12 mb-0">
                               <span *ngIf="sub.type">{{sub.type}}</span>
-                              <span class="badge badge-warning ml-3 mr-2" *ngIf="sub.required==0">
+                              <span *ngIf="sub.required==0" class="badge badge-warning ml-3 mr-2">
                                 OPTIONAL
                               </span>
-                              <span class="badge badge-danger ml-3 mr-2" *ngIf="sub.required==1">
+                              <span *ngIf="sub.required==1" class="badge badge-danger ml-3 mr-2">
                                 REQUIRE
                               </span>
                             </p>
@@ -95,7 +95,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="fixed-amount tree-view2" *ngIf="sub.label=='Currency'">
+                      <div *ngIf="sub.label=='Currency'" class="fixed-amount tree-view2">
                         <div class="col-2-set">
                           <div>
                             <h5 class="font12 mb-0 font-weight-600">{{sub.label}}</h5>

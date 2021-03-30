@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "../../../shared/api.service";
 import {LogService} from "../../../shared/log.service";
 import {Observable} from "rxjs";
@@ -17,7 +17,8 @@ export class SpanService {
     private readonly api: ApiService,
     private readonly log: LogService,
     private readonly adapter: SpanAdapter
-  ) { }
+  ) {
+  }
 
   readSpans(): Observable<Span[]> {
     const params = new HttpParams();

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
 import {Constants} from "./constants";
 import {StorageService} from "./storage.service";
@@ -10,7 +10,8 @@ export class RouterService {
   constructor(
     private readonly router: Router,
     private readonly storage: StorageService
-  ) { }
+  ) {
+  }
 
   saveCurrent() {
     this.storage.store(Constants.STORAGE_KEY_CALLBACK, this.router.url);
@@ -27,7 +28,7 @@ export class RouterService {
 
   navigateToSaved() {
     let callback = this.storage.read(Constants.STORAGE_KEY_CALLBACK)
-    if(callback) {
+    if (callback) {
       this.navigateTo(callback);
       this.storage.remove(callback);
     }

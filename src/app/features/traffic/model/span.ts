@@ -11,7 +11,7 @@ export class Span {
     public statusUpdate: SpanStatusUpdate,
     public tries: number,
     public nextRetry?: SpanRetry
-) {
+  ) {
   }
 }
 
