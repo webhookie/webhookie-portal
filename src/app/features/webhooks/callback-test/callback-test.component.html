@@ -8,12 +8,20 @@
       <div class="dot-buttons">
         <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
           <li>
-            <button class="btn mr-2 mr-md-0 btn-primary" routerLink="/webhooks/subscribe-webhook" *ngIf="response?.isValid$ | async">
+            <form class="form-inline mr-2">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="customCheck" (change)="subscribe=!subscribe" [checked]="subscribe==true">
+                  <label class="custom-control-label font12 pt-1" for="customCheck">Use the same URL to subscribe</label>
+                </div>
+              </form>
+         </li>
+          <li *ngIf="response?.isValid$ | async">
+            <button class="btn mr-2 mr-md-0 btn-primary" routerLink="/webhooks/subscribe-webhook" >
               Subscribe
             </button>
           </li>
           <li>
-            <button class="btn btn-default test_color" routerLink="/webhooks/callback-test" (click)="test()">
+            <button class="btn btn-primary" routerLink="/webhooks/callback-test" (click)="test()">
               Test
             </button>
           </li>

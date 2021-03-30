@@ -17,7 +17,7 @@ export class CallbackTestComponent implements OnInit {
   @ViewChild('responseComponent') response?: ResponseComponent
   // @ts-ignore
   @ViewChild('requestExampleComponent') request: RequestExampleComponent
-
+  subscribe:boolean=false;
   constructor(
     readonly variable: VariableService,
     private readonly callbackService: CallbackService

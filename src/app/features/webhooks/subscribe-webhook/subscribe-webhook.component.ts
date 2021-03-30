@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {Router}from '@angular/router'	;
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubscribeWebhookComponent implements OnInit {
 
-  constructor() { }
+  constructor(public modalRef: BsModalRef,
+    private modalService: BsModalService,
+    private router:Router) { }
 
   ngOnInit(): void {
   }
-
+test() {
+    return true;
+  }
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template,{class:'modal-dialog-centered',backdrop: true,ignoreBackdropClick: true });    
+  }
 }
