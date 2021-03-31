@@ -19,12 +19,12 @@ export class WebhookGroupService {
   ) {
   }
 
-  public myWebhookGroups(): Observable<WebhookGroup[]> {
+  public myWebhookGroups(): Observable<Array<WebhookGroup>> {
     this.log.info("Fetching user's webhook groups...");
     return this.api.json(this.WEBHOOKGROUPS_URI)
-      .pipe(tap(it => this.log.info(`Fetched '${it.length}' webhook groups`)))
-      .pipe(map(list => {
-        return list.map((it: any) => this.webhookGroupAdapter.adapt(it))
-      }))
+      .pipe(
+        tap(it => this.log.info(`Fetched '${it.length}' webhook groups`)),
+        map(list => list.map((it: any) => this.webhookGroupAdapter.adapt(it)))
+      )
   }
 }

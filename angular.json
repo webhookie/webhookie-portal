@@ -84,6 +84,14 @@
                   "with": "src/environments/environment-auth0.ts"
                 }
               ]
+            },
+            "mock": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment-mock.ts"
+                }
+              ]
             }
           }
         },
@@ -101,6 +109,9 @@
             },
             "auth0": {
               "browserTarget": "webhookie-portal:build:auth0"
+            },
+            "mock": {
+              "browserTarget": "webhookie-portal:build:mock"
             }
           }
         },

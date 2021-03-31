@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  mock: false,
   apiUrl: "http://localhost:8080",
   iam: {
     redirectUri: "http://localhost:4200",

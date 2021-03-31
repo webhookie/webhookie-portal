@@ -4,6 +4,7 @@ import {Observable, throwError} from "rxjs";
 import {environment} from "../../environments/environment";
 import {catchError} from "rxjs/operators";
 import {LogService} from "./log.service";
+import {MockData} from "../../mock/modk-data";
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,11 @@ export class ApiService {
     uri: string,
     params: HttpParams = new HttpParams()
   ): Observable<any> {
+
+    if(environment.mock) {
+      return MockData.for(uri, params)
+    }
+
     let option = {};
     if (params) {
       option = {
