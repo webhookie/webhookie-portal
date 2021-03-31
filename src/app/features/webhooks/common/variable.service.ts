@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Injectable ,TemplateRef } from '@angular/core';
 import {BreadcrumbService} from 'angular-crumbs';
 import {WebhookGroupElement} from "../webhook-page/sidebar/sidebar-list/webhook-group-element";
 import {ReplaySubject, Subject} from "rxjs";
 import {Topic} from "../model/webhook-group";
-
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 @Injectable({
   providedIn: 'root'
 })
@@ -57,8 +57,9 @@ export class VariableService {
   ];
   readonly _selectedWebhookGroup: Subject<WebhookGroupElement> = new ReplaySubject()
   selectedTopic?: Topic;
-
-  constructor(private breadcrumbService: BreadcrumbService) {
+  selectedTopicName:any;
+  constructor(private breadcrumbService: BreadcrumbService,
+    public modalRef: BsModalRef,private modalService: BsModalService,) {
     this.breadCrumbs();
 
     this._selectedWebhookGroup
@@ -101,6 +102,14 @@ export class VariableService {
         cls = 'null';
       }
       return '<span class="' + cls + '">' + match + '</span>';
+    });
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {
+      class: 'modal-dialog-centered modal-w',
+      backdrop: true,
+      ignoreBackdropClick: true
     });
   }
 }

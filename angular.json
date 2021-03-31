@@ -20,6 +20,22 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@angularclass/hmr",
+              "moment",
+              "moment/locale/zh-cn",
+              "jquery",
+              "handsontable",
+              "@feathersjs/socketio-client",
+              "@feathersjs/rest-client",
+              "@feathersjs/feathers",
+              "@feathersjs/authentication-client",
+              "socket.io-client",
+              "xlsx",
+              "rxjs",
+              "pikaday",
+              "ng2-flatpickr"
+            ],
             "outputPath": "dist/webhookie-portal",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -172,5 +188,5 @@
       }
     }
   },
-  "defaultProject": "webhookie-portal"
+  "defaultProject": "webhookie-portal",
 }
