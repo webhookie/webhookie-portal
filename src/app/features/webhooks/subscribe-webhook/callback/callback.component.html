@@ -1,6 +1,6 @@
-<div class="subscribe-call-back" [ngClass]="!variable.app?'isDisabled':''">
+<div class="subscribe-call-back" [ngClass]="selectedApplication ? '' : 'isDisabled'">
   <fieldset class="p-3 mt-3 mr-lg-3" >
-    <h4 class="font16 font-weight-600">Add a callback URL <b>{{variable.appName}}</b></h4>
+    <h4 class="font16 font-weight-600">Add a callback URL <b>{{selectedApplication?.name}}</b></h4>
     <p class="font12">Please select or create an application to add your callback URL.</p>
 
     <label class="font14 font-weight-400">Select your callback URL</label>
@@ -8,7 +8,7 @@
     <div class="dropdown mb-3">
       <button type="button"
         class="btn btn-warning dropdown-toggle text-left font12 font-weight-400 d-flex justify-content-between align-items-center"
-        data-toggle="dropdown">   
+        data-toggle="dropdown">
         {{url?url:'Select your callback URL'}}
       </button>
       <div class="dropdown-menu font12 font-weight-400">
@@ -65,7 +65,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <b>{{variable.appName}}</b>
+        <b>{{selectedApplication?.name}}</b>
         <app-callback-url></app-callback-url>
       </div>
       <div class="modal-footer">

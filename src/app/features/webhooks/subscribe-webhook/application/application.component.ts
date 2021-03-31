@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import {ApplicationService} from "../../service/application.service";
 import {ReplaySubject, Subject} from "rxjs";
 import {Application} from "../../model/application";
+import {WebhooksContext} from "../../webhooks-context";
 
 @Component({
   selector: 'app-application',
@@ -14,15 +15,13 @@ export class ApplicationComponent implements OnInit {
   appName: any;
   Desc: any;
 
-  selectedApplication?: Application
-
   readonly _applications$: Subject<Array<Application>> = new ReplaySubject();
 
   constructor(
-              private readonly applicationService: ApplicationService,
-              public variable: VariableService
+    private readonly applicationService: ApplicationService,
+    private readonly context: WebhooksContext,
+    public variable: VariableService
   ) {
-    this.variable.app = false;
   }
 
   ngOnInit(): void {
@@ -38,8 +37,10 @@ export class ApplicationComponent implements OnInit {
   }
 
   selectApp(application: Application) {
-    this.selectedApplication = application
-    this.variable.appName = application.name
-    this.variable.app = true;
+    this.context.update(application);
+  }
+
+  get selectedApplication() {
+    return this.context.currentApplication
   }
 }

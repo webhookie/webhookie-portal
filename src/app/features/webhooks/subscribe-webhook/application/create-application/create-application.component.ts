@@ -13,8 +13,6 @@ export class CreateApplicationComponent implements OnInit {
   }
 
   create() {
-    this.variable.appName =  'Volvo cars';
-    this.variable.app = true;
     this.variable.modalRef.hide();
   }
 }
