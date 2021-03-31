@@ -2,6 +2,10 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 import {WebhooksContext} from "../../webhooks-context";
+import {CallbackService} from "../../service/callback.service";
+import {mergeMap} from "rxjs/operators";
+import {ReplaySubject, Subject} from "rxjs";
+import {Callback} from "../../model/callback";
 
 @Component({
   selector: 'app-callback',
@@ -9,18 +13,21 @@ import {WebhooksContext} from "../../webhooks-context";
   styleUrls: ['./callback.component.css']
 })
 export class CallbackComponent implements OnInit {
-  url: any;
+  readonly _callbacks$: Subject<Array<Callback>> = new ReplaySubject();
 
   constructor(
     public variable: VariableService,
     public modalRef: BsModalRef,
     private readonly context: WebhooksContext,
+    private readonly service: CallbackService,
     private modalService: BsModalService
   ) {
   }
 
   ngOnInit(): void {
-
+    this.context.selectedApplication$
+      .pipe(mergeMap(it => this.service.fetchApplicationCallbacks(it)))
+      .subscribe(it => this._callbacks$.next(it))
   }
 
   get selectedApplication() {
@@ -35,14 +42,15 @@ export class CallbackComponent implements OnInit {
     });
   }
 
-  urlSelected(val: any) {
-    this.url = val;
-    this.variable.callback = true;
+  create() {
+    this.modalRef.hide();
   }
 
-  create() {
-    this.variable.callback = true;
-    this.url = 'Volvo Car';
-    this.modalRef.hide();
+  selectCallback(callback: Callback) {
+    this.context.updateCallback(callback);
+  }
+
+  get selectedCallback() {
+    return this.context.currentCallback
   }
 }

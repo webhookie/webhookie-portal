@@ -9,43 +9,41 @@
       <button type="button"
         class="btn btn-warning dropdown-toggle text-left font12 font-weight-400 d-flex justify-content-between align-items-center"
         data-toggle="dropdown">
-        {{url?url:'Select your callback URL'}}
+        {{selectedCallback ? selectedCallback?.url : 'Select your callback URL'}}
       </button>
       <div class="dropdown-menu font12 font-weight-400">
         <button class="btn btn-default font-weight-400 font12" (click)="openModal(template1)">
           <i class="lni lni-plus mr-2"></i>Create New Callback Url</button>
           <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="javascript:void(0)" (click)="urlSelected('Ericsson')" *ngIf="url=='Volvo Car'">Volvo Car</a>
-        <a class="dropdown-item" href="javascript:void(0)" (click)="urlSelected('Ericsson')">Ericsson</a>
-        <a class="dropdown-item" href="javascript:void(0)" (click)="urlSelected('Telia')">Telia</a>
+        <a class="dropdown-item" href="javascript:void(0)" *ngFor="let callback of _callbacks$.asObservable() | async" (click)="selectCallback(callback)">{{callback.name}}</a>
       </div>
     </div>
     <!-- start -->
 
-    <div class="callback-read-only" *ngIf="variable.callback">
+    <div class="callback-read-only" *ngIf="selectedCallback">
       <form>
         <h4 class="font14 font-weight-400">Callback URL</h4>
         <div class="form-row mb-1">
           <div class="form-group col-md-2">
-            <input type="text" class="form-control" value="Post" readonly>
+            <input type="text" class="form-control" value="{{selectedCallback?.httpMethod}}" readonly>
           </div>
           <div class="form-group col-md-6">
-            <input type="text" class="form-control" value="https://www.volvocars.com/se" readonly>
+            <input type="text" class="form-control" value="{{selectedCallback?.url}}" readonly>
           </div>
         </div>
 
-        <h4 class="font14 font-weight-400">Security</h4>
-        <label class="font12 pt-1">HMAC Signature</label>
-        <div class="form-row mt-1">
+        <h4 class="font14 font-weight-400" *ngIf="selectedCallback?.signable">Security</h4>
+        <label class="font12 pt-1" *ngIf="selectedCallback?.signable">HMAC Signature</label>
+        <div class="form-row mt-1" *ngIf="false">
           <div class="form-group col-md-8">
             <label class="font14 font-weight-400 mb-1">Key ID</label>
-            <input type="text" class="form-control" value="Key ID example" readonly>
+            <input type="text" class="form-control" value="{{selectedCallback?.security?.keyId}}" readonly>
           </div>
         </div>
-        <div class="form-row">
+        <div class="form-row" *ngIf="selectedCallback?.signable">
           <div class="form-group col-md-8">
             <h4 class="font14 font-weight-400 mb-1">Secret API Key</h4>
-            <input type="text" class="form-control" value="Secret API Key example" readonly>
+            <input type="text" class="form-control" value="{{selectedCallback?.security?.keyId}}" readonly>
           </div>
         </div>
       </form>

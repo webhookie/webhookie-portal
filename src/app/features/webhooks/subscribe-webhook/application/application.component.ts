@@ -37,7 +37,7 @@ export class ApplicationComponent implements OnInit {
   }
 
   selectApp(application: Application) {
-    this.context.update(application);
+    this.context.updateApplication(application);
   }
 
   get selectedApplication() {
