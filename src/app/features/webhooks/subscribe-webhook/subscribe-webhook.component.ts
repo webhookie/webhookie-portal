@@ -33,7 +33,7 @@ export class SubscribeWebhookComponent implements OnInit {
     this.variable.subscribe_res = false;
 
     this.context.selectedCallback$
-      .subscribe(it => this.response?.invalidate())
+      .subscribe(() => this.response?.invalidate())
   }
 
   title() {
@@ -69,10 +69,6 @@ export class SubscribeWebhookComponent implements OnInit {
       backdrop: true,
       ignoreBackdropClick: true
     });
-  }
-
-  get selectedApplication() {
-    return this.context.currentApplication
   }
 
   get selectedCallback() {
