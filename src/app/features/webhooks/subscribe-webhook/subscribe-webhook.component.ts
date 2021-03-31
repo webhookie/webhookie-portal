@@ -1,8 +1,12 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {Router} from '@angular/router';
 import {VariableService} from "../common/variable.service";
 import {WebhooksContext} from "../webhooks-context";
+import {ResponseComponent} from "../common/response/response.component";
+import {ApplicationComponent} from "./application/application.component";
+import {CallbackComponent} from "./callback/callback.component";
+import {CallbackService, CallbackValidationRequest} from "../service/callback.service";
+import {RequestExampleComponent} from "../common/request-example/request-example.component";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -11,18 +15,25 @@ import {WebhooksContext} from "../webhooks-context";
 })
 export class SubscribeWebhookComponent implements OnInit {
 
-  subscribe: boolean = true;
+  @ViewChild("applicationComponent") application?: ApplicationComponent
+  @ViewChild("callbackComponent") callback?: CallbackComponent
+  @ViewChild('responseComponent') response?: ResponseComponent
+  @ViewChild('requestExampleComponent') requestComponent?: RequestExampleComponent
 
   constructor(
     readonly variable: VariableService,
     public modalRef: BsModalRef,
     private modalService: BsModalService,
     private readonly context: WebhooksContext,
-    private router: Router) {
+    private readonly callbackService: CallbackService
+  ) {
   }
 
   ngOnInit(): void {
     this.variable.subscribe_res = false;
+
+    this.context.selectedCallback$
+      .subscribe(it => this.response?.invalidate())
   }
 
   title() {
@@ -30,6 +41,25 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   test() {
+    this.response?.invalidate()
+    let callback = this.context.currentCallback
+
+    let request: CallbackValidationRequest = {
+      httpMethod: callback.httpMethod,
+      url: callback.url,
+      payload: JSON.stringify(this.requestComponent?.jsonobj?.result),
+      headers: {
+        "Content-Type": ["application/json"],
+        "Accept": ["*/*"]
+      },
+      traceId: "1",
+      spanId: "1"
+    };
+
+    this.callbackService.testCallback(request)
+      .subscribe(it => {
+        this.response?.update(it)
+      })
     this.variable.subscribe_res = true;
   }
 
