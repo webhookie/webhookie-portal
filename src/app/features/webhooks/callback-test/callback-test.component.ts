@@ -24,7 +24,6 @@ export class CallbackTestComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.response);
   }
 
   title(){
