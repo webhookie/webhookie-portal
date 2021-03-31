@@ -16,16 +16,28 @@
             <textarea class="form-control" rows="4" id="Description"
                 placeholder="Description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially</textarea>
         </div>
-        <label for="name" class="font14 font-weight-400 mt-2">Consumer group</label>
-        <div class="dropdown">
-            <button type="button"
-                class="btn btn-warning dropdown-toggle w-50 text-left font12 font-weight-400 d-flex justify-content-between align-items-center"
-                data-toggle="dropdown">
-                2 consumers selected
-            </button>
-            <div class="dropdown-menu w-50 font12 font-weight-400">
-                <a class="dropdown-item" href="javascript:void(0)">Consumers 1</a>
-                <a class="dropdown-item" href="javascript:void(0)">Consumers 2</a>
+        <div class="form-group">
+            <label for="name" class="font14 font-weight-400 mt-2">Consumer group</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-warning dropdown-toggle font12 font-weight-400" data-toggle="dropdown">
+                            2 consumers selected
+                        </button>
+                        <div class="dropdown-menu multi-select-dropdown">
+                            <div class="scrollable-list">
+                                <div class="custom-control custom-checkbox" (change)="selectedItems(-1)">
+                                    <input type="checkbox" class="custom-control-input" id="consumer_4" name="example1" [checked]="selectAll">
+                                    <label class="custom-control-label" for="consumer_4">Select All</label>
+                                </div>
+                                <div class="custom-control custom-checkbox" *ngFor="let item of consumers" (click)="selectedItems(item.id)">
+                                    <input type="checkbox" class="custom-control-input" id="{{item.id}}" name="example1" [checked]="checkedItem(item)">
+                                    <label class="custom-control-label" for="example1">{{item.name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="consumer-value">
