@@ -8,13 +8,13 @@
         <div class="dot-buttons">
             <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
                 <li>
-                    <button class="btn btn-default" (click)="openModal(template1)" [disabled]="!variable.callback?true:false" [ngClass]="!variable.callback?'disable-default':'btn-default'">
+                    <button class="btn btn-default" (click)="openModal(template1)" [disabled]="!selectedCallback" [ngClass]="selectedCallback ? 'btn-default' : 'disable-default'">
                         Save & finish later
                     </button>
                 </li>
                 <li>
-                <button class="btn" [disabled]="!variable.callback?true:false"
-                [ngClass]="!variable.callback?'disable-default':'btn-default'" (click)="test()">
+                <button class="btn" [disabled]="!selectedCallback"
+                [ngClass]="selectedCallback ? 'btn-default' : 'disable-default'" (click)="test()">
                     {{variable.subscribe_res?'Retest':'Test'}}
                 </button>
                 </li>
@@ -55,7 +55,7 @@
         </div>
         <div class="modal-body">
         <p>You still can see and complete your unpublished subscriptions from the subscription page.</p>
-    
+
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-default cancel border" aria-label="Close"
