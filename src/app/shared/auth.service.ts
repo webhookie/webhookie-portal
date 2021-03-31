@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {ConfigService} from "./config.service";
 import {NullValidationHandler, OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
 import {AuthConfig} from "angular-oauth2-oidc/auth.config";
 import {environment} from "../../environments/environment";
@@ -8,6 +7,7 @@ import {filter, map} from "rxjs/operators";
 import {LogService} from "./log.service";
 import {Constants} from "./constants";
 import {RouterService} from "./router.service";
+import {ApplicationContext} from "./application.context";
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +16,14 @@ export class AuthService {
   constructor(
     private readonly oauthService: OAuthService,
     private readonly log: LogService,
-    private readonly configService: ConfigService,
+    private readonly context: ApplicationContext,
     private readonly router: RouterService
   ) {
     this.oauthService.events
       .pipe(filter(it => (it instanceof OAuthSuccessEvent) && it.type === Constants.AUTH_EVENT_TOKEN_REFRESHED))
       .subscribe(() => this.router.navigateToSaved());
 
-    this.configService.config
+    this.context.config()
       .pipe(map(it => AuthService.toAuthConfig(it)))
       .subscribe(it => this.init(it));
   }

@@ -1,10 +1,9 @@
 import {Inject, Injectable} from '@angular/core';
-import {Observable, ReplaySubject, Subject} from "rxjs";
-import {WebhookieConfig} from "./model/webhookie-config";
 import {WebhookieConfigAdapter} from "./adapter/webhookie-config.adapter";
-import {filter, map, tap} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {LogService} from "./log.service";
 import {Api} from "./api";
+import {ApplicationContext} from "./application.context";
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +11,10 @@ import {Api} from "./api";
 export class ConfigService {
   private CONFIG_URI: string = "/public/config"
 
-  private readonly _config$: Subject<WebhookieConfig> = new ReplaySubject<WebhookieConfig>()
-  public readonly config: Observable<WebhookieConfig> = this._config$
-    .asObservable()
-    .pipe(filter(it => it !== null))
-
   constructor(
     @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
+    private readonly context: ApplicationContext,
     private readonly adapter: WebhookieConfigAdapter
   ) {
   }
@@ -28,6 +23,6 @@ export class ConfigService {
     return this.api.json(this.CONFIG_URI)
       .pipe(map(it => this.adapter.adapt(it)))
       .pipe(tap(it => this.log.debug(it)))
-      .subscribe(it => this._config$.next(it))
+      .subscribe(it => this.context.init(it))
   }
 }
