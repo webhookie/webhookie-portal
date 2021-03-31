@@ -1,3 +1,5 @@
+import {CallbackSecurity} from "../../shared/model/callback-security";
+
 export class Subscription {
   constructor(
     public id: string,
@@ -40,13 +42,6 @@ export class CallbackDetails {
   }
 }
 
-export class CallbackSecurity {
-  constructor(
-    public method: string,
-    public keyId: string
-  ) {
-  }
-}
 
 enum SubscriptionStatus {
   SAVED = "SAVED",
