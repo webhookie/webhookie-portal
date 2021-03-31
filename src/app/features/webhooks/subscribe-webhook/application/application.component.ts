@@ -6,6 +6,7 @@ import {ApplicationService} from "../../service/application.service";
 import {LogService} from "../../../../shared/log.service";
 import {ReplaySubject, Subject} from "rxjs";
 import {Application} from "../../model/application";
+import {WebhooksContext} from "../../webhooks-context";
 
 @Component({
   selector: 'app-application',
@@ -15,12 +16,14 @@ import {Application} from "../../model/application";
 export class ApplicationComponent implements OnInit {
   appName: any;
   Desc: any;
-  appSelected: any;
+
+  selectedApplication?: Application
 
   readonly _applications$: Subject<Array<Application>> = new ReplaySubject();
 
   constructor(public modalRef: BsModalRef,
               private readonly applicationService: ApplicationService,
+              private readonly context: WebhooksContext,
               private readonly log: LogService,
               private modalService: BsModalService,
               public variable: VariableService
@@ -48,13 +51,14 @@ export class ApplicationComponent implements OnInit {
     });
   }
 
-  selectApp(val: Application) {
-    this.variable.appName = this.appSelected = val.name;
+  selectApp(application: Application) {
+    this.selectedApplication = application
+    this.variable.appName = application.name
     this.variable.app = true;
   }
 
   create() {
-    this.variable.appName = this.appSelected = 'Volvo cars';
+    this.variable.appName = 'Volvo cars';
     this.variable.app = true;
     this.modalRef.hide();
   }

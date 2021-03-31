@@ -7,7 +7,7 @@
       <button type="button"
         class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center"
         data-toggle="dropdown">
-        {{appSelected?appSelected:'Select your application'}}
+        {{selectedApplication ? selectedApplication?.name : 'Select your application'}}
       </button>
       <div class="dropdown-menu font12 font-weight-400">
         <button class="btn btn-default font-weight-400 font12" (click)="openModal(template1)"><i
@@ -16,9 +16,9 @@
         <a class="dropdown-item" href="javascript:void(0)" *ngFor="let app of _applications$.asObservable() | async" (click)="selectApp(app)">{{app.name}}</a>
       </div>
     </div>
-    <div class="my-2" *ngIf="variable.app">
-      <h4 class="font12 font-weight-600 mt-2 mb-1">{{appSelected}}</h4>
-      <p class="font12">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially</p>
+    <div class="my-2" *ngIf="selectedApplication">
+      <h4 class="font12 font-weight-600 mt-2 mb-1">{{selectedApplication?.name}}</h4>
+      <p class="font12">{{selectedApplication?.description}}</p>
    </div>
   </fieldset>
 
