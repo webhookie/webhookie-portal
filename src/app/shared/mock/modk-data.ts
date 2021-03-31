@@ -79,6 +79,34 @@ export class MockData {
     }
   ];
 
+  public static readonly applicationCallbacks = [
+    {
+      "id": "60362110d7582d3e57824b65",
+      "name": "Product Callback 9001",
+      "httpMethod": "POST",
+      "url": "http://192.168.1.101:9001/wh/product",
+      "signable": false
+    },
+    {
+      "id": "603635acd7582d3e57824b70",
+      "name": "Product Callback 9002",
+      "httpMethod": "POST",
+      "url": "http://192.168.1.101:9002/wh/product",
+      "signable": false
+    },
+    {
+      "id": "603634a8d7582d3e57824b6a",
+      "name": "Product Callback 9004",
+      "httpMethod": "POST",
+      "url": "http://192.168.1.101:9004/wh/weather",
+      "security": {
+        "method": "HMAC",
+        "keyId": "my-key-id"
+      },
+      "signable": true
+    }
+  ];
+
   public static readonly traces = [
     {
       "traceId": "f79c48f3-6790-4aa7-bd50-c6a8fb15f1ce",
@@ -478,6 +506,9 @@ export class MockData {
     }
 
     if(uri.startsWith("/applications")) {
+      if(uri.endsWith("/callbacks")) {
+        return of(this.applicationCallbacks)
+      }
       return of(this.applications)
     }
 
