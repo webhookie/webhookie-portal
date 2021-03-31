@@ -1,8 +1,12 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {Api} from "../../../shared/api";
+import {Application} from "../model/application";
+import {Callback} from "../model/callback";
+import {CallbackAdapter} from "./adapter/callback.adapter";
+import {LogService} from "../../../shared/log.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +15,9 @@ export class CallbackService {
   private CALLBACK_TEST_URI = "/callbacks/test"
 
   constructor(
-    @Inject("Api") private readonly api: Api
+    @Inject("Api") private readonly api: Api,
+    private readonly adapter: CallbackAdapter,
+    private readonly log: LogService
   ) {
   }
 
@@ -22,6 +28,15 @@ export class CallbackService {
     return this.api.post(this.CALLBACK_TEST_URI, request, params)
       .pipe(
         map((it: HttpResponse<any>) => new CallbackResponse(it.status, it.headers, it.body))
+      );
+  }
+
+  fetchApplicationCallbacks(application: Application): Observable<Array<Callback>> {
+    let uri = `/applications/${application.id}/callbacks`
+    return this.api.json(uri)
+      .pipe(
+        tap(it => this.log.info(`Fetched '${it.length}' callbacks`)),
+        map(list => list.map((it: any) => this.adapter.adapt(it)))
       );
   }
 }
