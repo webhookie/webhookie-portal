@@ -19,6 +19,8 @@ export class CreateApplicationComponent implements OnInit {
   }
 
   create() {
+    this.variable.appName =  'Volvo cars';
+    this.variable.app = true;
     this.variable.modalRef.hide();
   }
   selectedItems(id:any){
@@ -41,10 +43,8 @@ export class CreateApplicationComponent implements OnInit {
         this.selectArr.push(id);
       }
     }
-   
-     console.log(this.selectArr);
   }
-  
+    
   checkedItem(val:any){
     this.selectAll=(this.consumers.length==this.selectArr.length)?true:false;
     let index=this.selectArr.findIndex((res:any)=>res==val.id);   
