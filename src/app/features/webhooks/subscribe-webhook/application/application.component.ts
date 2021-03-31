@@ -1,11 +1,9 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 import * as $ from 'jquery';
 import {ApplicationService} from "../../service/application.service";
-import {LogService} from "../../../../shared/log.service";
 import {ReplaySubject, Subject} from "rxjs";
 import {Application} from "../../model/application";
-import {WebhooksContext} from "../../webhooks-context";
 
 @Component({
   selector: 'app-application',
@@ -22,8 +20,6 @@ export class ApplicationComponent implements OnInit {
 
   constructor(
               private readonly applicationService: ApplicationService,
-              private readonly context: WebhooksContext,
-              private readonly log: LogService,
               public variable: VariableService
   ) {
     this.variable.app = false;
@@ -41,16 +37,9 @@ export class ApplicationComponent implements OnInit {
 
   }
 
-
-
   selectApp(application: Application) {
     this.selectedApplication = application
     this.variable.appName = application.name
-    this.variable.app = true;
-  }
-
-  create() {
-    this.variable.appName = 'Volvo cars';
     this.variable.app = true;
   }
 }
