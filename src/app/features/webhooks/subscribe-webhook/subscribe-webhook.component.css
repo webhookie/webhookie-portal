@@ -24,9 +24,45 @@
 .test_color{
   color:#fff !important;
 }
+.disable-default{
+    color:#C6C6C6;
+    border-color:#BFBFBF;
+}
+.diable-primary{
+    color: #C6C6C6 !important;
+    background-color: #E5E5E5 !important;
+
+}    
 .dot-buttons input, label {
     cursor: pointer;
     user-select: none;
+    color: #253858;
+}
+.modal-header, .modal-footer{
+    border: 0px;
+}
+.modal-body{
+    padding: 0rem 1.1rem !important;
+}
+
+.disable-default{
+    color:#C6C6C6;
+    border-color:#BFBFBF;
+}
+.disable-primary{
+    color: #C6C6C6;
+    background-color: #E5E5E5;
+} 
+.custom-control-input:checked~::before {
+    border-radius: 1px !important;
+}
+.custom-checkbox .custom-control-label::before{
+    border-radius: 1px;
+}
+@media (max-width: 1024px) {
+.dot-buttons label{
+    font-size: 10px !important;
+}
 }
 @media (max-width: 767px) {
     .dot-buttons ul{
@@ -35,5 +71,8 @@
     .dot-buttons .btn-default{
         margin-left: 0px;
         margin-right: 8px;
+    }
+    .dot-buttons button{
+        margin-left: 0px;
     }
 }

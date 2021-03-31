@@ -1,4 +1,4 @@
-<app-title></app-title>
+<app-title [headerTitle]="title()"></app-title>
 
 <div class="row ml-0 mr-0">
     <div class="col-md-6">
@@ -8,17 +8,18 @@
         <div class="dot-buttons">
             <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
                 <li>
-                    <button class="btn btn-default" (click)="openModal(template1)">
+                    <button class="btn btn-default" (click)="openModal(template1)" [disabled]="!variable.callback?true:false" [ngClass]="!variable.callback?'disable-default':'btn-default'">
                         Save & finish later
                     </button>
                 </li>
                 <li>
-                <button class="btn btn-primary"  (click)="test()">
-                    Test
+                <button class="btn" [disabled]="!variable.callback?true:false"
+                [ngClass]="!variable.callback?'disable-default':'btn-default'" (click)="test()">
+                    {{variable.subscribe_res?'Retest':'Test'}}
                 </button>
                 </li>
                 <li>
-                <button class="btn btn-primary ml-md-2" routerLink="/webhooks/congrats">
+                <button class="btn ml-md-2" routerLink="/webhooks/congrats" [ngClass]="!variable.subscribe_res?'disable-primary':'btn-primary'" [disabled]="!variable.subscribe_res?true:false">
                     Activate
                 </button>
             </li>

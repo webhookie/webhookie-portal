@@ -7,7 +7,7 @@
     <div class="col-md-6">
       <div class="dot-buttons">
         <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
-          <li>
+          <li *ngIf="response?.isValid$ | async">
             <form class="form-inline mr-2">
                 <div class="custom-control custom-checkbox">
                   <input type="checkbox" class="custom-control-input" id="customCheck" (change)="subscribe=!subscribe" [checked]="subscribe==true">
@@ -15,15 +15,31 @@
                 </div>
               </form>
          </li>
-          <li *ngIf="response?.isValid$ | async">
-            <button class="btn mr-2 mr-md-0 btn-primary" routerLink="/webhooks/subscribe-webhook" >
-              Subscribe
-            </button>
+          <li >
+            <div *ngIf="(response?.isValid$ | async) && subscribe;else disableBtn" >
+              <button class="btn mr-2 mr-md-0 btn-default"  routerLink="/webhooks/subscribe-webhook" >
+                Subscribe
+              </button>
+            </div>
+            <ng-template #disableBtn>
+              <button class="btn mr-2 mr-md-0 disable-default" routerLink="/webhooks/subscribe-webhook" [disabled]="true">
+                Subscribe
+              </button>
+            </ng-template>
+            
           </li>
           <li>
-            <button class="btn btn-primary" routerLink="/webhooks/callback-test" (click)="test()">
-              Test
-            </button>
+            <div *ngIf="(response?.isValid$ | async);else testBtn" >
+              <button class="btn btn-primary" routerLink="/webhooks/callback-test" (click)="test()">
+                Retest
+              </button>
+            </div>
+            <ng-template #testBtn>
+              <button class="btn btn-primary" routerLink="/webhooks/callback-test" (click)="test()">
+                Test
+              </button>
+            </ng-template>
+            
           </li>
         </ul>
       </div>
