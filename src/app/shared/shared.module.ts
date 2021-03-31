@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from "@angular/router";
 import {ApiService} from "./api.service";
 import {environment} from "../../environments/environment";
-import {MockApiService} from "./mock/mod-api.service";
+import {MockApiService} from "./mock/mock-api.service";
 
 let apiProvider;
 if (environment.mock) {
