@@ -34,16 +34,8 @@ export class CallbackComponent implements OnInit {
     return this.context.currentApplication
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog-centered modal-w',
-      backdrop: true,
-      ignoreBackdropClick: true
-    });
-  }
-
   create() {
-    this.modalRef.hide();
+    this.variable.modalRef.hide();
   }
 
   selectCallback(callback: Callback) {
