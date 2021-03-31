@@ -1,9 +1,8 @@
-import {Injectable} from '@angular/core';
-import {ApiService} from "../../../shared/api.service";
-import {LogService} from "../../../shared/log.service";
+import {Inject, Injectable} from '@angular/core';
 import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
+import {Api} from "../../../shared/api";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +11,7 @@ export class CallbackService {
   private CALLBACK_TEST_URI = "/callbacks/test"
 
   constructor(
-    private readonly api: ApiService,
-    private readonly log: LogService,
+    @Inject("Api") private readonly api: Api
   ) {
   }
 

@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {ApiService} from "../../../shared/api.service";
+import {Inject, Injectable} from '@angular/core';
 import {LogService} from "../../../shared/log.service";
 import {Observable} from "rxjs";
 import {map, tap} from "rxjs/operators";
 import {WebhookGroupAdapter} from "./adapter/webhook-group.adapter";
 import {WebhookGroup} from "../model/webhook-group";
+import {Api} from "../../../shared/api";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class WebhookGroupService {
   private WEBHOOKGROUPS_URI = "/webhookgroups"
 
   constructor(
-    private readonly api: ApiService,
+    @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
     private readonly webhookGroupAdapter: WebhookGroupAdapter
   ) {

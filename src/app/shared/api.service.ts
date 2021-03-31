@@ -4,12 +4,12 @@ import {Observable, throwError} from "rxjs";
 import {environment} from "../../environments/environment";
 import {catchError} from "rxjs/operators";
 import {LogService} from "./log.service";
-import {MockData} from "../../mock/modk-data";
+import {Api} from "./api";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class ApiService implements Api {
   private apiUrl: string = environment.apiUrl
 
   constructor(
@@ -50,10 +50,6 @@ export class ApiService {
     params: HttpParams = new HttpParams()
   ): Observable<any> {
 
-    if(environment.mock) {
-      return MockData.for(uri, params)
-    }
-
     let option = {};
     if (params) {
       option = {
@@ -68,3 +64,4 @@ export class ApiService {
       .pipe(catchError(ApiService.formatErrors));
   }
 }
+

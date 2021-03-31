@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {ApiService} from "./api.service";
+import {Inject, Injectable} from '@angular/core';
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {WebhookieConfig} from "./model/webhookie-config";
 import {WebhookieConfigAdapter} from "./adapter/webhookie-config.adapter";
 import {filter, map, tap} from "rxjs/operators";
 import {LogService} from "./log.service";
+import {Api} from "./api";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class ConfigService {
     .pipe(filter(it => it !== null))
 
   constructor(
-    private readonly api: ApiService,
+    @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
     private readonly adapter: WebhookieConfigAdapter
   ) {

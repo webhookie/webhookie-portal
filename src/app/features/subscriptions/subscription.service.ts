@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {Subscription} from "./subscription";
-import {ApiService} from "../../shared/api.service";
 import {LogService} from "../../shared/log.service";
 import {map, tap} from "rxjs/operators";
 import {SubscriptionAdapter} from "./subscription.adapter";
 import {HttpParams} from "@angular/common/http";
+import {Api} from "../../shared/api";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class SubscriptionService {
   private SUBSCRIPTIONS_URI = "/subscriptions";
 
   constructor(
-    private readonly api: ApiService,
+    @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
     private readonly adapter: SubscriptionAdapter
   ) { }

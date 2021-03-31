@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {ApiService} from "../../../shared/api.service";
+import {Inject, Injectable} from '@angular/core';
 import {LogService} from "../../../shared/log.service";
 import {Observable} from "rxjs";
 import {Application} from "../model/application";
 import {map, tap} from "rxjs/operators";
 import {ApplicationAdapter} from "./adapter/application.adapter";
+import {Api} from "../../../shared/api";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class ApplicationService {
   private readonly REQUEST_URI = "/applications"
 
   constructor(
-    private readonly api: ApiService,
+    @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
     private readonly adapter: ApplicationAdapter
   ) {
