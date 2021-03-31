@@ -17,17 +17,17 @@ export class CallbackTestComponent implements OnInit {
   @ViewChild('responseComponent') response?: ResponseComponent
   // @ts-ignore
   @ViewChild('requestExampleComponent') request: RequestExampleComponent
-  subscribe:boolean=false;
+  subscribe:boolean=true;
   constructor(
     readonly variable: VariableService,
     private readonly callbackService: CallbackService
   ) { }
 
   ngOnInit(): void {
+    console.log(this.response);
   }
 
   title(){
-    let crumbs=this.variable.breadCrumbs();
     return `Test ${this.variable.selectedTopic?.name} Webhook`
   }
 

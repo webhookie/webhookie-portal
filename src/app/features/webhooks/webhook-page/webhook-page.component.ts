@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import * as $ from 'jquery';
-
+import {VariableService} from "../common/variable.service";
 @Component({
   selector: 'app-webhook-page',
   templateUrl: './webhook-page.component.html',
   styleUrls: ['./webhook-page.component.css']
 })
 export class WebhookPageComponent implements OnInit {
-  constructor() {
+  constructor(readonly variable: VariableService,) {
     $(document).ready(function () {
       $(".menu-toggle").click(function (e) {
         e.preventDefault();
@@ -26,6 +26,10 @@ export class WebhookPageComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+  title(){
+    let crumbs=this.variable.breadCrumbs();
+    return `Webhooks`
   }
 
 }
