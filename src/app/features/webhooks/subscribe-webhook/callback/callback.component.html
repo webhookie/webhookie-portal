@@ -12,7 +12,7 @@
         {{selectedCallback ? selectedCallback?.url : 'Select your callback URL'}}
       </button>
       <div class="dropdown-menu font12 font-weight-400">
-        <button class="btn btn-default font-weight-400 font12" (click)="openModal(template1)">
+        <button class="btn btn-default font-weight-400 font12" (click)="variable.openModal(template1)">
           <i class="lni lni-plus mr-2"></i>Create New Callback Url</button>
           <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="javascript:void(0)" *ngFor="let callback of _callbacks$.asObservable() | async" (click)="selectCallback(callback)">{{callback.name}}</a>
@@ -55,22 +55,6 @@
 
   <div class="modalSave">
     <ng-template #template1>
-      <form >
-      <div class="modal-header">
-        <h2 class="modal-title pull-left font16 font-weight-bold">Create new Callback URL</h2>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <b>{{selectedApplication?.name}}</b>
-        <app-callback-url></app-callback-url>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default cancel border" aria-label="Close"
-          (click)="modalRef.hide()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="create()">Create</button>
-      </div>
-     </form >
+      <app-create-callback></app-create-callback>
     </ng-template>
   </div>

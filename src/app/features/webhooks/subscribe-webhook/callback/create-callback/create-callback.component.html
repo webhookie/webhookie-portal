@@ -1,0 +1,17 @@
+<form >
+    <div class="modal-header">
+      <h2 class="modal-title pull-left font16 font-weight-bold">Create new Callback URL</h2>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="variable.modalRef.hide()">
+        <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <b>{{selectedApplication?.name}}</b>
+      <app-callback-url></app-callback-url>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default cancel border" aria-label="Close"
+        (click)="variable.modalRef.hide()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="create()">Create</button>
+    </div>
+   </form >

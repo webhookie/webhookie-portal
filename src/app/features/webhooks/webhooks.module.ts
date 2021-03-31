@@ -13,6 +13,7 @@ import {CallbackUrlComponent} from "./callback-test/callback-url/callback-url.co
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RouterModule } from '@angular/router';
 import { CreateApplicationComponent } from './subscribe-webhook/application/create-application/create-application.component';
+import { CreateCallbackComponent } from './subscribe-webhook/callback/create-callback/create-callback.component';
 @NgModule({
   declarations: [
     WebhooksComponent,
@@ -22,7 +23,8 @@ import { CreateApplicationComponent } from './subscribe-webhook/application/crea
     CallbackUrlComponent,
     SubscribeWebhookComponent,
     CongratsComponent,
-    CreateApplicationComponent
+    CreateApplicationComponent,
+    CreateCallbackComponent
   ],
   imports: [
     CommonModule,

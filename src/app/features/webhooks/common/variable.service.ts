@@ -13,6 +13,10 @@ export class VariableService {
   subscribe_res: boolean = false;
   showText: boolean = false;
   selectedWebhook?: WebhookGroupElement;
+  // selectedWebhook:any;
+  app: boolean = false;
+  appName: any;
+  callback: boolean = false;
   sideBarList: any = [
     {
       'title': 'Order management',
