@@ -1,5 +1,4 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 import * as $ from 'jquery';
 import {ApplicationService} from "../../service/application.service";
@@ -15,14 +14,12 @@ import {Application} from "../../model/application";
 export class ApplicationComponent implements OnInit {
   appName: any;
   Desc: any;
-  appSelected: any;
 
   readonly _applications$: Subject<Array<Application>> = new ReplaySubject();
 
-  constructor(public modalRef: BsModalRef,
+  constructor(
               private readonly applicationService: ApplicationService,
               private readonly log: LogService,
-              private modalService: BsModalService,
               public variable: VariableService
   ) {
     this.variable.app = false;
@@ -40,22 +37,12 @@ export class ApplicationComponent implements OnInit {
 
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog-centered modal-w',
-      backdrop: true,
-      ignoreBackdropClick: true
-    });
-  }
+  
 
   selectApp(val: Application) {
-    this.variable.appName = this.appSelected = val.name;
+    this.variable.appName = val.name;
     this.variable.app = true;
   }
 
-  create() {
-    this.variable.appName = this.appSelected = 'Volvo cars';
-    this.variable.app = true;
-    this.modalRef.hide();
-  }
+  
 }
