@@ -10,6 +10,13 @@ export class Subscription {
     public blocked: boolean
   ) {
   }
+
+  canBeValidated(): boolean {
+    let validStatusList = [SubscriptionStatus.SAVED, SubscriptionStatus.BLOCKED, SubscriptionStatus.DEACTIVATED];
+    return validStatusList
+      .filter(it => it === this.statusUpdate.status)
+      .length != 0
+  }
 }
 
 export class ApplicationDetails {
