@@ -19,19 +19,31 @@ export class AuthService {
     private readonly context: ApplicationContext,
     private readonly router: RouterService
   ) {
+    this.notifyLogin()
+
     this.oauthService.events
       .pipe(filter(it => (it instanceof OAuthSuccessEvent) && it.type === Constants.AUTH_EVENT_TOKEN_REFRESHED))
-      .subscribe(() => this.router.navigateToSaved());
+      .subscribe(() => {
+        this.notifyLogin()
+        this.router.navigateToSaved()
+      });
 
     this.context.config()
       .pipe(map(it => AuthService.toAuthConfig(it)))
       .subscribe(it => this.init(it));
   }
 
+  notifyLogin() {
+    if(this.loggedIn) {
+      this.context.login(this.oauthService.getIdentityClaims());
+    }
+  }
+
   get loggedIn(): boolean {
     return this.oauthService.hasValidAccessToken() || this.oauthService.hasValidIdToken()
   }
 
+  // noinspection JSUnusedGlobalSymbols
   get givenName() {
     const claims = this.oauthService.getIdentityClaims();
     if (!claims) {
@@ -61,6 +73,7 @@ export class AuthService {
       .then();
     this.oauthService.logOut();
     this.router.navigateToHome();
+    this.context.logout();
   }
 
   login() {
