@@ -1,5 +1,5 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {VariableService} from "../common/variable.service";
 import {WebhooksContext} from "../webhooks-context";
 import {ResponseComponent} from "../common/response/response.component";
@@ -22,7 +22,6 @@ export class SubscribeWebhookComponent implements OnInit {
 
   constructor(
     readonly variable: VariableService,
-    public modalRef: BsModalRef,
     private modalService: BsModalService,
     private readonly context: WebhooksContext,
     private readonly callbackService: CallbackService
@@ -30,8 +29,6 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.variable.subscribe_res = false;
-
     this.context.selectedCallback$
       .subscribe(() => this.response?.invalidate())
   }
@@ -60,19 +57,17 @@ export class SubscribeWebhookComponent implements OnInit {
       .subscribe(it => {
         this.response?.update(it)
       })
-    this.variable.subscribe_res = true;
-  }
-
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog-centered',
-      backdrop: true,
-      ignoreBackdropClick: true
-    });
   }
 
   get selectedCallback() {
     return this.context.currentCallback
   }
 
+  get hasResponse() {
+    return this.response?.hasResponse
+  }
+
+  createSubscription() {
+
+  }
 }

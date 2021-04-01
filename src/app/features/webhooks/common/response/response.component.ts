@@ -59,5 +59,9 @@ export class ResponseComponent implements OnInit {
     this._response$.next(null);
     this.output("")
   }
+
+  get hasResponse() {
+    return this._response$.value
+  }
 }
 
