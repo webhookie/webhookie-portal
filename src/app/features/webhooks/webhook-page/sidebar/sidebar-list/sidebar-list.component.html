@@ -7,10 +7,10 @@
            aria-expanded="true" [attr.aria-controls]="'faq' + i">{{webhookGroup.title}}</a>
       </div>
 
-      <div id="faq{{i}}" [ngClass]="(webhookGroup == selectedWebhookElement)?'show':'collapse'" data-parent="#faq">
+      <div id="faq{{i}}" [ngClass]="(i == 0)?'show':'collapse'" data-parent="#faq">
         <ul class="navbar-nav">
           <li class="nav-item" *ngFor="let topic of webhookGroup.topics">
-            <a class="nav-link" [ngClass]="(topic==selectedTopic)?'portionColor':''" routerLinkActive="active"
+            <a class="nav-link" href="javascript:void(0)" [ngClass]="(topic==selectedTopic)?'portionColor':''" routerLinkActive="active"
                (click)="selectTopic(webhookGroup, topic)">
               {{topic.name}}
               <!-- <li class="nav-item" *ngFor="let sub of list.subList" >
