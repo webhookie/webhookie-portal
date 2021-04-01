@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ReplaySubject, Subject} from "rxjs";
-import {Subscription} from "../subscription";
-import {SubscriptionService} from "../subscription.service";
 import {ActivatedRoute} from "@angular/router";
 import {map, mergeMap} from "rxjs/operators";
+import {Subscription} from "../../../shared/model/subscription";
+import {SubscriptionService} from "../../../shared/subscription.service";
 
 @Component({
   selector: 'app-subscriptions',
