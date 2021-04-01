@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {VariableService} from '../variable.service';
+import {WebhooksContext} from "../../webhooks-context";
 
 @Component({
   selector: 'app-order-rate-sub-links',
@@ -8,10 +8,14 @@ import {VariableService} from '../variable.service';
 })
 export class OrderRateSubLinksComponent implements OnInit {
 
-  constructor(public variable: VariableService) {
+  constructor(public context: WebhooksContext) {
   }
 
   ngOnInit(): void {
+  }
+
+  get selectedTopic() {
+    return this.context.selectedTopic
   }
 
 }

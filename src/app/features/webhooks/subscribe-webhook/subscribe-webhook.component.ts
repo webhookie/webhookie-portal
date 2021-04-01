@@ -34,7 +34,7 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   title() {
-    return `Subscribe ${this.variable.selectedTopic?.name} to Webhook`
+    return `Subscribe ${this.context.selectedTopic?.name} to Webhook`
   }
 
   test() {

@@ -1,18 +1,12 @@
-import {Injectable ,TemplateRef } from '@angular/core';
+import {Injectable, TemplateRef} from '@angular/core';
 import {BreadcrumbService} from 'angular-crumbs';
-import {WebhookGroupElement} from "../webhook-page/sidebar/sidebar-list/webhook-group-element";
-import {ReplaySubject, Subject} from "rxjs";
-import {Topic} from "../model/webhook-group";
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+
 @Injectable({
   providedIn: 'root'
 })
 export class VariableService {
   breadcrumbs: any;
-  test_res: boolean = false;
-  showText: boolean = false;
-  selectedWebhook?: WebhookGroupElement;
-  // selectedWebhook:any;
   app: boolean = false;
   appName: any;
   callback: boolean = false;
@@ -54,29 +48,12 @@ export class VariableService {
       ]
     }
   ];
-  readonly _selectedWebhookGroup: Subject<WebhookGroupElement> = new ReplaySubject()
-  selectedTopic?: Topic;
-  selectedTopicName:any;
+
   constructor(private breadcrumbService: BreadcrumbService,
-    public modalRef: BsModalRef,private modalService: BsModalService,) {
+              public modalRef: BsModalRef, private modalService: BsModalService,) {
     this.breadCrumbs();
-
-    this._selectedWebhookGroup
-      .subscribe(it => this.selectWebhookGroup(it));
   }
 
-  selectWebhookGroup(webhookGroup: WebhookGroupElement) {
-    this.selectTopic(webhookGroup, webhookGroup.topics[0]);
-  }
-
-  selectTopic(webhookGroup: WebhookGroupElement, topic: Topic) {
-    if (this.selectedWebhook) {
-      this.selectedWebhook?.hide();
-    }
-    this.selectedWebhook = webhookGroup;
-    this.selectedTopic = topic;
-    webhookGroup.toggle();
-  }
 
   breadCrumbs() {
     this.breadcrumbService.breadcrumbChanged.subscribe(crumbs => {
