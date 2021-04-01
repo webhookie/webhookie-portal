@@ -1,66 +1,53 @@
 <app-title [headerTitle]="title()"></app-title>
 
 <div class="row ml-0 mr-0">
-    <div class="col-md-6">
-        <app-order-title></app-order-title>
+  <div class="col-md-6">
+    <app-order-title></app-order-title>
+  </div>
+  <div class="col-md-6">
+    <div class="dot-buttons">
+      <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
+        <li>
+          <button class="btn"
+                  (click)="createSubscription()"
+                  [disabled]="!selectedCallback"
+                  [ngClass]="selectedCallback ? 'btn-default' : 'disable-default'">
+            Save
+          </button>
+        </li>
+        <li>
+          <button class="btn"
+                  [disabled]="!selectedCallback"
+                  [ngClass]="selectedCallback ? 'btn-default' : 'disable-default'"
+                  (click)="test()">
+            {{hasResponse ? 'Retest' : 'Test'}}
+          </button>
+        </li>
+        <li>
+          <button class="btn ml-md-2" routerLink="/webhooks/congrats"
+                  [ngClass]="!hasResponse ? 'disable-primary' : 'btn-primary'"
+                  [disabled]="!hasResponse">
+            Activate
+          </button>
+        </li>
+      </ul>
     </div>
-    <div class="col-md-6">
-        <div class="dot-buttons">
-            <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
-                <li>
-                    <button class="btn btn-default" (click)="openModal(template1)" [disabled]="!selectedCallback" [ngClass]="selectedCallback ? 'btn-default' : 'disable-default'">
-                        Save & finish later
-                    </button>
-                </li>
-                <li>
-                <button class="btn" [disabled]="!selectedCallback"
-                [ngClass]="selectedCallback ? 'btn-default' : 'disable-default'" (click)="test()">
-                    {{variable.subscribe_res?'Retest':'Test'}}
-                </button>
-                </li>
-                <li>
-                <button class="btn ml-md-2" routerLink="/webhooks/congrats" [ngClass]="!variable.subscribe_res?'disable-primary':'btn-primary'" [disabled]="!variable.subscribe_res?true:false">
-                    Activate
-                </button>
-            </li>
-            </ul>
-          </div>
-    </div>
+  </div>
 </div>
 <div class="row ml-0 mr-0">
-    <div class="col-lg-12">
-        <app-order-rate-sub-links></app-order-rate-sub-links>
-    </div>
+  <div class="col-lg-12">
+    <app-order-rate-sub-links></app-order-rate-sub-links>
+  </div>
 </div>
 <div class="container-fluid">
-<div class="row">
+  <div class="row">
     <div class="col-lg-6 pr-lg-0">
-        <app-application #applicationComponent></app-application>
-        <app-callback #callbackComponent></app-callback>
-        <app-response #responseComponent></app-response>
+      <app-application #applicationComponent></app-application>
+      <app-callback #callbackComponent></app-callback>
+      <app-response #responseComponent></app-response>
     </div>
     <div class="col-lg-6 pl-lg-0 pr-lg-0 mt-2 mt-lg-0">
-        <app-request-example #requestExampleComponent></app-request-example>
+      <app-request-example #requestExampleComponent></app-request-example>
     </div>
-</div>
-</div>
-
-<div class="modalSave">
-    <ng-template #template1>
-        <div class="modal-header">
-        <h2 class="modal-title pull-left font16 font-weight-bold">Are you sure you want to save and finish later?</h2>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
-        </button>
-        </div>
-        <div class="modal-body">
-        <p>You still can see and complete your unpublished subscriptions from the subscription page.</p>
-
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-default cancel border" aria-label="Close"
-            (click)="modalRef.hide()">No</button>
-        <button type="button" class="btn btn-primary" (click)="modalRef.hide()">Yes</button>
-        </div>
-    </ng-template>
+  </div>
 </div>

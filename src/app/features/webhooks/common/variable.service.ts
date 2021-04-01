@@ -10,7 +10,6 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 export class VariableService {
   breadcrumbs: any;
   test_res: boolean = false;
-  subscribe_res: boolean = false;
   showText: boolean = false;
   selectedWebhook?: WebhookGroupElement;
   // selectedWebhook:any;
