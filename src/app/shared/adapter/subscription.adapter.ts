@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Adapter} from "../../shared/adapter/adapter";
-import {ApplicationDetails, CallbackDetails, StatusUpdate, Subscription} from "./subscription";
-import {CallbackSecurity} from "../../shared/model/callback-security";
+import {Adapter} from "./adapter";
+import {ApplicationDetails, CallbackDetails, StatusUpdate, Subscription} from "../model/subscription";
+import {CallbackSecurity} from "../model/callback-security";
 
 @Injectable({
   providedIn: 'root'
