@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
 import {Application} from "./model/application";
-import {filter} from "rxjs/operators";
+import {distinctUntilChanged, filter, tap} from "rxjs/operators";
 import {Callback} from "./model/callback";
 import {WebhookGroupElement} from "./webhook-page/sidebar/sidebar-list/webhook-group-element";
 import {Topic} from "./model/webhook-group";
@@ -50,9 +50,10 @@ export class WebhooksContext {
 
   // @ts-ignore
   private readonly _selectedCallback$: BehaviorSubject<Callback> = new BehaviorSubject<Callback>(null);
-  readonly selectedCallback$: Observable<any> = this._selectedCallback$.asObservable()
+  readonly selectedCallback$: Observable<Callback> = this._selectedCallback$.asObservable()
     .pipe(
-      filter(it => it != null)
+      filter(it => it != null),
+      distinctUntilChanged((x,y) => x.callbackId == y.callbackId),
     );
 
   updateCallback(value: Callback) {
