@@ -58,7 +58,8 @@ export class ApiService implements Api {
       };
     }
     let url = `${this.apiUrl}${uri}`;
-    this.log.debug(`GET json: '${url}'`)
+
+    this.log.debug(`GET json: '${url}', ${params.toString()}`)
     return this.http
       .get(url, option)
       .pipe(catchError(ApiService.formatErrors));
