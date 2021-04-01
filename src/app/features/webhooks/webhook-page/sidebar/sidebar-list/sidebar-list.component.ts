@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {VariableService} from '../../../common/variable.service';
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {filter, map, mergeMap} from "rxjs/operators";
 import {WebhookGroupElement} from "./webhook-group-element";
 import {WebhookGroupService} from "../../../service/webhook-group.service";
 import {ApplicationContext} from "../../../../../shared/application.context";
+import {WebhooksContext} from "../../../webhooks-context";
+import {Topic} from "../../../model/webhook-group";
 
 @Component({
   selector: 'app-sidebar-list',
@@ -16,8 +17,8 @@ export class SidebarListComponent implements OnInit {
 
   constructor(
     private readonly service: WebhookGroupService,
-    private readonly context: ApplicationContext,
-    public variable:VariableService
+    private readonly appContext: ApplicationContext,
+    private readonly context: WebhooksContext
   ) {
   }
 
@@ -31,7 +32,7 @@ export class SidebarListComponent implements OnInit {
       $(this).toggleClass("active").parent().parent().siblings().find('a').removeClass('active')
     });
 
-    this.context.isLoggedIn
+    this.appContext.isLoggedIn
       .pipe(
         mergeMap(() => this.readWebhookGroups())
       )
@@ -43,6 +44,18 @@ export class SidebarListComponent implements OnInit {
   }
 
   show(webhookGroup: WebhookGroupElement){
-    this.variable._selectedWebhookGroup.next(webhookGroup);
+    this.context._selectedWebhookGroup.next(webhookGroup);
+  }
+
+  selectTopic(element: WebhookGroupElement, topic: Topic) {
+    this.context.selectTopic(element, topic)
+  }
+
+  get selectedWebhookElement() {
+    return this.context.selectedWebhook
+  }
+
+  get selectedTopic() {
+    return this.context.selectedTopic
   }
 }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {VariableService} from '../variable.service';
 import {ActivatedRoute} from '@angular/router';
+import {WebhooksContext} from "../../webhooks-context";
 
 @Component({
   selector: 'app-order-title',
@@ -10,8 +11,10 @@ import {ActivatedRoute} from '@angular/router';
 export class OrderTitleComponent implements OnInit {
   orderTitle: any;
 
-  constructor(public variable: VariableService,
-              private route: ActivatedRoute,
+  constructor(
+    public variable: VariableService,
+    private readonly context: WebhooksContext,
+    private route: ActivatedRoute,
   ) {
   }
 
@@ -23,9 +26,13 @@ export class OrderTitleComponent implements OnInit {
     return crumbs[crumbs.length - 1].displayName;
   }
 
+  get topic() {
+    return this.context.selectedTopic
+  }
+
   webTitle() {
-    if (this.variable.selectedWebhook) {
-      this.orderTitle = this.variable.selectedWebhook;
+    if (this.context.selectedWebhook) {
+      this.orderTitle = this.context.selectedWebhook;
     } else {
       this.route.paramMap.subscribe(params => {
         this.variable.sideBarList.forEach((item: any) => {
@@ -33,7 +40,7 @@ export class OrderTitleComponent implements OnInit {
             let webhook = params.get("webhookId");
             if (res.id == webhook) {
               this.orderTitle = res;
-              this.variable.selectedWebhook = res;
+              this.context.selectedWebhook = res;
             }
           })
         })

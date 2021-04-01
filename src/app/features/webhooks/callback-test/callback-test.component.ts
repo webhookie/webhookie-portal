@@ -2,8 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CallbackUrlComponent} from "./callback-url/callback-url.component";
 import {ResponseComponent} from "../common/response/response.component";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
-import {VariableService} from "../common/variable.service";
 import {CallbackService} from "../service/callback.service";
+import {WebhooksContext} from "../webhooks-context";
 
 @Component({
   selector: 'app-callback-test',
@@ -21,7 +21,7 @@ export class CallbackTestComponent implements OnInit {
   subscribe: boolean = true;
 
   constructor(
-    readonly variable: VariableService,
+    private readonly context: WebhooksContext,
     private readonly callbackService: CallbackService
   ) { }
 
@@ -29,7 +29,7 @@ export class CallbackTestComponent implements OnInit {
   }
 
   title(){
-    return `Test ${this.variable.selectedTopic?.name} Webhook`
+    return `Test ${this.context.selectedTopic?.name} Webhook`
   }
 
   test() {
