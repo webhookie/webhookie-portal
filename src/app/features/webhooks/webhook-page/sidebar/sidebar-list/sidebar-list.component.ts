@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {VariableService} from '../../../common/variable.service';
-import {ReplaySubject, Subject} from "rxjs";
-import {filter, map} from "rxjs/operators";
+import {Observable, ReplaySubject, Subject} from "rxjs";
+import {filter, map, mergeMap} from "rxjs/operators";
 import {WebhookGroupElement} from "./webhook-group-element";
 import {WebhookGroupService} from "../../../service/webhook-group.service";
+import {ApplicationContext} from "../../../../../shared/application.context";
 
 @Component({
   selector: 'app-sidebar-list',
@@ -15,8 +16,14 @@ export class SidebarListComponent implements OnInit {
 
   constructor(
     private readonly service: WebhookGroupService,
+    private readonly context: ApplicationContext,
     public variable:VariableService
   ) {
+  }
+
+  private readWebhookGroups(): Observable<Array<WebhookGroupElement>> {
+    return this.service.myWebhookGroups()
+      .pipe(map(list => list.map( it => new WebhookGroupElement(it.title, it.topics))))
   }
 
   ngOnInit(): void {
@@ -24,8 +31,10 @@ export class SidebarListComponent implements OnInit {
       $(this).toggleClass("active").parent().parent().siblings().find('a').removeClass('active')
     });
 
-    this.service.myWebhookGroups()
-      .pipe(map(list => list.map( it => new WebhookGroupElement(it.title, it.topics))))
+    this.context.isLoggedIn
+      .pipe(
+        mergeMap(() => this.readWebhookGroups())
+      )
       .subscribe(it => this._webhooks$.next(it));
 
     this._webhooks$.asObservable()
