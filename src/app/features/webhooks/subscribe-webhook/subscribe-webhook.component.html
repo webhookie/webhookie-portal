@@ -10,15 +10,15 @@
         <li>
           <button class="btn"
                   (click)="createSubscription()"
-                  [disabled]="!selectedCallback"
-                  [ngClass]="selectedCallback ? 'btn-default' : 'disable-default'">
+                  [disabled]="!canBeSaved"
+                  [ngClass]="canBeSaved ? 'btn-default' : 'disable-default'">
             Save
           </button>
         </li>
         <li>
           <button class="btn"
-                  [disabled]="!selectedCallback"
-                  [ngClass]="selectedCallback ? 'btn-default' : 'disable-default'"
+                  [disabled]="!canBeValidated"
+                  [ngClass]="canBeValidated ? 'btn-default' : 'disable-default'"
                   (click)="test()">
             {{hasResponse ? 'Retest' : 'Test'}}
           </button>
