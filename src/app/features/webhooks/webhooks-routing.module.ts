@@ -28,7 +28,7 @@ const routes: Routes = [
     path: 'subscribe-webhook',
     component: SubscribeWebhookComponent,
     data: {
-      breadcrumb: 'Subscribe to order webhook'
+      breadcrumb: 'Subscribe to webhook'
     },
 
   },
