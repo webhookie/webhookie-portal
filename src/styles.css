@@ -105,6 +105,13 @@ h1{
 .modal-w{
      width: 379px !important;
  }
+.hide-after::after{
+    content:"";
+    display:none;
+}
+.rotate-90 {
+    transform: rotate(90deg);
+}
 /* button[disabled]{
   border: 1px solid #999999;
   background-color: #cccccc;
