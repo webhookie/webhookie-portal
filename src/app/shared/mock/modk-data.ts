@@ -500,6 +500,30 @@ export class MockData {
     }
   ];
 
+  public static readonly consumerGroups = [
+    {
+      id: "1",
+      name: "Consumer Group 1",
+      description: "Consumer Group 1 descriptions",
+      iamGroupName: "Consumer_Group_1",
+      enabled: true
+    },
+    {
+      id: "2",
+      name: "Consumer Group 2",
+      description: "Consumer Group 2 descriptions",
+      iamGroupName: "Consumer_Group_2",
+      enabled: false
+    },
+    {
+      id: "3",
+      name: "Consumer Group 3",
+      description: "Consumer Group 3 descriptions",
+      iamGroupName: "Consumer_Group_3",
+      enabled: true
+    },
+  ];
+
   static for(uri: string, params: HttpParams) {
     if(uri.startsWith("/public/config")) {
       return of(this.config)
@@ -529,6 +553,10 @@ export class MockData {
         return of(this.subscriptions)
       }
       return of(this.providerSubscriptions)
+    }
+
+    if(uri.startsWith("/admin/consumergroups")) {
+      return of(this.consumerGroups)
     }
 
     return EMPTY;
