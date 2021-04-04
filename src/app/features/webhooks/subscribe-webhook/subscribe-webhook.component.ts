@@ -98,6 +98,7 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   createSubscription() {
-
+    this.subscriptionService.createSubscription(this.context.selectedTopic?.name, this.selectedCallback.callbackId)
+      .subscribe(it => this.subscription = it);
   }
 }

@@ -23,6 +23,35 @@ export class MockApiService implements Api {
       ));
     }
 
+    if(uri.startsWith("/subscriptions")) {
+      return of(new HttpResponse<any>(
+        {
+          body: {
+            id: "1",
+            application: {
+              id: "1",
+              name: "app",
+              entity: "entity"
+            },
+            topic: "Topic",
+            callback: {
+              id: "1",
+              name: "callback",
+              httpMethod: "POST",
+              url: "http://127.0.0.1:8080"
+            },
+            statusUpdate: {
+              status: "SAVED",
+              time: new Date()
+            }
+          },
+          status: 201,
+          statusText: "Created",
+          url: uri
+        }
+      ))
+    }
+
     return EMPTY;
   }
 }

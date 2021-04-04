@@ -41,4 +41,14 @@ export class SubscriptionService {
         return list.map((it: any) => this.adapter.adapt(it))
       }))
   }
+
+  createSubscription(topic?: string, callbackId?: string): Observable<Subscription> {
+    let request = {
+      topic: topic,
+      callbackId: callbackId
+    }
+
+    return this.api.post("/subscriptions", request, new HttpParams())
+      .pipe(map(it => this.adapter.adapt(it.body)))
+  }
 }

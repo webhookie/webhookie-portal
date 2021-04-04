@@ -8,6 +8,9 @@
     <div class="dot-buttons">
       <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
         <li>
+          <span class="text-danger">{{subscription?.statusUpdate?.status}}</span>
+        </li>
+        <li>
           <button class="btn"
                   (click)="createSubscription()"
                   [disabled]="!canBeSaved"
