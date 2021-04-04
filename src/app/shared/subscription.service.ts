@@ -6,6 +6,7 @@ import {Api} from "./api";
 import {LogService} from "./log.service";
 import {SubscriptionAdapter} from "./adapter/subscription.adapter";
 import {Subscription} from "./model/subscription";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,7 @@ export class SubscriptionService {
       callbackId: callbackId
     }
 
-    return this.api.post("/subscriptions", request, new HttpParams())
+    return this.api.post("/subscriptions", request, new HttpParams(), ApiService.RESPONSE_TYPE_JSON)
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
 }

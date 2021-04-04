@@ -7,6 +7,7 @@ import {Application} from "../model/application";
 import {Callback} from "../model/callback";
 import {CallbackAdapter} from "./adapter/callback.adapter";
 import {LogService} from "../../../shared/log.service";
+import {ApiService} from "../../../shared/api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class CallbackService {
     let params = new HttpParams()
       .set("Content-Type", "application/json")
       .set("Accept", "*/*")
-    return this.api.post(this.CALLBACK_TEST_URI, request, params)
+    return this.api.post(this.CALLBACK_TEST_URI, request, params, ApiService.RESPONSE_TYPE_TEXT)
       .pipe(
         map((it: HttpResponse<any>) => new CallbackResponse(it.status, it.headers, it.body))
       );

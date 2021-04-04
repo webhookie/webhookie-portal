@@ -1,53 +1,107 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {VariableService} from 'src/app/features/webhooks/common/variable.service';
+import {BehaviorSubject, Observable} from "rxjs";
+import {ConsumerGroup} from "../../../../../shared/model/consumer-group";
+import {WebhookieService} from "../../../../../shared/webhookie.service";
+import {map} from "rxjs/operators";
+import {ApplicationService, CreateApplicationRequest} from "../../../service/application.service";
+import {WebhooksContext} from "../../../webhooks-context";
+
 @Component({
   selector: 'app-create-application',
   templateUrl: './create-application.component.html',
   styleUrls: ['./create-application.component.css']
 })
 export class CreateApplicationComponent implements OnInit {
-   consumers:any=[
-     {id:1,name:"consumer1"},
-     {id:2,name:"consumer2"},
-     {id:3,name:"consumer3"}
-   ];
-   selectArr:any=[];
-   selectAll:boolean=false;
-  constructor(public variable: VariableService) { }
+  // @ts-ignore
+  readonly _consumerGroups$: BehaviorSubject<Array<ConsumerGroup>> = new BehaviorSubject([]);
+
+  // @ts-ignore
+  readonly _selectedGroups$: BehaviorSubject<Array<ConsumerGroup>> = new BehaviorSubject([]);
+
+  requestedName: string = ""
+  requestedDesc?: string
+
+  constructor(
+    private readonly service: ApplicationService,
+    private readonly webhookieService: WebhookieService,
+    private readonly context: WebhooksContext,
+    public variable: VariableService
+  ) {
+    this.webhookieService.fetchConsumerGroups()
+      .subscribe(it => this._consumerGroups$.next(it));
+  }
 
   ngOnInit(): void {
   }
 
-  create() {
-    this.variable.appName =  'Volvo cars';
-    this.variable.app = true;
-    this.variable.modalRef.hide();
-  }
-  selectedItems(id:any){
-    console.log(id);
-    if(id==-1){
-      this.selectArr=[];
-      if(!this.selectAll){
-        this.selectAll=true;
-       
-        this.consumers.forEach((res:any)=>{
-          this.selectArr.push(res.id);
-        })
-      }  
-    }else{
-      let index=this.selectArr.findIndex((res:any)=>res==id);
-      if(index>=0){
-        this.selectArr.splice(index,1);
-        
-      }else{
-        this.selectArr.push(id);
-      }
+  createApplication() {
+    let request: CreateApplicationRequest = {
+      name: this.requestedName,
+      description: this.requestedDesc,
+      consumerGroups: this._selectedGroups$.value.map(it => it.iamGroupName)
     }
+
+    this.service.createApplication(request)
+      .subscribe(it => {
+        console.warn(it);
+        this.context.updateApplication(it);
+        this.variable.modalRef.hide();
+      })
   }
-    
-  checkedItem(val:any){
-    this.selectAll=(this.consumers.length==this.selectArr.length)?true:false;
-    let index=this.selectArr.findIndex((res:any)=>res==val.id);   
-    return  (index>=0)?true:false;
+
+  isGroupSelected$(group: ConsumerGroup): Observable<boolean> {
+    return this._selectedGroups$.asObservable()
+      .pipe(
+        map((list: Array<ConsumerGroup>) => list.indexOf(group)),
+        map(it => it != -1)
+      )
+  }
+
+  selectAll() {
+    this._consumerGroups$.asObservable()
+      .subscribe(it => this._selectedGroups$.next(it));
+  }
+
+  isAllSelected() {
+    let selectedGroups = this._selectedGroups$.value;
+    let allGroups = this._consumerGroups$.value;
+
+    return selectedGroups === allGroups;
+  }
+
+  selectGroup(group: ConsumerGroup) {
+    let newValue = this._selectedGroups$.value
+    if (newValue.indexOf(group) == -1) {
+      newValue.push(group);
+    }
+    this._selectedGroups$.next(newValue);
+  }
+
+  handleEvent(event: Event) {
+    // @ts-ignore
+    if (event.target?.checked) {
+      console.warn("CHECKED")
+    } else {
+      console.log("!!!!!!!!!!")
+    }
+    /*
+        this.isGroupSelected$(group)
+          .pipe(
+            tap(it => {
+              if(it) {
+                this.removeGroup(group)
+              } else {
+                this.selectGroup(group)
+              }
+            })
+          )
+    */
+  }
+
+  removeGroup(group: ConsumerGroup) {
+    let oldValue = this._selectedGroups$.value;
+    let newValue = oldValue.filter(it => it.id != group.id)
+    this._selectedGroups$.next(newValue);
   }
 }

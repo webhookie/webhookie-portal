@@ -9,12 +9,11 @@
 
         <div class="form-group">
             <label for="name" class="font14 font-weight-400">Application name</label>
-            <input type="text" class="form-control" id="name" placeholder="Volvo cars">
+            <input type="text" class="form-control" id="name" placeholder="Your Application" [(ngModel)]="requestedName" name="name">
         </div>
         <div class="form-group">
             <label for="Description" class="font14 font-weight-400">Description</label>
-            <textarea class="form-control" rows="4" id="Description"
-                placeholder="Description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially</textarea>
+            <textarea class="form-control" rows="4" id="Description" placeholder="Description" [(ngModel)]="requestedDesc" name="desc"></textarea>
         </div>
         <div class="form-group">
             <label for="name" class="font14 font-weight-400 mt-2">Consumer group</label>
@@ -26,13 +25,13 @@
                         </button>
                         <div class="dropdown-menu multi-select-dropdown">
                             <div class="scrollable-list">
-                                <div class="custom-control custom-checkbox" (change)="selectedItems(-1)">
-                                    <input type="checkbox" class="custom-control-input" id="consumer_4" name="example1" [checked]="selectAll">
-                                    <label class="custom-control-label" for="consumer_4">Select All</label>
+                                <div class="custom-control custom-checkbox" (change)="selectAll()">
+                                    <input type="checkbox" class="custom-control-input" id="all_groups_ch_box" name="example1" [checked]="isAllSelected()">
+                                    <label class="custom-control-label" for="all_groups_ch_box">Select All</label>
                                 </div>
-                                <div class="custom-control custom-checkbox" *ngFor="let item of consumers" (click)="selectedItems(item.id)">
-                                    <input type="checkbox" class="custom-control-input" id="{{item.id}}" name="example1" [checked]="checkedItem(item)">
-                                    <label class="custom-control-label" for="example1">{{item.name}}</label>
+                                <div class="custom-control custom-checkbox" *ngFor="let item of _consumerGroups$.asObservable() | async" (click)="selectGroup(item)">
+                                    <input type="checkbox" class="custom-control-input" id="group-{{item.id}}" name="group-{{item.id}}" [value]="item.id" (select)="selectGroup(item)"  (change)="handleEvent($event)" [checked]="isGroupSelected$(item) | async">
+                                    <label class="custom-control-label" for="group-{{item.id}}">{{item.name}}</label>
                                 </div>
                             </div>
                         </div>
@@ -42,14 +41,15 @@
         </div>
         <div class="consumer-value">
             <ul class="d-flex align-items-center mt-3">
-                <li><a href="#">Consumers 1 </a><img src="assets/images/Pill_delete.svg"></li>
-                <li><a href="#">Consumers 2 </a><img src="assets/images/Pill_delete.svg"></li>
+                <li *ngFor="let item of _selectedGroups$.asObservable() | async">
+                  <span>{{item.name}}</span><img src="assets/images/Pill_delete.svg" (click)="removeGroup(item)" alt="">
+                </li>
             </ul>
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default cancel border" aria-label="Close"
             (click)="variable.modalRef.hide()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="create()">Create</button>
+        <button type="button" class="btn btn-primary" (click)="createApplication()">Create</button>
     </div>
 </form>

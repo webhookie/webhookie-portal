@@ -11,7 +11,7 @@ export class MockApiService implements Api {
     return MockData.for(uri, params)
   }
 
-  post(uri: string, body: any, params: HttpParams): Observable<HttpResponse<any>> {
+  post(uri: string, body: any, params: HttpParams, responseType: string): Observable<HttpResponse<any>> {
     if(uri.startsWith("/callbacks/test")) {
       return of(new HttpResponse<string>(
         {
