@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CallbackValidationRequest} from "../../service/callback.service";
+
 @Component({
   selector: 'app-callback-url',
   templateUrl: './callback-url.component.html',
@@ -8,6 +9,12 @@ import {CallbackValidationRequest} from "../../service/callback.service";
 export class CallbackUrlComponent implements OnInit {
   securityArr: any = ['HMAC Signature','API key','None'];
   security: any = "None"
+
+  method: string = "POST"
+  url: string = ""
+  secret: string = ""
+  keyId: string = ""
+
 
   request: CallbackValidationRequest = {
     httpMethod: "POST",
@@ -29,6 +36,6 @@ export class CallbackUrlComponent implements OnInit {
   }
 
   setMethod(method: string) {
-    this.request.httpMethod = method
+    this.method = method
   }
 }
