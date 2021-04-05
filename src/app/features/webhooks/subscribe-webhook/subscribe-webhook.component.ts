@@ -3,12 +3,12 @@ import {WebhooksContext} from "../webhooks-context";
 import {ResponseComponent} from "../common/response/response.component";
 import {ApplicationComponent} from "./application/application.component";
 import {CallbackComponent} from "./callback/callback.component";
-import {CallbackService, CallbackValidationRequest} from "../service/callback.service";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {mergeMap} from "rxjs/operators";
-import {SubscriptionService} from "../../../shared/subscription.service";
+import {SubscriptionService, ValidateSubscriptionRequest} from "../../../shared/subscription.service";
 import {Observable} from "rxjs";
 import {Subscription} from "../../../shared/model/subscription";
+import {RouterService} from "../../../shared/router.service";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -27,7 +27,7 @@ export class SubscribeWebhookComponent implements OnInit {
   constructor(
     private readonly context: WebhooksContext,
     private readonly subscriptionService: SubscriptionService,
-    private readonly callbackService: CallbackService
+    private readonly routeService: RouterService
   ) {
   }
 
@@ -37,9 +37,7 @@ export class SubscribeWebhookComponent implements OnInit {
 
   ngOnInit(): void {
     this.context.selectedCallback$
-      .pipe(
-        mergeMap(it => this.fetchSubscriptions(it.callbackId))
-      )
+      .pipe(mergeMap(it => this.fetchSubscriptions(it.callbackId)))
       .subscribe(it => {
         if(it.length > 0) {
           this.subscription = it[0]
@@ -52,28 +50,35 @@ export class SubscribeWebhookComponent implements OnInit {
     return `Subscribe ${this.context.selectedTopic?.name} to Webhook`
   }
 
-  test() {
-    this.response?.invalidate()
+  validate() {
     this.context.selectedCallback$
       .pipe(
-        mergeMap(it => {
-          let request: CallbackValidationRequest = {
-            httpMethod: it.httpMethod,
-            url: it.url,
+        mergeMap(() => {
+          let request: ValidateSubscriptionRequest = {
             payload: JSON.stringify(this.requestComponent?.jsonobj?.result),
             headers: {
               "Content-Type": ["application/json"],
               "Accept": ["*/*"]
-            },
-            traceId: "1",
-            spanId: "1"
+            }
           };
-
-          return this.callbackService.testCallback(request)
+          // @ts-ignore
+          return this.subscriptionService.validateSubscription(this.subscription, request)
         })
       )
+      .subscribe(it => this.subscription = it)
+      // .subscribe(it => {
+      //   this.response?.update(it)
+      // })
+  }
+
+  activate() {
+    // @ts-ignore
+    this.subscriptionService.activateSubscription(this.subscription)
       .subscribe(it => {
-        this.response?.update(it)
+        this.subscription = it;
+        setTimeout(() => {
+          this.routeService.navigateTo("/webhooks/congrats")
+        }, 2000);
       })
   }
 
@@ -91,6 +96,10 @@ export class SubscribeWebhookComponent implements OnInit {
 
   get canBeValidated() {
     return this.subscription?.canBeValidated()
+  }
+
+  get canBeActivated() {
+    return this.subscription?.canBeActivated()
   }
 
   get hasResponse() {

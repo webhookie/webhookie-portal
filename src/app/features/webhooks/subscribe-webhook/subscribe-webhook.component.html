@@ -22,14 +22,15 @@
           <button class="btn"
                   [disabled]="!canBeValidated"
                   [ngClass]="canBeValidated ? 'btn-default' : 'disable-default'"
-                  (click)="test()">
+                  (click)="validate()">
             {{hasResponse ? 'Retest' : 'Test'}}
           </button>
         </li>
         <li>
-          <button class="btn ml-md-2" routerLink="/webhooks/congrats"
-                  [ngClass]="!hasResponse ? 'disable-primary' : 'btn-primary'"
-                  [disabled]="!hasResponse">
+          <button class="btn ml-md-2"
+                  [disabled]="!canBeActivated"
+                  [ngClass]="!canBeActivated ? 'disable-primary' : 'btn-primary'"
+                  (click)="activate()">
             Activate
           </button>
         </li>

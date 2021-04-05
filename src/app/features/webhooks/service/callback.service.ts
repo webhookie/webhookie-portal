@@ -26,7 +26,7 @@ export class CallbackService {
     let params = new HttpParams()
       .set("Content-Type", "application/json")
       .set("Accept", "*/*")
-    return this.api.post(this.CALLBACK_TEST_URI, request, params, ApiService.RESPONSE_TYPE_TEXT)
+    return this.api.post(this.CALLBACK_TEST_URI, request, params, new HttpHeaders(), ApiService.RESPONSE_TYPE_TEXT)
       .pipe(
         map((it: HttpResponse<any>) => new CallbackResponse(it.status, it.headers, it.body))
       );
@@ -43,7 +43,7 @@ export class CallbackService {
 
   createCallback(request: CallbackRequest): Observable<Callback> {
     let uri = `/applications/${request.applicationId}/callbacks`
-    return this.api.post(uri, request, new HttpParams(), ApiService.RESPONSE_TYPE_JSON)
+    return this.api.post(uri, request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
       .pipe(
         map((it: HttpResponse<any>) => this.adapter.adapt(it.body)),
       )

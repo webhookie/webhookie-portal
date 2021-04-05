@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {map, tap} from "rxjs/operators";
-import {HttpParams} from "@angular/common/http";
+import {map, mergeMap, tap} from "rxjs/operators";
+import {HttpHeaders, HttpParams} from "@angular/common/http";
 import {Api} from "./api";
 import {LogService} from "./log.service";
 import {SubscriptionAdapter} from "./adapter/subscription.adapter";
@@ -49,7 +49,34 @@ export class SubscriptionService {
       callbackId: callbackId
     }
 
-    return this.api.post("/subscriptions", request, new HttpParams(), ApiService.RESPONSE_TYPE_JSON)
+    return this.api.post("/subscriptions", request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
+
+  validateSubscription(subscription: Subscription, request: ValidateSubscriptionRequest): Observable<Subscription> {
+    let httpParams = new HttpParams();
+    let headers = new HttpHeaders()
+      .set("Accept", "text/plain")
+      .set("Content-Type", "application/json")
+    return this.api.post(`/subscriptions/${subscription?.id}/validate`, request, httpParams, headers, ApiService.RESPONSE_TYPE_TEXT)
+      .pipe(mergeMap(() => this.fetchSubscription(subscription.id)))
+  }
+
+  fetchSubscription(id: string): Observable<Subscription> {
+    return this.api.json(`/subscriptions/${id}`)
+      .pipe(map(it => this.adapter.adapt(it)))
+  }
+
+  activateSubscription(subscription: Subscription): Observable<Subscription> {
+    let httpParams = new HttpParams();
+    let headers = new HttpHeaders()
+      .set("Accept", ["text/plain", "application/json"])
+    return this.api.post(`/subscriptions/${subscription?.id}/activate`, null, httpParams, headers, ApiService.RESPONSE_TYPE_TEXT)
+      .pipe(mergeMap(() => this.fetchSubscription(subscription.id)))
+  }
+}
+
+export interface ValidateSubscriptionRequest {
+  payload: string,
+  headers: any
 }

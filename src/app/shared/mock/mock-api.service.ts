@@ -1,4 +1,4 @@
-import {HttpParams, HttpResponse} from "@angular/common/http";
+import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {EMPTY, Observable, of} from "rxjs";
 import {Api} from "../api";
 import {MockData} from "./modk-data";
@@ -11,7 +11,7 @@ export class MockApiService implements Api {
     return MockData.for(uri, params)
   }
 
-  post(uri: string, body: any, params: HttpParams, responseType: string): Observable<HttpResponse<any>> {
+  post(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: string): Observable<HttpResponse<any>> {
     if(uri.startsWith("/callbacks/test")) {
       return of(new HttpResponse<string>(
         {

@@ -17,6 +17,13 @@ export class Subscription {
       .filter(it => it === this.statusUpdate.status)
       .length != 0
   }
+
+  canBeActivated(): boolean {
+    let validStatusList = [SubscriptionStatus.VALIDATED, SubscriptionStatus.DEACTIVATED];
+    return validStatusList
+      .filter(it => it === this.statusUpdate.status)
+      .length != 0
+  }
 }
 
 export class ApplicationDetails {

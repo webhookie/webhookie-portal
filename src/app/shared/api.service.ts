@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {environment} from "../../environments/environment";
 import {catchError, tap} from "rxjs/operators";
@@ -30,12 +30,14 @@ export class ApiService implements Api {
     uri: string,
     body: any,
     params: HttpParams = new HttpParams(),
+    headers: HttpHeaders = new HttpHeaders(),
     responseType: string = ApiService.RESPONSE_TYPE_JSON
   ): Observable<HttpResponse<any>> {
-    let option = {};
+    let options = {};
     if (params) {
-      option = {
+      options = {
         params,
+        headers,
         responseType: responseType,
         observe: 'response'
       };
@@ -44,7 +46,7 @@ export class ApiService implements Api {
     let strBody = (params.get("Content-Type") == "application/json") ? JSON.stringify(body) : body;
     this.log.debug(`POST json: '${url}', '${strBody}'`)
     return this.http
-      .post(url, body, option)
+      .post(url, body, options)
       .pipe(tap(it => this.log.debug(it)))
       // @ts-ignore
       .pipe(catchError(ApiService.formatErrors));
