@@ -56,6 +56,7 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.context.clear()
     this.context.selectedCallback$
       .pipe(mergeMap(it => this.fetchSubscriptions(it.callbackId)))
       .subscribe(it => {

@@ -60,4 +60,11 @@ export class WebhooksContext {
   updateCallback(value: Callback) {
     this._selectedCallback$.next(value);
   }
+
+  clear() {
+    // @ts-ignore
+    this._selectedCallback$.next(null);
+    // @ts-ignore
+    this._selectedApplication$.next(null);
+  }
 }
