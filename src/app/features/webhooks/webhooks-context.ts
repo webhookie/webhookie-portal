@@ -26,6 +26,9 @@ export class WebhooksContext {
       filter(it => it != null),
       distinctUntilChanged((x, y) => x.callbackId == y.callbackId),
     );
+  readonly callbackCleared$: Observable<any> = this._selectedCallback$
+    .asObservable()
+    .pipe(filter(it => it == null));
 
   constructor() {
     this._selectedWebhookGroup
@@ -55,6 +58,8 @@ export class WebhooksContext {
 
   updateApplication(value: Application) {
     this._selectedApplication$.next(value);
+    // @ts-ignore
+    this._selectedCallback$.next(null);
   }
 
   updateCallback(value: Callback) {

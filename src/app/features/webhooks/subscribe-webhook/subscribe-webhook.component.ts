@@ -55,8 +55,17 @@ export class SubscribeWebhookComponent implements OnInit {
     return this.response?.hasResponse
   }
 
+  private clear() {
+    this.context.clear();
+  }
+
   ngOnInit(): void {
-    this.context.clear()
+    this.clear();
+
+    this.context.callbackCleared$
+    // @ts-ignore
+      .subscribe(() => this.subscription = null);
+
     this.context.selectedCallback$
       .pipe(mergeMap(it => this.fetchSubscriptions(it.callbackId)))
       .subscribe(it => {
