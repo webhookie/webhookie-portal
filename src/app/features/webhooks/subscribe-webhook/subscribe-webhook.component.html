@@ -11,26 +11,26 @@
           <span class="text-danger">{{subscription?.statusUpdate?.status}}</span>
         </li>
         <li>
-          <button class="btn"
-                  (click)="createSubscription()"
+          <button (click)="createSubscription()"
                   [disabled]="!canBeSaved"
-                  [ngClass]="canBeSaved ? 'btn-default' : 'disable-default'">
+                  [ngClass]="canBeSaved ? 'btn-default' : 'disable-default'"
+                  class="btn">
             Save
           </button>
         </li>
         <li>
-          <button class="btn"
+          <button (click)="validate()"
                   [disabled]="!canBeValidated"
                   [ngClass]="canBeValidated ? 'btn-default' : 'disable-default'"
-                  (click)="validate()">
+                  class="btn">
             {{hasResponse ? 'Retest' : 'Test'}}
           </button>
         </li>
         <li>
-          <button class="btn ml-md-2"
+          <button (click)="activate()"
                   [disabled]="!canBeActivated"
                   [ngClass]="!canBeActivated ? 'disable-primary' : 'btn-primary'"
-                  (click)="activate()">
+                  class="btn ml-md-2">
             Activate
           </button>
         </li>

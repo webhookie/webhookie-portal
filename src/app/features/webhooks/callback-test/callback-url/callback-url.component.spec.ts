@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CallbackUrlComponent } from './callback-url.component';
+import {CallbackUrlComponent} from './callback-url.component';
 
 describe('CallbackUrlComponent', () => {
   let component: CallbackUrlComponent;
@@ -8,9 +8,9 @@ describe('CallbackUrlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CallbackUrlComponent ]
+      declarations: [CallbackUrlComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

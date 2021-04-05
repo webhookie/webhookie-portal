@@ -1,49 +1,51 @@
-<div class="subscribe-call-back" [ngClass]="selectedApplication ? '' : 'isDisabled'">
-  <fieldset class="p-3 mt-3 mr-lg-3" >
+<div [ngClass]="selectedApplication ? '' : 'isDisabled'" class="subscribe-call-back">
+  <fieldset class="p-3 mt-3 mr-lg-3">
     <h4 class="font16 font-weight-600">Add a callback URL <b>{{selectedApplication?.name}}</b></h4>
     <p class="font12">Please select or create an application to add your callback URL.</p>
 
     <label class="font14 font-weight-400">Select your callback URL</label>
 
     <div class="dropdown mb-3">
-      <button type="button"
-        class="btn btn-warning dropdown-toggle text-left font12 font-weight-400 d-flex justify-content-between align-items-center"
-        data-toggle="dropdown">
+      <button class="btn btn-warning dropdown-toggle text-left font12 font-weight-400 d-flex justify-content-between align-items-center"
+              data-toggle="dropdown"
+              type="button">
         {{selectedCallback ? selectedCallback?.url : 'Select your callback URL'}}
       </button>
       <div class="dropdown-menu font12 font-weight-400">
-        <button class="btn btn-default font-weight-400 font12" (click)="variable.openModal(template1)">
-          <i class="lni lni-plus mr-2"></i>Create New Callback Url</button>
-          <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="javascript:void(0)" *ngFor="let callback of _callbacks$.asObservable() | async" (click)="selectCallback(callback)">{{callback.name}}</a>
+        <button (click)="variable.openModal(template1)" class="btn btn-default font-weight-400 font12">
+          <i class="lni lni-plus mr-2"></i>Create New Callback Url
+        </button>
+        <div class="dropdown-divider"></div>
+        <a (click)="selectCallback(callback)" *ngFor="let callback of _callbacks$.asObservable() | async" class="dropdown-item"
+           href="javascript:void(0)">{{callback.name}}</a>
       </div>
     </div>
     <!-- start -->
 
-    <div class="callback-read-only" *ngIf="selectedCallback">
+    <div *ngIf="selectedCallback" class="callback-read-only">
       <form>
         <h4 class="font14 font-weight-400">Callback URL</h4>
         <div class="form-row mb-1">
           <div class="form-group col-md-2">
-            <input type="text" class="form-control" value="{{selectedCallback?.httpMethod}}" readonly>
+            <input class="form-control" readonly type="text" value="{{selectedCallback?.httpMethod}}">
           </div>
           <div class="form-group col-md-6">
-            <input type="text" class="form-control" value="{{selectedCallback?.url}}" readonly>
+            <input class="form-control" readonly type="text" value="{{selectedCallback?.url}}">
           </div>
         </div>
 
-        <h4 class="font14 font-weight-400" *ngIf="selectedCallback?.signable">Security</h4>
-        <label class="font12 pt-1" *ngIf="selectedCallback?.signable">HMAC Signature</label>
-        <div class="form-row mt-1" *ngIf="false">
+        <h4 *ngIf="selectedCallback?.signable" class="font14 font-weight-400">Security</h4>
+        <label *ngIf="selectedCallback?.signable" class="font12 pt-1">HMAC Signature</label>
+        <div *ngIf="false" class="form-row mt-1">
           <div class="form-group col-md-8">
             <label class="font14 font-weight-400 mb-1">Key ID</label>
-            <input type="text" class="form-control" value="{{selectedCallback?.security?.keyId}}" readonly>
+            <input class="form-control" readonly type="text" value="{{selectedCallback?.security?.keyId}}">
           </div>
         </div>
-        <div class="form-row" *ngIf="selectedCallback?.signable">
+        <div *ngIf="selectedCallback?.signable" class="form-row">
           <div class="form-group col-md-8">
             <h4 class="font14 font-weight-400 mb-1">Secret API Key</h4>
-            <input type="text" class="form-control" value="{{selectedCallback?.security?.keyId}}" readonly>
+            <input class="form-control" readonly type="text" value="{{selectedCallback?.security?.keyId}}">
           </div>
         </div>
       </form>
@@ -53,8 +55,8 @@
 </div>
 
 
-  <div class="modalSave">
-    <ng-template #template1>
-      <app-create-callback></app-create-callback>
-    </ng-template>
-  </div>
+<div class="modalSave">
+  <ng-template #template1>
+    <app-create-callback></app-create-callback>
+  </ng-template>
+</div>

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SidebarSearchComponent } from './sidebar-search.component';
+import {SidebarSearchComponent} from './sidebar-search.component';
 
 describe('SidebarSearchComponent', () => {
   let component: SidebarSearchComponent;
@@ -8,9 +8,9 @@ describe('SidebarSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SidebarSearchComponent ]
+      declarations: [SidebarSearchComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

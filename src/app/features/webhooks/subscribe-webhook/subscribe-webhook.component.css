@@ -1,78 +1,95 @@
-.dot-buttons ul{
-    list-style-type:none;
-    padding: 0;
+.dot-buttons ul {
+  list-style-type: none;
+  padding: 0;
 }
-.dot-buttons button{
-    padding: 4px 12px;
-    font-weight: 400;
-    border-radius: 4px;
-    margin-left: 8px;
+
+.dot-buttons button {
+  padding: 4px 12px;
+  font-weight: 400;
+  border-radius: 4px;
+  margin-left: 8px;
 }
-.dot-buttons .btn-default{
-    font-weight: 400;
-    border: 1px solid #ddd;
-    margin-left: 8px;
-    color: #0151CC;
+
+.dot-buttons .btn-default {
+  font-weight: 400;
+  border: 1px solid #ddd;
+  margin-left: 8px;
+  color: #0151CC;
 }
-.dot-buttons ul{
-    list-style-type:none;
+
+.dot-buttons ul {
+  list-style-type: none;
 }
+
 .dot-buttons i {
-    font-size: 12px;
-    color: #0A1E42;
+  font-size: 12px;
+  color: #0A1E42;
 }
-.test_color{
-  color:#fff !important;
-}
-.disable-default{
-    color:#C6C6C6;
-    border-color:#BFBFBF;
-}
-.diable-primary{
-    color: #C6C6C6 !important;
-    background-color: #E5E5E5 !important;
 
-}    
+.test_color {
+  color: #fff !important;
+}
+
+.disable-default {
+  color: #C6C6C6;
+  border-color: #BFBFBF;
+}
+
+.diable-primary {
+  color: #C6C6C6 !important;
+  background-color: #E5E5E5 !important;
+
+}
+
 .dot-buttons input, label {
-    cursor: pointer;
-    user-select: none;
-    color: #253858;
-}
-.modal-header, .modal-footer{
-    border: 0px;
-}
-.modal-body{
-    padding: 0rem 1.1rem !important;
+  cursor: pointer;
+  user-select: none;
+  color: #253858;
 }
 
-.disable-default{
-    color:#C6C6C6;
-    border-color:#BFBFBF;
+.modal-header, .modal-footer {
+  border: 0px;
 }
-.disable-primary{
-    color: #C6C6C6;
-    background-color: #E5E5E5;
-} 
-.custom-control-input:checked~::before {
-    border-radius: 1px !important;
+
+.modal-body {
+  padding: 0rem 1.1rem !important;
 }
-.custom-checkbox .custom-control-label::before{
-    border-radius: 1px;
+
+.disable-default {
+  color: #C6C6C6;
+  border-color: #BFBFBF;
 }
+
+.disable-primary {
+  color: #C6C6C6;
+  background-color: #E5E5E5;
+}
+
+.custom-control-input:checked ~ ::before {
+  border-radius: 1px !important;
+}
+
+.custom-checkbox .custom-control-label::before {
+  border-radius: 1px;
+}
+
 @media (max-width: 1024px) {
-.dot-buttons label{
+  .dot-buttons label {
     font-size: 10px !important;
+  }
 }
-}
+
 @media (max-width: 767px) {
-    .dot-buttons ul{
-        padding:0px;
-    }
-    .dot-buttons .btn-default{
-        margin-left: 0px;
-        margin-right: 8px;
-    }
-    .dot-buttons button{
-        margin-left: 0px;
-    }
+  .dot-buttons ul {
+    padding: 0px;
+  }
+
+  .dot-buttons .btn-default {
+    margin-left: 0px;
+    margin-right: 8px;
+  }
+
+  .dot-buttons button {
+    margin-left: 0px;
+  }
 }

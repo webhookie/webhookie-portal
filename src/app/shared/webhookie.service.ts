@@ -15,7 +15,8 @@ export class WebhookieService {
     private readonly log: LogService,
     @Inject("Api") private readonly api: Api,
     private readonly consumerGroupAdapter: ConsumerGroupAdapter
-  ) { }
+  ) {
+  }
 
   fetchConsumerGroups(): Observable<Array<ConsumerGroup>> {
     return this.api.json("/admin/consumergroups")

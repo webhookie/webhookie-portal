@@ -23,12 +23,13 @@ export class CallbackTestComponent implements OnInit {
   constructor(
     private readonly context: WebhooksContext,
     private readonly callbackService: CallbackService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
 
-  title(){
+  title() {
     return `Test ${this.context.selectedTopic?.name} Webhook`
   }
 

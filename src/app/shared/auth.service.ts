@@ -33,12 +33,6 @@ export class AuthService {
       .subscribe(it => this.init(it));
   }
 
-  notifyLogin() {
-    if(this.loggedIn) {
-      this.context.login(this.oauthService.getIdentityClaims());
-    }
-  }
-
   get loggedIn(): boolean {
     return this.oauthService.hasValidAccessToken() || this.oauthService.hasValidIdToken()
   }
@@ -66,6 +60,12 @@ export class AuthService {
       showDebugInformation: environment.iam.showDebugInformation,
       disableAtHashCheck: environment.iam.disableAtHashCheck
     };
+  }
+
+  notifyLogin() {
+    if (this.loggedIn) {
+      this.context.login(this.oauthService.getIdentityClaims());
+    }
   }
 
   logout() {

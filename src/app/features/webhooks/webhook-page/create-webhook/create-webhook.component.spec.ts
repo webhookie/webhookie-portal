@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CreateWebhookComponent } from './create-webhook.component';
+import {CreateWebhookComponent} from './create-webhook.component';
 
 describe('CreateWebhookComponent', () => {
   let component: CreateWebhookComponent;
@@ -8,9 +8,9 @@ describe('CreateWebhookComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateWebhookComponent ]
+      declarations: [CreateWebhookComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {WebhooksContext} from "../../webhooks-context";
 
 @Component({
@@ -10,13 +10,14 @@ export class CongratsComponent implements OnInit {
 
   constructor(
     private readonly context: WebhooksContext
-  ) { }
-
-  ngOnInit(): void {
+  ) {
   }
 
   get topic() {
     return this.context.selectedTopic?.name
+  }
+
+  ngOnInit(): void {
   }
 
 }

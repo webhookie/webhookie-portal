@@ -22,13 +22,16 @@ export class SidebarListComponent implements OnInit {
   ) {
   }
 
-  private readWebhookGroups(): Observable<Array<WebhookGroupElement>> {
-    return this.service.myWebhookGroups()
-      .pipe(map(list => list.map( it => new WebhookGroupElement(it.title, it.topics))))
+  get selectedWebhookElement() {
+    return this.context.selectedWebhook
+  }
+
+  get selectedTopic() {
+    return this.context.selectedTopic
   }
 
   ngOnInit(): void {
-    $(function() {
+    $(function () {
       $(this).toggleClass("active").parent().parent().siblings().find('a').removeClass('active')
     });
 
@@ -43,7 +46,7 @@ export class SidebarListComponent implements OnInit {
       .subscribe(it => this.show(it[0]));
   }
 
-  show(webhookGroup: WebhookGroupElement){
+  show(webhookGroup: WebhookGroupElement) {
     this.context._selectedWebhookGroup.next(webhookGroup);
   }
 
@@ -51,11 +54,8 @@ export class SidebarListComponent implements OnInit {
     this.context.selectTopic(element, topic)
   }
 
-  get selectedWebhookElement() {
-    return this.context.selectedWebhook
-  }
-
-  get selectedTopic() {
-    return this.context.selectedTopic
+  private readWebhookGroups(): Observable<Array<WebhookGroupElement>> {
+    return this.service.myWebhookGroups()
+      .pipe(map(list => list.map(it => new WebhookGroupElement(it.title, it.topics))))
   }
 }

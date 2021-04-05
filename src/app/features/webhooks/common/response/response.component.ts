@@ -25,6 +25,10 @@ export class ResponseComponent implements OnInit {
   constructor(public variable: VariableService) {
   }
 
+  get hasResponse() {
+    return this._response$.value
+  }
+
   ngOnInit(): void {
     this.response$
       .subscribe(res => {
@@ -58,10 +62,6 @@ export class ResponseComponent implements OnInit {
     // @ts-ignore
     this._response$.next(null);
     this.output("")
-  }
-
-  get hasResponse() {
-    return this._response$.value
   }
 }
 

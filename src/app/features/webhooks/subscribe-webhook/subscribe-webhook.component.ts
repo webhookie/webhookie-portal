@@ -31,15 +31,35 @@ export class SubscribeWebhookComponent implements OnInit {
   ) {
   }
 
-  private fetchSubscriptions(callbackId: string): Observable<Array<Subscription>> {
-    return this.subscriptionService.fetchSubscriptions("CONSUMER", this.context.selectedTopic?.name, callbackId)
+  get selectedCallback() {
+    return this.context.currentCallback
+  }
+
+  get selectedSubscription() {
+    return this.subscription
+  }
+
+  get canBeSaved() {
+    return this.selectedCallback && !this.selectedSubscription
+  }
+
+  get canBeValidated() {
+    return this.subscription?.canBeValidated()
+  }
+
+  get canBeActivated() {
+    return this.subscription?.canBeActivated()
+  }
+
+  get hasResponse() {
+    return this.response?.hasResponse
   }
 
   ngOnInit(): void {
     this.context.selectedCallback$
       .pipe(mergeMap(it => this.fetchSubscriptions(it.callbackId)))
       .subscribe(it => {
-        if(it.length > 0) {
+        if (it.length > 0) {
           this.subscription = it[0]
         }
         this.response?.invalidate()
@@ -66,9 +86,9 @@ export class SubscribeWebhookComponent implements OnInit {
         })
       )
       .subscribe(it => this.subscription = it)
-      // .subscribe(it => {
-      //   this.response?.update(it)
-      // })
+    // .subscribe(it => {
+    //   this.response?.update(it)
+    // })
   }
 
   activate() {
@@ -82,32 +102,12 @@ export class SubscribeWebhookComponent implements OnInit {
       })
   }
 
-  get selectedCallback() {
-    return this.context.currentCallback
-  }
-
-  get selectedSubscription() {
-    return this.subscription
-  }
-
-  get canBeSaved() {
-    return this.selectedCallback && !this.selectedSubscription
-  }
-
-  get canBeValidated() {
-    return this.subscription?.canBeValidated()
-  }
-
-  get canBeActivated() {
-    return this.subscription?.canBeActivated()
-  }
-
-  get hasResponse() {
-    return this.response?.hasResponse
-  }
-
   createSubscription() {
     this.subscriptionService.createSubscription(this.context.selectedTopic?.name, this.selectedCallback.callbackId)
       .subscribe(it => this.subscription = it);
+  }
+
+  private fetchSubscriptions(callbackId: string): Observable<Array<Subscription>> {
+    return this.subscriptionService.fetchSubscriptions("CONSUMER", this.context.selectedTopic?.name, callbackId)
   }
 }

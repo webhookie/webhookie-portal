@@ -1,62 +1,64 @@
 <app-title [headerTitle]="title()"></app-title>
 <div class="container-fluid">
-<div class="row">
+  <div class="row">
     <div class="col-md-6">
-        <app-order-title></app-order-title>
+      <app-order-title></app-order-title>
     </div>
     <div class="col-md-6">
       <div class="dot-buttons">
         <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
           <li *ngIf="response?.isValid$ | async">
             <form class="form-inline mr-2">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="customCheck" (change)="subscribe=!subscribe" [checked]="subscribe==true">
-                  <label class="custom-control-label font12 pt-1" for="customCheck">Use the same URL to subscribe</label>
-                </div>
-              </form>
-         </li>
-          <li >
-            <div *ngIf="(response?.isValid$ | async) && subscribe;else disableBtn" >
-              <button class="btn mr-2 mr-md-0 btn-default"  routerLink="/webhooks/subscribe-webhook" >
+              <div class="custom-control custom-checkbox">
+                <input (change)="subscribe=!subscribe" [checked]="subscribe==true" class="custom-control-input" id="customCheck"
+                       type="checkbox">
+                <label class="custom-control-label font12 pt-1" for="customCheck">Use the same URL to subscribe</label>
+              </div>
+            </form>
+          </li>
+          <li>
+            <div *ngIf="(response?.isValid$ | async) && subscribe;else disableBtn">
+              <button class="btn mr-2 mr-md-0 btn-default" routerLink="/webhooks/subscribe-webhook">
                 Subscribe
               </button>
             </div>
             <ng-template #disableBtn>
-              <button class="btn mr-2 mr-md-0 disable-default" routerLink="/webhooks/subscribe-webhook" [disabled]="true">
+              <button [disabled]="true" class="btn mr-2 mr-md-0 disable-default"
+                      routerLink="/webhooks/subscribe-webhook">
                 Subscribe
               </button>
             </ng-template>
-            
+
           </li>
           <li>
-            <div *ngIf="(response?.isValid$ | async);else testBtn" >
-              <button class="btn btn-primary" routerLink="/webhooks/callback-test" (click)="test()">
+            <div *ngIf="(response?.isValid$ | async);else testBtn">
+              <button (click)="test()" class="btn btn-primary" routerLink="/webhooks/callback-test">
                 Retest
               </button>
             </div>
             <ng-template #testBtn>
-              <button class="btn btn-primary" routerLink="/webhooks/callback-test" (click)="test()">
+              <button (click)="test()" class="btn btn-primary" routerLink="/webhooks/callback-test">
                 Test
               </button>
             </ng-template>
-            
+
           </li>
         </ul>
       </div>
     </div>
-</div>
-<div class="row">
+  </div>
+  <div class="row">
     <div class="col-lg-12">
-        <app-order-rate-sub-links></app-order-rate-sub-links>
+      <app-order-rate-sub-links></app-order-rate-sub-links>
     </div>
-</div>
-<div class="row">
+  </div>
+  <div class="row">
     <div class="col-lg-6 pr-lg-0">
-        <app-callback-url #callbackUrlComponent></app-callback-url>
-        <app-response #responseComponent></app-response>
+      <app-callback-url #callbackUrlComponent></app-callback-url>
+      <app-response #responseComponent></app-response>
     </div>
     <div class="col-lg-6 pl-lg-0 pr-lg-0 mt-2 mt-lg-0">
-        <app-request-example #requestExampleComponent></app-request-example>
+      <app-request-example #requestExampleComponent></app-request-example>
     </div>
-</div>
+  </div>
 </div>

@@ -1,55 +1,62 @@
 <form>
-    <div class="modal-header">
-        <h2 class="modal-title pull-left font16 font-weight-bold">Create new application</h2>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="variable.modalRef.hide()">
-            <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
-        </button>
-    </div>
-    <div class="modal-body">
+  <div class="modal-header">
+    <h2 class="modal-title pull-left font16 font-weight-bold">Create new application</h2>
+    <button (click)="variable.modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
+      <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
+    </button>
+  </div>
+  <div class="modal-body">
 
-        <div class="form-group">
-            <label for="name" class="font14 font-weight-400">Application name</label>
-            <input type="text" class="form-control" id="name" placeholder="Your Application" [(ngModel)]="requestedName" name="name">
-        </div>
-        <div class="form-group">
-            <label for="Description" class="font14 font-weight-400">Description</label>
-            <textarea class="form-control" rows="4" id="Description" placeholder="Description" [(ngModel)]="requestedDesc" name="desc"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="name" class="font14 font-weight-400 mt-2">Consumer group</label>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-warning dropdown-toggle font12 font-weight-400" data-toggle="dropdown">
-                            2 consumers selected
-                        </button>
-                        <div class="dropdown-menu multi-select-dropdown">
-                            <div class="scrollable-list">
-                                <div class="custom-control custom-checkbox" (change)="selectAll()">
-                                    <input type="checkbox" class="custom-control-input" id="all_groups_ch_box" name="example1" [checked]="isAllSelected()">
-                                    <label class="custom-control-label" for="all_groups_ch_box">Select All</label>
-                                </div>
-                                <div class="custom-control custom-checkbox" *ngFor="let item of _consumerGroups$.asObservable() | async" (click)="selectGroup(item)">
-                                    <input type="checkbox" class="custom-control-input" id="group-{{item.id}}" name="group-{{item.id}}" [value]="item.id" (select)="selectGroup(item)"  (change)="handleEvent($event)" [checked]="isGroupSelected$(item) | async">
-                                    <label class="custom-control-label" for="group-{{item.id}}">{{item.name}}</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="form-group">
+      <label class="font14 font-weight-400" for="name">Application name</label>
+      <input [(ngModel)]="requestedName" class="form-control" id="name" name="name" placeholder="Your Application"
+             type="text">
+    </div>
+    <div class="form-group">
+      <label class="font14 font-weight-400" for="Description">Description</label>
+      <textarea [(ngModel)]="requestedDesc" class="form-control" id="Description" name="desc" placeholder="Description"
+                rows="4"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="font14 font-weight-400 mt-2" for="name">Consumer group</label>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="dropdown">
+            <button class="btn btn-warning dropdown-toggle font12 font-weight-400" data-toggle="dropdown" type="button">
+              2 consumers selected
+            </button>
+            <div class="dropdown-menu multi-select-dropdown">
+              <div class="scrollable-list">
+                <div (change)="selectAll()" class="custom-control custom-checkbox">
+                  <input [checked]="isAllSelected()" class="custom-control-input" id="all_groups_ch_box" name="example1"
+                         type="checkbox">
+                  <label class="custom-control-label" for="all_groups_ch_box">Select All</label>
                 </div>
+                <div (click)="selectGroup(item)" *ngFor="let item of _consumerGroups$.asObservable() | async"
+                     class="custom-control custom-checkbox">
+                  <input (change)="handleEvent($event)" (select)="selectGroup(item)" [checked]="isGroupSelected$(item) | async" [value]="item.id"
+                         class="custom-control-input" id="group-{{item.id}}" name="group-{{item.id}}"
+                         type="checkbox">
+                  <label class="custom-control-label" for="group-{{item.id}}">{{item.name}}</label>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="consumer-value">
-            <ul class="d-flex align-items-center mt-3">
-                <li *ngFor="let item of _selectedGroups$.asObservable() | async">
-                  <span>{{item.name}}</span><img src="assets/images/Pill_delete.svg" (click)="removeGroup(item)" alt="">
-                </li>
-            </ul>
-        </div>
+      </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default cancel border" aria-label="Close"
-            (click)="variable.modalRef.hide()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="createApplication()">Create</button>
+    <div class="consumer-value">
+      <ul class="d-flex align-items-center mt-3">
+        <li *ngFor="let item of _selectedGroups$.asObservable() | async">
+          <span>{{item.name}}</span><img (click)="removeGroup(item)" alt="" src="assets/images/Pill_delete.svg">
+        </li>
+      </ul>
     </div>
+  </div>
+  <div class="modal-footer">
+    <button (click)="variable.modalRef.hide()" aria-label="Close" class="btn btn-default cancel border"
+            type="button">Cancel
+    </button>
+    <button (click)="createApplication()" class="btn btn-primary" type="button">Create</button>
+  </div>
 </form>

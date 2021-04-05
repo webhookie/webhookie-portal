@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import * as $ from 'jquery';
 import {VariableService} from "../common/variable.service";
+
 @Component({
   selector: 'app-webhook-page',
   templateUrl: './webhook-page.component.html',
@@ -27,8 +28,9 @@ export class WebhookPageComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  title(){
-    let crumbs=this.variable.breadCrumbs();
+
+  title() {
+    let crumbs = this.variable.breadCrumbs();
     return `Webhooks`
   }
 

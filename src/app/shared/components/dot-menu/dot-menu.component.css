@@ -1,8 +1,9 @@
-button,.btn-primary:hover{
-    background: #fff;
-    border-color: #fff;
-    padding: 0;
+button, .btn-primary:hover {
+  background: #fff;
+  border-color: #fff;
+  padding: 0;
 }
-button i{
-    color: #797777;
+
+button i {
+  color: #797777;
 }

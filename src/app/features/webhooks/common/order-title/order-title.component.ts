@@ -18,16 +18,16 @@ export class OrderTitleComponent implements OnInit {
   ) {
   }
 
+  get topic() {
+    return this.context.selectedTopic
+  }
+
   ngOnInit(): void {
   }
 
   title() {
     let crumbs = this.variable.breadCrumbs();
     return crumbs[crumbs.length - 1].displayName;
-  }
-
-  get topic() {
-    return this.context.selectedTopic
   }
 
   webTitle() {

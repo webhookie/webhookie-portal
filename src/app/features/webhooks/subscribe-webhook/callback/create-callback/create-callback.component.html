@@ -1,17 +1,18 @@
-<form >
-    <div class="modal-header">
-      <h2 class="modal-title pull-left font16 font-weight-bold">Create new Callback URL</h2>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="variable.modalRef.hide()">
-        <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <b>{{selectedApplication?.name}}</b>
-      <app-callback-url #callbackComponent></app-callback-url>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default cancel border" aria-label="Close"
-        (click)="variable.modalRef.hide()">Cancel</button>
-      <button type="button" class="btn btn-primary" (click)="create()">Create</button>
-    </div>
-   </form >
+<form>
+  <div class="modal-header">
+    <h2 class="modal-title pull-left font16 font-weight-bold">Create new Callback URL</h2>
+    <button (click)="variable.modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
+      <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <b>{{selectedApplication?.name}}</b>
+    <app-callback-url #callbackComponent></app-callback-url>
+  </div>
+  <div class="modal-footer">
+    <button (click)="variable.modalRef.hide()" aria-label="Close" class="btn btn-default cancel border"
+            type="button">Cancel
+    </button>
+    <button (click)="create()" class="btn btn-primary" type="button">Create</button>
+  </div>
+</form>

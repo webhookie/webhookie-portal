@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Adapter} from "./adapter";
 import {ApplicationDetails, CallbackDetails, StatusUpdate, Subscription} from "../model/subscription";
 import {CallbackSecurity} from "../model/callback-security";
@@ -6,9 +6,19 @@ import {CallbackSecurity} from "../model/callback-security";
 @Injectable({
   providedIn: 'root'
 })
-export class SubscriptionAdapter implements Adapter<Subscription>{
+export class SubscriptionAdapter implements Adapter<Subscription> {
 
-  constructor() { }
+  constructor() {
+  }
+
+  private static security(callback: any): CallbackSecurity | null {
+    let s = callback.security;
+    if (s) {
+      return new CallbackSecurity(s.method, s.keyId);
+    }
+
+    return null;
+  }
 
   adapt(item: any): Subscription {
     let ia = item.application;
@@ -44,14 +54,5 @@ export class SubscriptionAdapter implements Adapter<Subscription>{
       item.topic,
       item.bklocked
     );
-  }
-
-  private static security(callback: any): CallbackSecurity | null {
-    let s = callback.security;
-    if(s) {
-      return new CallbackSecurity(s.method, s.keyId);
-    }
-
-    return null;
   }
 }

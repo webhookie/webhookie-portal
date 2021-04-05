@@ -1,17 +1,18 @@
 <div id="sidebar-nav">
   <div class="accordion" id="faq">
-    <div class="card custom-accordion" *ngFor="let webhookGroup of _webhooks$.asObservable() | async;let i=index">
+    <div *ngFor="let webhookGroup of _webhooks$.asObservable() | async;let i=index" class="card custom-accordion">
       <div class="card-header" id="faqhead{{i}}">
-        <a href="#" class="btn btn-header-link" data-toggle="collapse" [ngClass]="webhookGroup.isShowing?'active':''"
-           (click)="show(webhookGroup)" [attr.data-target]="'#faq' + i"
-           aria-expanded="true" [attr.aria-controls]="'faq' + i">{{webhookGroup.title}}</a>
+        <a (click)="show(webhookGroup)" [attr.aria-controls]="'faq' + i" [attr.data-target]="'#faq' + i" [ngClass]="webhookGroup.isShowing?'active':''"
+           aria-expanded="true" class="btn btn-header-link"
+           data-toggle="collapse" href="#">{{webhookGroup.title}}</a>
       </div>
 
-      <div id="faq{{i}}" [ngClass]="(i == 0)?'show':'collapse'" data-parent="#faq">
+      <div [ngClass]="(i == 0)?'show':'collapse'" data-parent="#faq" id="faq{{i}}">
         <ul class="navbar-nav">
-          <li class="nav-item" *ngFor="let topic of webhookGroup.topics">
-            <a class="nav-link" href="javascript:void(0)" [ngClass]="(topic==selectedTopic)?'portionColor':''" routerLinkActive="active"
-               (click)="selectTopic(webhookGroup, topic)">
+          <li *ngFor="let topic of webhookGroup.topics" class="nav-item">
+            <a (click)="selectTopic(webhookGroup, topic)" [ngClass]="(topic==selectedTopic)?'portionColor':''" class="nav-link"
+               href="javascript:void(0)"
+               routerLinkActive="active">
               {{topic.name}}
               <!-- <li class="nav-item" *ngFor="let sub of list.subList" >
          <a class="nav-link" routerLink="{{sub.link}}" [ngClass]="(sub==variable.selectedWebhook)?'portionColor':''" routerLinkActive="active" (click)="selectedWeb(sub)">

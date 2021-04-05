@@ -24,6 +24,10 @@ export class ApplicationComponent implements OnInit {
   ) {
   }
 
+  get selectedApplication() {
+    return this.context.currentApplication
+  }
+
   ngOnInit(): void {
     $(document).ready(function () {
       $(".btn-warning").click(function () {
@@ -38,9 +42,5 @@ export class ApplicationComponent implements OnInit {
 
   selectApp(application: Application) {
     this.context.updateApplication(application);
-  }
-
-  get selectedApplication() {
-    return this.context.currentApplication
   }
 }

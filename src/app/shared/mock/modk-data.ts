@@ -525,37 +525,37 @@ export class MockData {
   ];
 
   static for(uri: string, params: HttpParams) {
-    if(uri.startsWith("/public/config")) {
+    if (uri.startsWith("/public/config")) {
       return of(this.config)
     }
 
-    if(uri.startsWith("/applications")) {
-      if(uri.endsWith("/callbacks")) {
+    if (uri.startsWith("/applications")) {
+      if (uri.endsWith("/callbacks")) {
         return of(this.applicationCallbacks)
       }
       return of(this.applications)
     }
 
-    if(uri.startsWith("/webhookgroups")) {
+    if (uri.startsWith("/webhookgroups")) {
       return of(this.webhookGroups)
     }
 
-    if(uri.startsWith("/traffic/trace")) {
+    if (uri.startsWith("/traffic/trace")) {
       return of(this.traces)
     }
 
-    if(uri.startsWith("/traffic/span")) {
+    if (uri.startsWith("/traffic/span")) {
       return of(this.spans)
     }
 
-    if(uri.startsWith("/subscriptions")) {
-      if(params.get("role") == "CONSUMER") {
+    if (uri.startsWith("/subscriptions")) {
+      if (params.get("role") == "CONSUMER") {
         return of(this.subscriptions)
       }
       return of(this.providerSubscriptions)
     }
 
-    if(uri.startsWith("/admin/consumergroups")) {
+    if (uri.startsWith("/admin/consumergroups")) {
       return of(this.consumerGroups)
     }
 

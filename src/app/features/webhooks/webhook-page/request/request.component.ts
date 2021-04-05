@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as $ from 'jquery';
-import { VariableService } from '../../common/variable.service';
+import {VariableService} from '../../common/variable.service';
+
 @Component({
   selector: 'app-request',
   templateUrl: './request.component.html',
   styleUrls: ['./request.component.css']
 })
 export class RequestComponent implements OnInit {
-jsonobj = {
+  jsonobj = {
     "outcome": "success",
     "result": {
       "name": "messaging-sockets",
@@ -35,7 +36,8 @@ jsonobj = {
     "compensating-operation": null
   };
 
-  constructor(public variable: VariableService) { }
+  constructor(public variable: VariableService) {
+  }
 
   ngOnInit(): void {
     $(document).ready(function () {

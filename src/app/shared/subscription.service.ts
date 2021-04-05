@@ -18,7 +18,8 @@ export class SubscriptionService {
     @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
     private readonly adapter: SubscriptionAdapter
-  ) { }
+  ) {
+  }
 
   fetchSubscriptions(
     role: string,
@@ -28,11 +29,11 @@ export class SubscriptionService {
     let params = new HttpParams()
       .set("role", role.valueOf());
 
-    if(topic) {
+    if (topic) {
       params = params.set("topic", topic)
     }
 
-    if(callbackId) {
+    if (callbackId) {
       params = params.set("callbackId", callbackId)
     }
 

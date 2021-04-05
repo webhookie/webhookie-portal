@@ -7,7 +7,7 @@ import {CallbackValidationRequest} from "../../service/callback.service";
   styleUrls: ['./callback-url.component.css']
 })
 export class CallbackUrlComponent implements OnInit {
-  securityArr: any = ['HMAC Signature','API key','None'];
+  securityArr: any = ['HMAC Signature', 'API key', 'None'];
   security: any = "None"
 
   method: string = "POST"
@@ -29,7 +29,8 @@ export class CallbackUrlComponent implements OnInit {
     "POST", "PUT", "PATCH"
   ];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
 

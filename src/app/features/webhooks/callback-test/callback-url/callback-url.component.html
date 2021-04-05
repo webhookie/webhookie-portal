@@ -11,40 +11,40 @@
         </div> -->
         <div class="form-group col-md-2">
           <div class="dropdown text-uppercase">
-            <button type="button"
-                    class="btn btn-warning dropdown-toggle text-left font12 font-weight-400 text-uppercase w-100 d-flex justify-content-between align-items-center"
-                    data-toggle="dropdown">
+            <button class="btn btn-warning dropdown-toggle text-left font12 font-weight-400 text-uppercase w-100 d-flex justify-content-between align-items-center"
+                    data-toggle="dropdown"
+                    type="button">
               Post
             </button>
             <div class="dropdown-menu font12 font-weight-400">
-              <a class="dropdown-item" *ngFor="let method of methods " (click)="setMethod(method)">{{method}}</a>
+              <a (click)="setMethod(method)" *ngFor="let method of methods " class="dropdown-item">{{method}}</a>
             </div>
           </div>
         </div>
         <div class="form-group col-md-6">
-          <input type="text" class="form-control" placeholder="https://yourserver/application/endpoint"
-                 [(ngModel)]="url" name="url" id="url">
+          <input [(ngModel)]="url" class="form-control" id="url"
+                 name="url" placeholder="https://yourserver/application/endpoint" type="text">
         </div>
       </div>
       <h4 class="font14 font-weight-400">Security</h4>
-      <div class="custom-control custom-radio custom-control-inline security-label" *ngFor="let s of securityArr">
-        <input class="custom-control-input" id="{{s}}" type="radio" name="security" (change)="security=s"
-               [disabled]="s=='API key'" [checked]="security==s">
+      <div *ngFor="let s of securityArr" class="custom-control custom-radio custom-control-inline security-label">
+        <input (change)="security=s" [checked]="security==s" [disabled]="s=='API key'" class="custom-control-input" id="{{s}}"
+               name="security" type="radio">
         <label class="custom-control-label font12 pt-1" for="{{s}}">{{s}}</label>
       </div>
-      <div class="callback-test-key mt-3" *ngIf="security=='HMAC Signature'">
+      <div *ngIf="security=='HMAC Signature'" class="callback-test-key mt-3">
         <div class="form-row">
           <div class="form-group col-md-8">
             <label class="font14 font-weight-400 mb-1" for="keyId">Key ID</label>
-            <input type="text" class="form-control" placeholder="Key ID example" [(ngModel)]="keyId" name="keyId"
-                   id="keyId">
+            <input [(ngModel)]="keyId" class="form-control" id="keyId" name="keyId" placeholder="Key ID example"
+                   type="text">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-8">
             <label class="font14 font-weight-400 mb-1" for="secret">Secret API Key</label>
-            <input type="text" class="form-control" placeholder="Secret API Key example" [(ngModel)]="secret"
-                   name="secret" id="secret">
+            <input [(ngModel)]="secret" class="form-control" id="secret" name="secret"
+                   placeholder="Secret API Key example" type="text">
           </div>
         </div>
       </div>

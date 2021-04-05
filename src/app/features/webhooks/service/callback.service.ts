@@ -71,6 +71,7 @@ export interface CallbackRequest {
 export interface CallbackSecurityRequest {
   secret: CallbackSecret
 }
+
 export interface CallbackSecret {
   keyId: string,
   secret: string

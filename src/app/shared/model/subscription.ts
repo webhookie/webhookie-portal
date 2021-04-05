@@ -37,10 +37,10 @@ export class ApplicationDetails {
 
 export class StatusUpdate {
   constructor(
-  public status: SubscriptionStatus,
-  public reason: string | null,
-  public time: Date
-) {
+    public status: SubscriptionStatus,
+    public reason: string | null,
+    public time: Date
+  ) {
   }
 }
 

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DotMenuComponent } from './dot-menu.component';
+import {DotMenuComponent} from './dot-menu.component';
 
 describe('DotMenuComponent', () => {
   let component: DotMenuComponent;
@@ -8,9 +8,9 @@ describe('DotMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DotMenuComponent ]
+      declarations: [DotMenuComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

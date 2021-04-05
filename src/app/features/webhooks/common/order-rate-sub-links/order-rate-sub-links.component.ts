@@ -11,11 +11,11 @@ export class OrderRateSubLinksComponent implements OnInit {
   constructor(public context: WebhooksContext) {
   }
 
-  ngOnInit(): void {
-  }
-
   get selectedTopic() {
     return this.context.selectedTopic
+  }
+
+  ngOnInit(): void {
   }
 
 }

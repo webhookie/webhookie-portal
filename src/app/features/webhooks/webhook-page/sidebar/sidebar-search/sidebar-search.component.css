@@ -1,28 +1,28 @@
- input.form-control {
-     border: 0;
-     height: 32px;
-     border: 1px solid #E1E1E1;
- }
+input.form-control {
+  border: 0;
+  height: 32px;
+  border: 1px solid #E1E1E1;
+}
 
- button.btn.btn-secondary {
-     background-color: #fff;
-     border: 1px solid #e1e1e1;
-     height: 32px;
-     border-left: 0;
- }
+button.btn.btn-secondary {
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  height: 32px;
+  border-left: 0;
+}
 
- ::placeholder {
-     font-size: 14px;
- }
+::placeholder {
+  font-size: 14px;
+}
 
- .text-primary {
-     color: #0151CC !important;
- }
+.text-primary {
+  color: #0151CC !important;
+}
 
- .btn-secondary:hover {
-     color: #0A1E42;
- }
+.btn-secondary:hover {
+  color: #0A1E42;
+}
 
- .sidebar-heading i {
-     float: right;
- }
+.sidebar-heading i {
+  float: right;
+}

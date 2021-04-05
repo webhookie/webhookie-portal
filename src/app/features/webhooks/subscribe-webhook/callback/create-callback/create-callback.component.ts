@@ -20,25 +20,23 @@ export class CreateCallbackComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-  }
-
   get selectedApplication() {
     return this.context.currentApplication
   }
 
+  ngOnInit(): void {
+  }
+
   create() {
-    let appId = this.context.currentApplication.id
     let request: CallbackRequest = {
-      name: `${appId} Callback`,
-      applicationId: appId,
+      name: `${this.callback.method} ${this.callback.url}`,
+      applicationId: this.context.currentApplication.id,
       httpMethod: this.callback.method,
       url: this.callback.url
     }
 
     this.service.createCallback(request)
       .subscribe(it => {
-        console.warn(it);
         this.context.updateCallback(it);
         this.variable.modalRef.hide();
       })

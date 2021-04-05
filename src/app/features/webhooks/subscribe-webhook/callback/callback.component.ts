@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 import {WebhooksContext} from "../../webhooks-context";
@@ -24,14 +24,18 @@ export class CallbackComponent implements OnInit {
   ) {
   }
 
+  get selectedApplication() {
+    return this.context.currentApplication
+  }
+
+  get selectedCallback() {
+    return this.context.currentCallback
+  }
+
   ngOnInit(): void {
     this.context.selectedApplication$
       .pipe(mergeMap(it => this.service.fetchApplicationCallbacks(it)))
       .subscribe(it => this._callbacks$.next(it))
-  }
-
-  get selectedApplication() {
-    return this.context.currentApplication
   }
 
   create() {
@@ -40,9 +44,5 @@ export class CallbackComponent implements OnInit {
 
   selectCallback(callback: Callback) {
     this.context.updateCallback(callback);
-  }
-
-  get selectedCallback() {
-    return this.context.currentCallback
   }
 }

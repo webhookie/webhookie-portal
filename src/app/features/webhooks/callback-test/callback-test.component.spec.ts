@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CallbackTestComponent } from './callback-test.component';
+import {CallbackTestComponent} from './callback-test.component';
 
 describe('TestOrderComponent', () => {
   let component: CallbackTestComponent;
@@ -8,9 +8,9 @@ describe('TestOrderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CallbackTestComponent ]
+      declarations: [CallbackTestComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

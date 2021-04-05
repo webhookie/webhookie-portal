@@ -1,6 +1,7 @@
 #wrapper {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
+
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -260px;
@@ -10,24 +11,29 @@
   transition: margin .25s ease-out;
   background-color: #F4F5F7 !important;
 }
+
 #sidebar-wrapper .list-group {
   width: 260px;
 }
+
 #page-content-wrapper {
   min-width: 100vw;
 }
+
 #wrapper.toggled #sidebar-wrapper {
   margin-left: 0;
 }
-.sidebar-nav-before-active{
+
+.sidebar-nav-before-active {
   color: #0A1E42;
   display: block;
   /* margin: 0.8rem 1rem; */
   margin: 12px 16px 0px 21px;
   font-size: 14px;
 }
-.sidebar-nav-before-active:hover{
-  text-decoration:none;
+
+.sidebar-nav-before-active:hover {
+  text-decoration: none;
 }
 
 @media (min-width: 768px) {
@@ -36,6 +42,7 @@
     width: 260px;
     height: 100%;
   }
+
   #page-content-wrapper {
     min-width: 0;
     width: 100%;

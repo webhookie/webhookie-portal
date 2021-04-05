@@ -17,7 +17,7 @@ export class CallbackAdapter implements Adapter<Callback> {
     let itemSecurity = item.security
     let security
 
-    if(itemSecurity != null) {
+    if (itemSecurity != null) {
       security = new CallbackSecurity(itemSecurity.method, itemSecurity.keyId)
     }
 

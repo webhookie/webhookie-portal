@@ -12,7 +12,7 @@ export class MockApiService implements Api {
   }
 
   post(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: string): Observable<HttpResponse<any>> {
-    if(uri.startsWith("/callbacks/test")) {
+    if (uri.startsWith("/callbacks/test")) {
       return of(new HttpResponse<string>(
         {
           body: "OK",
@@ -23,7 +23,7 @@ export class MockApiService implements Api {
       ));
     }
 
-    if(uri.startsWith("/subscriptions")) {
+    if (uri.startsWith("/subscriptions")) {
       return of(new HttpResponse<any>(
         {
           body: {

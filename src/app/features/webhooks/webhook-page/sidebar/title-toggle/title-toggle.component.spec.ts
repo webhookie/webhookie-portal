@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TitleToggleComponent } from './title-toggle.component';
+import {TitleToggleComponent} from './title-toggle.component';
 
 describe('TitleToggleComponent', () => {
   let component: TitleToggleComponent;
@@ -8,9 +8,9 @@ describe('TitleToggleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TitleToggleComponent ]
+      declarations: [TitleToggleComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
