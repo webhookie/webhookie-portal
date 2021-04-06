@@ -55,7 +55,7 @@ export interface CallbackValidationRequest {
   url: string,
   payload: string,
   headers: any,
-  secret?: string,
+  secret?: any,
   traceId?: string,
   spanId?: string
 }

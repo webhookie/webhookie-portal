@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {CallbackValidationRequest} from "../../service/callback.service";
 
 @Component({
   selector: 'app-callback-url',
@@ -7,24 +6,16 @@ import {CallbackValidationRequest} from "../../service/callback.service";
   styleUrls: ['./callback-url.component.css']
 })
 export class CallbackUrlComponent implements OnInit {
-  securityArr: any = ['HMAC Signature', 'API key', 'None'];
-  security: any = "None"
+  public static HMAC_SECURITY = "HMAC Signature"
+
+  securityModels: any = [CallbackUrlComponent.HMAC_SECURITY, 'None'];
+  securityModel: any = "None"
 
   method: string = "POST"
   url: string = ""
   secret: string = ""
   keyId: string = ""
 
-
-  request: CallbackValidationRequest = {
-    httpMethod: "POST",
-    url: "http://192.168.1.101:9001/wh/product",
-    payload: "{\"name\": \"Me new Endpoint - 5\",\n\"path\": \"/foo-5\"\n}",
-    headers: {
-      "Content-Type": ["application/json"],
-      "Accept": ["*/*"]
-    }
-  }
   methods: Array<string> = [
     "POST", "PUT", "PATCH"
   ];
@@ -38,5 +29,9 @@ export class CallbackUrlComponent implements OnInit {
 
   setMethod(method: string) {
     this.method = method
+  }
+
+  get isHmac() {
+    return this.securityModel == CallbackUrlComponent.HMAC_SECURITY
   }
 }

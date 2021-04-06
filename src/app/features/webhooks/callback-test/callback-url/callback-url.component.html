@@ -27,12 +27,12 @@
         </div>
       </div>
       <h4 class="font14 font-weight-400">Security</h4>
-      <div *ngFor="let s of securityArr" class="custom-control custom-radio custom-control-inline security-label">
-        <input (change)="security=s" [checked]="security==s" [disabled]="s=='API key'" class="custom-control-input" id="{{s}}"
+      <div *ngFor="let s of securityModels" class="custom-control custom-radio custom-control-inline security-label">
+        <input (change)="securityModel=s" [checked]="securityModel==s" [disabled]="s=='API key'" class="custom-control-input" id="{{s}}"
                name="security" type="radio">
         <label class="custom-control-label font12 pt-1" for="{{s}}">{{s}}</label>
       </div>
-      <div *ngIf="security=='HMAC Signature'" class="callback-test-key mt-3">
+      <div *ngIf="securityModel=='HMAC Signature'" class="callback-test-key mt-3">
         <div class="form-row">
           <div class="form-group col-md-8">
             <label class="font14 font-weight-400 mb-1" for="keyId">Key ID</label>

@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CallbackUrlComponent} from "./callback-url/callback-url.component";
 import {ResponseComponent} from "../common/response/response.component";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
-import {CallbackService} from "../service/callback.service";
+import {CallbackService, CallbackValidationRequest} from "../service/callback.service";
 import {WebhooksContext} from "../webhooks-context";
 
 @Component({
@@ -35,7 +35,25 @@ export class CallbackTestComponent implements OnInit {
 
   test() {
     this.response?.invalidate()
-    this.callbackService.testCallback(this.callback.request)
+
+    let request: CallbackValidationRequest = {
+      httpMethod: this.callback.method,
+      url: this.callback.url,
+      payload: JSON.stringify(this.request.jsonobj.result),
+      headers: {
+        "Content-Type": ["application/json"],
+        "Accept": ["*/*"]
+      }
+    }
+
+    if(this.callback.isHmac) {
+      request.secret = {
+        secret: this.callback.secret,
+        keyId: this.callback.keyId
+      }
+    }
+
+    this.callbackService.testCallback(request)
       .subscribe(it => {
         this.response?.update(it)
       })
