@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {environment} from "../../environments/environment";
 import {catchError, tap} from "rxjs/operators";
@@ -22,7 +22,10 @@ export class ApiService implements Api {
   }
 
   private static formatErrors(error: any) {
-    return throwError(error.error);
+    if(error.name == HttpErrorResponse.name) {
+      console.warn("Response error!")
+    }
+    return throwError(error);
   }
 
   //TODO: refactor

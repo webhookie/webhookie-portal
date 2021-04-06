@@ -4,6 +4,7 @@ import {ResponseComponent} from "../common/response/response.component";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {CallbackService, CallbackValidationRequest} from "../service/callback.service";
 import {WebhooksContext} from "../webhooks-context";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-callback-test',
@@ -54,8 +55,9 @@ export class CallbackTestComponent implements OnInit {
     }
 
     this.callbackService.testCallback(request)
-      .subscribe(it => {
-        this.response?.update(it)
-      })
+      .subscribe(
+        it => this.response?.update(it),
+        (err: HttpErrorResponse) => this.response?.updateWithError(err)
+      )
   }
 }

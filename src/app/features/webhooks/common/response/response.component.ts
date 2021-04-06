@@ -3,6 +3,7 @@ import {VariableService} from '../variable.service';
 import {CallbackResponse} from "../../service/callback.service";
 import {BehaviorSubject, Observable} from "rxjs";
 import {filter, map} from "rxjs/operators";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-response',
@@ -21,6 +22,8 @@ export class ResponseComponent implements OnInit {
 
   readonly responseCode$: Observable<number> = this._response$.asObservable()
     .pipe(map(it => it?.responseCode))
+
+  responseClass: string = "text-default"
 
   constructor(public variable: VariableService) {
   }
@@ -56,11 +59,31 @@ export class ResponseComponent implements OnInit {
 
   update(response: CallbackResponse) {
     this._response$.next(response);
+    this.responseClass = "text-success"
+  }
+
+  updateWithError(errorResponse: HttpErrorResponse) {
+    this.responseClass = "text-danger"
+    let body: any;
+
+    try {
+      body = JSON.parse(errorResponse.error)
+    } catch (e) {
+      body = errorResponse.error
+    }
+
+    let res = new CallbackResponse(
+      errorResponse.status,
+      errorResponse.headers,
+      body
+    )
+    this._response$.next(res);
   }
 
   invalidate() {
     // @ts-ignore
     this._response$.next(null);
+    this.responseClass = "text-default"
     this.output("")
   }
 }

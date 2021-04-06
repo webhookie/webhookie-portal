@@ -1,6 +1,6 @@
 <div class="light-mode mt-3 mr-lg-3">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="font-weight-bold font16">Response <span *ngIf="responseCode$ | async">{{responseCode$ | async}}</span>
+    <h4 class="font-weight-bold font16" [ngClass]="responseClass">Response <span *ngIf="responseCode$ | async">{{responseCode$ | async}}</span>
     </h4>
 
     <!-- <h4 class="font-weight-bold font16">Response <span *ngIf="variable.test_res || variable.subscribe_res">{{getResponse()}}</span></h4> -->

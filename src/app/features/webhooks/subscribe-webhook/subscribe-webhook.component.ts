@@ -9,6 +9,8 @@ import {SubscriptionService, ValidateSubscriptionRequest} from "../../../shared/
 import {Observable} from "rxjs";
 import {Subscription} from "../../../shared/model/subscription";
 import {RouterService} from "../../../shared/router.service";
+import {HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {CallbackResponse} from "../service/callback.service";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -95,7 +97,15 @@ export class SubscribeWebhookComponent implements OnInit {
           return this.subscriptionService.validateSubscription(this.subscription, request)
         })
       )
-      .subscribe(it => this.subscription = it)
+      .subscribe(
+        it => {
+          this.response?.update(new CallbackResponse(
+            200, new HttpHeaders(), ""
+          ))
+          this.subscription = it
+        },
+        (err: HttpErrorResponse) => this.response?.updateWithError(err)
+      )
     // .subscribe(it => {
     //   this.response?.update(it)
     // })
