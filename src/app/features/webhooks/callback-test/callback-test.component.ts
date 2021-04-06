@@ -39,7 +39,7 @@ export class CallbackTestComponent implements OnInit {
     let request: CallbackValidationRequest = {
       httpMethod: this.callback.method,
       url: this.callback.url,
-      payload: JSON.stringify(this.request.jsonobj.result),
+      payload: JSON.stringify(this.request.jsonobj),
       headers: {
         "Content-Type": ["application/json"],
         "Accept": ["*/*"]

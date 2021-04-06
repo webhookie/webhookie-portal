@@ -85,7 +85,7 @@ export class SubscribeWebhookComponent implements OnInit {
       .pipe(
         mergeMap(() => {
           let request: ValidateSubscriptionRequest = {
-            payload: JSON.stringify(this.requestComponent?.jsonobj?.result),
+            payload: JSON.stringify(this.requestComponent?.jsonobj),
             headers: {
               "Content-Type": ["application/json"],
               "Accept": ["*/*"]
