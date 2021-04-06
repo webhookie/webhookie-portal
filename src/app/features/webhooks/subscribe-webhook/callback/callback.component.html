@@ -36,7 +36,7 @@
 
         <h4 *ngIf="selectedCallback?.signable" class="font14 font-weight-400">Security</h4>
         <label *ngIf="selectedCallback?.signable" class="font12 pt-1">HMAC Signature</label>
-        <div *ngIf="false" class="form-row mt-1">
+        <div *ngIf="selectedCallback?.signable" class="form-row mt-1">
           <div class="form-group col-md-8">
             <label class="font14 font-weight-400 mb-1">Key ID</label>
             <input class="form-control" readonly type="text" value="{{selectedCallback?.security?.keyId}}">
@@ -44,8 +44,7 @@
         </div>
         <div *ngIf="selectedCallback?.signable" class="form-row">
           <div class="form-group col-md-8">
-            <h4 class="font14 font-weight-400 mb-1">Secret API Key</h4>
-            <input class="form-control" readonly type="text" value="{{selectedCallback?.security?.keyId}}">
+            <h4 class="font14 font-weight-400 mb-1">Secret API Key: ****</h4>
           </div>
         </div>
       </form>

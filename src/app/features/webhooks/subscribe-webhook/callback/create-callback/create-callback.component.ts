@@ -35,6 +35,15 @@ export class CreateCallbackComponent implements OnInit {
       url: this.callback.url
     }
 
+    if(this.callback.isHmac) {
+      request.security = {
+        secret: {
+          keyId: this.callback.keyId,
+          secret: this.callback.secret
+        }
+      }
+    }
+
     this.service.createCallback(request)
       .subscribe(it => {
         this.context.updateCallback(it);
