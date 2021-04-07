@@ -32,6 +32,8 @@ export class WebhooksContext {
 
   readonly _createdApplication$: Subject<Application> = new ReplaySubject<Application>();
 
+  readonly _createdCallback$: Subject<Callback> = new ReplaySubject<Callback>();
+
   constructor() {
     this._selectedWebhookGroup
       .subscribe(it => this.selectWebhookGroup(it));
@@ -60,6 +62,10 @@ export class WebhooksContext {
 
   applicationCreated(application: Application) {
     this._createdApplication$.next(application);
+  }
+
+  callbackCreated(callback: Callback) {
+    this._createdCallback$.next(callback);
   }
 
   updateApplication(value: Application) {

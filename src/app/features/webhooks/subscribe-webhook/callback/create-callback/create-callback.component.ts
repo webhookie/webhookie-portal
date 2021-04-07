@@ -3,6 +3,11 @@ import {VariableService} from 'src/app/features/webhooks/common/variable.service
 import {WebhooksContext} from "../../../webhooks-context";
 import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
 import {CallbackRequest, CallbackService} from "../../../service/callback.service";
+import {Callback} from "../../../model/callback";
+import {WebhookieError} from "../../../../../shared/error/webhookie-error";
+import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
+import {BadRequestError} from "../../../../../shared/error/bad-request-error";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-create-callback',
@@ -16,6 +21,7 @@ export class CreateCallbackComponent implements OnInit {
   constructor(
     public variable: VariableService,
     private readonly service: CallbackService,
+    private readonly alertService: ToastrService,
     private readonly context: WebhooksContext
   ) {
   }
@@ -44,10 +50,22 @@ export class CreateCallbackComponent implements OnInit {
       }
     }
 
+    let successHandler = (callback: Callback) => {
+      this.context.callbackCreated(callback);
+      this.variable.modalRef.hide();
+    };
+
+    let errorHandler = (error: WebhookieError) => {
+      let message = error.message;
+      if(error.name == DuplicateEntityError.name) {
+        message = "Duplicate callback! please choose another method or url"
+      } else if(error.name == BadRequestError.name) {
+        message = "Request is missing url or something else is missing. please select method and proper url"
+      }
+      this.alertService.error(message);
+    };
+
     this.service.createCallback(request)
-      .subscribe(it => {
-        this.context.updateCallback(it);
-        this.variable.modalRef.hide();
-      })
+      .subscribe(successHandler, errorHandler)
   }
 }
