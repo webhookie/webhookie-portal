@@ -8,7 +8,7 @@ import {Api} from "./api";
 import {DuplicateEntityError} from "./error/duplicate-entity-error";
 import {WebhookieServerError} from "./error/webhookie-server-error";
 import {WebhookieError} from "./error/webhookie-error";
-import {OAuthService} from "angular-oauth2-oidc";
+import {BadRequestError} from "./error/bad-request-error";
 
 @Injectable({
   providedIn: 'root'
@@ -26,13 +26,12 @@ export class ApiService implements Api {
   }
 
   private static formatErrors(error: any) {
-    console.warn(error);
     let result;
     if(error.name == HttpErrorResponse.name) {
       let httpError: HttpErrorResponse = error as HttpErrorResponse
       switch (httpError.status) {
         case 400:
-          result = new WebhookieServerError(httpError);
+          result = new BadRequestError(httpError);
           break;
         case 401:
           result = new WebhookieServerError(httpError);

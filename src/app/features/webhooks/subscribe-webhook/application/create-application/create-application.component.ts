@@ -10,6 +10,7 @@ import {Application} from "../../../model/application";
 import {ToastrService} from "ngx-toastr";
 import {WebhookieError} from "../../../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
+import {BadRequestError} from "../../../../../shared/error/bad-request-error";
 
 @Component({
   selector: 'app-create-application',
@@ -56,6 +57,8 @@ export class CreateApplicationComponent implements OnInit {
       let message = error.message;
       if(error.name == DuplicateEntityError.name) {
         message = "Duplicate application name! please choose another name"
+      } else if(error.name == BadRequestError.name) {
+        message = "Request is missing name or consumer groups. please make sure to add at least 1 Consumer Group"
       }
       this.alertService.error(message);
     };
