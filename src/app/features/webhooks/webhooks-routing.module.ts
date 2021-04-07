@@ -5,6 +5,7 @@ import {WebhookPageComponent} from './webhook-page/webhook-page.component';
 import {CallbackTestComponent} from "./callback-test/callback-test.component";
 import { CongratsComponent } from './subscribe-webhook/congrats/congrats.component';
 import { CreateWebhookComponent } from './webhook-page/create-webhook/create-webhook.component';
+import {CanActivateSubscribe} from "./service/can-activate-subscribe";
 const routes: Routes = [
   {
     path: '',
@@ -22,7 +23,7 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Test order webhook'
     },
-
+    canActivate: [CanActivateSubscribe]
   },
   {
     path: 'subscribe-webhook',
@@ -30,7 +31,7 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Subscribe to webhook'
     },
-
+    canActivate: [CanActivateSubscribe]
   },
   {
     path: 'create-webhook',
