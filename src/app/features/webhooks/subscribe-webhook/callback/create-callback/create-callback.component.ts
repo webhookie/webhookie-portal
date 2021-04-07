@@ -7,7 +7,7 @@ import {Callback} from "../../../model/callback";
 import {WebhookieError} from "../../../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
-import {ToastrService} from "ngx-toastr";
+// import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-create-callback',
@@ -21,7 +21,7 @@ export class CreateCallbackComponent implements OnInit {
   constructor(
     public variable: VariableService,
     private readonly service: CallbackService,
-    private readonly alertService: ToastrService,
+    // private readonly alertService: ToastrService,
     private readonly context: WebhooksContext
   ) {
   }
@@ -62,7 +62,7 @@ export class CreateCallbackComponent implements OnInit {
       } else if(error.name == BadRequestError.name) {
         message = "Request is missing url or something else is missing. please select method and proper url"
       }
-      this.alertService.error(message);
+      // this.alertService.error(message);
     };
 
     this.service.createCallback(request)

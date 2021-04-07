@@ -5,6 +5,7 @@ import {RequestExampleComponent} from "../common/request-example/request-example
 import {CallbackService, CallbackValidationRequest} from "../service/callback.service";
 import {WebhooksContext} from "../webhooks-context";
 import {HttpErrorResponse} from "@angular/common/http";
+import {BadRequestError} from "../../../shared/error/bad-request-error";
 
 @Component({
   selector: 'app-callback-test',
@@ -57,7 +58,7 @@ export class CallbackTestComponent implements OnInit {
     this.callbackService.testCallback(request)
       .subscribe(
         it => this.response?.update(it),
-        (err: HttpErrorResponse) => this.response?.updateWithError(err)
+        (err: BadRequestError) => this.response?.updateWithError(err.error)
       )
   }
 }

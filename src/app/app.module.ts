@@ -30,8 +30,8 @@ import {ToastrModule} from "ngx-toastr";
     SubscriptionsModule,
     WebhookCommonModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
-    BrowserAnimationsModule,
+    // ToastrModule.forRoot(),
+    // BrowserAnimationsModule,
   ],
 
   providers: [BsModalRef],

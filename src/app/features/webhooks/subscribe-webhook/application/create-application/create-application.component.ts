@@ -7,7 +7,7 @@ import {map} from "rxjs/operators";
 import {ApplicationService, CreateApplicationRequest} from "../../../service/application.service";
 import {WebhooksContext} from "../../../webhooks-context";
 import {Application} from "../../../model/application";
-import {ToastrService} from "ngx-toastr";
+// import {ToastrService} from "ngx-toastr";
 import {WebhookieError} from "../../../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
@@ -31,7 +31,7 @@ export class CreateApplicationComponent implements OnInit {
     private readonly service: ApplicationService,
     private readonly webhookieService: WebhookieService,
     private readonly context: WebhooksContext,
-    private readonly alertService: ToastrService,
+    // private readonly alertService: ToastrService,
     public variable: VariableService
   ) {
     this.webhookieService.fetchConsumerGroups()
@@ -60,7 +60,7 @@ export class CreateApplicationComponent implements OnInit {
       } else if(error.name == BadRequestError.name) {
         message = "Request is missing name or consumer groups. please make sure to add at least 1 Consumer Group"
       }
-      this.alertService.error(message);
+      // this.alertService.error(message);
     };
 
     this.service.createApplication(request)
