@@ -16,11 +16,15 @@
     </tr>
     </thead>
     <tr *ngFor="let span of spans$() | async">
-      <td>{{span.entity}}</td>
+      <td>{{span.traceId}}</td>
       <td>{{span.application}}</td>
       <td>{{span.topic}}</td>
       <td>{{span.callbackUrl}}</td>
+      <td>{{span.statusUpdate.time}}</td>
+      <td>{{span.spanId}}</td>
       <td>{{span.statusUpdate.status}}</td>
+      <td>{{span.responseCode}}</td>
+      <td>{{span.tries}}</td>
     </tr>
     <tbody>
     <tr>

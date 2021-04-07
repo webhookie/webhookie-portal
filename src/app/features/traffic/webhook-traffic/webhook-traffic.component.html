@@ -5,15 +5,17 @@
     <tr>
       <th scope="col">Trace Id</th>
       <th scope="col">Webhook</th>
-      <th scope="col">Status</th>
+      <th scope="col">Authorized subscribers</th>
       <th scope="col">Timestamp</th>
+      <th scope="col">Status</th>
     </tr>
     </thead>
     <tr *ngFor="let trace of traces$() | async">
       <td>{{trace.traceId}}</td>
       <td>{{trace.topic}}</td>
-      <td>{{trace.statusUpdate.status}}</td>
+      <td>{{trace.authorizedSubscribersString}}</td>
       <td>{{trace.statusUpdate.time}}</td>
+      <td>{{trace.statusUpdate.status}}</td>
     </tr>
   </table>
 </div>

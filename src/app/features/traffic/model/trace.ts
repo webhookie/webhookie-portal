@@ -6,6 +6,14 @@ export class Trace {
     public authorizedSubscribers: Array<String>,
   ) {
   }
+
+  get authorizedSubscribersString() {
+    if(this.authorizedSubscribers.length > 1) {
+      return this.authorizedSubscribers.reduce((value, current) => value + ", " + current)
+    }
+
+    return this.authorizedSubscribers
+  }
 }
 
 export class TraceStatusUpdate {
