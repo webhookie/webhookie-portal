@@ -11,6 +11,7 @@ import {Subscription} from "../../../shared/model/subscription";
 import {RouterService} from "../../../shared/router.service";
 import {HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {CallbackResponse} from "../service/callback.service";
+import {BadRequestError} from "../../../shared/error/bad-request-error";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -61,18 +62,29 @@ export class SubscribeWebhookComponent implements OnInit {
     this.context.clear();
   }
 
+  private clearSubscription() {
+    // @ts-ignore
+    this.subscription = null;
+  }
+
   ngOnInit(): void {
     this.clear();
 
     this.context.callbackCleared$
     // @ts-ignore
-      .subscribe(() => this.subscription = null);
+      .subscribe(() => this.clearSubscription());
+
+    this.context._createdCallback$.asObservable()
+    // @ts-ignore
+      .subscribe(() => this.clearSubscription())
 
     this.context.selectedCallback$
       .pipe(mergeMap(it => this.fetchSubscriptions(it.callbackId)))
       .subscribe(it => {
         if (it.length > 0) {
           this.subscription = it[0]
+        } else {
+          this.clearSubscription();
         }
         this.response?.invalidate()
       })
@@ -83,32 +95,30 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   validate() {
+    let validateSubscription = (): Observable<Subscription> => {
+      let request: ValidateSubscriptionRequest = {
+        payload: JSON.stringify(this.requestComponent?.jsonobj),
+        headers: {
+          "Content-Type": ["application/json"],
+          "Accept": ["*/*"]
+        }
+      };
+      // @ts-ignore
+      return this.subscriptionService.validateSubscription(this.subscription, request)
+    };
+
+    let successHandler = (it: Subscription) => {
+      this.response?.update(new CallbackResponse(
+        200, new HttpHeaders(), ""
+      ))
+      this.subscription = it;
+    };
+
+    let errorHandler = (err: BadRequestError) => this.response?.updateWithError(err.error);
+
     this.context.selectedCallback$
-      .pipe(
-        mergeMap(() => {
-          let request: ValidateSubscriptionRequest = {
-            payload: JSON.stringify(this.requestComponent?.jsonobj),
-            headers: {
-              "Content-Type": ["application/json"],
-              "Accept": ["*/*"]
-            }
-          };
-          // @ts-ignore
-          return this.subscriptionService.validateSubscription(this.subscription, request)
-        })
-      )
-      .subscribe(
-        it => {
-          this.response?.update(new CallbackResponse(
-            200, new HttpHeaders(), ""
-          ))
-          this.subscription = it
-        },
-        (err: HttpErrorResponse) => this.response?.updateWithError(err)
-      )
-    // .subscribe(it => {
-    //   this.response?.update(it)
-    // })
+      .pipe(mergeMap(validateSubscription))
+      .subscribe(successHandler, errorHandler)
   }
 
   activate() {
