@@ -49,7 +49,7 @@ export class CreateApplicationComponent implements OnInit {
     }
 
     let successHandler = (app: Application) => {
-      this.context.updateApplication(app);
+      this.context.applicationCreated(app);
       this.variable.modalRef.hide();
     };
 

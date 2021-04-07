@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 import * as $ from 'jquery';
 import {ApplicationService} from "../../service/application.service";
-import {ReplaySubject, Subject} from "rxjs";
+import {Observable, of, ReplaySubject, Subject, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {WebhooksContext} from "../../webhooks-context";
+import {mergeMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-application',
@@ -28,6 +29,10 @@ export class ApplicationComponent implements OnInit {
     return this.context.currentApplication
   }
 
+  loadApplications(): Observable<Array<Application>> {
+    return this.applicationService.myApplications()
+  }
+
   ngOnInit(): void {
     $(document).ready(function () {
       $(".btn-warning").click(function () {
@@ -35,9 +40,17 @@ export class ApplicationComponent implements OnInit {
       });
     })
 
-    this.applicationService.myApplications()
-      .subscribe(it => this._applications$.next(it));
+    this.context._createdApplication$.asObservable()
+      .pipe(
+        mergeMap(it => zip(of(it), this.loadApplications()))
+      )
+      .subscribe(it => {
+        this._applications$.next(it[1]);
+        this.selectApp(it[0]);
+      })
 
+    this.loadApplications()
+      .subscribe(it => this._applications$.next(it));
   }
 
   selectApp(application: Application) {

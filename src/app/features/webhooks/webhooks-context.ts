@@ -30,6 +30,8 @@ export class WebhooksContext {
     .asObservable()
     .pipe(filter(it => it == null));
 
+  readonly _createdApplication$: Subject<Application> = new ReplaySubject<Application>();
+
   constructor() {
     this._selectedWebhookGroup
       .subscribe(it => this.selectWebhookGroup(it));
@@ -54,6 +56,10 @@ export class WebhooksContext {
     this.selectedWebhook = webhookGroup;
     this.selectedTopic = topic;
     webhookGroup.toggle();
+  }
+
+  applicationCreated(application: Application) {
+    this._createdApplication$.next(application);
   }
 
   updateApplication(value: Application) {
