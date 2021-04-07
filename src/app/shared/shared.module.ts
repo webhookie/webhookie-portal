@@ -4,8 +4,6 @@ import {RouterModule} from "@angular/router";
 import {ApiService} from "./api.service";
 import {environment} from "../../environments/environment";
 import {MockApiService} from "./mock/mock-api.service";
-import {ToastrModule} from "ngx-toastr";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 let apiProvider;
 if (environment.mock) {
@@ -19,8 +17,6 @@ if (environment.mock) {
   declarations: [],
   imports: [
     CommonModule,
-    ToastrModule.forRoot(),
-    BrowserAnimationsModule,
     RouterModule
   ],
   exports: [
