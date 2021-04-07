@@ -79,6 +79,7 @@ export class AuthService {
   login() {
     this.router.saveCurrent();
     this.oauthService.initCodeFlow();
+    this.oauthService.setupAutomaticSilentRefresh()
   }
 
   getToken() {

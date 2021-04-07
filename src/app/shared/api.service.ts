@@ -5,6 +5,10 @@ import {environment} from "../../environments/environment";
 import {catchError, tap} from "rxjs/operators";
 import {LogService} from "./log.service";
 import {Api} from "./api";
+import {DuplicateEntityError} from "./error/duplicate-entity-error";
+import {WebhookieServerError} from "./error/webhookie-server-error";
+import {WebhookieError} from "./error/webhookie-error";
+import {OAuthService} from "angular-oauth2-oidc";
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +26,36 @@ export class ApiService implements Api {
   }
 
   private static formatErrors(error: any) {
+    console.warn(error);
+    let result;
     if(error.name == HttpErrorResponse.name) {
-      console.warn("Response error!")
+      let httpError: HttpErrorResponse = error as HttpErrorResponse
+      switch (httpError.status) {
+        case 400:
+          result = new WebhookieServerError(httpError);
+          break;
+        case 401:
+          result = new WebhookieServerError(httpError);
+          break;
+        case 409:
+          result = new DuplicateEntityError(httpError);
+          break;
+        default:
+          result = new WebhookieServerError(httpError);
+      }
+    } else if(error == 401) {
+      result = new WebhookieError({
+        message: "Unauthenticated",
+        name: "Unauthenticated"
+      });
+    } else {
+      result = new WebhookieError({
+        message: error.message,
+        name: error.name,
+        stack: error.stack
+      });
     }
-    return throwError(error);
+    return throwError(result);
   }
 
   //TODO: refactor
