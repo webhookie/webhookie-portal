@@ -10,8 +10,6 @@ import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
 import {WebhookCommonModule} from './features/webhooks/common/webhook-common.module';
 import {CommonModule} from '@angular/common';
 import {SubscriptionsModule} from './features/subscriptions/subscriptions.module';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
