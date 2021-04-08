@@ -30,4 +30,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [Angular App Architecture](https://medium.com/@tomastrajan/how-to-build-epic-angular-app-with-clean-architecture-91640ed1656)
 - [Angular HttpClient](https://www.techiediaries.com/angular/angular-httpclient-9-8-service-api-calls-and-fetching-data/)
 - [angular-oauth2-oidc](https://manfredsteyer.github.io/angular-oauth2-oidc/docs/index.html)
-- []()
+- [error-handling-in-angular](https://medium.com/angular-in-depth/expecting-the-unexpected-best-practices-for-error-handling-in-angular-21c3662ef9e4)
+- [material-progress-bar](https://www.positronx.io/angular-material-progress-bar-tutorial-example/)
