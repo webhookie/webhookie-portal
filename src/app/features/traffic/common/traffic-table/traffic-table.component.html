@@ -39,12 +39,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr class="filter-dropdown sticky-header collapse" id="filters_collapse_wrapper">
-        <td *ngIf="!trace.subscription_table" class="sticky-cell bg-light-gray">&nbsp;</td>
-        <td [ngClass]="!trace.subscription_table?'sticky-second-cell':''" class="sticky-cell bg-light-gray">&nbsp;
-        </td>
-        <td>
-          <form class="form-inline search-small">
+      <tr class="collapse" id="filters_collapse_wrapper">
+        <td *ngFor="let filter of filters" [ngClass]="filter.clazz">
+          <form *ngIf="isSearchFilter(filter)" class="form-inline search-small">
             <div class="input-group mw-180">
               <input type="text" placeholder="Search..." class="form-control border-right-0">
               <div class="input-group-append">
@@ -53,24 +50,10 @@
               </div>
             </div>
           </form>
-        </td>
-        <td *ngIf="trace.subscription_table">
-          <form class="form-inline search-small">
-            <div class="input-group mw-180">
-              <input type="text" placeholder="Search..." class="form-control border-right-0">
-              <div class="input-group-append">
-                <a href="javascript:void(0)" class="input-group-text bg-white px-2">
-                  <i class="lni lni-search-alt"></i>
-                </a>
-              </div>
-            </div>
-          </form>
-        </td>
-        <td>
-          <div class="dropdown">
+          <div *ngIf="isSearchListFilter(filter)" class="dropdown">
             <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 mw-180"
                     data-toggle="dropdown">
-              {{selectArr.length > 0 ? selectArr.length + ' applications selected' : 'Select Application'}}
+              {{selectArr.length > 0 ? selectArr.length + ' applications selected' : 'Select '}}
             </button>
             <form class="search-small dropdown-menu multi-select-dropdown mt-0">
               <div class="input-group">
@@ -92,57 +75,12 @@
                      (click)="selectedItems(item.id)">
                   <input type="checkbox" class="custom-control-input" id="{{item.id}}" name="example1"
                          [checked]="checkedItem(item)">
-                  <label class="custom-control-label" for="example1">{{item.name}}</label>
+                  <label class="custom-control-label" for="{{item.id}}">{{item.name}}</label>
                 </div>
               </div>
             </form>
           </div>
-        </td>
-        <td *ngIf="trace.subscription_table">
-          <div class="dropdown">
-            <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 mw-180"
-                    data-toggle="dropdown">
-              {{selectArr.length > 0 ? selectArr.length + 'callback url selected' : 'Select CallBack Url'}} </button>
-            <form class="search-small dropdown-menu multi-select-dropdown mt-0">
-              <div class="input-group">
-                <input type="text" placeholder="Search..." class="form-control border-right-0">
-                <div class="input-group-append">
-                  <a href="javascript:void(0)" class="input-group-text bg-white px-2">
-                    <i class="lni lni-search-alt"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="dropdown-divider"></div>
-              <div class="scrollable-list">
-                <div class="custom-control custom-checkbox" (change)="selectedItems(-1)">
-                  <input type="checkbox" class="custom-control-input" id="consumer_4" name="example1"
-                         [checked]="selectAll">
-                  <label class="custom-control-label" for="consumer_4">Select All</label>
-                </div>
-                <div class="custom-control custom-checkbox" *ngFor="let item of dataArr"
-                     (click)="selectedItems(item.id)">
-                  <input type="checkbox" class="custom-control-input" id="{{item.id}}" name="example1"
-                         [checked]="checkedItem(item)">
-                  <label class="custom-control-label" for="example1">{{item.name}}</label>
-                </div>
-              </div>
-            </form>
-          </div>
-        </td>
-        <td *ngIf="!trace.subscription_table">
-          <form class="form-inline search-small">
-            <div class="input-group mw-180">
-              <input type="text" placeholder="Search..." class="form-control border-right-0">
-              <div class="input-group-append">
-                <a href="javascript:void(0)" class="input-group-text bg-white px-2">
-                  <i class="lni lni-search-alt"></i>
-                </a>
-              </div>
-            </div>
-          </form>
-        </td>
-        <td>
-          <form class="form-inline search-small">
+          <form *ngIf="isTimestampFilter(filter)" class="form-inline search-small">
             <div class="d-flex align-items-center">
               <div class="mx-2">From</div>
               <div class="input-group date_wrapper">
@@ -150,17 +88,17 @@
                 <input type="text" class="form-control border-right-0" #dp="bsDatepicker" placeholder="Start date"
                        bsDatepicker [(bsValue)]="startDate">
                 <div class="input-group-append">
-                    <span class="input-group-text bg-white" id="basic-addon2">
+                    <span class="input-group-text bg-white" id="start-calendar">
                       <i class="far fa-calendar"></i>
                     </span>
                 </div>
               </div>
               <div class="time_wrapper ml-2">
                 <ng-template #popTemplate>
-                  <timepicker name="startTime" [(ngModel)]="startTime" [showMeridian]="false"></timepicker>
+                  <timepicker name="startTime" [showMeridian]="false"></timepicker>
                 </ng-template>
                 <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 time_dropdown"
-                        data-toggle="dropdown" [(ngModel)]="startTime" [popover]="popTemplate" [outsideClick]="true"
+                        data-toggle="dropdown" [popover]="popTemplate" [outsideClick]="true"
                         placement="bottom"> {{startTime | date : "HH:mm a"}}</button>
               </div>
             </div>
@@ -171,79 +109,22 @@
                 <input type="text" class="form-control border-right-0" #dp="bsDatepicker" placeholder="Start date"
                        bsDatepicker [(bsValue)]="endDate">
                 <div class="input-group-append">
-                    <span class="input-group-text bg-white" id="basic-addon2">
+                    <span class="input-group-text bg-white" id="end-calendar">
                       <i class="far fa-calendar"></i>
                     </span>
                 </div>
               </div>
               <div class="time_wrapper ml-2">
                 <ng-template #popTemplate1>
-                  <timepicker name="endTime" [(ngModel)]="endTime" [showMeridian]="false"></timepicker>
+                  <timepicker name="endTime" [showMeridian]="false"></timepicker>
                 </ng-template>
                 <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 time_dropdown"
-                        data-toggle="dropdown" [(ngModel)]="endTime" [popover]="popTemplate1" [outsideClick]="true"
+                        data-toggle="dropdown" [popover]="popTemplate1" [outsideClick]="true"
                         placement="bottom"> {{endTime | date : "HH:mm a"}}</button>
               </div>
             </div>
           </form>
         </td>
-        <td *ngIf="!trace.subscription_table">
-          <form class="form-inline search-small">
-            <div class="input-group mw-180">
-              <input type="text" placeholder="Search..." class="form-control border-right-0">
-              <div class="input-group-append">
-                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
-                  class="lni lni-search-alt"></i></a>
-              </div>
-            </div>
-          </form>
-        </td>
-        <td *ngIf="!trace.subscription_table">
-          <form class="form-inline search-small">
-            <div class="input-group mw-180">
-              <input type="text" placeholder="Search..." class="form-control border-right-0">
-              <div class="input-group-append">
-                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
-                  class="lni lni-search-alt"></i></a>
-              </div>
-            </div>
-          </form>
-        </td>
-        <td *ngIf="trace.subscription_table">
-          <form class="form-inline search-small">
-            <div class="input-group mw-180">
-              <input type="text" placeholder="Search..." class="form-control border-right-0">
-              <div class="input-group-append">
-                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
-                  class="lni lni-search-alt"></i></a>
-              </div>
-            </div>
-          </form>
-        </td>
-        <td *ngIf="trace.subscription_table">
-          <form class="form-inline search-small">
-            <div class="input-group mw-180">
-              <input type="text" placeholder="Search..." class="form-control border-right-0">
-              <div class="input-group-append">
-                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
-                  class="lni lni-search-alt"></i></a>
-              </div>
-            </div>
-          </form>
-        </td>
-        <td *ngIf="trace.subscription_table">
-          <form class="form-inline search-small">
-            <div class="input-group mw-180">
-              <input type="text" placeholder="Search..." class="form-control border-right-0">
-              <div class="input-group-append">
-                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
-                  class="lni lni-search-alt"></i></a>
-              </div>
-            </div>
-          </form>
-        </td>
-        <td *ngIf="trace.subscription_table"> &nbsp;</td>
-        <td>&nbsp;</td>
       </tr>
       <!-- main-table -->
       <ng-container *ngFor="let data of dataSource;let i=index;" (scroll)="onTableScroll($event)">

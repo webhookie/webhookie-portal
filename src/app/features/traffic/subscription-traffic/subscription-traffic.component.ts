@@ -6,6 +6,11 @@ import {TraceService}from 'src/app/features/traffic/service/trace.service';
 import {TrafficTableHeader} from "../common/traffic-table/header/traffic-table-header";
 import {SelectableTrafficHeader} from "../common/traffic-table/header/selectable-traffic-header";
 import {SortableTrafficHeader} from "../common/traffic-table/header/sortable-traffic-header";
+import {TrafficTableFilter} from "../common/traffic-table/filter/traffic-table-filter";
+import {SearchTrafficFilter} from "../common/traffic-table/filter/search-traffic-filter";
+import {SearchListTrafficFilter} from "../common/traffic-table/filter/search-list-traffic-filter";
+import {TimestampTrafficFilter} from "../common/traffic-table/filter/timestamp-traffic-filter";
+import {EmptyTrafficFilter} from "../common/traffic-table/filter/empty-traffic-filter";
 
 @Component({
   selector: 'app-subscription-traffic',
@@ -44,6 +49,22 @@ export class SubscriptionTrafficComponent implements OnInit {
       new SortableTrafficHeader("Response Code"),
       new SortableTrafficHeader("Status"),
       new SortableTrafficHeader("Tries"),
+    ]
+  }
+
+  get tableFilters(): Array<TrafficTableFilter> {
+    return [
+      new EmptyTrafficFilter("sticky-cell bg-light-gray"),
+      new SearchTrafficFilter("", "Trace Id"),
+      new SearchTrafficFilter("", "Application"),
+      new SearchListTrafficFilter("", "Webhook"),
+      new SearchListTrafficFilter("", "Callback Url"),
+      new TimestampTrafficFilter("", "Timestamp"),
+      new SearchTrafficFilter("", "Span Id"),
+      new SearchTrafficFilter("", "Response Code"),
+      new SearchTrafficFilter("", "Status"),
+      new EmptyTrafficFilter("", ""),
+      new EmptyTrafficFilter("", ""),
     ]
   }
 }

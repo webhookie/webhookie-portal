@@ -1,13 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TraceService}from 'src/app/features/traffic/service/trace.service';
+import {TraceService} from 'src/app/features/traffic/service/trace.service';
 import * as $ from 'jquery';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { defineLocale } from 'ngx-bootstrap/chronos';
-import { enGbLocale } from 'ngx-bootstrap/locale';
+import {BsLocaleService} from 'ngx-bootstrap/datepicker';
+import {defineLocale} from 'ngx-bootstrap/chronos';
+import {enGbLocale} from 'ngx-bootstrap/locale';
 import {TrafficTableHeader} from "./header/traffic-table-header";
 import {SelectableTrafficHeader} from "./header/selectable-traffic-header";
 import {SortableTrafficHeader} from "./header/sortable-traffic-header";
-import {FilterTrafficHeader} from "./header/filter-traffic-header";
+import {TrafficTableFilter} from "./filter/traffic-table-filter";
+import {EmptyTrafficFilter} from "./filter/empty-traffic-filter";
+import {SearchTrafficFilter} from "./filter/search-traffic-filter";
+import {SearchListTrafficFilter} from "./filter/search-list-traffic-filter";
+import {TimestampTrafficFilter} from "./filter/timestamp-traffic-filter";
+
 @Component({
   selector: 'app-traffic-table',
   templateUrl: './traffic-table.component.html',
@@ -15,6 +20,7 @@ import {FilterTrafficHeader} from "./header/filter-traffic-header";
 })
 export class TrafficTableComponent implements OnInit {
   @Input("headers") headers: Array<TrafficTableHeader> = []
+  @Input("filters") filters: Array<TrafficTableFilter> = []
 
   start: number = 0;
   limit: number = 8;
@@ -537,7 +543,15 @@ export class TrafficTableComponent implements OnInit {
     return header instanceof SortableTrafficHeader
   }
 
-  isFilterHeader(header: TrafficTableHeader) {
-    return header instanceof FilterTrafficHeader
+  isSearchFilter(filter: TrafficTableFilter) {
+    return filter instanceof SearchTrafficFilter
+  }
+
+  isSearchListFilter(filter: TrafficTableFilter) {
+    return filter instanceof SearchListTrafficFilter
+  }
+
+  isTimestampFilter(filter: TrafficTableFilter) {
+    return filter instanceof TimestampTrafficFilter
   }
 }

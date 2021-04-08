@@ -6,7 +6,11 @@ import {TrafficTableHeader} from "../common/traffic-table/header/traffic-table-h
 import {EmptyTrafficHeader} from "../common/traffic-table/header/empty-traffic-header";
 import {SelectableTrafficHeader} from "../common/traffic-table/header/selectable-traffic-header";
 import {SortableTrafficHeader} from "../common/traffic-table/header/sortable-traffic-header";
-import {FilterTrafficHeader} from "../common/traffic-table/header/filter-traffic-header";
+import {TrafficTableFilter} from "../common/traffic-table/filter/traffic-table-filter";
+import {EmptyTrafficFilter} from "../common/traffic-table/filter/empty-traffic-filter";
+import {SearchTrafficFilter} from "../common/traffic-table/filter/search-traffic-filter";
+import {SearchListTrafficFilter} from "../common/traffic-table/filter/search-list-traffic-filter";
+import {TimestampTrafficFilter} from "../common/traffic-table/filter/timestamp-traffic-filter";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -41,6 +45,19 @@ export class WebhookTrafficComponent implements OnInit {
       new SortableTrafficHeader("Timestamp"),
       new SortableTrafficHeader("Status"),
       new SortableTrafficHeader("Status Description"),
+    ]
+  }
+
+  get tableFilters(): Array<TrafficTableFilter> {
+    return [
+      new EmptyTrafficFilter("sticky-cell bg-light-gray"),
+      new EmptyTrafficFilter("sticky-second-cell sticky-cell bg-light-gray"),
+      new SearchTrafficFilter("", "Trace Id"),
+      new SearchListTrafficFilter("", "Application"),
+      new SearchTrafficFilter("", "Authorized Subscribers"),
+      new TimestampTrafficFilter("", "Timestamp"),
+      new SearchTrafficFilter("", "Status"),
+      new SearchTrafficFilter("", "Status Description")
     ]
   }
 }
