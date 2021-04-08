@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
+import {TraceService}from 'src/app/features/traffic/service/trace.service';
 @Component({
   selector: 'app-traffic-home',
   templateUrl: './traffic-home.component.html',
@@ -7,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class TrafficHomeComponent implements OnInit {
 
-  constructor() {
+  constructor(public trace:TraceService) {
   }
 
   ngOnInit(): void {

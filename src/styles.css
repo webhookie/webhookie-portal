@@ -15,6 +15,9 @@ h1{
     font-weight: bold;
     color: #0A1E42;
 }
+.bg-light-gray{
+    background:#F4F5F7 !important
+}
 .shadow-sm {
     box-shadow: 0px 2px 10px #00000029 !important;
 }
@@ -112,6 +115,159 @@ h1{
 .rotate-90 {
     transform: rotate(90deg);
 }
+
+.btn-warning{
+    background-color: transparent;
+    color: #253858;
+    border-color: #E1E1E1;
+}
+.btn-default{
+    color: #1A73E8;
+    padding: 0 6px;
+}
+.dropdown-menu a{
+    color: #242424;
+    padding: 4px 0px 4px 11px;
+}
+.dropdown-menu.show {
+    border-color: #e1e1e1;
+    box-shadow: -2px 3px 10px #00000029;
+    border-radius:2px;
+    top: 2px !important;
+    padding-bottom: 0px;
+}
+.dropdown-menu-small{
+    width:auto !important;
+    min-width:100px;
+}
+.nav-vertical{
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.nav-vertical .nav-item .nav-link{
+    padding:0.2rem 0.5rem!important;
+    color:#242424 !important;
+}
+.nav-vertical.nav-small .nav-link{
+    font-size:13px;
+}
+.btn-xs {
+    font-size: 12px;
+}
+.btn-bordered {
+    border: 1px solid #E1E1E1;
+    background-color: #fff;
+    font-weight:normal;
+    color:#253858;
+}
+.multi-select-dropdown {
+    font-size: 14px;
+}
+.dropdown-toggle::after{
+    float:right;
+}
+.search-small .form-control {
+    font-size: 14px;
+    padding: 4px 10px;
+    height: auto;
+    border-color: #E1E1E1;
+}
+.dropdown.show{
+    z-index: 16 !important;
+}
+.search-small .input-group-text{
+    border-color: #E1E1E1;
+    color:#0A1E42 !important;
+}
+#filters_collapse_wrapper, .table-filters-collapse.active {
+    background-color: #F4F5F7 !important;
+}
+.multi-select-dropdown .custom-checkbox, .multi-select-dropdown .custom-checkbox label {
+    cursor: pointer;
+    user-select: none;
+}
+.bs-datepicker-container {
+    padding: 0;
+}
+.bs-datepicker {
+    box-shadow: 0 0 10px 0 #d4d4d4;
+}
+.theme-green .bs-datepicker-head {
+    background-color: #fff;
+}
+.theme-green .bs-datepicker-body table td span.selected, .theme-green .bs-datepicker-body table td.selected span, .theme-green .bs-datepicker-body table td span[class*="select-"]:after, .theme-green .bs-datepicker-body table td[class*="select-"] span:after {
+    background-color: #0151cc;
+}
+.bs-datepicker-body tbody tr td:first-child, .bs-datepicker-body thead tr th:first-child {
+    display: none;
+}
+.bs-datepicker-head button{
+    color:#000;
+}
+.bs-datepicker-body{
+    border:0;
+}
+.bs-datepicker-head{
+    height:30px;
+    padding: 5px 0 0 0;
+}
+.bs-datepicker-head button.current {
+    font-weight: 600;
+}
+.bs-datepicker-body table th {
+    font-size: 12px;
+    color: #6A6A6A;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+}
+.bs-datepicker-head button.next span, .bs-datepicker-head button.previous span{
+    line-height:25px;
+}
+.bs-datepicker-body table td {
+    color: #242424;
+}
+.bs-datepicker-body table td span{
+    font-size:14px;
+    border-radius:0;
+}
+.popover {
+    border-radius:0;
+    background: #fff;
+    box-shadow: 0 0 10px 0 #d4d4d4;
+    border:0;
+}
+.popover-body {
+    padding: 0;
+}
+.popover-body .btn{
+    padding:0;
+}
+.bs-timepicker-field{
+    width:50px !important;
+}
+.popover .arrow{
+    display:none;
+}
+.bs-popover-bottom{
+    margin-top:0.2rem;
+}
+.mw-180 {
+    min-width: 180px;
+}
+.date_wrapper{
+    width: 140px !important;
+}
+.time_wrapper{
+    min-width: 100px;
+}
+.to{
+    width:34px;
+}
+
 /* button[disabled]{
   border: 1px solid #999999;
   background-color: #cccccc;
@@ -148,5 +304,16 @@ h1{
     .menu-toggle.slide {
         margin-right: 0px;
         margin-top: 0px;
+    }
+    .traffic-dropdowns ul{
+        flex-wrap: wrap;
+    }
+    .traffic-dropdowns ul li{
+        padding-right: 0;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+    .traffic-dropdowns .btn-warning{
+        width:100%;
     }
 }

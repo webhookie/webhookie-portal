@@ -1,21 +1,37 @@
-<div class="table-responsive">
-  <table class="table table-bordered table-hover">
-    <caption>List of Spans</caption>
-    <thead>
-    <tr>
-      <th scope="col">Trace Id</th>
-      <th scope="col">Webhook</th>
-      <th scope="col">Authorized subscribers</th>
-      <th scope="col">Timestamp</th>
-      <th scope="col">Status</th>
-    </tr>
-    </thead>
-    <tr *ngFor="let trace of traces$() | async">
-      <td>{{trace.traceId}}</td>
-      <td>{{trace.topic}}</td>
-      <td>{{trace.authorizedSubscribersString}}</td>
-      <td>{{trace.statusUpdate.time}}</td>
-      <td>{{trace.statusUpdate.status}}</td>
-    </tr>
-  </table>
+<div class="traffic-dropdowns">
+  <div class="drop-buttons d-flex">
+    <ul class="d-flex">
+      <li>
+        <h5>Company</h5>
+        <div class="dropdown">
+          <button type="button" class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center" data-toggle="dropdown"> Select company </button>
+          <div class="dropdown-menu font12 font-weight-400">
+            <button class="btn btn-default font-weight-400 font12">Create New Application</button>
+            <a class="dropdown-item"></a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <h5>Application</h5>
+        <div class="dropdown">
+          <button type="button" class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center" data-toggle="dropdown"> Select application </button>
+          <div class="dropdown-menu font12 font-weight-400">
+            <button class="btn btn-default font-weight-400 font12">Create New Application</button>
+            <a class="dropdown-item"></a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <h5>Callback URL</h5>
+        <div class="dropdown">
+          <button type="button" class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center" data-toggle="dropdown"> Select callback URL </button>
+          <div class="dropdown-menu font12 font-weight-400">
+            <button class="btn btn-default font-weight-400 font12">Create New Application</button>
+            <a class="dropdown-item"></a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
+<app-traffic-table [headers]="tableHeaders"></app-traffic-table>

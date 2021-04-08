@@ -11,7 +11,7 @@ import {Api} from "../../../shared/api";
 })
 export class TraceService {
   private SPAN_URI = "/traffic/trace"
-
+  subscription_table:boolean=true;
   constructor(
     @Inject("Api") private readonly api: Api,
     private readonly log: LogService,

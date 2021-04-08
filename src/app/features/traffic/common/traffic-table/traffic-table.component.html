@@ -1,0 +1,326 @@
+<div class="common-table">
+  <div class="number d-flex justify-content-between mb-3 align-items-center">
+    <h5 class="font12 font-weight-600 mb-0">500 traffic</h5>
+    <div class="resend d-flex align-items-center">
+      <h5 class="font12 font-weight-600 mb-0 mr-3">3 Items selected</h5>
+      <button class="btn btn-primary">Resend message</button>
+    </div>
+  </div>
+</div>
+<div class="common-table">
+  <div class="table-responsive sticky-table sticky-ltr-cells">
+    <table class="table table-borderless border-0">
+      <thead class="font14 font-weight-600">
+      <tr class="sticky-header">
+        <th *ngFor="let header of headers" scope="col" [ngClass]="header.clazz">{{header.title}}
+          <img *ngIf="isSelectableHeader(header)" src="assets/images/Checkbox-minus.svg" class="ml-0" alt="minus">
+          <a *ngIf="isSortableHeader(header)"  href="javascript:void(0)" class="dropdown-toggle hide-after" data-toggle="dropdown">
+            <img src="assets/images/Double_chevron.svg" alt="chevron">
+          </a>
+          <div *ngIf="isSortableHeader(header)" class="dropdown-menu dropdown-menu-right dropdown-menu-small px-0 font-weight-normal">
+            <ul class="nav-vertical nav-small">
+              <li class="nav-item">
+                <a href="#" class="nav-link"><img src="assets/images/Arrow_up.svg" class="ml-0" alt="up"> Sort A to
+                  Z</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link"><img src="assets/images/Arrow_Down.svg" class="ml-0" alt="down"> Sort Z to
+                  A</a>
+              </li>
+            </ul>
+          </div>
+        </th>
+        <th scope="col" class="filter text-center sticky-cell-opposite table-filters-collapse"
+            [ngClass]="showFilter?'active':''" (click)="showFilter=!showFilter">
+          <a data-toggle="collapse" href="#filters_collapse_wrapper" class="clickable border-left">
+            <img src="assets/images/Filter.svg" class="ml-0" alt="filter">
+          </a>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="filter-dropdown sticky-header collapse" id="filters_collapse_wrapper">
+        <td *ngIf="!trace.subscription_table" class="sticky-cell bg-light-gray">&nbsp;</td>
+        <td [ngClass]="!trace.subscription_table?'sticky-second-cell':''" class="sticky-cell bg-light-gray">&nbsp;
+        </td>
+        <td>
+          <form class="form-inline search-small">
+            <div class="input-group mw-180">
+              <input type="text" placeholder="Search..." class="form-control border-right-0">
+              <div class="input-group-append">
+                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
+                  class="lni lni-search-alt"></i></a>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td *ngIf="trace.subscription_table">
+          <form class="form-inline search-small">
+            <div class="input-group mw-180">
+              <input type="text" placeholder="Search..." class="form-control border-right-0">
+              <div class="input-group-append">
+                <a href="javascript:void(0)" class="input-group-text bg-white px-2">
+                  <i class="lni lni-search-alt"></i>
+                </a>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td>
+          <div class="dropdown">
+            <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 mw-180"
+                    data-toggle="dropdown">
+              {{selectArr.length > 0 ? selectArr.length + ' applications selected' : 'Select Application'}}
+            </button>
+            <form class="search-small dropdown-menu multi-select-dropdown mt-0">
+              <div class="input-group">
+                <input type="text" placeholder="Search..." class="form-control border-right-0">
+                <div class="input-group-append">
+                  <a href="javascript:void(0)" class="input-group-text bg-white px-2">
+                    <i class="lni lni-search-alt"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="scrollable-list">
+                <div class="custom-control custom-checkbox" (change)="selectedItems(-1)">
+                  <input type="checkbox" class="custom-control-input" id="consumer_4" name="example1"
+                         [checked]="selectAll">
+                  <label class="custom-control-label" for="consumer_4">Select All</label>
+                </div>
+                <div class="custom-control custom-checkbox" *ngFor="let item of dataArr"
+                     (click)="selectedItems(item.id)">
+                  <input type="checkbox" class="custom-control-input" id="{{item.id}}" name="example1"
+                         [checked]="checkedItem(item)">
+                  <label class="custom-control-label" for="example1">{{item.name}}</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </td>
+        <td *ngIf="trace.subscription_table">
+          <div class="dropdown">
+            <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 mw-180"
+                    data-toggle="dropdown">
+              {{selectArr.length > 0 ? selectArr.length + 'callback url selected' : 'Select CallBack Url'}} </button>
+            <form class="search-small dropdown-menu multi-select-dropdown mt-0">
+              <div class="input-group">
+                <input type="text" placeholder="Search..." class="form-control border-right-0">
+                <div class="input-group-append">
+                  <a href="javascript:void(0)" class="input-group-text bg-white px-2">
+                    <i class="lni lni-search-alt"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="scrollable-list">
+                <div class="custom-control custom-checkbox" (change)="selectedItems(-1)">
+                  <input type="checkbox" class="custom-control-input" id="consumer_4" name="example1"
+                         [checked]="selectAll">
+                  <label class="custom-control-label" for="consumer_4">Select All</label>
+                </div>
+                <div class="custom-control custom-checkbox" *ngFor="let item of dataArr"
+                     (click)="selectedItems(item.id)">
+                  <input type="checkbox" class="custom-control-input" id="{{item.id}}" name="example1"
+                         [checked]="checkedItem(item)">
+                  <label class="custom-control-label" for="example1">{{item.name}}</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </td>
+        <td *ngIf="!trace.subscription_table">
+          <form class="form-inline search-small">
+            <div class="input-group mw-180">
+              <input type="text" placeholder="Search..." class="form-control border-right-0">
+              <div class="input-group-append">
+                <a href="javascript:void(0)" class="input-group-text bg-white px-2">
+                  <i class="lni lni-search-alt"></i>
+                </a>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td>
+          <form class="form-inline search-small">
+            <div class="d-flex align-items-center">
+              <div class="mx-2">From</div>
+              <div class="input-group date_wrapper">
+                <!--suppress JSUnusedGlobalSymbols -->
+                <input type="text" class="form-control border-right-0" #dp="bsDatepicker" placeholder="Start date"
+                       bsDatepicker [(bsValue)]="startDate">
+                <div class="input-group-append">
+                    <span class="input-group-text bg-white" id="basic-addon2">
+                      <i class="far fa-calendar"></i>
+                    </span>
+                </div>
+              </div>
+              <div class="time_wrapper ml-2">
+                <ng-template #popTemplate>
+                  <timepicker name="startTime" [(ngModel)]="startTime" [showMeridian]="false"></timepicker>
+                </ng-template>
+                <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 time_dropdown"
+                        data-toggle="dropdown" [(ngModel)]="startTime" [popover]="popTemplate" [outsideClick]="true"
+                        placement="bottom"> {{startTime | date : "HH:mm a"}}</button>
+              </div>
+            </div>
+            <div class="d-flex align-items-center mt-2">
+              <div class="mx-2 to">To</div>
+              <div class="input-group date_wrapper">
+                <!--suppress JSUnusedGlobalSymbols -->
+                <input type="text" class="form-control border-right-0" #dp="bsDatepicker" placeholder="Start date"
+                       bsDatepicker [(bsValue)]="endDate">
+                <div class="input-group-append">
+                    <span class="input-group-text bg-white" id="basic-addon2">
+                      <i class="far fa-calendar"></i>
+                    </span>
+                </div>
+              </div>
+              <div class="time_wrapper ml-2">
+                <ng-template #popTemplate1>
+                  <timepicker name="endTime" [(ngModel)]="endTime" [showMeridian]="false"></timepicker>
+                </ng-template>
+                <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 time_dropdown"
+                        data-toggle="dropdown" [(ngModel)]="endTime" [popover]="popTemplate1" [outsideClick]="true"
+                        placement="bottom"> {{endTime | date : "HH:mm a"}}</button>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td *ngIf="!trace.subscription_table">
+          <form class="form-inline search-small">
+            <div class="input-group mw-180">
+              <input type="text" placeholder="Search..." class="form-control border-right-0">
+              <div class="input-group-append">
+                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
+                  class="lni lni-search-alt"></i></a>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td *ngIf="!trace.subscription_table">
+          <form class="form-inline search-small">
+            <div class="input-group mw-180">
+              <input type="text" placeholder="Search..." class="form-control border-right-0">
+              <div class="input-group-append">
+                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
+                  class="lni lni-search-alt"></i></a>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td *ngIf="trace.subscription_table">
+          <form class="form-inline search-small">
+            <div class="input-group mw-180">
+              <input type="text" placeholder="Search..." class="form-control border-right-0">
+              <div class="input-group-append">
+                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
+                  class="lni lni-search-alt"></i></a>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td *ngIf="trace.subscription_table">
+          <form class="form-inline search-small">
+            <div class="input-group mw-180">
+              <input type="text" placeholder="Search..." class="form-control border-right-0">
+              <div class="input-group-append">
+                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
+                  class="lni lni-search-alt"></i></a>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td *ngIf="trace.subscription_table">
+          <form class="form-inline search-small">
+            <div class="input-group mw-180">
+              <input type="text" placeholder="Search..." class="form-control border-right-0">
+              <div class="input-group-append">
+                <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
+                  class="lni lni-search-alt"></i></a>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td *ngIf="trace.subscription_table"> &nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <!-- main-table -->
+      <ng-container *ngFor="let data of dataSource;let i=index;" (scroll)="onTableScroll($event)">
+        <tr class="sticky-header">
+          <td *ngIf="!trace.subscription_table" class="text-center sticky-cell">
+            <a href="javascript:void(0)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
+               class="clickable">
+              <img src="assets/images/Chevron_down.svg" alt="down">
+            </a>
+          </td>
+          <td class="sticky-cell" [ngClass]="!trace.subscription_table?'sticky-second-cell':''">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="check1{{i}}">
+              <label class="custom-control-label" for="check1{{i}}"></label>
+            </div>
+          </td>
+          <td>{{data.trace_id}}</td>
+          <td *ngIf="trace.subscription_table">{{data.application}}</td>
+          <td>{{data.webhook}}</td>
+          <td *ngIf="trace.subscription_table"><a href="https://www.volvocars.com/se">{{data.callback_url}}</a></td>
+          <td *ngIf="!trace.subscription_table">{{data.auth_subscriber}}</td>
+          <td>{{data.timestamp}}</td>
+          <td *ngIf="!trace.subscription_table">{{data.timestatus}}</td>
+          <td *ngIf="!trace.subscription_table">{{data.status_desc}}</td>
+          <td *ngIf="trace.subscription_table">{{data.span_id}}</td>
+          <td *ngIf="trace.subscription_table" class="text-center">{{data.res_code}}</td>
+          <td *ngIf="trace.subscription_table">{{data.status}}</td>
+          <td *ngIf="trace.subscription_table" class="text-center">{{data.tries}}</td>
+          <td class="dropdown text-center sticky-cell-opposite">
+            <a href="#" class="dropdown-toggle hide-after" data-toggle="dropdown">
+              <img src="assets/images/provider-menu.svg" alt="menu">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-small px-2">
+              <ul class="nav-vertical nav-small">
+                <li class="nav-item"><a href="#" class="nav-link">Traffic</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Edit</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Deactivate</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Delete</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <tr id="more_details{{i}}" class="collapse border-0">
+          <td colspan="30">
+            <table class="collapse-table">
+              <thead>
+              <tr class="border-0">
+                <th>Span Id</th>
+                <th>Company</th>
+                <th>Application</th>
+                <th>Callback URL</th>
+                <th>Timestamp</th>
+                <th>Response code</th>
+                <th>Status</th>
+                <th>Tries</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let span of spanData;let i=index;">
+                <td>{{span.span_id}}</td>
+                <td>{{span.company}}</td>
+                <td>{{span.webhook}}</td>
+                <td><a href="https://www.volvocars.com/se">{{span.callback_url}}</a></td>
+                <td>{{span.timestamp}}</td>
+                <td>{{span.res_code}}</td>
+                <td>{{span.status}}</td>
+                <td>{{span.tries}}</td>
+                <td class="text-right"><img src="assets/images/provider-menu.svg" alt="menu"></td>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </ng-container>
+      <!-- main-collaspe-close -->
+      </tbody>
+    </table>
+  </div>
+</div>

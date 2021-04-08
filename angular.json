@@ -50,12 +50,16 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/font-awesome/css/font-awesome.css"
+              "node_modules/font-awesome/css/font-awesome.css",
+              "src/assets/css/jquery.stickytable.css",
+              "src/assets/bootstrap-date-timepicker/css/bootstrap-datetimepicker.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.slim.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "node_modules/popper.js/dist/umd/popper.min.js"
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "src/assets/js/jquery.stickytable.min.js",
+              "src/assets/bootstrap-date-timepicker/js/bootstrap-datetimepicker.min.js"
             ]
           },
           "configurations": {
@@ -152,12 +156,16 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
-              "node_modules/font-awesome/css/font-awesome.css"
+              "node_modules/font-awesome/css/font-awesome.css",
+              "src/assets/css/jquery.stickytable.css",
+              "src/assets/bootstrap-date-timepicker/css/bootstrap-datetimepicker.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.slim.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "node_modules/popper.js/dist/umd/popper.min.js"
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "src/assets/js/jquery.stickytable.min.js",
+              "src/assets/bootstrap-date-timepicker/js/bootstrap-datetimepicker.min.js"
             ]
           }
         },

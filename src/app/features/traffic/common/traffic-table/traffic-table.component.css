@@ -1,0 +1,121 @@
+.common-table .table {
+    color: #0A1E42;
+    /* text-align: center; */
+    border: 1px solid #E1E1E1;
+}
+.common-table .table .custom-control-label::before {
+    border-radius: 1px !important;
+    /* background-color:#0151CC; */
+}
+.sticky-second-cell {
+    left: 33px !important;
+  }
+.resend .btn-primary {
+    padding: 4px 12px;
+    background-color: #0151CC;
+    font-size: 14px;
+    font-weight: 400;
+}
+.common-table .custom-control-label {
+    margin-left: 0px;
+}
+.common-table .table thead th{
+    border-bottom: 0px;
+}
+.common-table .table thead th img {
+    margin-left: 5px;
+}
+.common-table .table tbody td a {
+    color: #1A73E8;
+    text-decoration: none;
+}
+.collapse-down{
+    cursor: pointer;
+}
+
+.common-collapse th {
+    border-top: 1px solid #e1e1e1 !important;
+}
+.common-collapse td{
+    border:0px;
+    padding: 16px;
+    padding-top:0px;
+}
+.td_border{
+    border-top: none;
+}
+/* dropdown */
+.common-table ul{
+    list-style-type:none;
+    padding:0px;
+}
+
+.common-table .btn-warning{
+    background-color: transparent;
+    color: #253858;
+    border-color: #E1E1E1;
+    width:200px;
+}
+.common-table .btn-default{
+    color: #1A73E8;
+    padding: 0 6px;
+}
+.common-table .dropdown-menu a{
+    color: #242424;
+    padding: 4px 0px 4px 11px;
+}
+.common-table .dropdown-menu.show {
+    border-color: #e1e1e1;
+    box-shadow: -2px 3px 10px #00000029;
+    border-radius:2px;
+    top: 2px !important;
+    padding: 12px;
+    width: 200px;
+}
+.common-table .dropdown-toggle::after{
+    content:url("../../../../../assets/images/Chevron_down.svg");
+  border: none;
+}
+.common-table .dropdown-toggle.active:after{
+    /* content: "\f107"; */
+    content: url("../../../../../assets/images/Chevron_up.svg");
+  }
+
+/* designing */
+
+.filter:active{
+    background-color: #F4F5F7 !important;
+}
+.filter-dropdown{
+    background-color: #F4F5F7;
+}
+form.searchbox.traffic input {
+    height: 31px !important;
+    border-right:0px;
+    border-radius: 2px;
+    border-color: #e1e1e1;
+}
+form.searchbox.traffic .btn {
+height: 31px;
+    border: 1px solid #e1e1e1;
+    border-left: 0px;
+    border-radius: 2px;
+}
+.table-borderless td, .table-borderless th{
+    border:0;
+}
+.table-borderless tr{
+    border-top:1px solid #dee2e6;
+}
+.collapse-table{
+    width: calc(100% - 5rem);
+    margin-left: 5rem;
+    border: 0;
+}
+/* .sticky-second-cell{
+    left:33px !important;
+} */
+.table-filters-collapse a {
+    margin: -.75rem;
+    padding: .75rem;
+}
