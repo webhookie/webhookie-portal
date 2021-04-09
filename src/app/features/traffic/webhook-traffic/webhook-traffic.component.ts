@@ -36,6 +36,7 @@ export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span
   @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
 
   private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
+  readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();
 
   constructor(
     private readonly traceService: TraceService
@@ -43,11 +44,18 @@ export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span
   }
 
   ngOnInit(): void {
-    this.traceService.readTraces()
-      .subscribe(it => this._traces$.next(it))
+    // this.traces$()
+    //   .subscribe(it => {
+    //     console.warn(11)
+    //     this.trafficTableComponent.tableData.next(it)
+    //   })
+  }
 
-    this.traces$()
-      .subscribe(it => this.trafficTableComponent.tableData.next(it))
+  loadData() {
+    this.traceService.readTraces()
+      .subscribe(it => {
+        this._traces$.next(it)
+      })
   }
 
   traces$(): Observable<Array<Trace>> {

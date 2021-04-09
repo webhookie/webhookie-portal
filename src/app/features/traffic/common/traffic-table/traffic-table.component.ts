@@ -10,14 +10,12 @@ import {TrafficTableFilter} from "./filter/traffic-table-filter";
 import {SearchTrafficFilter} from "./filter/search-traffic-filter";
 import {SearchListTrafficFilter} from "./filter/search-list-traffic-filter";
 import {TimestampTrafficFilter} from "./filter/timestamp-traffic-filter";
-import {ReplaySubject, Subject} from "rxjs";
 import {TrafficTableColumn} from "./column/traffic-table-column";
 import {MoreDataTrafficColumn} from "./column/more-data-traffic-column";
 import {SelectableTrafficColumn} from "./column/selectable-traffic-column";
 import {TrafficTable} from "./traffic-table";
 import {TrafficMasterData} from "../traffic-master-data";
 import {TrafficDetailData} from "../traffic-detail-data";
-import {TrafficData} from "../traffic-data";
 
 @Component({
   selector: 'app-traffic-table',
@@ -32,7 +30,6 @@ export class TrafficTableComponent implements OnInit {
   // @ts-ignore
   @Input("component") table: TrafficTable
 
-  readonly tableData: Subject<Array<TrafficData>> = new ReplaySubject();
 
   start: number = 0;
   limit: number = 8;
@@ -59,12 +56,14 @@ export class TrafficTableComponent implements OnInit {
   ngOnInit(): void {
     this.localeService.use('en');
     window.addEventListener('scroll', this.onTableScroll, true);
-    this.tableData.asObservable()
-      .subscribe(it => this.dataSource = it.slice(this.start, this.end));
+    this.table.tableData
+      .subscribe((it:Array<any>) => this.dataSource = it.slice(this.start, this.end));
     this.updateIndex();
     $(".time_dropdown").on("click", function(){
         $(".bottom").hide();
     });
+
+    this.table.loadData();
   }
 
   onDateChange(newDate: Date) {

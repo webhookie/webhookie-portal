@@ -25,6 +25,7 @@ import {
   WebhookColumn
 } from "./span-columns";
 import {TrafficTable} from "../common/traffic-table/traffic-table";
+import {Trace} from "../model/trace";
 
 @Component({
   selector: 'app-subscription-traffic',
@@ -36,17 +37,19 @@ export class SubscriptionTrafficComponent implements OnInit, TrafficTable<Span, 
   // @ts-ignore
   @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
 
+  readonly tableData: Observable<Array<Span>> = this._spans$.asObservable();
+
   constructor(
     private readonly spanService: SpanService,
   ) {
   }
 
   ngOnInit(): void {
+  }
+
+  loadData() {
     this.spanService.readSpans()
       .subscribe(it => this._spans$.next(it));
-
-    this.spans$()
-      .subscribe(it => this.trafficTableComponent.tableData.next(it));
   }
 
   spans$(): Observable<Array<Span>> {

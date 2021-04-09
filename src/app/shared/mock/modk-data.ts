@@ -1,4 +1,4 @@
-import {EMPTY, of} from "rxjs";
+import {EMPTY, Observable, of} from "rxjs";
 import {HttpParams} from "@angular/common/http";
 
 export class MockData {
@@ -524,7 +524,7 @@ export class MockData {
     },
   ];
 
-  static for(uri: string, params: HttpParams) {
+  static for(uri: string, params: HttpParams): Observable<any> {
     if (uri.startsWith("/public/config")) {
       return of(this.config)
     }
