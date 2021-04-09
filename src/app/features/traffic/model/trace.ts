@@ -1,18 +1,21 @@
 export class Trace {
   constructor(
-    public traceId: String,
-    public topic: String,
+    public traceId: string,
+    public topic: string,
     public statusUpdate: TraceStatusUpdate,
-    public authorizedSubscribers: Array<String>,
+    public authorizedSubscribers: Array<string>,
   ) {
   }
 
-  get authorizedSubscribersString() {
-    if(this.authorizedSubscribers.length > 1) {
+  get authorizedSubscribersString(): string {
+    let length = this.authorizedSubscribers.length;
+    if(length == 1) {
+      return this.authorizedSubscribers[0];
+    } else if(length > 1) {
       return this.authorizedSubscribers.reduce((value, current) => value + ", " + current)
     }
 
-    return this.authorizedSubscribers
+    return ""
   }
 }
 

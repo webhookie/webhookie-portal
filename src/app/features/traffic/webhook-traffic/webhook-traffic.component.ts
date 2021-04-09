@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Trace} from "../model/trace";
@@ -11,6 +11,17 @@ import {EmptyTrafficFilter} from "../common/traffic-table/filter/empty-traffic-f
 import {SearchTrafficFilter} from "../common/traffic-table/filter/search-traffic-filter";
 import {SearchListTrafficFilter} from "../common/traffic-table/filter/search-list-traffic-filter";
 import {TimestampTrafficFilter} from "../common/traffic-table/filter/timestamp-traffic-filter";
+import {TrafficTableComponent} from "../common/traffic-table/traffic-table.component";
+import {BaseTrafficColumn, TrafficTableColumn} from "../common/traffic-table/column/traffic-table-column";
+import {
+  StatusColumn,
+  StatusDescriptionColumn,
+  SubscribersColumn,
+  TimestampColumn,
+  TraceIdColumn, TraceMoreDataColumn,
+  WebhookColumn
+} from "./traffic-columns";
+import {SelectableTrafficColumn} from "../common/traffic-table/column/selectable-traffic-column";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -18,6 +29,9 @@ import {TimestampTrafficFilter} from "../common/traffic-table/filter/timestamp-t
   styleUrls: ['./webhook-traffic.component.css']
 })
 export class WebhookTrafficComponent implements OnInit {
+  // @ts-ignore
+  @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
+
   private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
 
   constructor(
@@ -26,9 +40,11 @@ export class WebhookTrafficComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.traceService.subscription_table=false;
     this.traceService.readTraces()
       .subscribe(it => this._traces$.next(it))
+
+    this.traces$()
+      .subscribe(it => this.trafficTableComponent.tableData.next(it))
   }
 
   traces$(): Observable<Array<Trace>> {
@@ -57,7 +73,21 @@ export class WebhookTrafficComponent implements OnInit {
       new SearchTrafficFilter("", "Authorized Subscribers"),
       new TimestampTrafficFilter("", "Timestamp"),
       new SearchTrafficFilter("", "Status"),
-      new SearchTrafficFilter("", "Status Description")
+      new SearchTrafficFilter("", "Status Description"),
+      new EmptyTrafficFilter("", ""),
     ]
+  }
+
+  get tableColumns(): Array<TrafficTableColumn> {
+    return [
+      new TraceMoreDataColumn("text-center sticky-cell"),
+      new SelectableTrafficColumn("sticky-cell sticky-second-cell"),
+      new TraceIdColumn(),
+      new WebhookColumn(),
+      new SubscribersColumn(),
+      new TimestampColumn(),
+      new StatusColumn(),
+      new StatusDescriptionColumn(),
+    ];
   }
 }

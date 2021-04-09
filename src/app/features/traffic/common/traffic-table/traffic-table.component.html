@@ -129,30 +129,17 @@
       <!-- main-table -->
       <ng-container *ngFor="let data of dataSource;let i=index;" (scroll)="onTableScroll($event)">
         <tr class="sticky-header">
-          <td *ngIf="!trace.subscription_table" class="text-center sticky-cell">
-            <a href="javascript:void(0)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
+          <td *ngFor="let column of columns" [ngClass]="column.clazz">
+            <a *ngIf="isMoreDataColumn(column)" href="javascript:void(0)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
                class="clickable">
               <img src="assets/images/Chevron_down.svg" alt="down">
             </a>
-          </td>
-          <td class="sticky-cell" [ngClass]="!trace.subscription_table?'sticky-second-cell':''">
-            <div class="custom-control custom-checkbox">
+            <div *ngIf="isSelectableColumn(column)" class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" id="check1{{i}}">
               <label class="custom-control-label" for="check1{{i}}"></label>
             </div>
+            {{column.value(data)}}
           </td>
-          <td>{{data.trace_id}}</td>
-          <td *ngIf="trace.subscription_table">{{data.application}}</td>
-          <td>{{data.webhook}}</td>
-          <td *ngIf="trace.subscription_table"><a href="https://www.volvocars.com/se">{{data.callback_url}}</a></td>
-          <td *ngIf="!trace.subscription_table">{{data.auth_subscriber}}</td>
-          <td>{{data.timestamp}}</td>
-          <td *ngIf="!trace.subscription_table">{{data.timestatus}}</td>
-          <td *ngIf="!trace.subscription_table">{{data.status_desc}}</td>
-          <td *ngIf="trace.subscription_table">{{data.span_id}}</td>
-          <td *ngIf="trace.subscription_table" class="text-center">{{data.res_code}}</td>
-          <td *ngIf="trace.subscription_table">{{data.status}}</td>
-          <td *ngIf="trace.subscription_table" class="text-center">{{data.tries}}</td>
           <td class="dropdown text-center sticky-cell-opposite">
             <a href="#" class="dropdown-toggle hide-after" data-toggle="dropdown">
               <img src="assets/images/provider-menu.svg" alt="menu">

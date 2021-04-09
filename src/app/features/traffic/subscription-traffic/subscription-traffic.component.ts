@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Span} from "../model/span";
@@ -11,6 +11,17 @@ import {SearchTrafficFilter} from "../common/traffic-table/filter/search-traffic
 import {SearchListTrafficFilter} from "../common/traffic-table/filter/search-list-traffic-filter";
 import {TimestampTrafficFilter} from "../common/traffic-table/filter/timestamp-traffic-filter";
 import {EmptyTrafficFilter} from "../common/traffic-table/filter/empty-traffic-filter";
+import {TrafficTableComponent} from "../common/traffic-table/traffic-table.component";
+import {TrafficTableColumn} from "../common/traffic-table/column/traffic-table-column";
+import {SelectableTrafficColumn} from "../common/traffic-table/column/selectable-traffic-column";
+import {
+  ApplicationColumn,
+  CallbackColumn, ResponseCodeColumn,
+  SpanIdColumn, StatusColumn,
+  TimestampColumn,
+  TraceIdColumn, TriesColumn,
+  WebhookColumn
+} from "./span-columns";
 
 @Component({
   selector: 'app-subscription-traffic',
@@ -19,6 +30,8 @@ import {EmptyTrafficFilter} from "../common/traffic-table/filter/empty-traffic-f
 })
 export class SubscriptionTrafficComponent implements OnInit {
   private readonly _spans$: Subject<Array<Span>> = new ReplaySubject();
+  // @ts-ignore
+  @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
 
   constructor(
     private readonly spanService: SpanService,
@@ -28,9 +41,11 @@ export class SubscriptionTrafficComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.traceService.subscription_table=true;
     this.spanService.readSpans()
       .subscribe(it => this._spans$.next(it));
+
+    this.spans$()
+      .subscribe(it => this.trafficTableComponent.tableData.next(it));
   }
 
   spans$(): Observable<Array<Span>> {
@@ -66,5 +81,20 @@ export class SubscriptionTrafficComponent implements OnInit {
       new EmptyTrafficFilter("", ""),
       new EmptyTrafficFilter("", ""),
     ]
+  }
+
+  get tableColumns(): Array<TrafficTableColumn> {
+    return [
+      new SelectableTrafficColumn("sticky-cell"),
+      new TraceIdColumn(),
+      new ApplicationColumn(),
+      new WebhookColumn(),
+      new CallbackColumn(),
+      new TimestampColumn(),
+      new SpanIdColumn(),
+      new ResponseCodeColumn(),
+      new StatusColumn(),
+      new TriesColumn(),
+  ]
   }
 }
