@@ -1,8 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
-import {Observable, ReplaySubject, Subject} from "rxjs";
+import {EMPTY, Observable, ReplaySubject, Subject} from "rxjs";
 import {Span} from "../model/span";
-import {TraceService}from 'src/app/features/traffic/service/trace.service';
 import {TrafficTableHeader} from "../common/traffic-table/header/traffic-table-header";
 import {SelectableTrafficHeader} from "../common/traffic-table/header/selectable-traffic-header";
 import {SortableTrafficHeader} from "../common/traffic-table/header/sortable-traffic-header";
@@ -16,28 +15,30 @@ import {TrafficTableColumn} from "../common/traffic-table/column/traffic-table-c
 import {SelectableTrafficColumn} from "../common/traffic-table/column/selectable-traffic-column";
 import {
   ApplicationColumn,
-  CallbackColumn, ResponseCodeColumn,
-  SpanIdColumn, StatusColumn,
+  CallbackColumn,
+  ResponseCodeColumn,
+  SpanIdColumn,
+  StatusColumn,
   TimestampColumn,
-  TraceIdColumn, TriesColumn,
+  TraceIdColumn,
+  TriesColumn,
   WebhookColumn
 } from "./span-columns";
+import {TrafficTable} from "../common/traffic-table/traffic-table";
 
 @Component({
   selector: 'app-subscription-traffic',
   templateUrl: './subscription-traffic.component.html',
   styleUrls: ['./subscription-traffic.component.css']
 })
-export class SubscriptionTrafficComponent implements OnInit {
+export class SubscriptionTrafficComponent implements OnInit, TrafficTable<Span, Span> {
   private readonly _spans$: Subject<Array<Span>> = new ReplaySubject();
   // @ts-ignore
   @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
 
   constructor(
     private readonly spanService: SpanService,
-    private traceService: TraceService,
   ) {
-
   }
 
   ngOnInit(): void {
@@ -96,5 +97,9 @@ export class SubscriptionTrafficComponent implements OnInit {
       new StatusColumn(),
       new TriesColumn(),
   ]
+  }
+
+  loadDetails(data: any): Observable<Array<any>> {
+    return EMPTY;
   }
 }

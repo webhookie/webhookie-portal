@@ -1,4 +1,8 @@
-export class Trace {
+import {ReplaySubject, Subject} from "rxjs";
+import {TrafficMasterData} from "../common/traffic-master-data";
+import {TrafficDetailData} from "../common/traffic-detail-data";
+
+export class Trace implements TrafficMasterData{
   constructor(
     public traceId: string,
     public topic: string,
@@ -6,6 +10,8 @@ export class Trace {
     public authorizedSubscribers: Array<string>,
   ) {
   }
+
+  details: Subject<Array<TrafficDetailData>> = new ReplaySubject();
 
   get authorizedSubscribersString(): string {
     let length = this.authorizedSubscribers.length;

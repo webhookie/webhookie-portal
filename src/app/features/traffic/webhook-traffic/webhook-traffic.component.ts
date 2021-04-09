@@ -12,23 +12,26 @@ import {SearchTrafficFilter} from "../common/traffic-table/filter/search-traffic
 import {SearchListTrafficFilter} from "../common/traffic-table/filter/search-list-traffic-filter";
 import {TimestampTrafficFilter} from "../common/traffic-table/filter/timestamp-traffic-filter";
 import {TrafficTableComponent} from "../common/traffic-table/traffic-table.component";
-import {BaseTrafficColumn, TrafficTableColumn} from "../common/traffic-table/column/traffic-table-column";
+import {TrafficTableColumn} from "../common/traffic-table/column/traffic-table-column";
 import {
   StatusColumn,
   StatusDescriptionColumn,
   SubscribersColumn,
   TimestampColumn,
-  TraceIdColumn, TraceMoreDataColumn,
+  TraceIdColumn,
+  TraceMoreDataColumn,
   WebhookColumn
 } from "./traffic-columns";
 import {SelectableTrafficColumn} from "../common/traffic-table/column/selectable-traffic-column";
+import {TrafficTable} from "../common/traffic-table/traffic-table";
+import {Span} from "../model/span";
 
 @Component({
   selector: 'app-webhook-traffic',
   templateUrl: './webhook-traffic.component.html',
   styleUrls: ['./webhook-traffic.component.css']
 })
-export class WebhookTrafficComponent implements OnInit {
+export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span> {
   // @ts-ignore
   @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
 
@@ -89,5 +92,9 @@ export class WebhookTrafficComponent implements OnInit {
       new StatusColumn(),
       new StatusDescriptionColumn(),
     ];
+  }
+
+  loadDetails(data: Trace): Observable<Array<Span>> {
+    return this.traceService.readTraceSpans(data.traceId)
   }
 }

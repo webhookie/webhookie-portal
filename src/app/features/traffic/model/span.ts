@@ -1,4 +1,6 @@
-export class Span {
+import {TrafficDetailData} from "../common/traffic-detail-data";
+
+export class Span implements TrafficDetailData{
   constructor(
     public traceId: string,
     public spanId: string,

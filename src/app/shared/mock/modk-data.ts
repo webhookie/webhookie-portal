@@ -541,6 +541,9 @@ export class MockData {
     }
 
     if (uri.startsWith("/traffic/trace")) {
+      if(uri.endsWith("/spans")) {
+        return of(this.spans)
+      }
       return of(this.traces)
     }
 
