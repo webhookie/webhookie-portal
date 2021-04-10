@@ -56,8 +56,12 @@ export class TrafficTableComponent implements OnInit {
   ngOnInit(): void {
     this.localeService.use('en');
     window.addEventListener('scroll', this.onTableScroll, true);
+
     this.table.tableData
-      .subscribe((it:Array<any>) => this.dataSource = it.slice(this.start, this.end));
+      .subscribe((it:Array<any>) =>{
+         console.log(it ,"it  data");
+        this.dataSource = it.slice(0, this.end)
+      });
     this.updateIndex();
     $(".time_dropdown").on("click", function(){
         $(".bottom").hide();

@@ -6,7 +6,7 @@ import {TrafficRoutingModule} from "./traffic-routing.module";
 import {SubscriptionTrafficComponent} from './subscription-traffic/subscription-traffic.component';
 import {WebhookTrafficComponent} from './webhook-traffic/webhook-traffic.component';
 import { TrafficTableComponent } from './common/traffic-table/traffic-table.component';
-import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DatepickerModule, BsDatepickerModule ,BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 @NgModule({
@@ -24,7 +24,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
     DatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     PopoverModule.forRoot()
-  ]
+  ],
+  providers: [BsDatepickerConfig]
 })
 export class TrafficModule {
 }

@@ -3,6 +3,7 @@
     /* text-align: center; */
     border: 1px solid #E1E1E1;
 }
+
 .common-table .table .custom-control-label::before {
     border-radius: 1px !important;
     /* background-color:#0151CC; */

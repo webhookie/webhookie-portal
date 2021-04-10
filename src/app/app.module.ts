@@ -10,7 +10,9 @@ import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
 import {WebhookCommonModule} from './features/webhooks/common/webhook-common.module';
 import {CommonModule} from '@angular/common';
 import {SubscriptionsModule} from './features/subscriptions/subscriptions.module';
-
+import { NgxSpinnerModule } from "ngx-spinner";
+import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +21,7 @@ import {SubscriptionsModule} from './features/subscriptions/subscriptions.module
   imports: [
     CommonModule,
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     CoreModule,
     AppRoutingModule,
@@ -28,11 +31,13 @@ import {SubscriptionsModule} from './features/subscriptions/subscriptions.module
     SubscriptionsModule,
     WebhookCommonModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
+    BsDatepickerModule.forRoot()
     // ToastrModule.forRoot(),
     // BrowserAnimationsModule,
   ],
 
-  providers: [BsModalRef],
+  providers: [BsModalRef,BsDatepickerConfig],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

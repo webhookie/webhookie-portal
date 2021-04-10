@@ -8,7 +8,7 @@
   </div>
 </div>
 <div class="common-table">
-  <div class="table-responsive sticky-table sticky-ltr-cells">
+  <div id="tbl1" class="table-responsive sticky-table sticky-ltr-cells">
     <table class="table table-borderless border-0">
       <thead class="font14 font-weight-600">
       <tr class="sticky-header">
@@ -80,51 +80,21 @@
               </div>
             </form>
           </div>
+          
           <form *ngIf="isTimestampFilter(filter)" class="form-inline search-small">
             <div class="d-flex align-items-center">
               <div class="mx-2">From</div>
-              <div class="input-group date_wrapper">
-                <!--suppress JSUnusedGlobalSymbols -->
-                <input type="text" class="form-control border-right-0" #dp="bsDatepicker" placeholder="Start date"
-                       bsDatepicker [(bsValue)]="startDate">
-                <div class="input-group-append">
-                    <span class="input-group-text bg-white" id="start-calendar">
-                      <i class="far fa-calendar"></i>
-                    </span>
-                </div>
-              </div>
-              <div class="time_wrapper ml-2">
-                <ng-template #popTemplate>
-                  <timepicker name="startTime" [showMeridian]="false"></timepicker>
-                </ng-template>
-                <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 time_dropdown"
-                        data-toggle="dropdown" [popover]="popTemplate" [outsideClick]="true"
-                        placement="bottom"> {{startTime | date : "HH:mm a"}}</button>
-              </div>
+              <app-datepicker></app-datepicker>
+              <app-timepicker></app-timepicker>
             </div>
             <div class="d-flex align-items-center mt-2">
               <div class="mx-2 to">To</div>
-              <div class="input-group date_wrapper">
-                <!--suppress JSUnusedGlobalSymbols -->
-                <input type="text" class="form-control border-right-0" #dp="bsDatepicker" placeholder="Start date"
-                       bsDatepicker [(bsValue)]="endDate">
-                <div class="input-group-append">
-                    <span class="input-group-text bg-white" id="end-calendar">
-                      <i class="far fa-calendar"></i>
-                    </span>
-                </div>
-              </div>
-              <div class="time_wrapper ml-2">
-                <ng-template #popTemplate1>
-                  <timepicker name="endTime" [showMeridian]="false"></timepicker>
-                </ng-template>
-                <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 time_dropdown"
-                        data-toggle="dropdown" [popover]="popTemplate1" [outsideClick]="true"
-                        placement="bottom"> {{endTime | date : "HH:mm a"}}</button>
-              </div>
+              <app-datepicker></app-datepicker>
+              <app-timepicker></app-timepicker>
             </div>
           </form>
         </td>
+       
       </tr>
       <!-- main-table -->
       <ng-container *ngFor="let data of dataSource;let i=index;" (scroll)="onTableScroll($event)">
@@ -155,33 +125,35 @@
           </td>
         </tr>
         <tr id="more_details{{i}}" class="collapse border-0">
-          <td colspan="30">
+         
+          <td colspan="30" class="position-relative">
+            <app-spinner class="spinner"></app-spinner>
             <table class="collapse-table">
               <thead>
-              <tr class="border-0">
-                <th>Span Id</th>
-                <th>Company</th>
-                <th>Application</th>
-                <th>Callback URL</th>
-                <th>Timestamp</th>
-                <th>Response code</th>
-                <th>Status</th>
-                <th>Tries</th>
-                <th></th>
-              </tr>
+                <tr class="border-0">
+                  <th>Span Id</th>
+                  <th>Company</th>
+                  <th>Application</th>
+                  <th>Callback URL</th>
+                  <th>Timestamp</th>
+                  <th>Response code</th>
+                  <th>Status</th>
+                  <th>Tries</th>
+                  <th></th>
+                </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let span of data.details | async;let i=index;">
-                <td>{{span.spanId}}</td>
-                <td>{{span.entity}}</td>
-                <td>{{span.topic}}</td>
-                <td>{{span.callbackUrl}}</td>
-                <td>{{span.statusUpdate.time}}</td>
-                <td>{{span.responseCode}}</td>
-                <td>{{span.statusUpdate.status}}</td>
-                <td>{{span.tries}}</td>
-                <td class="text-right"><img src="assets/images/provider-menu.svg" alt="menu"></td>
-              </tr>
+                <tr *ngFor="let span of data.details | async;let i=index;">
+                  <td>{{span.spanId}}</td>
+                  <td>{{span.entity}}</td>
+                  <td>{{span.topic}}</td>
+                  <td>{{span.callbackUrl}}</td>
+                  <td>{{span.statusUpdate.time}}</td>
+                  <td>{{span.responseCode}}</td>
+                  <td>{{span.statusUpdate.status}}</td>
+                  <td>{{span.tries}}</td>
+                  <td class="text-right"><img src="assets/images/provider-menu.svg" alt="menu"></td>
+                </tr>
               </tbody>
             </table>
           </td>

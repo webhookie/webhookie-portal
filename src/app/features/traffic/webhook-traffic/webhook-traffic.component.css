@@ -1,7 +1,10 @@
 .traffic-dropdowns h5{
     font-size: 14px;
 }
-
+.dropdown-toggle::after {
+    float: right;
+    margin-bottom: 17px;
+}
 .traffic-dropdowns ul {
     list-style-type: none;
     padding: 0px;
