@@ -152,8 +152,14 @@ export class TrafficTableComponent implements OnInit {
     return column instanceof SelectableTrafficColumn
   }
 
-  loadDetails(data: TrafficMasterData) {
+  loadDetails(data: TrafficMasterData, $event: MouseEvent) {
     this.table.loadDetails(data)
-      .subscribe((it: Array<TrafficDetailData>) => data.details.next(it));
+      .subscribe((it: Array<TrafficDetailData>) => {
+        data.update(it);
+      });
+  }
+
+  rowStatusArrow(data: TrafficMasterData) {
+    return data.isOpen ? "assets/images/Chevron.svg" : "assets/images/Chevron_down.svg"
   }
 }

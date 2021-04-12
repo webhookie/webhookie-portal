@@ -2,13 +2,14 @@ import {ReplaySubject, Subject} from "rxjs";
 import {TrafficMasterData} from "../common/traffic-master-data";
 import {TrafficDetailData} from "../common/traffic-detail-data";
 
-export class Trace implements TrafficMasterData{
+export class Trace extends TrafficMasterData {
   constructor(
     public traceId: string,
     public topic: string,
     public statusUpdate: TraceStatusUpdate,
     public authorizedSubscribers: Array<string>,
   ) {
+    super();
   }
 
   details: Subject<Array<TrafficDetailData>> = new ReplaySubject();

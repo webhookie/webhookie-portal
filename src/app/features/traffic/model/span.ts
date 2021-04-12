@@ -15,6 +15,10 @@ export class Span implements TrafficDetailData{
     public nextRetry?: SpanRetry
   ) {
   }
+
+  get id(): string {
+    return this.spanId;
+  }
 }
 
 export class SpanStatusUpdate {
