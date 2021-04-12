@@ -18,7 +18,6 @@ import {TrafficMasterData} from "../traffic-master-data";
 import {TrafficDetailData} from "../traffic-detail-data";
 import {TrafficData} from "../traffic-data";
 import {EMPTY, Observable} from "rxjs";
-import {Trace} from "../../model/trace";
 
 @Component({
   selector: 'app-traffic-table',
