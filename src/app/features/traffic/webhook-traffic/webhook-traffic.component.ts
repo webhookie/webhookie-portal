@@ -93,40 +93,40 @@ export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span
 
   get tableColumns(): Array<TrafficTableColumn> {
     return [
-      new TraceMoreDataColumn("text-center sticky-cell"),
-      new SelectableTrafficColumn("sticky-cell sticky-second-cell"),
-      new TraceIdColumn(),
-      new WebhookColumn(),
-      new SubscribersColumn(),
-      new TimestampColumn(),
-      new StatusColumn(),
+      new TraceMoreDataColumn("text-center sticky-cell", "Webhook_More_Column"),
+      new SelectableTrafficColumn("sticky-cell sticky-second-cell", "Webhook_Select_Column"),
+      new TraceIdColumn("Webhook_TraceId_Column"),
+      new WebhookColumn("Webhook_Topic_Column"),
+      new SubscribersColumn("Webhook_Auth_Subscribers_Column"),
+      new TimestampColumn("Webhook_Timestamp_Column"),
+      new StatusColumn("Webhook_Status_Column"),
     ];
   }
 
   get detailHeaders(): Array<TrafficTableHeader> {
     return [
-      new SimpleTrafficTableHeader("Span Id", "Webhook_Span_Id_Header"),
-      new SimpleTrafficTableHeader("Company", "Webhook_Company_Header"),
-      new SimpleTrafficTableHeader("Application", "Webhook_Application_Header"),
-      new SimpleTrafficTableHeader("Callback URL", "Webhook_Callback_Header"),
-      new SimpleTrafficTableHeader("Timestamp", "Webhook_Timestamp_Header"),
-      new SimpleTrafficTableHeader("Response code", "Webhook_Response_Code_Header"),
-      new SimpleTrafficTableHeader("Status", "Webhook_Status_Header"),
-      new SimpleTrafficTableHeader("Tries", "Webhook_Tries_Header"),
-      new SimpleTrafficTableHeader("", "Webhook_Header1")
+      new SimpleTrafficTableHeader("Span Id", "Webhook_Details_Span_Id_Header"),
+      new SimpleTrafficTableHeader("Company", "Webhook_Details_Company_Header"),
+      new SimpleTrafficTableHeader("Application", "Webhook_Details_Application_Header"),
+      new SimpleTrafficTableHeader("Callback URL", "Webhook_Details_Callback_Header"),
+      new SimpleTrafficTableHeader("Timestamp", "Webhook_Details_Timestamp_Header"),
+      new SimpleTrafficTableHeader("Response code", "Webhook_Details_Response_Code_Header"),
+      new SimpleTrafficTableHeader("Status", "Webhook_Details_Status_Header"),
+      new SimpleTrafficTableHeader("Tries", "Webhook_Details_Tries_Header"),
+      new SimpleTrafficTableHeader("", "Webhook_Details_Header1")
     ]
   }
 
   get detailColumns(): Array<TrafficTableColumn> {
     return [
-      new SpanIdColumn(),
-      new EntityColumn(),
-      new ApplicationColumn(),
-      new CallbackColumn(),
-      new TimestampColumn(),
-      new ResponseCodeColumn(),
-      new StatusColumn(),
-      new TriesColumn(),
+      new SpanIdColumn("Webhook_Span_SpanId_Column"),
+      new EntityColumn("Webhook_Span_Entity_Column"),
+      new ApplicationColumn("Webhook_Span_Application_Column"),
+      new CallbackColumn("Webhook_Span_Callback_Column"),
+      new TimestampColumn("Webhook_Span_Timestamp_Column"),
+      new ResponseCodeColumn("Webhook_Span_ResponseCode_Column"),
+      new StatusColumn("Webhook_Span_Status_Column"),
+      new TriesColumn("Webhook_Span_Tries_Column"),
     ]
   }
 

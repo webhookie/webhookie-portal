@@ -84,16 +84,16 @@ export class SubscriptionTrafficComponent implements OnInit, TrafficTable<Span, 
 
   get tableColumns(): Array<TrafficTableColumn> {
     return [
-      new SelectableTrafficColumn("sticky-cell"),
-      new TraceIdColumn(),
-      new ApplicationColumn(),
-      new WebhookColumn(),
-      new CallbackColumn(),
-      new TimestampColumn(),
-      new SpanIdColumn(),
-      new ResponseCodeColumn(),
-      new StatusColumn(),
-      new TriesColumn(),
+      new SelectableTrafficColumn("sticky-cell", "Subscription_Select_Column"),
+      new TraceIdColumn("Subscription_TraceId_Column"),
+      new ApplicationColumn("Subscription_Application_Column"),
+      new WebhookColumn("Subscription_Webhook_Column"),
+      new CallbackColumn("Subscription_Callback_Column"),
+      new TimestampColumn("Subscription_Timestamp_Column"),
+      new SpanIdColumn("Subscription_SpanId_Column"),
+      new ResponseCodeColumn("Subscription_ResponseCode_Column"),
+      new StatusColumn("Subscription_Status_Column"),
+      new TriesColumn("Subscription_Tries_Column"),
   ]
   }
 

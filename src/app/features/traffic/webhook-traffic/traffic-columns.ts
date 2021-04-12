@@ -33,14 +33,11 @@ export class StatusColumn extends BaseTrafficColumn<Trace> {
   }
 }
 
-export class StatusDescriptionColumn extends BaseTrafficColumn<Trace> {
-  value(data: Trace): string {
-    return "";
-  }
-}
-
 export class TraceMoreDataColumn extends MoreDataTrafficColumn<Trace> {
-  constructor(public clazz: string) {
+  constructor(
+    public clazz: string,
+    public name: string,
+  ) {
     super();
   }
 

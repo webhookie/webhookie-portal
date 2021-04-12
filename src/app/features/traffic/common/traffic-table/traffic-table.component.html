@@ -85,9 +85,9 @@
 
       </tr>
       <!-- main-table -->
-      <ng-container *ngFor="let data of dataSource;let i=index; trackBy:trackByData" (scroll)="onTableScroll($event)">
+      <ng-container *ngFor="let data of dataSource;let i=index; trackBy:trackByData">
         <tr class="sticky-header">
-          <td *ngFor="let column of columns" [ngClass]="column.clazz">
+          <td *ngFor="let column of columns; trackBy:trackByColumn" [ngClass]="column.clazz">
             <a *ngIf="isMoreDataColumn(column)" href="javascript:void(0)" (click)="loadDetails(data)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
                class="clickable">
               <img [src]="rowStatusArrow(data)" src="assets/images/Chevron.svg" alt="down">
@@ -119,12 +119,12 @@
             <table class="collapse-table">
               <thead>
                 <tr class="border-0">
-                  <th *ngFor="let header of detailHeaders">{{header.title}}</th>
+                  <th *ngFor="let header of detailHeaders; trackBy:trackByDetailHeader">{{header.title}}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let detailData of details(data) | async;let i=index;">
-                  <td *ngFor="let detailColumn of detailColumns">{{detailColumn.value(detailData)}}</td>
+                <tr *ngFor="let detailData of details(data) | async;let i=index; trackBy:trackByDetailData">
+                  <td *ngFor="let detailColumn of detailColumns; trackBy:trackByDetailColumn">{{detailColumn.value(detailData)}}</td>
                   <td class="text-right"><img src="assets/images/provider-menu.svg" alt="menu"></td>
                 </tr>
               </tbody>

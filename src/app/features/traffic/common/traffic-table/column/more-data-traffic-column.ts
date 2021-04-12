@@ -6,6 +6,7 @@ export abstract class MoreDataTrafficColumn<T> implements TrafficTableColumn {
   }
 
   clazz: string = "";
+  abstract name: string = "";
 
   abstract loadDetails(data: T): void;
 }

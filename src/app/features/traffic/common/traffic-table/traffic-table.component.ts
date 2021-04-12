@@ -18,6 +18,7 @@ import {TrafficMasterData} from "../traffic-master-data";
 import {TrafficDetailData} from "../traffic-detail-data";
 import {TrafficData} from "../traffic-data";
 import {EMPTY, Observable} from "rxjs";
+import {Trace} from "../../model/trace";
 
 @Component({
   selector: 'app-traffic-table',
@@ -193,5 +194,21 @@ export class TrafficTableComponent implements OnInit {
 
   trackByData(index: number, data: TrafficData): string {
     return data.id
+  }
+
+  trackByColumn(index: number, data: TrafficTableColumn): string {
+    return `${index} -- ${data.name}`
+  }
+
+  trackByDetailHeader(index: number, data: TrafficTableHeader): string {
+    return data.name
+  }
+
+  trackByDetailData(index: number, data: TrafficData): string {
+    return data.id
+  }
+
+  trackByDetailColumn(index: number, data: TrafficTableColumn): string {
+    return data.name
   }
 }
