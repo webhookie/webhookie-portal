@@ -1,9 +1,9 @@
 <div class="common-table">
   <div class="number d-flex justify-content-between mb-3 align-items-center">
-    <h5 class="font12 font-weight-600 mb-0">500 traffic</h5>
+    <h5 class="font12 font-weight-600 mb-0">{{dataSource.length}} rows</h5>
     <div class="resend d-flex align-items-center">
-      <h5 class="font12 font-weight-600 mb-0 mr-3">3 Items selected</h5>
-      <button class="btn btn-primary">Resend message</button>
+      <h5 class="font12 font-weight-600 mb-0 mr-3">{{selectedRows.length}} Items selected</h5>
+      <button class="btn btn-primary" [ngClass]="disabledIfZeroSelection">Resend message</button>
     </div>
   </div>
 </div>
@@ -85,7 +85,7 @@
 
       </tr>
       <!-- main-table -->
-      <ng-container *ngFor="let data of dataSource;let i=index; trackBy:trackByData">
+      <ng-container *ngFor="let data of dataSource;let i=index; trackBy:trackByData" (scroll)="onTableScroll($event)">
         <tr class="sticky-header">
           <td *ngFor="let column of columns; trackBy:trackByColumn" [ngClass]="column.clazz">
             <a *ngIf="isMoreDataColumn(column)" href="javascript:void(0)" (click)="loadDetails(data)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
@@ -93,7 +93,7 @@
               <img [src]="rowStatusArrow(data)" src="assets/images/Chevron.svg" alt="down">
             </a>
             <div *ngIf="isSelectableColumn(column)" class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="check1{{i}}">
+              <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="itemChanged(column, data, $event)">
               <label class="custom-control-label" for="check1{{i}}"></label>
             </div>
             {{column.value(data)}}

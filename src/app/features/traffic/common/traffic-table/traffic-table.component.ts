@@ -34,6 +34,8 @@ export class TrafficTableComponent implements OnInit {
   // @ts-ignore
   @Input("component") table: TrafficTable
 
+  selectedRows: Array<string> = [];
+
   start: number = 0;
   limit: number = 8;
   end: number = this.limit + this.start;
@@ -209,5 +211,19 @@ export class TrafficTableComponent implements OnInit {
 
   trackByDetailColumn(index: number, data: TrafficTableColumn): string {
     return data.name
+  }
+
+  itemChanged(column: TrafficTableColumn, data: TrafficData, $event: Event) {
+    // @ts-ignore
+    let checked: boolean = $event.currentTarget.checked;
+    if(checked) {
+      this.selectedRows.push(data.id);
+    } else {
+      this.selectedRows = this.selectedRows.filter(it => it != data.id);
+    }
+  }
+
+  get disabledIfZeroSelection(): string {
+    return this.selectedRows.length == 0 ? "disabled" : "";
   }
 }
