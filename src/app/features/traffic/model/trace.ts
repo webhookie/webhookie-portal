@@ -23,6 +23,10 @@ export class Trace implements TrafficMasterData{
 
     return ""
   }
+
+  get id(): string {
+    return this.traceId;
+  }
 }
 
 export class TraceStatusUpdate {
