@@ -100,7 +100,7 @@
       <ng-container *ngFor="let data of dataSource;let i=index;" (scroll)="onTableScroll($event)">
         <tr class="sticky-header">
           <td *ngFor="let column of columns" [ngClass]="column.clazz">
-            <a *ngIf="isMoreDataColumn(column)" href="javascript:void(0)" (click)="loadDetails(data, $event)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
+            <a *ngIf="isMoreDataColumn(column)" href="javascript:void(0)" (click)="loadDetails(data)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
                class="clickable">
               <img [src]="rowStatusArrow(data)" src="assets/images/Chevron.svg" alt="down">
             </a>
@@ -124,34 +124,19 @@
             </div>
           </td>
         </tr>
-        <tr id="more_details{{i}}" class="collapse border-0">
+        <tr id="more_details{{i}}" class="collapse border-0" *ngIf="isMasterData(data)">
 
           <td colspan="30" class="position-relative">
-            <app-spinner class="spinner"></app-spinner>
+            <app-spinner class="spinner" *ngIf="data.isLoading"></app-spinner>
             <table class="collapse-table">
               <thead>
                 <tr class="border-0">
-                  <th>Span Id</th>
-                  <th>Company</th>
-                  <th>Application</th>
-                  <th>Callback URL</th>
-                  <th>Timestamp</th>
-                  <th>Response code</th>
-                  <th>Status</th>
-                  <th>Tries</th>
-                  <th></th>
+                  <th *ngFor="let header of detailHeaders">{{header.title}}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let span of data.details | async;let i=index;">
-                  <td>{{span.spanId}}</td>
-                  <td>{{span.entity}}</td>
-                  <td>{{span.topic}}</td>
-                  <td>{{span.callbackUrl}}</td>
-                  <td>{{span.statusUpdate.time}}</td>
-                  <td>{{span.responseCode}}</td>
-                  <td>{{span.statusUpdate.status}}</td>
-                  <td>{{span.tries}}</td>
+                <tr *ngFor="let detailData of details(data) | async;let i=index;">
+                  <td *ngFor="let detailColumn of detailColumns">{{detailColumn.value(detailData)}}</td>
                   <td class="text-right"><img src="assets/images/provider-menu.svg" alt="menu"></td>
                 </tr>
               </tbody>

@@ -14,6 +14,12 @@ export class ApplicationColumn extends BaseTrafficColumn<Span>{
   }
 }
 
+export class EntityColumn extends BaseTrafficColumn<Span>{
+  value(data: Span): string {
+    return data.entity;
+  }
+}
+
 export class WebhookColumn extends BaseTrafficColumn<Span>{
   value(data: Span): string {
     return data.topic;

@@ -16,6 +16,8 @@ import {SelectableTrafficColumn} from "./column/selectable-traffic-column";
 import {TrafficTable} from "./traffic-table";
 import {TrafficMasterData} from "../traffic-master-data";
 import {TrafficDetailData} from "../traffic-detail-data";
+import {TrafficData} from "../traffic-data";
+import {EMPTY, Observable} from "rxjs";
 
 @Component({
   selector: 'app-traffic-table',
@@ -26,10 +28,11 @@ export class TrafficTableComponent implements OnInit {
   @Input("headers") headers: Array<TrafficTableHeader> = []
   @Input("filters") filters: Array<TrafficTableFilter> = []
   @Input("columns") columns: Array<TrafficTableColumn> = []
+  @Input("detailHeaders") detailHeaders: Array<TrafficTableHeader> = []
+  @Input("detailColumns") detailColumns: Array<TrafficTableColumn> = []
 
   // @ts-ignore
   @Input("component") table: TrafficTable
-
 
   start: number = 0;
   limit: number = 8;
@@ -40,7 +43,7 @@ export class TrafficTableComponent implements OnInit {
   timepickerVisible = false;
   startTime: Date=new Date();
   endTime: Date=new Date();
-  dataSource: any=[];
+  dataSource: Array<TrafficData>=[];
   dataArr:any=[
     {id:1,name:"Volvo cars"},
     {id:2,name:"Ericsion"},
@@ -58,8 +61,7 @@ export class TrafficTableComponent implements OnInit {
     window.addEventListener('scroll', this.onTableScroll, true);
 
     this.table.tableData
-      .subscribe((it:Array<any>) =>{
-         console.log(it ,"it  data");
+      .subscribe((it:Array<TrafficData>) =>{
         this.dataSource = it.slice(0, this.end)
       });
     this.updateIndex();
@@ -152,14 +154,32 @@ export class TrafficTableComponent implements OnInit {
     return column instanceof SelectableTrafficColumn
   }
 
-  loadDetails(data: TrafficMasterData, $event: MouseEvent) {
-    this.table.loadDetails(data)
-      .subscribe((it: Array<TrafficDetailData>) => {
-        data.update(it);
-      });
+  loadDetails(data: TrafficData) {
+    if(data instanceof TrafficMasterData) {
+      this.table.loadDetails(data)
+        .subscribe((it: Array<TrafficDetailData>) => {
+          data.update(it);
+        });
+    }
   }
 
-  rowStatusArrow(data: TrafficMasterData) {
-    return data.isOpen ? "assets/images/Chevron.svg" : "assets/images/Chevron_down.svg"
+  rowStatusArrow(data: TrafficData) {
+    if(data instanceof TrafficMasterData) {
+      return data.isOpen ? "assets/images/Chevron.svg" : "assets/images/Chevron_down.svg"
+    }
+
+    return "assets/images/Chevron_down.svg"
+  }
+
+  isMasterData(data: TrafficData) {
+    return data instanceof TrafficMasterData
+  }
+
+  details(data: TrafficData): Observable<Array<TrafficDetailData>> {
+    if(data instanceof TrafficMasterData) {
+      return data.details
+    }
+
+    return EMPTY
   }
 }

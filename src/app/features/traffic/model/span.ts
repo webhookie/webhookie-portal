@@ -19,6 +19,10 @@ export class Span implements TrafficDetailData{
   get id(): string {
     return this.spanId;
   }
+
+  get isLoading(): boolean {
+    return false;
+  }
 }
 
 export class SpanStatusUpdate {

@@ -1,6 +1,7 @@
 import {ReplaySubject, Subject} from "rxjs";
 import {TrafficMasterData} from "../common/traffic-master-data";
 import {TrafficDetailData} from "../common/traffic-detail-data";
+import {delay} from "rxjs/operators";
 
 export class Trace extends TrafficMasterData {
   constructor(
@@ -10,6 +11,9 @@ export class Trace extends TrafficMasterData {
     public authorizedSubscribers: Array<string>,
   ) {
     super();
+    this.details.asObservable()
+      .pipe(delay(500))
+      .subscribe(() => this.loaded());
   }
 
   details: Subject<Array<TrafficDetailData>> = new ReplaySubject();

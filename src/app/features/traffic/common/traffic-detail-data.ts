@@ -1,4 +1,6 @@
 import {TrafficData} from "./traffic-data";
 
-export interface TrafficDetailData extends TrafficData {
+export abstract class TrafficDetailData implements TrafficData {
+  abstract id: string;
+  isLoading: boolean = true;
 }
