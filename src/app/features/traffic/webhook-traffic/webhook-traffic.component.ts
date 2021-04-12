@@ -3,7 +3,6 @@ import {TraceService} from "../service/trace.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Trace} from "../model/trace";
 import {
-  BaseTrafficTableHeader,
   SimpleTrafficTableHeader,
   TrafficTableHeader
 } from "../common/traffic-table/header/traffic-table-header";
@@ -19,7 +18,6 @@ import {TrafficTableComponent} from "../common/traffic-table/traffic-table.compo
 import {TrafficTableColumn} from "../common/traffic-table/column/traffic-table-column";
 import {
   StatusColumn,
-  StatusDescriptionColumn,
   SubscribersColumn,
   TimestampColumn,
   TraceIdColumn,
@@ -68,34 +66,28 @@ export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span
       })
   }
 
-  traces$(): Observable<Array<Trace>> {
-    return this._traces$.asObservable()
-  }
-
   get tableHeaders(): Array<TrafficTableHeader> {
     return [
-      new EmptyTrafficHeader("sticky-cell"),
-      new SelectableTrafficHeader("sticky-cell sticky-second-cell"),
-      new SortableTrafficHeader("Trace Id"),
-      new SortableTrafficHeader("Webhook"),
-      new SortableTrafficHeader("Authorized Subscribers"),
-      new SortableTrafficHeader("Timestamp"),
-      new SortableTrafficHeader("Status"),
-      new SortableTrafficHeader("Status Description"),
+      new EmptyTrafficHeader("sticky-cell", "Webhook_Header1"),
+      new SelectableTrafficHeader("sticky-cell sticky-second-cell", "Webhook_Header2"),
+      new SortableTrafficHeader("Trace Id", "Webhook_Trace_Id_Header"),
+      new SortableTrafficHeader("Webhook", "Webhook_Webhook_Header"),
+      new SortableTrafficHeader("Authorized Subscribers", "Webhook_Authorized_Subscribers_Header"),
+      new SortableTrafficHeader("Timestamp", "Webhook_Timestamp_Header"),
+      new SortableTrafficHeader("Status", "Webhook_Status_Header"),
     ]
   }
 
   get tableFilters(): Array<TrafficTableFilter> {
     return [
-      new EmptyTrafficFilter("sticky-cell bg-light-gray"),
-      new EmptyTrafficFilter("sticky-second-cell sticky-cell bg-light-gray"),
-      new SearchTrafficFilter("", "Trace Id"),
-      new SearchListTrafficFilter("", "Application"),
-      new SearchTrafficFilter("", "Authorized Subscribers"),
-      new TimestampTrafficFilter("", "Timestamp"),
-      new SearchTrafficFilter("", "Status"),
-      new SearchTrafficFilter("", "Status Description"),
-      new EmptyTrafficFilter("", ""),
+      new EmptyTrafficFilter("sticky-cell bg-light-gray", "Webhook_Filter1"),
+      new EmptyTrafficFilter("sticky-second-cell sticky-cell bg-light-gray", "Webhook_Filter2"),
+      new SearchTrafficFilter("", "Webhook_Trace_Id_Filter", "Trace Id"),
+      new SearchListTrafficFilter("", "Webhook_Application_Filter", "Application"),
+      new SearchTrafficFilter("", "Webhook_Authorized_Subscribers_Filter", "Authorized Subscribers"),
+      new TimestampTrafficFilter("", "Webhook_Timestamp_Filter", "Timestamp"),
+      new SearchTrafficFilter("", "Webhook_Status_Filter", "Status"),
+      new EmptyTrafficFilter("", "Webhook_Filter2"),
     ]
   }
 
@@ -108,21 +100,20 @@ export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span
       new SubscribersColumn(),
       new TimestampColumn(),
       new StatusColumn(),
-      new StatusDescriptionColumn(),
     ];
   }
 
   get detailHeaders(): Array<TrafficTableHeader> {
     return [
-      new SimpleTrafficTableHeader("Span Id"),
-      new SimpleTrafficTableHeader("Company"),
-      new SimpleTrafficTableHeader("Application"),
-      new SimpleTrafficTableHeader("Callback URL"),
-      new SimpleTrafficTableHeader("Timestamp"),
-      new SimpleTrafficTableHeader("Response code"),
-      new SimpleTrafficTableHeader("Status"),
-      new SimpleTrafficTableHeader("Tries"),
-      new SimpleTrafficTableHeader("")
+      new SimpleTrafficTableHeader("Span Id", "Webhook_Span_Id_Header"),
+      new SimpleTrafficTableHeader("Company", "Webhook_Company_Header"),
+      new SimpleTrafficTableHeader("Application", "Webhook_Application_Header"),
+      new SimpleTrafficTableHeader("Callback URL", "Webhook_Callback_Header"),
+      new SimpleTrafficTableHeader("Timestamp", "Webhook_Timestamp_Header"),
+      new SimpleTrafficTableHeader("Response code", "Webhook_Response_Code_Header"),
+      new SimpleTrafficTableHeader("Status", "Webhook_Status_Header"),
+      new SimpleTrafficTableHeader("Tries", "Webhook_Tries_Header"),
+      new SimpleTrafficTableHeader("", "Webhook_Header1")
     ]
   }
 

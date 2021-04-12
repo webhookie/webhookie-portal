@@ -182,4 +182,16 @@ export class TrafficTableComponent implements OnInit {
 
     return EMPTY
   }
+
+  trackByHeader(index: number, filter: TrafficTableHeader) {
+    return filter.name;
+  }
+
+  trackByFilter(index: number, filter: TrafficTableFilter) {
+    return filter.name;
+  }
+
+  trackByData(index: number, data: TrafficData): string {
+    return data.id
+  }
 }

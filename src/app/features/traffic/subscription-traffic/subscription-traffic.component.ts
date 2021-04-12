@@ -25,7 +25,6 @@ import {
   WebhookColumn
 } from "./span-columns";
 import {TrafficTable} from "../common/traffic-table/traffic-table";
-import {Trace} from "../model/trace";
 
 @Component({
   selector: 'app-subscription-traffic',
@@ -52,38 +51,34 @@ export class SubscriptionTrafficComponent implements OnInit, TrafficTable<Span, 
       .subscribe(it => this._spans$.next(it));
   }
 
-  spans$(): Observable<Array<Span>> {
-    return this._spans$.asObservable();
-  }
-
   get tableHeaders(): Array<TrafficTableHeader> {
     return [
-      new SelectableTrafficHeader("sticky-cell"),
-      new SortableTrafficHeader("Trace Id"),
-      new SortableTrafficHeader("Application"),
-      new SortableTrafficHeader("Webhook"),
-      new SortableTrafficHeader("Callback URL"),
-      new SortableTrafficHeader("Timestamp"),
-      new SortableTrafficHeader("Span Id"),
-      new SortableTrafficHeader("Response Code"),
-      new SortableTrafficHeader("Status"),
-      new SortableTrafficHeader("Tries"),
+      new SelectableTrafficHeader("sticky-cell", "Subscription_Select_Header"),
+      new SortableTrafficHeader("Trace Id", "Subscription_Trace_Id_Header"),
+      new SortableTrafficHeader("Application", "Subscription_Application_Header"),
+      new SortableTrafficHeader("Webhook", "Subscription_Webhook_Header"),
+      new SortableTrafficHeader("Callback URL", "Subscription_Callback_Header"),
+      new SortableTrafficHeader("Timestamp", "Subscription_Timestamp_Header"),
+      new SortableTrafficHeader("Span Id", "Subscription_Span_Id_Header"),
+      new SortableTrafficHeader("Response Code", "Subscription_Response_Code_Header"),
+      new SortableTrafficHeader("Status", "Subscription_Status_Header"),
+      new SortableTrafficHeader("Tries", "Subscription_Tries_Header"),
     ]
   }
 
   get tableFilters(): Array<TrafficTableFilter> {
     return [
-      new EmptyTrafficFilter("sticky-cell bg-light-gray"),
-      new SearchTrafficFilter("", "Trace Id"),
-      new SearchTrafficFilter("", "Application"),
-      new SearchListTrafficFilter("", "Webhook"),
-      new SearchListTrafficFilter("", "Callback Url"),
-      new TimestampTrafficFilter("", "Timestamp"),
-      new SearchTrafficFilter("", "Span Id"),
-      new SearchTrafficFilter("", "Response Code"),
-      new SearchTrafficFilter("", "Status"),
-      new EmptyTrafficFilter("", ""),
-      new EmptyTrafficFilter("", ""),
+      new EmptyTrafficFilter("sticky-cell bg-light-gray", "Subscription_Filter1"),
+      new SearchTrafficFilter("", "Subscription_Trace_Id_Filter", "Trace Id"),
+      new SearchTrafficFilter("", "Subscription_Application_Filter", "Application"),
+      new SearchListTrafficFilter("", "Subscription_Webhook_Filter", "Webhook"),
+      new SearchListTrafficFilter("", "Subscription_Callback_Url_Filter", "Callback Url"),
+      new TimestampTrafficFilter("", "Subscription_Timestamp_Filter", "Timestamp"),
+      new SearchTrafficFilter("", "Subscription_Span_Id_Filter", "Span Id"),
+      new SearchTrafficFilter("", "Subscription_Response_Code_Filter", "Response Code"),
+      new SearchTrafficFilter("", "Subscription_Status_Filter", "Status"),
+      new EmptyTrafficFilter("", "Subscription_Filter2", ""),
+      new EmptyTrafficFilter("", "Subscription_Filter3", ""),
     ]
   }
 
