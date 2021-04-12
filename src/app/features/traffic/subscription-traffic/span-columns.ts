@@ -1,9 +1,10 @@
 import {BaseTrafficColumn, NumberTrafficColumn} from "../common/traffic-table/column/traffic-table-column";
 import {Span} from "../model/span";
+import {StringUtils} from "../../../shared/string-utils";
 
 export class TraceIdColumn extends BaseTrafficColumn<Span>{
   value(data: Span): string {
-    return data.traceId;
+    return StringUtils.truncatedUUID(data.traceId);
   }
 }
 
@@ -33,7 +34,7 @@ export class TimestampColumn extends BaseTrafficColumn<Span>{
 
 export class SpanIdColumn extends BaseTrafficColumn<Span>{
   value(data: Span): string {
-    return data.spanId;
+    return StringUtils.truncatedUUID(data.spanId);
   }
 }
 
