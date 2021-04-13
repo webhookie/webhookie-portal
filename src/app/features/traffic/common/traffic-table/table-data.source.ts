@@ -14,78 +14,78 @@ import {MoreDataTrafficColumn} from "./column/more-data-traffic-column";
 import {SelectableTrafficColumn} from "./column/selectable-traffic-column";
 
 export class TableDataSource {
-    data: Array<TrafficData> = [];
+  data: Array<TrafficData> = [];
 
-    update(data: TrafficData[]) {
-        this.data = data;
+  update(data: TrafficData[]) {
+    this.data = data;
+  }
+
+  isMasterData(item: TrafficData) {
+    return item instanceof TrafficMasterData
+  }
+
+  details(item: TrafficData): Observable<Array<TrafficDetailData>> {
+    if (item instanceof TrafficMasterData) {
+      return item.details
     }
 
-    isMasterData(item: TrafficData) {
-        return item instanceof TrafficMasterData
-    }
+    return EMPTY
+  }
 
-    details(item: TrafficData): Observable<Array<TrafficDetailData>> {
-        if (item instanceof TrafficMasterData) {
-            return item.details
-        }
+  trackByHeader(index: number, filter: TrafficTableHeader) {
+    return filter.name;
+  }
 
-        return EMPTY
-    }
+  trackByFilter(index: number, filter: TrafficTableFilter) {
+    return filter.name;
+  }
 
-    trackByHeader(index: number, filter: TrafficTableHeader) {
-        return filter.name;
-    }
+  trackByData(index: number, item: TrafficData): string {
+    return item.id
+  }
 
-    trackByFilter(index: number, filter: TrafficTableFilter) {
-        return filter.name;
-    }
+  trackByColumn(index: number, item: TrafficTableColumn): string {
+    return `${index} -- ${item.name}`
+  }
 
-    trackByData(index: number, item: TrafficData): string {
-        return item.id
-    }
+  trackByDetailHeader(index: number, item: TrafficTableHeader): string {
+    return item.name
+  }
 
-    trackByColumn(index: number, item: TrafficTableColumn): string {
-        return `${index} -- ${item.name}`
-    }
+  trackByDetailData(index: number, item: TrafficData): string {
+    return item.id
+  }
 
-    trackByDetailHeader(index: number, item: TrafficTableHeader): string {
-        return item.name
-    }
-
-    trackByDetailData(index: number, item: TrafficData): string {
-        return item.id
-    }
-
-    trackByDetailColumn(index: number, item: TrafficTableColumn): string {
-        return item.name
-    }
+  trackByDetailColumn(index: number, item: TrafficTableColumn): string {
+    return item.name
+  }
 
 
-    isSelectableHeader(header: TrafficTableHeader) {
-        return header instanceof SelectableTrafficHeader
-    }
+  isSelectableHeader(header: TrafficTableHeader) {
+    return header instanceof SelectableTrafficHeader
+  }
 
-    isSortableHeader(header: TrafficTableHeader) {
-        return header instanceof SortableTrafficHeader
-    }
+  isSortableHeader(header: TrafficTableHeader) {
+    return header instanceof SortableTrafficHeader
+  }
 
-    isSearchFilter(filter: TrafficTableFilter) {
-        return filter instanceof SearchTrafficFilter
-    }
+  isSearchFilter(filter: TrafficTableFilter) {
+    return filter instanceof SearchTrafficFilter
+  }
 
-    isSearchListFilter(filter: TrafficTableFilter) {
-        return filter instanceof SearchListTrafficFilter
-    }
+  isSearchListFilter(filter: TrafficTableFilter) {
+    return filter instanceof SearchListTrafficFilter
+  }
 
-    isTimestampFilter(filter: TrafficTableFilter) {
-        return filter instanceof TimestampTrafficFilter
-    }
+  isTimestampFilter(filter: TrafficTableFilter) {
+    return filter instanceof TimestampTrafficFilter
+  }
 
-    isMoreDataColumn(column: TrafficTableColumn) {
-        return column instanceof MoreDataTrafficColumn
-    }
+  isMoreDataColumn(column: TrafficTableColumn) {
+    return column instanceof MoreDataTrafficColumn
+  }
 
-    isSelectableColumn(column: TrafficTableColumn) {
-        return column instanceof SelectableTrafficColumn
-    }
+  isSelectableColumn(column: TrafficTableColumn) {
+    return column instanceof SelectableTrafficColumn
+  }
 }
