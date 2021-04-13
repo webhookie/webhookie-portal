@@ -1,23 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import * as $ from 'jquery';
-import {BsLocaleService} from 'ngx-bootstrap/datepicker';
-import {defineLocale} from 'ngx-bootstrap/chronos';
-import {enGbLocale} from 'ngx-bootstrap/locale';
-import {TrafficTableHeader} from "./header/traffic-table-header";
-import {SelectableTrafficHeader} from "./header/selectable-traffic-header";
-import {SortableTrafficHeader} from "./header/sortable-traffic-header";
-import {TrafficTableFilter} from "./filter/traffic-table-filter";
-import {SearchTrafficFilter} from "./filter/search-traffic-filter";
-import {SearchListTrafficFilter} from "./filter/search-list-traffic-filter";
-import {TimestampTrafficFilter} from "./filter/timestamp-traffic-filter";
-import {TrafficTableColumn} from "./column/traffic-table-column";
-import {MoreDataTrafficColumn} from "./column/more-data-traffic-column";
-import {SelectableTrafficColumn} from "./column/selectable-traffic-column";
 import {TrafficTable} from "./traffic-table";
 import {TrafficMasterData} from "../traffic-master-data";
-import {TrafficDetailData} from "../traffic-detail-data";
 import {TrafficData} from "../traffic-data";
-import {EMPTY, Observable} from "rxjs";
+import {TableDataSource} from "./table-data.source";
 
 @Component({
   selector: 'app-traffic-table',
@@ -28,14 +13,10 @@ export class TrafficTableComponent implements OnInit {
   // @ts-ignore
   @Input("component") table: TrafficTable
 
-  start: number = 0;
-  limit: number = 8;
-  end: number = this.limit + this.start;
-  showFilter:boolean=false;
-  startDate: Date=new Date();
-  endDate: Date=new Date();
-  startTime: Date=new Date();
-  dataSource: Array<TrafficData>=[];
+  dataSource: TableDataSource = new TableDataSource();
+
+  showFilter: boolean = false;
+
   dataArr:any=[
     {id:1,name:"Volvo cars"},
     {id:2,name:"Ericsion"},
@@ -43,23 +24,17 @@ export class TrafficTableComponent implements OnInit {
   ];
   selectArr:any=[];
   selectAll:boolean=false;
-  constructor(private localeService: BsLocaleService) {
-    enGbLocale.weekdaysShort = ["S", "M", "T", "W", "T", "F", "S"];
-    defineLocale("en-gb", enGbLocale);
+
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.localeService.use('en');
     window.addEventListener('scroll', this.onTableScroll, true);
 
     this.table.tableData
       .subscribe((it:Array<TrafficData>) =>{
-        this.dataSource = it.slice(0, this.end)
+        this.dataSource.update(it);
       });
-    this.updateIndex();
-    $(".time_dropdown").on("click", function(){
-        $(".bottom").hide();
-    });
 
     this.table.loadData();
   }
@@ -81,11 +56,6 @@ export class TrafficTableComponent implements OnInit {
       // this.dataSource = this.dataSource.concat(data);
       // this.updateIndex();
     }
-  }
-
-  updateIndex() {
-    this.start = this.end;
-    this.end = this.limit + this.start;
   }
 
   selectedItems(id:any){
@@ -114,34 +84,6 @@ export class TrafficTableComponent implements OnInit {
     return  (index >= 0);
   }
 
-  isSelectableHeader(header: TrafficTableHeader) {
-    return header instanceof SelectableTrafficHeader
-  }
-
-  isSortableHeader(header: TrafficTableHeader) {
-    return header instanceof SortableTrafficHeader
-  }
-
-  isSearchFilter(filter: TrafficTableFilter) {
-    return filter instanceof SearchTrafficFilter
-  }
-
-  isSearchListFilter(filter: TrafficTableFilter) {
-    return filter instanceof SearchListTrafficFilter
-  }
-
-  isTimestampFilter(filter: TrafficTableFilter) {
-    return filter instanceof TimestampTrafficFilter
-  }
-
-  isMoreDataColumn(column: TrafficTableColumn) {
-    return column instanceof MoreDataTrafficColumn
-  }
-
-  isSelectableColumn(column: TrafficTableColumn) {
-    return column instanceof SelectableTrafficColumn
-  }
-
   rowStatusArrow(data: TrafficData) {
     if(data instanceof TrafficMasterData) {
       return data.isOpen ? "assets/images/Chevron_down.svg" : "assets/images/Chevron.svg"
@@ -149,44 +91,5 @@ export class TrafficTableComponent implements OnInit {
 
     return "assets/images/Chevron_down.svg"
   }
-
-  isMasterData(data: TrafficData) {
-    return data instanceof TrafficMasterData
-  }
-
-  details(data: TrafficData): Observable<Array<TrafficDetailData>> {
-    if(data instanceof TrafficMasterData) {
-      return data.details
-    }
-
-    return EMPTY
-  }
-
-  trackByHeader(index: number, filter: TrafficTableHeader) {
-    return filter.name;
-  }
-
-  trackByFilter(index: number, filter: TrafficTableFilter) {
-    return filter.name;
-  }
-
-  trackByData(index: number, data: TrafficData): string {
-    return data.id
-  }
-
-  trackByColumn(index: number, data: TrafficTableColumn): string {
-    return `${index} -- ${data.name}`
-  }
-
-  trackByDetailHeader(index: number, data: TrafficTableHeader): string {
-    return data.name
-  }
-
-  trackByDetailData(index: number, data: TrafficData): string {
-    return data.id
-  }
-
-  trackByDetailColumn(index: number, data: TrafficTableColumn): string {
-    return data.name
-  }
 }
+

@@ -1,6 +1,6 @@
 <div class="common-table">
   <div class="number d-flex justify-content-between mb-3 align-items-center">
-    <h5 class="font12 font-weight-600 mb-0">{{dataSource.length}} rows</h5>
+    <h5 class="font12 font-weight-600 mb-0">{{dataSource.data.length}} rows</h5>
     <div class="resend d-flex align-items-center">
       <h5 class="font12 font-weight-600 mb-0 mr-3">{{table.selectedRows.length}} Items selected</h5>
       <button class="btn btn-primary" [ngClass]="table.disabledIfZeroSelection">Resend message</button>
@@ -12,9 +12,9 @@
     <table class="table table-borderless border-0">
       <thead class="font14 font-weight-600">
       <tr class="sticky-header">
-        <th *ngFor="let header of table.headers; trackBy:trackByHeader" scope="col" [ngClass]="header.clazz">{{header.title}}
-          <img *ngIf="isSelectableHeader(header)" src="assets/images/Checkbox-minus.svg" class="ml-0" alt="minus">
-          <a *ngIf="isSortableHeader(header)"  href="javascript:void(0)" class="dropdown-toggle hide-after">
+        <th *ngFor="let header of table.headers; trackBy:dataSource.trackByHeader" scope="col" [ngClass]="header.clazz">{{header.title}}
+          <img *ngIf="dataSource.isSelectableHeader(header)" src="assets/images/Checkbox-minus.svg" class="ml-0" alt="minus">
+          <a *ngIf="dataSource.isSortableHeader(header)"  href="javascript:void(0)" class="dropdown-toggle hide-after">
             <img src="assets/images/Double_chevron.svg" alt="chevron">
           </a>
         </th>
@@ -28,8 +28,8 @@
       </thead>
       <tbody>
       <tr class="collapse" id="filters_collapse_wrapper">
-        <td *ngFor="let filter of table.filters;  let i = index; trackBy:trackByFilter" [ngClass]="filter.clazz" >
-          <form *ngIf="isSearchFilter(filter)" class="form-inline search-small">
+        <td *ngFor="let filter of table.filters;  let i = index; trackBy:dataSource.trackByFilter" [ngClass]="filter.clazz" >
+          <form *ngIf="dataSource.isSearchFilter(filter)" class="form-inline search-small">
             <div class="input-group mw-180">
               <input type="text" placeholder="Search..." class="form-control border-right-0">
               <div class="input-group-append">
@@ -38,7 +38,7 @@
               </div>
             </div>
           </form>
-          <div *ngIf="isSearchListFilter(filter)" class="dropdown">
+          <div *ngIf="dataSource.isSearchListFilter(filter)" class="dropdown">
             <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 mw-180"
                     data-toggle="dropdown">
               {{selectArr.length > 0 ? selectArr.length + ' applications selected' : 'Select '}}
@@ -69,7 +69,7 @@
             </form>
           </div>
 
-          <form *ngIf="isTimestampFilter(filter)" class="form-inline search-small">
+          <form *ngIf="dataSource.isTimestampFilter(filter)" class="form-inline search-small">
             <div class="d-flex align-items-center">
               <div class="mx-2">From</div>
               <app-datepicker></app-datepicker>
@@ -85,14 +85,14 @@
 
       </tr>
       <!-- main-table -->
-      <ng-container *ngFor="let data of dataSource;let i=index; trackBy:trackByData" (scroll)="onTableScroll($event)">
+      <ng-container *ngFor="let data of dataSource.data;let i=index; trackBy:dataSource.trackByData" (scroll)="onTableScroll($event)">
         <tr class="sticky-header">
-          <td *ngFor="let column of table.columns; trackBy:trackByColumn" [ngClass]="column.clazz">
-            <a *ngIf="isMoreDataColumn(column)" href="javascript:void(0)" (click)="table.loadDetails(data)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
+          <td *ngFor="let column of table.columns; trackBy:dataSource.trackByColumn" [ngClass]="column.clazz">
+            <a *ngIf="dataSource.isMoreDataColumn(column)" href="javascript:void(0)" (click)="table.loadDetails(data)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
                class="clickable">
               <img [src]="rowStatusArrow(data)" src="assets/images/Chevron.svg" alt="down">
             </a>
-            <div *ngIf="isSelectableColumn(column)" class="custom-control custom-checkbox">
+            <div *ngIf="dataSource.isSelectableColumn(column)" class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="table.rowSelectionChanged(column, data, $event)">
               <label class="custom-control-label" for="check1{{i}}"></label>
             </div>
@@ -112,19 +112,19 @@
             </div>
           </td>
         </tr>
-        <tr id="more_details{{i}}" class="collapse border-0" *ngIf="isMasterData(data)">
+        <tr id="more_details{{i}}" class="collapse border-0" *ngIf="dataSource.isMasterData(data)">
 
           <td colspan="30" class="position-relative">
             <app-spinner class="spinner" *ngIf="data.isLoading"></app-spinner>
             <table class="collapse-table">
               <thead>
                 <tr class="border-0">
-                  <th *ngFor="let header of table.detailHeaders; trackBy:trackByDetailHeader">{{header.title}}</th>
+                  <th *ngFor="let header of table.detailHeaders; trackBy:dataSource.trackByDetailHeader">{{header.title}}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let detailData of details(data) | async;let i=index; trackBy:trackByDetailData">
-                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:trackByDetailColumn">{{detailColumn.value(detailData)}}</td>
+                <tr *ngFor="let detailData of dataSource.details(data) | async;let i=index; trackBy:dataSource.trackByDetailData">
+                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn">{{detailColumn.value(detailData)}}</td>
                   <td class="text-right"><img src="assets/images/provider-menu.svg" alt="menu"></td>
                 </tr>
               </tbody>
