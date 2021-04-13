@@ -13,6 +13,8 @@ import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { DateTimePickerComponent } from './components/date-time-picker/date-time-picker.component';
+
+import { SortButtonsComponent } from './components/sort-buttons/sort-buttons.component';
 let apiProvider;
 if (environment.mock) {
   console.warn("Using MOCK API!!! make sure to remove this in production")
@@ -22,7 +24,7 @@ if (environment.mock) {
 }
 
 @NgModule({
-  declarations: [SpinnerComponent, DatepickerComponent, TimepickerComponent, DateTimePickerComponent],
+  declarations: [SpinnerComponent, DatepickerComponent, TimepickerComponent, DateTimePickerComponent, SortButtonsComponent],
   imports: [
     FormsModule,
     CommonModule,
@@ -37,6 +39,7 @@ if (environment.mock) {
     DateTimePickerComponent,
     DatepickerComponent,
     TimepickerComponent,
+    SortButtonsComponent,
     CommonModule,
     RouterModule
   ],

@@ -1,0 +1,16 @@
+.sort_icons{
+    display: inline-flex;
+    flex-direction: column;
+}
+.sort_icons a, .sort_icons a i, .sort_icons a i::before {
+    height: 8px;
+    display: block;
+    vertical-align: top;
+    line-height: normal;
+}
+a:hover {
+    text-decoration: none !important;
+}
+.rotate180{
+    transform:rotate(180deg);
+}
