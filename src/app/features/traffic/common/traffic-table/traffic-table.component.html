@@ -2,8 +2,8 @@
   <div class="number d-flex justify-content-between mb-3 align-items-center">
     <h5 class="font12 font-weight-600 mb-0">{{dataSource.length}} rows</h5>
     <div class="resend d-flex align-items-center">
-      <h5 class="font12 font-weight-600 mb-0 mr-3">{{selectedRows.length}} Items selected</h5>
-      <button class="btn btn-primary" [ngClass]="disabledIfZeroSelection">Resend message</button>
+      <h5 class="font12 font-weight-600 mb-0 mr-3">{{table.selectedRows.length}} Items selected</h5>
+      <button class="btn btn-primary" [ngClass]="table.disabledIfZeroSelection">Resend message</button>
     </div>
   </div>
 </div>
@@ -12,7 +12,7 @@
     <table class="table table-borderless border-0">
       <thead class="font14 font-weight-600">
       <tr class="sticky-header">
-        <th *ngFor="let header of headers; trackBy:trackByHeader" scope="col" [ngClass]="header.clazz">{{header.title}}
+        <th *ngFor="let header of table.headers; trackBy:trackByHeader" scope="col" [ngClass]="header.clazz">{{header.title}}
           <img *ngIf="isSelectableHeader(header)" src="assets/images/Checkbox-minus.svg" class="ml-0" alt="minus">
           <a *ngIf="isSortableHeader(header)"  href="javascript:void(0)" class="dropdown-toggle hide-after">
             <img src="assets/images/Double_chevron.svg" alt="chevron">
@@ -28,7 +28,7 @@
       </thead>
       <tbody>
       <tr class="collapse" id="filters_collapse_wrapper">
-        <td *ngFor="let filter of filters;  let i = index; trackBy:trackByFilter" [ngClass]="filter.clazz" >
+        <td *ngFor="let filter of table.filters;  let i = index; trackBy:trackByFilter" [ngClass]="filter.clazz" >
           <form *ngIf="isSearchFilter(filter)" class="form-inline search-small">
             <div class="input-group mw-180">
               <input type="text" placeholder="Search..." class="form-control border-right-0">
@@ -87,13 +87,13 @@
       <!-- main-table -->
       <ng-container *ngFor="let data of dataSource;let i=index; trackBy:trackByData" (scroll)="onTableScroll($event)">
         <tr class="sticky-header">
-          <td *ngFor="let column of columns; trackBy:trackByColumn" [ngClass]="column.clazz">
-            <a *ngIf="isMoreDataColumn(column)" href="javascript:void(0)" (click)="loadDetails(data)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
+          <td *ngFor="let column of table.columns; trackBy:trackByColumn" [ngClass]="column.clazz">
+            <a *ngIf="isMoreDataColumn(column)" href="javascript:void(0)" (click)="table.loadDetails(data)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
                class="clickable">
               <img [src]="rowStatusArrow(data)" src="assets/images/Chevron.svg" alt="down">
             </a>
             <div *ngIf="isSelectableColumn(column)" class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="itemChanged(column, data, $event)">
+              <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="table.rowSelectionChanged(column, data, $event)">
               <label class="custom-control-label" for="check1{{i}}"></label>
             </div>
             {{column.value(data)}}
@@ -119,12 +119,12 @@
             <table class="collapse-table">
               <thead>
                 <tr class="border-0">
-                  <th *ngFor="let header of detailHeaders; trackBy:trackByDetailHeader">{{header.title}}</th>
+                  <th *ngFor="let header of table.detailHeaders; trackBy:trackByDetailHeader">{{header.title}}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let detailData of details(data) | async;let i=index; trackBy:trackByDetailData">
-                  <td *ngFor="let detailColumn of detailColumns; trackBy:trackByDetailColumn">{{detailColumn.value(detailData)}}</td>
+                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:trackByDetailColumn">{{detailColumn.value(detailData)}}</td>
                   <td class="text-right"><img src="assets/images/provider-menu.svg" alt="menu"></td>
                 </tr>
               </tbody>

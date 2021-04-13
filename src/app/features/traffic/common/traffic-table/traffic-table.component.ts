@@ -25,16 +25,8 @@ import {EMPTY, Observable} from "rxjs";
   styleUrls: ['./traffic-table.component.css']
 })
 export class TrafficTableComponent implements OnInit {
-  @Input("headers") headers: Array<TrafficTableHeader> = []
-  @Input("filters") filters: Array<TrafficTableFilter> = []
-  @Input("columns") columns: Array<TrafficTableColumn> = []
-  @Input("detailHeaders") detailHeaders: Array<TrafficTableHeader> = []
-  @Input("detailColumns") detailColumns: Array<TrafficTableColumn> = []
-
   // @ts-ignore
   @Input("component") table: TrafficTable
-
-  selectedRows: Array<string> = [];
 
   start: number = 0;
   limit: number = 8;
@@ -42,9 +34,7 @@ export class TrafficTableComponent implements OnInit {
   showFilter:boolean=false;
   startDate: Date=new Date();
   endDate: Date=new Date();
-  timepickerVisible = false;
   startTime: Date=new Date();
-  endTime: Date=new Date();
   dataSource: Array<TrafficData>=[];
   dataArr:any=[
     {id:1,name:"Volvo cars"},
@@ -72,10 +62,6 @@ export class TrafficTableComponent implements OnInit {
     });
 
     this.table.loadData();
-  }
-
-  onDateChange(newDate: Date) {
-    console.log(newDate);
   }
 
   ngOnDestroy() {
@@ -123,9 +109,9 @@ export class TrafficTableComponent implements OnInit {
   }
 
   checkedItem(val:any){
-    this.selectAll=(this.dataArr.length==this.selectArr.length)?true:false;
+    this.selectAll=(this.dataArr.length == this.selectArr.length);
     let index=this.selectArr.findIndex((res:any)=>res==val.id);
-    return  (index>=0)?true:false;
+    return  (index >= 0);
   }
 
   isSelectableHeader(header: TrafficTableHeader) {
@@ -156,18 +142,9 @@ export class TrafficTableComponent implements OnInit {
     return column instanceof SelectableTrafficColumn
   }
 
-  loadDetails(data: TrafficData) {
-    if(data instanceof TrafficMasterData) {
-      this.table.loadDetails(data)
-        .subscribe((it: Array<TrafficDetailData>) => {
-          data.update(it);
-        });
-    }
-  }
-
   rowStatusArrow(data: TrafficData) {
     if(data instanceof TrafficMasterData) {
-      return data.isOpen ? "assets/images/Chevron.svg" : "assets/images/Chevron_down.svg"
+      return data.isOpen ? "assets/images/Chevron_down.svg" : "assets/images/Chevron.svg"
     }
 
     return "assets/images/Chevron_down.svg"
@@ -211,19 +188,5 @@ export class TrafficTableComponent implements OnInit {
 
   trackByDetailColumn(index: number, data: TrafficTableColumn): string {
     return data.name
-  }
-
-  itemChanged(column: TrafficTableColumn, data: TrafficData, $event: Event) {
-    // @ts-ignore
-    let checked: boolean = $event.currentTarget.checked;
-    if(checked) {
-      this.selectedRows.push(data.id);
-    } else {
-      this.selectedRows = this.selectedRows.filter(it => it != data.id);
-    }
-  }
-
-  get disabledIfZeroSelection(): string {
-    return this.selectedRows.length == 0 ? "disabled" : "";
   }
 }

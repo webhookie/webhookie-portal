@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
-import {EMPTY, Observable, ReplaySubject, Subject} from "rxjs";
+import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Span} from "../model/span";
 import {TrafficTableHeader} from "../common/traffic-table/header/traffic-table-header";
 import {SelectableTrafficHeader} from "../common/traffic-table/header/selectable-traffic-header";
@@ -31,7 +31,7 @@ import {TrafficTable} from "../common/traffic-table/traffic-table";
   templateUrl: './subscription-traffic.component.html',
   styleUrls: ['./subscription-traffic.component.css']
 })
-export class SubscriptionTrafficComponent implements OnInit, TrafficTable<Span, Span> {
+export class SubscriptionTrafficComponent extends TrafficTable<Span, Span> implements OnInit {
   private readonly _spans$: Subject<Array<Span>> = new ReplaySubject();
   // @ts-ignore
   @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
@@ -41,6 +41,7 @@ export class SubscriptionTrafficComponent implements OnInit, TrafficTable<Span, 
   constructor(
     private readonly spanService: SpanService,
   ) {
+    super();
   }
 
   ngOnInit(): void {
@@ -51,7 +52,7 @@ export class SubscriptionTrafficComponent implements OnInit, TrafficTable<Span, 
       .subscribe(it => this._spans$.next(it));
   }
 
-  get tableHeaders(): Array<TrafficTableHeader> {
+  get headers(): Array<TrafficTableHeader> {
     return [
       new SelectableTrafficHeader("sticky-cell", "Subscription_Select_Header"),
       new SortableTrafficHeader("Trace Id", "Subscription_Trace_Id_Header"),
@@ -66,7 +67,7 @@ export class SubscriptionTrafficComponent implements OnInit, TrafficTable<Span, 
     ]
   }
 
-  get tableFilters(): Array<TrafficTableFilter> {
+  get filters(): Array<TrafficTableFilter> {
     return [
       new EmptyTrafficFilter("sticky-cell bg-light-gray", "Subscription_Filter1"),
       new SearchTrafficFilter("", "Subscription_Trace_Id_Filter", "Trace Id"),
@@ -82,7 +83,7 @@ export class SubscriptionTrafficComponent implements OnInit, TrafficTable<Span, 
     ]
   }
 
-  get tableColumns(): Array<TrafficTableColumn> {
+  get columns(): Array<TrafficTableColumn> {
     return [
       new SelectableTrafficColumn("sticky-cell", "Subscription_Select_Column"),
       new TraceIdColumn("Subscription_TraceId_Column"),
@@ -94,10 +95,12 @@ export class SubscriptionTrafficComponent implements OnInit, TrafficTable<Span, 
       new ResponseCodeColumn("Subscription_ResponseCode_Column"),
       new StatusColumn("Subscription_Status_Column"),
       new TriesColumn("Subscription_Tries_Column"),
-  ]
+    ]
   }
 
-  loadDetails(data: any): Observable<Array<any>> {
-    return EMPTY;
+  loadDetails(data: any) {
   }
+
+  detailHeaders?: TrafficTableHeader[];
+  detailColumns?: TrafficTableColumn[];
 }

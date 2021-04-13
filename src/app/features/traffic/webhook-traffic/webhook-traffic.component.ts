@@ -39,7 +39,7 @@ import {
   templateUrl: './webhook-traffic.component.html',
   styleUrls: ['./webhook-traffic.component.css']
 })
-export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span> {
+export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implements OnInit {
   // @ts-ignore
   @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
 
@@ -49,14 +49,10 @@ export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span
   constructor(
     private readonly traceService: TraceService
   ) {
+    super();
   }
 
   ngOnInit(): void {
-    // this.traces$()
-    //   .subscribe(it => {
-    //     console.warn(11)
-    //     this.trafficTableComponent.tableData.next(it)
-    //   })
   }
 
   loadData() {
@@ -66,7 +62,7 @@ export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span
       })
   }
 
-  get tableHeaders(): Array<TrafficTableHeader> {
+  get headers(): Array<TrafficTableHeader> {
     return [
       new EmptyTrafficHeader("sticky-cell", "Webhook_Header1"),
       new SelectableTrafficHeader("sticky-cell sticky-second-cell", "Webhook_Header2"),
@@ -78,7 +74,7 @@ export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span
     ]
   }
 
-  get tableFilters(): Array<TrafficTableFilter> {
+  get filters(): Array<TrafficTableFilter> {
     return [
       new EmptyTrafficFilter("sticky-cell bg-light-gray", "Webhook_Filter1"),
       new EmptyTrafficFilter("sticky-second-cell sticky-cell bg-light-gray", "Webhook_Filter2"),
@@ -91,7 +87,7 @@ export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span
     ]
   }
 
-  get tableColumns(): Array<TrafficTableColumn> {
+  get columns(): Array<TrafficTableColumn> {
     return [
       new TraceMoreDataColumn("text-center sticky-cell", "Webhook_More_Column"),
       new SelectableTrafficColumn("sticky-cell sticky-second-cell", "Webhook_Select_Column"),
@@ -130,8 +126,9 @@ export class WebhookTrafficComponent implements OnInit, TrafficTable<Trace, Span
     ]
   }
 
-  loadDetails(data: Trace): Observable<Array<Span>> {
+  loadDetails(data: Trace) {
     data.loading();
-    return this.traceService.readTraceSpans(data.traceId)
+    this.traceService.readTraceSpans(data.traceId)
+      .subscribe(it => data.update(it))
   }
 }
