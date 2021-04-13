@@ -4,7 +4,7 @@ import {TrafficTableHeader} from "./header/traffic-table-header";
 import {TrafficTableFilter} from "./filter/traffic-table-filter";
 import {TrafficTableColumn} from "./column/traffic-table-column";
 
-export abstract class TrafficTable<T, R> {
+export abstract class TrafficTable<T extends TrafficData, R extends TrafficData> {
   abstract headers: Array<TrafficTableHeader>;
   abstract filters: Array<TrafficTableFilter>;
   abstract columns: Array<TrafficTableColumn>;
@@ -18,7 +18,7 @@ export abstract class TrafficTable<T, R> {
 
   selectedRows: Array<string> = [];
 
-  rowSelectionChanged(column: TrafficTableColumn, data: TrafficData, $event: Event) {
+  rowSelectionChanged(column: TrafficTableColumn, data: T, $event: Event) {
     // @ts-ignore
     let checked: boolean = $event.currentTarget.checked;
     if(checked) {
