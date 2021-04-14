@@ -120,5 +120,11 @@ export class TrafficTableComponent implements OnInit {
 
     return {};
   }
+
+  formControl(filter: TrafficTableFilter) {
+    // @ts-ignore
+    let f: FormControl = this.filtersForm.controls[filter.name]
+    return f;
+  }
 }
 
