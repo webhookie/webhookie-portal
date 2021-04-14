@@ -1,0 +1,35 @@
+.dropdown-menu.show {
+
+    border-color: #e1e1e1;
+
+    box-shadow: -1px 1px 7px #00000029;
+
+    border-radius: 0;
+
+    top: 2px !important;
+
+    padding: 12px;
+
+    width: 200px;
+
+}
+
+.custom-control-label::before {
+
+    border-radius: 1px !important;
+
+}
+
+.dropdown-toggle::after {
+
+    content: url("../../../../assets/images/Chevron_down.svg");
+
+    border: none;
+
+}
+
+.dropdown-toggle.active:after{
+
+    content: url("../../../../assets/images/Chevron_down.svg");
+
+  } 
