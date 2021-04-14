@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
-import {Trace} from "../model/trace";
+import {Trace, TraceStatus} from "../model/trace";
 import {SimpleTrafficTableHeader, TrafficTableHeader} from "../common/traffic-table/header/traffic-table-header";
 import {EmptyTrafficHeader} from "../common/traffic-table/header/empty-traffic-header";
 import {SelectableTrafficHeader} from "../common/traffic-table/header/selectable-traffic-header";
@@ -83,7 +83,7 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
       new SearchTrafficFilter("", "topic", "Webhook"),
       new SearchTrafficFilter("", "authorizedSubscribers", "Authorized Subscribers"),
       new TimestampTrafficFilter("", "timestamp", "Timestamp"),
-      new SearchListTrafficFilter("", "status", "Status"),
+      new SearchListTrafficFilter("", "status", "Status", Object.keys(TraceStatus)),
       new EmptyTrafficFilter("", "Webhook_Filter2", ""),
     ]
   }

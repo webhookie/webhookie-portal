@@ -39,7 +39,7 @@
                 </div>
               </div>
             </div>
-            <app-search-list *ngIf="dataSource.isSearchListFilter(filter)"></app-search-list>
+            <app-search-list *ngIf="dataSource.isSearchListFilter(filter)" [list]="filterList(filter)"></app-search-list>
             <div *ngIf="dataSource.isTimestampFilter(filter)" class="form-inline search-small">
               <div class="d-flex align-items-center">
                 <div class="mx-2">From</div>

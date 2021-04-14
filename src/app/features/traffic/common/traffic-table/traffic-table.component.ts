@@ -11,6 +11,7 @@ import {TrafficTableHeader} from "./header/traffic-table-header";
 import {BehaviorSubject} from "rxjs";
 import {TableFilter} from "./filter/table-filter";
 import {SortOrder, TableSort} from "./filter/table-sort";
+import {SearchListTrafficFilter} from "./filter/search-list-traffic-filter";
 
 @Component({
   selector: 'app-traffic-table',
@@ -110,6 +111,14 @@ export class TrafficTableComponent implements OnInit {
     }
     this.currentSort.next(sort)
     this.table.loadData(this.currentFilter.value, sort)
+  }
+
+  filterList(filter: TrafficTableFilter): Array<string> {
+    if(filter instanceof SearchListTrafficFilter) {
+      return filter.list;
+    }
+
+    return [];
   }
 }
 

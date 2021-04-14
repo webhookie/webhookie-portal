@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
-import {Span} from "../model/span";
+import {Span, SpanStatus} from "../model/span";
 import {TrafficTableHeader} from "../common/traffic-table/header/traffic-table-header";
 import {SelectableTrafficHeader} from "../common/traffic-table/header/selectable-traffic-header";
 import {SortableTrafficHeader} from "../common/traffic-table/header/sortable-traffic-header";
@@ -79,7 +79,7 @@ export class SubscriptionTrafficComponent extends TrafficTable<Span, Span> imple
       new TimestampTrafficFilter("", "timestamp", "Timestamp"),
       new SearchTrafficFilter("", "spanId", "Span Id"),
       new SearchTrafficFilter("", "responseCode", "Response Code"),
-      new SearchListTrafficFilter("", "status", "Status"),
+      new SearchListTrafficFilter("", "status", "Status", Object.keys(SpanStatus)),
       new EmptyTrafficFilter("", "Subscription_Filter2", ""),
       new EmptyTrafficFilter("", "Subscription_Filter3", ""),
     ]

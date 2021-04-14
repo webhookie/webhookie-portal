@@ -14,16 +14,16 @@
     </div>
     <div class="dropdown-divider"></div>
     <div class="scrollable-list">
-      <div class="custom-control custom-checkbox" (change)="selectedItems(-1)">
+      <div class="custom-control custom-checkbox" (change)="selectedItems('')">
         <input type="checkbox" class="custom-control-input" id="consumer_4" name="example1"
                [checked]="selectAll">
         <label class="custom-control-label" for="consumer_4">Select All</label>
       </div>
-      <div class="custom-control custom-checkbox" *ngFor="let item of dataArr"
-           (click)="selectedItems(item.id)">
-        <input type="checkbox" class="custom-control-input" id="{{item.id}}" name="example1"
+      <div class="custom-control custom-checkbox" *ngFor="let item of list"
+           (click)="selectedItems(item)">
+        <input type="checkbox" class="custom-control-input" id="{{item}}" name="example1"
                [checked]="checkedItem(item)">
-        <label class="custom-control-label" for="{{item.id}}">{{item.name}}</label>
+        <label class="custom-control-label" for="{{item}}">{{item}}</label>
       </div>
     </div>
   </div>

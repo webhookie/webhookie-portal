@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-search-list',
@@ -6,13 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-list.component.css']
 })
 export class SearchListComponent implements OnInit {
+  @Input("list") list!: Array<string>
+
   selectArr:any=[];
   selectAll:boolean=false;
-  dataArr:any=[
-    {id:1,name:"Volvo cars"},
-    {id:2,name:"Ericsion"},
-    {id:3,name:"Tellia"}
-  ];
 
   constructor() { }
 
@@ -20,13 +17,12 @@ export class SearchListComponent implements OnInit {
   }
 
   selectedItems(id:any){
-    console.log(id);
-    if(id==-1){
+    if(id==""){
       this.selectArr=[];
       if(!this.selectAll){
         this.selectAll=true;
-        this.dataArr.forEach((res:any)=>{
-          this.selectArr.push(res.id);
+        this.list.forEach((res:string)=>{
+          this.selectArr.push(res);
         })
       }
     }else{
@@ -40,8 +36,8 @@ export class SearchListComponent implements OnInit {
   }
 
   checkedItem(val:any){
-    this.selectAll=(this.dataArr.length == this.selectArr.length);
-    let index=this.selectArr.findIndex((res:any)=>res==val.id);
+    this.selectAll=(this.list.length == this.selectArr.length);
+    let index=this.selectArr.findIndex((res:any)=>res==val);
     return  (index >= 0);
   }
 }
