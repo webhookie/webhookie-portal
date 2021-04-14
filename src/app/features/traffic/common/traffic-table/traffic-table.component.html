@@ -9,7 +9,7 @@
 </div>
 <div class="common-table">
   <div id="tbl1" class="table-responsive sticky-table sticky-ltr-cells">
-    <table class="table table-borderless border-0">
+    <table class="table table-borderless border-0 position-relative">
       <thead class="font14 font-weight-600">
       <tr class="sticky-header">
         <th *ngFor="let header of table.headers; trackBy:dataSource.trackByHeader" scope="col" [ngClass]="header.clazz" class="text-nowrap">{{header.title}}
@@ -84,11 +84,6 @@
           </form>
         </td>
       </tr>
-      <tr class="sticky-header" *ngIf="table.isLoadingData">
-        <td colspan="30" class="position-relative">
-          <app-spinner class="spinner"></app-spinner>
-        </td>
-      </tr>
       <!-- main-table -->
       <ng-container *ngFor="let data of dataSource.data;let i=index; trackBy:dataSource.trackByData" (scroll)="onTableScroll($event)">
         <tr class="sticky-header">
@@ -139,6 +134,7 @@
       </ng-container>
       <!-- main-collaspe-close -->
       </tbody>
+      <app-spinner class="spinner" *ngIf="table.isLoadingData"></app-spinner>
     </table>
   </div>
 </div>
