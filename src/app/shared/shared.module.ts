@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from "@angular/router";
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ApiService} from "./api.service";
 import {environment} from "../../environments/environment";
 import {MockApiService} from "./mock/mock-api.service";
@@ -33,7 +33,8 @@ if (environment.mock) {
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
-    PopoverModule.forRoot()
+    PopoverModule.forRoot(),
+    ReactiveFormsModule
   ],
     exports: [
         SpinnerComponent,

@@ -27,9 +27,14 @@ export class SpanService {
     Object.entries(filter)
       .filter(entry => entry[1] != "")
       .forEach(entry => {
-        console.warn(entry);
-        params = params.set(entry[0], entry[1]);
-      })
+        let val = entry[1];
+        if(typeof val === 'string') {
+          params = params.set(entry[0], val);
+        }
+        if(Array.isArray(val)) {
+          params = params.set(entry[0], val.join(","));
+        }
+      });
     params = params.set("size", "20");
     params = params.set("page", "0");
 

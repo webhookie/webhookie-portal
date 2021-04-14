@@ -1,4 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {SearchListTrafficFilter} from "../../../features/traffic/common/traffic-table/filter/search-list-traffic-filter";
+import {TrafficTableFilter} from "../../../features/traffic/common/traffic-table/filter/traffic-table-filter";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-search-list',
@@ -6,7 +9,8 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./search-list.component.css']
 })
 export class SearchListComponent implements OnInit {
-  @Input("list") list!: any;
+  @Input("filter") filter!: TrafficTableFilter
+  @Input() control!: FormControl
 
   selectArr:any=[];
   selectAll:boolean=false;
@@ -33,6 +37,8 @@ export class SearchListComponent implements OnInit {
         this.selectArr.push(id);
       }
     }
+
+    this.control.setValue(this.selectArr);
   }
 
   checkedItem(val:any){
@@ -47,5 +53,12 @@ export class SearchListComponent implements OnInit {
 
   valueOf(key: string): any {
     return this.list[key];
+  }
+
+  get list(): any {
+    if(this.filter instanceof SearchListTrafficFilter) {
+      return this.filter.list;
+    }
+    return {};
   }
 }
