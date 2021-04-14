@@ -33,6 +33,7 @@ import {
   ResponseCodeColumn,
   SpanIdColumn, TriesColumn
 } from "../subscription-traffic/span-columns";
+import {WebhookTrafficFilter} from "../service/webhook-traffic-filter";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -55,7 +56,7 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
   ngOnInit(): void {
   }
 
-  loadData(filters: any) {
+  loadData(filters: WebhookTrafficFilter) {
     this.traceService.readTraces(filters)
       .subscribe(it => {
         this._traces$.next(it)

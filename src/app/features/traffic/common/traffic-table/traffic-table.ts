@@ -3,6 +3,7 @@ import {TrafficData} from "../traffic-data";
 import {TrafficTableHeader} from "./header/traffic-table-header";
 import {TrafficTableFilter} from "./filter/traffic-table-filter";
 import {TrafficTableColumn} from "./column/traffic-table-column";
+import {TableFilter} from "./filter/table-filter";
 
 export abstract class TrafficTable<T extends TrafficData, R extends TrafficData> {
   abstract headers: Array<TrafficTableHeader>;
@@ -14,7 +15,7 @@ export abstract class TrafficTable<T extends TrafficData, R extends TrafficData>
   abstract loadDetails(data: T): void;
   abstract readonly tableData: Observable<Array<TrafficData>>;
 
-  abstract loadData(filters: any): void;
+  abstract loadData(filters: TableFilter): void;
 
   selectedRows: Array<string> = [];
 

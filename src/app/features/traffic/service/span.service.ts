@@ -6,6 +6,7 @@ import {map, tap} from "rxjs/operators";
 import {SpanAdapter} from "./span.adapter";
 import {Span} from "../model/span";
 import {Api} from "../../../shared/api";
+import {SubscriptionTrafficFilter} from "./subscription-traffic-filter";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class SpanService {
   ) {
   }
 
-  readSpans(filters: any): Observable<Span[]> {
+  readSpans(filters: SubscriptionTrafficFilter): Observable<Span[]> {
     let params = new HttpParams();
     if(filters.traceId) {
       params = params.set("traceId", filters.traceId);

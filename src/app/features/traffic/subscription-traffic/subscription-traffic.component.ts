@@ -25,6 +25,7 @@ import {
   WebhookColumn
 } from "./span-columns";
 import {TrafficTable} from "../common/traffic-table/traffic-table";
+import {SubscriptionTrafficFilter} from "../service/subscription-traffic-filter";
 
 @Component({
   selector: 'app-subscription-traffic',
@@ -47,7 +48,7 @@ export class SubscriptionTrafficComponent extends TrafficTable<Span, Span> imple
   ngOnInit(): void {
   }
 
-  loadData(filters: any) {
+  loadData(filters: SubscriptionTrafficFilter) {
     this.spanService.readSpans(filters)
       .subscribe(it => this._spans$.next(it));
   }

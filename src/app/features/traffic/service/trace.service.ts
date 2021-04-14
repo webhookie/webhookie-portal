@@ -8,6 +8,7 @@ import {Api} from "../../../shared/api";
 import {SpanAdapter} from "./span.adapter";
 import {Span} from "../model/span";
 import {Trace} from "../model/trace";
+import {WebhookTrafficFilter} from "./webhook-traffic-filter";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class TraceService {
   ) {
   }
 
-  readTraces(filters: any): Observable<Array<Trace>> {
+  readTraces(filters: WebhookTrafficFilter): Observable<Array<Trace>> {
     let params = new HttpParams();
     if(filters.traceId) {
       params = params.set("traceId", filters.traceId);
