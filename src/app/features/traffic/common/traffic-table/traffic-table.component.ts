@@ -37,6 +37,8 @@ export class TrafficTableComponent implements OnInit {
   ngOnInit(): void {
     window.addEventListener('scroll', this.onTableScroll, true);
 
+    this.table.init();
+
     this.table.tableData
       .subscribe((it:Array<TrafficData>) =>{
         this.dataSource.update(it);
@@ -61,8 +63,7 @@ export class TrafficTableComponent implements OnInit {
     this.filtersForm.valueChanges
       .pipe(debounceTime(500))
       .subscribe(it => {
-        this.table.loadData(it)
-        console.warn(it);
+        this.table.loadData(it);
       });
   }
 

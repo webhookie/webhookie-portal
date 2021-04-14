@@ -84,6 +84,11 @@
           </form>
         </td>
       </tr>
+      <tr class="sticky-header" *ngIf="table.isLoadingData">
+        <td colspan="30" class="position-relative">
+          <app-spinner class="spinner"></app-spinner>
+        </td>
+      </tr>
       <!-- main-table -->
       <ng-container *ngFor="let data of dataSource.data;let i=index; trackBy:dataSource.trackByData" (scroll)="onTableScroll($event)">
         <tr class="sticky-header">

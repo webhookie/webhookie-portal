@@ -11,11 +11,22 @@ export abstract class TrafficTable<T extends TrafficData, R extends TrafficData>
   abstract columns: Array<TrafficTableColumn>;
   abstract detailHeaders?: Array<TrafficTableHeader>;
   abstract detailColumns?: Array<TrafficTableColumn>;
+  private isLoading: boolean = false;
 
   abstract loadDetails(data: T): void;
   abstract readonly tableData: Observable<Array<TrafficData>>;
 
-  abstract loadData(filters: TableFilter): void;
+  abstract fetchData(filters: TableFilter): void;
+
+  init() {
+    this.tableData
+      .subscribe(() => this.isLoading = false);
+  }
+
+  loadData(filters: TableFilter) {
+    this.isLoading = true;
+    this.fetchData(filters);
+  }
 
   selectedRows: Array<string> = [];
 
@@ -31,5 +42,9 @@ export abstract class TrafficTable<T extends TrafficData, R extends TrafficData>
 
   get disabledIfZeroSelection(): string {
     return this.selectedRows.length == 0 ? "disabled" : "";
+  }
+
+  get isLoadingData(): boolean {
+    return this.isLoading
   }
 }

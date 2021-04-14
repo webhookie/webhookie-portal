@@ -56,7 +56,7 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
   ngOnInit(): void {
   }
 
-  loadData(filters: WebhookTrafficFilter) {
+  fetchData(filters: WebhookTrafficFilter) {
     this.traceService.readTraces(filters)
       .subscribe(it => {
         this._traces$.next(it)

@@ -48,7 +48,7 @@ export class SubscriptionTrafficComponent extends TrafficTable<Span, Span> imple
   ngOnInit(): void {
   }
 
-  loadData(filters: SubscriptionTrafficFilter) {
+  fetchData(filters: SubscriptionTrafficFilter) {
     this.spanService.readSpans(filters)
       .subscribe(it => this._spans$.next(it));
   }
