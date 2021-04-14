@@ -25,14 +25,6 @@ export class TrafficTableComponent implements OnInit {
 
   showFilter: boolean = false;
 
-  dataArr:any=[
-    {id:1,name:"Volvo cars"},
-    {id:2,name:"Ericsion"},
-    {id:3,name:"Tellia"}
-  ];
-  selectArr:any=[];
-  selectAll:boolean=false;
-
   constructor(private formBuilder: FormBuilder) {
   }
 
@@ -47,7 +39,7 @@ export class TrafficTableComponent implements OnInit {
     this.table.init();
 
     this.table.tableData
-      .subscribe((it:Array<TrafficData>) =>{
+      .subscribe((it: Array<TrafficData>) => {
         this.dataSource.update(it);
       });
 
@@ -79,8 +71,8 @@ export class TrafficTableComponent implements OnInit {
     window.removeEventListener('scroll', this.onTableScroll, true);
   }
 
-  onTableScroll= (e:any): void => {
-    console.log(e,"hgdjhg");
+  onTableScroll = (e: any): void => {
+    console.log(e, "hgdjhg");
     const tableViewHeight = e.target.scrollingElement.offsetHeight
     const tableScrollHeight = e.target.scrollingElement.scrollHeight
     const scrollLocation = e.target.scrollingElement.scrollTop;
@@ -94,34 +86,8 @@ export class TrafficTableComponent implements OnInit {
     }
   }
 
-  selectedItems(id:any){
-    console.log(id);
-    if(id==-1){
-      this.selectArr=[];
-      if(!this.selectAll){
-        this.selectAll=true;
-        this.dataArr.forEach((res:any)=>{
-          this.selectArr.push(res.id);
-        })
-      }
-    }else{
-      let index=this.selectArr.findIndex((res:any)=>res==id);
-      if(index>=0){
-        this.selectArr.splice(index,1);
-      }else{
-        this.selectArr.push(id);
-      }
-    }
-  }
-
-  checkedItem(val:any){
-    this.selectAll=(this.dataArr.length == this.selectArr.length);
-    let index=this.selectArr.findIndex((res:any)=>res==val.id);
-    return  (index >= 0);
-  }
-
   rowStatusArrow(data: TrafficData) {
-    if(data instanceof TrafficMasterData) {
+    if (data instanceof TrafficMasterData) {
       return data.isOpen ? "assets/images/Chevron_down.svg" : "assets/images/Chevron.svg"
     }
 

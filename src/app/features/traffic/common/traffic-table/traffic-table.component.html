@@ -39,36 +39,7 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="dataSource.isSearchListFilter(filter)" class="dropdown">
-              <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 mw-180"
-                      data-toggle="dropdown">
-                {{selectArr.length > 0 ? selectArr.length + ' applications selected' : 'Select '}}
-              </button>
-              <div class="search-small dropdown-menu multi-select-dropdown mt-0">
-                <div class="input-group">
-                  <input type="text" placeholder="Search..." class="form-control border-right-0">
-                  <div class="input-group-append">
-                    <a href="javascript:void(0)" class="input-group-text bg-white px-2">
-                      <i class="lni lni-search-alt"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="dropdown-divider"></div>
-                <div class="scrollable-list">
-                  <div class="custom-control custom-checkbox" (change)="selectedItems(-1)">
-                    <input type="checkbox" class="custom-control-input" id="consumer_4" name="example1"
-                           [checked]="selectAll">
-                    <label class="custom-control-label" for="consumer_4">Select All</label>
-                  </div>
-                  <div class="custom-control custom-checkbox" *ngFor="let item of dataArr"
-                       (click)="selectedItems(item.id)">
-                    <input type="checkbox" class="custom-control-input" id="{{item.id}}" name="example1"
-                           [checked]="checkedItem(item)">
-                    <label class="custom-control-label" for="{{item.id}}">{{item.name}}</label>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <app-search-list *ngIf="dataSource.isSearchListFilter(filter)"></app-search-list>
             <div *ngIf="dataSource.isTimestampFilter(filter)" class="form-inline search-small">
               <div class="d-flex align-items-center">
                 <div class="mx-2">From</div>

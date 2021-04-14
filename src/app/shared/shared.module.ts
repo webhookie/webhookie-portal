@@ -15,6 +15,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { DateTimePickerComponent } from './components/date-time-picker/date-time-picker.component';
 
 import { SortButtonsComponent } from './components/sort-buttons/sort-buttons.component';
+import { SearchListComponent } from './components/search-list/search-list.component';
 let apiProvider;
 if (environment.mock) {
   console.warn("Using MOCK API!!! make sure to remove this in production")
@@ -24,7 +25,7 @@ if (environment.mock) {
 }
 
 @NgModule({
-  declarations: [SpinnerComponent, DatepickerComponent, TimepickerComponent, DateTimePickerComponent, SortButtonsComponent],
+  declarations: [SpinnerComponent, DatepickerComponent, TimepickerComponent, DateTimePickerComponent, SortButtonsComponent, SearchListComponent],
   imports: [
     FormsModule,
     CommonModule,
@@ -34,15 +35,16 @@ if (environment.mock) {
     TimepickerModule.forRoot(),
     PopoverModule.forRoot()
   ],
-  exports: [
-    SpinnerComponent,
-    DateTimePickerComponent,
-    DatepickerComponent,
-    TimepickerComponent,
-    SortButtonsComponent,
-    CommonModule,
-    RouterModule
-  ],
+    exports: [
+        SpinnerComponent,
+        DateTimePickerComponent,
+        DatepickerComponent,
+        TimepickerComponent,
+        SortButtonsComponent,
+        CommonModule,
+        RouterModule,
+        SearchListComponent
+    ],
   providers: [
     {
       provide: 'Api',
