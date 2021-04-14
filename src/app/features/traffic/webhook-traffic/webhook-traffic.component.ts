@@ -83,7 +83,7 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
       new SearchTrafficFilter("", "topic", "Webhook"),
       new SearchTrafficFilter("", "authorizedSubscribers", "Authorized Subscribers"),
       new TimestampTrafficFilter("", "timestamp", "Timestamp"),
-      new SearchListTrafficFilter("", "status", "Status", Object.keys(TraceStatus)),
+      new SearchListTrafficFilter("", "status", "Status", TraceStatus),
       new EmptyTrafficFilter("", "Webhook_Filter2", ""),
     ]
   }

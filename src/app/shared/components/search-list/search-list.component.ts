@@ -6,7 +6,7 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./search-list.component.css']
 })
 export class SearchListComponent implements OnInit {
-  @Input("list") list!: Array<string>
+  @Input("list") list!: any;
 
   selectArr:any=[];
   selectAll:boolean=false;
@@ -21,7 +21,7 @@ export class SearchListComponent implements OnInit {
       this.selectArr=[];
       if(!this.selectAll){
         this.selectAll=true;
-        this.list.forEach((res:string)=>{
+        this.keys().forEach((res:string)=>{
           this.selectArr.push(res);
         })
       }
@@ -39,5 +39,13 @@ export class SearchListComponent implements OnInit {
     this.selectAll=(this.list.length == this.selectArr.length);
     let index=this.selectArr.findIndex((res:any)=>res==val);
     return  (index >= 0);
+  }
+
+  keys(): Array<string> {
+    return Object.keys(this.list);
+  }
+
+  valueOf(key: string): any {
+    return this.list[key];
   }
 }

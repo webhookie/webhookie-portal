@@ -5,7 +5,7 @@ export class SearchListTrafficFilter extends BaseTrafficTableFilter {
     public clazz: string,
     public name: string,
     public title: string = "",
-    public list: Array<string>
+    public list: any
   ) {
     super(clazz, name, title);
   }

@@ -19,11 +19,11 @@
                [checked]="selectAll">
         <label class="custom-control-label" for="consumer_4">Select All</label>
       </div>
-      <div class="custom-control custom-checkbox" *ngFor="let item of list"
+      <div class="custom-control custom-checkbox" *ngFor="let item of keys()"
            (click)="selectedItems(item)">
         <input type="checkbox" class="custom-control-input" id="{{item}}" name="example1"
                [checked]="checkedItem(item)">
-        <label class="custom-control-label" for="{{item}}">{{item}}</label>
+        <label class="custom-control-label" for="{{item}}">{{valueOf(item)}}</label>
       </div>
     </div>
   </div>

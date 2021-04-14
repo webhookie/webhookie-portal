@@ -113,12 +113,12 @@ export class TrafficTableComponent implements OnInit {
     this.table.loadData(this.currentFilter.value, sort)
   }
 
-  filterList(filter: TrafficTableFilter): Array<string> {
+  filterList(filter: TrafficTableFilter): any {
     if(filter instanceof SearchListTrafficFilter) {
       return filter.list;
     }
 
-    return [];
+    return {};
   }
 }
 

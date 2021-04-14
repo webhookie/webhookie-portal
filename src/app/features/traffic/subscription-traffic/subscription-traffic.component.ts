@@ -79,7 +79,7 @@ export class SubscriptionTrafficComponent extends TrafficTable<Span, Span> imple
       new TimestampTrafficFilter("", "timestamp", "Timestamp"),
       new SearchTrafficFilter("", "spanId", "Span Id"),
       new SearchTrafficFilter("", "responseCode", "Response Code"),
-      new SearchListTrafficFilter("", "status", "Status", Object.keys(SpanStatus)),
+      new SearchListTrafficFilter("", "status", "Status", SpanStatus),
       new EmptyTrafficFilter("", "Subscription_Filter2", ""),
       new EmptyTrafficFilter("", "Subscription_Filter3", ""),
     ]
