@@ -34,6 +34,7 @@ import {
   SpanIdColumn, TriesColumn
 } from "../subscription-traffic/span-columns";
 import {WebhookTrafficFilter} from "../service/webhook-traffic-filter";
+import {TableSort} from "../common/traffic-table/filter/table-sort";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -56,8 +57,8 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
   ngOnInit(): void {
   }
 
-  fetchData(filters: WebhookTrafficFilter) {
-    this.traceService.readTraces(filters)
+  fetchData(filters: WebhookTrafficFilter, sort?: TableSort) {
+    this.traceService.readTraces(filters, sort)
       .subscribe(it => {
         this._traces$.next(it)
       })
@@ -67,11 +68,11 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
     return [
       new EmptyTrafficHeader("sticky-cell", "Webhook_Header1"),
       new SelectableTrafficHeader("sticky-cell sticky-second-cell", "Webhook_Header2"),
-      new SortableTrafficHeader("Trace Id", "Webhook_Trace_Id_Header"),
-      new SortableTrafficHeader("Webhook", "Webhook_Webhook_Header"),
-      new SortableTrafficHeader("Authorized Subscribers", "Webhook_Authorized_Subscribers_Header"),
-      new SortableTrafficHeader("Timestamp", "Webhook_Timestamp_Header"),
-      new SortableTrafficHeader("Status", "Webhook_Status_Header"),
+      new SortableTrafficHeader("Trace Id", "traceId"),
+      new SortableTrafficHeader("Webhook", "topic"),
+      new SortableTrafficHeader("Authorized Subscribers", "consumerMessage.authorizedSubscribers"),
+      new SortableTrafficHeader("Timestamp", "statusUpdate.time"),
+      new SortableTrafficHeader("Status", "statusUpdate.status"),
     ]
   }
 

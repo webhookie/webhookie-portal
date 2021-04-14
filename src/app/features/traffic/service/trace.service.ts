@@ -9,6 +9,7 @@ import {SpanAdapter} from "./span.adapter";
 import {Span} from "../model/span";
 import {Trace} from "../model/trace";
 import {WebhookTrafficFilter} from "./webhook-traffic-filter";
+import {TableSort} from "../common/traffic-table/filter/table-sort";
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +24,19 @@ export class TraceService {
   ) {
   }
 
-  readTraces(filters: WebhookTrafficFilter): Observable<Array<Trace>> {
+  readTraces(filter: WebhookTrafficFilter, sort?: TableSort): Observable<Array<Trace>> {
     let params = new HttpParams();
-    if(filters.traceId) {
-      params = params.set("traceId", filters.traceId);
-    }
-    if(filters.status) {
-      params = params.set("status", filters.status);
+    Object.entries(filter)
+      .filter(entry => entry[1] != "")
+      .forEach(entry => {
+        console.warn(entry);
+        params = params.set(entry[0], entry[1]);
+      })
+    params = params.set("size", "20");
+    params = params.set("page", "0");
+
+    if(sort) {
+      params = params.set("sort", `${sort.field.name},${sort.order}`);
     }
     return this.api.json(this.SPAN_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' traces`)))

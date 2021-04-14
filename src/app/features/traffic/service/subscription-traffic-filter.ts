@@ -1,6 +1,6 @@
 import {TableFilter} from "../common/traffic-table/filter/table-filter";
 
-export class SubscriptionTrafficFilter implements TableFilter{
+export class SubscriptionTrafficFilter extends TableFilter{
   traceId?: string;
   spanId?: string;
   application?: string;

@@ -4,6 +4,7 @@ import {TrafficTableHeader} from "./header/traffic-table-header";
 import {TrafficTableFilter} from "./filter/traffic-table-filter";
 import {TrafficTableColumn} from "./column/traffic-table-column";
 import {TableFilter} from "./filter/table-filter";
+import {TableSort} from "./filter/table-sort";
 
 export abstract class TrafficTable<T extends TrafficData, R extends TrafficData> {
   abstract headers: Array<TrafficTableHeader>;
@@ -16,16 +17,16 @@ export abstract class TrafficTable<T extends TrafficData, R extends TrafficData>
   abstract loadDetails(data: T): void;
   abstract readonly tableData: Observable<Array<TrafficData>>;
 
-  abstract fetchData(filters: TableFilter): void;
+  abstract fetchData(filters: TableFilter, sort?: TableSort): void;
 
   init() {
     this.tableData
       .subscribe(() => this.isLoading = false);
   }
 
-  loadData(filters: TableFilter) {
+  loadData(filters: TableFilter, sort?: TableSort) {
     this.isLoading = true;
-    this.fetchData(filters);
+    this.fetchData(filters, sort);
   }
 
   selectedRows: Array<string> = [];

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-sort-buttons',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sort-buttons.component.css']
 })
 export class SortButtonsComponent implements OnInit {
+  @Output("onAsc") onAsc: EventEmitter<any> = new EventEmitter<any>();
+  @Output("onDesc") onDesc: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 

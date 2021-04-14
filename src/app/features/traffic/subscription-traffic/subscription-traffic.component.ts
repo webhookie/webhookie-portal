@@ -26,6 +26,7 @@ import {
 } from "./span-columns";
 import {TrafficTable} from "../common/traffic-table/traffic-table";
 import {SubscriptionTrafficFilter} from "../service/subscription-traffic-filter";
+import {TableSort} from "../common/traffic-table/filter/table-sort";
 
 @Component({
   selector: 'app-subscription-traffic',
@@ -48,23 +49,23 @@ export class SubscriptionTrafficComponent extends TrafficTable<Span, Span> imple
   ngOnInit(): void {
   }
 
-  fetchData(filters: SubscriptionTrafficFilter) {
-    this.spanService.readSpans(filters)
+  fetchData(filters: SubscriptionTrafficFilter, sort?: TableSort) {
+    this.spanService.readSpans(filters, sort)
       .subscribe(it => this._spans$.next(it));
   }
 
   get headers(): Array<TrafficTableHeader> {
     return [
       new SelectableTrafficHeader("sticky-cell", "Subscription_Select_Header"),
-      new SortableTrafficHeader("Trace Id", "Subscription_Trace_Id_Header"),
-      new SortableTrafficHeader("Application", "Subscription_Application_Header"),
-      new SortableTrafficHeader("Webhook", "Subscription_Webhook_Header"),
-      new SortableTrafficHeader("Callback URL", "Subscription_Callback_Header"),
-      new SortableTrafficHeader("Timestamp", "Subscription_Timestamp_Header"),
-      new SortableTrafficHeader("Span Id", "Subscription_Span_Id_Header"),
-      new SortableTrafficHeader("Response Code", "Subscription_Response_Code_Header"),
-      new SortableTrafficHeader("Status", "Subscription_Status_Header"),
-      new SortableTrafficHeader("Tries", "Subscription_Tries_Header"),
+      new SortableTrafficHeader("Trace Id", "traceId"),
+      new SortableTrafficHeader("Application", "subscription.application.name"),
+      new SortableTrafficHeader("Webhook", "subscription.topic"),
+      new SortableTrafficHeader("Callback URL", "subscription.callback.url"),
+      new SortableTrafficHeader("Timestamp", "lastStatus.time"),
+      new SortableTrafficHeader("Span Id", "spanId"),
+      new SortableTrafficHeader("Response Code", "latestResult.statusCode"),
+      new SortableTrafficHeader("Status", "lastStatus.status"),
+      new SortableTrafficHeader("Tries", "retryHistory.length"),
     ]
   }
 

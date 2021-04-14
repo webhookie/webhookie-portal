@@ -7,6 +7,7 @@ import {SpanAdapter} from "./span.adapter";
 import {Span} from "../model/span";
 import {Api} from "../../../shared/api";
 import {SubscriptionTrafficFilter} from "./subscription-traffic-filter";
+import {TableSort} from "../common/traffic-table/filter/table-sort";
 
 @Injectable({
   providedIn: 'root'
@@ -21,19 +22,19 @@ export class SpanService {
   ) {
   }
 
-  readSpans(filters: SubscriptionTrafficFilter): Observable<Span[]> {
+  readSpans(filter: SubscriptionTrafficFilter, sort?: TableSort): Observable<Span[]> {
     let params = new HttpParams();
-    if(filters.traceId) {
-      params = params.set("traceId", filters.traceId);
-    }
-    if(filters.spanId) {
-      params = params.set("spanId", filters.spanId);
-    }
-    if(filters.application) {
-      params = params.set("application", filters.application);
-    }
-    if(filters.status) {
-      params = params.set("status", filters.status);
+    Object.entries(filter)
+      .filter(entry => entry[1] != "")
+      .forEach(entry => {
+        console.warn(entry);
+        params = params.set(entry[0], entry[1]);
+      })
+    params = params.set("size", "20");
+    params = params.set("page", "0");
+
+    if(sort) {
+      params = params.set("sort", `${sort.field.name},${sort.order}`);
     }
     return this.api.json(this.SPAN_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' spans`)))

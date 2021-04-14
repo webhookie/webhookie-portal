@@ -7,6 +7,10 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TrafficTableFilter} from "./filter/traffic-table-filter";
 import {EmptyTrafficFilter} from "./filter/empty-traffic-filter";
 import {debounceTime} from "rxjs/operators";
+import {TrafficTableHeader} from "./header/traffic-table-header";
+import {BehaviorSubject} from "rxjs";
+import {TableFilter} from "./filter/table-filter";
+import {SortOrder, TableSort} from "./filter/table-sort";
 
 @Component({
   selector: 'app-traffic-table',
@@ -33,6 +37,9 @@ export class TrafficTableComponent implements OnInit {
   }
 
   filtersForm!: FormGroup;
+  currentFilter: BehaviorSubject<TableFilter> = new BehaviorSubject(new class extends TableFilter {})
+  // @ts-ignore
+  currentSort: BehaviorSubject<TableSort> = new BehaviorSubject(null);
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.onTableScroll, true);
@@ -63,7 +70,8 @@ export class TrafficTableComponent implements OnInit {
     this.filtersForm.valueChanges
       .pipe(debounceTime(500))
       .subscribe(it => {
-        this.table.loadData(it);
+        this.currentFilter.next(it)
+        this.table.loadData(it, this.currentSort.value);
       });
   }
 
@@ -118,6 +126,24 @@ export class TrafficTableComponent implements OnInit {
     }
 
     return "assets/images/Chevron_down.svg"
+  }
+
+  sortAsc(header: TrafficTableHeader) {
+    let sort: TableSort = {
+      field: header,
+      order: SortOrder.ASC
+    }
+    this.currentSort.next(sort)
+    this.table.loadData(this.currentFilter.value, sort)
+  }
+
+  sortDesc(header: TrafficTableHeader) {
+    let sort: TableSort = {
+      field: header,
+      order: SortOrder.DESC
+    }
+    this.currentSort.next(sort)
+    this.table.loadData(this.currentFilter.value, sort)
   }
 }
 
