@@ -41,8 +41,8 @@ export abstract class TrafficTable<T extends TrafficData, R extends TrafficData>
     }
   }
 
-  get disabledIfZeroSelection(): string {
-    return this.selectedRows.length == 0 ? "disabled" : "";
+  get emptySelectedRows(): boolean {
+    return this.selectedRows.length == 0
   }
 
   get isLoadingData(): boolean {

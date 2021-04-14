@@ -13,7 +13,8 @@
         <li>
           <button (click)="createSubscription()"
                   [disabled]="!canBeSaved"
-                  [ngClass]="canBeSaved ? 'btn-default' : 'disable-default'"
+                  [class.btn-default]="canBeSaved"
+                  [class.disable-default]="!canBeSaved"
                   class="btn">
             Save
           </button>
@@ -21,6 +22,8 @@
         <li>
           <button (click)="validate()"
                   [disabled]="!canBeValidated"
+                  [class.btn-default]="canBeValidated"
+                  [class.disable-default]="!canBeValidated"
                   [ngClass]="canBeValidated ? 'btn-default' : 'disable-default'"
                   class="btn">
             {{hasResponse ? 'Retest' : 'Test'}}
@@ -29,7 +32,8 @@
         <li>
           <button (click)="activate()"
                   [disabled]="!canBeActivated"
-                  [ngClass]="!canBeActivated ? 'disable-primary' : 'btn-primary'"
+                  [class.btn-primary]="canBeActivated"
+                  [class.disable-primary]="!canBeActivated"
                   class="btn ml-md-2">
             Activate
           </button>

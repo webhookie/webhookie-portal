@@ -1,4 +1,4 @@
-<div [ngClass]="selectedApplication ? '' : 'isDisabled'" class="subscribe-call-back">
+<div [class.isDisabled]="!selectedApplication" class="subscribe-call-back">
   <fieldset class="p-3 mt-3 mr-lg-3">
     <h4 class="font16 font-weight-600">Add a callback URL <b>{{selectedApplication?.name}}</b></h4>
     <p class="font12">Please select or create an application to add your callback URL.</p>
