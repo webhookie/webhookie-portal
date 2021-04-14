@@ -2,17 +2,13 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Trace} from "../model/trace";
-import {
-  SimpleTrafficTableHeader,
-  TrafficTableHeader
-} from "../common/traffic-table/header/traffic-table-header";
+import {SimpleTrafficTableHeader, TrafficTableHeader} from "../common/traffic-table/header/traffic-table-header";
 import {EmptyTrafficHeader} from "../common/traffic-table/header/empty-traffic-header";
 import {SelectableTrafficHeader} from "../common/traffic-table/header/selectable-traffic-header";
 import {SortableTrafficHeader} from "../common/traffic-table/header/sortable-traffic-header";
 import {TrafficTableFilter} from "../common/traffic-table/filter/traffic-table-filter";
 import {EmptyTrafficFilter} from "../common/traffic-table/filter/empty-traffic-filter";
 import {SearchTrafficFilter} from "../common/traffic-table/filter/search-traffic-filter";
-import {SearchListTrafficFilter} from "../common/traffic-table/filter/search-list-traffic-filter";
 import {TimestampTrafficFilter} from "../common/traffic-table/filter/timestamp-traffic-filter";
 import {TrafficTableComponent} from "../common/traffic-table/traffic-table.component";
 import {TrafficTableColumn} from "../common/traffic-table/column/traffic-table-column";
@@ -29,9 +25,11 @@ import {TrafficTable} from "../common/traffic-table/traffic-table";
 import {Span} from "../model/span";
 import {
   ApplicationColumn,
-  CallbackColumn, EntityColumn,
+  CallbackColumn,
+  EntityColumn,
   ResponseCodeColumn,
-  SpanIdColumn, TriesColumn
+  SpanIdColumn,
+  TriesColumn
 } from "../subscription-traffic/span-columns";
 import {WebhookTrafficFilter} from "../service/webhook-traffic-filter";
 import {TableSort} from "../common/traffic-table/filter/table-sort";
@@ -81,7 +79,7 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
       new EmptyTrafficFilter("sticky-cell bg-light-gray", "Webhook_Filter1", ""),
       new EmptyTrafficFilter("sticky-second-cell sticky-cell bg-light-gray", "Webhook_Filter2", ""),
       new SearchTrafficFilter("", "traceId", "Trace Id"),
-      new SearchListTrafficFilter("", "application", "Application"),
+      new SearchTrafficFilter("", "topic", "Webhook"),
       new SearchTrafficFilter("", "authorizedSubscribers", "Authorized Subscribers"),
       new TimestampTrafficFilter("", "timestamp", "Timestamp"),
       new SearchTrafficFilter("", "status", "Status"),
