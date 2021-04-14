@@ -1,0 +1,14 @@
+
+#sidebar-wrapper{
+  background-color: #F4F5F7 !important;
+}
+@media (max-width:767px) {
+  #sidebar-wrapper {
+    margin-left: -260px;
+    transition:all 300ms;
+  }
+  #sidebar-wrapper.active{
+    margin-left:0;
+    transition:all 300ms;
+  }
+}

@@ -1,0 +1,44 @@
+.how-it-works{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+}
+.how-it-works .how-work-inner-column{
+    flex:0 0 18%;
+    max-width:18%;
+    position:relative;
+}
+.how-it-works .how-work-inner-column:last-child::after{
+    display:none;
+}
+.how-it-works .how-work-inner-column::after{
+    content:"";
+    background:url('../../../assets/images/work-arrow1.svg') no-repeat;
+    position: absolute;
+    top: 30%;
+    display: block;
+    height: 45px;
+    left: 100%;
+    width: 110px;
+    text-align: center;
+    background-size: contain;
+}
+.how-it-works .how-work-inner-column.two::after{
+    background:url('../../../assets/images/work-arrow2.svg') no-repeat;
+    background-size: contain;
+}
+.how-it-works .how-work-inner-column.three::after{
+    background:url('../../../assets/images/work-arrow3.svg') no-repeat;
+    background-size: contain;
+}
+
+
+@media (max-width:767px){
+    .how-it-works .how-work-inner-column{
+        flex:0 0 45%;
+        max-width:45%;
+    }
+    .how-it-works .how-work-inner-column::after{
+        display:none;
+    }
+}
