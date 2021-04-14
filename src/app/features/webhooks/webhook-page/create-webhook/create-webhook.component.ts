@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-create-webhook',
@@ -7,10 +8,18 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CreateWebhookComponent implements OnInit {
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit(): void {
+    // $(document).ready(function () {
+    //   $(".btn-warning").click(function () {
+    //     $(this).toggleClass("active").parent().parent().siblings().find('after').removeClass('active')
+    //   });
+    // })
+
+  }
+  title(){
+    return "Create new webhook group"
   }
 
 }

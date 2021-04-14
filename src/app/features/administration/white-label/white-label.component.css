@@ -1,0 +1,116 @@
+.whitelabel_outer_wrapper{
+    display:flex;
+}
+.whitelabel_section{
+    width:100%;
+}
+.whitelabel_edit_wrapper{
+    width:250px;
+    background-color:#F4F5F7;
+    margin-left:20px;
+    padding:1rem;
+}
+.mockup_area{
+    border:1px solid #f1f1f1;
+}
+._container {
+    width: 90%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+header{
+    margin:0 10px;
+}
+nav{
+    border-bottom:1px solid rgba(1,81,204,0.1);
+}
+.btn-small{
+    padding:1px 12px;
+}
+.logo{
+    width:95px;
+}
+.place{
+    min-width: 55px;
+    background-color: #0151CC;
+    display: inline-block;
+    opacity:0.1;
+}
+.place-small{
+    height: 8px;
+}
+.place-long{
+    height: 9px;
+}
+.white{
+    background-color:#fff;
+    opacity:0.5;
+}
+.lh-normal > div {
+    line-height: 12px;
+}
+.carousel_wrapper{
+    background-color: #0151CC;
+}
+.how-it-works{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+}
+.how-it-works .how-work-inner-column{
+    flex:0 0 18%;
+    max-width:18%;
+    position:relative;
+}
+.how-it-works .how-work-inner-column:last-child::after{
+    display:none;
+}
+.how-it-works .how-work-inner-column::after{
+    content:"";
+    background:url('../../../../assets/images/work-arrow1.svg') no-repeat;
+    position: absolute;
+    top: 20%;
+    display: block;
+    height: 25px;
+    left: 100%;
+    width: 65px;
+    text-align: center;
+    background-size: contain;
+}
+.how-it-works .how-work-inner-column.two::after{
+    background:url('../../../../assets/images/work-arrow2.svg') no-repeat;
+    background-size: contain;
+}
+.how-it-works .how-work-inner-column.three::after{
+    background:url('../../../../assets/images/work-arrow3.svg') no-repeat;
+    background-size: contain;
+}
+.why-webhook .media .media-left img{
+    width:45px;
+}
+.add_image{
+    background-color:#fff;
+    border:1px dashed #E1E1E1;
+    border-radius:4px;
+    display: block;
+    text-align: center;
+    cursor:pointer;
+}
+
+@media (max-width:767px){
+    .whitelabel_outer_wrapper{
+        flex-direction:column;
+    }
+    ._container {
+        width: 100%;
+    }
+    .how-it-works .how-work-inner-column{
+        flex:0 0 45%;
+        max-width:45%;
+    }
+    .how-it-works .how-work-inner-column::after{
+        display:none;
+    }
+}

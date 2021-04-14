@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
+import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 @Component({
   selector: 'app-reviews',
   templateUrl: './reviews.component.html',
@@ -7,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ReviewsComponent implements OnInit {
 
-  constructor() {
+  constructor(public variable: VariableService) {
   }
 
   ngOnInit(): void {
