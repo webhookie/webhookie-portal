@@ -22,8 +22,14 @@ export class TraceService {
   ) {
   }
 
-  readTraces(): Observable<Array<Trace>> {
-    const params = new HttpParams();
+  readTraces(filters: any): Observable<Array<Trace>> {
+    let params = new HttpParams();
+    if(filters.traceId) {
+      params = params.set("traceId", filters.traceId);
+    }
+    if(filters.status) {
+      params = params.set("status", filters.status);
+    }
     return this.api.json(this.SPAN_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' traces`)))
       .pipe(map(list => {

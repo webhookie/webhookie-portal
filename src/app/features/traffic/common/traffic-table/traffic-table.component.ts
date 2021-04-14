@@ -3,6 +3,10 @@ import {TrafficTable} from "./traffic-table";
 import {TrafficMasterData} from "../traffic-master-data";
 import {TrafficData} from "../traffic-data";
 import {TableDataSource} from "./table-data.source";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {TrafficTableFilter} from "./filter/traffic-table-filter";
+import {EmptyTrafficFilter} from "./filter/empty-traffic-filter";
+import {debounceTime} from "rxjs/operators";
 
 @Component({
   selector: 'app-traffic-table',
@@ -25,8 +29,10 @@ export class TrafficTableComponent implements OnInit {
   selectArr:any=[];
   selectAll:boolean=false;
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
   }
+
+  filtersForm!: FormGroup;
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.onTableScroll, true);
@@ -36,7 +42,28 @@ export class TrafficTableComponent implements OnInit {
         this.dataSource.update(it);
       });
 
-    this.table.loadData();
+    this.table.loadData({});
+
+    const group: any = {};
+
+    this.table.filters
+      .filter((it: TrafficTableFilter) => !(it instanceof EmptyTrafficFilter))
+      .forEach((it: TrafficTableFilter) => {
+        group[it.name] = new FormControl("");
+      });
+
+    this.filtersForm = this.formBuilder.group(group);
+
+    this.onChanges();
+  }
+
+  private onChanges() {
+    this.filtersForm.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe(it => {
+        this.table.loadData(it)
+        console.warn(it);
+      });
   }
 
   ngOnDestroy() {

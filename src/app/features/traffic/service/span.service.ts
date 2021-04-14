@@ -20,8 +20,20 @@ export class SpanService {
   ) {
   }
 
-  readSpans(): Observable<Span[]> {
-    const params = new HttpParams();
+  readSpans(filters: any): Observable<Span[]> {
+    let params = new HttpParams();
+    if(filters.traceId) {
+      params = params.set("traceId", filters.traceId);
+    }
+    if(filters.spanId) {
+      params = params.set("spanId", filters.spanId);
+    }
+    if(filters.application) {
+      params = params.set("application", filters.application);
+    }
+    if(filters.status) {
+      params = params.set("status", filters.status);
+    }
     return this.api.json(this.SPAN_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' spans`)))
       .pipe(map(list => {

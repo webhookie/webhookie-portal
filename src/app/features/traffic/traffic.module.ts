@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from "../../shared/shared.module";
 import {TrafficHomeComponent} from "./home/traffic-home.component";
 import {TrafficRoutingModule} from "./traffic-routing.module";
@@ -23,7 +23,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
-    PopoverModule.forRoot()
+    PopoverModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [BsDatepickerConfig]
 })

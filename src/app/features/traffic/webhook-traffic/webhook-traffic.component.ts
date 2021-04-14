@@ -55,8 +55,8 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
   ngOnInit(): void {
   }
 
-  loadData() {
-    this.traceService.readTraces()
+  loadData(filters: any) {
+    this.traceService.readTraces(filters)
       .subscribe(it => {
         this._traces$.next(it)
       })
@@ -76,14 +76,14 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
 
   get filters(): Array<TrafficTableFilter> {
     return [
-      new EmptyTrafficFilter("sticky-cell bg-light-gray", "Webhook_Filter1"),
-      new EmptyTrafficFilter("sticky-second-cell sticky-cell bg-light-gray", "Webhook_Filter2"),
-      new SearchTrafficFilter("", "Webhook_Trace_Id_Filter", "Trace Id"),
-      new SearchListTrafficFilter("", "Webhook_Application_Filter", "Application"),
-      new SearchTrafficFilter("", "Webhook_Authorized_Subscribers_Filter", "Authorized Subscribers"),
-      new TimestampTrafficFilter("", "Webhook_Timestamp_Filter", "Timestamp"),
-      new SearchTrafficFilter("", "Webhook_Status_Filter", "Status"),
-      new EmptyTrafficFilter("", "Webhook_Filter2"),
+      new EmptyTrafficFilter("sticky-cell bg-light-gray", "Webhook_Filter1", ""),
+      new EmptyTrafficFilter("sticky-second-cell sticky-cell bg-light-gray", "Webhook_Filter2", ""),
+      new SearchTrafficFilter("", "traceId", "Trace Id"),
+      new SearchListTrafficFilter("", "application", "Application"),
+      new SearchTrafficFilter("", "authorizedSubscribers", "Authorized Subscribers"),
+      new TimestampTrafficFilter("", "timestamp", "Timestamp"),
+      new SearchTrafficFilter("", "status", "Status"),
+      new EmptyTrafficFilter("", "Webhook_Filter2", ""),
     ]
   }
 

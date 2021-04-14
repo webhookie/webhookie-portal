@@ -14,7 +14,7 @@ export abstract class TrafficTable<T extends TrafficData, R extends TrafficData>
   abstract loadDetails(data: T): void;
   abstract readonly tableData: Observable<Array<TrafficData>>;
 
-  abstract loadData(): void;
+  abstract loadData(filters: any): void;
 
   selectedRows: Array<string> = [];
 

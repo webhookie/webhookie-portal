@@ -47,8 +47,8 @@ export class SubscriptionTrafficComponent extends TrafficTable<Span, Span> imple
   ngOnInit(): void {
   }
 
-  loadData() {
-    this.spanService.readSpans()
+  loadData(filters: any) {
+    this.spanService.readSpans(filters)
       .subscribe(it => this._spans$.next(it));
   }
 
@@ -69,15 +69,15 @@ export class SubscriptionTrafficComponent extends TrafficTable<Span, Span> imple
 
   get filters(): Array<TrafficTableFilter> {
     return [
-      new EmptyTrafficFilter("sticky-cell bg-light-gray", "Subscription_Filter1"),
-      new SearchTrafficFilter("", "Subscription_Trace_Id_Filter", "Trace Id"),
-      new SearchTrafficFilter("", "Subscription_Application_Filter", "Application"),
-      new SearchListTrafficFilter("", "Subscription_Webhook_Filter", "Webhook"),
-      new SearchListTrafficFilter("", "Subscription_Callback_Url_Filter", "Callback Url"),
-      new TimestampTrafficFilter("", "Subscription_Timestamp_Filter", "Timestamp"),
-      new SearchTrafficFilter("", "Subscription_Span_Id_Filter", "Span Id"),
-      new SearchTrafficFilter("", "Subscription_Response_Code_Filter", "Response Code"),
-      new SearchTrafficFilter("", "Subscription_Status_Filter", "Status"),
+      new EmptyTrafficFilter("sticky-cell bg-light-gray", "Subscription_Filter1",""),
+      new SearchTrafficFilter("", "traceId", "Trace Id"),
+      new SearchTrafficFilter("", "application", "Application"),
+      new SearchListTrafficFilter("", "topic", "Webhook"),
+      new SearchListTrafficFilter("", "callback", "Callback Url"),
+      new TimestampTrafficFilter("", "timestamp", "Timestamp"),
+      new SearchTrafficFilter("", "spanId", "Span Id"),
+      new SearchTrafficFilter("", "responseCode", "Response Code"),
+      new SearchTrafficFilter("", "status", "Status"),
       new EmptyTrafficFilter("", "Subscription_Filter2", ""),
       new EmptyTrafficFilter("", "Subscription_Filter3", ""),
     ]
