@@ -1,0 +1,28 @@
+#wrapper {
+    overflow-x: hidden;
+}
+#sidebar-wrapper {
+  width: 260px;
+  min-height: 100vh;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+  background-color: #F4F5F7 !important;
+}
+#sidebar-nav .nav-item .nav-link{
+    font-size:14px;
+    color:#0A1E42;
+    padding: 8px 15px;
+}
+#sidebar-nav .nav-item .nav-link.active{
+    background-color: #0151CC;
+    color:#fff;
+    font-weight:bold;
+}
+
+
+
+
+
+

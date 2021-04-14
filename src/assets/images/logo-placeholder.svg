@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="95" height="23" viewBox="0 0 95 23">
+  <defs>
+    <clipPath id="clip-logo-placeholder">
+      <rect width="95" height="23"/>
+    </clipPath>
+  </defs>
+  <g id="logo-placeholder" clip-path="url(#clip-logo-placeholder)">
+    <rect width="95" height="23" fill="#fff"/>
+    <g id="Rectangle_1" data-name="Rectangle 1" fill="#fff" stroke="#0151cc" stroke-width="1" stroke-dasharray="5 5" opacity="0.2">
+      <rect width="95" height="23" stroke="none"/>
+      <rect x="0.5" y="0.5" width="94" height="22" fill="none"/>
+    </g>
+    <text id="Logo" transform="translate(34 16)" fill="#0151cc" font-size="12" font-family="OpenSans-Regular, Open Sans" opacity="0.5"><tspan x="0" y="0">Logo</tspan></text>
+  </g>
+</svg>

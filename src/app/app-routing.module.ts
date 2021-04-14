@@ -1,12 +1,20 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {WebhooksComponent} from './features/webhooks/webhooks.component';
-
+import { AdministrationComponent } from './features/administration/administration.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'webhooks',
-    pathMatch: 'full'
+    redirectTo:'/home',
+    pathMatch:'full'
+  },
+  {
+    path: 'home',
+    component: LandingPageComponent,
+    // data: {
+    //   breadcrumb: 'Home',
+    // },
 
   },
   {
@@ -33,6 +41,15 @@ const routes: Routes = [
     },
     loadChildren: () => import('./features/traffic/traffic.module')
       .then(m => m.TrafficModule)
+  },
+  {
+    path: 'administration',
+    component: AdministrationComponent,
+    data: {
+      breadcrumb: 'Administration'
+    },
+    loadChildren: () => import('./features/administration/administration.module')
+    .then(m => m.AdministrationModule)
   },
   {
     path: '**',
