@@ -13,7 +13,11 @@
     width: 200px;
 
 }
-
+.multi-select-dropdown .custom-checkbox, .multi-select-dropdown .custom-checkbox label {
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+}
 .custom-control-label::before {
 
     border-radius: 1px !important;
@@ -32,4 +36,28 @@
 
     content: url("../../../../assets/images/Chevron_down.svg");
 
-  } 
+} 
+
+.mw-180 {
+    min-width: 180px;
+}
+.dropdown.show {
+    z-index: 16 !important;
+}
+.dropdown-toggle::after {
+    float: right;
+}
+.search-small .form-control {
+    font-size: 14px;
+    padding: 4px 10px;
+    height: auto;
+    border-color: #E1E1E1;
+}
+.search-small .input-group-text {
+    border-color: #E1E1E1;
+    color: #0A1E42 !important;
+}
+.dropdown-menu a {
+    color: #242424;
+    padding: 4px 0px 4px 11px;
+}
