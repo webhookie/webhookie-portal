@@ -33,6 +33,7 @@ import {
 } from "../subscription-traffic/span-columns";
 import {WebhookTrafficFilter} from "../service/webhook-traffic-filter";
 import {TableSort} from "../common/traffic-table/filter/table-sort";
+import {SearchListTrafficFilter} from "../common/traffic-table/filter/search-list-traffic-filter";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -82,7 +83,7 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
       new SearchTrafficFilter("", "topic", "Webhook"),
       new SearchTrafficFilter("", "authorizedSubscribers", "Authorized Subscribers"),
       new TimestampTrafficFilter("", "timestamp", "Timestamp"),
-      new SearchTrafficFilter("", "status", "Status"),
+      new SearchListTrafficFilter("", "status", "Status"),
       new EmptyTrafficFilter("", "Webhook_Filter2", ""),
     ]
   }
