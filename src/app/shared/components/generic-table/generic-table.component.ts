@@ -4,12 +4,12 @@ import {TableMasterData} from "../../model/table/table-master-data";
 import {TableData} from "../../model/table/table-data";
 import {TableDataSource} from "./table-data.source";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {TableFilter} from "./filter/table-filter";
-import {EmptyTableFilter} from "./filter/empty-table-filter";
+import {TableFilter} from "../../model/table/filter/table-filter";
+import {EmptyTableFilter} from "../../model/table/filter/empty-table-filter";
 import {debounceTime} from "rxjs/operators";
-import {TableHeader} from "./header/table-header";
+import {TableHeader} from "../../model/table/header/table-header";
 import {BehaviorSubject, combineLatest} from "rxjs";
-import {SearchListTableFilter} from "./filter/search-list-table-filter";
+import {SearchListTableFilter} from "../../model/table/filter/search-list-table-filter";
 import {Pageable} from "../../request/pageable";
 
 @Component({

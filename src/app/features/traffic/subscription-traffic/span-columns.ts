@@ -1,4 +1,4 @@
-import {BaseTableColumn, NumberTableColumn} from "../../../shared/components/generic-table/column/table-column";
+import {BaseTableColumn, NumberTableColumn} from "../../../shared/model/table/column/table-column";
 import {Span} from "../model/span";
 import {StringUtils} from "../../../shared/string-utils";
 

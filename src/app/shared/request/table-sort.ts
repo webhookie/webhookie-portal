@@ -1,4 +1,4 @@
-import {TableHeader} from "../components/generic-table/header/table-header";
+import {TableHeader} from "../model/table/header/table-header";
 
 export class TableSort {
   private constructor(

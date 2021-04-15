@@ -1,5 +1,5 @@
 import {TableSort} from "./table-sort";
-import {TableHeader} from "../components/generic-table/header/table-header";
+import {TableHeader} from "../model/table/header/table-header";
 
 export class Pageable {
   static readonly DEFAULT_PAGE: number = 0;

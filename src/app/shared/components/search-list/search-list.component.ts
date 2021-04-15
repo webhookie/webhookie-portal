@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SearchListTableFilter} from "../generic-table/filter/search-list-table-filter";
-import {TableFilter} from "../generic-table/filter/table-filter";
+import {SearchListTableFilter} from "../../model/table/filter/search-list-table-filter";
+import {TableFilter} from "../../model/table/filter/table-filter";
 import {FormControl} from "@angular/forms";
 
 @Component({

@@ -1,8 +1,8 @@
 import {Observable} from "rxjs";
 import {TableData} from "../../model/table/table-data";
-import {TableHeader} from "./header/table-header";
-import {TableFilter} from "./filter/table-filter";
-import {TableColumn} from "./column/table-column";
+import {TableHeader} from "../../model/table/header/table-header";
+import {TableFilter} from "../../model/table/filter/table-filter";
+import {TableColumn} from "../../model/table/column/table-column";
 import {Pageable} from "../../request/pageable";
 
 export abstract class GenericTable<T extends TableData, R extends TableData> {

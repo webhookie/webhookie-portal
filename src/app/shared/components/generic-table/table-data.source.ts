@@ -2,16 +2,16 @@ import {TableData} from "../../model/table/table-data";
 import {TableMasterData} from "../../model/table/table-master-data";
 import {EMPTY, Observable} from "rxjs";
 import {TableDetailData} from "../../model/table/table-detail-data";
-import {TableHeader} from "./header/table-header";
-import {TableFilter} from "./filter/table-filter";
-import {TableColumn} from "./column/table-column";
-import {SelectableTableHeader} from "./header/selectable-table-header";
-import {SortableTableHeader} from "./header/sortable-table-header";
-import {SearchTableFilter} from "./filter/search-table-filter";
-import {SearchListTableFilter} from "./filter/search-list-table-filter";
-import {TimestampTableFilter} from "./filter/timestamp-table-filter";
-import {MoreDataTableColumn} from "./column/more-data-table-column";
-import {SelectableTableColumn} from "./column/selectable-table-column";
+import {TableHeader} from "../../model/table/header/table-header";
+import {TableFilter} from "../../model/table/filter/table-filter";
+import {TableColumn} from "../../model/table/column/table-column";
+import {SelectableTableHeader} from "../../model/table/header/selectable-table-header";
+import {SortableTableHeader} from "../../model/table/header/sortable-table-header";
+import {SearchTableFilter} from "../../model/table/filter/search-table-filter";
+import {SearchListTableFilter} from "../../model/table/filter/search-list-table-filter";
+import {TimestampTableFilter} from "../../model/table/filter/timestamp-table-filter";
+import {MoreDataTableColumn} from "../../model/table/column/more-data-table-column";
+import {SelectableTableColumn} from "../../model/table/column/selectable-table-column";
 
 export class TableDataSource {
   data: Array<TableData> = [];
