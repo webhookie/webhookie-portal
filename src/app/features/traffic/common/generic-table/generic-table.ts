@@ -5,7 +5,7 @@ import {TrafficTableFilter} from "./filter/traffic-table-filter";
 import {TrafficTableColumn} from "./column/traffic-table-column";
 import {Pageable} from "../../../../shared/request/pageable";
 
-export abstract class TrafficTable<T extends TableData, R extends TableData> {
+export abstract class GenericTable<T extends TableData, R extends TableData> {
   abstract headers: Array<TrafficTableHeader>;
   abstract filters: Array<TrafficTableFilter>;
   abstract columns: Array<TrafficTableColumn>;

@@ -24,7 +24,7 @@ import {
   TriesColumn,
   WebhookColumn
 } from "./span-columns";
-import {TrafficTable} from "../common/generic-table/traffic-table";
+import {GenericTable} from "../common/generic-table/generic-table";
 import {Pageable} from "../../../shared/request/pageable";
 
 @Component({
@@ -32,7 +32,7 @@ import {Pageable} from "../../../shared/request/pageable";
   templateUrl: './subscription-traffic.component.html',
   styleUrls: ['./subscription-traffic.component.css']
 })
-export class SubscriptionTrafficComponent extends TrafficTable<Span, Span> implements OnInit {
+export class SubscriptionTrafficComponent extends GenericTable<Span, Span> implements OnInit {
   private readonly _spans$: Subject<Array<Span>> = new ReplaySubject();
   // @ts-ignore
   @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;

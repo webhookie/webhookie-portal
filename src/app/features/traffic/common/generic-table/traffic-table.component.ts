@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TrafficTable} from "./traffic-table";
+import {GenericTable} from "./generic-table";
 import {TableMasterData} from "../table-master-data";
 import {TableData} from "../table-data";
 import {TableDataSource} from "./table-data.source";
@@ -19,7 +19,7 @@ import {Pageable} from "../../../../shared/request/pageable";
 })
 export class TrafficTableComponent implements OnInit {
   // @ts-ignore
-  @Input("component") table: TrafficTable
+  @Input("component") table: GenericTable
 
   dataSource: TableDataSource = new TableDataSource();
 

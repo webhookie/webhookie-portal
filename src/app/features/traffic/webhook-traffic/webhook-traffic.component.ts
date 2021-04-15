@@ -21,7 +21,7 @@ import {
   WebhookColumn
 } from "./traffic-columns";
 import {SelectableTrafficColumn} from "../common/generic-table/column/selectable-traffic-column";
-import {TrafficTable} from "../common/generic-table/traffic-table";
+import {GenericTable} from "../common/generic-table/generic-table";
 import {Span} from "../model/span";
 import {
   ApplicationColumn,
@@ -39,7 +39,7 @@ import {Pageable} from "../../../shared/request/pageable";
   templateUrl: './webhook-traffic.component.html',
   styleUrls: ['./webhook-traffic.component.css']
 })
-export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implements OnInit {
+export class WebhookTrafficComponent extends GenericTable<Trace, Span> implements OnInit {
   // @ts-ignore
   @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
 
