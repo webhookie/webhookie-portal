@@ -11,8 +11,8 @@ import {SearchListTrafficFilter} from "../common/generic-table/filter/search-lis
 import {TimestampTrafficFilter} from "../common/generic-table/filter/timestamp-traffic-filter";
 import {EmptyTrafficFilter} from "../common/generic-table/filter/empty-traffic-filter";
 import {GenericTableComponent} from "../common/generic-table/generic-table.component";
-import {TrafficTableColumn} from "../common/generic-table/column/traffic-table-column";
-import {SelectableTrafficColumn} from "../common/generic-table/column/selectable-traffic-column";
+import {TableColumn} from "../common/generic-table/column/table-column";
+import {SelectableTableColumn} from "../common/generic-table/column/selectable-table-column";
 import {
   ApplicationColumn,
   CallbackColumn,
@@ -84,9 +84,9 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     ]
   }
 
-  get columns(): Array<TrafficTableColumn> {
+  get columns(): Array<TableColumn> {
     return [
-      new SelectableTrafficColumn("sticky-cell", "Subscription_Select_Column"),
+      new SelectableTableColumn("sticky-cell", "Subscription_Select_Column"),
       new TraceIdColumn("Subscription_TraceId_Column"),
       new ApplicationColumn("Subscription_Application_Column"),
       new WebhookColumn("Subscription_Webhook_Column"),
@@ -103,5 +103,5 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   }
 
   detailHeaders?: TrafficTableHeader[];
-  detailColumns?: TrafficTableColumn[];
+  detailColumns?: TableColumn[];
 }

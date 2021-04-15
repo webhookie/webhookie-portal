@@ -1,6 +1,6 @@
-import {TrafficTableColumn} from "./traffic-table-column";
+import {TableColumn} from "./table-column";
 
-export abstract class MoreDataTrafficColumn<T> implements TrafficTableColumn {
+export abstract class MoreDataTableColumn<T> implements TableColumn {
   value(data: T): string {
     return "";
   }

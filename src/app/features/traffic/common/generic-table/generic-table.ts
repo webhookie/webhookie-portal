@@ -2,15 +2,15 @@ import {Observable} from "rxjs";
 import {TableData} from "../table-data";
 import {TrafficTableHeader} from "./header/traffic-table-header";
 import {TrafficTableFilter} from "./filter/traffic-table-filter";
-import {TrafficTableColumn} from "./column/traffic-table-column";
+import {TableColumn} from "./column/table-column";
 import {Pageable} from "../../../../shared/request/pageable";
 
 export abstract class GenericTable<T extends TableData, R extends TableData> {
   abstract headers: Array<TrafficTableHeader>;
   abstract filters: Array<TrafficTableFilter>;
-  abstract columns: Array<TrafficTableColumn>;
+  abstract columns: Array<TableColumn>;
   abstract detailHeaders?: Array<TrafficTableHeader>;
-  abstract detailColumns?: Array<TrafficTableColumn>;
+  abstract detailColumns?: Array<TableColumn>;
   private isLoading: boolean = false;
 
   abstract loadDetails(data: T): void;
@@ -30,7 +30,7 @@ export abstract class GenericTable<T extends TableData, R extends TableData> {
 
   selectedRows: Array<string> = [];
 
-  rowSelectionChanged(column: TrafficTableColumn, data: T, $event: Event) {
+  rowSelectionChanged(column: TableColumn, data: T, $event: Event) {
     // @ts-ignore
     let checked: boolean = $event.currentTarget.checked;
     if(checked) {

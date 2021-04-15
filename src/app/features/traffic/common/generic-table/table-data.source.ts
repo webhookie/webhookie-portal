@@ -4,14 +4,14 @@ import {EMPTY, Observable} from "rxjs";
 import {TableDetailData} from "../table-detail-data";
 import {TrafficTableHeader} from "./header/traffic-table-header";
 import {TrafficTableFilter} from "./filter/traffic-table-filter";
-import {TrafficTableColumn} from "./column/traffic-table-column";
+import {TableColumn} from "./column/table-column";
 import {SelectableTrafficHeader} from "./header/selectable-traffic-header";
 import {SortableTrafficHeader} from "./header/sortable-traffic-header";
 import {SearchTrafficFilter} from "./filter/search-traffic-filter";
 import {SearchListTrafficFilter} from "./filter/search-list-traffic-filter";
 import {TimestampTrafficFilter} from "./filter/timestamp-traffic-filter";
-import {MoreDataTrafficColumn} from "./column/more-data-traffic-column";
-import {SelectableTrafficColumn} from "./column/selectable-traffic-column";
+import {MoreDataTableColumn} from "./column/more-data-table-column";
+import {SelectableTableColumn} from "./column/selectable-table-column";
 
 export class TableDataSource {
   data: Array<TableData> = [];
@@ -44,7 +44,7 @@ export class TableDataSource {
     return item.id
   }
 
-  trackByColumn(index: number, item: TrafficTableColumn): string {
+  trackByColumn(index: number, item: TableColumn): string {
     return `${index} -- ${item.name}`
   }
 
@@ -56,7 +56,7 @@ export class TableDataSource {
     return item.id
   }
 
-  trackByDetailColumn(index: number, item: TrafficTableColumn): string {
+  trackByDetailColumn(index: number, item: TableColumn): string {
     return item.name
   }
 
@@ -81,11 +81,11 @@ export class TableDataSource {
     return filter instanceof TimestampTrafficFilter
   }
 
-  isMoreDataColumn(column: TrafficTableColumn) {
-    return column instanceof MoreDataTrafficColumn
+  isMoreDataColumn(column: TableColumn) {
+    return column instanceof MoreDataTableColumn
   }
 
-  isSelectableColumn(column: TrafficTableColumn) {
-    return column instanceof SelectableTrafficColumn
+  isSelectableColumn(column: TableColumn) {
+    return column instanceof SelectableTableColumn
   }
 }

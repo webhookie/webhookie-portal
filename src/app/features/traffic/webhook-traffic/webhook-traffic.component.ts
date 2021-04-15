@@ -11,7 +11,7 @@ import {EmptyTrafficFilter} from "../common/generic-table/filter/empty-traffic-f
 import {SearchTrafficFilter} from "../common/generic-table/filter/search-traffic-filter";
 import {TimestampTrafficFilter} from "../common/generic-table/filter/timestamp-traffic-filter";
 import {GenericTableComponent} from "../common/generic-table/generic-table.component";
-import {TrafficTableColumn} from "../common/generic-table/column/traffic-table-column";
+import {TableColumn} from "../common/generic-table/column/table-column";
 import {
   StatusColumn,
   SubscribersColumn,
@@ -20,7 +20,7 @@ import {
   TraceMoreDataColumn,
   WebhookColumn
 } from "./traffic-columns";
-import {SelectableTrafficColumn} from "../common/generic-table/column/selectable-traffic-column";
+import {SelectableTableColumn} from "../common/generic-table/column/selectable-table-column";
 import {GenericTable} from "../common/generic-table/generic-table";
 import {Span} from "../model/span";
 import {
@@ -87,10 +87,10 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     ]
   }
 
-  get columns(): Array<TrafficTableColumn> {
+  get columns(): Array<TableColumn> {
     return [
       new TraceMoreDataColumn("text-center sticky-cell", "Webhook_More_Column"),
-      new SelectableTrafficColumn("sticky-cell sticky-second-cell", "Webhook_Select_Column"),
+      new SelectableTableColumn("sticky-cell sticky-second-cell", "Webhook_Select_Column"),
       new TraceIdColumn("Webhook_TraceId_Column"),
       new WebhookColumn("Webhook_Topic_Column"),
       new SubscribersColumn("Webhook_Auth_Subscribers_Column"),
@@ -113,7 +113,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     ]
   }
 
-  get detailColumns(): Array<TrafficTableColumn> {
+  get detailColumns(): Array<TableColumn> {
     return [
       new SpanIdColumn("Webhook_Span_SpanId_Column"),
       new EntityColumn("Webhook_Span_Entity_Column"),

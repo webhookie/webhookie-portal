@@ -1,10 +1,10 @@
-export interface TrafficTableColumn {
+export interface TableColumn {
   value(data: any): string;
   name: string;
   clazz: string;
 }
 
-export abstract class BaseTrafficColumn<T> implements TrafficTableColumn {
+export abstract class BaseTableColumn<T> implements TableColumn {
   abstract value(data: T): string;
   clazz: string = "";
 
@@ -12,6 +12,6 @@ export abstract class BaseTrafficColumn<T> implements TrafficTableColumn {
   }
 }
 
-export abstract class NumberTrafficColumn<T> extends BaseTrafficColumn<T> {
+export abstract class NumberTableColumn<T> extends BaseTableColumn<T> {
   clazz: string = "text-center";
 }
