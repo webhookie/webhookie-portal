@@ -1,4 +1,4 @@
-export interface TrafficData {
+export interface TableData {
   id: string;
   isLoading: boolean;
 }

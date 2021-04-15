@@ -1,7 +1,7 @@
-import {TrafficData} from "../traffic-data";
-import {TrafficMasterData} from "../traffic-master-data";
+import {TableData} from "../table-data";
+import {TableMasterData} from "../table-master-data";
 import {EMPTY, Observable} from "rxjs";
-import {TrafficDetailData} from "../traffic-detail-data";
+import {TableDetailData} from "../table-detail-data";
 import {TrafficTableHeader} from "./header/traffic-table-header";
 import {TrafficTableFilter} from "./filter/traffic-table-filter";
 import {TrafficTableColumn} from "./column/traffic-table-column";
@@ -14,18 +14,18 @@ import {MoreDataTrafficColumn} from "./column/more-data-traffic-column";
 import {SelectableTrafficColumn} from "./column/selectable-traffic-column";
 
 export class TableDataSource {
-  data: Array<TrafficData> = [];
+  data: Array<TableData> = [];
 
-  update(data: TrafficData[]) {
+  update(data: TableData[]) {
     this.data = data;
   }
 
-  isMasterData(item: TrafficData) {
-    return item instanceof TrafficMasterData
+  isMasterData(item: TableData) {
+    return item instanceof TableMasterData
   }
 
-  details(item: TrafficData): Observable<Array<TrafficDetailData>> {
-    if (item instanceof TrafficMasterData) {
+  details(item: TableData): Observable<Array<TableDetailData>> {
+    if (item instanceof TableMasterData) {
       return item.details
     }
 
@@ -40,7 +40,7 @@ export class TableDataSource {
     return filter.name;
   }
 
-  trackByData(index: number, item: TrafficData): string {
+  trackByData(index: number, item: TableData): string {
     return item.id
   }
 
@@ -52,7 +52,7 @@ export class TableDataSource {
     return item.name
   }
 
-  trackByDetailData(index: number, item: TrafficData): string {
+  trackByDetailData(index: number, item: TableData): string {
     return item.id
   }
 

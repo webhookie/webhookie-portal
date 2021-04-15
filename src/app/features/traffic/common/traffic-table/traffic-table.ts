@@ -1,11 +1,11 @@
 import {Observable} from "rxjs";
-import {TrafficData} from "../traffic-data";
+import {TableData} from "../table-data";
 import {TrafficTableHeader} from "./header/traffic-table-header";
 import {TrafficTableFilter} from "./filter/traffic-table-filter";
 import {TrafficTableColumn} from "./column/traffic-table-column";
 import {Pageable} from "../../../../shared/request/pageable";
 
-export abstract class TrafficTable<T extends TrafficData, R extends TrafficData> {
+export abstract class TrafficTable<T extends TableData, R extends TableData> {
   abstract headers: Array<TrafficTableHeader>;
   abstract filters: Array<TrafficTableFilter>;
   abstract columns: Array<TrafficTableColumn>;
@@ -14,7 +14,7 @@ export abstract class TrafficTable<T extends TrafficData, R extends TrafficData>
   private isLoading: boolean = false;
 
   abstract loadDetails(data: T): void;
-  abstract readonly tableData: Observable<Array<TrafficData>>;
+  abstract readonly tableData: Observable<Array<TableData>>;
 
   abstract fetchData(filter: any, pageable: Pageable): void;
 

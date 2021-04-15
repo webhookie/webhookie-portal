@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TrafficTable} from "./traffic-table";
-import {TrafficMasterData} from "../traffic-master-data";
-import {TrafficData} from "../traffic-data";
+import {TableMasterData} from "../table-master-data";
+import {TableData} from "../table-data";
 import {TableDataSource} from "./table-data.source";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TrafficTableFilter} from "./filter/traffic-table-filter";
@@ -38,7 +38,7 @@ export class TrafficTableComponent implements OnInit {
     this.table.init();
 
     this.table.tableData
-      .subscribe((it: Array<TrafficData>) => {
+      .subscribe((it: Array<TableData>) => {
         this.dataSource.update(it);
       });
 
@@ -87,8 +87,8 @@ export class TrafficTableComponent implements OnInit {
     }
   }
 
-  rowStatusArrow(data: TrafficData) {
-    if (data instanceof TrafficMasterData) {
+  rowStatusArrow(data: TableData) {
+    if (data instanceof TableMasterData) {
       return data.isOpen ? "assets/images/Chevron_down.svg" : "assets/images/Chevron.svg"
     }
 

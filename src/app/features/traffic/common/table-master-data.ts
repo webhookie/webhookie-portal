@@ -1,10 +1,10 @@
 import {ReplaySubject, Subject} from "rxjs";
-import {TrafficDetailData} from "./traffic-detail-data";
-import {TrafficData} from "./traffic-data";
+import {TableDetailData} from "./table-detail-data";
+import {TableData} from "./table-data";
 
-export abstract class TrafficMasterData implements TrafficData {
+export abstract class TableMasterData implements TableData {
   abstract id: string;
-  details: Subject<Array<TrafficDetailData>> = new ReplaySubject();
+  details: Subject<Array<TableDetailData>> = new ReplaySubject();
   isOpen: boolean = false;
   isLoading: boolean = false;
 
@@ -15,7 +15,7 @@ export abstract class TrafficMasterData implements TrafficData {
     this.isOpen = !this.isOpen;
   }
 
-  update(details: Array<TrafficDetailData>): void {
+  update(details: Array<TableDetailData>): void {
     this.toggle();
     this.details.next(details);
   }

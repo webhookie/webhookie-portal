@@ -1,7 +1,7 @@
-import {TrafficDetailData} from "../common/traffic-detail-data";
+import {TableDetailData} from "../common/table-detail-data";
 import {Callback} from "../../../shared/model/callback";
 
-export class Span implements TrafficDetailData{
+export class Span implements TableDetailData{
   constructor(
     public traceId: string,
     public spanId: string,

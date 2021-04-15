@@ -1,9 +1,9 @@
 import {ReplaySubject, Subject} from "rxjs";
-import {TrafficMasterData} from "../common/traffic-master-data";
-import {TrafficDetailData} from "../common/traffic-detail-data";
+import {TableMasterData} from "../common/table-master-data";
+import {TableDetailData} from "../common/table-detail-data";
 import {delay} from "rxjs/operators";
 
-export class Trace extends TrafficMasterData {
+export class Trace extends TableMasterData {
   constructor(
     public traceId: string,
     public topic: string,
@@ -16,7 +16,7 @@ export class Trace extends TrafficMasterData {
       .subscribe(() => this.loaded());
   }
 
-  details: Subject<Array<TrafficDetailData>> = new ReplaySubject();
+  details: Subject<Array<TableDetailData>> = new ReplaySubject();
 
   get authorizedSubscribersString(): string {
     let length = this.authorizedSubscribers.length;
@@ -42,6 +42,7 @@ export class TraceStatusUpdate {
   }
 }
 
+// noinspection JSUnusedGlobalSymbols
 export enum TraceStatus {
   PROCESSING = "PROCESSING",
   NO_SUBSCRIPTION = "NO_SUBSCRIPTION",
