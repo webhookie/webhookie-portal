@@ -1,8 +1,8 @@
 import {HttpParams} from "@angular/common/http";
-import {TableSort} from "./table-sort";
+import {Pageable} from "./pageable";
 
-export class TableFilter {
-  static httpParams(filter: any, sort?: TableSort): HttpParams {
+export class RequestUtils {
+  static httpParams(filter: any, pageable: Pageable): HttpParams {
     let params = new HttpParams();
     Object.entries(filter)
       .filter(entry => entry[1] != "")
@@ -16,9 +16,10 @@ export class TableFilter {
         }
       });
 
-    params = params.set("size", "20");
-    params = params.set("page", "0");
+    params = params.set("size", pageable.size.toString());
+    params = params.set("page", pageable.page.toString());
 
+    let sort = pageable.sort;
     if(sort) {
       params = params.set("sort", `${sort.field.name},${sort.order}`);
     }

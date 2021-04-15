@@ -9,8 +9,8 @@ import {EmptyTrafficFilter} from "./filter/empty-traffic-filter";
 import {debounceTime} from "rxjs/operators";
 import {TrafficTableHeader} from "./header/traffic-table-header";
 import {BehaviorSubject} from "rxjs";
-import {SortOrder, TableSort} from "./filter/table-sort";
 import {SearchListTrafficFilter} from "./filter/search-list-traffic-filter";
+import {Pageable} from "../../../../shared/request/pageable";
 
 @Component({
   selector: 'app-traffic-table',
@@ -30,8 +30,7 @@ export class TrafficTableComponent implements OnInit {
 
   filtersForm!: FormGroup;
   currentFilter: BehaviorSubject<any> = new BehaviorSubject({});
-  // @ts-ignore
-  currentSort: BehaviorSubject<TableSort> = new BehaviorSubject(null);
+  currentPageable: BehaviorSubject<Pageable> = new BehaviorSubject(Pageable.default());
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.onTableScroll, true);
@@ -43,7 +42,7 @@ export class TrafficTableComponent implements OnInit {
         this.dataSource.update(it);
       });
 
-    this.table.loadData(this.currentFilter.value);
+    this.table.loadData(this.currentFilter.value, this.currentPageable.value);
 
     const group: any = {};
 
@@ -63,7 +62,7 @@ export class TrafficTableComponent implements OnInit {
       .pipe(debounceTime(500))
       .subscribe(it => {
         this.currentFilter.next(it)
-        this.table.loadData(it, this.currentSort.value);
+        this.table.loadData(it, this.currentPageable.value);
       });
   }
 
@@ -95,21 +94,13 @@ export class TrafficTableComponent implements OnInit {
   }
 
   sortAsc(header: TrafficTableHeader) {
-    let sort: TableSort = {
-      field: header,
-      order: SortOrder.ASC
-    }
-    this.currentSort.next(sort)
-    this.table.loadData(this.currentFilter.value, sort)
+    this.currentPageable.next(Pageable.asc(header));
+    this.table.loadData(this.currentFilter.value, this.currentPageable.value)
   }
 
   sortDesc(header: TrafficTableHeader) {
-    let sort: TableSort = {
-      field: header,
-      order: SortOrder.DESC
-    }
-    this.currentSort.next(sort)
-    this.table.loadData(this.currentFilter.value, sort)
+    this.currentPageable.next(Pageable.desc(header));
+    this.table.loadData(this.currentFilter.value, this.currentPageable.value)
   }
 
   filterList(filter: TrafficTableFilter): any {

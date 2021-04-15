@@ -31,8 +31,8 @@ import {
   SpanIdColumn,
   TriesColumn
 } from "../subscription-traffic/span-columns";
-import {TableSort} from "../common/traffic-table/filter/table-sort";
 import {SearchListTrafficFilter} from "../common/traffic-table/filter/search-list-traffic-filter";
+import {Pageable} from "../../../shared/request/pageable";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -55,8 +55,8 @@ export class WebhookTrafficComponent extends TrafficTable<Trace, Span> implement
   ngOnInit(): void {
   }
 
-  fetchData(filter: any, sort?: TableSort) {
-    this.traceService.readTraces(filter, sort)
+  fetchData(filter: any, pageable: Pageable) {
+    this.traceService.readTraces(filter, pageable)
       .subscribe(it => {
         this._traces$.next(it)
       })

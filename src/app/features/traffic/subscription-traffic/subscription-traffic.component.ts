@@ -25,7 +25,7 @@ import {
   WebhookColumn
 } from "./span-columns";
 import {TrafficTable} from "../common/traffic-table/traffic-table";
-import {TableSort} from "../common/traffic-table/filter/table-sort";
+import {Pageable} from "../../../shared/request/pageable";
 
 @Component({
   selector: 'app-subscription-traffic',
@@ -48,8 +48,8 @@ export class SubscriptionTrafficComponent extends TrafficTable<Span, Span> imple
   ngOnInit(): void {
   }
 
-  fetchData(filter: any, sort?: TableSort) {
-    this.spanService.readSpans(filter, sort)
+  fetchData(filter: any, pageable: Pageable) {
+    this.spanService.readSpans(filter, pageable)
       .subscribe(it => this._spans$.next(it));
   }
 

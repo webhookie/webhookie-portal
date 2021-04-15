@@ -8,8 +8,8 @@ import {Api} from "../../../shared/api";
 import {SpanAdapter} from "./span.adapter";
 import {Span} from "../model/span";
 import {Trace} from "../model/trace";
-import {TableSort} from "../common/traffic-table/filter/table-sort";
-import {TableFilter} from "../common/traffic-table/filter/table-filter";
+import {RequestUtils} from "../../../shared/request/request-utils";
+import {Pageable} from "../../../shared/request/pageable";
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +24,8 @@ export class TraceService {
   ) {
   }
 
-  readTraces(filter: any, sort?: TableSort): Observable<Array<Trace>> {
-    let params = TableFilter.httpParams(filter, sort);
+  readTraces(filter: any, pageable: Pageable): Observable<Array<Trace>> {
+    let params = RequestUtils.httpParams(filter, pageable);
     return this.api.json(this.SPAN_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' traces`)))
       .pipe(map(list => {
