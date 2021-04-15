@@ -40,7 +40,4 @@ export class TraceMoreDataColumn extends MoreDataTableColumn<Trace> {
   ) {
     super();
   }
-
-  loadDetails(data: Trace): void {
-  }
 }

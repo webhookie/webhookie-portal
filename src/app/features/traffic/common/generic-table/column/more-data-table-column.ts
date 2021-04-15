@@ -7,6 +7,4 @@ export abstract class MoreDataTableColumn<T> implements TableColumn {
 
   clazz: string = "";
   abstract name: string = "";
-
-  abstract loadDetails(data: T): void;
 }
