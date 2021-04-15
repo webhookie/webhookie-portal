@@ -2,10 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Trace, TraceStatus} from "../model/trace";
-import {SimpleTrafficTableHeader, TrafficTableHeader} from "../common/generic-table/header/traffic-table-header";
-import {EmptyTrafficHeader} from "../common/generic-table/header/empty-traffic-header";
-import {SelectableTrafficHeader} from "../common/generic-table/header/selectable-traffic-header";
-import {SortableTrafficHeader} from "../common/generic-table/header/sortable-traffic-header";
+import {SimpleTableHeader, TableHeader} from "../common/generic-table/header/table-header";
+import {EmptyTableHeader} from "../common/generic-table/header/empty-table-header";
+import {SelectableTableHeader} from "../common/generic-table/header/selectable-table-header";
+import {SortableTableHeader} from "../common/generic-table/header/sortable-table-header";
 import {TableFilter} from "../common/generic-table/filter/table-filter";
 import {EmptyTableFilter} from "../common/generic-table/filter/empty-table-filter";
 import {SearchTableFilter} from "../common/generic-table/filter/search-table-filter";
@@ -62,15 +62,15 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       })
   }
 
-  get headers(): Array<TrafficTableHeader> {
+  get headers(): Array<TableHeader> {
     return [
-      new EmptyTrafficHeader("sticky-cell", "Webhook_Header1"),
-      new SelectableTrafficHeader("sticky-cell sticky-second-cell", "Webhook_Header2"),
-      new SortableTrafficHeader("Trace Id", "traceId"),
-      new SortableTrafficHeader("Webhook", "topic"),
-      new SortableTrafficHeader("Authorized Subscribers", "consumerMessage.authorizedSubscribers"),
-      new SortableTrafficHeader("Timestamp", "statusUpdate.time"),
-      new SortableTrafficHeader("Status", "statusUpdate.status"),
+      new EmptyTableHeader("sticky-cell", "Webhook_Header1"),
+      new SelectableTableHeader("sticky-cell sticky-second-cell", "Webhook_Header2"),
+      new SortableTableHeader("Trace Id", "traceId"),
+      new SortableTableHeader("Webhook", "topic"),
+      new SortableTableHeader("Authorized Subscribers", "consumerMessage.authorizedSubscribers"),
+      new SortableTableHeader("Timestamp", "statusUpdate.time"),
+      new SortableTableHeader("Status", "statusUpdate.status"),
     ]
   }
 
@@ -99,17 +99,17 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     ];
   }
 
-  get detailHeaders(): Array<TrafficTableHeader> {
+  get detailHeaders(): Array<TableHeader> {
     return [
-      new SimpleTrafficTableHeader("Span Id", "Webhook_Details_Span_Id_Header"),
-      new SimpleTrafficTableHeader("Company", "Webhook_Details_Company_Header"),
-      new SimpleTrafficTableHeader("Application", "Webhook_Details_Application_Header"),
-      new SimpleTrafficTableHeader("Callback URL", "Webhook_Details_Callback_Header"),
-      new SimpleTrafficTableHeader("Timestamp", "Webhook_Details_Timestamp_Header"),
-      new SimpleTrafficTableHeader("Response code", "Webhook_Details_Response_Code_Header"),
-      new SimpleTrafficTableHeader("Status", "Webhook_Details_Status_Header"),
-      new SimpleTrafficTableHeader("Tries", "Webhook_Details_Tries_Header"),
-      new SimpleTrafficTableHeader("", "Webhook_Details_Header1")
+      new SimpleTableHeader("Span Id", "Webhook_Details_Span_Id_Header"),
+      new SimpleTableHeader("Company", "Webhook_Details_Company_Header"),
+      new SimpleTableHeader("Application", "Webhook_Details_Application_Header"),
+      new SimpleTableHeader("Callback URL", "Webhook_Details_Callback_Header"),
+      new SimpleTableHeader("Timestamp", "Webhook_Details_Timestamp_Header"),
+      new SimpleTableHeader("Response code", "Webhook_Details_Response_Code_Header"),
+      new SimpleTableHeader("Status", "Webhook_Details_Status_Header"),
+      new SimpleTableHeader("Tries", "Webhook_Details_Tries_Header"),
+      new SimpleTableHeader("", "Webhook_Details_Header1")
     ]
   }
 

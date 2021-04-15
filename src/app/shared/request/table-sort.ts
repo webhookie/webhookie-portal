@@ -1,17 +1,17 @@
-import {TrafficTableHeader} from "../../features/traffic/common/generic-table/header/traffic-table-header";
+import {TableHeader} from "../../features/traffic/common/generic-table/header/table-header";
 
 export class TableSort {
   private constructor(
-    public field: TrafficTableHeader,
+    public field: TableHeader,
     public order: SortOrder
   ) {
   }
 
-  static asc(field: TrafficTableHeader): TableSort {
+  static asc(field: TableHeader): TableSort {
     return new TableSort(field, SortOrder.ASC);
   }
 
-  static desc(field: TrafficTableHeader): TableSort {
+  static desc(field: TableHeader): TableSort {
     return new TableSort(field, SortOrder.DESC);
   }
 }

@@ -2,9 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Span, SpanStatus} from "../model/span";
-import {TrafficTableHeader} from "../common/generic-table/header/traffic-table-header";
-import {SelectableTrafficHeader} from "../common/generic-table/header/selectable-traffic-header";
-import {SortableTrafficHeader} from "../common/generic-table/header/sortable-traffic-header";
+import {TableHeader} from "../common/generic-table/header/table-header";
+import {SelectableTableHeader} from "../common/generic-table/header/selectable-table-header";
+import {SortableTableHeader} from "../common/generic-table/header/sortable-table-header";
 import {TableFilter} from "../common/generic-table/filter/table-filter";
 import {SearchTableFilter} from "../common/generic-table/filter/search-table-filter";
 import {SearchListTableFilter} from "../common/generic-table/filter/search-list-table-filter";
@@ -53,18 +53,18 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       .subscribe(it => this._spans$.next(it));
   }
 
-  get headers(): Array<TrafficTableHeader> {
+  get headers(): Array<TableHeader> {
     return [
-      new SelectableTrafficHeader("sticky-cell", "Subscription_Select_Header"),
-      new SortableTrafficHeader("Trace Id", "traceId"),
-      new SortableTrafficHeader("Application", "subscription.application.name"),
-      new SortableTrafficHeader("Webhook", "subscription.topic"),
-      new SortableTrafficHeader("Callback URL", "subscription.callback.url"),
-      new SortableTrafficHeader("Timestamp", "lastStatus.time"),
-      new SortableTrafficHeader("Span Id", "spanId"),
-      new SortableTrafficHeader("Response Code", "latestResult.statusCode"),
-      new SortableTrafficHeader("Status", "lastStatus.status"),
-      new SortableTrafficHeader("Tries", "retryHistory.length"),
+      new SelectableTableHeader("sticky-cell", "Subscription_Select_Header"),
+      new SortableTableHeader("Trace Id", "traceId"),
+      new SortableTableHeader("Application", "subscription.application.name"),
+      new SortableTableHeader("Webhook", "subscription.topic"),
+      new SortableTableHeader("Callback URL", "subscription.callback.url"),
+      new SortableTableHeader("Timestamp", "lastStatus.time"),
+      new SortableTableHeader("Span Id", "spanId"),
+      new SortableTableHeader("Response Code", "latestResult.statusCode"),
+      new SortableTableHeader("Status", "lastStatus.status"),
+      new SortableTableHeader("Tries", "retryHistory.length"),
     ]
   }
 
@@ -102,6 +102,6 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   loadDetails(data: any) {
   }
 
-  detailHeaders?: TrafficTableHeader[];
+  detailHeaders?: TableHeader[];
   detailColumns?: TableColumn[];
 }

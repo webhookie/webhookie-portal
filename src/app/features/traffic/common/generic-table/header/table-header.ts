@@ -1,16 +1,16 @@
-export interface TrafficTableHeader {
+export interface TableHeader {
   title: string;
   name: string;
   clazz: string;
 }
 
-export abstract class BaseTrafficTableHeader implements TrafficTableHeader {
+export abstract class BaseTableHeader implements TableHeader {
   clazz: string = "text-nowrap";
   title: string = "";
   abstract name: string;
 }
 
-export class SimpleTrafficTableHeader implements TrafficTableHeader {
+export class SimpleTableHeader implements TableHeader {
   constructor(
     public title: string,
     public name: string,

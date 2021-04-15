@@ -2,11 +2,11 @@ import {TableData} from "../table-data";
 import {TableMasterData} from "../table-master-data";
 import {EMPTY, Observable} from "rxjs";
 import {TableDetailData} from "../table-detail-data";
-import {TrafficTableHeader} from "./header/traffic-table-header";
+import {TableHeader} from "./header/table-header";
 import {TableFilter} from "./filter/table-filter";
 import {TableColumn} from "./column/table-column";
-import {SelectableTrafficHeader} from "./header/selectable-traffic-header";
-import {SortableTrafficHeader} from "./header/sortable-traffic-header";
+import {SelectableTableHeader} from "./header/selectable-table-header";
+import {SortableTableHeader} from "./header/sortable-table-header";
 import {SearchTableFilter} from "./filter/search-table-filter";
 import {SearchListTableFilter} from "./filter/search-list-table-filter";
 import {TimestampTableFilter} from "./filter/timestamp-table-filter";
@@ -32,7 +32,7 @@ export class TableDataSource {
     return EMPTY
   }
 
-  trackByHeader(index: number, filter: TrafficTableHeader) {
+  trackByHeader(index: number, filter: TableHeader) {
     return filter.name;
   }
 
@@ -48,7 +48,7 @@ export class TableDataSource {
     return `${index} -- ${item.name}`
   }
 
-  trackByDetailHeader(index: number, item: TrafficTableHeader): string {
+  trackByDetailHeader(index: number, item: TableHeader): string {
     return item.name
   }
 
@@ -61,12 +61,12 @@ export class TableDataSource {
   }
 
 
-  isSelectableHeader(header: TrafficTableHeader) {
-    return header instanceof SelectableTrafficHeader
+  isSelectableHeader(header: TableHeader) {
+    return header instanceof SelectableTableHeader
   }
 
-  isSortableHeader(header: TrafficTableHeader) {
-    return header instanceof SortableTrafficHeader
+  isSortableHeader(header: TableHeader) {
+    return header instanceof SortableTableHeader
   }
 
   isSearchFilter(filter: TableFilter) {

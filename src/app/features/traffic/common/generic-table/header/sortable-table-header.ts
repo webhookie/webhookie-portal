@@ -1,6 +1,6 @@
-import {BaseTrafficTableHeader} from "./traffic-table-header";
+import {BaseTableHeader} from "./table-header";
 
-export class SortableTrafficHeader extends BaseTrafficTableHeader {
+export class SortableTableHeader extends BaseTableHeader {
   constructor(
     public title: string,
     public name: string,

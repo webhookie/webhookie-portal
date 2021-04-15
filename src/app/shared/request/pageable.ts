@@ -1,5 +1,5 @@
 import {TableSort} from "./table-sort";
-import {TrafficTableHeader} from "../../features/traffic/common/generic-table/header/traffic-table-header";
+import {TableHeader} from "../../features/traffic/common/generic-table/header/table-header";
 
 export class Pageable {
   static readonly DEFAULT_PAGE: number = 0;
@@ -20,11 +20,11 @@ export class Pageable {
     return new Pageable(Pageable.DEFAULT_PAGE, Pageable.DEFAULT_SIZE, sort);
   }
 
-  static asc(field: TrafficTableHeader): Pageable {
+  static asc(field: TableHeader): Pageable {
     return Pageable.sort(TableSort.asc(field));
   }
 
-  static desc(field: TrafficTableHeader): Pageable {
+  static desc(field: TableHeader): Pageable {
     return Pageable.sort(TableSort.desc(field));
   }
 }

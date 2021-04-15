@@ -7,7 +7,7 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TableFilter} from "./filter/table-filter";
 import {EmptyTableFilter} from "./filter/empty-table-filter";
 import {debounceTime} from "rxjs/operators";
-import {TrafficTableHeader} from "./header/traffic-table-header";
+import {TableHeader} from "./header/table-header";
 import {BehaviorSubject, combineLatest} from "rxjs";
 import {SearchListTableFilter} from "./filter/search-list-table-filter";
 import {Pageable} from "../../../../shared/request/pageable";
@@ -95,11 +95,11 @@ export class GenericTableComponent implements OnInit {
     return "assets/images/Chevron_down.svg"
   }
 
-  sortAsc(header: TrafficTableHeader) {
+  sortAsc(header: TableHeader) {
     this.currentPageable.next(Pageable.asc(header));
   }
 
-  sortDesc(header: TrafficTableHeader) {
+  sortDesc(header: TableHeader) {
     this.currentPageable.next(Pageable.desc(header));
   }
 
