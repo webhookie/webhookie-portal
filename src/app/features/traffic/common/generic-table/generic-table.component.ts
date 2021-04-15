@@ -14,10 +14,10 @@ import {Pageable} from "../../../../shared/request/pageable";
 
 @Component({
   selector: 'app-traffic-table',
-  templateUrl: './traffic-table.component.html',
-  styleUrls: ['./traffic-table.component.css']
+  templateUrl: './generic-table.component.html',
+  styleUrls: ['./generic-table.component.css']
 })
-export class TrafficTableComponent implements OnInit {
+export class GenericTableComponent implements OnInit {
   // @ts-ignore
   @Input("component") table: GenericTable
 

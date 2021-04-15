@@ -10,7 +10,7 @@ import {TrafficTableFilter} from "../common/generic-table/filter/traffic-table-f
 import {EmptyTrafficFilter} from "../common/generic-table/filter/empty-traffic-filter";
 import {SearchTrafficFilter} from "../common/generic-table/filter/search-traffic-filter";
 import {TimestampTrafficFilter} from "../common/generic-table/filter/timestamp-traffic-filter";
-import {TrafficTableComponent} from "../common/generic-table/traffic-table.component";
+import {GenericTableComponent} from "../common/generic-table/generic-table.component";
 import {TrafficTableColumn} from "../common/generic-table/column/traffic-table-column";
 import {
   StatusColumn,
@@ -41,7 +41,7 @@ import {Pageable} from "../../../shared/request/pageable";
 })
 export class WebhookTrafficComponent extends GenericTable<Trace, Span> implements OnInit {
   // @ts-ignore
-  @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
+  @ViewChild("tableComponent") tableComponent: GenericTableComponent;
 
   private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
   readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();

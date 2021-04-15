@@ -10,7 +10,7 @@ import {SearchTrafficFilter} from "../common/generic-table/filter/search-traffic
 import {SearchListTrafficFilter} from "../common/generic-table/filter/search-list-traffic-filter";
 import {TimestampTrafficFilter} from "../common/generic-table/filter/timestamp-traffic-filter";
 import {EmptyTrafficFilter} from "../common/generic-table/filter/empty-traffic-filter";
-import {TrafficTableComponent} from "../common/generic-table/traffic-table.component";
+import {GenericTableComponent} from "../common/generic-table/generic-table.component";
 import {TrafficTableColumn} from "../common/generic-table/column/traffic-table-column";
 import {SelectableTrafficColumn} from "../common/generic-table/column/selectable-traffic-column";
 import {
@@ -35,7 +35,7 @@ import {Pageable} from "../../../shared/request/pageable";
 export class SubscriptionTrafficComponent extends GenericTable<Span, Span> implements OnInit {
   private readonly _spans$: Subject<Array<Span>> = new ReplaySubject();
   // @ts-ignore
-  @ViewChild("trafficTableComponent") trafficTableComponent: TrafficTableComponent;
+  @ViewChild("tableComponent") tableComponent: GenericTableComponent;
 
   readonly tableData: Observable<Array<Span>> = this._spans$.asObservable();
 
