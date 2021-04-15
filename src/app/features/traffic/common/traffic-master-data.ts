@@ -1,7 +1,6 @@
 import {ReplaySubject, Subject} from "rxjs";
 import {TrafficDetailData} from "./traffic-detail-data";
 import {TrafficData} from "./traffic-data";
-import {delay} from "rxjs/operators";
 
 export abstract class TrafficMasterData implements TrafficData {
   abstract id: string;
