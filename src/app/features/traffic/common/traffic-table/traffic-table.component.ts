@@ -8,7 +8,7 @@ import {TrafficTableFilter} from "./filter/traffic-table-filter";
 import {EmptyTrafficFilter} from "./filter/empty-traffic-filter";
 import {debounceTime} from "rxjs/operators";
 import {TrafficTableHeader} from "./header/traffic-table-header";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, combineLatest} from "rxjs";
 import {SearchListTrafficFilter} from "./filter/search-list-traffic-filter";
 import {Pageable} from "../../../../shared/request/pageable";
 
@@ -42,8 +42,6 @@ export class TrafficTableComponent implements OnInit {
         this.dataSource.update(it);
       });
 
-    this.table.loadData(this.currentFilter.value, this.currentPageable.value);
-
     const group: any = {};
 
     this.table.filters
@@ -55,6 +53,11 @@ export class TrafficTableComponent implements OnInit {
     this.filtersForm = this.formBuilder.group(group);
 
     this.onChanges();
+
+    combineLatest([this.currentFilter, this.currentPageable])
+      .subscribe(it => {
+        this.table.loadData(it[0], it[1])
+      });
   }
 
   private onChanges() {
@@ -62,7 +65,6 @@ export class TrafficTableComponent implements OnInit {
       .pipe(debounceTime(500))
       .subscribe(it => {
         this.currentFilter.next(it)
-        this.table.loadData(it, this.currentPageable.value);
       });
   }
 
@@ -95,12 +97,10 @@ export class TrafficTableComponent implements OnInit {
 
   sortAsc(header: TrafficTableHeader) {
     this.currentPageable.next(Pageable.asc(header));
-    this.table.loadData(this.currentFilter.value, this.currentPageable.value)
   }
 
   sortDesc(header: TrafficTableHeader) {
     this.currentPageable.next(Pageable.desc(header));
-    this.table.loadData(this.currentFilter.value, this.currentPageable.value)
   }
 
   filterList(filter: TrafficTableFilter): any {
