@@ -5,11 +5,11 @@ import {Span, SpanStatus} from "../model/span";
 import {TrafficTableHeader} from "../common/generic-table/header/traffic-table-header";
 import {SelectableTrafficHeader} from "../common/generic-table/header/selectable-traffic-header";
 import {SortableTrafficHeader} from "../common/generic-table/header/sortable-traffic-header";
-import {TrafficTableFilter} from "../common/generic-table/filter/traffic-table-filter";
-import {SearchTrafficFilter} from "../common/generic-table/filter/search-traffic-filter";
-import {SearchListTrafficFilter} from "../common/generic-table/filter/search-list-traffic-filter";
-import {TimestampTrafficFilter} from "../common/generic-table/filter/timestamp-traffic-filter";
-import {EmptyTrafficFilter} from "../common/generic-table/filter/empty-traffic-filter";
+import {TableFilter} from "../common/generic-table/filter/table-filter";
+import {SearchTableFilter} from "../common/generic-table/filter/search-table-filter";
+import {SearchListTableFilter} from "../common/generic-table/filter/search-list-table-filter";
+import {TimestampTableFilter} from "../common/generic-table/filter/timestamp-table-filter";
+import {EmptyTableFilter} from "../common/generic-table/filter/empty-table-filter";
 import {GenericTableComponent} from "../common/generic-table/generic-table.component";
 import {TableColumn} from "../common/generic-table/column/table-column";
 import {SelectableTableColumn} from "../common/generic-table/column/selectable-table-column";
@@ -68,19 +68,19 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     ]
   }
 
-  get filters(): Array<TrafficTableFilter> {
+  get filters(): Array<TableFilter> {
     return [
-      new EmptyTrafficFilter("sticky-cell bg-light-gray", "Subscription_Filter1",""),
-      new SearchTrafficFilter("", "traceId", "Trace Id"),
-      new SearchTrafficFilter("", "application", "Application"),
-      new SearchTrafficFilter("", "topic", "Webhook"),
-      new SearchTrafficFilter("", "callback", "Callback Url"),
-      new TimestampTrafficFilter("", "timestamp", "Timestamp"),
-      new SearchTrafficFilter("", "spanId", "Span Id"),
-      new SearchTrafficFilter("", "responseCode", "Response Code"),
-      new SearchListTrafficFilter("", "status", "Status", SpanStatus),
-      new EmptyTrafficFilter("", "Subscription_Filter2", ""),
-      new EmptyTrafficFilter("", "Subscription_Filter3", ""),
+      new EmptyTableFilter("sticky-cell bg-light-gray", "Subscription_Filter1",""),
+      new SearchTableFilter("", "traceId", "Trace Id"),
+      new SearchTableFilter("", "application", "Application"),
+      new SearchTableFilter("", "topic", "Webhook"),
+      new SearchTableFilter("", "callback", "Callback Url"),
+      new TimestampTableFilter("", "timestamp", "Timestamp"),
+      new SearchTableFilter("", "spanId", "Span Id"),
+      new SearchTableFilter("", "responseCode", "Response Code"),
+      new SearchListTableFilter("", "status", "Status", SpanStatus),
+      new EmptyTableFilter("", "Subscription_Filter2", ""),
+      new EmptyTableFilter("", "Subscription_Filter3", ""),
     ]
   }
 

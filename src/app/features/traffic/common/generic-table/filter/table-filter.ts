@@ -1,10 +1,10 @@
-export interface TrafficTableFilter {
+export interface TableFilter {
   clazz: string;
   title: string;
   name: string;
 }
 
-export class BaseTrafficTableFilter implements TrafficTableFilter {
+export class BaseTableFilter implements TableFilter {
   constructor(
     public clazz: string,
     public name: string,

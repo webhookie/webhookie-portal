@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SearchListTrafficFilter} from "../../../features/traffic/common/generic-table/filter/search-list-traffic-filter";
-import {TrafficTableFilter} from "../../../features/traffic/common/generic-table/filter/traffic-table-filter";
+import {SearchListTableFilter} from "../../../features/traffic/common/generic-table/filter/search-list-table-filter";
+import {TableFilter} from "../../../features/traffic/common/generic-table/filter/table-filter";
 import {FormControl} from "@angular/forms";
 
 @Component({
@@ -9,7 +9,7 @@ import {FormControl} from "@angular/forms";
   styleUrls: ['./search-list.component.css']
 })
 export class SearchListComponent implements OnInit {
-  @Input("filter") filter!: TrafficTableFilter
+  @Input("filter") filter!: TableFilter
   @Input() control!: FormControl
 
   selectArr:any=[];
@@ -56,7 +56,7 @@ export class SearchListComponent implements OnInit {
   }
 
   get list(): any {
-    if(this.filter instanceof SearchListTrafficFilter) {
+    if(this.filter instanceof SearchListTableFilter) {
       return this.filter.list;
     }
     return {};

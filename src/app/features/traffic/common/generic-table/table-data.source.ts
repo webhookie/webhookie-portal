@@ -3,13 +3,13 @@ import {TableMasterData} from "../table-master-data";
 import {EMPTY, Observable} from "rxjs";
 import {TableDetailData} from "../table-detail-data";
 import {TrafficTableHeader} from "./header/traffic-table-header";
-import {TrafficTableFilter} from "./filter/traffic-table-filter";
+import {TableFilter} from "./filter/table-filter";
 import {TableColumn} from "./column/table-column";
 import {SelectableTrafficHeader} from "./header/selectable-traffic-header";
 import {SortableTrafficHeader} from "./header/sortable-traffic-header";
-import {SearchTrafficFilter} from "./filter/search-traffic-filter";
-import {SearchListTrafficFilter} from "./filter/search-list-traffic-filter";
-import {TimestampTrafficFilter} from "./filter/timestamp-traffic-filter";
+import {SearchTableFilter} from "./filter/search-table-filter";
+import {SearchListTableFilter} from "./filter/search-list-table-filter";
+import {TimestampTableFilter} from "./filter/timestamp-table-filter";
 import {MoreDataTableColumn} from "./column/more-data-table-column";
 import {SelectableTableColumn} from "./column/selectable-table-column";
 
@@ -36,7 +36,7 @@ export class TableDataSource {
     return filter.name;
   }
 
-  trackByFilter(index: number, filter: TrafficTableFilter) {
+  trackByFilter(index: number, filter: TableFilter) {
     return filter.name;
   }
 
@@ -69,19 +69,20 @@ export class TableDataSource {
     return header instanceof SortableTrafficHeader
   }
 
-  isSearchFilter(filter: TrafficTableFilter) {
-    return filter instanceof SearchTrafficFilter
+  isSearchFilter(filter: TableFilter) {
+    return filter instanceof SearchTableFilter
   }
 
-  isSearchListFilter(filter: TrafficTableFilter) {
-    return filter instanceof SearchListTrafficFilter
+  isSearchListFilter(filter: TableFilter) {
+    return filter instanceof SearchListTableFilter
   }
 
-  isTimestampFilter(filter: TrafficTableFilter) {
-    return filter instanceof TimestampTrafficFilter
+  isTimestampFilter(filter: TableFilter) {
+    return filter instanceof TimestampTableFilter
   }
 
   isMoreDataColumn(column: TableColumn) {
+    // noinspection SuspiciousTypeOfGuard
     return column instanceof MoreDataTableColumn
   }
 

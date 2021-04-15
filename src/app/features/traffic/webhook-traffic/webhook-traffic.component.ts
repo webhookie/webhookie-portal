@@ -6,10 +6,10 @@ import {SimpleTrafficTableHeader, TrafficTableHeader} from "../common/generic-ta
 import {EmptyTrafficHeader} from "../common/generic-table/header/empty-traffic-header";
 import {SelectableTrafficHeader} from "../common/generic-table/header/selectable-traffic-header";
 import {SortableTrafficHeader} from "../common/generic-table/header/sortable-traffic-header";
-import {TrafficTableFilter} from "../common/generic-table/filter/traffic-table-filter";
-import {EmptyTrafficFilter} from "../common/generic-table/filter/empty-traffic-filter";
-import {SearchTrafficFilter} from "../common/generic-table/filter/search-traffic-filter";
-import {TimestampTrafficFilter} from "../common/generic-table/filter/timestamp-traffic-filter";
+import {TableFilter} from "../common/generic-table/filter/table-filter";
+import {EmptyTableFilter} from "../common/generic-table/filter/empty-table-filter";
+import {SearchTableFilter} from "../common/generic-table/filter/search-table-filter";
+import {TimestampTableFilter} from "../common/generic-table/filter/timestamp-table-filter";
 import {GenericTableComponent} from "../common/generic-table/generic-table.component";
 import {TableColumn} from "../common/generic-table/column/table-column";
 import {
@@ -31,7 +31,7 @@ import {
   SpanIdColumn,
   TriesColumn
 } from "../subscription-traffic/span-columns";
-import {SearchListTrafficFilter} from "../common/generic-table/filter/search-list-traffic-filter";
+import {SearchListTableFilter} from "../common/generic-table/filter/search-list-table-filter";
 import {Pageable} from "../../../shared/request/pageable";
 
 @Component({
@@ -74,16 +74,16 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     ]
   }
 
-  get filters(): Array<TrafficTableFilter> {
+  get filters(): Array<TableFilter> {
     return [
-      new EmptyTrafficFilter("sticky-cell bg-light-gray", "Webhook_Filter1", ""),
-      new EmptyTrafficFilter("sticky-second-cell sticky-cell bg-light-gray", "Webhook_Filter2", ""),
-      new SearchTrafficFilter("", "traceId", "Trace Id"),
-      new SearchTrafficFilter("", "topic", "Webhook"),
-      new SearchTrafficFilter("", "authorizedSubscribers", "Authorized Subscribers"),
-      new TimestampTrafficFilter("", "timestamp", "Timestamp"),
-      new SearchListTrafficFilter("", "status", "Status", TraceStatus),
-      new EmptyTrafficFilter("", "Webhook_Filter2", ""),
+      new EmptyTableFilter("sticky-cell bg-light-gray", "Webhook_Filter1", ""),
+      new EmptyTableFilter("sticky-second-cell sticky-cell bg-light-gray", "Webhook_Filter2", ""),
+      new SearchTableFilter("", "traceId", "Trace Id"),
+      new SearchTableFilter("", "topic", "Webhook"),
+      new SearchTableFilter("", "authorizedSubscribers", "Authorized Subscribers"),
+      new TimestampTableFilter("", "timestamp", "Timestamp"),
+      new SearchListTableFilter("", "status", "Status", TraceStatus),
+      new EmptyTableFilter("", "Webhook_Filter2", ""),
     ]
   }
 

@@ -4,12 +4,12 @@ import {TableMasterData} from "../table-master-data";
 import {TableData} from "../table-data";
 import {TableDataSource} from "./table-data.source";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {TrafficTableFilter} from "./filter/traffic-table-filter";
-import {EmptyTrafficFilter} from "./filter/empty-traffic-filter";
+import {TableFilter} from "./filter/table-filter";
+import {EmptyTableFilter} from "./filter/empty-table-filter";
 import {debounceTime} from "rxjs/operators";
 import {TrafficTableHeader} from "./header/traffic-table-header";
 import {BehaviorSubject, combineLatest} from "rxjs";
-import {SearchListTrafficFilter} from "./filter/search-list-traffic-filter";
+import {SearchListTableFilter} from "./filter/search-list-table-filter";
 import {Pageable} from "../../../../shared/request/pageable";
 
 @Component({
@@ -45,8 +45,8 @@ export class GenericTableComponent implements OnInit {
     const group: any = {};
 
     this.table.filters
-      .filter((it: TrafficTableFilter) => !(it instanceof EmptyTrafficFilter))
-      .forEach((it: TrafficTableFilter) => {
+      .filter((it: TableFilter) => !(it instanceof EmptyTableFilter))
+      .forEach((it: TableFilter) => {
         group[it.name] = new FormControl("");
       });
 
@@ -103,15 +103,15 @@ export class GenericTableComponent implements OnInit {
     this.currentPageable.next(Pageable.desc(header));
   }
 
-  filterList(filter: TrafficTableFilter): any {
-    if(filter instanceof SearchListTrafficFilter) {
+  filterList(filter: TableFilter): any {
+    if(filter instanceof SearchListTableFilter) {
       return filter.list;
     }
 
     return {};
   }
 
-  formControl(filter: TrafficTableFilter) {
+  formControl(filter: TableFilter) {
     // @ts-ignore
     let f: FormControl = this.filtersForm.controls[filter.name]
     return f;

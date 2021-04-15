@@ -1,6 +1,6 @@
-import {BaseTrafficTableFilter} from "./traffic-table-filter";
+import {BaseTableFilter} from "./table-filter";
 
-export class SearchListTrafficFilter extends BaseTrafficTableFilter {
+export class SearchListTableFilter extends BaseTableFilter {
   constructor(
     public clazz: string,
     public name: string,
