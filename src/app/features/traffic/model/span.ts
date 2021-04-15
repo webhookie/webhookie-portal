@@ -1,5 +1,5 @@
 import {TrafficDetailData} from "../common/traffic-detail-data";
-import {Callback} from "../../webhooks/model/callback";
+import {Callback} from "../../../shared/model/callback";
 
 export class Span implements TrafficDetailData{
   constructor(

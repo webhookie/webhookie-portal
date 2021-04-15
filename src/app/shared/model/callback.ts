@@ -1,4 +1,4 @@
-import {CallbackSecurity} from "../../../shared/model/callback-security";
+import {CallbackSecurity} from "./callback-security";
 
 export class Callback {
   constructor(

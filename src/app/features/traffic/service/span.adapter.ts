@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Adapter} from "../../../shared/adapter/adapter";
 import {Span, SpanRetry, SpanStatus, SpanStatusUpdate} from "../model/span";
-import {CallbackAdapter} from "../../webhooks/service/adapter/callback.adapter";
+import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
 
 @Injectable({
   providedIn: 'root'

@@ -3,10 +3,10 @@ import {VariableService} from 'src/app/features/webhooks/common/variable.service
 import {WebhooksContext} from "../../../webhooks-context";
 import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
 import {CallbackRequest, CallbackService} from "../../../service/callback.service";
-import {Callback} from "../../../model/callback";
 import {WebhookieError} from "../../../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
+import {Callback} from "../../../../../shared/model/callback";
 // import {ToastrService} from "ngx-toastr";
 
 @Component({

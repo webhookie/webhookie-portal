@@ -4,8 +4,8 @@ import {WebhooksContext} from "../../webhooks-context";
 import {CallbackService} from "../../service/callback.service";
 import {mergeMap} from "rxjs/operators";
 import {Observable, of, ReplaySubject, Subject, zip} from "rxjs";
-import {Callback} from "../../model/callback";
 import {Application} from "../../model/application";
+import {Callback} from "../../../../shared/model/callback";
 
 @Component({
   selector: 'app-callback',

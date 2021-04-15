@@ -2,9 +2,9 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
 import {Application} from "./model/application";
 import {distinctUntilChanged, filter} from "rxjs/operators";
-import {Callback} from "./model/callback";
 import {WebhookGroupElement} from "./webhook-page/sidebar/sidebar-list/webhook-group-element";
 import {Topic} from "./model/webhook-group";
+import {Callback} from "../../shared/model/callback";
 
 @Injectable({
   providedIn: 'root'
