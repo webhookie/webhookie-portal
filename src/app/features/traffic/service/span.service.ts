@@ -1,13 +1,12 @@
 import {Inject, Injectable} from '@angular/core';
 import {LogService} from "../../../shared/log.service";
 import {Observable} from "rxjs";
-import {HttpParams} from "@angular/common/http";
 import {map, tap} from "rxjs/operators";
 import {SpanAdapter} from "./span.adapter";
 import {Span} from "../model/span";
 import {Api} from "../../../shared/api";
-import {SubscriptionTrafficFilter} from "./subscription-traffic-filter";
 import {TableSort} from "../common/traffic-table/filter/table-sort";
+import {TableFilter} from "../common/traffic-table/filter/table-filter";
 
 @Injectable({
   providedIn: 'root'
@@ -22,25 +21,8 @@ export class SpanService {
   ) {
   }
 
-  readSpans(filter: SubscriptionTrafficFilter, sort?: TableSort): Observable<Span[]> {
-    let params = new HttpParams();
-    Object.entries(filter)
-      .filter(entry => entry[1] != "")
-      .forEach(entry => {
-        let val = entry[1];
-        if(typeof val === 'string') {
-          params = params.set(entry[0], val);
-        }
-        if(Array.isArray(val)) {
-          params = params.set(entry[0], val.join(","));
-        }
-      });
-    params = params.set("size", "20");
-    params = params.set("page", "0");
-
-    if(sort) {
-      params = params.set("sort", `${sort.field.name},${sort.order}`);
-    }
+  readSpans(filter: any, sort?: TableSort): Observable<Span[]> {
+    let params = TableFilter.httpParams(filter, sort);
     return this.api.json(this.SPAN_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' spans`)))
       .pipe(map(list => {

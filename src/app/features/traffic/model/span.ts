@@ -1,4 +1,5 @@
 import {TrafficDetailData} from "../common/traffic-detail-data";
+import {Callback} from "../../webhooks/model/callback";
 
 export class Span implements TrafficDetailData{
   constructor(
@@ -7,7 +8,7 @@ export class Span implements TrafficDetailData{
     public application: string,
     public entity: string,
     public topic: string,
-    public callbackUrl: string,
+    public callback: Callback,
     public responseCode: number,
     public responseBody: string,
     public statusUpdate: SpanStatusUpdate,
@@ -33,6 +34,7 @@ export class SpanStatusUpdate {
   }
 }
 
+// noinspection JSUnusedGlobalSymbols
 export enum SpanStatus {
   PROCESSING = "PROCESSING",
   RETRYING = "RETRYING",

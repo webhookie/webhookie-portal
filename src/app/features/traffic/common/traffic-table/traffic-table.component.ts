@@ -9,7 +9,6 @@ import {EmptyTrafficFilter} from "./filter/empty-traffic-filter";
 import {debounceTime} from "rxjs/operators";
 import {TrafficTableHeader} from "./header/traffic-table-header";
 import {BehaviorSubject} from "rxjs";
-import {TableFilter} from "./filter/table-filter";
 import {SortOrder, TableSort} from "./filter/table-sort";
 import {SearchListTrafficFilter} from "./filter/search-list-traffic-filter";
 
@@ -30,7 +29,7 @@ export class TrafficTableComponent implements OnInit {
   }
 
   filtersForm!: FormGroup;
-  currentFilter: BehaviorSubject<TableFilter> = new BehaviorSubject(new class extends TableFilter {})
+  currentFilter: BehaviorSubject<any> = new BehaviorSubject({});
   // @ts-ignore
   currentSort: BehaviorSubject<TableSort> = new BehaviorSubject(null);
 
@@ -44,7 +43,7 @@ export class TrafficTableComponent implements OnInit {
         this.dataSource.update(it);
       });
 
-    this.table.loadData({});
+    this.table.loadData(this.currentFilter.value);
 
     const group: any = {};
 

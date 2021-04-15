@@ -8,8 +8,8 @@ import {Api} from "../../../shared/api";
 import {SpanAdapter} from "./span.adapter";
 import {Span} from "../model/span";
 import {Trace} from "../model/trace";
-import {WebhookTrafficFilter} from "./webhook-traffic-filter";
 import {TableSort} from "../common/traffic-table/filter/table-sort";
+import {TableFilter} from "../common/traffic-table/filter/table-filter";
 
 @Injectable({
   providedIn: 'root'
@@ -24,25 +24,8 @@ export class TraceService {
   ) {
   }
 
-  readTraces(filter: WebhookTrafficFilter, sort?: TableSort): Observable<Array<Trace>> {
-    let params = new HttpParams();
-    Object.entries(filter)
-      .filter(entry => entry[1] != "")
-      .forEach(entry => {
-        let val = entry[1];
-        if(typeof val === 'string') {
-          params = params.set(entry[0], val);
-        }
-        if(Array.isArray(val)) {
-          params = params.set(entry[0], val.join(","));
-        }
-      });
-    params = params.set("size", "20");
-    params = params.set("page", "0");
-
-    if(sort) {
-      params = params.set("sort", `${sort.field.name},${sort.order}`);
-    }
+  readTraces(filter: any, sort?: TableSort): Observable<Array<Trace>> {
+    let params = TableFilter.httpParams(filter, sort);
     return this.api.json(this.SPAN_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' traces`)))
       .pipe(map(list => {

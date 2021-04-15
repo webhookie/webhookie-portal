@@ -28,7 +28,7 @@ export class WebhookColumn extends BaseTrafficColumn<Span>{
 
 export class CallbackColumn extends BaseTrafficColumn<Span>{
   value(data: Span): string {
-    return data.callbackUrl;
+    return data.callback.name;
   }
 }
 

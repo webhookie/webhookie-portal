@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Adapter} from "../../../shared/adapter/adapter";
 import {Span, SpanRetry, SpanStatus, SpanStatusUpdate} from "../model/span";
+import {CallbackAdapter} from "../../webhooks/service/adapter/callback.adapter";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpanAdapter implements Adapter<Span> {
 
-  constructor() {
+  constructor(private readonly callbackAdapter: CallbackAdapter) {
   }
 
   adapt(item: any): Span {
@@ -29,13 +30,15 @@ export class SpanAdapter implements Adapter<Span> {
       );
     }
 
+    let callback = this.callbackAdapter.adapt(item.callback);
+
     return new Span(
       item.traceId,
       item.spanId,
       item.application,
       item.entity,
       item.topic,
-      item.callbackUrl,
+      callback,
       item.responseCode,
       item.responseBody,
       statusUpdate,
