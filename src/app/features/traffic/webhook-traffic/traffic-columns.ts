@@ -1,6 +1,6 @@
-import {BaseTableColumn} from "../common/generic-table/column/table-column";
+import {BaseTableColumn} from "../../../shared/components/generic-table/column/table-column";
 import {Trace} from "../model/trace";
-import {MoreDataTableColumn} from "../common/generic-table/column/more-data-table-column";
+import {MoreDataTableColumn} from "../../../shared/components/generic-table/column/more-data-table-column";
 import {StringUtils} from "../../../shared/string-utils";
 
 export class TraceIdColumn extends BaseTableColumn<Trace> {

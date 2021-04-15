@@ -2,16 +2,16 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Trace, TraceStatus} from "../model/trace";
-import {SimpleTableHeader, TableHeader} from "../common/generic-table/header/table-header";
-import {EmptyTableHeader} from "../common/generic-table/header/empty-table-header";
-import {SelectableTableHeader} from "../common/generic-table/header/selectable-table-header";
-import {SortableTableHeader} from "../common/generic-table/header/sortable-table-header";
-import {TableFilter} from "../common/generic-table/filter/table-filter";
-import {EmptyTableFilter} from "../common/generic-table/filter/empty-table-filter";
-import {SearchTableFilter} from "../common/generic-table/filter/search-table-filter";
-import {TimestampTableFilter} from "../common/generic-table/filter/timestamp-table-filter";
-import {GenericTableComponent} from "../common/generic-table/generic-table.component";
-import {TableColumn} from "../common/generic-table/column/table-column";
+import {SimpleTableHeader, TableHeader} from "../../../shared/components/generic-table/header/table-header";
+import {EmptyTableHeader} from "../../../shared/components/generic-table/header/empty-table-header";
+import {SelectableTableHeader} from "../../../shared/components/generic-table/header/selectable-table-header";
+import {SortableTableHeader} from "../../../shared/components/generic-table/header/sortable-table-header";
+import {TableFilter} from "../../../shared/components/generic-table/filter/table-filter";
+import {EmptyTableFilter} from "../../../shared/components/generic-table/filter/empty-table-filter";
+import {SearchTableFilter} from "../../../shared/components/generic-table/filter/search-table-filter";
+import {TimestampTableFilter} from "../../../shared/components/generic-table/filter/timestamp-table-filter";
+import {GenericTableComponent} from "../../../shared/components/generic-table/generic-table.component";
+import {TableColumn} from "../../../shared/components/generic-table/column/table-column";
 import {
   StatusColumn,
   SubscribersColumn,
@@ -20,8 +20,8 @@ import {
   TraceMoreDataColumn,
   WebhookColumn
 } from "./traffic-columns";
-import {SelectableTableColumn} from "../common/generic-table/column/selectable-table-column";
-import {GenericTable} from "../common/generic-table/generic-table";
+import {SelectableTableColumn} from "../../../shared/components/generic-table/column/selectable-table-column";
+import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {Span} from "../model/span";
 import {
   ApplicationColumn,
@@ -31,7 +31,7 @@ import {
   SpanIdColumn,
   TriesColumn
 } from "../subscription-traffic/span-columns";
-import {SearchListTableFilter} from "../common/generic-table/filter/search-list-table-filter";
+import {SearchListTableFilter} from "../../../shared/components/generic-table/filter/search-list-table-filter";
 import {Pageable} from "../../../shared/request/pageable";
 
 @Component({

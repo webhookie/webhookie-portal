@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GenericTable} from "./generic-table";
-import {TableMasterData} from "../../../../shared/model/table/table-master-data";
-import {TableData} from "../../../../shared/model/table/table-data";
+import {TableMasterData} from "../../model/table/table-master-data";
+import {TableData} from "../../model/table/table-data";
 import {TableDataSource} from "./table-data.source";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TableFilter} from "./filter/table-filter";
@@ -10,7 +10,7 @@ import {debounceTime} from "rxjs/operators";
 import {TableHeader} from "./header/table-header";
 import {BehaviorSubject, combineLatest} from "rxjs";
 import {SearchListTableFilter} from "./filter/search-list-table-filter";
-import {Pageable} from "../../../../shared/request/pageable";
+import {Pageable} from "../../request/pageable";
 
 @Component({
   selector: 'app-traffic-table',

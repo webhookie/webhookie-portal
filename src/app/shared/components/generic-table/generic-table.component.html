@@ -13,7 +13,7 @@
       <thead class="font14 font-weight-600">
       <tr class="sticky-header">
         <th *ngFor="let header of table.headers; trackBy:dataSource.trackByHeader" scope="col" [ngClass]="header.clazz" class="text-nowrap">{{header.title}}
-          <img *ngIf="dataSource.isSelectableHeader(header)" src="assets/images/Checkbox-minus.svg" class="ml-0" alt="minus">
+          <img *ngIf="dataSource.isSelectableHeader(header)" src="../../../../assets/images/Checkbox-minus.svg" class="ml-0" alt="minus">
           <span *ngIf="dataSource.isSortableHeader(header)" class="text-primary">
             <app-sort-buttons (onAsc)="sortAsc(header)" (onDesc)="sortDesc(header)"></app-sort-buttons>
           </span>
@@ -21,7 +21,7 @@
         <th scope="col" class="filter text-center sticky-cell-opposite table-filters-collapse"
             [class.active]="showFilter" (click)="showFilter=!showFilter">
           <a data-toggle="collapse" href="#filters_collapse_wrapper" class="clickable border-left">
-            <img src="assets/images/Filter.svg" class="ml-0" alt="filter">
+            <img src="../../../../assets/images/Filter.svg" class="ml-0" alt="filter">
           </a>
         </th>
       </tr>
@@ -61,7 +61,7 @@
           <td *ngFor="let column of table.columns; trackBy:dataSource.trackByColumn" [ngClass]="column.clazz">
             <a *ngIf="dataSource.isMoreDataColumn(column)" href="javascript:void(0)" (click)="table.loadDetails(data)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
                class="clickable">
-              <img [src]="rowStatusArrow(data)" src="assets/images/Chevron.svg" alt="down">
+              <img [src]="rowStatusArrow(data)" src="../../../../assets/images/Chevron.svg" alt="down">
             </a>
             <div *ngIf="dataSource.isSelectableColumn(column)" class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="table.rowSelectionChanged(column, data, $event)">
@@ -71,7 +71,7 @@
           </td>
           <td class="dropdown text-center sticky-cell-opposite">
             <a href="#" class="dropdown-toggle hide-after" data-toggle="dropdown">
-              <img src="assets/images/provider-menu.svg" alt="menu">
+              <img src="../../../../assets/images/provider-menu.svg" alt="menu">
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-small px-2">
               <ul class="nav-vertical nav-small">
@@ -96,7 +96,7 @@
               <tbody>
                 <tr *ngFor="let detailData of dataSource.details(data) | async;let i=index; trackBy:dataSource.trackByDetailData">
                   <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn">{{detailColumn.value(detailData)}}</td>
-                  <td class="text-right"><img src="assets/images/provider-menu.svg" alt="menu"></td>
+                  <td class="text-right"><img src="../../../../assets/images/provider-menu.svg" alt="menu"></td>
                 </tr>
               </tbody>
             </table>

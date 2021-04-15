@@ -6,16 +6,18 @@ import {ApiService} from "./api.service";
 import {environment} from "../../environments/environment";
 import {MockApiService} from "./mock/mock-api.service";
 import {SpinnerComponent} from "./components/spinner/spinner.component";
-import { NgxSpinnerModule } from "ngx-spinner";
-import { DatepickerComponent } from './components/datepicker/datepicker.component';
-import { TimepickerComponent } from './components/timepicker/timepicker.component';
-import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-import { PopoverModule } from 'ngx-bootstrap/popover';
-import { DateTimePickerComponent } from './components/date-time-picker/date-time-picker.component';
+import {NgxSpinnerModule} from "ngx-spinner";
+import {DatepickerComponent} from './components/datepicker/datepicker.component';
+import {TimepickerComponent} from './components/timepicker/timepicker.component';
+import {BsDatepickerConfig, BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {TimepickerModule} from 'ngx-bootstrap/timepicker';
+import {PopoverModule} from 'ngx-bootstrap/popover';
+import {DateTimePickerComponent} from './components/date-time-picker/date-time-picker.component';
 
-import { SortButtonsComponent } from './components/sort-buttons/sort-buttons.component';
-import { SearchListComponent } from './components/search-list/search-list.component';
+import {SortButtonsComponent} from './components/sort-buttons/sort-buttons.component';
+import {SearchListComponent} from './components/search-list/search-list.component';
+import {GenericTableComponent} from "./components/generic-table/generic-table.component";
+
 let apiProvider;
 if (environment.mock) {
   console.warn("Using MOCK API!!! make sure to remove this in production")
@@ -25,7 +27,15 @@ if (environment.mock) {
 }
 
 @NgModule({
-  declarations: [SpinnerComponent, DatepickerComponent, TimepickerComponent, DateTimePickerComponent, SortButtonsComponent, SearchListComponent],
+  declarations: [
+    GenericTableComponent,
+    SpinnerComponent,
+    DatepickerComponent,
+    TimepickerComponent,
+    DateTimePickerComponent,
+    SortButtonsComponent,
+    SearchListComponent,
+  ],
   imports: [
     FormsModule,
     CommonModule,
@@ -36,16 +46,17 @@ if (environment.mock) {
     PopoverModule.forRoot(),
     ReactiveFormsModule
   ],
-    exports: [
-        SpinnerComponent,
-        DateTimePickerComponent,
-        DatepickerComponent,
-        TimepickerComponent,
-        SortButtonsComponent,
-        CommonModule,
-        RouterModule,
-        SearchListComponent
-    ],
+  exports: [
+    GenericTableComponent,
+    SpinnerComponent,
+    DateTimePickerComponent,
+    DatepickerComponent,
+    TimepickerComponent,
+    SortButtonsComponent,
+    CommonModule,
+    RouterModule,
+    SearchListComponent
+  ],
   providers: [
     {
       provide: 'Api',

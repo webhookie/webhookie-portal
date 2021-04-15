@@ -1,7 +1,7 @@
-import {TableData} from "../../../../shared/model/table/table-data";
-import {TableMasterData} from "../../../../shared/model/table/table-master-data";
+import {TableData} from "../../model/table/table-data";
+import {TableMasterData} from "../../model/table/table-master-data";
 import {EMPTY, Observable} from "rxjs";
-import {TableDetailData} from "../../../../shared/model/table/table-detail-data";
+import {TableDetailData} from "../../model/table/table-detail-data";
 import {TableHeader} from "./header/table-header";
 import {TableFilter} from "./filter/table-filter";
 import {TableColumn} from "./column/table-column";

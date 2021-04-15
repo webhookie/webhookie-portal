@@ -74,12 +74,12 @@
     width: 200px;
 }
 .common-table .dropdown-toggle::after{
-    content:url("../../../../../assets/images/Chevron_down.svg");
+    content:url("src/assets/images/Chevron_down.svg");
   border: none;
 }
 .common-table .dropdown-toggle.active:after{
     /* content: "\f107"; */
-    content: url("../../../../../assets/images/Chevron_up.svg");
+    content: url("src/assets/images/Chevron_up.svg");
   }
 
 /* designing */
