@@ -14,6 +14,9 @@ export class RequestUtils {
         if(Array.isArray(val)) {
           params = params.set(entry[0], val.join(","));
         }
+        if((val instanceof Set) && (val.size > 0)) {
+          params = params.set(entry[0], Array.from(val).join(","));
+        }
       });
 
     params = params.set("size", pageable.size.toString());

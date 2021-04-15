@@ -1,7 +1,6 @@
 <div class="dropdown">
-  <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 mw-180"
-          data-toggle="dropdown">
-    {{selectArr.length > 0 ? selectArr.length + ' applications selected' : 'Select '}}
+  <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 mw-180" data-toggle="dropdown">
+    {{title}}
   </button>
   <div class="search-small dropdown-menu multi-select-dropdown mt-0">
     <div class="input-group">
@@ -14,16 +13,14 @@
     </div>
     <div class="dropdown-divider"></div>
     <div class="scrollable-list">
-      <div class="custom-control custom-checkbox" (change)="selectedItems('')">
-        <input type="checkbox" class="custom-control-input" id="consumer_4" name="example1"
-               [checked]="selectAll">
+      <div class="custom-control custom-checkbox" (change)="toggleAll($event)">
+        <input type="checkbox" class="custom-control-input" id="consumer_4" name="example1" [checked]="allSelected">
         <label class="custom-control-label" for="consumer_4">Select All</label>
       </div>
-      <div class="custom-control custom-checkbox" *ngFor="let item of keys()"
-           (click)="selectedItems(item)">
-        <input type="checkbox" class="custom-control-input" id="{{item}}" name="example1"
-               [checked]="checkedItem(item)">
-        <label class="custom-control-label" for="{{item}}">{{valueOf(item)}}</label>
+      <div class="custom-control custom-checkbox" *ngFor="let entry of entries"
+           (click)="toggle(entry.key, $event)">
+        <input type="checkbox" class="custom-control-input" id="{{entry.key}}" name="example1" [checked]="checkedItem(entry)">
+        <label class="custom-control-label" for="{{entry.key}}">{{entry.value}}</label>
       </div>
     </div>
   </div>
