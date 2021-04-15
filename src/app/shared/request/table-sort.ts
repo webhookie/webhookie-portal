@@ -1,4 +1,4 @@
-import {TrafficTableHeader} from "../../features/traffic/common/traffic-table/header/traffic-table-header";
+import {TrafficTableHeader} from "../../features/traffic/common/generic-table/header/traffic-table-header";
 
 export class TableSort {
   private constructor(

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SearchListTrafficFilter} from "../../../features/traffic/common/traffic-table/filter/search-list-traffic-filter";
-import {TrafficTableFilter} from "../../../features/traffic/common/traffic-table/filter/traffic-table-filter";
+import {SearchListTrafficFilter} from "../../../features/traffic/common/generic-table/filter/search-list-traffic-filter";
+import {TrafficTableFilter} from "../../../features/traffic/common/generic-table/filter/traffic-table-filter";
 import {FormControl} from "@angular/forms";
 
 @Component({

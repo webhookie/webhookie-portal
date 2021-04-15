@@ -1,4 +1,4 @@
-import {BaseTrafficColumn, NumberTrafficColumn} from "../common/traffic-table/column/traffic-table-column";
+import {BaseTrafficColumn, NumberTrafficColumn} from "../common/generic-table/column/traffic-table-column";
 import {Span} from "../model/span";
 import {StringUtils} from "../../../shared/string-utils";
 

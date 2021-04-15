@@ -2,16 +2,16 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Trace, TraceStatus} from "../model/trace";
-import {SimpleTrafficTableHeader, TrafficTableHeader} from "../common/traffic-table/header/traffic-table-header";
-import {EmptyTrafficHeader} from "../common/traffic-table/header/empty-traffic-header";
-import {SelectableTrafficHeader} from "../common/traffic-table/header/selectable-traffic-header";
-import {SortableTrafficHeader} from "../common/traffic-table/header/sortable-traffic-header";
-import {TrafficTableFilter} from "../common/traffic-table/filter/traffic-table-filter";
-import {EmptyTrafficFilter} from "../common/traffic-table/filter/empty-traffic-filter";
-import {SearchTrafficFilter} from "../common/traffic-table/filter/search-traffic-filter";
-import {TimestampTrafficFilter} from "../common/traffic-table/filter/timestamp-traffic-filter";
-import {TrafficTableComponent} from "../common/traffic-table/traffic-table.component";
-import {TrafficTableColumn} from "../common/traffic-table/column/traffic-table-column";
+import {SimpleTrafficTableHeader, TrafficTableHeader} from "../common/generic-table/header/traffic-table-header";
+import {EmptyTrafficHeader} from "../common/generic-table/header/empty-traffic-header";
+import {SelectableTrafficHeader} from "../common/generic-table/header/selectable-traffic-header";
+import {SortableTrafficHeader} from "../common/generic-table/header/sortable-traffic-header";
+import {TrafficTableFilter} from "../common/generic-table/filter/traffic-table-filter";
+import {EmptyTrafficFilter} from "../common/generic-table/filter/empty-traffic-filter";
+import {SearchTrafficFilter} from "../common/generic-table/filter/search-traffic-filter";
+import {TimestampTrafficFilter} from "../common/generic-table/filter/timestamp-traffic-filter";
+import {TrafficTableComponent} from "../common/generic-table/traffic-table.component";
+import {TrafficTableColumn} from "../common/generic-table/column/traffic-table-column";
 import {
   StatusColumn,
   SubscribersColumn,
@@ -20,8 +20,8 @@ import {
   TraceMoreDataColumn,
   WebhookColumn
 } from "./traffic-columns";
-import {SelectableTrafficColumn} from "../common/traffic-table/column/selectable-traffic-column";
-import {TrafficTable} from "../common/traffic-table/traffic-table";
+import {SelectableTrafficColumn} from "../common/generic-table/column/selectable-traffic-column";
+import {TrafficTable} from "../common/generic-table/traffic-table";
 import {Span} from "../model/span";
 import {
   ApplicationColumn,
@@ -31,7 +31,7 @@ import {
   SpanIdColumn,
   TriesColumn
 } from "../subscription-traffic/span-columns";
-import {SearchListTrafficFilter} from "../common/traffic-table/filter/search-list-traffic-filter";
+import {SearchListTrafficFilter} from "../common/generic-table/filter/search-list-traffic-filter";
 import {Pageable} from "../../../shared/request/pageable";
 
 @Component({

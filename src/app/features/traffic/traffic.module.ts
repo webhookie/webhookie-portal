@@ -5,7 +5,7 @@ import {TrafficHomeComponent} from "./home/traffic-home.component";
 import {TrafficRoutingModule} from "./traffic-routing.module";
 import {SubscriptionTrafficComponent} from './subscription-traffic/subscription-traffic.component';
 import {WebhookTrafficComponent} from './webhook-traffic/webhook-traffic.component';
-import { TrafficTableComponent } from './common/traffic-table/traffic-table.component';
+import { TrafficTableComponent } from './common/generic-table/traffic-table.component';
 import { DatepickerModule, BsDatepickerModule ,BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { PopoverModule } from 'ngx-bootstrap/popover';

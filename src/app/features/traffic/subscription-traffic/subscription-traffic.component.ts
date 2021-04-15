@@ -2,17 +2,17 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Span, SpanStatus} from "../model/span";
-import {TrafficTableHeader} from "../common/traffic-table/header/traffic-table-header";
-import {SelectableTrafficHeader} from "../common/traffic-table/header/selectable-traffic-header";
-import {SortableTrafficHeader} from "../common/traffic-table/header/sortable-traffic-header";
-import {TrafficTableFilter} from "../common/traffic-table/filter/traffic-table-filter";
-import {SearchTrafficFilter} from "../common/traffic-table/filter/search-traffic-filter";
-import {SearchListTrafficFilter} from "../common/traffic-table/filter/search-list-traffic-filter";
-import {TimestampTrafficFilter} from "../common/traffic-table/filter/timestamp-traffic-filter";
-import {EmptyTrafficFilter} from "../common/traffic-table/filter/empty-traffic-filter";
-import {TrafficTableComponent} from "../common/traffic-table/traffic-table.component";
-import {TrafficTableColumn} from "../common/traffic-table/column/traffic-table-column";
-import {SelectableTrafficColumn} from "../common/traffic-table/column/selectable-traffic-column";
+import {TrafficTableHeader} from "../common/generic-table/header/traffic-table-header";
+import {SelectableTrafficHeader} from "../common/generic-table/header/selectable-traffic-header";
+import {SortableTrafficHeader} from "../common/generic-table/header/sortable-traffic-header";
+import {TrafficTableFilter} from "../common/generic-table/filter/traffic-table-filter";
+import {SearchTrafficFilter} from "../common/generic-table/filter/search-traffic-filter";
+import {SearchListTrafficFilter} from "../common/generic-table/filter/search-list-traffic-filter";
+import {TimestampTrafficFilter} from "../common/generic-table/filter/timestamp-traffic-filter";
+import {EmptyTrafficFilter} from "../common/generic-table/filter/empty-traffic-filter";
+import {TrafficTableComponent} from "../common/generic-table/traffic-table.component";
+import {TrafficTableColumn} from "../common/generic-table/column/traffic-table-column";
+import {SelectableTrafficColumn} from "../common/generic-table/column/selectable-traffic-column";
 import {
   ApplicationColumn,
   CallbackColumn,
@@ -24,7 +24,7 @@ import {
   TriesColumn,
   WebhookColumn
 } from "./span-columns";
-import {TrafficTable} from "../common/traffic-table/traffic-table";
+import {TrafficTable} from "../common/generic-table/traffic-table";
 import {Pageable} from "../../../shared/request/pageable";
 
 @Component({
