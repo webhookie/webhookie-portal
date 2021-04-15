@@ -1,6 +1,6 @@
 import {ReplaySubject, Subject} from "rxjs";
-import {TableMasterData} from "../common/table-master-data";
-import {TableDetailData} from "../common/table-detail-data";
+import {TableMasterData} from "../../../shared/model/table/table-master-data";
+import {TableDetailData} from "../../../shared/model/table/table-detail-data";
 import {delay} from "rxjs/operators";
 
 export class Trace extends TableMasterData {

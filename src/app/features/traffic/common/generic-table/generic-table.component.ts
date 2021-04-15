@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GenericTable} from "./generic-table";
-import {TableMasterData} from "../table-master-data";
-import {TableData} from "../table-data";
+import {TableMasterData} from "../../../../shared/model/table/table-master-data";
+import {TableData} from "../../../../shared/model/table/table-data";
 import {TableDataSource} from "./table-data.source";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TableFilter} from "./filter/table-filter";

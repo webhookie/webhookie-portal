@@ -1,5 +1,5 @@
 import {Observable} from "rxjs";
-import {TableData} from "../table-data";
+import {TableData} from "../../../../shared/model/table/table-data";
 import {TableHeader} from "./header/table-header";
 import {TableFilter} from "./filter/table-filter";
 import {TableColumn} from "./column/table-column";

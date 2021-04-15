@@ -1,4 +1,4 @@
-import {TableDetailData} from "../common/table-detail-data";
+import {TableDetailData} from "../../../shared/model/table/table-detail-data";
 import {Callback} from "../../../shared/model/callback";
 
 export class Span implements TableDetailData{
