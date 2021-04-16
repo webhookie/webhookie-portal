@@ -68,9 +68,9 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new SelectableTableHeader("sticky-cell sticky-second-cell", "Webhook_Header2"),
       new SortableTableHeader("Trace Id", "traceId"),
       new SortableTableHeader("Webhook", "topic"),
-      new SortableTableHeader("Authorized Subscribers", "consumerMessage.authorizedSubscribers"),
-      new SortableTableHeader("Timestamp", "statusUpdate.time"),
       new SortableTableHeader("Status", "statusUpdate.status"),
+      new SortableTableHeader("Timestamp", "statusUpdate.time"),
+      new SortableTableHeader("Authorized Subscribers", "consumerMessage.authorizedSubscribers"),
     ]
   }
 
@@ -80,9 +80,9 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new EmptyTableFilter("sticky-second-cell sticky-cell bg-light-gray", "Webhook_Filter2", ""),
       new SearchTableFilter("", "traceId", "Trace Id"),
       new SearchTableFilter("", "topic", "Webhook"),
-      new SearchTableFilter("", "authorizedSubscribers", "Authorized Subscribers"),
-      new TimestampTableFilter("", "timestamp", "Timestamp"),
       new SearchListTableFilter("", "status", "Status", TraceStatus),
+      new TimestampTableFilter("", "timestamp", "Timestamp"),
+      new SearchTableFilter("", "authorizedSubscribers", "Authorized Subscribers"),
       new EmptyTableFilter("", "Webhook_Filter2", ""),
     ]
   }
@@ -93,9 +93,9 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new SelectableTableColumn("sticky-cell sticky-second-cell", "Webhook_Select_Column"),
       new TraceIdColumn("Webhook_TraceId_Column"),
       new WebhookColumn("Webhook_Topic_Column"),
-      new SubscribersColumn("Webhook_Auth_Subscribers_Column"),
-      new TimestampColumn("Webhook_Timestamp_Column"),
       new StatusColumn("Webhook_Status_Column"),
+      new TimestampColumn("Webhook_Timestamp_Column"),
+      new SubscribersColumn("Webhook_Auth_Subscribers_Column"),
     ];
   }
 
