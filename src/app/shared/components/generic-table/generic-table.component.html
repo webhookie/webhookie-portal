@@ -40,18 +40,7 @@
               </div>
             </div>
             <app-search-list *ngIf="dataSource.isSearchListFilter(filter)" [filter]="filter" [control]="formControl(filter)"></app-search-list>
-            <div *ngIf="dataSource.isTimestampFilter(filter)" class="form-inline search-small">
-              <div class="d-flex align-items-center">
-                <div class="mx-2">From</div>
-                <app-datepicker></app-datepicker>
-                <app-timepicker></app-timepicker>
-              </div>
-              <div class="d-flex align-items-center mt-2">
-                <div class="mx-2 to">To</div>
-                <app-datepicker></app-datepicker>
-                <app-timepicker></app-timepicker>
-              </div>
-            </div>
+            <app-timestamp-filter *ngIf="dataSource.isTimestampFilter(filter)" [control]="formControl(filter)"></app-timestamp-filter>
           </form>
         </td>
       </tr>

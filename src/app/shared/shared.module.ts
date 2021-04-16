@@ -17,6 +17,7 @@ import {DateTimePickerComponent} from './components/date-time-picker/date-time-p
 import {SortButtonsComponent} from './components/sort-buttons/sort-buttons.component';
 import {SearchListComponent} from './components/search-list/search-list.component';
 import {GenericTableComponent} from "./components/generic-table/generic-table.component";
+import { TimestampFilterComponent } from './components/timestamp-filter/timestamp-filter.component';
 
 let apiProvider;
 if (environment.mock) {
@@ -35,6 +36,7 @@ if (environment.mock) {
     DateTimePickerComponent,
     SortButtonsComponent,
     SearchListComponent,
+    TimestampFilterComponent,
   ],
   imports: [
     FormsModule,
