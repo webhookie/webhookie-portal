@@ -179,7 +179,12 @@ export class MockData {
       "application": "My Order Application 1",
       "entity": "Hookie Solutions",
       "topic": "NewOrder",
-      "callbackUrl": "POST http://192.168.1.101:9004/wh/weather",
+      "callback": {
+        id: "1",
+        name:"Callback 1",
+        httpMethod: "POST",
+        url: "http://localhost:8080/"
+      },
       "responseCode": -1,
       "responseBody": "connection timed out: /192.168.1.101:9004; nested exception is io.netty.channel.ConnectTimeoutException: connection timed out: /192.168.1.101:9004",
       "status": {
@@ -199,7 +204,12 @@ export class MockData {
       "application": "My Order Application 1",
       "entity": "Hookie Solutions",
       "topic": "CreateNewOrder",
-      "callbackUrl": "POST http://192.168.1.101:9001/wh/product",
+      "callback": {
+        id: "1",
+        name:"Callback 1",
+        httpMethod: "POST",
+        url: "http://localhost:8080/"
+      },
       "responseCode": -1,
       "responseBody": "connection timed out: /192.168.1.101:9001; nested exception is io.netty.channel.ConnectTimeoutException: connection timed out: /192.168.1.101:9001",
       "status": {
@@ -219,7 +229,12 @@ export class MockData {
       "application": "My Order Application 1",
       "entity": "Hookie Solutions",
       "topic": "CreateNewOrder",
-      "callbackUrl": "POST http://192.168.1.101:9001/wh/product",
+      "callback": {
+        id: "1",
+        name:"Callback 1",
+        httpMethod: "POST",
+        url: "http://localhost:8080/"
+      },
       "responseCode": -1,
       "responseBody": "connection timed out: /192.168.1.101:9001; nested exception is io.netty.channel.ConnectTimeoutException: connection timed out: /192.168.1.101:9001",
       "status": {
@@ -239,7 +254,12 @@ export class MockData {
       "application": "My Order Application 1",
       "entity": "Hookie Solutions",
       "topic": "CreateNewOrder",
-      "callbackUrl": "POST http://192.168.1.101:9001/wh/product",
+      "callback": {
+        id: "1",
+        name:"Callback 1",
+        httpMethod: "POST",
+        url: "http://localhost:8080/"
+      },
       "responseCode": -1,
       "responseBody": "connection timed out: /192.168.1.101:9001; nested exception is io.netty.channel.ConnectTimeoutException: connection timed out: /192.168.1.101:9001",
       "status": {
@@ -259,7 +279,12 @@ export class MockData {
       "application": "My Order Application 1",
       "entity": "Hookie Solutions",
       "topic": "NewOrder",
-      "callbackUrl": "POST http://192.168.1.101:9002/wh/product",
+      "callback": {
+        id: "1",
+        name:"Callback 1",
+        httpMethod: "POST",
+        url: "http://localhost:8080/"
+      },
       "responseCode": 200,
       "responseBody": "Product OK",
       "status": {
@@ -279,7 +304,12 @@ export class MockData {
       "application": "My Order Application 1",
       "entity": "Hookie Solutions",
       "topic": "CreateNewOrder",
-      "callbackUrl": "POST http://192.168.1.101:9001/wh/product",
+      "callback": {
+        id: "1",
+        name:"Callback 1",
+        httpMethod: "POST",
+        url: "http://localhost:8080/"
+      },
       "responseCode": 200,
       "responseBody": "Product OK",
       "status": {
@@ -299,7 +329,12 @@ export class MockData {
       "application": "My Order Application 1",
       "entity": "Hookie Solutions",
       "topic": "NewOrder",
-      "callbackUrl": "POST http://192.168.1.101:9004/wh/weather",
+      "callback": {
+        id: "1",
+        name:"Callback 1",
+        httpMethod: "POST",
+        url: "http://localhost:8080/"
+      },
       "responseCode": 200,
       "responseBody": "Weather OK",
       "status": {
@@ -319,7 +354,12 @@ export class MockData {
       "application": "My Order Application 1",
       "entity": "Hookie Solutions",
       "topic": "NewOrder",
-      "callbackUrl": "POST http://192.168.1.101:9002/wh/product",
+      "callback": {
+        id: "1",
+        name:"Callback 1",
+        httpMethod: "POST",
+        url: "http://localhost:8080/"
+      },
       "responseCode": 200,
       "responseBody": "Product OK",
       "status": {
