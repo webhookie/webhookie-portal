@@ -1,7 +1,7 @@
 import {CallbackSecurity} from "./callback-security";
 import {TableDetailData} from "./table/table-detail-data";
 
-export class Subscription implements TableDetailData {
+export class Subscription extends TableDetailData {
   constructor(
     public id: string,
     public application: ApplicationDetails,
@@ -10,11 +10,10 @@ export class Subscription implements TableDetailData {
     public topic: string,
     public blocked: boolean
   ) {
+    super();
   }
 
-  get isLoading(): boolean {
-    return false;
-  }
+  isLoading: boolean = false;
 
   canBeValidated(): boolean {
     let validStatusList = [SubscriptionStatus.SAVED, SubscriptionStatus.BLOCKED, SubscriptionStatus.DEACTIVATED];

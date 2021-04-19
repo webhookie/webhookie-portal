@@ -195,8 +195,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     ]
   }
 
-  loadDetails(data: Trace) {
-    data.loading();
+  fetchDetails(data: Trace) {
     let filter = {
       entity: this.currentEntity,
       application: this.currentApplication?.id,

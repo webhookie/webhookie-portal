@@ -99,7 +99,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     ]
   }
 
-  loadDetails(data: any) {
+  fetchDetails(data: any) {
   }
 
   detailHeaders?: TableHeader[];

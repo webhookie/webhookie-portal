@@ -78,7 +78,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     ]
   }
 
-  loadDetails(data: any) {
+  fetchDetails(data: any) {
   }
 
   detailHeaders?: TableHeader[];

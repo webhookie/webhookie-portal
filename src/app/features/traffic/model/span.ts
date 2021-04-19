@@ -1,7 +1,7 @@
 import {TableDetailData} from "../../../shared/model/table/table-detail-data";
 import {Callback} from "../../../shared/model/callback";
 
-export class Span implements TableDetailData{
+export class Span extends TableDetailData {
   constructor(
     public traceId: string,
     public spanId: string,
@@ -15,15 +15,14 @@ export class Span implements TableDetailData{
     public tries: number,
     public nextRetry?: SpanRetry
   ) {
+    super();
   }
 
   get id(): string {
     return this.spanId;
   }
 
-  get isLoading(): boolean {
-    return false;
-  }
+  isLoading: boolean = false;
 }
 
 export class SpanStatusUpdate {

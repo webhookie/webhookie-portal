@@ -13,9 +13,8 @@ export abstract class GenericTable<T extends TableData, R extends TableData> {
   abstract detailColumns?: Array<TableColumn>;
   private isLoading: boolean = false;
 
-  abstract loadDetails(data: T): void;
+  abstract fetchDetails(data: T): void;
   abstract readonly tableData: Observable<Array<TableData>>;
-
   abstract fetchData(filter: any, pageable: Pageable): void;
 
   init() {
@@ -26,6 +25,11 @@ export abstract class GenericTable<T extends TableData, R extends TableData> {
   loadData(filter: any, pageable: Pageable) {
     this.isLoading = true;
     this.fetchData(filter, pageable);
+  }
+
+  loadDetails(data: T): void {
+    data.loading();
+    this.fetchDetails(data);
   }
 
   selectedRows: Array<string> = [];
