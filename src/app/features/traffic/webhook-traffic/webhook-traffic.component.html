@@ -2,12 +2,16 @@
   <div class="drop-buttons d-flex">
     <ul class="d-flex align-items-center">
       <li>
-        <h5>Company</h5>
+        <h5>Entity</h5>
         <div class="dropdown">
-          <button type="button" class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center" data-toggle="dropdown"> Select company </button>
+          <button class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center"
+                  data-toggle="dropdown"
+                  type="button">
+            {{currentEntity ? currentEntity : 'Select Entity'}}
+          </button>
           <div class="dropdown-menu font12 font-weight-400">
-            <button class="btn btn-default font-weight-400 font12">Create New Application</button>
-            <a class="dropdown-item"></a>
+            <a (click)="selectEntity(app)" *ngFor="let app of entities$.asObservable() | async" class="dropdown-item"
+               href="javascript:void(0)">{{app}}</a>
           </div>
         </div>
       </li>

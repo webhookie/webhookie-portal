@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
-import {Observable, ReplaySubject, Subject} from "rxjs";
+import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
 import {Trace, TraceStatus} from "../model/trace";
 import {SimpleTableHeader, TableHeader} from "../../../shared/model/table/header/table-header";
 import {EmptyTableHeader} from "../../../shared/model/table/header/empty-table-header";
@@ -33,6 +33,8 @@ import {
 } from "../subscription-traffic/span-columns";
 import {SearchListTableFilter} from "../../../shared/model/table/filter/search-list-table-filter";
 import {Pageable} from "../../../shared/request/pageable";
+import {ProviderService} from "../service/provider.service";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -46,13 +48,25 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
   readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();
 
+  readonly entities$: Subject<Array<string>> = new BehaviorSubject<Array<string>>([]);
+
+  // @ts-ignore
+  readonly selectedEntity$: BehaviorSubject<string> = new BehaviorSubject(null);
+
   constructor(
-    private readonly traceService: TraceService
+    private readonly traceService: TraceService,
+    private readonly providerService: ProviderService
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.providerService.myEntities()
+      .subscribe(it => this.entities$.next(it));
+
+    this.selectedEntity$.asObservable()
+      .pipe(filter(it => it != null))
+      .subscribe(it => console.warn(it));
   }
 
   fetchData(filter: any, pageable: Pageable) {
@@ -130,5 +144,13 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     data.loading();
     this.traceService.readTraceSpans(data.traceId)
       .subscribe(it => data.update(it))
+  }
+
+  selectEntity(entity: string) {
+    this.selectedEntity$.next(entity);
+  }
+
+  get currentEntity(): string {
+    return  this.selectedEntity$.value;
   }
 }
