@@ -1,6 +1,7 @@
 import {BaseTableColumn, NumberTableColumn} from "../../../shared/model/table/column/table-column";
 import {Span} from "../model/span";
 import {StringUtils} from "../../../shared/string-utils";
+import {DateUtils} from "../../../shared/date-utils";
 
 export class TraceIdColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
@@ -34,7 +35,7 @@ export class CallbackColumn extends BaseTableColumn<Span>{
 
 export class TimestampColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
-    return `${data.statusUpdate.time}`;
+    return DateUtils.formatUtc(data.statusUpdate.time);
   }
 }
 
