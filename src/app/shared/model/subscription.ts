@@ -1,6 +1,7 @@
 import {CallbackSecurity} from "./callback-security";
+import {TableDetailData} from "./table/table-detail-data";
 
-export class Subscription {
+export class Subscription implements TableDetailData {
   constructor(
     public id: string,
     public application: ApplicationDetails,
@@ -9,6 +10,10 @@ export class Subscription {
     public topic: string,
     public blocked: boolean
   ) {
+  }
+
+  get isLoading(): boolean {
+    return false;
   }
 
   canBeValidated(): boolean {
@@ -36,6 +41,7 @@ export class ApplicationDetails {
 }
 
 export class StatusUpdate {
+  // noinspection JSUnusedGlobalSymbols
   constructor(
     public status: SubscriptionStatus,
     public reason: string | null,
@@ -45,6 +51,7 @@ export class StatusUpdate {
 }
 
 export class CallbackDetails {
+  // noinspection JSUnusedGlobalSymbols
   constructor(
     public id: string,
     public name: string,
@@ -57,6 +64,7 @@ export class CallbackDetails {
 }
 
 
+// noinspection JSUnusedGlobalSymbols
 enum SubscriptionStatus {
   SAVED = "SAVED",
   VALIDATED = "VALIDATED",

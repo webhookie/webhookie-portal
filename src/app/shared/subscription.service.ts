@@ -7,6 +7,8 @@ import {LogService} from "./log.service";
 import {SubscriptionAdapter} from "./adapter/subscription.adapter";
 import {Subscription} from "./model/subscription";
 import {ApiService} from "./api.service";
+import {Pageable} from "./request/pageable";
+import {RequestUtils} from "./request/request-utils";
 
 @Injectable({
   providedIn: 'root'
@@ -21,22 +23,8 @@ export class SubscriptionService {
   ) {
   }
 
-  fetchSubscriptions(
-    role: string,
-    topic?: string,
-    callbackId?: string
-  ): Observable<Array<Subscription>> {
-    let params = new HttpParams()
-      .set("role", role.valueOf());
-
-    if (topic) {
-      params = params.set("topic", topic)
-    }
-
-    if (callbackId) {
-      params = params.set("callbackId", callbackId)
-    }
-
+  fetchSubscriptions(filter: any, pageable: Pageable): Observable<Array<Subscription>> {
+    let params = RequestUtils.httpParams(filter, pageable);
     return this.api.json(this.SUBSCRIPTIONS_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' subscriptions`)))
       .pipe(map(list => {

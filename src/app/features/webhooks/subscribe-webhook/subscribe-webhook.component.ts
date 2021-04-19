@@ -9,9 +9,10 @@ import {SubscriptionService, ValidateSubscriptionRequest} from "../../../shared/
 import {Observable} from "rxjs";
 import {Subscription} from "../../../shared/model/subscription";
 import {RouterService} from "../../../shared/router.service";
-import {HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {HttpHeaders} from "@angular/common/http";
 import {CallbackResponse} from "../service/callback.service";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
+import {Pageable} from "../../../shared/request/pageable";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -138,6 +139,11 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   private fetchSubscriptions(callbackId: string): Observable<Array<Subscription>> {
-    return this.subscriptionService.fetchSubscriptions("CONSUMER", this.context.selectedTopic?.name, callbackId)
+    let filter = {
+      role: "CONSUMER",
+      topic: this.context.selectedTopic?.name,
+      callbackId: callbackId
+    }
+    return this.subscriptionService.fetchSubscriptions(filter, Pageable.default())
   }
 }
