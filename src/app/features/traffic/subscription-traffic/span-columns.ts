@@ -29,7 +29,7 @@ export class WebhookColumn extends BaseTableColumn<Span>{
 
 export class CallbackColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
-    return data.callback.name;
+    return `<a class="text-primary" title="${data.callback.url}">${data.callback.name}</a>`;
   }
 }
 

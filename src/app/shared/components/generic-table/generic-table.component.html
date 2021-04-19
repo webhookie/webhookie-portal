@@ -56,7 +56,7 @@
               <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="table.rowSelectionChanged(column, data, $event)">
               <label class="custom-control-label" for="check1{{i}}"></label>
             </div>
-            {{column.value(data)}}
+            <span [innerHTML]="column.value(data)"></span>
           </td>
           <td class="dropdown text-center sticky-cell-opposite">
             <a href="#" class="dropdown-toggle hide-after" data-toggle="dropdown">
