@@ -1,6 +1,7 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormControl} from "@angular/forms";
-import {DateTimePickerComponent} from "../date-time-picker/date-time-picker.component";
+import {Component, Input, OnInit} from '@angular/core';
+import {TableFilter} from "../../model/table/filter/table-filter";
+import {FormControl, FormGroup} from "@angular/forms";
+import {TimestampTableFilter} from "../../model/table/filter/timestamp-table-filter";
 
 @Component({
   selector: 'app-timestamp-filter',
@@ -8,13 +9,29 @@ import {DateTimePickerComponent} from "../date-time-picker/date-time-picker.comp
   styleUrls: ['./timestamp-filter.component.css']
 })
 export class TimestampFilterComponent implements OnInit {
-  @Input() control!: FormControl
-  @ViewChild("fromComponent") fromComponent!: DateTimePickerComponent
-  @ViewChild("toComponent") toComponent!: DateTimePickerComponent
+  @Input() filter!: TableFilter
+  @Input() formGroup!: FormGroup
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  private control(name: string): FormControl {
+    // @ts-ignore
+    return this.formGroup.controls[name];
+  };
+
+  get fromControl(): FormControl {
+    return this.control(this.timestampFilter.fromFilterName)
+  }
+
+  get toControl(): FormControl {
+    return this.control(this.timestampFilter.toFilterName)
+  }
+
+  get timestampFilter(): TimestampTableFilter {
+    // @ts-ignore
+    return this.filter;
+  }
 }

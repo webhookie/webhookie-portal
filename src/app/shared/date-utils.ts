@@ -13,4 +13,16 @@ export class DateUtils {
   static toLocalDate(utcDate: Date): Date {
     return DateUtils.toLocal(utcDate).toDate();
   }
+
+  static utcString(localDate: Date, localTime: Date): string {
+    let d = new Date(
+      localDate.getFullYear(),
+      localDate.getMonth(),
+      localDate.getDate(),
+      localTime.getHours(),
+      localTime.getMinutes(),
+      0, 0
+    );
+    return moment(d).utc().format()
+  }
 }
