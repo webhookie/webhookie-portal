@@ -1,14 +1,14 @@
 import {ReplaySubject, Subject} from "rxjs";
 import {TableDetailData} from "./table-detail-data";
-import {TableData} from "./table-data";
+import {BaseTableData} from "./table-data";
 
-export abstract class TableMasterData implements TableData {
+export abstract class TableMasterData extends BaseTableData {
   abstract id: string;
   details: Subject<Array<TableDetailData>> = new ReplaySubject();
   isOpen: boolean = false;
-  isLoading: boolean = false;
 
   protected constructor() {
+    super();
   }
 
   toggle(): void {
@@ -18,13 +18,5 @@ export abstract class TableMasterData implements TableData {
   update(details: Array<TableDetailData>): void {
     this.toggle();
     this.details.next(details);
-  }
-
-  loading() {
-    this.isLoading = true;
-  }
-
-  loaded() {
-    this.isLoading = false;
   }
 }

@@ -1,14 +1,5 @@
-import {TableData} from "./table-data";
+import {BaseTableData} from "./table-data";
 
-export abstract class TableDetailData implements TableData {
+export abstract class TableDetailData extends BaseTableData {
   abstract id: string;
-  isLoading: boolean = true;
-
-  loading() {
-    this.isLoading = true;
-  }
-
-  loaded() {
-    this.isLoading = false;
-  }
 }
