@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
-import {Observable, ReplaySubject, Subject} from "rxjs";
+import {Observable, of, ReplaySubject, Subject} from "rxjs";
 import {Span, SpanStatus} from "../model/span";
 import {TableHeader} from "../../../shared/model/table/header/table-header";
 import {SelectableTableHeader} from "../../../shared/model/table/header/selectable-table-header";
@@ -99,7 +99,8 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     ]
   }
 
-  fetchDetails(data: any) {
+  fetchDetails(data: any): Observable<boolean> {
+    return of(true);
   }
 
   detailHeaders?: TableHeader[];

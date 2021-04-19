@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
+import {BehaviorSubject, Observable, of, ReplaySubject, Subject} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "../../../shared/model/subscription";
 import {SubscriptionService} from "../../../shared/subscription.service";
@@ -12,8 +12,10 @@ import {TableColumn} from "../../../shared/model/table/column/table-column";
 import {SortableTableHeader} from "../../../shared/model/table/header/sortable-table-header";
 import {SelectableTableHeader} from "../../../shared/model/table/header/selectable-table-header";
 import {
-  SubscriptionApplicationColumn, SubscriptionCallbackColumn,
-  SubscriptionEntityColumn, SubscriptionStatusColumn,
+  SubscriptionApplicationColumn,
+  SubscriptionCallbackColumn,
+  SubscriptionEntityColumn,
+  SubscriptionStatusColumn,
   SubscriptionWebhookColumn
 } from "./subscription-columns";
 import {SelectableTableColumn} from "../../../shared/model/table/column/selectable-table-column";
@@ -78,7 +80,8 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     ]
   }
 
-  fetchDetails(data: any) {
+  fetchDetails(data: any): Observable<boolean> {
+    return of(true);
   }
 
   detailHeaders?: TableHeader[];

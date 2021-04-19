@@ -7,4 +7,8 @@ export abstract class TableDetailData implements TableData {
   loading() {
     this.isLoading = true;
   }
+
+  loaded() {
+    this.isLoading = false;
+  }
 }

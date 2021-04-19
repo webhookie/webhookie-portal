@@ -34,7 +34,7 @@ import {
 import {SearchListTableFilter} from "../../../shared/model/table/filter/search-list-table-filter";
 import {Pageable} from "../../../shared/request/pageable";
 import {ProviderService} from "../service/provider.service";
-import {filter, mergeMap} from "rxjs/operators";
+import {filter, map, mergeMap, tap} from "rxjs/operators";
 import {Application} from "../../webhooks/model/application";
 import {Callback} from "../../../shared/model/callback";
 
@@ -195,14 +195,15 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     ]
   }
 
-  fetchDetails(data: Trace) {
+  fetchDetails(data: Trace): Observable<boolean> {
     let filter = {
       entity: this.currentEntity,
       application: this.currentApplication?.id,
       callback: this.currentCallback?.callbackId,
     }
-    this.traceService.readTraceSpans(data.traceId, filter, Pageable.unPaged())
-      .subscribe(it => data.update(it))
+    return this.traceService.readTraceSpans(data.traceId, filter, Pageable.unPaged())
+      .pipe(tap(it => data.update(it)))
+      .pipe(map(() => true))
   }
 
   selectEntity(entity: string | null) {

@@ -1,7 +1,6 @@
 import {ReplaySubject, Subject} from "rxjs";
 import {TableMasterData} from "../../../shared/model/table/table-master-data";
 import {TableDetailData} from "../../../shared/model/table/table-detail-data";
-import {delay} from "rxjs/operators";
 
 export class Trace extends TableMasterData {
   constructor(
@@ -11,9 +10,6 @@ export class Trace extends TableMasterData {
     public authorizedSubscribers: Array<string>,
   ) {
     super();
-    this.details.asObservable()
-      .pipe(delay(500))
-      .subscribe(() => this.loaded());
   }
 
   details: Subject<Array<TableDetailData>> = new ReplaySubject();

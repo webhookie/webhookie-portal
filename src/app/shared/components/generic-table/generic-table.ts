@@ -4,6 +4,7 @@ import {TableHeader} from "../../model/table/header/table-header";
 import {TableFilter} from "../../model/table/filter/table-filter";
 import {TableColumn} from "../../model/table/column/table-column";
 import {Pageable} from "../../request/pageable";
+import {delay} from "rxjs/operators";
 
 export abstract class GenericTable<T extends TableData, R extends TableData> {
   abstract headers: Array<TableHeader>;
@@ -13,7 +14,7 @@ export abstract class GenericTable<T extends TableData, R extends TableData> {
   abstract detailColumns?: Array<TableColumn>;
   private isLoading: boolean = false;
 
-  abstract fetchDetails(data: T): void;
+  abstract fetchDetails(data: T): Observable<boolean>;
   abstract readonly tableData: Observable<Array<TableData>>;
   abstract fetchData(filter: any, pageable: Pageable): void;
 
@@ -29,7 +30,9 @@ export abstract class GenericTable<T extends TableData, R extends TableData> {
 
   loadDetails(data: T): void {
     data.loading();
-    this.fetchDetails(data);
+    this.fetchDetails(data)
+      .pipe(delay(500))
+      .subscribe(() => data.loaded());
   }
 
   selectedRows: Array<string> = [];
