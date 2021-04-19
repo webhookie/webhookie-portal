@@ -10,8 +10,8 @@
             {{currentEntity ? currentEntity : 'Select Entity'}}
           </button>
           <div class="dropdown-menu font12 font-weight-400">
-            <a (click)="selectEntity(app)" *ngFor="let app of entities$.asObservable() | async" class="dropdown-item"
-               href="javascript:void(0)">{{app}}</a>
+            <a *ngIf="currentEntity" class="dropdown-item" href="javascript:void(0)" (click)="selectEntity(null)">Select Entity</a>
+            <a *ngFor="let app of entities$.asObservable() | async" class="dropdown-item" href="javascript:void(0)" (click)="selectEntity(app)">{{app}}</a>
           </div>
         </div>
       </li>

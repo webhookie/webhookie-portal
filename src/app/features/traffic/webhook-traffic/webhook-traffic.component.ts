@@ -146,7 +146,8 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       .subscribe(it => data.update(it))
   }
 
-  selectEntity(entity: string) {
+  selectEntity(entity: string | null) {
+    // @ts-ignore
     this.selectedEntity$.next(entity);
   }
 
