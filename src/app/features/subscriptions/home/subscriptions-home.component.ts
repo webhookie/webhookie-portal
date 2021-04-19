@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {KeyValue} from "@angular/common";
 
 @Component({
   selector: 'app-subscriptions-home',
@@ -6,6 +7,17 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./subscriptions-home.component.css']
 })
 export class SubscriptionsHomeComponent implements OnInit {
+  links: Array<KeyValue<string, string>> = [
+    {
+      key: "consumer",
+      value: "Your subscriptions"
+    },
+    {
+      key: "provider",
+      value: "Your webhook subscriptions"
+    }
+  ]
+
   constructor(
   ) { }
 
