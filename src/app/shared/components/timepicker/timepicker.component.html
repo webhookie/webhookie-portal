@@ -1,6 +1,6 @@
 <div class="time_wrapper ml-2">
     <ng-template #popTemplate1>
-      <timepicker name="endTime" [showMeridian]="false" [(ngModel)]="time"></timepicker>
+      <timepicker (ngModelChange)="changed($event)" name="endTime" [showMeridian]="false" [(ngModel)]="time"></timepicker>
     </ng-template>
     <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 time_dropdown"
             data-toggle="dropdown" [popover]="popTemplate1" [outsideClick]="true"

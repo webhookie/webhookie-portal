@@ -32,6 +32,7 @@
           <form [formGroup]="filtersForm">
             <div *ngIf="dataSource.isSearchFilter(filter)" class="form-inline search-small">
               <div class="input-group mw-180">
+                <!--suppress HtmlFormInputWithoutLabel -->
                 <input type="text" placeholder="Search..." class="form-control border-right-0" [formControlName]="filter.name">
                 <div class="input-group-append">
                   <a href="javascript:void(0)" class="input-group-text bg-white px-2"><i
@@ -40,18 +41,7 @@
               </div>
             </div>
             <app-search-list *ngIf="dataSource.isSearchListFilter(filter)" [filter]="filter" [control]="formControl(filter)"></app-search-list>
-            <div *ngIf="dataSource.isTimestampFilter(filter)" class="form-inline search-small">
-              <div class="d-flex align-items-center">
-                <div class="mx-2">From</div>
-                <app-datepicker></app-datepicker>
-                <app-timepicker></app-timepicker>
-              </div>
-              <div class="d-flex align-items-center mt-2">
-                <div class="mx-2 to">To</div>
-                <app-datepicker></app-datepicker>
-                <app-timepicker></app-timepicker>
-              </div>
-            </div>
+            <app-timestamp-filter *ngIf="dataSource.isTimestampFilter(filter)" [filter]="filter" [formGroup]="filtersForm"></app-timestamp-filter>
           </form>
         </td>
       </tr>
@@ -67,7 +57,7 @@
               <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="table.rowSelectionChanged(column, data, $event)">
               <label class="custom-control-label" for="check1{{i}}"></label>
             </div>
-            {{column.value(data)}}
+            <span [innerHTML]="column.value(data)"></span>
           </td>
           <td class="dropdown text-center sticky-cell-opposite">
             <a href="#" class="dropdown-toggle hide-after" data-toggle="dropdown">
@@ -95,7 +85,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let detailData of dataSource.details(data) | async;let i=index; trackBy:dataSource.trackByDetailData">
-                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn">{{detailColumn.value(detailData)}}</td>
+                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn"><span [innerHTML]="detailColumn.value(detailData)"></span></td>
                   <td class="text-right"><img src="../../../../assets/images/provider-menu.svg" alt="menu"></td>
                 </tr>
               </tbody>

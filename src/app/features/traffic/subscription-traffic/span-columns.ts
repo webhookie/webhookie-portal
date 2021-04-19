@@ -1,6 +1,7 @@
 import {BaseTableColumn, NumberTableColumn} from "../../../shared/model/table/column/table-column";
 import {Span} from "../model/span";
 import {StringUtils} from "../../../shared/string-utils";
+import {DateUtils} from "../../../shared/date-utils";
 
 export class TraceIdColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
@@ -28,13 +29,13 @@ export class WebhookColumn extends BaseTableColumn<Span>{
 
 export class CallbackColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
-    return data.callback.name;
+    return `<a class="text-primary" title="${data.callback.url}">${data.callback.name}</a>`;
   }
 }
 
 export class TimestampColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
-    return `${data.statusUpdate.time}`;
+    return DateUtils.format(data.statusUpdate.time);
   }
 }
 

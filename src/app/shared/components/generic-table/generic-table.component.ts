@@ -11,6 +11,7 @@ import {TableHeader} from "../../model/table/header/table-header";
 import {BehaviorSubject, combineLatest} from "rxjs";
 import {SearchListTableFilter} from "../../model/table/filter/search-list-table-filter";
 import {Pageable} from "../../request/pageable";
+import {TimestampTableFilter} from "../../model/table/filter/timestamp-table-filter";
 
 @Component({
   selector: 'app-traffic-table',
@@ -47,7 +48,12 @@ export class GenericTableComponent implements OnInit {
     this.table.filters
       .filter((it: TableFilter) => !(it instanceof EmptyTableFilter))
       .forEach((it: TableFilter) => {
-        group[it.name] = new FormControl("");
+        if(it instanceof TimestampTableFilter) {
+          group[`${it.fromFilterName}`] = new FormControl("");
+          group[`${it.toFilterName}`] = new FormControl("");
+        } else {
+          group[it.name] = new FormControl("");
+        }
       });
 
     this.filtersForm = this.formBuilder.group(group);
@@ -73,14 +79,14 @@ export class GenericTableComponent implements OnInit {
   }
 
   onTableScroll = (e: any): void => {
-    console.log(e, "hgdjhg");
+    // console.log(e, "hgdjhg");
     const tableViewHeight = e.target.scrollingElement.offsetHeight
     const tableScrollHeight = e.target.scrollingElement.scrollHeight
     const scrollLocation = e.target.scrollingElement.scrollTop;
     const buffer = 100;
     const limit = tableScrollHeight - tableViewHeight - buffer;
     if (scrollLocation > limit) {
-      console.warn("SCROLL.....")
+      // console.warn("SCROLL.....")
       // let data = this.getTableData(this.start, this.end);
       // this.dataSource = this.dataSource.concat(data);
       // this.updateIndex();

@@ -2,6 +2,7 @@ import {BaseTableColumn} from "../../../shared/model/table/column/table-column";
 import {Trace} from "../model/trace";
 import {MoreDataTableColumn} from "../../../shared/model/table/column/more-data-table-column";
 import {StringUtils} from "../../../shared/string-utils";
+import {DateUtils} from "../../../shared/date-utils";
 
 export class TraceIdColumn extends BaseTableColumn<Trace> {
   value(data: Trace): string {
@@ -23,7 +24,7 @@ export class SubscribersColumn extends BaseTableColumn<Trace> {
 
 export class TimestampColumn extends BaseTableColumn<Trace> {
   value(data: Trace): string {
-    return `${data.statusUpdate.time}`;
+    return DateUtils.format(data.statusUpdate.time);
   }
 }
 

@@ -31,6 +31,7 @@
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
+    "moment": "^2.29.1",
     "ngx-bootstrap": "^6.2.0",
     "ngx-owl-carousel-o": "^5.0.0",
     "ngx-spinner": "^11.0.1",
