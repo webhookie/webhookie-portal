@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
-import {Observable, throwError} from "rxjs";
+import {EMPTY, Observable, throwError} from "rxjs";
 import {environment} from "../../environments/environment";
 import {catchError, tap} from "rxjs/operators";
 import {LogService} from "./log.service";
@@ -9,6 +9,7 @@ import {DuplicateEntityError} from "./error/duplicate-entity-error";
 import {WebhookieServerError} from "./error/webhookie-server-error";
 import {WebhookieError} from "./error/webhookie-error";
 import {BadRequestError} from "./error/bad-request-error";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +22,17 @@ export class ApiService implements Api {
 
   constructor(
     private readonly log: LogService,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private readonly authService: AuthService
   ) {
   }
 
-  private static formatErrors(error: any) {
+  private formatErrors(error: any) {
+    if(error == 401) {
+      this.authService.login()
+      return EMPTY
+    }
+
     let result;
     if(error.name == HttpErrorResponse.name) {
       let httpError: HttpErrorResponse = error as HttpErrorResponse
@@ -42,11 +49,6 @@ export class ApiService implements Api {
         default:
           result = new WebhookieServerError(httpError);
       }
-    } else if(error == 401) {
-      result = new WebhookieError({
-        message: "Unauthenticated",
-        name: "Unauthenticated"
-      });
     } else {
       result = new WebhookieError({
         message: error.message,
@@ -81,7 +83,7 @@ export class ApiService implements Api {
       .post(url, body, options)
       .pipe(tap(it => this.log.debug(it)))
       // @ts-ignore
-      .pipe(catchError(ApiService.formatErrors));
+      .pipe(catchError(err => this.formatErrors(err)));
   }
 
   public json(
@@ -101,7 +103,7 @@ export class ApiService implements Api {
     this.log.debug(`GET json: '${url}', ${params.toString()}`)
     return this.http
       .get(url, option)
-      .pipe(catchError(ApiService.formatErrors));
+      .pipe(catchError(err => this.formatErrors(err)));
   }
 }
 

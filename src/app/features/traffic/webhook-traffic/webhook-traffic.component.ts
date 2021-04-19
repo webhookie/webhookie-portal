@@ -54,6 +54,9 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   readonly entityApplications$: Subject<Array<Application>> = new BehaviorSubject<Array<Application>>([]);
   readonly applicationsCallbacks$: Subject<Array<Callback>> = new BehaviorSubject<Array<Callback>>([]);
 
+  currentFilter: any = {};
+  currentPageable: Pageable = Pageable.default();
+
   // @ts-ignore
   readonly selectedEntity$: BehaviorSubject<string> = new BehaviorSubject(null);
   // @ts-ignore
@@ -86,13 +89,43 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       )
       .subscribe(it => this.applicationsCallbacks$.next(it));
 
+    this.selectedEntity$.asObservable()
+      .pipe(filter(it => it != null))
+      .subscribe(it => {
+        this.currentFilter["entity"] = it;
+        this.currentFilter["application"] = null;
+        this.currentFilter["callback"] = null;
+        this.reloadDate();
+      });
+
+    this.selectedApplication$.asObservable()
+      .pipe(filter(it => it != null))
+      .subscribe(it => {
+        this.currentFilter["application"] = it.id;
+        this.currentFilter["callback"] = null;
+        this.reloadDate();
+      });
+
     this.selectedCallback$.asObservable()
       .pipe(filter(it => it != null))
-      .subscribe(it => console.warn(it));
+      .subscribe(it => {
+        this.currentFilter["callback"] = it.callbackId;
+        this.reloadDate();
+      });
   }
 
   fetchData(filter: any, pageable: Pageable) {
-    this.traceService.readTraces(filter, pageable)
+    filter["entity"] = this.currentEntity
+    filter["application"] = this.currentApplication
+    filter["callback"] = this.currentCallback
+    this.currentFilter = filter;
+    this.currentPageable = pageable;
+
+    this.reloadDate();
+  }
+
+  reloadDate() {
+    this.traceService.readTraces(this.currentFilter, this.currentPageable)
       .subscribe(it => {
         this._traces$.next(it)
       })
@@ -164,18 +197,29 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   loadDetails(data: Trace) {
     data.loading();
-    this.traceService.readTraceSpans(data.traceId)
+    let filter = {
+      entity: this.currentEntity,
+      application: this.currentApplication?.id,
+      callback: this.currentCallback?.callbackId,
+    }
+    this.traceService.readTraceSpans(data.traceId, filter, Pageable.unPaged())
       .subscribe(it => data.update(it))
   }
 
   selectEntity(entity: string | null) {
     // @ts-ignore
     this.selectedEntity$.next(entity);
+    // @ts-ignore
+    this.selectedCallback$.next(null);
+    // @ts-ignore
+    this.selectedApplication$.next(null);
   }
 
   selectApplication(application: Application | null) {
     // @ts-ignore
     this.selectedApplication$.next(application);
+    // @ts-ignore
+    this.selectedCallback$.next(null);
   }
 
   selectCallback(callback: Callback | null) {

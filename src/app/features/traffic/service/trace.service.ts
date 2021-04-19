@@ -1,7 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {LogService} from "../../../shared/log.service";
 import {Observable} from "rxjs";
-import {HttpParams} from "@angular/common/http";
 import {map, tap} from "rxjs/operators";
 import {TraceAdapter} from "./trace.adapter";
 import {Api} from "../../../shared/api";
@@ -33,8 +32,8 @@ export class TraceService {
       }))
   }
 
-  readTraceSpans(traceId: string): Observable<Array<Span>> {
-    const params = new HttpParams();
+  readTraceSpans(traceId: string, filter: any, pageable: Pageable): Observable<Array<Span>> {
+    let params = RequestUtils.httpParams(filter, pageable);
     const uri = `${this.SPAN_URI}/${traceId}/spans`
     return this.api.json(uri, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' spans`)))

@@ -19,8 +19,10 @@ export class RequestUtils {
         }
       });
 
-    params = params.set("size", pageable.size.toString());
-    params = params.set("page", pageable.page.toString());
+    if(pageable.size != Pageable.UN_PAGED_SIZE) {
+      params = params.set("size", pageable.size.toString());
+      params = params.set("page", pageable.page.toString());
+    }
 
     let sort = pageable.sort;
     if(sort) {
