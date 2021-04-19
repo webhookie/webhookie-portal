@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Adapter} from "../../../shared/adapter/adapter";
 import {Trace, TraceStatus, TraceStatusUpdate} from "../model/trace";
+import {DateUtils} from "../../../shared/date-utils";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class TraceAdapter implements Adapter<Trace> {
     let status: TraceStatus = itemStatusUpdate.status
     let statusUpdate = new TraceStatusUpdate(
       status,
-      itemStatusUpdate.time
+      DateUtils.toLocalDate(itemStatusUpdate.time)
     );
 
     return new Trace(

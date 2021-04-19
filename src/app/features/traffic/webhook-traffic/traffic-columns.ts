@@ -24,7 +24,7 @@ export class SubscribersColumn extends BaseTableColumn<Trace> {
 
 export class TimestampColumn extends BaseTableColumn<Trace> {
   value(data: Trace): string {
-    return DateUtils.formatUtc(data.statusUpdate.time);
+    return DateUtils.format(data.statusUpdate.time);
   }
 }
 

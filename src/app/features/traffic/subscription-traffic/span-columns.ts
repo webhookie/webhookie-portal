@@ -35,7 +35,7 @@ export class CallbackColumn extends BaseTableColumn<Span>{
 
 export class TimestampColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
-    return DateUtils.formatUtc(data.statusUpdate.time);
+    return DateUtils.format(data.statusUpdate.time);
   }
 }
 

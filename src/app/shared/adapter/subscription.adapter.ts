@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Adapter} from "./adapter";
 import {ApplicationDetails, CallbackDetails, StatusUpdate, Subscription} from "../model/subscription";
 import {CallbackSecurity} from "../model/callback-security";
+import {DateUtils} from "../date-utils";
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class SubscriptionAdapter implements Adapter<Subscription> {
     let statusUpdate = new StatusUpdate(
       su.status,
       su.reason,
-      su.time
+      DateUtils.toLocalDate(su.time)
     );
 
     return new Subscription(

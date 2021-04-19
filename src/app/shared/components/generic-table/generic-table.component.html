@@ -84,7 +84,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let detailData of dataSource.details(data) | async;let i=index; trackBy:dataSource.trackByDetailData">
-                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn">{{detailColumn.value(detailData)}}</td>
+                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn"><span [innerHTML]="detailColumn.value(detailData)"></span></td>
                   <td class="text-right"><img src="../../../../assets/images/provider-menu.svg" alt="menu"></td>
                 </tr>
               </tbody>

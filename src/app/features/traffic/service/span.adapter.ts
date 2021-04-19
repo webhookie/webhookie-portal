@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Adapter} from "../../../shared/adapter/adapter";
 import {Span, SpanRetry, SpanStatus, SpanStatusUpdate} from "../model/span";
 import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
+import {DateUtils} from "../../../shared/date-utils";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class SpanAdapter implements Adapter<Span> {
     let status: SpanStatus = itemStatus.status
     let statusUpdate = new SpanStatusUpdate(
       status,
-      itemStatus.time
+      DateUtils.toLocalDate(itemStatus.time)
     );
 
     let itemNextRetry = item.nextRetry;
@@ -24,7 +25,7 @@ export class SpanAdapter implements Adapter<Span> {
 
     if (itemNextRetry != null) {
       nextRetry = new SpanRetry(
-        itemNextRetry.time,
+        DateUtils.toLocalDate(itemNextRetry.time),
         itemNextRetry.no,
         itemNextRetry.statusCode
       );
