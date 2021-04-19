@@ -34,7 +34,9 @@ import {
 import {SearchListTableFilter} from "../../../shared/model/table/filter/search-list-table-filter";
 import {Pageable} from "../../../shared/request/pageable";
 import {ProviderService} from "../service/provider.service";
-import {filter} from "rxjs/operators";
+import {filter, mergeMap} from "rxjs/operators";
+import {Application} from "../../webhooks/model/application";
+import {Callback} from "../../../shared/model/callback";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -49,9 +51,15 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();
 
   readonly entities$: Subject<Array<string>> = new BehaviorSubject<Array<string>>([]);
+  readonly entityApplications$: Subject<Array<Application>> = new BehaviorSubject<Array<Application>>([]);
+  readonly applicationsCallbacks$: Subject<Array<Callback>> = new BehaviorSubject<Array<Callback>>([]);
 
   // @ts-ignore
   readonly selectedEntity$: BehaviorSubject<string> = new BehaviorSubject(null);
+  // @ts-ignore
+  readonly selectedApplication$: BehaviorSubject<Application> = new BehaviorSubject(null);
+  // @ts-ignore
+  readonly selectedCallback$: BehaviorSubject<Callback> = new BehaviorSubject(null);
 
   constructor(
     private readonly traceService: TraceService,
@@ -65,6 +73,20 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       .subscribe(it => this.entities$.next(it));
 
     this.selectedEntity$.asObservable()
+      .pipe(
+        filter(it => it != null),
+        mergeMap(it => this.providerService.entityApplications(it))
+      )
+      .subscribe(it => this.entityApplications$.next(it));
+
+    this.selectedApplication$.asObservable()
+      .pipe(
+        filter(it => it != null),
+        mergeMap(it => this.providerService.applicationCallbacks(it))
+      )
+      .subscribe(it => this.applicationsCallbacks$.next(it));
+
+    this.selectedCallback$.asObservable()
       .pipe(filter(it => it != null))
       .subscribe(it => console.warn(it));
   }
@@ -151,7 +173,25 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     this.selectedEntity$.next(entity);
   }
 
+  selectApplication(application: Application | null) {
+    // @ts-ignore
+    this.selectedApplication$.next(application);
+  }
+
+  selectCallback(callback: Callback | null) {
+    // @ts-ignore
+    this.selectedCallback$.next(callback);
+  }
+
   get currentEntity(): string {
-    return  this.selectedEntity$.value;
+    return this.selectedEntity$.value;
+  }
+
+  get currentApplication(): Application {
+    return this.selectedApplication$.value;
+  }
+
+  get currentCallback(): Callback {
+    return this.selectedCallback$.value;
   }
 }
