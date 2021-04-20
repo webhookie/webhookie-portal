@@ -1,4 +1,8 @@
 .dropdown-toggle::after {
-    margin-top: 7px;
+    margin-top: 8px;
     font-size: 15px;
+}
+.btn-xs:focus{
+    border: 1px solid #006ADF;
+    box-shadow: none;
 }
