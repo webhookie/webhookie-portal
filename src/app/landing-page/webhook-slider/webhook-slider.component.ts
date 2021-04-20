@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import * as $ from 'jquery';
+import {Component, Input, OnInit} from '@angular/core';
+import {WebhookGroup} from "../../features/webhooks/model/webhook-group";
+import {Observable} from "rxjs";
+import {OwlOptions} from "ngx-owl-carousel-o/lib/models/owl-options.model";
 
 @Component({
   selector: 'app-webhook-slider',
@@ -8,11 +9,12 @@ import * as $ from 'jquery';
   styleUrls: ['./webhook-slider.component.css']
 })
 export class WebhookSliderComponent implements OnInit {
-  customOptions: any = {
+  @Input() items!: Observable<Array<WebhookGroup>>
+
+  customOptions: OwlOptions = {
     loop: true,
     margin: 30,
     autoplay:true,
-    responsiveClass: true,
     nav: false,
     responsive: {
       0: {
@@ -30,6 +32,12 @@ export class WebhookSliderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.items.subscribe(it => {
+      if(it.length < 3) {
+        this.customOptions.loop = false;
+        this.customOptions.autoplay = false;
+      }
+    })
   }
 
 }
