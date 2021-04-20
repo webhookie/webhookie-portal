@@ -54,8 +54,6 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   readonly entityApplications$: Subject<Array<Application>> = new BehaviorSubject<Array<Application>>([]);
   readonly applicationsCallbacks$: Subject<Array<Callback>> = new BehaviorSubject<Array<Callback>>([]);
 
-  currentFilter: any = {};
-  currentPageable: Pageable = Pageable.default();
   readonly spanFilter$: BehaviorSubject<WebhookTrafficFilter> = new BehaviorSubject<WebhookTrafficFilter>({});
 
   constructor(
@@ -85,7 +83,15 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
     this.spanFilter$.asObservable()
       .pipe(skip(1))
-      .subscribe(it => this.reloadDate(it));
+      .subscribe(it => {
+        this._traces$.next([]);
+        let filter = this.tableComponent.currentFilter.value;
+        filter["entity"] = it.entity
+        filter["application"] = it.application?.id
+        filter["callback"] = it.callback?.callbackId
+
+        this.tableComponent.currentFilter.next(filter);
+      });
 
     // this.selectedEntity$.asObservable()
     //   .subscribe(it => {
@@ -112,22 +118,8 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   fetchData(filter: any, pageable: Pageable) {
-    this.currentFilter = filter;
-    this.currentPageable = pageable;
-
-    this.reloadDate(this.spanFilter);
-  }
-
-  reloadDate(spanFilter: WebhookTrafficFilter) {
-    this._traces$.next([]);
-    let filter = this.currentFilter;
-    filter["entity"] = spanFilter.entity
-    filter["application"] = spanFilter.application?.id
-    filter["callback"] = spanFilter.callback?.callbackId
-    this.traceService.readTraces(filter, this.currentPageable)
-      .subscribe(it => {
-        this._traces$.next(it)
-      })
+    this.traceService.readTraces(filter, pageable)
+      .subscribe(it => this._traces$.next(it));
   }
 
   get headers(): Array<TableHeader> {

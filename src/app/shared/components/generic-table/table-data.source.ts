@@ -17,7 +17,11 @@ export class TableDataSource {
   data: Array<TableData> = [];
 
   update(data: TableData[]) {
-    this.data = data;
+    this.data.push(...data);
+  }
+
+  reset() {
+    this.data = [];
   }
 
   isMasterData(item: TableData) {

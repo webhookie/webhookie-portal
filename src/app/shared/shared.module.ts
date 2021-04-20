@@ -18,6 +18,7 @@ import {SortButtonsComponent} from './components/sort-buttons/sort-buttons.compo
 import {SearchListComponent} from './components/search-list/search-list.component';
 import {GenericTableComponent} from "./components/generic-table/generic-table.component";
 import { TimestampFilterComponent } from './components/timestamp-filter/timestamp-filter.component';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 let apiProvider;
 if (environment.mock) {
@@ -38,16 +39,17 @@ if (environment.mock) {
     SearchListComponent,
     TimestampFilterComponent,
   ],
-  imports: [
-    FormsModule,
-    CommonModule,
-    RouterModule,
-    NgxSpinnerModule,
-    BsDatepickerModule.forRoot(),
-    TimepickerModule.forRoot(),
-    PopoverModule.forRoot(),
-    ReactiveFormsModule
-  ],
+    imports: [
+        FormsModule,
+        CommonModule,
+        RouterModule,
+        NgxSpinnerModule,
+        BsDatepickerModule.forRoot(),
+        TimepickerModule.forRoot(),
+        PopoverModule.forRoot(),
+        ReactiveFormsModule,
+        InfiniteScrollModule
+    ],
   exports: [
     GenericTableComponent,
     SpinnerComponent,

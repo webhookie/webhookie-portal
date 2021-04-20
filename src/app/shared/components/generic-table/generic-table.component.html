@@ -7,7 +7,11 @@
     </div>
   </div>
 </div>
-<div class="common-table">
+<div class="common-table"
+     infiniteScroll
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="50"
+     (scrolled)="onScroll()">
   <div id="tbl1" class="table-responsive sticky-table sticky-ltr-cells">
     <table class="table table-borderless border-0 position-relative">
       <thead class="font14 font-weight-600">
@@ -46,7 +50,7 @@
         </td>
       </tr>
       <!-- main-table -->
-      <ng-container *ngFor="let data of dataSource.data;let i=index; trackBy:dataSource.trackByData" (scroll)="onTableScroll($event)">
+      <ng-container *ngFor="let data of dataSource.data;let i=index; trackBy:dataSource.trackByData">
         <tr class="sticky-header">
           <td *ngFor="let column of table.columns; trackBy:dataSource.trackByColumn" [ngClass]="column.clazz">
             <a *ngIf="dataSource.isMoreDataColumn(column)" href="javascript:void(0)" (click)="table.loadDetails(data)" class="clickable">

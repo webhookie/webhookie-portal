@@ -8,10 +8,11 @@ import {TableFilter} from "../../model/table/filter/table-filter";
 import {EmptyTableFilter} from "../../model/table/filter/empty-table-filter";
 import {debounceTime} from "rxjs/operators";
 import {TableHeader} from "../../model/table/header/table-header";
-import {BehaviorSubject, combineLatest} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {SearchListTableFilter} from "../../model/table/filter/search-list-table-filter";
 import {Pageable} from "../../request/pageable";
 import {TimestampTableFilter} from "../../model/table/filter/timestamp-table-filter";
+import {TableSort} from "../../request/table-sort";
 
 @Component({
   selector: 'app-traffic-table',
@@ -32,10 +33,10 @@ export class GenericTableComponent implements OnInit {
   filtersForm!: FormGroup;
   currentFilter: BehaviorSubject<any> = new BehaviorSubject({});
   currentPageable: BehaviorSubject<Pageable> = new BehaviorSubject(Pageable.default());
+  currentPage: number = 0;
+  currentSort?: TableSort;
 
   ngOnInit(): void {
-    window.addEventListener('scroll', this.onTableScroll, true);
-
     this.table.init();
 
     this.table.tableData
@@ -60,10 +61,29 @@ export class GenericTableComponent implements OnInit {
 
     this.onChanges();
 
+    this.currentFilter.asObservable()
+      .subscribe(() => {
+        this.dataSource.reset();
+        let value = this.currentPageable.value;
+        let p: Pageable = new Pageable(0, value.size, value.sort)
+        this.currentPageable.next(p);
+      })
+
+    this.currentPageable.asObservable()
+      .subscribe(it => {
+        if(it.page == 0) {
+          this.dataSource.reset();
+        }
+        let filter = this.currentFilter.value;
+        this.table.loadData(filter, it);
+      })
+/*
+
     combineLatest([this.currentFilter, this.currentPageable])
       .subscribe(it => {
         this.table.loadData(it[0], it[1])
       });
+*/
   }
 
   private onChanges() {
@@ -75,22 +95,6 @@ export class GenericTableComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.onTableScroll, true);
-  }
-
-  onTableScroll = (e: any): void => {
-    // console.log(e, "hgdjhg");
-    const tableViewHeight = e.target.scrollingElement.offsetHeight
-    const tableScrollHeight = e.target.scrollingElement.scrollHeight
-    const scrollLocation = e.target.scrollingElement.scrollTop;
-    const buffer = 100;
-    const limit = tableScrollHeight - tableViewHeight - buffer;
-    if (scrollLocation > limit) {
-      // console.warn("SCROLL.....")
-      // let data = this.getTableData(this.start, this.end);
-      // this.dataSource = this.dataSource.concat(data);
-      // this.updateIndex();
-    }
   }
 
   isOpen(data: TableData) {
@@ -102,10 +106,14 @@ export class GenericTableComponent implements OnInit {
   }
 
   sortAsc(header: TableHeader) {
+    this.currentSort = TableSort.asc(header);
+    this.currentPage = 0;
     this.currentPageable.next(Pageable.asc(header));
   }
 
   sortDesc(header: TableHeader) {
+    this.currentSort = TableSort.desc(header);
+    this.currentPage = 0;
     this.currentPageable.next(Pageable.desc(header));
   }
 
@@ -121,6 +129,11 @@ export class GenericTableComponent implements OnInit {
     // @ts-ignore
     let f: FormControl = this.filtersForm.controls[filter.name]
     return f;
+  }
+
+  onScroll() {
+    this.currentPage = this.currentPage + 1;
+    this.currentPageable.next(new Pageable(this.currentPage, 20, this.currentSort))
   }
 }
 
