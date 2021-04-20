@@ -4,6 +4,8 @@
 .dropdown-toggle::after {
     float: right;
     margin-bottom: 17px;
+    margin-bottom: 3px;
+    padding-left: 10px;
 }
 .traffic-dropdowns ul {
     list-style-type: none;
