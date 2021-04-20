@@ -10,11 +10,11 @@ export class TrafficHomeComponent implements OnInit {
 
   links: Array<KeyValue<string, string>> = [
     {
-      key: "subscription",
+      key: "/traffic/subscription",
       value: "Subscription Traffic"
     },
     {
-      key: "webhook",
+      key: "/traffic/webhook",
       value: "Webhook Traffic"
     }
   ]

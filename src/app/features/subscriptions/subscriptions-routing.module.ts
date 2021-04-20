@@ -10,6 +10,11 @@ const routes: Routes = [
     component: SubscriptionsHomeComponent,
     children: [
       {
+        path:'',
+        pathMatch: 'full',
+        redirectTo:'consumer'
+      },
+      {
         path: 'consumer',
         component: SubscriptionsComponent,
         data: {

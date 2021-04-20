@@ -11,6 +11,11 @@ const routes: Routes = [
     component: TrafficHomeComponent,
     children: [
       {
+        path:'',
+        pathMatch: 'full',
+        redirectTo:'subscription'
+      },
+      {
         path: 'subscription',
         component: SubscriptionTrafficComponent
       },
