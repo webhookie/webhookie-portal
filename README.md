@@ -32,3 +32,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [angular-oauth2-oidc](https://manfredsteyer.github.io/angular-oauth2-oidc/docs/index.html)
 - [error-handling-in-angular](https://medium.com/angular-in-depth/expecting-the-unexpected-best-practices-for-error-handling-in-angular-21c3662ef9e4)
 - [material-progress-bar](https://www.positronx.io/angular-material-progress-bar-tutorial-example/)
+
+- [angular-datetime-range](https://github.com/g1eb/angular-datetime-range#readme)
+- [angular-scroll-events](https://github.com/g1eb/angular-scroll-events)
