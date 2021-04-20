@@ -10,7 +10,7 @@
             {{currentEntity ? currentEntity : 'Select Entity'}}
           </button>
           <div class="dropdown-menu font12 font-weight-400">
-            <a *ngIf="currentEntity" class="dropdown-item" href="javascript:void(0)" (click)="selectEntity(null)">Select Entity</a>
+            <a *ngIf="currentEntity" class="dropdown-item" href="javascript:void(0)" (click)="clearEntity()">Select Entity</a>
             <a *ngFor="let entity of entities$.asObservable() | async" class="dropdown-item" href="javascript:void(0)" (click)="selectEntity(entity)">{{entity}}</a>
           </div>
         </div>
@@ -24,7 +24,7 @@
             {{currentApplication ? currentApplication.name : 'Select Application'}}
           </button>
           <div class="dropdown-menu font12 font-weight-400">
-            <a *ngIf="currentApplication" class="dropdown-item" href="javascript:void(0)" (click)="selectApplication(null)">Select Application</a>
+            <a *ngIf="currentApplication" class="dropdown-item" href="javascript:void(0)" (click)="clearApplication()">Select Application</a>
             <a *ngFor="let app of entityApplications$.asObservable() | async" class="dropdown-item" href="javascript:void(0)" (click)="selectApplication(app)">{{app.name}}</a>
           </div>
         </div>
@@ -38,7 +38,7 @@
             {{currentCallback ? currentCallback.name : 'Select Callback'}}
           </button>
           <div class="dropdown-menu font12 font-weight-400">
-            <a *ngIf="currentCallback" class="dropdown-item" href="javascript:void(0)" (click)="selectCallback(null)">Select Callback</a>
+            <a *ngIf="currentCallback" class="dropdown-item" href="javascript:void(0)" (click)="clearCallback()">Select Callback</a>
             <a *ngFor="let callback of applicationsCallbacks$.asObservable() | async" class="dropdown-item" href="javascript:void(0)" (click)="selectCallback(callback)">{{callback.name}}</a>
           </div>
         </div>

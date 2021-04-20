@@ -34,7 +34,7 @@ import {
 import {SearchListTableFilter} from "../../../shared/model/table/filter/search-list-table-filter";
 import {Pageable} from "../../../shared/request/pageable";
 import {ProviderService} from "../service/provider.service";
-import {filter, map, mergeMap, tap} from "rxjs/operators";
+import {filter, map, mergeMap, skip, tap} from "rxjs/operators";
 import {Application} from "../../webhooks/model/application";
 import {Callback} from "../../../shared/model/callback";
 
@@ -56,13 +56,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   currentFilter: any = {};
   currentPageable: Pageable = Pageable.default();
-
-  // @ts-ignore
-  readonly selectedEntity$: BehaviorSubject<string> = new BehaviorSubject(null);
-  // @ts-ignore
-  readonly selectedApplication$: BehaviorSubject<Application> = new BehaviorSubject(null);
-  // @ts-ignore
-  readonly selectedCallback$: BehaviorSubject<Callback> = new BehaviorSubject(null);
+  readonly spanFilter$: BehaviorSubject<WebhookTrafficFilter> = new BehaviorSubject<WebhookTrafficFilter>({});
 
   constructor(
     private readonly traceService: TraceService,
@@ -75,57 +69,62 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     this.providerService.myEntities()
       .subscribe(it => this.entities$.next(it));
 
-    this.selectedEntity$.asObservable()
+    this.spanFilter$.asObservable()
       .pipe(
-        filter(it => it != null),
-        mergeMap(it => this.providerService.entityApplications(it))
+        filter(it => it.entity != null),
+        mergeMap(it => this.providerService.entityApplications(it.entity!))
       )
       .subscribe(it => this.entityApplications$.next(it));
 
-    this.selectedApplication$.asObservable()
+    this.spanFilter$.asObservable()
       .pipe(
-        filter(it => it != null),
-        mergeMap(it => this.providerService.applicationCallbacks(it))
+        filter(it => it.application != null),
+        mergeMap(it => this.providerService.applicationCallbacks(it.application!))
       )
       .subscribe(it => this.applicationsCallbacks$.next(it));
 
-    this.selectedEntity$.asObservable()
-      .pipe(filter(it => it != null))
-      .subscribe(it => {
-        this.currentFilter["entity"] = it;
-        this.currentFilter["application"] = null;
-        this.currentFilter["callback"] = null;
-        this.reloadDate();
-      });
+    this.spanFilter$.asObservable()
+      .pipe(skip(1))
+      .subscribe(it => this.reloadDate(it));
 
-    this.selectedApplication$.asObservable()
-      .pipe(filter(it => it != null))
-      .subscribe(it => {
-        this.currentFilter["application"] = it.id;
-        this.currentFilter["callback"] = null;
-        this.reloadDate();
-      });
-
-    this.selectedCallback$.asObservable()
-      .pipe(filter(it => it != null))
-      .subscribe(it => {
-        this.currentFilter["callback"] = it.callbackId;
-        this.reloadDate();
-      });
+    // this.selectedEntity$.asObservable()
+    //   .subscribe(it => {
+    //     this.currentFilter["entity"] = it;
+    //     this.currentFilter["application"] = null;
+    //     this.currentFilter["callback"] = null;
+    //     this.reloadDate();
+    //   });
+    //
+    // this.selectedApplication$.asObservable()
+    //   .pipe(filter(it => it != null))
+    //   .subscribe(it => {
+    //     this.currentFilter["application"] = it?.id;
+    //     this.currentFilter["callback"] = null;
+    //     this.reloadDate();
+    //   });
+    //
+    // this.selectedCallback$.asObservable()
+    //   .pipe(filter(it => it != null))
+    //   .subscribe(it => {
+    //     this.currentFilter["callback"] = it?.callbackId;
+    //     this.reloadDate();
+    //   });
   }
 
   fetchData(filter: any, pageable: Pageable) {
-    filter["entity"] = this.currentEntity
-    filter["application"] = this.currentApplication
-    filter["callback"] = this.currentCallback
     this.currentFilter = filter;
     this.currentPageable = pageable;
 
-    this.reloadDate();
+    this.reloadDate(this.spanFilter);
   }
 
-  reloadDate() {
-    this.traceService.readTraces(this.currentFilter, this.currentPageable)
+  reloadDate(spanFilter: WebhookTrafficFilter) {
+    this._traces$.next([]);
+    let filter = this.currentFilter;
+    filter["entity"] = spanFilter.entity
+    filter["application"] = spanFilter.application?.id
+    filter["callback"] = spanFilter.callback?.callbackId
+    this.traceService.readTraces(filter, this.currentPageable)
       .subscribe(it => {
         this._traces$.next(it)
       })
@@ -206,36 +205,88 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       .pipe(map(() => true))
   }
 
-  selectEntity(entity: string | null) {
+  selectEntity(entity?: string) {
+    let filter = this.spanFilter
+    if(filter.entity == entity) {
+      return;
+    }
+
+    let newFilter: WebhookTrafficFilter = {
+      entity: entity,
     // @ts-ignore
-    this.selectedEntity$.next(entity);
+      application: null,
     // @ts-ignore
-    this.selectedCallback$.next(null);
-    // @ts-ignore
-    this.selectedApplication$.next(null);
+      callback: null
+    }
+
+    this.spanFilter$.next(newFilter)
   }
 
-  selectApplication(application: Application | null) {
+  selectApplication(application?: Application) {
+    let filter = this.spanFilter
+    if(filter.application == application) {
+      return;
+    }
+
+    let newFilter: WebhookTrafficFilter = {
+      entity: filter.entity,
+      application: application,
     // @ts-ignore
-    this.selectedApplication$.next(application);
-    // @ts-ignore
-    this.selectedCallback$.next(null);
+      callback: null
+    }
+
+    this.spanFilter$.next(newFilter)
   }
 
-  selectCallback(callback: Callback | null) {
-    // @ts-ignore
-    this.selectedCallback$.next(callback);
+  selectCallback(callback?: Callback) {
+    let filter = this.spanFilter
+    if(filter.callback == callback) {
+      return;
+    }
+
+    let newFilter: WebhookTrafficFilter = {
+      entity: filter.entity,
+      application: filter.application,
+      callback: callback
+    }
+
+    this.spanFilter$.next(newFilter)
   }
 
-  get currentEntity(): string {
-    return this.selectedEntity$.value;
+  get spanFilter(): WebhookTrafficFilter {
+    return this.spanFilter$.value;
   }
 
-  get currentApplication(): Application {
-    return this.selectedApplication$.value;
+  get currentEntity(): string | null | undefined {
+    return this.spanFilter.entity;
   }
 
-  get currentCallback(): Callback {
-    return this.selectedCallback$.value;
+  get currentApplication(): Application | null | undefined {
+    return this.spanFilter.application;
   }
+
+  get currentCallback(): Callback | null | undefined {
+    return this.spanFilter.callback;
+  }
+
+  clearEntity() {
+    this.selectEntity(undefined)
+    this.entityApplications$.next([]);
+    this.applicationsCallbacks$.next([]);
+  }
+
+  clearApplication() {
+    this.selectApplication(undefined)
+    this.applicationsCallbacks$.next([]);
+  }
+
+  clearCallback() {
+    this.selectCallback(undefined)
+  }
+}
+
+interface WebhookTrafficFilter {
+  entity?: string;
+  application?: Application;
+  callback?: Callback;
 }
