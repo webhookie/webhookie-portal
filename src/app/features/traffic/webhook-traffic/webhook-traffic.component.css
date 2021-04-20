@@ -3,7 +3,8 @@
 }
 .dropdown-toggle::after {
     float: right;
-    margin-bottom: 17px;
+    margin-bottom: 3px;
+    padding-left: 10px;
 }
 .traffic-dropdowns ul {
     list-style-type: none;
@@ -42,4 +43,4 @@
 .consumer .dropdown-toggle.active:after{
     /* content: "\f107"; */
     content: url("../../../../assets/images/Chevron_up.svg");
-  }
+  } 
