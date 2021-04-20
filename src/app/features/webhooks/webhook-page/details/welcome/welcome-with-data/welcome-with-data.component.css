@@ -1,0 +1,49 @@
+.border-box{
+    border: 1px solid #E1E1E1;
+}
+.margin{
+    margin-top: 30px;
+}
+.badge-w{
+    font-size: 10px;
+    font-weight: 400;
+    padding: 5px 8px;
+    margin-left: 10px;
+    border-radius: 2px;
+    background-color: #0151CC;
+}
+.user-rating ul{
+    list-style-type:none;
+    padding: 0px;
+}
+.user-rating ul li{
+    font-size: 12px;
+    padding-left: 2px;
+}
+.checked{
+  color: #FFC500;
+}
+.unchecked{
+ color: #FFC500;
+}
+.user-subscriptions ul{
+    list-style-type:none;
+    padding: 0px;
+}
+.user-subscriptions ul li{
+    font-size: 12px;
+    padding-left: 10px;
+}
+.user-subscriptions .border-left{
+    border-left: 2px solid #222 !important;
+}
+.border-box .btn{
+    color: #1A73E8;
+    padding: 0px;
+}
+
+@media (max-width:1024px){
+    .margin{
+        margin-top: 0px;
+    }
+}
