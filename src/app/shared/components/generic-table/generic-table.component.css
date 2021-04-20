@@ -1,12 +1,23 @@
 .common-table .table {
     color: #0A1E42;
-    /* text-align: center; */
     border: 1px solid #E1E1E1;
 }
-
+.table-height{
+    height: 450px;
+    margin-bottom: 1rem !important;
+}
+.spinner {
+    margin-top: 5%;
+}
+.position-spinner {
+    position: absolute!important;
+    height: 100%;
+    top: 47px;
+    background-color: #fff;
+    opacity: 0.8;
+}
 .common-table .table .custom-control-label::before {
     border-radius: 1px !important;
-    /* background-color:#0151CC; */
 }
 .sticky-second-cell {
     left: 33px !important;
@@ -33,7 +44,6 @@
 .collapse-down{
     cursor: pointer;
 }
-
 .common-collapse th {
     border-top: 1px solid #e1e1e1 !important;
 }
@@ -45,12 +55,11 @@
 .td_border{
     border-top: none;
 }
-/* dropdown */
+
 .common-table ul{
     list-style-type:none;
     padding:0px;
 }
-
 .common-table .btn-warning{
     background-color: transparent;
     color: #253858;
@@ -78,15 +87,12 @@
   border: none;
 }
 .common-table .dropdown-toggle.active:after{
-    /* content: "\f107"; */
     content: url("src/assets/images/Chevron_up.svg");
   }
-
-/* designing */
-
 .filter:active{
     background-color: #F4F5F7 !important;
 }
+
 .filter-dropdown{
     background-color: #F4F5F7;
 }
@@ -113,10 +119,49 @@ height: 31px;
     margin-left: 5rem;
     border: 0;
 }
-/* .sticky-second-cell{
-    left:33px !important;
-} */
 .table-filters-collapse a {
     margin: -.75rem;
     padding: .75rem;
+}
+.search-wrapper{
+    cursor: pointer;
+    position:relative;
+}
+.search-wrapper input{
+    padding-right:25px;
+    cursor: pointer;
+}
+.search-wrapper i {
+    position: absolute;
+    right: 9px;
+    top: 8px;
+    pointer-events: none;
+    user-select: none;
+}
+.search-wrapper input:focus {
+    border: 1px solid #006ADF;
+    box-shadow: none;
+}
+.disable-filter{
+    pointer-events: none;
+    cursor: default;
+    user-select: none;
+}
+
+
+@media (max-width: 992px){
+.spinner{
+    margin-left: 30%;
+}
+}
+
+ @media (max-width: 767px){
+     .spinner{
+         margin-left: 12% !important;
+     }
+ }
+ @media (max-width: 767px) and (orientation:landscape){
+    .spinner{
+        margin-left: 25% !important;
+    }
 }
