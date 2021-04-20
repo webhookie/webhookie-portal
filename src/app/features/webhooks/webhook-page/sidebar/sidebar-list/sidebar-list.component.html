@@ -1,4 +1,11 @@
 <div id="sidebar-nav">
+  <ul class="navbar-nav">
+    <li class="nav-item mt-1">
+      <a routerLink="/webhooks/webhooks-page/welcome" class="nav-link" routerLinkActive="active">
+        Welcome
+      </a>
+    </li>
+  </ul>
   <div class="accordion" id="faq">
     <div *ngFor="let webhookGroup of _webhooks$.asObservable() | async;let i=index" class="card custom-accordion">
       <div class="card-header" id="faqhead{{i}}">
@@ -10,7 +17,7 @@
       <div [ngClass]="(i == 0)?'show':'collapse'" data-parent="#faq" id="faq{{i}}">
         <ul class="navbar-nav">
           <li *ngFor="let topic of webhookGroup.topics" class="nav-item">
-            <a (click)="selectTopic(webhookGroup, topic)" [class.portionColor]="topic==selectedTopic" class="nav-link"
+            <a (click)="selectTopic(webhookGroup, topic)" routerLink="/webhooks/webhooks-page/order/webhook-detail" [class.portionColor]="topic==selectedTopic" class="nav-link"
                href="javascript:void(0)"
                routerLinkActive="active">
               {{topic.name}}
