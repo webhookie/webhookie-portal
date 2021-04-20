@@ -49,9 +49,9 @@
       <ng-container *ngFor="let data of dataSource.data;let i=index; trackBy:dataSource.trackByData" (scroll)="onTableScroll($event)">
         <tr class="sticky-header">
           <td *ngFor="let column of table.columns; trackBy:dataSource.trackByColumn" [ngClass]="column.clazz">
-            <a *ngIf="dataSource.isMoreDataColumn(column)" href="javascript:void(0)" (click)="table.loadDetails(data)" data-toggle="collapse" [attr.data-target]="'#more_details'+ i"
-               class="clickable">
-              <img [src]="rowStatusArrow(data)" src="../../../../assets/images/Chevron.svg" alt="down">
+            <a *ngIf="dataSource.isMoreDataColumn(column)" href="javascript:void(0)" (click)="table.loadDetails(data)" class="clickable">
+              <img *ngIf="isOpen(data)" src="assets/images/Chevron_down.svg" alt="down">
+              <img *ngIf="!isOpen(data)" src="assets/images/Chevron.svg" alt="right">
             </a>
             <div *ngIf="dataSource.isSelectableColumn(column)" class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="table.rowSelectionChanged(column, data, $event)">
@@ -73,8 +73,7 @@
             </div>
           </td>
         </tr>
-        <tr id="more_details{{i}}" class="collapse border-0" *ngIf="dataSource.isMasterData(data)">
-
+        <tr [class.collapse]="!isOpen(data)" class="border-0" *ngIf="dataSource.isMasterData(data)">
           <td colspan="30" class="position-relative">
             <app-spinner class="spinner" *ngIf="data.isLoading"></app-spinner>
             <table class="collapse-table">

@@ -93,12 +93,12 @@ export class GenericTableComponent implements OnInit {
     }
   }
 
-  rowStatusArrow(data: TableData) {
+  isOpen(data: TableData) {
     if (data instanceof TableMasterData) {
-      return data.isOpen ? "assets/images/Chevron_down.svg" : "assets/images/Chevron.svg"
+      return data.isOpen
     }
 
-    return "assets/images/Chevron_down.svg"
+    return false
   }
 
   sortAsc(header: TableHeader) {
