@@ -31,7 +31,6 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     CoreModule,
     LandingPageModule,
     AdministrationModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     BreadcrumbModule,
     MatToolbarModule,
@@ -44,6 +43,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     DatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     CarouselModule,
+    AppRoutingModule,
   ],
 
   providers: [BsModalRef],

@@ -7,6 +7,7 @@ import { WebhookEmptyComponent } from './webhook-empty/webhook-empty.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 import { WhyWebhookComponent } from './why-webhook/why-webhook.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import {LandingPageRoutingModule} from "./landingpage-routing.module";
 @NgModule({
   declarations: [
     LandingPageComponent,
@@ -20,6 +21,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
   imports: [
     CommonModule,
     CarouselModule,
+    LandingPageRoutingModule
   ]
 })
 export class LandingPageModule { }

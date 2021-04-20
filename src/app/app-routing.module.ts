@@ -12,6 +12,8 @@ const routes: Routes = [
   {
     path: 'home',
     component: LandingPageComponent,
+    loadChildren: () => import('./landing-page/landing-page.module')
+      .then(m => m.LandingPageModule),
     // data: {
     //   breadcrumb: 'Home',
     // },
