@@ -9,11 +9,11 @@ import {KeyValue} from "@angular/common";
 export class SubscriptionsHomeComponent implements OnInit {
   links: Array<KeyValue<string, string>> = [
     {
-      key: "consumer",
+      key: "/subscriptions/consumer",
       value: "Your subscriptions"
     },
     {
-      key: "provider",
+      key: "/subscriptions/provider",
       value: "Your webhook subscriptions"
     }
   ]
