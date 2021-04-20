@@ -49,7 +49,7 @@ const routes: Routes = [
       breadcrumb: 'Administration'
     },
     loadChildren: () => import('./features/administration/administration.module')
-    .then(m => m.AdministrationModule)
+      .then(m => m.AdministrationModule)
   },
   {
     path: '**',

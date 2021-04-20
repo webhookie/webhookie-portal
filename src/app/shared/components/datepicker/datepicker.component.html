@@ -1,11 +1,8 @@
 
-<div class="input-group date_wrapper">
+<div class="date-joiner">
     <!--suppress HtmlFormInputWithoutLabel, JSUnusedGlobalSymbols -->
-  <input type="text" class="form-control border-right-0" datepicker-append-to-body="true" placeholder="Start date"
-    #dp="bsDatepicker" bsDatepicker [(bsValue)]="bsValue" (bsValueChange)="onDateChange($event)">
-    <div class="input-group-append">
-        <span class="input-group-text bg-white" id="start-calendar">
-            <i class="far fa-calendar"></i>
-        </span>
-    </div>
+  <input type="text" class="form-control" datepicker-append-to-body="true" placeholder="Start date"
+    #dp="bsDatepicker" bsDatepicker [(bsValue)]="bsValue" (bsValueChange)="onDateChange($event)">    
+    
+    <i class="far fa-calendar"></i>
 </div>

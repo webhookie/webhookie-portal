@@ -1,0 +1,20 @@
+.date-joiner{
+    cursor: pointer;
+    position:relative;
+}
+.date-joiner input{
+    padding-right:25px;
+    cursor: pointer;
+    width: 130px;
+}
+.date-joiner i {
+    position: absolute;
+    right: 9px;
+    top: 8px;
+    pointer-events: none;
+    user-select: none;
+}
+.date-joiner input:focus {
+    border: 1px solid #006ADF;
+    box-shadow: none;
+}
