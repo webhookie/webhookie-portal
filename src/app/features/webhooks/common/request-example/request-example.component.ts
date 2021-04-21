@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {VariableService} from '../variable.service';
 import {RequestBodyComponent} from "./request-body/request-body.component";
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-request-example',
@@ -15,6 +16,11 @@ export class RequestExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    $(document).ready(function () {
+      $(".mode-switcher").click(function () {
+        $(".light-mode").toggleClass("dark-mode-active");
+      });
+    })
   }
 
 

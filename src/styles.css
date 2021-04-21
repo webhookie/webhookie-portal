@@ -514,6 +514,14 @@ input:focus{
     border: 1px solid #006ADF !important;
     box-shadow: none !important;
 }
+.dark-mode-active pre {
+    color: #fff !important;
+  }
+  .dark-mode-active table{
+    color: #fff !important;
+  }
+ 
+  
 @media (max-width: 1024px) {
     h1 {
         font-size: 30px;
