@@ -12,7 +12,8 @@ import {HttpHeaders} from "@angular/common/http";
 import {CallbackResponse} from "../service/callback.service";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
 import {Pageable} from "../../../shared/request/pageable";
-import {RequestBodyComponent} from "../common/request-example/request-body/request-body.component";
+import {RequestExampleComponent} from "../common/request-example/request-example.component";
+
 @Component({
   selector: 'app-subscribe-webhook',
   templateUrl: './subscribe-webhook.component.html',
@@ -23,7 +24,7 @@ export class SubscribeWebhookComponent implements OnInit {
   @ViewChild("applicationComponent") application?: ApplicationComponent
   @ViewChild("callbackComponent") callback?: CallbackComponent
   @ViewChild('responseComponent') response?: ResponseComponent
-  @ViewChild('requestExampleComponent') requestComponent?: RequestBodyComponent
+  @ViewChild('requestExampleComponent') requestExampleComponent?: RequestExampleComponent
 
   subscription?: Subscription
 
@@ -97,7 +98,7 @@ export class SubscribeWebhookComponent implements OnInit {
   validate() {
     let validateSubscription = (): Observable<Subscription> => {
       let request: ValidateSubscriptionRequest = {
-        payload: JSON.stringify(this.requestComponent?.jsonobj),
+        payload: JSON.stringify(this.requestExampleComponent?.request.jsonobj),
         headers: {
           "Content-Type": ["application/json"],
           "Accept": ["*/*"]

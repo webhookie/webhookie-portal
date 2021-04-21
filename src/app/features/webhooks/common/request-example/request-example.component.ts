@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {VariableService} from '../variable.service';
-import * as $ from 'jquery';
 import {RequestBodyComponent} from "./request-body/request-body.component";
+
 @Component({
   selector: 'app-request-example',
   templateUrl: './request-example.component.html',
@@ -17,5 +17,5 @@ export class RequestExampleComponent implements OnInit {
   ngOnInit(): void {
   }
 
- 
+
 }
