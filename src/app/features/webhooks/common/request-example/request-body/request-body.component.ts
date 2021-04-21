@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import {VariableService} from '../../variable.service';
 import * as $ from 'jquery';
 @Component({
@@ -39,7 +39,9 @@ export class RequestBodyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('hello')
+   
+  }
+  ngAfterViewChecked(){
     var str = JSON.stringify(this.jsonobj, null, '\t');
     this.output(this.variable.syntaxHighlight(str));
     $(".key").attr('contentEditable', 'false');
@@ -48,7 +50,6 @@ export class RequestBodyComponent implements OnInit {
     $(".null").attr('contentEditable', 'true');
     $(".number").attr('contentEditable', 'true');
   }
-
   output(inp: string) {
     let myContainer = document.getElementById('json_str') as HTMLInputElement;
     myContainer.innerHTML = inp;
