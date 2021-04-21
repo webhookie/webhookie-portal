@@ -1,0 +1,15 @@
+.table{
+    border: 1px solid #E1E1E1;
+    color: #0A1E42;
+}
+.table th{
+    border:0px;
+    border-color: #E1E1E1;
+    font-size: 14px;
+}
+.table td{
+    border-bottom: 0px;
+    border-color: #E1E1E1;
+    vertical-align: middle !important;
+    font-size: 12px;
+}

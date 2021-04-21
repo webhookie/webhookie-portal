@@ -1,13 +1,12 @@
-import {Component, OnInit,AfterViewChecked} from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import {VariableService} from '../../variable.service';
 import * as $ from 'jquery';
-import {VariableService} from '../../common/variable.service';
-
 @Component({
-  selector: 'app-request',
-  templateUrl: './request.component.html',
-  styleUrls: ['./request.component.css']
+  selector: 'app-request-body',
+  templateUrl: './request-body.component.html',
+  styleUrls: ['./request-body.component.css']
 })
-export class RequestComponent implements OnInit {
+export class RequestBodyComponent implements OnInit {
   jsonobj = {
     "outcome": "success",
     "result": {
@@ -40,22 +39,25 @@ export class RequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    $(document).ready(function () {
-      $(".mode-switcher").click(function () {
-        $(".light-mode").toggleClass("dark-mode-active");
-      });
-    })
+   
   }
   ngAfterViewChecked(){
-    
     var str = JSON.stringify(this.jsonobj, null, '\t');
-
     this.output(this.variable.syntaxHighlight(str));
+    $(".key").attr('contentEditable', 'false');
+    $(".boolean").attr('contentEditable', 'true');
+    $(".string").attr('contentEditable', 'true');
+    $(".null").attr('contentEditable', 'true');
+    $(".number").attr('contentEditable', 'true');
   }
-
   output(inp: string) {
     let myContainer = document.getElementById('json_str') as HTMLInputElement;
     myContainer.innerHTML = inp;
+    console.log(myContainer);
   }
 
+  changeData() {
+    let myContainer = document.getElementById('json_str');
+    console.log(myContainer);
+  }
 }

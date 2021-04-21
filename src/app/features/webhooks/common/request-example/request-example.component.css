@@ -3,7 +3,6 @@
   padding: 20px;
   height: 100%;
   border: 1px solid #e1e1e1;
-
 }
 
 .light-mode .custom-control-label::before {
@@ -44,7 +43,30 @@
   display: inline-block;
   user-select: none;
 }
-
+.nav-pills a{
+  color: #0A1E42;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  padding: 8px;
+}
+.nav-pills a:hover{
+  text-decoration: none;
+  border-bottom: 1px solid #0151CC;
+    color: #0151CC;
+    font-weight: 600 !important;
+}
+.nav-pills a:focus{
+  text-decoration: none;
+  border-bottom: 1px solid #0151CC;
+    color: #0151CC;
+    font-weight: 600 !important;
+}
+.active{
+  text-decoration: none;
+  border-bottom: 1px solid #0151CC;
+    color: #0151CC;
+    font-weight: 600 !important;
+}
 @media (max-width: 767px) {
   .light-mode pre {
     font-size: 13px;
