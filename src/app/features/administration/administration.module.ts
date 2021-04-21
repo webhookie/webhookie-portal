@@ -7,6 +7,7 @@ import { WhiteLabelComponent } from './white-label/white-label.component';
 import { ConsumerComponent } from './consumer/consumer.component';
 import {AdministrationRoutingModule } from './administration-routing.module';
 import { ProviderComponent } from './provider/provider.component';
+import { ColorPickerModule } from '@iplab/ngx-color-picker';
 @NgModule({
   declarations: [
     AdministrationComponent,
@@ -18,7 +19,8 @@ import { ProviderComponent } from './provider/provider.component';
   imports: [
     CommonModule,
     AdministrationRoutingModule,
-    WebhookCommonModule
+    WebhookCommonModule,
+    ColorPickerModule
   ]
 })
 export class AdministrationModule { }
