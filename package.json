@@ -25,6 +25,7 @@
     "@angular/router": "~11.2.1",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@iplab/ngx-color-picker": "^2.0.5",
     "angular-crumbs": "^3.0.1",
     "angular-font-awesome": "^3.1.2",
     "angular-oauth2-oidc": "^10.0.3",

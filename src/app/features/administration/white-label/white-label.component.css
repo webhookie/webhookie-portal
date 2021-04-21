@@ -54,6 +54,11 @@ nav{
 .carousel_wrapper{
     background-color: #0151CC;
 }
+.carousel_wrapper .indicators i{
+    color: #fff !important;
+    font-size: 6px;
+    padding: 1px;
+}
 .how-it-works{
     display:flex;
     justify-content: space-between;
@@ -99,6 +104,39 @@ nav{
     cursor:pointer;
 }
 
+
+.colorpick {
+    width: 205px;
+    padding: 5px;
+    box-shadow: none;
+    border: 0;
+}
+
+.dropdown-menu.show {
+    display: block;
+    /* background: transparent;
+    box-shadow: none;
+    border: 0; */
+}
+.dropdown-menu.show .btn-default {
+    border: 1px solid #BFBFBF;
+    color: #0151CC;
+    width: 80%;
+    margin: 5px 21px !important;
+}
+.icons i {
+    position: absolute;
+    margin: 9px 5px;
+    cursor:pointer;
+
+}
+.form-custom-control{
+    padding-left:24px !important;
+}
+input:focus {
+    border: 1px solid #006ADF;
+    box-shadow: none;
+}
 @media (max-width:767px){
     .whitelabel_outer_wrapper{
         flex-direction:column;
