@@ -33,11 +33,7 @@
   line-height: 1.9;
   white-space: pre-wrap;
 }
-
-.light-mode.dark-mode-active pre {
-  color: #fff;
-}
-
+ 
 .mode-switcher {
   cursor: pointer;
   display: inline-block;
@@ -48,6 +44,9 @@
   font-size: 16px !important;
   font-weight: 400 !important;
   padding: 8px;
+}
+.dark-mode-active .nav-pills a {
+  color: white !important;
 }
 .nav-pills a:hover{
   text-decoration: none;

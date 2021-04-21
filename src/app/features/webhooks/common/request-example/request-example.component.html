@@ -1,10 +1,16 @@
 <div class="light-mode">
-  <div class="">
-    <div class="nav nav-pills">
-      <a href="javascript:void(0)" (click)="isBody=true" [ngClass]="isBody?'active':''">Body</a>
-      <a href="javascript:void(0)" (click)="isBody=false" class="px-3" [ngClass]="!isBody?'active':''">Header</a>
+    
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="nav nav-pills">
+        <a href="javascript:void(0)" (click)="isBody=true" [ngClass]="isBody?'active':''">Body</a>
+        <a href="javascript:void(0)" (click)="isBody=false" class="px-3" [ngClass]="!isBody?'active':''">Header</a>
+      </div>
+      <div class="custom-control custom-switch align-items-center">
+        <input class="custom-control-input" id="customSwitch1" type="checkbox">
+        <label class="custom-control-label mode-switcher font12" for="customSwitch1">Dark mode</label>
+      </div>
     </div>
       <app-request-body *ngIf="isBody" #requestExampleComponent></app-request-body>
       <app-request-headers *ngIf="!isBody"></app-request-headers>
-  </div>
+  
 </div>
