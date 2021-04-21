@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {WebhookGroupService} from "../features/webhooks/service/webhook-group.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {WebhookGroup} from "../features/webhooks/model/webhook-group";
-import {map, mergeMap, tap} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {ApplicationContext} from "../shared/application.context";
 
 @Component({
