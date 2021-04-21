@@ -6,6 +6,8 @@ import {OrderRateSubLinksComponent} from './order-rate-sub-links/order-rate-sub-
 import {RequestExampleComponent} from './request-example/request-example.component';
 import {ResponseComponent} from './response/response.component';
 import {RouterModule} from '@angular/router';
+import { RequestHeadersComponent } from './request-example/request-headers/request-headers.component';
+import { RequestBodyComponent } from './request-example/request-body/request-body.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import {RouterModule} from '@angular/router';
     OrderRateSubLinksComponent,
     RequestExampleComponent,
     ResponseComponent,
+    RequestHeadersComponent,
+    RequestBodyComponent,
   ],
   exports: [
     OrderTitleComponent,
@@ -21,6 +25,8 @@ import {RouterModule} from '@angular/router';
     OrderRateSubLinksComponent,
     RequestExampleComponent,
     ResponseComponent,
+    RequestHeadersComponent,
+    RequestBodyComponent
   ],
   imports: [
     RouterModule,

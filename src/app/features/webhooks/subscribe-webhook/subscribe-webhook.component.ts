@@ -3,7 +3,6 @@ import {WebhooksContext} from "../webhooks-context";
 import {ResponseComponent} from "../common/response/response.component";
 import {ApplicationComponent} from "./application/application.component";
 import {CallbackComponent} from "./callback/callback.component";
-import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {mergeMap} from "rxjs/operators";
 import {SubscriptionService, ValidateSubscriptionRequest} from "../../../shared/subscription.service";
 import {Observable} from "rxjs";
@@ -13,7 +12,7 @@ import {HttpHeaders} from "@angular/common/http";
 import {CallbackResponse} from "../service/callback.service";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
 import {Pageable} from "../../../shared/request/pageable";
-
+import {RequestBodyComponent} from "../common/request-example/request-body/request-body.component";
 @Component({
   selector: 'app-subscribe-webhook',
   templateUrl: './subscribe-webhook.component.html',
@@ -24,7 +23,7 @@ export class SubscribeWebhookComponent implements OnInit {
   @ViewChild("applicationComponent") application?: ApplicationComponent
   @ViewChild("callbackComponent") callback?: CallbackComponent
   @ViewChild('responseComponent') response?: ResponseComponent
-  @ViewChild('requestExampleComponent') requestComponent?: RequestExampleComponent
+  @ViewChild('requestExampleComponent') requestComponent?: RequestBodyComponent
 
   subscription?: Subscription
 

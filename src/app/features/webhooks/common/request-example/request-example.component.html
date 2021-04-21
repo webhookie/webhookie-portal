@@ -1,9 +1,10 @@
 <div class="light-mode">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="font-weight-bold font16">Request example</h4>
+  <div class="">
+    <div class="nav nav-pills">
+      <a href="javascript:void(0)" (click)="isBody=true" [ngClass]="isBody?'active':''">Body</a>
+      <a href="javascript:void(0)" (click)="isBody=false" class="px-3" [ngClass]="!isBody?'active':''">Header</a>
+    </div>
+      <app-request-body *ngIf="isBody" #requestExampleComponent></app-request-body>
+      <app-request-headers *ngIf="!isBody"></app-request-headers>
   </div>
-  <!-- <form>
-    <textarea id="json_str"></textarea>
-  </form> -->
-  <pre id="json_str"></pre>
 </div>

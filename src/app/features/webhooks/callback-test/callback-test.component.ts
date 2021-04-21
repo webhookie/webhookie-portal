@@ -1,11 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CallbackUrlComponent} from "./callback-url/callback-url.component";
 import {ResponseComponent} from "../common/response/response.component";
-import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {CallbackService, CallbackValidationRequest} from "../service/callback.service";
 import {WebhooksContext} from "../webhooks-context";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
-
+import {RequestBodyComponent} from "../common/request-example/request-body/request-body.component";
 @Component({
   selector: 'app-callback-test',
   templateUrl: './callback-test.component.html',
@@ -17,7 +16,7 @@ export class CallbackTestComponent implements OnInit {
   // @ts-ignore
   @ViewChild('responseComponent') response?: ResponseComponent
   // @ts-ignore
-  @ViewChild('requestExampleComponent') request: RequestExampleComponent
+  @ViewChild('requestExampleComponent') request: RequestBodyComponent
 
   subscribe: boolean = true;
 

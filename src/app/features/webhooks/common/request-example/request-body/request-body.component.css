@@ -1,0 +1,11 @@
+.table{
+    border: 1px solid #E1E1E1;
+}
+.table th{
+    border-bottom: 0px;
+    border-color: #E1E1E1;
+}
+.table td{
+    border-bottom: 0px;
+    border-color: #E1E1E1;
+}
