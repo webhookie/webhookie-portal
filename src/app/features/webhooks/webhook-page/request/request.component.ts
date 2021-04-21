@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,AfterViewChecked} from '@angular/core';
 import * as $ from 'jquery';
 import {VariableService} from '../../common/variable.service';
 
@@ -45,6 +45,9 @@ export class RequestComponent implements OnInit {
         $(".light-mode").toggleClass("dark-mode-active");
       });
     })
+  }
+  ngAfterViewChecked(){
+    
     var str = JSON.stringify(this.jsonobj, null, '\t');
 
     this.output(this.variable.syntaxHighlight(str));
