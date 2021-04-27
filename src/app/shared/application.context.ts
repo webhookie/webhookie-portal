@@ -5,6 +5,7 @@ import {User} from "./model/user";
 import {LogService} from "./service/log.service";
 import {UserService} from "./service/user.service";
 import {Constants} from "./constants";
+import {filter} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class ApplicationContext {
     this.isLoggedIn = this.authService.loggedIn$;
 
     this.isLoggedIn
+      .pipe(filter(it => it))
       .subscribe(() => this.login(this.authService.claims))
   }
 
