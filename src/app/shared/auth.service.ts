@@ -7,16 +7,22 @@ import {filter, map} from "rxjs/operators";
 import {LogService} from "./log.service";
 import {Constants} from "./constants";
 import {RouterService} from "./router.service";
-import {ApplicationContext} from "./application.context";
+import {BehaviorSubject, Observable} from "rxjs";
+import {ApplicationConfiguration} from "./config/application-configuration";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private readonly _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private readonly _userClaims$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+
+  readonly loggedIn$: Observable<boolean> = this._isLoggedIn$.asObservable();
+
   constructor(
     private readonly oauthService: OAuthService,
     private readonly log: LogService,
-    private readonly context: ApplicationContext,
+    private readonly appConfiguration: ApplicationConfiguration,
     private readonly router: RouterService
   ) {
     this.notifyLogin()
@@ -28,9 +34,13 @@ export class AuthService {
         this.router.navigateToSaved()
       });
 
-    this.context.config()
+    this.appConfiguration.config()
       .pipe(map(it => AuthService.toAuthConfig(it)))
       .subscribe(it => this.init(it));
+  }
+
+  get claims(): any {
+    return this._userClaims$.value;
   }
 
   get loggedIn(): boolean {
@@ -64,7 +74,8 @@ export class AuthService {
 
   notifyLogin() {
     if (this.loggedIn) {
-      this.context.login(this.oauthService.getIdentityClaims());
+      this._isLoggedIn$.next(true);
+      this._userClaims$.next(this.oauthService.getIdentityClaims());
     }
   }
 
@@ -73,7 +84,7 @@ export class AuthService {
       .then();
     this.oauthService.logOut();
     this.router.navigateToHome();
-    this.context.logout();
+    this._isLoggedIn$.next(false);
   }
 
   login() {

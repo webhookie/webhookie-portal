@@ -1,41 +1,34 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
-import {WebhookieConfig} from "./model/webhookie-config";
-import {filter} from "rxjs/operators";
+import {BehaviorSubject, Observable} from "rxjs";
+import {AuthService} from "./auth.service";
+import {User} from "./model/user";
 import {LogService} from "./log.service";
+import {UserService} from "./service/user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplicationContext {
-  private readonly _config$: Subject<WebhookieConfig> = new ReplaySubject<WebhookieConfig>()
-  private readonly _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  readonly isLoggedIn: Observable<boolean> = this._isLoggedIn$.asObservable();
+  readonly isLoggedIn: Observable<boolean>;
+  // @ts-ignore
+  private readonly _user$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
     private readonly log: LogService
   ) {
-  }
+    this.isLoggedIn = this.authService.loggedIn$;
 
-  init(conf: WebhookieConfig) {
-    this._config$.next(conf);
-  }
-
-  config(): Observable<WebhookieConfig> {
-    return this._config$
-      .asObservable()
-      .pipe(filter(it => it !== null));
+    this.isLoggedIn
+      .subscribe(() => this.login(this.authService.claims))
   }
 
   login(claims: any) {
     let name = claims['name']
     this.log.info(`${name} is logged in!`)
     this.log.debug(claims)
-    this._isLoggedIn$.next(true)
-  }
-
-  logout() {
-    this.log.info(`logging out!`)
-    this._isLoggedIn$.next(false)
+    this.userService.readUser()
+      .subscribe(it => this._user$.next(it));
   }
 }
