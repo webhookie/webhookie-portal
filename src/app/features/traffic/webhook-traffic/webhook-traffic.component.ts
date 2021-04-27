@@ -159,9 +159,14 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new TimestampColumn("Webhook_Timestamp_Column"),
       new SubscribersColumn("Webhook_Auth_Subscribers_Column"),
       new ContextMenuTableColumn([
-        new ContextMenuItem<Trace, TraceMenu>(TraceMenu.VIEW_REQUEST, this.viewTraceRequest)
+        new ContextMenuItem<Trace, TraceMenu>(TraceMenu.VIEW_REQUEST, this.viewTraceRequest),
+        new ContextMenuItem<Trace, TraceMenu>(TraceMenu.RETRY, this.retryTrace),
       ]),
     ];
+  }
+
+  retryTrace(trace: Trace, action: TraceMenu): any {
+    console.warn(`${action} ==> ${trace.traceId}`);
   }
 
   viewTraceRequest(trace: Trace, action: TraceMenu): any {
@@ -193,6 +198,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new StatusColumn("Webhook_Span_Status_Column"),
       new TriesColumn("Webhook_Span_Tries_Column"),
       new ContextMenuTableColumn([
+        new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.RETRY, this.retrySpan),
         new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_REQUEST, this.viewSpanRequest),
         new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_RESPONSE, this.viewSpanResponse),
       ]),
@@ -200,6 +206,10 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   viewSpanRequest(span: Span, action: TraceSpansMenu): any {
+    console.warn(`${action} ==> ${span.spanId}`);
+  }
+
+  retrySpan(span: Span, action: TraceSpansMenu): any {
     console.warn(`${action} ==> ${span.spanId}`);
   }
 
@@ -306,10 +316,12 @@ interface WebhookTrafficFilter {
 
 
 enum TraceMenu {
+  RETRY = "Retry",
   VIEW_REQUEST = "View Request"
 }
 
 enum TraceSpansMenu {
+  RETRY = "Retry",
   VIEW_REQUEST = "View Request",
   VIEW_RESPONSE = "View Response",
 }
