@@ -2,13 +2,13 @@ import {Inject, Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {map, mergeMap, tap} from "rxjs/operators";
 import {HttpHeaders, HttpParams} from "@angular/common/http";
-import {Api} from "./api";
+import {Api} from "../api";
 import {LogService} from "./log.service";
-import {SubscriptionAdapter} from "./adapter/subscription.adapter";
-import {Subscription} from "./model/subscription";
+import {SubscriptionAdapter} from "../adapter/subscription.adapter";
+import {Subscription} from "../model/subscription";
 import {ApiService} from "./api.service";
-import {Pageable} from "./request/pageable";
-import {RequestUtils} from "./request/request-utils";
+import {Pageable} from "../request/pageable";
+import {RequestUtils} from "../request/request-utils";
 
 @Injectable({
   providedIn: 'root'

@@ -26,6 +26,10 @@ import {
 } from "./span-columns";
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {Pageable} from "../../../shared/request/pageable";
+import {
+  ContextMenuTableColumn
+} from "../../../shared/model/table/column/context-menu-table-column";
+import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
 
 @Component({
   selector: 'app-subscription-traffic',
@@ -96,6 +100,13 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       new ResponseCodeColumn("Subscription_ResponseCode_Column"),
       new StatusColumn("Subscription_Status_Column"),
       new TriesColumn("Subscription_Tries_Column"),
+      new ContextMenuTableColumn(
+        [
+          new ContextMenuItem<Span, SpanMenu>(SpanMenu.VIEW_REQUEST, this.viewRequest),
+          new ContextMenuItem<Span, SpanMenu>(SpanMenu.VIEW_RESPONSE, this.viewResponse),
+          new ContextMenuItem<Span, SpanMenu>(SpanMenu.RETRY, this.retrySpan)
+        ]
+      ),
     ]
   }
 
@@ -105,4 +116,22 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 
   detailHeaders?: TableHeader[];
   detailColumns?: TableColumn[];
+
+  viewRequest(span: Span, action: SpanMenu): any {
+    console.warn(`${action} ==> ${span.spanId}`);
+  }
+
+  viewResponse(span: Span, action: SpanMenu): any {
+    console.warn(`${action} ==> ${span.spanId}`);
+  }
+
+  retrySpan(span: Span, action: SpanMenu): any {
+    console.warn(`${action} ==> ${span.spanId}`);
+  }
+}
+
+enum SpanMenu {
+  VIEW_REQUEST = "View Request",
+  VIEW_RESPONSE = "View Response",
+  RETRY = "Retry",
 }

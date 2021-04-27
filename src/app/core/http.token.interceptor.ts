@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {Observable, throwError as observableThrowError} from 'rxjs';
-import {AuthService} from "../shared/auth.service";
-import {LogService} from "../shared/log.service";
+import {AuthService} from "../shared/service/auth.service";
+import {LogService} from "../shared/service/log.service";
 
 
 @Injectable()

@@ -19,7 +19,7 @@ import {
   TraceIdColumn,
   TraceMoreDataColumn,
   WebhookColumn
-} from "./traffic-columns";
+} from "./trace-columns";
 import {SelectableTableColumn} from "../../../shared/model/table/column/selectable-table-column";
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {Span} from "../model/span";
@@ -37,6 +37,8 @@ import {ProviderService} from "../service/provider.service";
 import {filter, map, mergeMap, skip, tap} from "rxjs/operators";
 import {Application} from "../../webhooks/model/application";
 import {Callback} from "../../../shared/model/callback";
+import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
+import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -128,7 +130,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new SelectableTableHeader("sticky-cell sticky-second-cell", "Webhook_Header2"),
       new SortableTableHeader("Trace Id", "traceId"),
       new SortableTableHeader("Webhook", "topic"),
-      new SortableTableHeader("Status", "statusUpdate.status"),
+      new SortableTableHeader("Status", "statusUpdate.status", "text-center"),
       new SortableTableHeader("Timestamp", "statusUpdate.time"),
       new SortableTableHeader("Authorized Subscribers", "consumerMessage.authorizedSubscribers"),
     ]
@@ -156,7 +158,19 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new StatusColumn("Webhook_Status_Column"),
       new TimestampColumn("Webhook_Timestamp_Column"),
       new SubscribersColumn("Webhook_Auth_Subscribers_Column"),
+      new ContextMenuTableColumn([
+        new ContextMenuItem<Trace, TraceMenu>(TraceMenu.VIEW_REQUEST, this.viewTraceRequest),
+        new ContextMenuItem<Trace, TraceMenu>(TraceMenu.RETRY, this.retryTrace),
+      ]),
     ];
+  }
+
+  retryTrace(trace: Trace, action: TraceMenu): any {
+    console.warn(`${action} ==> ${trace.traceId}`);
+  }
+
+  viewTraceRequest(trace: Trace, action: TraceMenu): any {
+    console.warn(`${action} ==> ${trace.traceId}`);
   }
 
   get detailHeaders(): Array<TableHeader> {
@@ -167,7 +181,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new SimpleTableHeader("Callback URL", "Webhook_Details_Callback_Header"),
       new SimpleTableHeader("Timestamp", "Webhook_Details_Timestamp_Header"),
       new SimpleTableHeader("Response code", "Webhook_Details_Response_Code_Header"),
-      new SimpleTableHeader("Status", "Webhook_Details_Status_Header"),
+      new SimpleTableHeader("Status", "Webhook_Details_Status_Header", "text-center"),
       new SimpleTableHeader("Tries", "Webhook_Details_Tries_Header"),
       new SimpleTableHeader("", "Webhook_Details_Header1")
     ]
@@ -183,7 +197,24 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new ResponseCodeColumn("Webhook_Span_ResponseCode_Column"),
       new StatusColumn("Webhook_Span_Status_Column"),
       new TriesColumn("Webhook_Span_Tries_Column"),
+      new ContextMenuTableColumn([
+        new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.RETRY, this.retrySpan),
+        new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_REQUEST, this.viewSpanRequest),
+        new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_RESPONSE, this.viewSpanResponse),
+      ]),
     ]
+  }
+
+  viewSpanRequest(span: Span, action: TraceSpansMenu): any {
+    console.warn(`${action} ==> ${span.spanId}`);
+  }
+
+  retrySpan(span: Span, action: TraceSpansMenu): any {
+    console.warn(`${action} ==> ${span.spanId}`);
+  }
+
+  viewSpanResponse(span: Span, action: TraceSpansMenu): any {
+    console.warn(`${action} ==> ${span.spanId}`);
   }
 
   fetchDetails(data: Trace): Observable<boolean> {
@@ -281,4 +312,16 @@ interface WebhookTrafficFilter {
   entity?: string;
   application?: Application;
   callback?: Callback;
+}
+
+
+enum TraceMenu {
+  RETRY = "Retry",
+  VIEW_REQUEST = "View Request"
+}
+
+enum TraceSpansMenu {
+  RETRY = "Retry",
+  VIEW_REQUEST = "View Request",
+  VIEW_RESPONSE = "View Response",
 }

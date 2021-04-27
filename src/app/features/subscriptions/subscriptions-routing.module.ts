@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SubscriptionsHomeComponent} from "./home/subscriptions-home.component";
 import {SubscriptionsComponent} from "./subscriptions/subscriptions.component";
+import {Constants} from "../../shared/constants";
 
 
 const routes: Routes = [
@@ -18,14 +19,14 @@ const routes: Routes = [
         path: 'consumer',
         component: SubscriptionsComponent,
         data: {
-          role: "CONSUMER"
+          role: Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER
         }
       },
       {
         path: 'provider',
         component: SubscriptionsComponent,
         data: {
-          role: "PROVIDER"
+          role: Constants.SUBSCRIPTIONS_VIEW_ROLE_PROVIDER
         }
       }
     ]

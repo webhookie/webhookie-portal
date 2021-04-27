@@ -12,6 +12,8 @@ import {SearchListTableFilter} from "../../model/table/filter/search-list-table-
 import {TimestampTableFilter} from "../../model/table/filter/timestamp-table-filter";
 import {MoreDataTableColumn} from "../../model/table/column/more-data-table-column";
 import {SelectableTableColumn} from "../../model/table/column/selectable-table-column";
+import {ContextMenuTableColumn} from "../../model/table/column/context-menu-table-column";
+import {ContextMenuItem} from "../../model/table/column/context-menu-item";
 
 export class TableDataSource {
   data: Array<TableData> = [];
@@ -92,5 +94,9 @@ export class TableDataSource {
 
   isSelectableColumn(column: TableColumn) {
     return column instanceof SelectableTableColumn
+  }
+
+  isContextMenuColumn(column: TableColumn) {
+    return column instanceof ContextMenuTableColumn
   }
 }

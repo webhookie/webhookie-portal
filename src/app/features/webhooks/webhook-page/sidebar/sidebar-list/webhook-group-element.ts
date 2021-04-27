@@ -1,7 +1,8 @@
-import {Topic} from "../../../model/webhook-group";
+import {Topic, WebhookGroup} from "../../../model/webhook-group";
 
 export class WebhookGroupElement {
   constructor(
+    public webhookGroup: WebhookGroup,
     public title: string,
     public topics: Array<Topic>,
     public isShowing: boolean = false

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 import {BehaviorSubject, Observable} from "rxjs";
 import {ConsumerGroup} from "../../../../../shared/model/consumer-group";
-import {WebhookieService} from "../../../../../shared/webhookie.service";
+import {WebhookieService} from "../../../../../shared/service/webhookie.service";
 import {map} from "rxjs/operators";
 import {ApplicationService, CreateApplicationRequest} from "../../../service/application.service";
 import {WebhooksContext} from "../../../webhooks-context";
