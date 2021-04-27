@@ -19,9 +19,7 @@ import {
   SubscriptionWebhookColumn
 } from "./subscription-columns";
 import {SelectableTableColumn} from "../../../shared/model/table/column/selectable-table-column";
-import {
-  ContextMenuTableColumn
-} from "../../../shared/model/table/column/context-menu-table-column";
+import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
 import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
 import {SubscriptionContextMenuService} from "./subscription-context-menu.service";
 import {Constants} from "../../../shared/constants";
@@ -40,16 +38,23 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   readonly _role$: BehaviorSubject<string> = new BehaviorSubject(Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER);
 
   constructor(
+    private readonly activatedRoute: ActivatedRoute,
     private readonly contextMenuService: SubscriptionContextMenuService,
     private readonly route: ActivatedRoute,
     private readonly service: SubscriptionService
   ) {
     super();
+
+    this.activatedRoute.queryParams
+      .subscribe(it => this.initialFilters = it);
   }
 
   fetchData(filter: any, pageable: Pageable) {
-    filter["role"] = this._role$.value;
-    this.service.fetchSubscriptions(filter, pageable)
+    let queryFilter = {};
+    Object.assign(queryFilter, filter);
+    // @ts-ignore
+    queryFilter["role"] = this._role$.value;
+    this.service.fetchSubscriptions(queryFilter, pageable)
       .subscribe(it => this._subscriptions$.next(it));
   }
 
