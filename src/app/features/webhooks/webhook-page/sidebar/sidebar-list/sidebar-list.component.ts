@@ -22,6 +22,7 @@ export class SidebarListComponent implements OnInit {
   ) {
   }
 
+  // noinspection JSUnusedGlobalSymbols
   get selectedWebhookElement() {
     return this.context.selectedWebhook
   }
@@ -56,6 +57,6 @@ export class SidebarListComponent implements OnInit {
 
   private readWebhookGroups(): Observable<Array<WebhookGroupElement>> {
     return this.service.myWebhookGroups()
-      .pipe(map(list => list.map(it => new WebhookGroupElement(it.title, it.topics))))
+      .pipe(map(list => list.map(it => new WebhookGroupElement(it, it.title, it.topics))))
   }
 }

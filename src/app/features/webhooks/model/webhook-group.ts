@@ -1,4 +1,6 @@
-export class WebhookGroup {
+import {TableDetailData} from "../../../shared/model/table/table-detail-data";
+
+export class WebhookGroup extends TableDetailData {
   constructor(
     public id: string,
     public title: string,
@@ -7,6 +9,7 @@ export class WebhookGroup {
     public spec: string,
     public topics: Array<Topic>
   ) {
+    super();
   }
 }
 
