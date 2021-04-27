@@ -39,6 +39,7 @@ import {Application} from "../../webhooks/model/application";
 import {Callback} from "../../../shared/model/callback";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
 import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -59,10 +60,14 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   readonly spanFilter$: BehaviorSubject<WebhookTrafficFilter> = new BehaviorSubject<WebhookTrafficFilter>({});
 
   constructor(
+    private readonly activatedRoute: ActivatedRoute,
     private readonly traceService: TraceService,
     private readonly providerService: ProviderService
   ) {
     super();
+
+    this.activatedRoute.queryParams
+      .subscribe(it => this.initialFilters = it);
   }
 
   ngOnInit(): void {

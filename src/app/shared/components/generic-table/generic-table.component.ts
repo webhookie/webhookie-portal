@@ -38,6 +38,7 @@ export class GenericTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.table.init();
+    this.currentFilter.next(this.table.initialFilters);
 
     this.table.tableData
       .subscribe((it: Array<TableData>) => {

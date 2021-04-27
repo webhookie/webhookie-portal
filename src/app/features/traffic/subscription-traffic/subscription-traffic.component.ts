@@ -26,10 +26,9 @@ import {
 } from "./span-columns";
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {Pageable} from "../../../shared/request/pageable";
-import {
-  ContextMenuTableColumn
-} from "../../../shared/model/table/column/context-menu-table-column";
+import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
 import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-subscription-traffic',
@@ -44,9 +43,13 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   readonly tableData: Observable<Array<Span>> = this._spans$.asObservable();
 
   constructor(
+    private readonly activatedRoute: ActivatedRoute,
     private readonly spanService: SpanService,
   ) {
     super();
+
+    this.activatedRoute.queryParams
+      .subscribe(it => this.initialFilters = it);
   }
 
   ngOnInit(): void {
