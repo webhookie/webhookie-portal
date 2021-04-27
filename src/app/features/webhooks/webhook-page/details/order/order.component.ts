@@ -12,6 +12,10 @@ import {WebhooksContext} from "../../../webhooks-context";
 export class OrderComponent implements OnInit {
   menuItems!: Array<ContextMenuItem<WebhookGroup, WebhookMenu>>;
 
+  get data(): WebhookGroup | undefined{
+    return this.webhooksContext.selectedWebhook?.webhookGroup
+  }
+
   constructor(
     private readonly appContext: ApplicationContext,
     private readonly webhooksContext: WebhooksContext

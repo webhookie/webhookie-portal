@@ -1,37 +1,20 @@
-<!-- <span class="sort_icons">
-    <a (click)="onAsc.emit()" href="javascript:void(0)"><i class="fa fa-fw fa-sort-asc"></i></a>
-    <a (click)="onDesc.emit()" href="javascript:void(0)"><i class="fa fa-fw fa-sort-asc rotate180"></i></a>
-</span> -->
 <span class="dropdown sort_icons">
-  <a (click)="onAsc.emit()" href="javascript:void(0)" id="dropdownMenu1" data-toggle="dropdown"><i
-      class="fa fa-fw fa-sort-asc"></i></a>
-  <a (click)="onDesc.emit()" href="javascript:void(0)" id="dropdownMenu1" data-toggle="dropdown"><i
-      class="fa fa-fw fa-sort-asc rotate180"></i></a>
+  <a href="javascript:void(0)" id="ascDropdownMenu" data-toggle="dropdown">
+    <i class="fa fa-fw fa-sort-asc"></i>
+    <i class="fa fa-fw fa-sort-asc rotate180"></i>
+  </a>
   <div class="dropdown-menu dropdown-menu-small px-2">
     <ul class="nav-vertical nav-small font-weight-normal">
       <li class="nav-item">
-        <a href="javascript:void(0)" class="nav-link"><img src="assets/images/Arrow_up.svg" class="ml-0 mr-1">Sort A to
-          Z</a>
+        <a (click)="onAsc.emit()"  href="javascript:void(0)" class="nav-link">
+          <img src="assets/images/Arrow_up.svg" class="ml-0 mr-1" alt="asc">Sort A to Z
+        </a>
       </li>
       <li class="nav-item">
-        <a href="javascript:void(0)" class="nav-link"><img src="assets/images/Arrow_Down (1).svg" class="ml-0 mr-1">Sort
-          Z to A</a>
+        <a (click)="onDesc.emit()" href="javascript:void(0)" class="nav-link">
+          <img src="assets/images/Arrow_Down.svg" class="ml-0 mr-1" alt="desc">Sort Z to A
+        </a>
       </li>
     </ul>
   </div>
 </span>
-<!-- <span class="sort_icons">
-    <div class="btn-group">
-            <a (click)="onAsc.emit()" href="javascript:void(0)" class="dropdown" data-toggle="dropdown"><i class="fa fa-fw fa-sort-asc"></i></a>
-        <div class="dropdown-menu" aria-labelledby="dropdown">
-          <a class="dropdown-item" href="/"><img src="assets/images/Arrow_up.svg">Sort A to Z</a>     
-        </div>
-      </div>
-    
-      <div class="btn-group">
-        <a (click)="onAsc.emit()" href="javascript:void(0)" class="dropdown" data-toggle="dropdown"><i class="fa fa-fw fa-sort-asc rotate180"></i></a>
-    
-        <div class="dropdown-menu" aria-labelledby="dropdown">
-            <a class="dropdown-item" href="/"><img src="assets/images/Arrow_Down (1).svg">Sort Z to A</a>     
-        </div>
-      </div></span> -->

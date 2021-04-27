@@ -10,6 +10,7 @@ import {HeadersComponent} from './webhook-detail/headers/headers.component';
 import {BodyComponent} from './webhook-detail/body/body.component';
 import {SecurityOptionsComponent} from './webhook-detail/security-options/security-options.component';
 import {WebhookCommonModule} from '../../../common/webhook-common.module';
+import {SharedModule} from "../../../../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -27,11 +28,12 @@ import {WebhookCommonModule} from '../../../common/webhook-common.module';
     BodyComponent,
     SecurityOptionsComponent
   ],
-  imports: [
-    CommonModule,
-    OrderRoutingModule,
-    WebhookCommonModule
-  ],
+    imports: [
+        CommonModule,
+        OrderRoutingModule,
+        WebhookCommonModule,
+        SharedModule
+    ],
 })
 export class OrderModule {
 }

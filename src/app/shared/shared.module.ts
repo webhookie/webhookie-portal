@@ -61,7 +61,8 @@ if (environment.mock) {
     SortButtonsComponent,
     CommonModule,
     RouterModule,
-    SearchListComponent
+    SearchListComponent,
+    ContextMenuTableColumnComponent
   ],
   providers: [
     {

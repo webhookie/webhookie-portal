@@ -16,16 +16,7 @@
           </button>
         </li>
         <li class="px-2">
-          <a href="#" class="dropdown-toggle hide-after" data-toggle="dropdown">
-            <img src="/assets/images/provider-menu.svg" alt="menu">
-          </a>
-          <div class="dropdown-menu dropdown-menu-right px-2">
-            <ul class="nav-vertical nav-small">
-              <li class="nav-item">
-                <a *ngFor="let menuItem of menuItems" href="javascript:void(0)" class="nav-link" (click)="handle(menuItem)">{{menuItem.item}}</a>
-              </li>
-            </ul>
-          </div>
+          <app-context-menu-table-column [data]="data!" [menuItems]="menuItems"></app-context-menu-table-column>
         </li>
       </ul>
     </div>

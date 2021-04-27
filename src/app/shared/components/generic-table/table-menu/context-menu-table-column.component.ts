@@ -10,8 +10,12 @@ import {ContextMenuItem} from "../../../model/table/column/context-menu-item";
   styleUrls: ['./context-menu-table-column.component.css']
 })
 export class ContextMenuTableColumnComponent implements OnInit {
-  @Input() column!: TableColumn;
+  @Input() set column(col: TableColumn) {
+    let column = col as ContextMenuTableColumn<any, any>
+    this.menuItems = column.items;
+  };
   @Input() data!: TableData;
+  @Input() menuItems!: Array<ContextMenuItem<any, any>>;
 
   constructor() { }
 
@@ -19,9 +23,7 @@ export class ContextMenuTableColumnComponent implements OnInit {
   }
 
   getMenuItems<T extends TableData,E>(): Array<ContextMenuItem<T, E>> {
-    let column = this.getColumn()
-    return column
-      .items
+    return this.menuItems
       .filter(it => it.isAvailable(this.getData())) as Array<ContextMenuItem<T, E>>;
   }
 
@@ -31,9 +33,5 @@ export class ContextMenuTableColumnComponent implements OnInit {
 
   getData<T extends TableData>(): T {
     return this.data as T;
-  }
-
-  getColumn<T extends TableData, E>(): ContextMenuTableColumn<T,E> {
-    return this.column as ContextMenuTableColumn<T,E>;
   }
 }
