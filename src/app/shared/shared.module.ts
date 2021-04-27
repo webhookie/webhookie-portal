@@ -19,6 +19,7 @@ import {SearchListComponent} from './components/search-list/search-list.componen
 import {GenericTableComponent} from "./components/generic-table/generic-table.component";
 import { TimestampFilterComponent } from './components/timestamp-filter/timestamp-filter.component';
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import { ContextMenuTableColumnComponent } from './components/generic-table/table-menu/context-menu-table-column.component';
 
 let apiProvider;
 if (environment.mock) {
@@ -30,6 +31,7 @@ if (environment.mock) {
 
 @NgModule({
   declarations: [
+    ContextMenuTableColumnComponent,
     GenericTableComponent,
     SpinnerComponent,
     DatepickerComponent,

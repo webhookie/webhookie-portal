@@ -37,6 +37,10 @@ import {ProviderService} from "../service/provider.service";
 import {filter, map, mergeMap, skip, tap} from "rxjs/operators";
 import {Application} from "../../webhooks/model/application";
 import {Callback} from "../../../shared/model/callback";
+import {
+  ContextMenuTableColumn
+} from "../../../shared/model/table/column/context-menu-table-column";
+import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -156,7 +160,14 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new StatusColumn("Webhook_Status_Column"),
       new TimestampColumn("Webhook_Timestamp_Column"),
       new SubscribersColumn("Webhook_Auth_Subscribers_Column"),
+      new ContextMenuTableColumn([
+        new ContextMenuItem<Trace, TraceMenu>(TraceMenu.VIEW_REQUEST, this.viewTraceRequest)
+      ]),
     ];
+  }
+
+  viewTraceRequest(trace: Trace, action: TraceMenu): any {
+    console.warn(`${action} ==> ${trace.traceId}`);
   }
 
   get detailHeaders(): Array<TableHeader> {
@@ -183,7 +194,19 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new ResponseCodeColumn("Webhook_Span_ResponseCode_Column"),
       new StatusColumn("Webhook_Span_Status_Column"),
       new TriesColumn("Webhook_Span_Tries_Column"),
+      new ContextMenuTableColumn([
+        new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_REQUEST, this.viewSpanRequest),
+        new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_RESPONSE, this.viewSpanResponse),
+      ]),
     ]
+  }
+
+  viewSpanRequest(span: Span, action: TraceSpansMenu): any {
+    console.warn(`${action} ==> ${span.spanId}`);
+  }
+
+  viewSpanResponse(span: Span, action: TraceSpansMenu): any {
+    console.warn(`${action} ==> ${span.spanId}`);
   }
 
   fetchDetails(data: Trace): Observable<boolean> {
@@ -281,4 +304,14 @@ interface WebhookTrafficFilter {
   entity?: string;
   application?: Application;
   callback?: Callback;
+}
+
+
+enum TraceMenu {
+  VIEW_REQUEST = "View Request"
+}
+
+enum TraceSpansMenu {
+  VIEW_REQUEST = "View Request",
+  VIEW_RESPONSE = "View Response",
 }

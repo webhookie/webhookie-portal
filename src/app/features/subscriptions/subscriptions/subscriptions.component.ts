@@ -19,6 +19,11 @@ import {
   SubscriptionWebhookColumn
 } from "./subscription-columns";
 import {SelectableTableColumn} from "../../../shared/model/table/column/selectable-table-column";
+import {
+  ContextMenuTableColumn
+} from "../../../shared/model/table/column/context-menu-table-column";
+import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
+import {SubscriptionContextMenuService} from "./subscription-context-menu.service";
 
 @Component({
   selector: 'app-subscriptions',
@@ -34,6 +39,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   readonly _role$: BehaviorSubject<string> = new BehaviorSubject("CONSUMER");
 
   constructor(
+    private readonly contextMenuService: SubscriptionContextMenuService,
     private readonly route: ActivatedRoute,
     private readonly service: SubscriptionService
   ) {
@@ -77,7 +83,24 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
       new SubscriptionWebhookColumn("Subscription_Topic"),
       new SubscriptionCallbackColumn("Subscription_Callback"),
       new SubscriptionStatusColumn("Subscription_Status"),
+      new ContextMenuTableColumn([
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_TRAFFIC, this.viewTraffic, this.contextMenuService.canViewTraffic),
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.UNSUSPEND, this.unsuspend, this.contextMenuService.canSuspend),
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.SUSPEND, this.suspend, this.contextMenuService.canUnsuspend)
+      ])
     ]
+  }
+
+  viewTraffic(subscription: Subscription, action: SubscriptionMenu): any {
+    console.warn(`${action} ==> ${subscription.id}`);
+  }
+
+  suspend(subscription: Subscription, action: SubscriptionMenu): any {
+    console.warn(`${action} ==> ${subscription.id}`);
+  }
+
+  unsuspend(subscription: Subscription, action: SubscriptionMenu): any {
+    console.warn(`${action} ==> ${subscription.id}`);
   }
 
   fetchDetails(data: any): Observable<boolean> {
@@ -87,3 +110,10 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   detailHeaders?: TableHeader[];
   detailColumns?: TableColumn[];
 }
+
+enum SubscriptionMenu {
+  VIEW_TRAFFIC = "View Traffic",
+  SUSPEND = "Suspend",
+  UNSUSPEND = "UnSuspend"
+}
+

@@ -25,7 +25,7 @@
         <th scope="col" class="filter text-center sticky-cell-opposite table-filters-collapse"
             [class.active]="showFilter" (click)="showFilter=!showFilter">
           <a data-toggle="collapse" href="#filters_collapse_wrapper" class="clickable border-left">
-            <img src="../../../../assets/images/Filter.svg" class="ml-0" alt="filter">
+            <img src="/assets/images/Filter.svg" class="ml-0" alt="filter">
           </a>
         </th>
       </tr>
@@ -61,20 +61,8 @@
               <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="table.rowSelectionChanged(column, data, $event)">
               <label class="custom-control-label" for="check1{{i}}"></label>
             </div>
+            <app-context-menu-table-column *ngIf="dataSource.isContextMenuColumn(column)" [column]="column" [data]="data"></app-context-menu-table-column>
             <span [innerHTML]="column.value(data)"></span>
-          </td>
-          <td class="dropdown text-center sticky-cell-opposite">
-            <a href="#" class="dropdown-toggle hide-after" data-toggle="dropdown">
-              <img src="../../../../assets/images/provider-menu.svg" alt="menu">
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-small px-2">
-              <ul class="nav-vertical nav-small">
-                <li class="nav-item"><a href="#" class="nav-link">Traffic</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Edit</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Deactivate</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Delete</a></li>
-              </ul>
-            </div>
           </td>
         </tr>
         <tr [class.collapse]="!isOpen(data)" class="border-0" *ngIf="dataSource.isMasterData(data)">
@@ -88,8 +76,10 @@
               </thead>
               <tbody>
                 <tr *ngFor="let detailData of dataSource.details(data) | async;let i=index; trackBy:dataSource.trackByDetailData">
-                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn"><span [innerHTML]="detailColumn.value(detailData)"></span></td>
-                  <td class="text-right"><img src="../../../../assets/images/provider-menu.svg" alt="menu"></td>
+                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn">
+                    <app-context-menu-table-column *ngIf="dataSource.isContextMenuColumn(detailColumn)" [column]="detailColumn" [data]="detailData"></app-context-menu-table-column>
+                    <span [innerHTML]="detailColumn.value(detailData)"></span>
+                  </td>
                 </tr>
               </tbody>
             </table>

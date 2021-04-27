@@ -64,7 +64,7 @@ export class CallbackDetails {
 
 
 // noinspection JSUnusedGlobalSymbols
-enum SubscriptionStatus {
+export enum SubscriptionStatus {
   SAVED = "SAVED",
   VALIDATED = "VALIDATED",
   ACTIVATED = "ACTIVATED",
