@@ -8,6 +8,7 @@ import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 import { WhyWebhookComponent } from './why-webhook/why-webhook.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import {LandingPageRoutingModule} from "./landingpage-routing.module";
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 @NgModule({
   declarations: [
     LandingPageComponent,
@@ -21,6 +22,7 @@ import {LandingPageRoutingModule} from "./landingpage-routing.module";
   imports: [
     CommonModule,
     CarouselModule,
+    SlickCarouselModule,
     LandingPageRoutingModule
   ]
 })

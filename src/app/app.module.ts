@@ -18,6 +18,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { AdministrationModule } from './features/administration/administration.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     DatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     CarouselModule,
+    SlickCarouselModule,
     AppRoutingModule,
   ],
 
