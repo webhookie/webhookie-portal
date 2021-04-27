@@ -30,7 +30,7 @@ export class TimestampColumn extends BaseTableColumn<Trace> {
 
 export class StatusColumn extends BaseTableColumn<Trace> {
   value(data: Trace): string {
-    return `<span class="${TraceColumnUtils.classByStatus(data)}">${data.statusUpdate.status}</span>`;
+    return `<span class="${TraceColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span>`;
   }
 
   clazz = "text-center"
@@ -49,13 +49,13 @@ class TraceColumnUtils {
   static classByStatus(trace: Trace): string {
     switch (trace.statusUpdate.status) {
       case TraceStatus.PROCESSING:
-        return "text-default"
+        return "text-primary";
       case TraceStatus.NO_SUBSCRIPTION:
-        return "text-primary"
+        return "text-default"
       case TraceStatus.OK:
-        return "text-success font-weight-bold"
+        return "text-success"
       case TraceStatus.ISSUES:
-        return "text-danger font-weight-bold"
+        return "text-danger"
       default:
         return "text-default";
     }

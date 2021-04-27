@@ -76,7 +76,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let detailData of dataSource.details(data) | async;let i=index; trackBy:dataSource.trackByDetailData">
-                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn">
+                  <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn" [ngClass]="detailColumn.clazz">
                     <app-context-menu-table-column *ngIf="dataSource.isContextMenuColumn(detailColumn)" [column]="detailColumn" [data]="detailData"></app-context-menu-table-column>
                     <span [innerHTML]="detailColumn.value(detailData)"></span>
                   </td>

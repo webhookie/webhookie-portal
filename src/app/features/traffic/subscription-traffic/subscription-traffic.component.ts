@@ -103,7 +103,8 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       new ContextMenuTableColumn(
         [
           new ContextMenuItem<Span, SpanMenu>(SpanMenu.VIEW_REQUEST, this.viewRequest),
-          new ContextMenuItem<Span, SpanMenu>(SpanMenu.VIEW_RESPONSE, this.viewResponse)
+          new ContextMenuItem<Span, SpanMenu>(SpanMenu.VIEW_RESPONSE, this.viewResponse),
+          new ContextMenuItem<Span, SpanMenu>(SpanMenu.RETRY, this.retrySpan)
         ]
       ),
     ]
@@ -123,9 +124,14 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   viewResponse(span: Span, action: SpanMenu): any {
     console.warn(`${action} ==> ${span.spanId}`);
   }
+
+  retrySpan(span: Span, action: SpanMenu): any {
+    console.warn(`${action} ==> ${span.spanId}`);
+  }
 }
 
 enum SpanMenu {
   VIEW_REQUEST = "View Request",
   VIEW_RESPONSE = "View Response",
+  RETRY = "Retry",
 }

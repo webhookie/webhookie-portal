@@ -68,7 +68,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
       new SortableTableHeader("Application", "application.name"),
       new SortableTableHeader("Webhook", "topic"),
       new SortableTableHeader("Callback URL", "callback.url"),
-      new SortableTableHeader("Status", "statusUpdate.status"),
+      new SortableTableHeader("Status", "statusUpdate.status", "text-center"),
     ]
   }
 

@@ -37,9 +37,7 @@ import {ProviderService} from "../service/provider.service";
 import {filter, map, mergeMap, skip, tap} from "rxjs/operators";
 import {Application} from "../../webhooks/model/application";
 import {Callback} from "../../../shared/model/callback";
-import {
-  ContextMenuTableColumn
-} from "../../../shared/model/table/column/context-menu-table-column";
+import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
 import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
 
 @Component({
@@ -132,7 +130,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new SelectableTableHeader("sticky-cell sticky-second-cell", "Webhook_Header2"),
       new SortableTableHeader("Trace Id", "traceId"),
       new SortableTableHeader("Webhook", "topic"),
-      new SortableTableHeader("Status", "statusUpdate.status"),
+      new SortableTableHeader("Status", "statusUpdate.status", "text-center"),
       new SortableTableHeader("Timestamp", "statusUpdate.time"),
       new SortableTableHeader("Authorized Subscribers", "consumerMessage.authorizedSubscribers"),
     ]
@@ -178,7 +176,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new SimpleTableHeader("Callback URL", "Webhook_Details_Callback_Header"),
       new SimpleTableHeader("Timestamp", "Webhook_Details_Timestamp_Header"),
       new SimpleTableHeader("Response code", "Webhook_Details_Response_Code_Header"),
-      new SimpleTableHeader("Status", "Webhook_Details_Status_Header"),
+      new SimpleTableHeader("Status", "Webhook_Details_Status_Header", "text-center"),
       new SimpleTableHeader("Tries", "Webhook_Details_Tries_Header"),
       new SimpleTableHeader("", "Webhook_Details_Header1")
     ]

@@ -69,15 +69,15 @@ class SpanColumnUtils {
   static classByStatus(span: Span): string {
     switch (span.statusUpdate.status) {
       case SpanStatus.OK:
-        return  "text-success";
+        return "text-success";
       case SpanStatus.RETRYING:
-        return  "text-warning";
+        return "text-warning";
       case SpanStatus.BLOCKED:
-        return  "text-warning";
+        return "text-danger";
       case SpanStatus.NOT_OK:
-        return  "text-danger";
+        return "text-danger";
       case SpanStatus.PROCESSING:
-        return  "text-primary";
+        return "text-primary";
       default:
         return "text-default";
     }
