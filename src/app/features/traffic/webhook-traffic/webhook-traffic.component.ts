@@ -99,29 +99,6 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
         this.tableComponent.currentFilter.next(filter);
       });
-
-    // this.selectedEntity$.asObservable()
-    //   .subscribe(it => {
-    //     this.currentFilter["entity"] = it;
-    //     this.currentFilter["application"] = null;
-    //     this.currentFilter["callback"] = null;
-    //     this.reloadDate();
-    //   });
-    //
-    // this.selectedApplication$.asObservable()
-    //   .pipe(filter(it => it != null))
-    //   .subscribe(it => {
-    //     this.currentFilter["application"] = it?.id;
-    //     this.currentFilter["callback"] = null;
-    //     this.reloadDate();
-    //   });
-    //
-    // this.selectedCallback$.asObservable()
-    //   .pipe(filter(it => it != null))
-    //   .subscribe(it => {
-    //     this.currentFilter["callback"] = it?.callbackId;
-    //     this.reloadDate();
-    //   });
   }
 
   fetchData(filter: any, pageable: Pageable) {

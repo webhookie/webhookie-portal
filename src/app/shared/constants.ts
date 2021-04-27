@@ -4,6 +4,7 @@ export class Constants {
   static readonly ROUTE_HOME = "/";
 
   static readonly ROLE_WH_CONSUMER = "WH_CONSUMER";
+  static readonly ROLE_WH_ADMIN = "WH_ADMIN";
   static readonly ROLE_WH_PROVIDER = "WH_PROVIDER";
 
   static readonly SUBSCRIPTIONS_VIEW_ROLE_CONSUMER = "CONSUMER"

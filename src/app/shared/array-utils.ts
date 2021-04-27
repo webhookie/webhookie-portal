@@ -7,4 +7,8 @@ export class ArrayUtils {
     }
     return results;
   }
+
+  static intersect<T>(array1: Array<T>, array2: Array<T>): Array<T> {
+    return array1.filter(it => array2.includes(it));
+  }
 }

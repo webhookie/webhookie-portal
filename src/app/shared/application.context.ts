@@ -6,6 +6,7 @@ import {LogService} from "./service/log.service";
 import {UserService} from "./service/user.service";
 import {Constants} from "./constants";
 import {filter} from "rxjs/operators";
+import {ArrayUtils} from "./array-utils";
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,14 @@ export class ApplicationContext {
 
   get hasConsumerRole(): boolean {
     return this._user$.value.roles.includes(Constants.ROLE_WH_CONSUMER);
+  }
+
+  get hasAdminRole(): boolean {
+    return this._user$.value.roles.includes(Constants.ROLE_WH_ADMIN);
+  }
+
+  hasProviderAccess(groups: Array<string>): boolean {
+    return this.hasProviderRole
+      && ArrayUtils.intersect(this._user$.value.groups, groups).length > 0
   }
 }

@@ -12,13 +12,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  menuItems: Array<ContextMenuItem<WebhookGroup, WebhookMenu>> = [
-    new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.EDIT, this.editWebhookGroup(), this.canEditWebhookGroup()),
-    new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_YOUR_SUBSCRIPTIONS, this.viewYourSubscriptions(), this.canViewYourSubscriptions()),
-    new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_ALL_SUBSCRIPTIONS, this.viewAllSubscriptions(), this.canViewAllSubscriptions()),
-    new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_TRACES, this.viewWebhookTraffic(), this.canViewWebhookTraffic()),
-    new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_SPANS, this.viewSubscriptionTraffic(), this.canViewSubscriptionTraffic()),
-  ]
+  menuItems: Array<ContextMenuItem<WebhookGroup, WebhookMenu>> = [];
 
   get data(): WebhookGroup | undefined{
     return this.webhooksContext.selectedWebhook?.webhookGroup
@@ -33,6 +27,16 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.webhooksContext._selectedWebhookGroup
+      .subscribe(() => {
+        this.menuItems = [
+          new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.EDIT, this.editWebhookGroup(), this.canEditWebhookGroup()),
+          new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_YOUR_SUBSCRIPTIONS, this.viewYourSubscriptions(), this.canViewYourSubscriptions()),
+          new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_ALL_SUBSCRIPTIONS, this.viewAllSubscriptions(), this.canViewAllSubscriptions()),
+          new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_TRACES, this.viewWebhookTraffic(), this.canViewWebhookTraffic()),
+          new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_SPANS, this.viewSubscriptionTraffic(), this.canViewSubscriptionTraffic()),
+        ];
+      })
   }
 
   navigateTo(uri: string) {
@@ -80,19 +84,22 @@ export class OrderComponent implements OnInit {
   }
 
   canViewYourSubscriptions(): (it: WebhookGroup) => boolean {
-    return () => this.appContext.hasProviderRole || this.appContext.hasConsumerRole;
+    return () => this.appContext.hasConsumerRole;
   }
 
   canViewAllSubscriptions(): (it: WebhookGroup) => boolean {
-    return () => this.appContext.hasProviderRole;
+    return (it: WebhookGroup) => {
+      return this.appContext.hasProviderAccess(it.providerGroups);
+    }
   }
 
   canViewWebhookTraffic(): (it: WebhookGroup) => boolean {
-    return () => this.appContext.hasProviderRole;
+    return (it: WebhookGroup) => this.appContext.hasProviderAccess(it.providerGroups)
+      || this.appContext.hasAdminRole
   }
 
   canViewSubscriptionTraffic(): (it: WebhookGroup) => boolean {
-    return () => this.appContext.hasProviderRole || this.appContext.hasConsumerRole;
+    return () => this.appContext.hasConsumerRole;
   }
 
   handle(menuItem: ContextMenuItem<WebhookGroup, WebhookMenu>) {
@@ -105,8 +112,8 @@ export class OrderComponent implements OnInit {
 
 enum WebhookMenu {
   EDIT = "Edit",
-  VIEW_YOUR_SUBSCRIPTIONS = "View Your Subscriptions",
-  VIEW_ALL_SUBSCRIPTIONS = "View All Subscriptions",
-  VIEW_TRACES = "View Webhook Traffic",
-  VIEW_SPANS = "View Subscription Traffic",
+  VIEW_YOUR_SUBSCRIPTIONS = "Your Subscriptions",
+  VIEW_ALL_SUBSCRIPTIONS = "All Subscriptions",
+  VIEW_TRACES = "Webhook Traffic",
+  VIEW_SPANS = "Subscription Traffic",
 }
