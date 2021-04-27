@@ -12,7 +12,6 @@ export class WebhookGroupAdapter implements Adapter<WebhookGroup> {
 
   adapt(item: any): WebhookGroup {
     let topics = item.topics.map((it: any) => new Topic(it.name, it.description))
-    console.warn(item);
 
     return new WebhookGroup(
       item.id,
