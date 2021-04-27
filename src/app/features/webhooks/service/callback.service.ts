@@ -4,8 +4,8 @@ import {Observable} from "rxjs";
 import {map, tap} from "rxjs/operators";
 import {Api} from "../../../shared/api";
 import {Application} from "../model/application";
-import {LogService} from "../../../shared/log.service";
-import {ApiService} from "../../../shared/api.service";
+import {LogService} from "../../../shared/service/log.service";
+import {ApiService} from "../../../shared/service/api.service";
 import {Callback} from "../../../shared/model/callback";
 import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
 

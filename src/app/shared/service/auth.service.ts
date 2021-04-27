@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {NullValidationHandler, OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
 import {AuthConfig} from "angular-oauth2-oidc/auth.config";
-import {environment} from "../../environments/environment";
-import {WebhookieConfig} from "./model/webhookie-config";
 import {filter, map} from "rxjs/operators";
 import {LogService} from "./log.service";
-import {Constants} from "./constants";
 import {RouterService} from "./router.service";
 import {BehaviorSubject, Observable} from "rxjs";
-import {ApplicationConfiguration} from "./config/application-configuration";
+import {ApplicationConfiguration} from "../application-configuration";
+import {Constants} from "../constants";
+import {WebhookieConfig} from "../model/webhookie-config";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'

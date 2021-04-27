@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {Api} from "../api";
-import {LogService} from "../log.service";
+import {LogService} from "./log.service";
 import {Observable} from "rxjs";
 import {User} from "../model/user";
 import {UserAdapter} from "../adapter/user.adapter";

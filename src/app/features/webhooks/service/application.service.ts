@@ -1,12 +1,12 @@
 import {Inject, Injectable} from '@angular/core';
-import {LogService} from "../../../shared/log.service";
+import {LogService} from "../../../shared/service/log.service";
 import {Observable} from "rxjs";
 import {Application} from "../model/application";
 import {map, tap} from "rxjs/operators";
 import {ApplicationAdapter} from "./adapter/application.adapter";
 import {Api} from "../../../shared/api";
 import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
-import {ApiService} from "../../../shared/api.service";
+import {ApiService} from "../../../shared/service/api.service";
 
 @Injectable({
   providedIn: 'root'

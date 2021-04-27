@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {LogService} from "../../../shared/log.service";
+import {LogService} from "../../../shared/service/log.service";
 import {Observable} from "rxjs";
 import {map, tap} from "rxjs/operators";
 import {SpanAdapter} from "./span.adapter";

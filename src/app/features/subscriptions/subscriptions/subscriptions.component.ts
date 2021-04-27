@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {BehaviorSubject, Observable, of, ReplaySubject, Subject} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "../../../shared/model/subscription";
-import {SubscriptionService} from "../../../shared/subscription.service";
+import {SubscriptionService} from "../../../shared/service/subscription.service";
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {GenericTableComponent} from "../../../shared/components/generic-table/generic-table.component";
 import {Pageable} from "../../../shared/request/pageable";

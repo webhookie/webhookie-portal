@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ConfigService} from "./shared/config/config.service";
+import {ConfigService} from "./shared/service/config.service";
 
 @Component({
   selector: 'webhookie-root',

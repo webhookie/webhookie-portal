@@ -1,9 +1,9 @@
 import {Inject, Injectable} from '@angular/core';
 import {LogService} from "./log.service";
-import {ConsumerGroupAdapter} from "./adapter/consumer-group.adapter";
+import {ConsumerGroupAdapter} from "../adapter/consumer-group.adapter";
 import {Observable} from "rxjs";
-import {ConsumerGroup} from "./model/consumer-group";
-import {Api} from "./api";
+import {ConsumerGroup} from "../model/consumer-group";
+import {Api} from "../api";
 import {map} from "rxjs/operators";
 
 @Injectable({

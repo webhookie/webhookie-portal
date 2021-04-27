@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {EMPTY, Observable, throwError} from "rxjs";
-import {environment} from "../../environments/environment";
 import {catchError, tap} from "rxjs/operators";
 import {LogService} from "./log.service";
-import {Api} from "./api";
-import {DuplicateEntityError} from "./error/duplicate-entity-error";
-import {WebhookieServerError} from "./error/webhookie-server-error";
-import {WebhookieError} from "./error/webhookie-error";
-import {BadRequestError} from "./error/bad-request-error";
 import {AuthService} from "./auth.service";
+import {Api} from "../api";
+import {environment} from "../../../environments/environment";
+import {BadRequestError} from "../error/bad-request-error";
+import {WebhookieServerError} from "../error/webhookie-server-error";
+import {DuplicateEntityError} from "../error/duplicate-entity-error";
+import {WebhookieError} from "../error/webhookie-error";
 
 @Injectable({
   providedIn: 'root'

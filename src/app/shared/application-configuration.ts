@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable, ReplaySubject, Subject} from "rxjs";
-import {WebhookieConfig} from "../model/webhookie-config";
+import {WebhookieConfig} from "./model/webhookie-config";
 import {filter} from "rxjs/operators";
 
 @Injectable({

@@ -1,9 +1,9 @@
 import {Inject, Injectable} from '@angular/core';
 import {WebhookieConfigAdapter} from "../adapter/webhookie-config.adapter";
 import {map, tap} from "rxjs/operators";
-import {LogService} from "../log.service";
 import {Api} from "../api";
-import {ApplicationConfiguration} from "./application-configuration";
+import {ApplicationConfiguration} from "../application-configuration";
+import {LogService} from "./log.service";
 
 @Injectable({
   providedIn: 'root'

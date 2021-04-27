@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ApiService} from "./api.service";
+import {ApiService} from "./service/api.service";
 import {environment} from "../../environments/environment";
 import {MockApiService} from "./mock/mock-api.service";
 import {SpinnerComponent} from "./components/spinner/spinner.component";

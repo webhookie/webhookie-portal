@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
-import {AuthService} from "./auth.service";
+import {AuthService} from "./service/auth.service";
 import {User} from "./model/user";
-import {LogService} from "./log.service";
+import {LogService} from "./service/log.service";
 import {UserService} from "./service/user.service";
 
 @Injectable({

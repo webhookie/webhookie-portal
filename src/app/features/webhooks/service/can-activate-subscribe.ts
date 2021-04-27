@@ -2,9 +2,9 @@ import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {Observable} from "rxjs";
 import {WebhooksContext} from "../webhooks-context";
-import {RouterService} from "../../../shared/router.service";
-import {LogService} from "../../../shared/log.service";
-import {AuthService} from "../../../shared/auth.service";
+import {RouterService} from "../../../shared/service/router.service";
+import {LogService} from "../../../shared/service/log.service";
+import {AuthService} from "../../../shared/service/auth.service";
 import {Constants} from "../../../shared/constants";
 
 @Injectable({
