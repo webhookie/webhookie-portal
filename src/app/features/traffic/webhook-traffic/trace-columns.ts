@@ -1,5 +1,5 @@
 import {BaseTableColumn} from "../../../shared/model/table/column/table-column";
-import {Trace} from "../model/trace";
+import {Trace, TraceStatus} from "../model/trace";
 import {MoreDataTableColumn} from "../../../shared/model/table/column/more-data-table-column";
 import {StringUtils} from "../../../shared/string-utils";
 import {DateUtils} from "../../../shared/date-utils";
@@ -30,8 +30,10 @@ export class TimestampColumn extends BaseTableColumn<Trace> {
 
 export class StatusColumn extends BaseTableColumn<Trace> {
   value(data: Trace): string {
-    return data.statusUpdate.status;
+    return `<span class="${TraceColumnUtils.classByStatus(data)}">${data.statusUpdate.status}</span>`;
   }
+
+  clazz = "text-center"
 }
 
 export class TraceMoreDataColumn extends MoreDataTableColumn<Trace> {
@@ -40,5 +42,22 @@ export class TraceMoreDataColumn extends MoreDataTableColumn<Trace> {
     public name: string,
   ) {
     super();
+  }
+}
+
+class TraceColumnUtils {
+  static classByStatus(trace: Trace): string {
+    switch (trace.statusUpdate.status) {
+      case TraceStatus.PROCESSING:
+        return "text-default"
+      case TraceStatus.NO_SUBSCRIPTION:
+        return "text-primary"
+      case TraceStatus.OK:
+        return "text-success font-weight-bold"
+      case TraceStatus.ISSUES:
+        return "text-danger font-weight-bold"
+      default:
+        return "text-default";
+    }
   }
 }

@@ -19,7 +19,7 @@ import {
   TraceIdColumn,
   TraceMoreDataColumn,
   WebhookColumn
-} from "./traffic-columns";
+} from "./trace-columns";
 import {SelectableTableColumn} from "../../../shared/model/table/column/selectable-table-column";
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {Span} from "../model/span";
