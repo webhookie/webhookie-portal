@@ -88,6 +88,9 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
         new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_TRAFFIC, this.viewTraffic, this.contextMenuService.canViewTraffic()),
         new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.ACTIVATE, this.activate, this.contextMenuService.canActivate(this._role$)),
         new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.DEACTIVATE, this.deactivate, this.contextMenuService.canDeactivate(this._role$)),
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.VALIDATE, this.validate, this.contextMenuService.canValidate(this._role$)),
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.EDIT, this.edit, this.contextMenuService.canWrite(this._role$)),
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.DELETE, this.delete, this.contextMenuService.canWrite(this._role$)),
         new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.SUSPEND, this.suspend, this.contextMenuService.canSuspend(this._role$)),
         new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.UNSUSPEND, this.unsuspend, this.contextMenuService.canUnsuspend(this._role$)),
       ])
@@ -99,6 +102,18 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   }
 
   activate(subscription: Subscription, action: SubscriptionMenu): any {
+    console.warn(`${action} ==> ${subscription.id}`);
+  }
+
+  validate(subscription: Subscription, action: SubscriptionMenu): any {
+    console.warn(`${action} ==> ${subscription.id}`);
+  }
+
+  edit(subscription: Subscription, action: SubscriptionMenu): any {
+    console.warn(`${action} ==> ${subscription.id}`);
+  }
+
+  delete(subscription: Subscription, action: SubscriptionMenu): any {
     console.warn(`${action} ==> ${subscription.id}`);
   }
 
@@ -126,6 +141,9 @@ enum SubscriptionMenu {
   VIEW_TRAFFIC = "View Traffic",
   ACTIVATE = "Activate",
   DEACTIVATE = "Deactivate",
+  VALIDATE = "Validate",
+  EDIT = "Edit",
+  DELETE = "Delete",
   SUSPEND = "Suspend",
   UNSUSPEND = "UnSuspend"
 }
