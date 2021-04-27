@@ -1,5 +1,5 @@
 import {BaseTableColumn, NumberTableColumn} from "../../../shared/model/table/column/table-column";
-import {Span} from "../model/span";
+import {Span, SpanStatus} from "../model/span";
 import {StringUtils} from "../../../shared/string-utils";
 import {DateUtils} from "../../../shared/date-utils";
 
@@ -47,19 +47,40 @@ export class SpanIdColumn extends BaseTableColumn<Span>{
 
 export class ResponseCodeColumn extends NumberTableColumn<Span>{
   value(data: Span): string {
-    return `${data.responseCode}`;
+    return `<span class="${SpanColumnUtils.classByStatus(data)}">${data.responseCode != -1 ? data.responseCode : ""}</span>`;
   }
 }
 
 export class StatusColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
-    return data.statusUpdate.status;
+    return `<span class="${SpanColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span>`;
   }
+
+  clazz = "text-center"
 }
 
 export class TriesColumn extends NumberTableColumn<Span>{
   value(data: Span): string {
     return `${data.tries}`;
+  }
+}
+
+class SpanColumnUtils {
+  static classByStatus(span: Span): string {
+    switch (span.statusUpdate.status) {
+      case SpanStatus.OK:
+        return  "text-success";
+      case SpanStatus.RETRYING:
+        return  "text-warning";
+      case SpanStatus.BLOCKED:
+        return  "text-warning";
+      case SpanStatus.NOT_OK:
+        return  "text-danger";
+      case SpanStatus.PROCESSING:
+        return  "text-primary";
+      default:
+        return "text-default";
+    }
   }
 }
 

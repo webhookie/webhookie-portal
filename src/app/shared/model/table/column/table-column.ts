@@ -6,12 +6,12 @@ export interface TableColumn {
 
 export abstract class BaseTableColumn<T> implements TableColumn {
   abstract value(data: T): string;
-  clazz: string = "";
+  clazz: string = "text-left";
 
   constructor(public name: string) {
   }
 }
 
 export abstract class NumberTableColumn<T> extends BaseTableColumn<T> {
-  clazz: string = "text-center";
+  clazz: string = "text-right";
 }
