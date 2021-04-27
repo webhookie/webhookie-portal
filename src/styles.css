@@ -520,8 +520,42 @@ input:focus{
   .dark-mode-active table{
     color: #fff !important;
   }
- 
+
+  .slide.slick-slide {
+    padding: 0 10px;
+}
+.slick-dots li{
+    margin:0;
+    width:15px;
+}
+.slick-dots li.slick-active button:before {
+    color: #fff !important;
+    content: "\25CF" !important;
+    opacity: 1 !important;
+}
+.slide:focus {
+    outline: none;
+}
+.slide a:focus {
+    outline: none;
+}
+.slide a:hover {
+    text-decoration: none;
+}
+.slick-dots li button:before {
+    content: "\25CB";
+   font-size: 14px;
+    color:#fff;
+    opacity: 1;
+}
+.slick-track {
+    margin-left: 0 ;
+    margin-right: 0;
+}
   
+
+
+
 @media (max-width: 1024px) {
     h1 {
         font-size: 30px;
@@ -576,3 +610,4 @@ input:focus{
         margin-right: 15px;
     }
 }
+
