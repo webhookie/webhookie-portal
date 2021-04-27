@@ -24,6 +24,7 @@ import {
 } from "../../../shared/model/table/column/context-menu-table-column";
 import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
 import {SubscriptionContextMenuService} from "./subscription-context-menu.service";
+import {Constants} from "../../../shared/constants";
 
 @Component({
   selector: 'app-subscriptions',
@@ -36,7 +37,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
   readonly _subscriptions$: Subject<Array<Subscription>> = new ReplaySubject();
   readonly tableData: Observable<Array<Subscription>> = this._subscriptions$.asObservable();
-  readonly _role$: BehaviorSubject<string> = new BehaviorSubject("CONSUMER");
+  readonly _role$: BehaviorSubject<string> = new BehaviorSubject(Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER);
 
   constructor(
     private readonly contextMenuService: SubscriptionContextMenuService,
@@ -84,14 +85,24 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
       new SubscriptionCallbackColumn("Subscription_Callback"),
       new SubscriptionStatusColumn("Subscription_Status"),
       new ContextMenuTableColumn([
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_TRAFFIC, this.viewTraffic, this.contextMenuService.canViewTraffic),
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.UNSUSPEND, this.unsuspend, this.contextMenuService.canSuspend),
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.SUSPEND, this.suspend, this.contextMenuService.canUnsuspend)
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_TRAFFIC, this.viewTraffic, this.contextMenuService.canViewTraffic()),
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.ACTIVATE, this.activate, this.contextMenuService.canActivate(this._role$)),
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.DEACTIVATE, this.deactivate, this.contextMenuService.canDeactivate(this._role$)),
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.SUSPEND, this.suspend, this.contextMenuService.canSuspend(this._role$)),
+        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.UNSUSPEND, this.unsuspend, this.contextMenuService.canUnsuspend(this._role$)),
       ])
     ]
   }
 
   viewTraffic(subscription: Subscription, action: SubscriptionMenu): any {
+    console.warn(`${action} ==> ${subscription.id}`);
+  }
+
+  activate(subscription: Subscription, action: SubscriptionMenu): any {
+    console.warn(`${action} ==> ${subscription.id}`);
+  }
+
+  deactivate(subscription: Subscription, action: SubscriptionMenu): any {
     console.warn(`${action} ==> ${subscription.id}`);
   }
 
@@ -113,6 +124,8 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
 enum SubscriptionMenu {
   VIEW_TRAFFIC = "View Traffic",
+  ACTIVATE = "Activate",
+  DEACTIVATE = "Deactivate",
   SUSPEND = "Suspend",
   UNSUSPEND = "UnSuspend"
 }

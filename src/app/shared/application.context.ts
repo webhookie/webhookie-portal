@@ -4,6 +4,7 @@ import {AuthService} from "./service/auth.service";
 import {User} from "./model/user";
 import {LogService} from "./service/log.service";
 import {UserService} from "./service/user.service";
+import {Constants} from "./constants";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import {UserService} from "./service/user.service";
 export class ApplicationContext {
   readonly isLoggedIn: Observable<boolean>;
   // @ts-ignore
-  private readonly _user$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  private readonly _user$: BehaviorSubject<User> = new BehaviorSubject<User>(User.UNKNOWN);
 
   constructor(
     private readonly userService: UserService,
@@ -30,5 +31,13 @@ export class ApplicationContext {
     this.log.debug(claims)
     this.userService.readUser()
       .subscribe(it => this._user$.next(it));
+  }
+
+  get hasProviderRole(): boolean {
+    return this._user$.value.roles.includes(Constants.ROLE_WH_PROVIDER);
+  }
+
+  get hasConsumerRole(): boolean {
+    return this._user$.value.roles.includes(Constants.ROLE_WH_CONSUMER);
   }
 }

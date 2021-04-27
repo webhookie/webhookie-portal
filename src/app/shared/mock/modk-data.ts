@@ -1,5 +1,6 @@
 import {EMPTY, Observable, of} from "rxjs";
 import {HttpParams} from "@angular/common/http";
+import {Constants} from "../constants";
 
 export class MockData {
   public static readonly webhookGroups = [
@@ -592,7 +593,7 @@ export class MockData {
     }
 
     if (uri.startsWith("/subscriptions")) {
-      if (params.get("role") == "CONSUMER") {
+      if (params.get("role") == Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER) {
         return of(this.subscriptions)
       }
       return of(this.providerSubscriptions)

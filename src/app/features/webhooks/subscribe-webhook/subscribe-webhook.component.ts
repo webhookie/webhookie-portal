@@ -13,6 +13,7 @@ import {CallbackResponse} from "../service/callback.service";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
 import {Pageable} from "../../../shared/request/pageable";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
+import {Constants} from "../../../shared/constants";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -140,7 +141,7 @@ export class SubscribeWebhookComponent implements OnInit {
 
   private fetchSubscriptions(callbackId: string): Observable<Array<Subscription>> {
     let filter = {
-      role: "CONSUMER",
+      role: Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER,
       topic: this.context.selectedTopic?.name,
       callbackId: callbackId
     }

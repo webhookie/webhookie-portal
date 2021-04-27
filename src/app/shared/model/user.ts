@@ -6,4 +6,6 @@ export class User {
     public subject: string
   ) {
   }
+
+  static UNKNOWN: User = new User("", [], [], "");
 }
