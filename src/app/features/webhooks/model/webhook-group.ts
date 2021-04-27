@@ -7,7 +7,9 @@ export class WebhookGroup extends TableDetailData {
     public version: string,
     public description: string,
     public spec: string,
-    public topics: Array<Topic>
+    public topics: Array<Topic>,
+    public consumerGroups: Array<string>,
+    public providerGroups: Array<string>,
   ) {
     super();
   }
