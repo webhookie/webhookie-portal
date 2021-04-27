@@ -24,7 +24,7 @@
         </th>
         <th scope="col" class="filter text-center sticky-cell-opposite table-filters-collapse"
             [class.active]="showFilter" (click)="showFilter=!showFilter">
-          <a data-toggle="collapse" href="#filters_collapse_wrapper" class="clickable border-left">
+          <a *ngIf="table.filters.length > 0" data-toggle="collapse" href="#filters_collapse_wrapper" class="clickable border-left">
             <img src="/assets/images/Filter.svg" class="ml-0" alt="filter">
           </a>
         </th>
