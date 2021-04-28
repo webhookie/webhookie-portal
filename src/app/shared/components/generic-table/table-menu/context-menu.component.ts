@@ -34,4 +34,8 @@ export class ContextMenuComponent implements OnInit {
   getData<T extends TableData>(): T {
     return this.data as T;
   }
+
+  hasIcon(item: ContextMenuItem<any, any>) : boolean {
+    return item.icon != "";
+  }
 }

@@ -4,7 +4,9 @@
 <div class="dropdown-menu dropdown-menu-right px-2">
   <ul class="nav-vertical nav-small">
     <li *ngFor="let menuItem of getMenuItems()" class="nav-item">
-      <a href="javascript:void(0)" class="nav-link" (click)="handle(menuItem)">{{menuItem.item}}</a>
+      <a href="javascript:void(0)" class="nav-link" (click)="handle(menuItem)">
+        <i *ngIf="hasIcon(menuItem)" class="fa fa-{{menuItem.icon}} px-1"></i>{{menuItem.item}}
+      </a>
     </li>
   </ul>
 </div>
