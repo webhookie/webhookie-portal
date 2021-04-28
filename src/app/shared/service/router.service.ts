@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Router} from "@angular/router";
+import {NavigationExtras, Router} from "@angular/router";
 import {StorageService} from "./storage.service";
 import {Constants} from "../constants";
 
@@ -17,8 +17,14 @@ export class RouterService {
     this.storage.store(Constants.STORAGE_KEY_CALLBACK, this.router.url);
   }
 
-  navigateTo(page: string) {
-    this.router.navigateByUrl(page)
+  navigateTo(page: string, params?: any) {
+    let extras: NavigationExtras = {};
+    if(params) {
+      extras = {
+        queryParams: params
+      }
+    }
+    this.router.navigate([page], extras)
       .then();
   }
 

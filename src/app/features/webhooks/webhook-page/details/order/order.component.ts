@@ -4,7 +4,6 @@ import {WebhookGroup} from "../../../model/webhook-group";
 import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
 import {RouterService} from "../../../../../shared/service/router.service";
-import {Router} from "@angular/router";
 
 type WebhookGroupContextMenu = ContextMenuItem<WebhookGroup, WebhookMenu>
 
@@ -21,7 +20,6 @@ export class OrderComponent implements OnInit {
   }
 
   constructor(
-    private readonly router: Router,
     private readonly routeService: RouterService,
     private readonly appContext: ApplicationContext,
     private readonly webhooksContext: WebhooksContext
@@ -66,13 +64,10 @@ export class OrderComponent implements OnInit {
   }
 
   navigateTo(uri: string) {
-    this.router
-      .navigate([uri], {
-        queryParams: {
-          topic: this.webhooksContext.selectedTopic?.name
-        }
+    this.routeService
+      .navigateTo(uri, {
+        topic: this.webhooksContext.selectedTopic?.name
       })
-      .then()
   }
 
   editWebhookGroup(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
