@@ -36,3 +36,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [angular-datetime-range](https://github.com/g1eb/angular-datetime-range#readme)
 - [angular-scroll-events](https://github.com/g1eb/angular-scroll-events)
 - [infinite-scroll-component](https://netbasal.com/build-an-infinite-scroll-component-in-angular-a9c16907a94d)
+
+- [auth0 ](https://community.auth0.com/t/understanding-how-the-audience-concept-actually-works/34011)

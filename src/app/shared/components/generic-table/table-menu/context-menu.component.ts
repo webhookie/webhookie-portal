@@ -5,11 +5,11 @@ import {TableColumn} from "../../../model/table/column/table-column";
 import {ContextMenuItem} from "../../../model/table/column/context-menu-item";
 
 @Component({
-  selector: 'app-context-menu-table-column',
-  templateUrl: './context-menu-table-column.component.html',
-  styleUrls: ['./context-menu-table-column.component.css']
+  selector: 'app-context-menu',
+  templateUrl: './context-menu.component.html',
+  styleUrls: ['./context-menu.component.css']
 })
-export class ContextMenuTableColumnComponent implements OnInit {
+export class ContextMenuComponent implements OnInit {
   @Input() set column(col: TableColumn) {
     let column = col as ContextMenuTableColumn<any, any>
     this.menuItems = column.items;

@@ -61,7 +61,7 @@
               <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="table.rowSelectionChanged(column, data, $event)">
               <label class="custom-control-label" for="check1{{i}}"></label>
             </div>
-            <app-context-menu-table-column *ngIf="dataSource.isContextMenuColumn(column)" [column]="column" [data]="data"></app-context-menu-table-column>
+            <app-context-menu *ngIf="dataSource.isContextMenuColumn(column)" [column]="column" [data]="data"></app-context-menu>
             <span [innerHTML]="column.value(data)"></span>
           </td>
         </tr>
@@ -77,7 +77,7 @@
               <tbody>
                 <tr *ngFor="let detailData of dataSource.details(data) | async;let i=index; trackBy:dataSource.trackByDetailData">
                   <td *ngFor="let detailColumn of table.detailColumns; trackBy:dataSource.trackByDetailColumn" [ngClass]="detailColumn.clazz">
-                    <app-context-menu-table-column *ngIf="dataSource.isContextMenuColumn(detailColumn)" [column]="detailColumn" [data]="detailData"></app-context-menu-table-column>
+                    <app-context-menu *ngIf="dataSource.isContextMenuColumn(detailColumn)" [column]="detailColumn" [data]="detailData"></app-context-menu>
                     <span [innerHTML]="detailColumn.value(detailData)"></span>
                   </td>
                 </tr>
