@@ -41,7 +41,7 @@ export class SubscriptionContextMenuService {
   }
 
   canWrite(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
-    return (it) => this.context.hasConsumerRole
+    return () => this.context.hasConsumerRole
       && this.isConsumerTraffic(role$);
   }
 
@@ -53,7 +53,8 @@ export class SubscriptionContextMenuService {
   }
 
   canSuspend(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
-    return () => this.context.hasProviderRole
+    return (it) => this.context.hasProviderRole
+      && it.statusUpdate.status != SubscriptionStatus.SUSPENDED
       && this.isProviderTraffic(role$);
   }
 
@@ -62,5 +63,12 @@ export class SubscriptionContextMenuService {
     return (it) => this.context.hasProviderRole
       && validStatusList.includes(it.statusUpdate.status)
       && this.isProviderTraffic(role$);
+  }
+
+  canUnblock(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
+    let validStatusList = [SubscriptionStatus.BLOCKED]
+    return (it) => this.context.hasConsumerRole
+      && validStatusList.includes(it.statusUpdate.status)
+      && this.isConsumerTraffic(role$);
   }
 }

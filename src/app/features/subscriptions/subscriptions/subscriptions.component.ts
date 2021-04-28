@@ -97,77 +97,134 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     return [
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_TRAFFIC)
-        .handler(this.viewTraffic)
+        .handler(this.viewTraffic())
         .isAvailable(this.contextMenuService.canViewTraffic())
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.ACTIVATE)
-        .handler(this.activate)
+        .handler(this.activate())
         .isAvailable(this.contextMenuService.canActivate(this._role$))
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.DEACTIVATE)
-        .handler(this.deactivate)
+        .handler(this.deactivate())
         .isAvailable(this.contextMenuService.canDeactivate(this._role$))
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VALIDATE)
-        .handler(this.validate)
+        .handler(this.validate())
         .isAvailable(this.contextMenuService.canValidate(this._role$))
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.EDIT)
-        .handler(this.edit)
+        .handler(this.edit())
         .isAvailable(this.contextMenuService.canWrite(this._role$))
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.DELETE)
-        .handler(this.delete)
+        .handler(this.delete())
         .isAvailable(this.contextMenuService.canWrite(this._role$))
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.SUSPEND)
-        .handler(this.suspend)
+        .handler(this.suspend())
         .isAvailable(this.contextMenuService.canSuspend(this._role$))
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.UNSUSPEND)
-        .handler(this.unsuspend)
+        .handler(this.unsuspend())
         .isAvailable(this.contextMenuService.canUnsuspend(this._role$))
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.UNBLOCK)
+        .handler(this.unblock())
+        .isAvailable(this.contextMenuService.canUnblock(this._role$))
         .build(),
     ]
   }
 
-  viewTraffic(subscription: Subscription, action: SubscriptionMenu): any {
-    console.warn(`${action} ==> ${subscription.id}`);
+  viewTraffic(): (subscription: Subscription, action: SubscriptionMenu) => any {
+    return (it: Subscription, action: SubscriptionMenu) => {
+      console.warn(`${action} ==> ${it.id}`);
+    }
   }
 
-  activate(subscription: Subscription, action: SubscriptionMenu): any {
-    console.warn(`${action} ==> ${subscription.id}`);
+  activate() {
+    return (subscription: Subscription) => {
+      let canActivate = this.contextMenuService.canActivate(this._role$);
+      if(canActivate(subscription)) {
+        this.service.activateSubscription(subscription)
+          .subscribe(it => {
+            subscription.statusUpdate = it.statusUpdate;
+          })
+      }
+    }
   }
 
-  validate(subscription: Subscription, action: SubscriptionMenu): any {
-    console.warn(`${action} ==> ${subscription.id}`);
+  validate(): (subscription: Subscription, action: SubscriptionMenu) => any {
+    return (it: Subscription, action: SubscriptionMenu) => {
+      console.warn(`${action} ==> ${it.id}`);
+    }
   }
 
-  edit(subscription: Subscription, action: SubscriptionMenu): any {
-    console.warn(`${action} ==> ${subscription.id}`);
+  edit(): (subscription: Subscription, action: SubscriptionMenu) => any {
+    return (it: Subscription, action: SubscriptionMenu) => {
+      console.warn(`${action} ==> ${it.id}`);
+    }
   }
 
-  delete(subscription: Subscription, action: SubscriptionMenu): any {
-    console.warn(`${action} ==> ${subscription.id}`);
+  delete(): (subscription: Subscription, action: SubscriptionMenu) => any {
+    return (it: Subscription, action: SubscriptionMenu) => {
+      console.warn(`${action} ==> ${it.id}`);
+    }
   }
 
-  deactivate(subscription: Subscription, action: SubscriptionMenu): any {
-    console.warn(`${action} ==> ${subscription.id}`);
+  deactivate(): (subscription: Subscription, action: SubscriptionMenu) => any {
+    return (subscription: Subscription) => {
+      let canDeactivate = this.contextMenuService.canDeactivate(this._role$);
+      if(canDeactivate(subscription)) {
+        this.service.deactivateSubscription(subscription)
+          .subscribe(it => {
+            subscription.statusUpdate = it.statusUpdate;
+          })
+      }
+    }
   }
 
-  suspend(subscription: Subscription, action: SubscriptionMenu): any {
-    console.warn(`${action} ==> ${subscription.id}`);
+  suspend(): (subscription: Subscription, action: SubscriptionMenu) => any {
+    return (subscription: Subscription) => {
+      let canSuspend = this.contextMenuService.canSuspend(this._role$);
+      if(canSuspend(subscription)) {
+        this.service.suspendSubscription(subscription)
+          .subscribe(it => {
+            subscription.statusUpdate = it.statusUpdate;
+          })
+      }
+    }
   }
 
-  unsuspend(subscription: Subscription, action: SubscriptionMenu): any {
-    console.warn(`${action} ==> ${subscription.id}`);
+  unsuspend(): (subscription: Subscription, action: SubscriptionMenu) => any {
+    return (subscription: Subscription) => {
+      let canUnsuspend = this.contextMenuService.canUnsuspend(this._role$);
+      if(canUnsuspend(subscription)) {
+        this.service.unsuspendSubscription(subscription)
+          .subscribe(it => {
+            subscription.statusUpdate = it.statusUpdate;
+          })
+      }
+    }
+  }
+
+  unblock(): (subscription: Subscription, action: SubscriptionMenu) => any {
+    return (subscription: Subscription) => {
+      let canUnblock = this.contextMenuService.canUnblock(this._role$);
+      if(canUnblock(subscription)) {
+        this.service.unblockSubscription(subscription)
+          .subscribe(it => {
+            subscription.statusUpdate = it.statusUpdate;
+          })
+      }
+    }
   }
 
   fetchDetails(data: any): Observable<boolean> {
@@ -186,6 +243,7 @@ enum SubscriptionMenu {
   EDIT = "Edit",
   DELETE = "Delete",
   SUSPEND = "Suspend",
-  UNSUSPEND = "UnSuspend"
+  UNSUSPEND = "Unsuspend",
+  UNBLOCK = "Unblock"
 }
 

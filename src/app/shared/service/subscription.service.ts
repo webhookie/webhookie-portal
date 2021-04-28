@@ -57,11 +57,39 @@ export class SubscriptionService {
   }
 
   activateSubscription(subscription: Subscription): Observable<Subscription> {
+    return this.subscriptionStatusUpdate(subscription, "activate");
+  }
+
+  deactivateSubscription(subscription: Subscription): Observable<Subscription> {
+    return this.subscriptionStatusUpdate(subscription, "deactivate");
+  }
+
+  suspendSubscription(subscription: Subscription): Observable<Subscription> {
+    return this.subscriptionStatusUpdate(subscription, "suspend");
+  }
+
+  unsuspendSubscription(subscription: Subscription): Observable<Subscription> {
+    return this.subscriptionStatusUpdate(subscription, "unsuspend");
+  }
+
+  unblockSubscription(subscription: Subscription): Observable<Subscription> {
+    return this.subscriptionStatusUpdate(subscription, "unblock");
+  }
+
+  private subscriptionStatusUpdate(subscription: Subscription, action: string): Observable<Subscription> {
+    this.log.debug(`'${action.toUpperCase()}'ing subscription: ${subscription.id}`)
     let httpParams = new HttpParams();
     let headers = new HttpHeaders()
-      .set("Accept", ["text/plain", "application/json"])
-    return this.api.post(`/subscriptions/${subscription?.id}/activate`, null, httpParams, headers, ApiService.RESPONSE_TYPE_TEXT)
-      .pipe(mergeMap(() => this.fetchSubscription(subscription.id)))
+      .set("Accept", ["text/plain", "application/json"]);
+    let body = {
+      reason: ""
+    };
+    return this.api
+      .post(`/subscriptions/${subscription?.id}/${action}`, body, httpParams, headers, ApiService.RESPONSE_TYPE_TEXT)
+      .pipe(
+        tap(it => this.log.debug(`Subscription '${subscription.id}' was updated to: ${it.body}`)),
+        mergeMap(() => this.fetchSubscription(subscription.id))
+      )
   }
 }
 
