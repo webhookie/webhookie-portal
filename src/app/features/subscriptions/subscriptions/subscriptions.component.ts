@@ -154,13 +154,8 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
   activate() {
     return (subscription: Subscription) => {
-      let canActivate = this.contextMenuService.canActivate(this._role$);
-      if(canActivate(subscription)) {
-        this.service.activateSubscription(subscription)
-          .subscribe(it => {
-            subscription.statusUpdate = it.statusUpdate;
-          })
-      }
+      this.service.activateSubscription(subscription)
+        .subscribe(it => subscription.statusUpdate = it.statusUpdate);
     }
   }
 
@@ -183,46 +178,30 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   }
 
   deactivate(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
-    return (subscription, item) => {
-      if(item.isAvailable(subscription)) {
-        this.service.deactivateSubscription(subscription)
-          .subscribe(it => {
-            subscription.statusUpdate = it.statusUpdate;
-          })
-      }
+    return (subscription) => {
+      this.service.deactivateSubscription(subscription)
+        .subscribe(it => subscription.statusUpdate = it.statusUpdate);
     }
   }
 
   suspend(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
-    return (subscription, item) => {
-      if(item.isAvailable(subscription)) {
-        this.service.suspendSubscription(subscription)
-          .subscribe(it => {
-            subscription.statusUpdate = it.statusUpdate;
-          })
-      }
+    return (subscription) => {
+      this.service.suspendSubscription(subscription)
+        .subscribe(it => subscription.statusUpdate = it.statusUpdate);
     }
   }
 
   unsuspend(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
-    return (subscription, item) => {
-      if(item.isAvailable(subscription)) {
-        this.service.unsuspendSubscription(subscription)
-          .subscribe(it => {
-            subscription.statusUpdate = it.statusUpdate;
-          })
-      }
+    return (subscription) => {
+      this.service.unsuspendSubscription(subscription)
+        .subscribe(it => subscription.statusUpdate = it.statusUpdate);
     }
   }
 
   unblock(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
-    return (subscription, item) => {
-      if(item.isAvailable(subscription)) {
-        this.service.unblockSubscription(subscription)
-          .subscribe(it => {
-            subscription.statusUpdate = it.statusUpdate;
-          })
-      }
+    return (subscription) => {
+      this.service.unblockSubscription(subscription)
+        .subscribe(it => subscription.statusUpdate = it.statusUpdate);
     }
   }
 
