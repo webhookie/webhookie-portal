@@ -6,6 +6,8 @@ import {WebhooksContext} from "../../../webhooks-context";
 import {RouterService} from "../../../../../shared/service/router.service";
 import {Router} from "@angular/router";
 
+type WebhookGroupContextMenu = ContextMenuItem<WebhookGroup, WebhookMenu>
+
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -73,31 +75,31 @@ export class OrderComponent implements OnInit {
       .then()
   }
 
-  editWebhookGroup(): (it: WebhookGroup, action: WebhookMenu) => any {
-    return (it, action) => {
-      console.warn(`${action} ==> ${it.id}`);
+  editWebhookGroup(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
+    return (it, item) => {
+      console.warn(`${item.item} ==> ${it.id}`);
     }
   }
 
-  viewYourSubscriptions(): (it: WebhookGroup, action: WebhookMenu) => any {
+  viewYourSubscriptions(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
     return () => {
       this.navigateTo("subscriptions/consumer")
     }
   }
 
-  viewAllSubscriptions(): (it: WebhookGroup, action: WebhookMenu) => any {
+  viewAllSubscriptions(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
     return () => {
       this.navigateTo("subscriptions/provider")
     }
   }
 
-  viewWebhookTraffic(): (it: WebhookGroup, action: WebhookMenu) => any {
+  viewWebhookTraffic(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
     return () => {
       this.navigateTo("traffic/webhook")
     }
   }
 
-  viewSubscriptionTraffic(): (it: WebhookGroup, action: WebhookMenu) => any {
+  viewSubscriptionTraffic(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
     return () => {
       this.navigateTo("traffic/subscription")
     }
@@ -124,13 +126,6 @@ export class OrderComponent implements OnInit {
 
   canViewSubscriptionTraffic(): (it: WebhookGroup) => boolean {
     return () => this.appContext.hasConsumerRole;
-  }
-
-  handle(menuItem: ContextMenuItem<WebhookGroup, WebhookMenu>) {
-    let webhookGroup = this.webhooksContext.selectedWebhook?.webhookGroup;
-    if(webhookGroup) {
-      menuItem.handler(webhookGroup, menuItem.item);
-    }
   }
 }
 

@@ -27,8 +27,10 @@ import {
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {Pageable} from "../../../shared/request/pageable";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
-import {ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
+import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 import {ActivatedRoute} from "@angular/router";
+
+type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
 
 @Component({
   selector: 'app-subscription-traffic',
@@ -109,9 +111,9 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 
   private createContextMenuItems() {
     return [
-      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_REQUEST).handler(this.viewRequest).build(),
-      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_RESPONSE).handler(this.viewResponse).build(),
-      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.RETRY).handler(this.retrySpan).build(),
+      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_REQUEST).handler(this.viewRequest()).build(),
+      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_RESPONSE).handler(this.viewResponse()).build(),
+      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.RETRY).handler(this.retrySpan()).build(),
     ];
   }
 
@@ -122,16 +124,22 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   detailHeaders?: TableHeader[];
   detailColumns?: TableColumn[];
 
-  viewRequest(span: Span, action: SpanMenu): any {
-    console.warn(`${action} ==> ${span.spanId}`);
+  viewRequest(): (span: Span, item: SpanContextMenu) => any {
+    return (it: Span, item: SpanContextMenu) => {
+      console.warn(`${item.item} ==> ${it.spanId}`);
+    }
   }
 
-  viewResponse(span: Span, action: SpanMenu): any {
-    console.warn(`${action} ==> ${span.spanId}`);
+  viewResponse(): (span: Span, item: SpanContextMenu) => any {
+    return (it: Span, item: SpanContextMenu) => {
+      console.warn(`${item.item} ==> ${it.spanId}`);
+    }
   }
 
-  retrySpan(span: Span, action: SpanMenu): any {
-    console.warn(`${action} ==> ${span.spanId}`);
+  retrySpan(): (span: Span, item: SpanContextMenu) => any {
+    return (it: Span, item: SpanContextMenu) => {
+      console.warn(`${item.item} ==> ${it.spanId}`);
+    }
   }
 }
 

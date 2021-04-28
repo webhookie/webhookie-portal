@@ -28,7 +28,7 @@ export class ContextMenuComponent implements OnInit {
   }
 
   handle<T extends TableData, E>(menuItem: ContextMenuItem<T, E>) {
-    menuItem.handler(this.getData(), menuItem.item)
+    menuItem.handler(this.getData(), menuItem)
   }
 
   getData<T extends TableData>(): T {

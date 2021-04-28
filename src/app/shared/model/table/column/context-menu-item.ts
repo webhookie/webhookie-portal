@@ -4,7 +4,7 @@ export class ContextMenuItem<T extends TableData, E> {
   protected constructor(
     public item: E,
     public icon: string = "",
-    public handler: (data: T, action: E) => any,
+    public handler: (data: T, item: ContextMenuItem<T, E>) => any,
     public isAvailable: (data: T) => boolean = () => true
   ) {
   }
@@ -12,7 +12,7 @@ export class ContextMenuItem<T extends TableData, E> {
   static create<T extends TableData, E>(
     item: E,
     icon: string = "",
-    handler: (data: T, action: E) => any,
+    handler: (data: T, item: ContextMenuItem<T,E>) => any,
     isAvailable: (data: T) => boolean = () => true
   ): ContextMenuItem<T, E> {
     return new ContextMenuItem<T, E>(item, icon, handler, isAvailable);
@@ -22,7 +22,7 @@ export class ContextMenuItem<T extends TableData, E> {
 export class ContextMenuItemBuilder<T extends TableData, E> {
   private readonly item: E;
   private iconName: string = "";
-  private handlerFunction: (data: T, action: E) => any = () => console.error("IMPLEMENT THIS!");
+  private handlerFunction: (data: T, item: ContextMenuItem<T,E>) => any = () => console.error("IMPLEMENT THIS!");
   private isAvailableFunction: (data: T) => boolean = () => true;
 
   protected constructor(item: E) {
@@ -33,7 +33,7 @@ export class ContextMenuItemBuilder<T extends TableData, E> {
     return new ContextMenuItemBuilder<T,E>(item);
   }
 
-  handler(handler: (data: T, action: E) => any) {
+  handler(handler: (data: T, item: ContextMenuItem<T,E>) => any) {
     this.handlerFunction = handler
 
     return this;

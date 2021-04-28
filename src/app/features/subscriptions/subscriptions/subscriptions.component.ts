@@ -24,6 +24,8 @@ import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/tab
 import {SubscriptionContextMenuService} from "./subscription-context-menu.service";
 import {Constants} from "../../../shared/constants";
 
+type SubscriptionContextMenu = ContextMenuItem<Subscription, SubscriptionMenu>;
+
 @Component({
   selector: 'app-subscriptions',
   templateUrl: './subscriptions.component.html',
@@ -93,7 +95,8 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     ]
   }
 
-  private createContextMenuItems(): Array<ContextMenuItem<Subscription, SubscriptionMenu>> {
+
+  private createContextMenuItems(): Array<SubscriptionContextMenu> {
     return [
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_TRAFFIC)
@@ -143,9 +146,9 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     ]
   }
 
-  viewTraffic(): (subscription: Subscription, action: SubscriptionMenu) => any {
-    return (it: Subscription, action: SubscriptionMenu) => {
-      console.warn(`${action} ==> ${it.id}`);
+  viewTraffic(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (it: Subscription, item: SubscriptionContextMenu) => {
+      console.warn(`${item} ==> ${it.id}`);
     }
   }
 
@@ -161,28 +164,27 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     }
   }
 
-  validate(): (subscription: Subscription, action: SubscriptionMenu) => any {
-    return (it: Subscription, action: SubscriptionMenu) => {
-      console.warn(`${action} ==> ${it.id}`);
+  validate(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (it: Subscription, item: SubscriptionContextMenu) => {
+      console.warn(`${item.item} ==> ${it.id}`);
     }
   }
 
-  edit(): (subscription: Subscription, action: SubscriptionMenu) => any {
-    return (it: Subscription, action: SubscriptionMenu) => {
-      console.warn(`${action} ==> ${it.id}`);
+  edit(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (it: Subscription, item: SubscriptionContextMenu) => {
+      console.warn(`${item.item} ==> ${it.id}`);
     }
   }
 
-  delete(): (subscription: Subscription, action: SubscriptionMenu) => any {
-    return (it: Subscription, action: SubscriptionMenu) => {
-      console.warn(`${action} ==> ${it.id}`);
+  delete(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (it: Subscription, item: SubscriptionContextMenu) => {
+      console.warn(`${item.item} ==> ${it.id}`);
     }
   }
 
-  deactivate(): (subscription: Subscription, action: SubscriptionMenu) => any {
-    return (subscription: Subscription) => {
-      let canDeactivate = this.contextMenuService.canDeactivate(this._role$);
-      if(canDeactivate(subscription)) {
+  deactivate(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (subscription, item) => {
+      if(item.isAvailable(subscription)) {
         this.service.deactivateSubscription(subscription)
           .subscribe(it => {
             subscription.statusUpdate = it.statusUpdate;
@@ -191,10 +193,9 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     }
   }
 
-  suspend(): (subscription: Subscription, action: SubscriptionMenu) => any {
-    return (subscription: Subscription) => {
-      let canSuspend = this.contextMenuService.canSuspend(this._role$);
-      if(canSuspend(subscription)) {
+  suspend(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (subscription, item) => {
+      if(item.isAvailable(subscription)) {
         this.service.suspendSubscription(subscription)
           .subscribe(it => {
             subscription.statusUpdate = it.statusUpdate;
@@ -203,10 +204,9 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     }
   }
 
-  unsuspend(): (subscription: Subscription, action: SubscriptionMenu) => any {
-    return (subscription: Subscription) => {
-      let canUnsuspend = this.contextMenuService.canUnsuspend(this._role$);
-      if(canUnsuspend(subscription)) {
+  unsuspend(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (subscription, item) => {
+      if(item.isAvailable(subscription)) {
         this.service.unsuspendSubscription(subscription)
           .subscribe(it => {
             subscription.statusUpdate = it.statusUpdate;
@@ -215,10 +215,9 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     }
   }
 
-  unblock(): (subscription: Subscription, action: SubscriptionMenu) => any {
-    return (subscription: Subscription) => {
-      let canUnblock = this.contextMenuService.canUnblock(this._role$);
-      if(canUnblock(subscription)) {
+  unblock(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (subscription, item) => {
+      if(item.isAvailable(subscription)) {
         this.service.unblockSubscription(subscription)
           .subscribe(it => {
             subscription.statusUpdate = it.statusUpdate;

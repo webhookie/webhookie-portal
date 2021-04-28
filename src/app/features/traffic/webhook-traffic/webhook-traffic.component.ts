@@ -38,8 +38,11 @@ import {filter, map, mergeMap, skip, tap} from "rxjs/operators";
 import {Application} from "../../webhooks/model/application";
 import {Callback} from "../../../shared/model/callback";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
-import {ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
+import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 import {ActivatedRoute} from "@angular/router";
+
+type TraceContextMenu = ContextMenuItem<Trace, TraceMenu>;
+type TraceSpanContextMenu = ContextMenuItem<Span, TraceSpansMenu>;
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -146,17 +149,21 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   private createTraceContextMenuItems() {
     return [
-      ContextMenuItemBuilder.create<Trace, TraceMenu>(TraceMenu.VIEW_REQUEST).handler(this.viewTraceRequest).build(),
-      ContextMenuItemBuilder.create<Trace, TraceMenu>(TraceMenu.RETRY).handler(this.retryTrace).build(),
+      ContextMenuItemBuilder.create<Trace, TraceMenu>(TraceMenu.VIEW_REQUEST).handler(this.viewTraceRequest()).build(),
+      ContextMenuItemBuilder.create<Trace, TraceMenu>(TraceMenu.RETRY).handler(this.retryTrace()).build(),
     ];
   }
 
-  retryTrace(trace: Trace, action: TraceMenu): any {
-    console.warn(`${action} ==> ${trace.traceId}`);
+  retryTrace(): (trace: Trace, item: TraceContextMenu) => any {
+    return (it: Trace, item: TraceContextMenu) => {
+      console.warn(`${item.item} ==> ${it.traceId}`);
+    }
   }
 
-  viewTraceRequest(trace: Trace, action: TraceMenu): any {
-    console.warn(`${action} ==> ${trace.traceId}`);
+  viewTraceRequest(): (trace: Trace, item: TraceContextMenu) => any {
+    return (it: Trace, item: TraceContextMenu) => {
+      console.warn(`${item.item} ==> ${it.traceId}`);
+    }
   }
 
   get detailHeaders(): Array<TableHeader> {
@@ -189,22 +196,28 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   private createSpanContextMenuItems() {
     return [
-      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.RETRY).handler(this.retrySpan).build(),
-      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_REQUEST).handler(this.viewSpanRequest).build(),
-      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_RESPONSE).handler(this.viewSpanResponse).build(),
+      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.RETRY).handler(this.retrySpan()).build(),
+      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_REQUEST).handler(this.viewSpanRequest()).build(),
+      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_RESPONSE).handler(this.viewSpanResponse()).build(),
     ];
   }
 
-  viewSpanRequest(span: Span, action: TraceSpansMenu): any {
-    console.warn(`${action} ==> ${span.spanId}`);
+  viewSpanRequest(): (span: Span, item: TraceSpanContextMenu) => any {
+    return (it: Span, item: TraceSpanContextMenu) => {
+      console.warn(`${item.item} ==> ${it.traceId}`);
+    }
   }
 
-  retrySpan(span: Span, action: TraceSpansMenu): any {
-    console.warn(`${action} ==> ${span.spanId}`);
+  retrySpan(): (span: Span, item: TraceSpanContextMenu) => any {
+    return (it: Span, item: TraceSpanContextMenu) => {
+      console.warn(`${item.item} ==> ${it.traceId}`);
+    }
   }
 
-  viewSpanResponse(span: Span, action: TraceSpansMenu): any {
-    console.warn(`${action} ==> ${span.spanId}`);
+  viewSpanResponse(): (span: Span, item: TraceSpanContextMenu) => any {
+    return (it: Span, item: TraceSpanContextMenu) => {
+      console.warn(`${item.item} ==> ${it.traceId}`);
+    }
   }
 
   fetchDetails(data: Trace): Observable<boolean> {
