@@ -27,7 +27,7 @@ import {
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {Pageable} from "../../../shared/request/pageable";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
-import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
+import {ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -103,14 +103,16 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       new ResponseCodeColumn("Subscription_ResponseCode_Column"),
       new StatusColumn("Subscription_Status_Column"),
       new TriesColumn("Subscription_Tries_Column"),
-      new ContextMenuTableColumn(
-        [
-          new ContextMenuItem<Span, SpanMenu>(SpanMenu.VIEW_REQUEST, this.viewRequest),
-          new ContextMenuItem<Span, SpanMenu>(SpanMenu.VIEW_RESPONSE, this.viewResponse),
-          new ContextMenuItem<Span, SpanMenu>(SpanMenu.RETRY, this.retrySpan)
-        ]
-      ),
+      new ContextMenuTableColumn(this.createContextMenuItems()),
     ]
+  }
+
+  private createContextMenuItems() {
+    return [
+      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_REQUEST).handler(this.viewRequest).build(),
+      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_RESPONSE).handler(this.viewResponse).build(),
+      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.RETRY).handler(this.retrySpan).build(),
+    ];
   }
 
   fetchDetails(data: any): Observable<boolean> {

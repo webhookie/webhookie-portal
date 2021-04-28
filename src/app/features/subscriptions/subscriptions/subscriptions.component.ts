@@ -20,7 +20,7 @@ import {
 } from "./subscription-columns";
 import {SelectableTableColumn} from "../../../shared/model/table/column/selectable-table-column";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
-import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
+import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 import {SubscriptionContextMenuService} from "./subscription-context-menu.service";
 import {Constants} from "../../../shared/constants";
 
@@ -89,16 +89,52 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
       new SubscriptionWebhookColumn("Subscription_Topic"),
       new SubscriptionCallbackColumn("Subscription_Callback"),
       new SubscriptionStatusColumn("Subscription_Status"),
-      new ContextMenuTableColumn([
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_TRAFFIC, this.viewTraffic, this.contextMenuService.canViewTraffic()),
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.ACTIVATE, this.activate, this.contextMenuService.canActivate(this._role$)),
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.DEACTIVATE, this.deactivate, this.contextMenuService.canDeactivate(this._role$)),
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.VALIDATE, this.validate, this.contextMenuService.canValidate(this._role$)),
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.EDIT, this.edit, this.contextMenuService.canWrite(this._role$)),
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.DELETE, this.delete, this.contextMenuService.canWrite(this._role$)),
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.SUSPEND, this.suspend, this.contextMenuService.canSuspend(this._role$)),
-        new ContextMenuItem<Subscription, SubscriptionMenu>(SubscriptionMenu.UNSUSPEND, this.unsuspend, this.contextMenuService.canUnsuspend(this._role$)),
-      ])
+      new ContextMenuTableColumn(this.createContextMenuItems())
+    ]
+  }
+
+  private createContextMenuItems(): Array<ContextMenuItem<Subscription, SubscriptionMenu>> {
+    return [
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_TRAFFIC)
+        .handler(this.viewTraffic)
+        .isAvailable(this.contextMenuService.canViewTraffic())
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.ACTIVATE)
+        .handler(this.activate)
+        .isAvailable(this.contextMenuService.canActivate(this._role$))
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.DEACTIVATE)
+        .handler(this.deactivate)
+        .isAvailable(this.contextMenuService.canDeactivate(this._role$))
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VALIDATE)
+        .handler(this.validate)
+        .isAvailable(this.contextMenuService.canValidate(this._role$))
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.EDIT)
+        .handler(this.edit)
+        .isAvailable(this.contextMenuService.canWrite(this._role$))
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.DELETE)
+        .handler(this.delete)
+        .isAvailable(this.contextMenuService.canWrite(this._role$))
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.SUSPEND)
+        .handler(this.suspend)
+        .isAvailable(this.contextMenuService.canSuspend(this._role$))
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.UNSUSPEND)
+        .handler(this.unsuspend)
+        .isAvailable(this.contextMenuService.canUnsuspend(this._role$))
+        .build(),
     ]
   }
 

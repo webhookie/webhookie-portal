@@ -38,7 +38,7 @@ import {filter, map, mergeMap, skip, tap} from "rxjs/operators";
 import {Application} from "../../webhooks/model/application";
 import {Callback} from "../../../shared/model/callback";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
-import {ContextMenuItem} from "../../../shared/model/table/column/context-menu-item";
+import {ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -140,10 +140,14 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new StatusColumn("Webhook_Status_Column"),
       new TimestampColumn("Webhook_Timestamp_Column"),
       new SubscribersColumn("Webhook_Auth_Subscribers_Column"),
-      new ContextMenuTableColumn([
-        new ContextMenuItem<Trace, TraceMenu>(TraceMenu.VIEW_REQUEST, this.viewTraceRequest),
-        new ContextMenuItem<Trace, TraceMenu>(TraceMenu.RETRY, this.retryTrace),
-      ]),
+      new ContextMenuTableColumn(this.createTraceContextMenuItems()),
+    ];
+  }
+
+  private createTraceContextMenuItems() {
+    return [
+      ContextMenuItemBuilder.create<Trace, TraceMenu>(TraceMenu.VIEW_REQUEST).handler(this.viewTraceRequest).build(),
+      ContextMenuItemBuilder.create<Trace, TraceMenu>(TraceMenu.RETRY).handler(this.retryTrace).build(),
     ];
   }
 
@@ -179,12 +183,16 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new ResponseCodeColumn("Webhook_Span_ResponseCode_Column"),
       new StatusColumn("Webhook_Span_Status_Column"),
       new TriesColumn("Webhook_Span_Tries_Column"),
-      new ContextMenuTableColumn([
-        new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.RETRY, this.retrySpan),
-        new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_REQUEST, this.viewSpanRequest),
-        new ContextMenuItem<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_RESPONSE, this.viewSpanResponse),
-      ]),
+      new ContextMenuTableColumn(this.createSpanContextMenuItems()),
     ]
+  }
+
+  private createSpanContextMenuItems() {
+    return [
+      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.RETRY).handler(this.retrySpan).build(),
+      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_REQUEST).handler(this.viewSpanRequest).build(),
+      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_RESPONSE).handler(this.viewSpanResponse).build(),
+    ];
   }
 
   viewSpanRequest(span: Span, action: TraceSpansMenu): any {

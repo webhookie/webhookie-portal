@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ContextMenuItem} from "../../../../../shared/model/table/column/context-menu-item";
+import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../../shared/model/table/column/context-menu-item";
 import {WebhookGroup} from "../../../model/webhook-group";
 import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
@@ -29,14 +29,38 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
     this.webhooksContext._selectedWebhookGroup
       .subscribe(() => {
-        this.menuItems = [
-          new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.EDIT, this.editWebhookGroup(), this.canEditWebhookGroup()),
-          new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_YOUR_SUBSCRIPTIONS, this.viewYourSubscriptions(), this.canViewYourSubscriptions()),
-          new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_ALL_SUBSCRIPTIONS, this.viewAllSubscriptions(), this.canViewAllSubscriptions()),
-          new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_TRACES, this.viewWebhookTraffic(), this.canViewWebhookTraffic()),
-          new ContextMenuItem<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_SPANS, this.viewSubscriptionTraffic(), this.canViewSubscriptionTraffic()),
-        ];
+        this.menuItems = this.createContextMenuItems();
       })
+  }
+
+  private createContextMenuItems() {
+    return [
+      ContextMenuItemBuilder
+        .create<WebhookGroup, WebhookMenu>(WebhookMenu.EDIT)
+        .handler(this.editWebhookGroup())
+        .isAvailable(this.canEditWebhookGroup())
+        .build(),
+      ContextMenuItemBuilder
+        .create<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_YOUR_SUBSCRIPTIONS)
+        .handler(this.viewYourSubscriptions())
+        .isAvailable(this.canViewYourSubscriptions())
+        .build(),
+      ContextMenuItemBuilder
+        .create<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_ALL_SUBSCRIPTIONS)
+        .handler(this.viewAllSubscriptions())
+        .isAvailable(this.canViewAllSubscriptions())
+        .build(),
+      ContextMenuItemBuilder
+        .create<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_TRACES)
+        .handler(this.viewWebhookTraffic())
+        .isAvailable(this.canViewWebhookTraffic())
+        .build(),
+      ContextMenuItemBuilder
+        .create<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_SPANS)
+        .handler(this.viewSubscriptionTraffic())
+        .isAvailable(this.canViewSubscriptionTraffic())
+        .build(),
+    ];
   }
 
   navigateTo(uri: string) {
