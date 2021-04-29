@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {VariableService} from '../variable.service';
 import {CallbackResponse} from "../../service/callback.service";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, ReplaySubject, Subject, Subscription, timer} from "rxjs";
 import {filter, map} from "rxjs/operators";
 import {HttpErrorResponse} from "@angular/common/http";
 
@@ -20,6 +20,7 @@ export class ResponseComponent implements OnInit {
   readonly isValid$: Observable<boolean> = this.response$
     .pipe(map(it => (it.responseCode >= 200) && (it.responseCode < 300)))
 
+  // noinspection JSUnusedGlobalSymbols
   readonly responseCode$: Observable<number> = this._response$.asObservable()
     .pipe(map(it => it?.responseCode))
 
@@ -47,6 +48,10 @@ export class ResponseComponent implements OnInit {
       })
   }
 
+  ngOnDestroy() {
+    this.stopTimer();
+  }
+
   outputHtml(body: any) {
     let myContainer = document.getElementById('test_res') as HTMLInputElement;
     myContainer.innerHTML = body;
@@ -58,11 +63,25 @@ export class ResponseComponent implements OnInit {
   }
 
   update(response: CallbackResponse) {
+    this.stopTimer();
     this._response$.next(response);
     this.responseClass = "text-success"
   }
 
+  validateTimer$: Subject<number> = new ReplaySubject();
+  private timer?: Subscription;
+
+  private startTimer() {
+    this.timer = timer(0, 99)
+      .subscribe(it => this.validateTimer$.next(it * 99));
+  }
+
+  private stopTimer() {
+    this.timer?.unsubscribe()
+  }
+
   updateWithError(errorResponse: HttpErrorResponse) {
+    this.stopTimer();
     this.responseClass = "text-danger"
     let body: any;
 
@@ -80,11 +99,18 @@ export class ResponseComponent implements OnInit {
     this._response$.next(res);
   }
 
+  init() {
+    this.invalidate();
+    this.startTimer();
+  }
+
   invalidate() {
     // @ts-ignore
     this._response$.next(null);
     this.responseClass = "text-default"
     this.output("")
+    // @ts-ignore
+    this.validateTimer$.next(null);
   }
 }
 
