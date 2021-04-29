@@ -1,6 +1,7 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {VariableService} from '../../variable.service';
 import * as $ from 'jquery';
+
 @Component({
   selector: 'app-request-body',
   templateUrl: './request-body.component.html',
@@ -39,7 +40,7 @@ export class RequestBodyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
+
   }
   ngAfterViewChecked(){
     var str = JSON.stringify(this.jsonobj, null, '\t');
@@ -53,11 +54,11 @@ export class RequestBodyComponent implements OnInit {
   output(inp: string) {
     let myContainer = document.getElementById('json_str') as HTMLInputElement;
     myContainer.innerHTML = inp;
-    console.log(myContainer);
+    // console.log(myContainer);
   }
 
   changeData() {
     let myContainer = document.getElementById('json_str');
-    console.log(myContainer);
+    // console.log(myContainer);
   }
 }
