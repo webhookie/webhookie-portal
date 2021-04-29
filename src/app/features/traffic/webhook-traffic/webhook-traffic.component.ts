@@ -13,7 +13,7 @@ import {TimestampTableFilter} from "../../../shared/model/table/filter/timestamp
 import {GenericTableComponent} from "../../../shared/components/generic-table/generic-table.component";
 import {TableColumn} from "../../../shared/model/table/column/table-column";
 import {
-  StatusColumn,
+  TraceStatusColumn,
   SubscribersColumn,
   TimestampColumn,
   TraceIdColumn,
@@ -28,7 +28,7 @@ import {
   CallbackColumn,
   EntityColumn,
   ResponseCodeColumn,
-  SpanIdColumn,
+  SpanIdColumn, SpanStatusColumn,
   TriesColumn
 } from "../subscription-traffic/span-columns";
 import {SearchListTableFilter} from "../../../shared/model/table/filter/search-list-table-filter";
@@ -140,7 +140,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new SelectableTableColumn("sticky-cell sticky-second-cell", "Webhook_Select_Column"),
       new TraceIdColumn("Webhook_TraceId_Column"),
       new WebhookColumn("Webhook_Topic_Column"),
-      new StatusColumn("Webhook_Status_Column"),
+      new TraceStatusColumn("Webhook_Status_Column"),
       new TimestampColumn("Webhook_Timestamp_Column"),
       new SubscribersColumn("Webhook_Auth_Subscribers_Column"),
       new ContextMenuTableColumn(this.createTraceContextMenuItems()),
@@ -188,7 +188,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       new CallbackColumn("Webhook_Span_Callback_Column"),
       new TimestampColumn("Webhook_Span_Timestamp_Column"),
       new ResponseCodeColumn("Webhook_Span_ResponseCode_Column"),
-      new StatusColumn("Webhook_Span_Status_Column"),
+      new SpanStatusColumn("Webhook_Span_Status_Column"),
       new TriesColumn("Webhook_Span_Tries_Column"),
       new ContextMenuTableColumn(this.createSpanContextMenuItems()),
     ]

@@ -51,7 +51,7 @@ export class ResponseCodeColumn extends NumberTableColumn<Span>{
   }
 }
 
-export class StatusColumn extends BaseTableColumn<Span>{
+export class SpanStatusColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
     return `<span class="${SpanColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span>`;
   }

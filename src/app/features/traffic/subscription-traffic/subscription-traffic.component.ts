@@ -18,7 +18,7 @@ import {
   CallbackColumn,
   ResponseCodeColumn,
   SpanIdColumn,
-  StatusColumn,
+  SpanStatusColumn,
   TimestampColumn,
   TraceIdColumn,
   TriesColumn,
@@ -103,7 +103,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       new TimestampColumn("Subscription_Timestamp_Column"),
       new SpanIdColumn("Subscription_SpanId_Column"),
       new ResponseCodeColumn("Subscription_ResponseCode_Column"),
-      new StatusColumn("Subscription_Status_Column"),
+      new SpanStatusColumn("Subscription_Status_Column"),
       new TriesColumn("Subscription_Tries_Column"),
       new ContextMenuTableColumn(this.createContextMenuItems()),
     ]

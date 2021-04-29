@@ -28,7 +28,7 @@ export class TimestampColumn extends BaseTableColumn<Trace> {
   }
 }
 
-export class StatusColumn extends BaseTableColumn<Trace> {
+export class TraceStatusColumn extends BaseTableColumn<Trace> {
   value(data: Trace): string {
     return `<span class="${TraceColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span>`;
   }
