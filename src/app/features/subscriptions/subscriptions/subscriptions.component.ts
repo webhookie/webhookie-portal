@@ -23,6 +23,10 @@ import {ContextMenuTableColumn} from "../../../shared/model/table/column/context
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 import {SubscriptionContextMenuService} from "./subscription-context-menu.service";
 import {Constants} from "../../../shared/constants";
+import {RouterService} from "../../../shared/service/router.service";
+import {WebhooksContext} from "../../webhooks/webhooks-context";
+import {WebhookGroupService} from "../../webhooks/service/webhook-group.service";
+import {WebhookGroupElement} from "../../webhooks/webhook-page/sidebar/sidebar-list/webhook-group-element";
 
 type SubscriptionContextMenu = ContextMenuItem<Subscription, SubscriptionMenu>;
 
@@ -40,6 +44,9 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   readonly _role$: BehaviorSubject<string> = new BehaviorSubject(Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER);
 
   constructor(
+    private readonly webhookGroupService: WebhookGroupService,
+    private readonly context: WebhooksContext,
+    private readonly routeService: RouterService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly contextMenuService: SubscriptionContextMenuService,
     private readonly route: ActivatedRoute,
@@ -160,8 +167,19 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   }
 
   validate(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
-    return (it: Subscription, item: SubscriptionContextMenu) => {
-      console.warn(`${item.item} ==> ${it.id}`);
+    return (subscription: Subscription) => {
+      this.webhookGroupService.fetchByTopic(subscription.topic)
+        .subscribe(group => {
+          let element = WebhookGroupElement.create(group);
+          let topic = group.topics.filter(it => it.name == subscription.topic)[0];
+          this.context.selectTopic(element, topic);
+          this.context.selectSubscription(subscription);
+          const params = {
+            subscriptionId: subscription.id
+          }
+          this.routeService
+            .navigateTo("webhooks/subscribe-webhook", params)
+        })
     }
   }
 

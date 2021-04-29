@@ -3,7 +3,7 @@ import {WebhooksContext} from "../webhooks-context";
 import {ResponseComponent} from "../common/response/response.component";
 import {ApplicationComponent} from "./application/application.component";
 import {CallbackComponent} from "./callback/callback.component";
-import {mergeMap} from "rxjs/operators";
+import {filter, mergeMap} from "rxjs/operators";
 import {SubscriptionService, ValidateSubscriptionRequest} from "../../../shared/service/subscription.service";
 import {Observable} from "rxjs";
 import {Subscription} from "../../../shared/model/subscription";
@@ -14,6 +14,7 @@ import {BadRequestError} from "../../../shared/error/bad-request-error";
 import {Pageable} from "../../../shared/request/pageable";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {Constants} from "../../../shared/constants";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -28,9 +29,12 @@ export class SubscribeWebhookComponent implements OnInit {
   @ViewChild('requestExampleComponent') requestExampleComponent?: RequestExampleComponent
 
   subscription?: Subscription
+  readMode = false;
 
   constructor(
     private readonly context: WebhooksContext,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router,
     private readonly subscriptionService: SubscriptionService,
     private readonly routeService: RouterService
   ) {
@@ -69,6 +73,19 @@ export class SubscribeWebhookComponent implements OnInit {
     this.subscription = null;
   }
 
+  // noinspection JSUnusedGlobalSymbols
+  ngAfterViewInit() {
+    this.activatedRoute.queryParams
+      .pipe(
+        filter(it => it.subscriptionId != null),
+        mergeMap(it => this.subscriptionService.fetchSubscription(it.subscriptionId))
+      )
+      .subscribe(it => {
+        this.readMode = true
+        this.subscription = it;
+      });
+  }
+
   ngOnInit(): void {
     this.clear();
 
@@ -98,6 +115,7 @@ export class SubscribeWebhookComponent implements OnInit {
 
   validate() {
     let validateSubscription = (): Observable<Subscription> => {
+      this.response?.init();
       let request: ValidateSubscriptionRequest = {
         payload: JSON.stringify(this.requestExampleComponent?.request.jsonobj),
         headers: {

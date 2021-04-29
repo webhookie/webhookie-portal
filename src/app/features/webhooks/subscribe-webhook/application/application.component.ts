@@ -50,7 +50,13 @@ export class ApplicationComponent implements OnInit {
       })
 
     this.loadApplications()
-      .subscribe(it => this._applications$.next(it));
+      .subscribe(list => {
+        this._applications$.next(list);
+        if(this.context.currentApplicationId) {
+          let c = list.filter(it => it.id == this.context.currentApplicationId)[0]
+          this.selectApp(c)
+        }
+      });
   }
 
   selectApp(application: Application) {

@@ -5,6 +5,7 @@ import {distinctUntilChanged, filter} from "rxjs/operators";
 import {WebhookGroupElement} from "./webhook-page/sidebar/sidebar-list/webhook-group-element";
 import {Topic} from "./model/webhook-group";
 import {Callback} from "../../shared/model/callback";
+import {Subscription} from "../../shared/model/subscription";
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,13 @@ export class WebhooksContext {
 
   selectWebhookGroup(webhookGroup: WebhookGroupElement) {
     this.selectTopic(webhookGroup, webhookGroup.topics[0]);
+  }
+
+  currentApplicationId?: string;
+  currentCallbackId?: string;
+  selectSubscription(value: Subscription) {
+    this.currentApplicationId = value.application.id;
+    this.currentCallbackId = value.callback.id;
   }
 
   selectTopic(webhookGroup: WebhookGroupElement, topic: Topic) {
