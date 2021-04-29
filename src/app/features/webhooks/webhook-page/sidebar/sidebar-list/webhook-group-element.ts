@@ -1,10 +1,8 @@
 import {Topic, WebhookGroup} from "../../../model/webhook-group";
 
 export class WebhookGroupElement {
-  constructor(
+  private constructor(
     public webhookGroup: WebhookGroup,
-    public title: string,
-    public topics: Array<Topic>,
     public isShowing: boolean = false
   ) {
   }
@@ -15,5 +13,17 @@ export class WebhookGroupElement {
 
   hide() {
     this.isShowing = false;
+  }
+
+  get topics(): Array<Topic> {
+    return this.webhookGroup.topics
+  }
+
+  get title(): string {
+    return this.webhookGroup.title
+  }
+
+  static create(group: WebhookGroup): WebhookGroupElement {
+    return new WebhookGroupElement(group);
   }
 }
