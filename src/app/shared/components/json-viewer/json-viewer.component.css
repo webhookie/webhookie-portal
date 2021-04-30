@@ -17,3 +17,19 @@
   line-height: 1.9;
   white-space: pre-wrap;
 }
+
+.light-mode.dark-mode-active {
+  background-color: #2D2D2D !important;
+  color: #FFFFFF;
+}
+
+.light-mode.dark-mode-active pre {
+  color: #fff;
+}
+
+.mode-switcher {
+  cursor: pointer;
+  display: inline-block;
+  user-select: none;
+}
+

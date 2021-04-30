@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
 import {Observable, of, ReplaySubject, Subject} from "rxjs";
 import {Span, SpanStatus} from "../model/span";
@@ -29,6 +29,8 @@ import {Pageable} from "../../../shared/request/pageable";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 import {ActivatedRoute} from "@angular/router";
+import {ModalService} from "../../../shared/service/modal.service";
+import {JsonUtils} from "../../../shared/json-utils";
 
 type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
 
@@ -41,11 +43,13 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   private readonly _spans$: Subject<Array<Span>> = new ReplaySubject();
   // @ts-ignore
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
+  @ViewChild("resultViewer") resultViewer?: TemplateRef<any>;
 
   readonly tableData: Observable<Array<Span>> = this._spans$.asObservable();
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
+    private readonly modalService: ModalService,
     private readonly spanService: SpanService,
   ) {
     super();
@@ -125,8 +129,9 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   detailColumns?: TableColumn[];
 
   viewRequest(): (span: Span, item: SpanContextMenu) => any {
-    return (it: Span, item: SpanContextMenu) => {
-      console.warn(`${item.item} ==> ${it.spanId}`);
+    return (it: Span) => {
+      this.modalService.open(this.resultViewer!);
+      JsonUtils.updateElement('test_res', it.responseBody)
     }
   }
 

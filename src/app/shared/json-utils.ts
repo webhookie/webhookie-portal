@@ -18,4 +18,26 @@ export class JsonUtils {
     });
   }
 
+  static highlightValue(value: any): string {
+    const str = JSON.stringify(value, null, '\t');
+    return JsonUtils.syntaxHighlight(str)
+  }
+
+  static updateElement(element: string, value: any) {
+    console.warn(value);
+    let type = typeof value;
+    let text;
+    if(type === "string") {
+      try {
+        let json = JSON.parse(value);
+        text = JsonUtils.highlightValue(json);
+      } catch (e) {
+        text = JsonUtils.syntaxHighlight(value);
+      }
+    } else {
+      text = JsonUtils.highlightValue(value);
+    }
+    let myContainer = document.getElementById(element) as HTMLInputElement;
+    myContainer.innerHTML = text;
+  }
 }

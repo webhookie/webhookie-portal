@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {JsonUtils} from "../../json-utils";
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-json-viewer',
@@ -11,6 +12,12 @@ export class JsonViewerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    $(function() {
+      $(".mode-switcher")
+        .on("click", function () {
+          $(".light-mode").toggleClass("dark-mode-active");
+        });
+    });
   }
 
   showHtml(body: any) {
