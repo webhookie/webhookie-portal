@@ -30,6 +30,7 @@ export class SubscribeWebhookComponent implements OnInit {
 
   subscription?: Subscription
   readMode = false;
+  isRunning = false;
 
   constructor(
     private readonly context: WebhooksContext,
@@ -53,7 +54,7 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   get canBeValidated() {
-    return this.subscription?.canBeValidated()
+    return this.subscription?.canBeValidated() && !this.isRunning
   }
 
   get canBeActivated() {
@@ -115,6 +116,7 @@ export class SubscribeWebhookComponent implements OnInit {
 
   validate() {
     let validateSubscription = (): Observable<Subscription> => {
+      this.isRunning = true;
       this.response?.init();
       let request: ValidateSubscriptionRequest = {
         payload: JSON.stringify(this.requestExampleComponent?.request.jsonobj),
@@ -131,10 +133,14 @@ export class SubscribeWebhookComponent implements OnInit {
       this.response?.update(new CallbackResponse(
         200, new HttpHeaders(), ""
       ))
+      this.isRunning = false;
       this.subscription = it;
     };
 
-    let errorHandler = (err: BadRequestError) => this.response?.updateWithError(err.error);
+    let errorHandler = (err: BadRequestError) => {
+      this.isRunning = false;
+      this.response?.updateWithError(err.error);
+    }
 
     this.context.selectedCallback$
       .pipe(mergeMap(validateSubscription))
