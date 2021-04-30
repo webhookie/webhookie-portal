@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {VariableService} from '../../variable.service';
 import * as $ from 'jquery';
+import {JsonUtils} from "../../../../../shared/json-utils";
 
 @Component({
   selector: 'app-request-body',
@@ -36,15 +36,14 @@ export class RequestBodyComponent implements OnInit {
     "compensating-operation": null
   };
 
-  constructor(public variable: VariableService) {
-  }
+  constructor() {}
 
   ngOnInit(): void {
 
   }
   ngAfterViewChecked(){
-    var str = JSON.stringify(this.jsonobj, null, '\t');
-    this.output(this.variable.syntaxHighlight(str));
+    const str = JSON.stringify(this.jsonobj, null, '\t');
+    this.output(JsonUtils.syntaxHighlight(str));
     $(".key").attr('contentEditable', 'false');
     $(".boolean").attr('contentEditable', 'true');
     $(".string").attr('contentEditable', 'true');
@@ -58,6 +57,7 @@ export class RequestBodyComponent implements OnInit {
   }
 
   changeData() {
+    // noinspection JSUnusedLocalSymbols
     let myContainer = document.getElementById('json_str');
     // console.log(myContainer);
   }

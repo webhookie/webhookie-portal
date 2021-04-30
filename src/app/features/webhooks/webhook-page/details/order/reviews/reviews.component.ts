@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {VariableService} from 'src/app/features/webhooks/common/variable.service';
+import {ModalService} from "../../../../../../shared/service/modal.service";
 @Component({
   selector: 'app-reviews',
   templateUrl: './reviews.component.html',
@@ -7,10 +7,13 @@ import {VariableService} from 'src/app/features/webhooks/common/variable.service
 })
 export class ReviewsComponent implements OnInit {
 
-  constructor(public variable: VariableService) {
+  constructor(public modalService: ModalService) {
   }
 
   ngOnInit(): void {
   }
 
+  hide() {
+    this.modalService.hide();
+  }
 }

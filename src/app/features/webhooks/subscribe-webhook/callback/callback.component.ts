@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 import {WebhooksContext} from "../../webhooks-context";
 import {CallbackService} from "../../service/callback.service";
 import {mergeMap} from "rxjs/operators";
 import {Observable, of, ReplaySubject, Subject, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {Callback} from "../../../../shared/model/callback";
+import {ModalService} from "../../../../shared/service/modal.service";
 
 @Component({
   selector: 'app-callback',
@@ -16,7 +16,7 @@ export class CallbackComponent implements OnInit {
   readonly _callbacks$: Subject<Array<Callback>> = new ReplaySubject();
 
   constructor(
-    public variable: VariableService,
+    readonly modalService: ModalService,
     private readonly context: WebhooksContext,
     private readonly service: CallbackService
   ) {
@@ -56,7 +56,7 @@ export class CallbackComponent implements OnInit {
   }
 
   create() {
-    this.variable.modalRef.hide();
+    this.modalService.hide();
   }
 
   selectCallback(callback: Callback) {

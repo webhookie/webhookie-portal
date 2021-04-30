@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {VariableService} from '../variable.service';
 import {RequestBodyComponent} from "./request-body/request-body.component";
 import * as $ from 'jquery';
 
@@ -12,7 +11,7 @@ export class RequestExampleComponent implements OnInit {
    // @ts-ignore
    @ViewChild('requestExampleComponent') request: RequestBodyComponent
   isBody:boolean=true;
-  constructor(public variable: VariableService,) {
+  constructor() {
   }
 
   ngOnInit(): void {

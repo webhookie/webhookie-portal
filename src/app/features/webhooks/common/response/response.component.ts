@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {VariableService} from '../variable.service';
 import {CallbackResponse} from "../../service/callback.service";
 import {BehaviorSubject, Observable, ReplaySubject, Subject, Subscription, timer} from "rxjs";
 import {filter, map} from "rxjs/operators";
 import {HttpErrorResponse} from "@angular/common/http";
+import {JsonUtils} from "../../../../shared/json-utils";
 
 @Component({
   selector: 'app-response',
@@ -26,7 +26,7 @@ export class ResponseComponent implements OnInit {
 
   responseClass: string = "text-default"
 
-  constructor(public variable: VariableService) {
+  constructor() {
   }
 
   get hasResponse() {
@@ -39,7 +39,7 @@ export class ResponseComponent implements OnInit {
         let body = res.responseBody;
         if (res.headers.get("Content-Type")?.startsWith("application/json")) {
           const str = JSON.stringify(body, null, '\t');
-          this.outputHtml(this.variable.syntaxHighlight(str));
+          this.outputHtml(JsonUtils.syntaxHighlight(str));
         } else if (res.headers.get("Content-Type")?.startsWith("text/plain")) {
           this.output(body);
         } else {

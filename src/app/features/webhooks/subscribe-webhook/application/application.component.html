@@ -10,7 +10,7 @@
         {{selectedApplication ? selectedApplication?.name : 'Select your application'}}
       </button>
       <div class="dropdown-menu font12 font-weight-400">
-        <button (click)="variable.openModal(template1)" class="btn btn-default font-weight-400 font12"><i
+        <button (click)="modalService.open(template1)" class="btn btn-default font-weight-400 font12"><i
           class="lni lni-plus mr-2"></i>Create New Application
         </button>
         <div class="dropdown-divider"></div>

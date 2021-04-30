@@ -1,7 +1,7 @@
 <form>
   <div class="modal-header">
     <h2 class="modal-title pull-left font16 font-weight-bold">Create new application</h2>
-    <button (click)="variable.modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
+    <button (click)="modalService.hide()" aria-label="Close" class="close pull-right" type="button">
       <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
     </button>
   </div>
@@ -54,7 +54,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button (click)="variable.modalRef.hide()" aria-label="Close" class="btn btn-default cancel border"
+    <button (click)="modalService.hide()" aria-label="Close" class="btn btn-default cancel border"
             type="button">Cancel
     </button>
     <button (click)="createApplication()" class="btn btn-primary" type="button">Create</button>

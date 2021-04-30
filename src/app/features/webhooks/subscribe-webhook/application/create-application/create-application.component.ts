@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 import {BehaviorSubject, Observable} from "rxjs";
 import {ConsumerGroup} from "../../../../../shared/model/consumer-group";
 import {WebhookieService} from "../../../../../shared/service/webhookie.service";
@@ -11,6 +10,7 @@ import {Application} from "../../../model/application";
 import {WebhookieError} from "../../../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
+import {ModalService} from "../../../../../shared/service/modal.service";
 
 @Component({
   selector: 'app-create-application',
@@ -32,7 +32,7 @@ export class CreateApplicationComponent implements OnInit {
     private readonly webhookieService: WebhookieService,
     private readonly context: WebhooksContext,
     // private readonly alertService: ToastrService,
-    public variable: VariableService
+    public modalService: ModalService
   ) {
     this.webhookieService.fetchConsumerGroups()
       .subscribe(it => this._consumerGroups$.next(it));
@@ -50,7 +50,7 @@ export class CreateApplicationComponent implements OnInit {
 
     let successHandler = (app: Application) => {
       this.context.applicationCreated(app);
-      this.variable.modalRef.hide();
+      this.modalService.hide();
     };
 
     let errorHandler = (error: WebhookieError) => {

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 import * as $ from 'jquery';
 import {ApplicationService} from "../../service/application.service";
 import {Observable, of, ReplaySubject, Subject, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {WebhooksContext} from "../../webhooks-context";
 import {mergeMap} from "rxjs/operators";
+import {ModalService} from "../../../../shared/service/modal.service";
 
 @Component({
   selector: 'app-application',
@@ -21,7 +21,7 @@ export class ApplicationComponent implements OnInit {
   constructor(
     private readonly applicationService: ApplicationService,
     private readonly context: WebhooksContext,
-    public variable: VariableService
+    readonly modalService: ModalService
   ) {
   }
 

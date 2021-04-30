@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {VariableService} from 'src/app/features/webhooks/common/variable.service';
 import {WebhooksContext} from "../../../webhooks-context";
 import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
 import {CallbackRequest, CallbackService} from "../../../service/callback.service";
@@ -7,6 +6,7 @@ import {WebhookieError} from "../../../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
 import {Callback} from "../../../../../shared/model/callback";
+import {ModalService} from "../../../../../shared/service/modal.service";
 // import {ToastrService} from "ngx-toastr";
 
 @Component({
@@ -19,7 +19,7 @@ export class CreateCallbackComponent implements OnInit {
   @ViewChild("callbackComponent") callback: CallbackUrlComponent
 
   constructor(
-    public variable: VariableService,
+    public modalService: ModalService,
     private readonly service: CallbackService,
     // private readonly alertService: ToastrService,
     private readonly context: WebhooksContext
@@ -52,7 +52,7 @@ export class CreateCallbackComponent implements OnInit {
 
     let successHandler = (callback: Callback) => {
       this.context.callbackCreated(callback);
-      this.variable.modalRef.hide();
+      this.modalService.hide();
     };
 
     let errorHandler = (error: WebhookieError) => {

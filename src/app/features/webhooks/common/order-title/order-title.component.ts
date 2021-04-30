@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {VariableService} from '../variable.service';
-import {ActivatedRoute} from '@angular/router';
 import {WebhooksContext} from "../../webhooks-context";
+import {BreadcrumbService} from "angular-crumbs";
 
 @Component({
   selector: 'app-order-title',
@@ -10,12 +9,17 @@ import {WebhooksContext} from "../../webhooks-context";
 })
 export class OrderTitleComponent implements OnInit {
   orderTitle: any;
+  title: any;
 
   constructor(
-    public variable: VariableService,
+    private readonly breadcrumbService: BreadcrumbService,
     private readonly context: WebhooksContext,
-    private route: ActivatedRoute,
   ) {
+    this.breadcrumbService.breadcrumbChanged
+      .subscribe(it => {
+        let crumbs = it;
+        this.title = crumbs[crumbs.length - 1].displayName;
+      });
   }
 
   get topic() {
@@ -23,29 +27,5 @@ export class OrderTitleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  title() {
-    let crumbs = this.variable.breadCrumbs();
-    return crumbs[crumbs.length - 1].displayName;
-  }
-
-  webTitle() {
-    if (this.context.selectedWebhook) {
-      this.orderTitle = this.context.selectedWebhook;
-    } else {
-      this.route.paramMap.subscribe(params => {
-        this.variable.sideBarList.forEach((item: any) => {
-          item.subList.forEach((res: any) => {
-            let webhook = params.get("webhookId");
-            if (res.id == webhook) {
-              this.orderTitle = res;
-              this.context.selectedWebhook = res;
-            }
-          })
-        })
-      })
-    }
-    return this.orderTitle;
   }
 }
