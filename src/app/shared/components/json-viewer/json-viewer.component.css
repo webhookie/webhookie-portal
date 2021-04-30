@@ -1,0 +1,19 @@
+.light-mode {
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+.light-mode .custom-control-label::before {
+  top: 0.1rem !important;
+  background-color: #C6C6C6;
+  border: 0;
+}
+
+.light-mode pre {
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}

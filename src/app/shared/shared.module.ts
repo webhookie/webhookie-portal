@@ -20,6 +20,7 @@ import {GenericTableComponent} from "./components/generic-table/generic-table.co
 import { TimestampFilterComponent } from './components/timestamp-filter/timestamp-filter.component';
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import { ContextMenuComponent } from './components/generic-table/table-menu/context-menu.component';
+import { JsonViewerComponent } from './components/json-viewer/json-viewer.component';
 
 let apiProvider;
 if (environment.mock) {
@@ -40,6 +41,7 @@ if (environment.mock) {
     SortButtonsComponent,
     SearchListComponent,
     TimestampFilterComponent,
+    JsonViewerComponent,
   ],
     imports: [
         FormsModule,
@@ -52,18 +54,19 @@ if (environment.mock) {
         ReactiveFormsModule,
         InfiniteScrollModule
     ],
-  exports: [
-    GenericTableComponent,
-    SpinnerComponent,
-    DateTimePickerComponent,
-    DatepickerComponent,
-    TimepickerComponent,
-    SortButtonsComponent,
-    CommonModule,
-    RouterModule,
-    SearchListComponent,
-    ContextMenuComponent
-  ],
+    exports: [
+        GenericTableComponent,
+        SpinnerComponent,
+        DateTimePickerComponent,
+        DatepickerComponent,
+        TimepickerComponent,
+        SortButtonsComponent,
+        CommonModule,
+        RouterModule,
+        SearchListComponent,
+        ContextMenuComponent,
+        JsonViewerComponent
+    ],
   providers: [
     {
       provide: 'Api',
