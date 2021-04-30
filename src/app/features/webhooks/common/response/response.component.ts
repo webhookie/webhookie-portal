@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CallbackResponse} from "../../service/callback.service";
 import {BehaviorSubject, Observable, ReplaySubject, Subject, Subscription, timer} from "rxjs";
 import {filter, map} from "rxjs/operators";
 import {HttpErrorResponse} from "@angular/common/http";
-import {JsonUtils} from "../../../../shared/json-utils";
+import {JsonViewerComponent} from "../../../../shared/components/json-viewer/json-viewer.component";
 
 @Component({
   selector: 'app-response',
@@ -11,6 +11,7 @@ import {JsonUtils} from "../../../../shared/json-utils";
   styleUrls: ['./response.component.css']
 })
 export class ResponseComponent implements OnInit {
+  @ViewChild("responseViewer") responseViewer?: JsonViewerComponent
   // @ts-ignore
   private readonly _response$: BehaviorSubject<CallbackResponse> = new BehaviorSubject<CallbackResponse>(null);
 
@@ -38,28 +39,17 @@ export class ResponseComponent implements OnInit {
       .subscribe(res => {
         let body = res.responseBody;
         if (res.headers.get("Content-Type")?.startsWith("application/json")) {
-          const str = JSON.stringify(body, null, '\t');
-          this.outputHtml(JsonUtils.syntaxHighlight(str));
+          this.responseViewer?.showHtml(body);
         } else if (res.headers.get("Content-Type")?.startsWith("text/plain")) {
-          this.output(body);
+          this.responseViewer?.show(body);
         } else {
-          this.output(body);
+          this.responseViewer?.show(body);
         }
       })
   }
 
   ngOnDestroy() {
     this.stopTimer();
-  }
-
-  outputHtml(body: any) {
-    let myContainer = document.getElementById('test_res') as HTMLInputElement;
-    myContainer.innerHTML = body;
-  }
-
-  output(body: any) {
-    let myContainer = document.getElementById('test_res') as HTMLInputElement;
-    myContainer.innerText = body;
   }
 
   update(response: CallbackResponse) {
@@ -108,7 +98,7 @@ export class ResponseComponent implements OnInit {
     // @ts-ignore
     this._response$.next(null);
     this.responseClass = "text-default"
-    this.output("")
+    this.responseViewer?.clear();
     // @ts-ignore
     this.validateTimer$.next(null);
   }

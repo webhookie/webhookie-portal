@@ -8,6 +8,7 @@ import {ResponseComponent} from './response/response.component';
 import {RouterModule} from '@angular/router';
 import { RequestHeadersComponent } from './request-example/request-headers/request-headers.component';
 import { RequestBodyComponent } from './request-example/request-body/request-body.component';
+import {SharedModule} from "../../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -28,10 +29,11 @@ import { RequestBodyComponent } from './request-example/request-body/request-bod
     RequestHeadersComponent,
     RequestBodyComponent
   ],
-  imports: [
-    RouterModule,
-    CommonModule,
-  ],
+    imports: [
+        RouterModule,
+        CommonModule,
+        SharedModule,
+    ],
 
   providers: []
 })
