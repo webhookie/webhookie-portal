@@ -1,3 +1,5 @@
+import {HttpMessage} from "../features/traffic/model/http-message";
+
 export class JsonUtils {
   static syntaxHighlight(json: string) {
     json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -23,8 +25,12 @@ export class JsonUtils {
     return JsonUtils.syntaxHighlight(str)
   }
 
-  static updateElementWithJson(element: string, json: any) {
-    let myContainer = document.getElementById(element) as HTMLInputElement;
-    myContainer.innerHTML = JsonUtils.highlightValue(json);
+  static updateElementWithJson(message: HttpMessage) {
+    let body = {
+      payload: message.parsedPayload(),
+      headers: message.headers
+    }
+    let myContainer = document.getElementById('test_res') as HTMLInputElement;
+    myContainer.innerHTML = JsonUtils.highlightValue(body);
   }
 }

@@ -13,11 +13,11 @@ import {TimestampTableFilter} from "../../../shared/model/table/filter/timestamp
 import {GenericTableComponent} from "../../../shared/components/generic-table/generic-table.component";
 import {TableColumn} from "../../../shared/model/table/column/table-column";
 import {
-  TraceStatusColumn,
   SubscribersColumn,
   TimestampColumn,
   TraceIdColumn,
   TraceMoreDataColumn,
+  TraceStatusColumn,
   WebhookColumn
 } from "./trace-columns";
 import {SelectableTableColumn} from "../../../shared/model/table/column/selectable-table-column";
@@ -28,7 +28,8 @@ import {
   CallbackColumn,
   EntityColumn,
   ResponseCodeColumn,
-  SpanIdColumn, SpanStatusColumn,
+  SpanIdColumn,
+  SpanStatusColumn,
   TriesColumn
 } from "../subscription-traffic/span-columns";
 import {SearchListTableFilter} from "../../../shared/model/table/filter/search-list-table-filter";
@@ -180,11 +181,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   showBody(message: HttpMessage) {
     this.modalService.open(this.resultViewer!);
-    let body = {
-      payload: message.parsedPayload(),
-      headers: message.headers
-    }
-    JsonUtils.updateElementWithJson('test_res', body);
+    JsonUtils.updateElementWithJson(message);
   }
 
   get detailHeaders(): Array<TableHeader> {

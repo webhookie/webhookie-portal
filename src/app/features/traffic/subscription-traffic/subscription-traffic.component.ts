@@ -133,11 +133,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 
   showBody(message: HttpMessage) {
     this.modalService.open(this.resultViewer!);
-    let body = {
-      payload: message.parsedPayload(),
-      headers: message.headers
-    }
-    JsonUtils.updateElementWithJson('test_res', body)
+    JsonUtils.updateElementWithJson(message);
   }
 
   viewRequest(): (span: Span, item: SpanContextMenu) => any {
