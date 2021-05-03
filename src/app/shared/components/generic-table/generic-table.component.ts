@@ -13,6 +13,7 @@ import {SearchListTableFilter} from "../../model/table/filter/search-list-table-
 import {Pageable} from "../../request/pageable";
 import {TimestampTableFilter} from "../../model/table/filter/timestamp-table-filter";
 import {TableSort} from "../../request/table-sort";
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-traffic-table',
@@ -37,6 +38,17 @@ export class GenericTableComponent implements OnInit {
   currentSort?: TableSort;
 
   ngOnInit(): void {
+    $(function() {
+      $(".common-table td a").on("click",function () {
+        $("td").removeClass("active-column");
+        $(this).parent().closest('td').addClass("active-column");
+      });
+
+      $(".common-table th a").on("click", function () {
+        $("th").removeClass("active-column");
+        $(this).parent().closest('th').addClass("active-column");
+      });
+    });
     this.table.init();
     this.currentFilter.next(this.table.initialFilters);
 

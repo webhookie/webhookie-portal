@@ -13,7 +13,7 @@ export class ModalService {
 
   open(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog-centered modal-w',
+      class: 'modal-dialog-centered modal-w large-modal',
       backdrop: true,
       ignoreBackdropClick: true
     });

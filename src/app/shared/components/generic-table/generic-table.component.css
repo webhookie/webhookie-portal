@@ -184,6 +184,10 @@ form.searchbox.traffic .btn {
     user-select: none;
 }
 
+.active-column{
+    z-index:20 !important;
+}
+
 @media (max-width: 992px) {
     .spinner {
         width: 67%;

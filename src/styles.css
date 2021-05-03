@@ -163,6 +163,10 @@ h1 {
     max-width: 380px;
 }
 
+.large-modal {
+    max-width: 480px;
+}
+
 .hide-after::after {
     content: "";
     display: none;
@@ -384,7 +388,7 @@ h1 {
 }
 .common-table .table thead th{
     border-bottom: 0px;
-}      
+}
 .common-table .table thead th img {
     margin-left: 5px;
 }
@@ -552,7 +556,7 @@ input:focus{
     margin-left: 0 ;
     margin-right: 0;
 }
-  
+
 
 
 

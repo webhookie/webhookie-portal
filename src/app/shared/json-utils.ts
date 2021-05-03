@@ -23,21 +23,8 @@ export class JsonUtils {
     return JsonUtils.syntaxHighlight(str)
   }
 
-  static updateElement(element: string, value: any) {
-    console.warn(value);
-    let type = typeof value;
-    let text;
-    if(type === "string") {
-      try {
-        let json = JSON.parse(value);
-        text = JsonUtils.highlightValue(json);
-      } catch (e) {
-        text = JsonUtils.syntaxHighlight(value);
-      }
-    } else {
-      text = JsonUtils.highlightValue(value);
-    }
+  static updateElementWithJson(element: string, json: any) {
     let myContainer = document.getElementById(element) as HTMLInputElement;
-    myContainer.innerHTML = text;
+    myContainer.innerHTML = JsonUtils.highlightValue(json);
   }
 }

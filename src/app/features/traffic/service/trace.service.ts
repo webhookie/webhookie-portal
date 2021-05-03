@@ -9,23 +9,28 @@ import {Span} from "../model/span";
 import {Trace} from "../model/trace";
 import {RequestUtils} from "../../../shared/request/request-utils";
 import {Pageable} from "../../../shared/request/pageable";
+import {TraceRequest} from "../model/trace-request";
+import {HttpParams} from "@angular/common/http";
+import {TraceRequestAdapter} from "./trace-request.adapter";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TraceService {
-  private SPAN_URI = "/traffic/trace"
+  private TRACE_URI = "/traffic/trace"
+
   constructor(
     @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
     private readonly adapter: TraceAdapter,
+    private readonly traceRequestAdapter: TraceRequestAdapter,
     private readonly spanAdapter: SpanAdapter
   ) {
   }
 
   readTraces(filter: any, pageable: Pageable): Observable<Array<Trace>> {
     let params = RequestUtils.httpParams(filter, pageable);
-    return this.api.json(this.SPAN_URI, params)
+    return this.api.json(this.TRACE_URI, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' traces`)))
       .pipe(map(list => {
         return list.map((it: any) => this.adapter.adapt(it))
@@ -34,11 +39,18 @@ export class TraceService {
 
   readTraceSpans(traceId: string, filter: any, pageable: Pageable): Observable<Array<Span>> {
     let params = RequestUtils.httpParams(filter, pageable);
-    const uri = `${this.SPAN_URI}/${traceId}/spans`
+    const uri = `${this.TRACE_URI}/${traceId}/spans`
     return this.api.json(uri, params)
       .pipe(tap(it => this.log.info(`Fetched '${it.length}' spans`)))
       .pipe(map(list => {
         return list.map((it: any) => this.spanAdapter.adapt(it))
       }))
+  }
+
+  traceRequest(traceId: string): Observable<TraceRequest> {
+    let params = new HttpParams()
+    let uri = `${this.TRACE_URI}/${traceId}/request`;
+    return this.api.json(uri, params)
+      .pipe(map(it => this.traceRequestAdapter.adapt(it)))
   }
 }

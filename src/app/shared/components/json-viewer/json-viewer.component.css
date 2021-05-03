@@ -33,3 +33,13 @@
   user-select: none;
 }
 
+.custom-switch .custom-control-label::after {
+  top: 3px;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+  color: #fff;
+  border-color: #007bff;
+  background-color: #007bff;
+}
+

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
 import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
 import {Trace, TraceStatus} from "../model/trace";
@@ -40,6 +40,10 @@ import {Callback} from "../../../shared/model/callback";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 import {ActivatedRoute} from "@angular/router";
+import {JsonUtils} from "../../../shared/json-utils";
+import {ModalService} from "../../../shared/service/modal.service";
+import {SpanService} from "../service/span.service";
+import {HttpMessage} from "../model/http-message";
 
 type TraceContextMenu = ContextMenuItem<Trace, TraceMenu>;
 type TraceSpanContextMenu = ContextMenuItem<Span, TraceSpansMenu>;
@@ -52,6 +56,7 @@ type TraceSpanContextMenu = ContextMenuItem<Span, TraceSpansMenu>;
 export class WebhookTrafficComponent extends GenericTable<Trace, Span> implements OnInit {
   // @ts-ignore
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
+  @ViewChild("resultViewer") resultViewer?: TemplateRef<any>;
 
   private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
   readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();
@@ -64,7 +69,9 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
+    private readonly modalService: ModalService,
     private readonly traceService: TraceService,
+    private readonly spanService: SpanService,
     private readonly providerService: ProviderService
   ) {
     super();
@@ -161,9 +168,23 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   viewTraceRequest(): (trace: Trace, item: TraceContextMenu) => any {
-    return (it: Trace, item: TraceContextMenu) => {
-      console.warn(`${item.item} ==> ${it.traceId}`);
+    return (trace: Trace) => {
+      this.viewRequest(trace.traceId)
     }
+  }
+
+  viewRequest(traceId: string) {
+    this.traceService.traceRequest(traceId)
+      .subscribe(it => this.showBody(it));
+  }
+
+  showBody(message: HttpMessage) {
+    this.modalService.open(this.resultViewer!);
+    let body = {
+      payload: message.parsedPayload(),
+      headers: message.headers
+    }
+    JsonUtils.updateElementWithJson('test_res', body);
   }
 
   get detailHeaders(): Array<TableHeader> {
@@ -203,8 +224,8 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   viewSpanRequest(): (span: Span, item: TraceSpanContextMenu) => any {
-    return (it: Span, item: TraceSpanContextMenu) => {
-      console.warn(`${item.item} ==> ${it.traceId}`);
+    return (span: Span) => {
+      this.viewRequest(span.traceId)
     }
   }
 
@@ -215,8 +236,11 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   viewSpanResponse(): (span: Span, item: TraceSpanContextMenu) => any {
-    return (it: Span, item: TraceSpanContextMenu) => {
-      console.warn(`${item.item} ==> ${it.traceId}`);
+    return (span: Span) => {
+      this.spanService.spanResponse(span)
+        .subscribe(it => {
+          this.showBody(it);
+        })
     }
   }
 

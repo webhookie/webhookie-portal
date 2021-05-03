@@ -1,7 +1,10 @@
 <div class="light-mode dark-mode-active">
-  <div class="custom-control custom-switch align-items-center">
-    <input class="custom-control-input" id="customSwitch1" type="checkbox" checked>
-    <label class="custom-control-label mode-switcher font12" for="customSwitch1">Dark mode</label>
+  <div class="modal-header p-0 mb-3 border-0">
+    <div class="custom-control custom-switch align-items-center">
+      <input class="custom-control-input" id="customSwitch1" type="checkbox" checked>
+      <label class="custom-control-label mode-switcher font12" for="customSwitch1">Dark mode</label>
+    </div>
+    <button type="button" (click)="hide()" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
   </div>
   <pre id="test_res"></pre>
 </div>

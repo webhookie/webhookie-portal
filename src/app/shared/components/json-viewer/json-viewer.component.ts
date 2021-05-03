@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {JsonUtils} from "../../json-utils";
 import * as $ from "jquery";
+import {ModalService} from "../../service/modal.service";
 
 @Component({
   selector: 'app-json-viewer',
@@ -9,7 +10,9 @@ import * as $ from "jquery";
 })
 export class JsonViewerComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private readonly modalService: ModalService
+  ) { }
 
   ngOnInit(): void {
     $(function() {
@@ -34,5 +37,9 @@ export class JsonViewerComponent implements OnInit {
 
   clear() {
     this.show("");
+  }
+
+  hide() {
+    this.modalService.hide();
   }
 }

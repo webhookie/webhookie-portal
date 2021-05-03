@@ -31,6 +31,8 @@ import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/tab
 import {ActivatedRoute} from "@angular/router";
 import {ModalService} from "../../../shared/service/modal.service";
 import {JsonUtils} from "../../../shared/json-utils";
+import {TraceService} from "../service/trace.service";
+import {HttpMessage} from "../model/http-message";
 
 type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
 
@@ -51,6 +53,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     private readonly activatedRoute: ActivatedRoute,
     private readonly modalService: ModalService,
     private readonly spanService: SpanService,
+    private readonly traceService: TraceService,
   ) {
     super();
 
@@ -128,16 +131,27 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   detailHeaders?: TableHeader[];
   detailColumns?: TableColumn[];
 
+  showBody(message: HttpMessage) {
+    this.modalService.open(this.resultViewer!);
+    let body = {
+      payload: message.parsedPayload(),
+      headers: message.headers
+    }
+    JsonUtils.updateElementWithJson('test_res', body)
+  }
+
   viewRequest(): (span: Span, item: SpanContextMenu) => any {
-    return (it: Span) => {
-      this.modalService.open(this.resultViewer!);
-      JsonUtils.updateElement('test_res', it.responseBody)
+    return (span: Span) => {
+      this.traceService.traceRequest(span.traceId)
+        .subscribe(it => this.showBody(it));
     }
   }
 
+
   viewResponse(): (span: Span, item: SpanContextMenu) => any {
-    return (it: Span, item: SpanContextMenu) => {
-      console.warn(`${item.item} ==> ${it.spanId}`);
+    return (span: Span) => {
+      this.spanService.spanResponse(span)
+        .subscribe(it => this.showBody(it));
     }
   }
 
