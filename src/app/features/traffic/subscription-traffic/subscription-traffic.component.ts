@@ -120,7 +120,6 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     return [
       ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_REQUEST).handler(this.viewRequest()).build(),
       ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_RESPONSE).handler(this.viewResponse()).build(),
-      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.RETRY).handler(this.retrySpan()).build(),
     ];
   }
 
@@ -150,16 +149,9 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
         .subscribe(it => this.showBody(it));
     }
   }
-
-  retrySpan(): (span: Span, item: SpanContextMenu) => any {
-    return (it: Span, item: SpanContextMenu) => {
-      console.warn(`${item.item} ==> ${it.spanId}`);
-    }
-  }
 }
 
 enum SpanMenu {
   VIEW_REQUEST = "View Request",
-  VIEW_RESPONSE = "View Response",
-  RETRY = "Retry",
+  VIEW_RESPONSE = "View Response"
 }
