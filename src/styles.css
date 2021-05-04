@@ -167,6 +167,10 @@ h1 {
     max-width: 480px;
 }
 
+.x-large-modal {
+    max-width: 768px;
+}
+
 .hide-after::after {
     content: "";
     display: none;
