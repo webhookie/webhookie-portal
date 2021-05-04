@@ -57,7 +57,7 @@
               "src/assets/css/jquery.stickytable.css",
               "src/assets/bootstrap-date-timepicker/css/bootstrap-datetimepicker.min.css"
             ],
-            "scripts": [              
+            "scripts": [
               "src/assets/js/jquery-3.6.0.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
@@ -111,6 +111,14 @@
                 }
               ]
             },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment-staging.ts"
+                }
+              ]
+            },
             "mock": {
               "fileReplacements": [
                 {
@@ -135,6 +143,9 @@
             },
             "auth0": {
               "browserTarget": "webhookie-portal:build:auth0"
+            },
+            "staging": {
+              "browserTarget": "webhookie-portal:build:staging"
             },
             "mock": {
               "browserTarget": "webhookie-portal:build:mock"
@@ -170,7 +181,7 @@
               "src/assets/bootstrap-date-timepicker/css/bootstrap-datetimepicker.min.css"
             ],
             "scripts": [
-              
+
               "src/assets/js/jquery-3.6.0.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
