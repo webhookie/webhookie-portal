@@ -29,7 +29,7 @@ export class ApiService implements Api {
 
   private formatErrors(error: any) {
     if(error == 401) {
-      this.authService.login()
+      this.authService.refreshToken();
       return EMPTY
     }
 

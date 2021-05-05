@@ -107,4 +107,13 @@ export class AuthService {
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
       .then(it => this.log.info(`loadDiscoveryDocumentAndTryLogin result is: ${it}`));
   }
+
+  refreshToken() {
+    this.log.info(`Refreshing token....'`)
+    this.oauthService.refreshToken()
+      .then(it => {
+        this.log.info(`token has been refreshed`);
+        this.log.info(it);
+      })
+  }
 }
