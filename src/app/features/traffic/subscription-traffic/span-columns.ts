@@ -47,13 +47,13 @@ export class SpanIdColumn extends BaseTableColumn<Span>{
 
 export class ResponseCodeColumn extends NumberTableColumn<Span>{
   value(data: Span): string {
-    return `<span class="${SpanColumnUtils.classByStatus(data)}">${data.responseCode != -1 ? data.responseCode : ""}</span>`;
+    return `<strong><span class="${SpanColumnUtils.classByResponseCode(data)}">${data.responseCode != -1 ? data.responseCode : ""}</span></strong>`;
   }
 }
 
 export class SpanStatusColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
-    return `<span class="${SpanColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span>`;
+    return `<h5><span class="${SpanColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span></h5>`;
   }
 
   clazz = "text-center"
@@ -67,20 +67,44 @@ export class TriesColumn extends NumberTableColumn<Span>{
 
 class SpanColumnUtils {
   static classByStatus(span: Span): string {
+    let clazz;
     switch (span.statusUpdate.status) {
       case SpanStatus.OK:
-        return "text-success";
+        clazz = "success";
+        break;
       case SpanStatus.RETRYING:
-        return "text-warning";
+        clazz = "warning";
+        break;
       case SpanStatus.BLOCKED:
-        return "text-danger";
+        clazz = "danger";
+        break;
       case SpanStatus.NOT_OK:
-        return "text-danger";
+        clazz = "danger";
+        break;
       case SpanStatus.PROCESSING:
-        return "text-primary";
+        clazz = "dark";
+        break;
       default:
-        return "text-default";
+        clazz = "dark";
+        break;
     }
+
+    return `badge badge-pill badge-${clazz} border-radius`
+  }
+
+  static classByResponseCode(span: Span): string {
+    let clazz;
+    if(span.responseCode > 199 && span.responseCode < 300) {
+      clazz = "success";
+    } else if(span.responseCode > 299 && span.responseCode < 400) {
+      clazz = "warning";
+    } else if(span.responseCode > 399) {
+      clazz = "danger";
+    } else {
+      clazz = "dark";
+    }
+
+    return `text-${clazz}`
   }
 }
 

@@ -30,7 +30,7 @@ export class TimestampColumn extends BaseTableColumn<Trace> {
 
 export class TraceStatusColumn extends BaseTableColumn<Trace> {
   value(data: Trace): string {
-    return `<span class="${TraceColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span>`;
+    return `<h5><span class="${TraceColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span></h5>`;
   }
 
   clazz = "text-center"
@@ -47,17 +47,25 @@ export class TraceMoreDataColumn extends MoreDataTableColumn<Trace> {
 
 class TraceColumnUtils {
   static classByStatus(trace: Trace): string {
+    let clazz;
     switch (trace.statusUpdate.status) {
       case TraceStatus.PROCESSING:
-        return "text-primary";
+        clazz = "primary";
+        break;
       case TraceStatus.NO_SUBSCRIPTION:
-        return "text-default"
+        clazz = "dark";
+        break;
       case TraceStatus.OK:
-        return "text-success"
+        clazz = "success";
+        break;
       case TraceStatus.ISSUES:
-        return "text-danger"
+        clazz = "danger";
+        break;
       default:
-        return "text-default";
+        clazz = "dark";
+        break;
     }
+
+    return `badge badge-pill badge-${clazz} border-radius`
   }
 }
