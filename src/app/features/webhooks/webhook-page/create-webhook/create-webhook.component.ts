@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import "@asyncapi/web-component/lib/asyncapi-web-component";
 
 @Component({
   selector: 'app-create-webhook',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-webhook.component.css']
 })
 export class CreateWebhookComponent implements OnInit {
-  editorOptions = {theme: 'vs-dark', language: 'yaml'};
-  code: string = `
+  editorOptions = {theme: 'vs-light', language: 'yaml'};
+  code: string =`
 asyncapi: '2.0.0'
 info:
   title: Streetlights API
@@ -225,7 +226,7 @@ components:
   }
 
   title(){
-    return "Create new webhook group"
+    return "Create new Webhook Group"
   }
 
 }

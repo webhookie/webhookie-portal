@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DescriptionComponent } from './description/description.component';
 import { DetailsComponent } from './details/details.component';
@@ -43,6 +43,6 @@ import {FormsModule} from "@angular/forms";
     FormsModule,
   ],
 
-
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class WebhookPageModule { }

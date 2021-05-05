@@ -38,3 +38,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [infinite-scroll-component](https://netbasal.com/build-an-infinite-scroll-component-in-angular-a9c16907a94d)
 
 - [auth0 ](https://community.auth0.com/t/understanding-how-the-audience-concept-actually-works/34011)
+- [autocomplete-json-with-angular](https://levelup.gitconnected.com/autocomplete-json-with-angular-and-monaco-f1dcc01e36e1)
+- [implicit-flow-authentication-using-angular](https://www.linkedin.com/pulse/implicit-flow-authentication-using-angular-ghanshyam-shukla)

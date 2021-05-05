@@ -98,15 +98,7 @@
       <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
     </div>
     <div class="col-md-7 pl-md-0">
-      <div class="border-top mb-3 mt-3"></div>
-      <h4 class="font20 font-weight-bold">Order Management</h4>
-      <p class="font14 font-weight-400">Subscribe to this Webhook to receive new orders when they are created.</p>
-      <app-headers></app-headers>
-      <app-body></app-body>
-      <app-security-options></app-security-options>
-      <div class="pr-lg-0">
-        <app-request></app-request>
-      </div>
+      <asyncapi-component [schema]="code"></asyncapi-component>
     </div>
   </div>
 </div>
