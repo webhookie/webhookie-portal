@@ -68,7 +68,10 @@ export class AuthService {
       scope: "openid profile email",
       requireHttps: environment.iam.requireHttps,
       showDebugInformation: environment.iam.showDebugInformation,
-      disableAtHashCheck: environment.iam.disableAtHashCheck
+      disableAtHashCheck: environment.iam.disableAtHashCheck,
+      customQueryParams: {
+        audience: iamConfig.audience
+      },
     };
   }
 
@@ -94,7 +97,7 @@ export class AuthService {
   }
 
   getToken() {
-    return this.oauthService.getIdToken()
+    return this.oauthService.getAccessToken()
   }
 
   private init(config: AuthConfig) {

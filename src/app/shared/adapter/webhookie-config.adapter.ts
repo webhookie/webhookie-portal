@@ -9,7 +9,8 @@ export class WebhookieConfigAdapter implements Adapter<WebhookieConfig> {
   adapt(item: any): WebhookieConfig {
     let iam = new IAMConfig(
       item.iam.issuer,
-      item.iam.clientId
+      item.iam.clientId,
+      item.iam.audience
     )
     return new WebhookieConfig(
       iam
