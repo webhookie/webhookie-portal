@@ -93,7 +93,6 @@ export class AuthService {
   login() {
     this.router.saveCurrent();
     this.oauthService.initCodeFlow();
-    this.oauthService.setupAutomaticSilentRefresh()
   }
 
   getToken() {
@@ -103,6 +102,7 @@ export class AuthService {
   private init(config: AuthConfig) {
     this.log.info(`Setting up auth module for '${config.issuer}', '${config.clientId}'`)
     this.oauthService.configure(config);
+    this.oauthService.setupAutomaticSilentRefresh();
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
       .then(it => this.log.info(`loadDiscoveryDocumentAndTryLogin result is: ${it}`));
