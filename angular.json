@@ -44,7 +44,12 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/monaco-editor",
+                "output": "assets/monaco-editor/"
+              }
             ],
             "styles": [
               "node_modules/slick-carousel/slick/slick.scss",
@@ -181,7 +186,6 @@
               "src/assets/bootstrap-date-timepicker/css/bootstrap-datetimepicker.min.css"
             ],
             "scripts": [
-
               "src/assets/js/jquery-3.6.0.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",

@@ -95,31 +95,7 @@
   <div class="row">
     <div class="col-md-5 pr-md-0">
       <div class="border-top mb-3 mt-3"></div>
-      <pre>
-  <span>asyncapi:</span>2.0.0
-  <span>info:</span>
-    <span>title:</span> Order management 
-    <span>version:</span> 1.0.0 
-    <span>description:</span> This service is in charge of processing user signups 
-  <span>channels:</span> 
-    <span>user/signedup:</span> 
-    <span>subscribe:</span> 
-    <span>message:</span> 
-    <span>$ref:</span> ‘#/components/messages/UserSignedUp’ 
-  <span>components:</span> 
-    <span>messages:</span> 
-      <span>UserSignedUp:</span> 
-        <span>payload:</span> 
-        <span>type:</span> object 
-      <span>properties:</span> 
-      <span>displayName:</span> 
-      <span>type:</span> string 
-      <span>description:</span> Name of the user 
-    <span>email:</span> 
-      <span>type:</span> string 
-      <span>format:</span> email 
-      <span>description:</span> Email of the user
-</pre>
+      <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
     </div>
     <div class="col-md-7 pl-md-0">
       <div class="border-top mb-3 mt-3"></div>

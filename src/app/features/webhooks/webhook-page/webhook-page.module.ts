@@ -15,12 +15,14 @@ import { CreateWebhookComponent } from './create-webhook/create-webhook.componen
 import { WelcomeComponent } from './details/welcome/welcome.component';
 import { WelcomeWithDataComponent } from './details/welcome/welcome-with-data/welcome-with-data.component';
 import { WelcomeWithoutDataComponent } from './details/welcome/welcome-without-data/welcome-without-data.component';
+import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
+import {FormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
     WebhookPageComponent,
     DescriptionComponent,
     DetailsComponent,
-    RequestComponent,   
+    RequestComponent,
     SidebarComponent,
     SidebarSearchComponent,
     TitleToggleComponent,
@@ -30,15 +32,17 @@ import { WelcomeWithoutDataComponent } from './details/welcome/welcome-without-d
     WelcomeWithDataComponent,
     WelcomeWithoutDataComponent,
 
-    
+
   ],
   imports: [
     CommonModule,
     WebhookPageRoutingModule,
     WebhookCommonModule,
     OrderModule,
+    MonacoEditorModule,
+    FormsModule,
   ],
-  
-  
+
+
 })
 export class WebhookPageModule { }
