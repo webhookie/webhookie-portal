@@ -27,7 +27,7 @@ export class SubscriptionCallbackColumn extends BaseTableColumn<Subscription>{
 
 export class SubscriptionStatusColumn extends BaseTableColumn<Subscription>{
   value(data: Subscription): string {
-    return `<span class="${SubscriptionColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span>`;
+    return `<h5><span class="${SubscriptionColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span></h5>`;
   }
 
   clazz = "text-center"
@@ -35,21 +35,31 @@ export class SubscriptionStatusColumn extends BaseTableColumn<Subscription>{
 
 class SubscriptionColumnUtils {
   static classByStatus(subscription: Subscription): string {
+    let clazz;
     switch (subscription.statusUpdate.status) {
       case SubscriptionStatus.SAVED:
-        return "text-default";
+        clazz = "dark";
+        break;
       case SubscriptionStatus.VALIDATED:
-        return "text-primary";
+        clazz = "primary";
+        break;
       case SubscriptionStatus.ACTIVATED:
-        return "text-success";
+        clazz = "success";
+        break;
       case SubscriptionStatus.DEACTIVATED:
-        return "text-warning";
+        clazz = "warning";
+        break;
       case SubscriptionStatus.BLOCKED:
-        return "text-danger";
+        clazz = "danger";
+        break;
       case SubscriptionStatus.SUSPENDED:
-        return "text-danger";
+        clazz = "danger";
+        break;
       default:
-        return "text-default";
+        clazz = "dark";
+        break;
     }
+
+    return `badge badge-pill badge-${clazz} border-radius`;
   }
 }
