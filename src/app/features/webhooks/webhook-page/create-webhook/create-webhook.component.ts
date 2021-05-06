@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import "@asyncapi/web-component/lib/asyncapi-web-component";
-import {Entry} from "../../../../shared/components/search-list/search-list.component";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {WebhookGroupService} from "../../service/webhook-group.service";
-import {WebhookieService} from "../../../../shared/service/webhookie.service";
 import {debounceTime} from "rxjs/operators";
 
 @Component({
@@ -225,8 +222,6 @@ components:
           clientId: my-app-id
 `;
 
-  providerGroups: Array<Entry> = [];
-  consumerGroups: Array<Entry> = [];
   selectedProviderGroups!: FormControl;
   publicConsumerAccess!: FormControl;
   publicProviderAccess!: FormControl;
@@ -235,21 +230,11 @@ components:
   form!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private readonly webhookGroupService: WebhookGroupService,
-    private readonly webhookieService: WebhookieService
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.initForm()
-    this.webhookieService.fetchProviderGroups()
-      .subscribe(list => {
-        this.providerGroups = list.map(it => new Entry(it.id, it.name))
-      });
-    this.webhookieService.fetchConsumerGroups()
-      .subscribe(list => {
-        this.consumerGroups = list.map(it => new Entry(it.id, it.name))
-      });
     this.form.valueChanges
       .pipe(debounceTime(500))
       .subscribe(it => {
@@ -262,12 +247,11 @@ components:
   }
 
   private initForm() {
-    this.selectedProviderGroups = new FormControl("")
-    this.selectedConsumerGroups = new FormControl("")
-    this.publicProviderAccess = new FormControl("")
-    this.publicProviderAccess = new FormControl("")
-    this.spec = new FormControl("")
-    this.spec.setValue(this.code);
+    this.selectedProviderGroups = new FormControl({})
+    this.selectedConsumerGroups = new FormControl({})
+    this.publicConsumerAccess = new FormControl(false)
+    this.publicProviderAccess = new FormControl(false)
+    this.spec = new FormControl(this.code)
     const group = {
       "providerGroups": this.selectedProviderGroups,
       "consumerGroups": this.selectedConsumerGroups,

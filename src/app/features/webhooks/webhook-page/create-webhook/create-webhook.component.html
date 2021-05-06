@@ -4,25 +4,24 @@
   <div class="row">
     <div class="col-md-7 col-lg-6 consumer d-flex justify-content-between">
       <div class="webgroup-heading mb-3 mb-md-0">
-        <h5 class="font-weight-400 font14">Consumer group*</h5>
-        <div class="select-consumer d-flex align-items-center">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="publicConsumerAccessCheck" [formControl]="publicConsumerAccess">
-            <label class="custom-control-label font14" for="publicConsumerAccessCheck">Public</label>
-          </div>
-          <app-multi-select [control]="selectedConsumerGroups" [entries]="consumerGroups"></app-multi-select>
-        </div>
+        <app-webhook-access-group
+          id="publicConsumerAccess"
+          path="consumergroups"
+          [control]="selectedConsumerGroups"
+          title="Consumer groups"
+          [formGroup]="form"
+        >
+        </app-webhook-access-group>
       </div>
-
       <div class="webgroup-heading">
-        <h5 class="font-weight-400 font14">Provider group*</h5>
-        <div class="select-provider d-flex align-items-center">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="publicProviderAccessCheck" [formControl]="publicProviderAccess">
-            <label class="custom-control-label font14" for="publicProviderAccessCheck">Public</label>
-          </div>
-          <app-multi-select [control]="selectedProviderGroups" [entries]="providerGroups"></app-multi-select>
-        </div>
+        <app-webhook-access-group
+          id="publicProviderAccess"
+          path="providergroups"
+          [control]="selectedProviderGroups"
+          title="Provider groups"
+          [formGroup]="form"
+        >
+        </app-webhook-access-group>
       </div>
     </div>
     <div class="col-md-5 col-lg-6 d-flex justify-content-md-end align-items-end">

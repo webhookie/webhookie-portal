@@ -1,0 +1,9 @@
+<h5 class="font-weight-400 font14">{{title}}*</h5>
+<div class="select-consumer d-flex align-items-center">
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="{{id}}-Checkbox" [formControl]="pControl">
+    <label class="custom-control-label font14" for="{{id}}-Checkbox">Public</label>
+  </div>
+  <app-multi-select [id]="id" [control]="control" [entries]="groups"></app-multi-select>
+</div>
+

@@ -18,6 +18,7 @@ import { WelcomeWithoutDataComponent } from './details/welcome/welcome-without-d
 import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../../../shared/shared.module";
+import { WebhookAccessGroupComponent } from './create-webhook/webhook-access-group/webhook-access-group.component';
 @NgModule({
   declarations: [
     WebhookPageComponent,
@@ -32,6 +33,7 @@ import {SharedModule} from "../../../shared/shared.module";
     WelcomeComponent,
     WelcomeWithDataComponent,
     WelcomeWithoutDataComponent,
+    WebhookAccessGroupComponent,
 
 
   ],
