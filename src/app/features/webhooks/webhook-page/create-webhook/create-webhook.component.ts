@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import "@asyncapi/web-component/lib/asyncapi-web-component";
+import {Entry} from "../../../../shared/components/search-list/search-list.component";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {WebhookGroupService} from "../../service/webhook-group.service";
+import {WebhookieService} from "../../../../shared/service/webhookie.service";
+import {debounceTime} from "rxjs/operators";
 
 @Component({
   selector: 'app-create-webhook',
@@ -220,13 +225,60 @@ components:
           clientId: my-app-id
 `;
 
-  constructor() { }
+  providerGroups: Array<Entry> = [];
+  consumerGroups: Array<Entry> = [];
+  selectedProviderGroups!: FormControl;
+  publicConsumerAccess!: FormControl;
+  publicProviderAccess!: FormControl;
+  selectedConsumerGroups!: FormControl;
+  spec!: FormControl;
+  form!: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private readonly webhookGroupService: WebhookGroupService,
+    private readonly webhookieService: WebhookieService
+  ) { }
 
   ngOnInit(): void {
+    this.initForm()
+    this.webhookieService.fetchProviderGroups()
+      .subscribe(list => {
+        this.providerGroups = list.map(it => new Entry(it.id, it.name))
+      });
+    this.webhookieService.fetchConsumerGroups()
+      .subscribe(list => {
+        this.consumerGroups = list.map(it => new Entry(it.id, it.name))
+      });
+    this.form.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe(it => {
+        console.warn(it);
+      });
   }
 
   title(){
     return "Create new Webhook Group"
   }
 
+  private initForm() {
+    this.selectedProviderGroups = new FormControl("")
+    this.selectedConsumerGroups = new FormControl("")
+    this.publicProviderAccess = new FormControl("")
+    this.publicProviderAccess = new FormControl("")
+    this.spec = new FormControl("")
+    this.spec.setValue(this.code);
+    const group = {
+      "providerGroups": this.selectedProviderGroups,
+      "consumerGroups": this.selectedConsumerGroups,
+      "spec": this.spec,
+      "publicConsumerAccess": this.publicConsumerAccess,
+      "publicProviderAccess": this.publicProviderAccess,
+    }
+    this.form = this.formBuilder.group(group);
+  }
+
+  get specCode(): string {
+    return this.spec.value;
+  }
 }
