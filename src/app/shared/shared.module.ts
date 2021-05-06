@@ -21,6 +21,7 @@ import { TimestampFilterComponent } from './components/timestamp-filter/timestam
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import { ContextMenuComponent } from './components/generic-table/table-menu/context-menu.component';
 import { JsonViewerComponent } from './components/json-viewer/json-viewer.component';
+import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 
 let apiProvider;
 if (environment.mock) {
@@ -42,6 +43,7 @@ if (environment.mock) {
     SearchListComponent,
     TimestampFilterComponent,
     JsonViewerComponent,
+    MultiSelectComponent,
   ],
     imports: [
         FormsModule,
@@ -65,7 +67,8 @@ if (environment.mock) {
         RouterModule,
         SearchListComponent,
         ContextMenuComponent,
-        JsonViewerComponent
+        JsonViewerComponent,
+        MultiSelectComponent
     ],
   providers: [
     {
