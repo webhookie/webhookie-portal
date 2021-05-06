@@ -1,4 +1,4 @@
-export class ConsumerGroup {
+export class AccessGroup {
   constructor(
     public id: string,
     public name: string,

@@ -40,3 +40,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [auth0 ](https://community.auth0.com/t/understanding-how-the-audience-concept-actually-works/34011)
 - [autocomplete-json-with-angular](https://levelup.gitconnected.com/autocomplete-json-with-angular-and-monaco-f1dcc01e36e1)
 - [implicit-flow-authentication-using-angular](https://www.linkedin.com/pulse/implicit-flow-authentication-using-angular-ghanshyam-shukla)
+  
+# Handle 401 response and retry
+- [401-errors-on-a-global-basis](https://stackoverflow.com/questions/46795106/angular-2-how-to-handle-http-oauth-authtoken-401-errors-on-a-global-basis)
+- [angular-jwt](https://dev-academy.com/angular-jwt/)
+- [Support for refresh and retry upon 401/403 errors in interceptor](https://github.com/manfredsteyer/angular-oauth2-oidc/issues/414)

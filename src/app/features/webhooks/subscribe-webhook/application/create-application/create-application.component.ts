@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
-import {ConsumerGroup} from "../../../../../shared/model/consumer-group";
+import {AccessGroup} from "../../../../../shared/model/access-group";
 import {WebhookieService} from "../../../../../shared/service/webhookie.service";
 import {map} from "rxjs/operators";
 import {ApplicationService, CreateApplicationRequest} from "../../../service/application.service";
@@ -19,10 +19,10 @@ import {ModalService} from "../../../../../shared/service/modal.service";
 })
 export class CreateApplicationComponent implements OnInit {
   // @ts-ignore
-  readonly _consumerGroups$: BehaviorSubject<Array<ConsumerGroup>> = new BehaviorSubject([]);
+  readonly _consumerGroups$: BehaviorSubject<Array<AccessGroup>> = new BehaviorSubject([]);
 
   // @ts-ignore
-  readonly _selectedGroups$: BehaviorSubject<Array<ConsumerGroup>> = new BehaviorSubject([]);
+  readonly _selectedGroups$: BehaviorSubject<Array<AccessGroup>> = new BehaviorSubject([]);
 
   requestedName: string = ""
   requestedDesc?: string
@@ -67,10 +67,10 @@ export class CreateApplicationComponent implements OnInit {
       .subscribe(successHandler, errorHandler)
   }
 
-  isGroupSelected$(group: ConsumerGroup): Observable<boolean> {
+  isGroupSelected$(group: AccessGroup): Observable<boolean> {
     return this._selectedGroups$.asObservable()
       .pipe(
-        map((list: Array<ConsumerGroup>) => list.indexOf(group)),
+        map((list: Array<AccessGroup>) => list.indexOf(group)),
         map(it => it != -1)
       )
   }
@@ -87,7 +87,7 @@ export class CreateApplicationComponent implements OnInit {
     return selectedGroups === allGroups;
   }
 
-  selectGroup(group: ConsumerGroup) {
+  selectGroup(group: AccessGroup) {
     let newValue = this._selectedGroups$.value
     if (newValue.indexOf(group) == -1) {
       newValue.push(group);
@@ -116,7 +116,7 @@ export class CreateApplicationComponent implements OnInit {
     */
   }
 
-  removeGroup(group: ConsumerGroup) {
+  removeGroup(group: AccessGroup) {
     let oldValue = this._selectedGroups$.value;
     let newValue = oldValue.filter(it => it.id != group.id)
     this._selectedGroups$.next(newValue);

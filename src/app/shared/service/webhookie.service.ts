@@ -1,8 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
 import {LogService} from "./log.service";
-import {ConsumerGroupAdapter} from "../adapter/consumer-group.adapter";
+import {AccessGroupAdapter} from "../adapter/access-group-adapter.service";
 import {Observable} from "rxjs";
-import {ConsumerGroup} from "../model/consumer-group";
+import {AccessGroup} from "../model/access-group";
 import {Api} from "../api";
 import {map} from "rxjs/operators";
 
@@ -14,12 +14,20 @@ export class WebhookieService {
   constructor(
     private readonly log: LogService,
     @Inject("Api") private readonly api: Api,
-    private readonly consumerGroupAdapter: ConsumerGroupAdapter
+    private readonly consumerGroupAdapter: AccessGroupAdapter
   ) {
   }
 
-  fetchConsumerGroups(): Observable<Array<ConsumerGroup>> {
-    return this.api.json("/admin/consumergroups")
+  fetchConsumerGroups(): Observable<Array<AccessGroup>> {
+    return this.fetchAccessGroups("consumergroups")
+  }
+
+  fetchProviderGroups(): Observable<Array<AccessGroup>> {
+    return this.fetchAccessGroups("providergroups")
+  }
+
+  private fetchAccessGroups(uri: string): Observable<Array<AccessGroup>> {
+    return this.api.json(`/admin/${uri}`)
       .pipe(
         map(list => list.map((it: any) => this.consumerGroupAdapter.adapt(it)))
       )
