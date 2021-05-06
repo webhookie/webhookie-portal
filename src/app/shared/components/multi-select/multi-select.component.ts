@@ -12,6 +12,7 @@ import {skip} from "rxjs/operators";
 export class MultiSelectComponent implements OnInit {
   @Input() control!: FormControl
   @Input() entries!: Array<Entry>;
+  @Input() id!: string;
 
   private readonly _selectedItems$: BehaviorSubject<Set<string>> = new BehaviorSubject(new Set<string>());
 
