@@ -16,7 +16,8 @@ import { WelcomeComponent } from './details/welcome/welcome.component';
 import { WelcomeWithDataComponent } from './details/welcome/welcome-with-data/welcome-with-data.component';
 import { WelcomeWithoutDataComponent } from './details/welcome/welcome-without-data/welcome-without-data.component';
 import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {SharedModule} from "../../../shared/shared.module";
 @NgModule({
   declarations: [
     WebhookPageComponent,
@@ -41,6 +42,8 @@ import {FormsModule} from "@angular/forms";
     OrderModule,
     MonacoEditorModule,
     FormsModule,
+    SharedModule,
+    ReactiveFormsModule,
   ],
 
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
