@@ -4,6 +4,7 @@ import {TableFilter} from "../../model/table/filter/table-filter";
 import {FormControl} from "@angular/forms";
 import {BehaviorSubject} from "rxjs";
 import {skip} from "rxjs/operators";
+import {DropdownEntry} from "../../model/dropdownEntry";
 
 @Component({
   selector: 'app-search-list',
@@ -15,7 +16,7 @@ export class SearchListComponent implements OnInit {
   @Input() control!: FormControl
 
   private readonly _selectedItems$: BehaviorSubject<Set<string>> = new BehaviorSubject(new Set<string>());
-  entries!: Array<Entry>;
+  entries!: Array<DropdownEntry>;
 
   constructor() { }
 
@@ -35,7 +36,7 @@ export class SearchListComponent implements OnInit {
       set = this.filter.list;
     }
 
-    this.entries = Object.keys(set).map(it => new Entry(it, set[it]))
+    this.entries = Object.keys(set).map(it => new DropdownEntry(it, set[it]))
   }
 
   toggleAll($event: Event) {
@@ -61,7 +62,7 @@ export class SearchListComponent implements OnInit {
     $event.preventDefault();
   }
 
-  checkedItem(entry: Entry){
+  checkedItem(entry: DropdownEntry){
     return this.selectedItems.has(entry.key);
   }
 
@@ -78,10 +79,3 @@ export class SearchListComponent implements OnInit {
   }
 }
 
-export class Entry {
-  constructor(
-    public key: string,
-    public value: any
-  ) {
-  }
-}

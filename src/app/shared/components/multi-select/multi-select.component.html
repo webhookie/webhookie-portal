@@ -19,7 +19,7 @@
         <label class="custom-control-label" for="{{id}}-All">Select All</label>
       </div>
       <div class="custom-control custom-checkbox" *ngFor="let entry of entries"
-           (click)="toggle(entry.key, $event)">
+           (click)="toggle(entry, $event)">
         <input type="checkbox" class="custom-control-input" id="{{entry.key}}" name="example1" [checked]="checkedItem(entry)">
         <label class="custom-control-label" for="{{entry.key}}">{{entry.value}}</label>
       </div>

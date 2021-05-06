@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {BehaviorSubject} from "rxjs";
-import {Entry} from "../search-list/search-list.component";
 import {skip} from "rxjs/operators";
+import {DropdownEntry} from "../../model/dropdownEntry";
 
 @Component({
   selector: 'app-multi-select',
@@ -11,10 +11,10 @@ import {skip} from "rxjs/operators";
 })
 export class MultiSelectComponent implements OnInit {
   @Input() control!: FormControl
-  @Input() entries!: Array<Entry>;
+  @Input() entries!: Array<DropdownEntry>;
   @Input() id!: string;
 
-  private readonly _selectedItems$: BehaviorSubject<Set<string>> = new BehaviorSubject(new Set<string>());
+  private readonly _selectedItems$: BehaviorSubject<Set<DropdownEntry>> = new BehaviorSubject(new Set<DropdownEntry>());
 
   constructor() { }
 
@@ -22,23 +22,23 @@ export class MultiSelectComponent implements OnInit {
     this._selectedItems$
       .pipe(skip(1))
       .subscribe(it => {
-        this.control.setValue(it);
+        this.control.setValue(Array.from(it));
       });
   }
 
   toggleAll($event: Event) {
     if(this.allSelected) {
-      this._selectedItems$.next(new Set<string>());
+      this._selectedItems$.next(new Set<DropdownEntry>());
     } else {
-      let items: Set<string> = this.selectedItems;
+      let items: Set<DropdownEntry> = this.selectedItems;
       this.entries
-        .forEach(it => items.add(it.key));
+        .forEach(it => items.add(it));
       this._selectedItems$.next(items);
     }
     $event.preventDefault();
   }
 
-  toggle(key: string, $event: MouseEvent){
+  toggle(key: DropdownEntry, $event: MouseEvent){
     let items = this.selectedItems;
     if(items.has(key)) {
       items.delete(key);
@@ -49,11 +49,11 @@ export class MultiSelectComponent implements OnInit {
     $event.preventDefault();
   }
 
-  checkedItem(entry: Entry){
-    return this.selectedItems.has(entry.key);
+  checkedItem(entry: DropdownEntry){
+    return this.selectedItems.has(entry);
   }
 
-  get selectedItems(): Set<string> {
+  get selectedItems(): Set<DropdownEntry> {
     return this._selectedItems$.value;
   }
 

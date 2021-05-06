@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {Entry} from "../../../../../shared/components/search-list/search-list.component";
 import {WebhookieService} from "../../../../../shared/service/webhookie.service";
+import {DropdownEntry} from "../../../../../shared/model/dropdownEntry";
 
 @Component({
   selector: 'app-webhook-access-group',
@@ -14,7 +14,7 @@ export class WebhookAccessGroupComponent implements OnInit {
   @Input() path!: string;
   @Input() id!: string;
   @Input() formGroup!: FormGroup
-  groups: Array<Entry> = [];
+  groups: Array<DropdownEntry> = [];
 
   get pControl(): FormControl {
      return this.formGroup.controls[this.id] as FormControl
@@ -27,7 +27,7 @@ export class WebhookAccessGroupComponent implements OnInit {
   ngOnInit(): void {
     this.webhookieService.fetchAccessGroups(this.path)
       .subscribe(list => {
-        this.groups = list.map(it => new Entry(it.id, it.name))
+        this.groups = list.map(it => new DropdownEntry(it.id, it.name))
       });
   }
 }
