@@ -26,3 +26,11 @@
     </div>
   </div>
 </div>
+<div class="item-value">
+  <ul class="d-flex align-items-center mt-3">
+    <li *ngFor="let item of selectedItems">
+      <span>{{item.value}}</span><img (click)="toggle(item, $event)" alt="" src="assets/images/Pill_delete.svg">
+    </li>
+  </ul>
+</div>
+
