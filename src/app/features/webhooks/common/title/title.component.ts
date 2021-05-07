@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-
+import {ModalService} from "../../../../shared/service/modal.service";
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
@@ -10,7 +10,7 @@ export class TitleComponent implements OnInit {
   // @ts-ignore
   @Input() headerTitle: string;
 
-  constructor() {
+  constructor(public modalService:ModalService) {
   }
 
   ngOnInit(): void {
