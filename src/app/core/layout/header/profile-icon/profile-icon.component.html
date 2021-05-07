@@ -1,4 +1,4 @@
-<div class="media ml-2 profile-icon align-items-center">
+<div class="media ml-2 profile-icon align-items-center" *ngIf="authService.loggedIn">
     <div class="media-left mr-2">
         <img [src]="picture" class="img-fluid profile-image rounded-circle"/>
     </div>
