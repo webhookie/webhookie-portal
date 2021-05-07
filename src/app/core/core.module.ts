@@ -16,6 +16,7 @@ import {LoginGetStartedComponent} from './layout/header/login-get-started/login-
 import {BreadcrumbModule} from 'angular-crumbs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {FormsModule} from '@angular/forms';
+import { ProfileIconComponent } from './layout/header/profile-icon/profile-icon.component';
 
 @NgModule({
   providers: [
@@ -29,6 +30,7 @@ import {FormsModule} from '@angular/forms';
     MenuComponent,
     SearchComponent,
     LoginGetStartedComponent,
+    ProfileIconComponent,
   ],
   exports: [
     MainLayoutComponent,
@@ -39,6 +41,7 @@ import {FormsModule} from '@angular/forms';
     MenuComponent,
     SearchComponent,
     LoginGetStartedComponent,
+    ProfileIconComponent
   ],
   imports: [
     CommonModule,

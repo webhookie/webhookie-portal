@@ -11,9 +11,9 @@ export class ModalService {
     private readonly modalService: BsModalService
   ) { }
 
-  open(template: TemplateRef<any>) {
+  open(template: TemplateRef<any>, extraClass: string = "x-large-modal") {
     this.modalRef = this.modalService.show(template, {
-      class: 'modal-dialog-centered modal-w x-large-modal',
+      class: `modal-dialog-centered modal-w ${extraClass}`,
       backdrop: true,
       ignoreBackdropClick: true
     });

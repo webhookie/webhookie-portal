@@ -170,6 +170,13 @@ h1 {
 .x-large-modal {
     max-width: 768px;
 }
+.popup-6x4 {
+    max-width: 600px;
+}
+.popup-6x4 .modal-content{
+    height:400px;
+    overflow:auto;
+}
 
 .hide-after::after {
     content: "";
@@ -561,6 +568,13 @@ input:focus{
     margin-right: 0;
 }
 
+.btn-primary-outline {
+    color: #0151CC;
+    border: 1px solid #0151CC;
+}
+.btn-primary-outline:hover {
+    color: #0151CC;
+}
 
 
 
