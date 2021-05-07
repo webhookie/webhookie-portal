@@ -27,7 +27,7 @@ export class WebhookAccessGroupComponent implements OnInit {
   ngOnInit(): void {
     this.webhookieService.fetchAccessGroups(this.path)
       .subscribe(list => {
-        this.groups = list.map(it => new DropdownEntry(it.id, it.name))
+        this.groups = list.map(it => new DropdownEntry(it.iamGroupName, it.name))
       });
   }
 }

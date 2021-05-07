@@ -28,12 +28,12 @@
       <div class="dot-buttons">
         <ul class="d-flex mb-0">
           <li>
-            <button class="btn btn-default mr-2">
+            <button class="btn btn-default mr-2" (click)="save($event)" [disabled]="!form.dirty">
               Save & finish later
             </button>
           </li>
           <li>
-            <button class="btn btn btn-primary">
+            <button class="btn btn btn-primary disabled" disabled>
               Publish
             </button>
           </li>

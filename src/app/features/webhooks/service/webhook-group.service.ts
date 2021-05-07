@@ -5,7 +5,8 @@ import {map, tap} from "rxjs/operators";
 import {WebhookGroupAdapter} from "./adapter/webhook-group.adapter";
 import {WebhookGroup} from "../model/webhook-group";
 import {Api} from "../../../shared/api";
-import {HttpParams} from "@angular/common/http";
+import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
+import {ApiService} from "../../../shared/service/api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,11 @@ export class WebhookGroupService {
     const params = new HttpParams().set("topic", topic)
     return this.api.json(uri, params)
       .pipe(map(it => this.webhookGroupAdapter.adapt(it)))
+  }
+
+  create(request: any): Observable<WebhookGroup> {
+    this.log.info(`Creating WebhookGroup...`);
+    return this.api.post(this.WEBHOOKGROUPS_URI, request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
+      .pipe(map((it: HttpResponse<any>) => this.webhookGroupAdapter.adapt(it.body)));
   }
 }
