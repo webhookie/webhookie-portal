@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../../../shared/service/auth.service";
 
 @Component({
   selector: 'app-profile-icon',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileIconComponent implements OnInit {
 
-  constructor() { }
+  constructor(readonly authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
+  get picture(): string {
+    return this.authService.claims["picture"]
+  }
+
+  get name(): string {
+    return this.authService.claims["name"]
+  }
 }
