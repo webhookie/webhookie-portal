@@ -1,5 +1,11 @@
 <app-header></app-header>
 <app-breadcrumbs></app-breadcrumbs>
 <router-outlet></router-outlet>
-<ng-http-loader></ng-http-loader>
+<ng-http-loader
+  [extraDuration]="500"
+  backgroundColor="#0062cc"
+  [opacity]="'.6'"
+  [style]="spinnerStyle.skRotatingPlane"
+>
+</ng-http-loader>
 <app-footer></app-footer>

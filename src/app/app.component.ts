@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ConfigService} from "./shared/service/config.service";
+import {Spinkit} from "ng-http-loader";
 
 @Component({
   selector: 'webhookie-root',
@@ -8,6 +9,7 @@ import {ConfigService} from "./shared/service/config.service";
 })
 export class AppComponent {
   title = 'webhook';
+  spinnerStyle = Spinkit;
   constructor(private readonly configService: ConfigService) {
     this.configService.read()
   }
