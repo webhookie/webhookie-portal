@@ -3,9 +3,8 @@ import {CommonModule} from '@angular/common';
 import {MainLayoutComponent} from './layout/main-layout/main-layout.component';
 import {BrowserModule} from "@angular/platform-browser";
 import {RouterModule} from "@angular/router";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import {OAuthModule} from "angular-oauth2-oidc";
-import {HttpTokenInterceptor} from "./http.token.interceptor";
 import {HeaderComponent} from './layout/header/header.component';
 import {FooterComponent} from './layout/footer/footer.component';
 import {LogoComponent} from './layout/header/logo/logo.component';
@@ -19,9 +18,6 @@ import {FormsModule} from '@angular/forms';
 import { ProfileIconComponent } from './layout/header/profile-icon/profile-icon.component';
 
 @NgModule({
-  providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
-  ],
   declarations: [MainLayoutComponent,
     HeaderComponent,
     FooterComponent,

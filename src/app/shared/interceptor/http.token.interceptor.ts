@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {Observable, throwError as observableThrowError} from 'rxjs';
-import {AuthService} from "../shared/service/auth.service";
-import {LogService} from "../shared/service/log.service";
+import {AuthService} from "../service/auth.service";
+import {LogService} from "../service/log.service";
+import {environment} from "../../../environments/environment";
 
 
 @Injectable()
@@ -25,6 +26,11 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     if (req.url.includes("/public/")) {
       return next.handle(req)
     }
+    if (!req.url.includes(environment.apiUrl)) {
+      return next.handle(req)
+    }
+
+    this.log.debug(`Adding token to the request: ${req.url}`)
 
     const headersConfig = {};
     const token = this.authService.getToken();

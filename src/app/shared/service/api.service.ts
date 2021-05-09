@@ -77,11 +77,8 @@ export class ApiService implements Api {
       };
     }
     let url = `${this.apiUrl}${uri}`;
-    let strBody = (params.get("Content-Type") == "application/json") ? JSON.stringify(body) : body;
-    this.log.debug(`POST json: '${url}', '${strBody}'`)
     return this.http
       .post(url, body, options)
-      .pipe(tap(it => this.log.debug(it)))
       // @ts-ignore
       .pipe(catchError(err => this.formatErrors(err)));
   }
@@ -100,7 +97,6 @@ export class ApiService implements Api {
     }
     let url = `${this.apiUrl}${uri}`;
 
-    this.log.debug(`GET json: '${url}', ${params.toString()}`)
     return this.http
       .get(url, option)
       .pipe(catchError(err => this.formatErrors(err)));

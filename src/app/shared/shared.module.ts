@@ -24,6 +24,9 @@ import {JsonViewerComponent} from './components/json-viewer/json-viewer.componen
 import {MultiSelectComponent} from './components/multi-select/multi-select.component';
 import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
 import {ToastrModule} from "ngx-toastr";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HttpTokenInterceptor} from "./interceptor/http.token.interceptor";
+import {HttpLogInterceptor} from "./interceptor/http-log.interceptor";
 
 let apiProvider;
 if (environment.mock) {
@@ -76,6 +79,16 @@ if (environment.mock) {
     MultiSelectComponent
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpTokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpLogInterceptor,
+      multi: true
+    },
     {
       provide: 'Api',
       useClass: apiProvider
