@@ -27,6 +27,7 @@ import {ToastrModule} from "ngx-toastr";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {HttpTokenInterceptor} from "./interceptor/http.token.interceptor";
 import {HttpLogInterceptor} from "./interceptor/http-log.interceptor";
+import {HttpErrorInterceptor} from "./interceptor/http-error.interceptor";
 
 let apiProvider;
 if (environment.mock) {
@@ -87,6 +88,11 @@ if (environment.mock) {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpLogInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true
     },
     {

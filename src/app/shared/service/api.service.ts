@@ -1,15 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
-import {EMPTY, Observable, throwError} from "rxjs";
-import {catchError, tap} from "rxjs/operators";
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
+import {Observable} from "rxjs";
 import {LogService} from "./log.service";
-import {AuthService} from "./auth.service";
 import {Api} from "../api";
 import {environment} from "../../../environments/environment";
-import {BadRequestError} from "../error/bad-request-error";
-import {WebhookieServerError} from "../error/webhookie-server-error";
-import {DuplicateEntityError} from "../error/duplicate-entity-error";
-import {WebhookieError} from "../error/webhookie-error";
 
 @Injectable({
   providedIn: 'root'
@@ -23,40 +17,7 @@ export class ApiService implements Api {
   constructor(
     private readonly log: LogService,
     private readonly http: HttpClient,
-    private readonly authService: AuthService
   ) {
-  }
-
-  private formatErrors(error: any) {
-    if(error == 401) {
-      this.authService.refreshToken();
-      return EMPTY
-    }
-
-    let result;
-    if(error.name == HttpErrorResponse.name) {
-      let httpError: HttpErrorResponse = error as HttpErrorResponse
-      switch (httpError.status) {
-        case 400:
-          result = new BadRequestError(httpError);
-          break;
-        case 401:
-          result = new WebhookieServerError(httpError);
-          break;
-        case 409:
-          result = new DuplicateEntityError(httpError);
-          break;
-        default:
-          result = new WebhookieServerError(httpError);
-      }
-    } else {
-      result = new WebhookieError({
-        message: error.message,
-        name: error.name,
-        stack: error.stack
-      });
-    }
-    return throwError(result);
   }
 
   //TODO: refactor
@@ -77,10 +38,8 @@ export class ApiService implements Api {
       };
     }
     let url = `${this.apiUrl}${uri}`;
-    return this.http
-      .post(url, body, options)
-      // @ts-ignore
-      .pipe(catchError(err => this.formatErrors(err)));
+    // @ts-ignore
+    return this.http.post(url, body, options)
   }
 
   public json(
@@ -97,9 +56,7 @@ export class ApiService implements Api {
     }
     let url = `${this.apiUrl}${uri}`;
 
-    return this.http
-      .get(url, option)
-      .pipe(catchError(err => this.formatErrors(err)));
+    return this.http.get(url, option)
   }
 }
 
