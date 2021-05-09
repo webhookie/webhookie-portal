@@ -6,6 +6,7 @@ import {DropdownEntry} from "../../../../shared/model/dropdownEntry";
 import {WebhookGroupService} from "../../service/webhook-group.service";
 import {RouterService} from "../../../../shared/service/router.service";
 import {BadRequestError} from "../../../../shared/error/bad-request-error";
+import {AlertService} from "../../../../shared/service/alert.service";
 
 @Component({
   selector: 'app-create-webhook',
@@ -25,6 +26,7 @@ export class CreateWebhookComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private readonly webhookGroupService: WebhookGroupService,
+    private readonly alertService: AlertService,
     private readonly router: RouterService
   ) { }
 
@@ -77,8 +79,8 @@ export class CreateWebhookComponent implements OnInit {
       .subscribe(
         () => this.router.navigateTo("/webhooks"),
         (err: BadRequestError) => {
-          console.warn(err);
-          // this.alertService.error(err.message, err.name);
+          let msg = `<p></p><div>${err.message}</div><p><div>${err.body?.message}</div></p> `
+          this.alertService.error(msg, err.name, {enableHtml: true, positionClass: "toast-center-center"});
         }
       );
 

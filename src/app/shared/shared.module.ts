@@ -17,12 +17,13 @@ import {DateTimePickerComponent} from './components/date-time-picker/date-time-p
 import {SortButtonsComponent} from './components/sort-buttons/sort-buttons.component';
 import {SearchListComponent} from './components/search-list/search-list.component';
 import {GenericTableComponent} from "./components/generic-table/generic-table.component";
-import { TimestampFilterComponent } from './components/timestamp-filter/timestamp-filter.component';
+import {TimestampFilterComponent} from './components/timestamp-filter/timestamp-filter.component';
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
-import { ContextMenuComponent } from './components/generic-table/table-menu/context-menu.component';
-import { JsonViewerComponent } from './components/json-viewer/json-viewer.component';
-import { MultiSelectComponent } from './components/multi-select/multi-select.component';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import {ContextMenuComponent} from './components/generic-table/table-menu/context-menu.component';
+import {JsonViewerComponent} from './components/json-viewer/json-viewer.component';
+import {MultiSelectComponent} from './components/multi-select/multi-select.component';
+import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
+import {ToastrModule} from "ngx-toastr";
 
 let apiProvider;
 if (environment.mock) {
@@ -47,32 +48,33 @@ if (environment.mock) {
     ConfirmDialogComponent,
     MultiSelectComponent,
   ],
-    imports: [
-        FormsModule,
-        CommonModule,
-        RouterModule,
-        NgxSpinnerModule,
-        BsDatepickerModule.forRoot(),
-        TimepickerModule.forRoot(),
-        PopoverModule.forRoot(),
-        ReactiveFormsModule,
-        InfiniteScrollModule
-    ],
-    exports: [
-        GenericTableComponent,
-        SpinnerComponent,
-        DateTimePickerComponent,
-        DatepickerComponent,
-        TimepickerComponent,
-        SortButtonsComponent,
-        CommonModule,
-        RouterModule,
-        SearchListComponent,
-        ContextMenuComponent,
-        JsonViewerComponent,
-        ConfirmDialogComponent,
-        MultiSelectComponent
-    ],
+  imports: [
+    FormsModule,
+    CommonModule,
+    RouterModule,
+    NgxSpinnerModule,
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
+    PopoverModule.forRoot(),
+    ReactiveFormsModule,
+    InfiniteScrollModule,
+    ToastrModule.forRoot()
+  ],
+  exports: [
+    GenericTableComponent,
+    SpinnerComponent,
+    DateTimePickerComponent,
+    DatepickerComponent,
+    TimepickerComponent,
+    SortButtonsComponent,
+    CommonModule,
+    RouterModule,
+    SearchListComponent,
+    ContextMenuComponent,
+    JsonViewerComponent,
+    ConfirmDialogComponent,
+    MultiSelectComponent
+  ],
   providers: [
     {
       provide: 'Api',
