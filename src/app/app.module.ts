@@ -19,6 +19,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { AdministrationModule } from './features/administration/administration.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import {NgHttpLoaderModule} from "ng-http-loader";
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     CarouselModule,
     SlickCarouselModule,
     AppRoutingModule,
+    NgHttpLoaderModule.forRoot(),
   ],
 
   providers: [BsModalRef],
