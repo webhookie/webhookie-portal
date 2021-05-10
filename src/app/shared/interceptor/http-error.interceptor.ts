@@ -8,14 +8,14 @@ import {WebhookieServerError} from "../error/webhookie-server-error";
 import {DuplicateEntityError} from "../error/duplicate-entity-error";
 import {WebhookieError} from "../error/webhookie-error";
 import {AuthService} from "../service/auth.service";
-import {AlertService} from "../service/alert.service";
+import {ToastService} from "../service/toast.service";
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
   constructor(
     private readonly log: LogService,
-    private readonly alertService: AlertService,
+    private readonly toastService: ToastService,
     private readonly authService: AuthService
   ) {
   }
@@ -28,6 +28,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
     let result;
     let msg;
+    let header;
     if(error.name == HttpErrorResponse.name) {
       let httpError: HttpErrorResponse = error as HttpErrorResponse
       switch (httpError.status) {
@@ -48,6 +49,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           msg = `<p></p><div>${result.message}</div><p><div>${result.body?.message}</div></p>`;
           break;
       }
+      header = result.name
     } else {
       result = new WebhookieError({
         message: error.message,
@@ -55,9 +57,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         stack: error.stack
       });
       msg = `<p></p><div>${result.message}</div>`;
+      header = "Unknown Error";
     }
 
-    this.alertService.error(msg, result.name, {enableHtml: true, positionClass: "toast-center-center"});
+    this.toastService.error(msg, header, { delay: 10000 });
     return throwError(result);
   }
 

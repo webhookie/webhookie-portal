@@ -15,7 +15,6 @@ import {RouterModule} from '@angular/router';
 import {CreateApplicationComponent} from './subscribe-webhook/application/create-application/create-application.component';
 import {CreateCallbackComponent} from './subscribe-webhook/callback/create-callback/create-callback.component';
 import {DotMenuComponent} from 'src/app/shared/components/dot-menu/dot-menu.component';
-import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -31,7 +30,6 @@ import {ToastrModule} from "ngx-toastr";
     DotMenuComponent
   ],
   imports: [
-    ToastrModule.forRoot(),
     CommonModule,
     RouterModule,
     WebhooksRoutingModule,

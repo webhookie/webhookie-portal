@@ -52,7 +52,6 @@
               }
             ],
             "styles": [
-              "node_modules/ngx-toastr/toastr.css",
               "node_modules/slick-carousel/slick/slick.scss",
               "node_modules/slick-carousel/slick/slick-theme.scss",
               "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",

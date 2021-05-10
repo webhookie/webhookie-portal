@@ -23,11 +23,12 @@ import {ContextMenuComponent} from './components/generic-table/table-menu/contex
 import {JsonViewerComponent} from './components/json-viewer/json-viewer.component';
 import {MultiSelectComponent} from './components/multi-select/multi-select.component';
 import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
-import {ToastrModule} from "ngx-toastr";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {HttpTokenInterceptor} from "./interceptor/http.token.interceptor";
 import {HttpLogInterceptor} from "./interceptor/http-log.interceptor";
 import {HttpErrorInterceptor} from "./interceptor/http-error.interceptor";
+import { ToastsContainerComponent } from './components/toasts-container/toasts-container.component';
+import {NgbAlertModule, NgbToastModule} from "@ng-bootstrap/ng-bootstrap";
 
 let apiProvider;
 if (environment.mock) {
@@ -51,6 +52,7 @@ if (environment.mock) {
     JsonViewerComponent,
     ConfirmDialogComponent,
     MultiSelectComponent,
+    ToastsContainerComponent,
   ],
   imports: [
     FormsModule,
@@ -62,7 +64,8 @@ if (environment.mock) {
     PopoverModule.forRoot(),
     ReactiveFormsModule,
     InfiniteScrollModule,
-    ToastrModule.forRoot()
+    NgbToastModule,
+    NgbAlertModule
   ],
   exports: [
     GenericTableComponent,
@@ -77,7 +80,8 @@ if (environment.mock) {
     ContextMenuComponent,
     JsonViewerComponent,
     ConfirmDialogComponent,
-    MultiSelectComponent
+    MultiSelectComponent,
+    ToastsContainerComponent
   ],
   providers: [
     {
