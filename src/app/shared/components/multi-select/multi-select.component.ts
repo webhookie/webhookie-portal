@@ -49,6 +49,10 @@ export class MultiSelectComponent implements OnInit {
     $event.preventDefault();
   }
 
+  clearSelection() {
+    this._selectedItems$.next(new Set<DropdownEntry>());
+  }
+
   checkedItem(entry: DropdownEntry){
     return this.selectedItems.has(entry);
   }
