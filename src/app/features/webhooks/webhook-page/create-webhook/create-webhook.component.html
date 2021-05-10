@@ -1,15 +1,15 @@
 <app-title [headerTitle]="title()"></app-title>
 <div class="container-fluid create-webgroup">
-  <form [formGroup]="form">
+  <form [formGroup]="webhookForm.form">
   <div class="row">
     <div class="col-md-7 col-lg-6 consumer d-flex justify-content-between">
       <div class="webgroup-heading mb-3 mb-md-0">
         <app-webhook-access-group
           id="publicConsumerAccess"
           path="consumergroups"
-          [control]="selectedConsumerGroups"
+          [control]="webhookForm.selectedConsumerGroups"
           title="Consumer groups"
-          [formGroup]="form"
+          [formGroup]="webhookForm.form"
         >
         </app-webhook-access-group>
       </div>
@@ -17,9 +17,9 @@
         <app-webhook-access-group
           id="publicProviderAccess"
           path="providergroups"
-          [control]="selectedProviderGroups"
+          [control]="webhookForm.selectedProviderGroups"
           title="Provider groups"
-          [formGroup]="form"
+          [formGroup]="webhookForm.form"
         >
         </app-webhook-access-group>
       </div>

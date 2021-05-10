@@ -8,3 +8,13 @@ export class AccessGroup {
   ) {
   }
 }
+
+export enum ConsumerAccess {
+  PUBLIC = "PUBLIC",
+  RESTRICTED = "RESTRICTED"
+}
+
+export enum ProviderAccess {
+  ALL = "ALL",
+  RESTRICTED = "RESTRICTED"
+}
