@@ -9,6 +9,7 @@ import {DuplicateEntityError} from "../error/duplicate-entity-error";
 import {WebhookieError} from "../error/webhookie-error";
 import {AuthService} from "../service/auth.service";
 import {ToastService} from "../service/toast.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -20,7 +21,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ) {
   }
 
-  private formatErrors(error: any) {
+  private formatErrors(error: any, request: HttpRequest<unknown>) {
     if(error == 401) {
       this.authService.refreshToken();
       return EMPTY
@@ -34,21 +35,18 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       switch (httpError.status) {
         case 400:
           result = new BadRequestError(httpError);
-          msg = `<p></p><div>${result.message}</div><p><div>${result.body?.message}</div></p>`;
           break;
         case 401:
           result = new WebhookieServerError(httpError);
-          msg = `<p></p><div>${result.message}</div><p><div>${result.body?.message}</div></p>`;
           break;
         case 409:
           result = new DuplicateEntityError(httpError);
-          msg = `<p></p><div>${result.message}</div><p><div>${result.body?.message}</div></p>`;
           break;
         default:
           result = new WebhookieServerError(httpError);
-          msg = `<p></p><div>${result.message}</div><p><div>${result.body?.message}</div></p>`;
           break;
       }
+      msg = `<p></p><div>${result.message}</div><p><div>${result.body?.message}</div></p>`;
       header = result.name
     } else {
       result = new WebhookieError({
@@ -60,12 +58,24 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       header = "Unknown Error";
     }
 
-    this.toastService.error(msg, header, { delay: 10000 });
+    this.showError(request, msg, header);
+
     return throwError(result);
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request)
-      .pipe(catchError(err => this.formatErrors(err)));
+      .pipe(catchError(err => this.formatErrors(err, request)));
   }
+
+  showError(request: HttpRequest<unknown>, msg: string, header: string) {
+    let reqId = `${request.method} ${request.url.replace(environment.apiUrl, "")}`
+    if(!this.ignoreRequests.has(reqId)) {
+      this.toastService.error(msg, header, { delay: 10000 });
+    }
+  }
+
+  ignoreRequests: Set<string> = new Set<string>([
+    "POST /webhookgroups"
+  ]);
 }
