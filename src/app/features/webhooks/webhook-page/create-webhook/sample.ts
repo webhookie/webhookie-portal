@@ -1,6 +1,5 @@
 export class SampleYML {
-  static spec = `
-asyncapi: '2.0.0'
+  static spec = `asyncapi: '2.0.0'
 info:
   title: Streetlights API
   version: '1.0.0'
