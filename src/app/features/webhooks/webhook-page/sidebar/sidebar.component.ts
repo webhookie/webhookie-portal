@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ApplicationContext} from "../../../../shared/application.context";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,10 +8,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() {
+  constructor(private readonly appCtx: ApplicationContext) {
   }
 
   ngOnInit(): void {
+  }
+
+  get hasProviderRole(): boolean {
+    return this.appCtx.hasProviderRole
   }
 
 }
