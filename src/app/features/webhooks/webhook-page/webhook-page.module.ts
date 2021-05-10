@@ -19,6 +19,7 @@ import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../../../shared/shared.module";
 import { WebhookAccessGroupComponent } from './create-webhook/webhook-access-group/webhook-access-group.component';
+import {NgbAlertModule, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 @NgModule({
   declarations: [
     WebhookPageComponent,
@@ -46,6 +47,8 @@ import { WebhookAccessGroupComponent } from './create-webhook/webhook-access-gro
     FormsModule,
     SharedModule,
     ReactiveFormsModule,
+    NgbAlertModule,
+    NgbCollapseModule,
   ],
 
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

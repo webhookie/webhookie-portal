@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import "@asyncapi/web-component/lib/asyncapi-web-component";
 import {FormBuilder} from "@angular/forms";
-import {debounceTime, tap} from "rxjs/operators";
+import {debounceTime} from "rxjs/operators";
 import {WebhookGroupService} from "../../service/webhook-group.service";
 import {RouterService} from "../../../../shared/service/router.service";
 import {WebhookGroupForm} from "./webhook-group-form";
+import {WebhookieServerError} from "../../../../shared/error/webhookie-server-error";
 
 @Component({
   selector: 'app-create-webhook',
@@ -15,6 +16,8 @@ export class CreateWebhookComponent implements OnInit {
   editorOptions = {theme: 'vs-light', language: 'yaml'};
 
   webhookForm!: WebhookGroupForm;
+  error?: WebhookieServerError
+  isCollapsed: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,12 +37,13 @@ export class CreateWebhookComponent implements OnInit {
   }
 
   save($event: MouseEvent) {
-    let request = this.webhookForm.value;
-    console.warn(request);
-    this.webhookGroupService.create(request)
-      .pipe(tap(it => console.warn(it)))
+    this.webhookGroupService.create(this.webhookForm.value)
       .subscribe(
-        () => this.router.navigateTo("/webhooks")
+        () => this.router.navigateTo("/webhooks"),
+        (err: WebhookieServerError) => {
+          this.error = err;
+          this.isCollapsed = false;
+        }
       );
 
     $event.preventDefault();
@@ -47,5 +51,9 @@ export class CreateWebhookComponent implements OnInit {
 
   title(){
     return "Create new Webhook Group"
+  }
+
+  closeError() {
+    this.isCollapsed = true;
   }
 }

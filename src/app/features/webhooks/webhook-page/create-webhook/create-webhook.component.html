@@ -42,6 +42,13 @@
     </div>
   </div>
   <!-- ****** -->
+  <div class="row mt-4" [(ngbCollapse)]="isCollapsed">
+    <div class="col-md-12 pr-md-0">
+      <ngb-alert [dismissible]="true" type="danger" *ngIf="error" (closed)="closeError()">
+        <strong>{{error.name}}</strong><br/>{{error.body?.message}}
+      </ngb-alert>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-5 pr-md-0">
       <div class="border-top mb-3 mt-3"></div>
