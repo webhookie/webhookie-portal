@@ -1,5 +1,4 @@
-<div class="user-buttons">
+<div class="user-buttons" *ngIf="!loggedIn">
   <button (click)="login()" *ngIf="!loggedIn" class="btn btn-default text-left">Login</button>
-  <button (click)="logout()" *ngIf="loggedIn" class="btn btn-default text-left">Logout</button>
   <a class="btn btn-primary" routerLink="/" routerLinkActive="active">Get started</a>
 </div>

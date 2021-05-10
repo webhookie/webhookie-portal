@@ -20,4 +20,8 @@ export class ProfileIconComponent implements OnInit {
   get name(): string {
     return this.authService.claims["name"]
   }
+
+  logout() {
+    this.authService.logout()
+  }
 }
