@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import "@asyncapi/web-component/lib/asyncapi-web-component";
 import {FormBuilder} from "@angular/forms";
-import {debounceTime} from "rxjs/operators";
+import {debounceTime, switchMap} from "rxjs/operators";
 import {WebhookGroupService} from "../../service/webhook-group.service";
 import {RouterService} from "../../../../shared/service/router.service";
 import {WebhookGroupForm} from "./webhook-group-form";
-import {WebhookieServerError} from "../../../../shared/error/webhookie-server-error";
+import {WebhookieError} from "../../../../shared/error/webhookie-error";
 
 @Component({
   selector: 'app-create-webhook',
@@ -16,7 +16,7 @@ export class CreateWebhookComponent implements OnInit {
   editorOptions = {theme: 'vs-light', language: 'yaml'};
 
   webhookForm!: WebhookGroupForm;
-  error?: WebhookieServerError
+  error?: WebhookieError
   isCollapsed: boolean = true;
 
   constructor(
@@ -38,11 +38,13 @@ export class CreateWebhookComponent implements OnInit {
 
   save($event: MouseEvent) {
     this.clearError();
-    console.warn(this.webhookForm.value)
-    this.webhookGroupService.create(this.webhookForm.value)
+    this.webhookForm.value()
+      .pipe(
+        switchMap(it => this.webhookGroupService.create(it)),
+      )
       .subscribe(
         () => this.router.navigateTo("/webhooks"),
-        (err: WebhookieServerError) => this.updateError(err)
+        (err: WebhookieError) => this.updateError(err)
       );
 
     $event.preventDefault();
@@ -52,7 +54,7 @@ export class CreateWebhookComponent implements OnInit {
     return "Create new Webhook Group"
   }
 
-  updateError(err: WebhookieServerError) {
+  updateError(err: WebhookieError) {
     this.error = err;
     this.isCollapsed = false;
   }

@@ -41,22 +41,14 @@ export class WebhookAccessGroupComponent implements OnInit {
     this.itemsSubscription?.unsubscribe();
     this.selectComponent.clearSelection();
     this.groupAccess = WebhookGroupAccess.PUBLIC.valueOf()
-    let value: AccessGroupSelection = {
-      access: WebhookGroupAccess.PUBLIC,
-      items: []
-    }
-    this.control.setValue(value);
+    this.control.setValue(AccessGroupSelection.initPublic());
   }
 
   setAsRestricted() {
     this.itemsSubscription = this.selectComponent.selectedItems$
       .pipe(map(it => Array.from(it)))
       .subscribe(it => {
-        let value: AccessGroupSelection = {
-          access: WebhookGroupAccess.RESTRICTED,
-          items: it
-        }
-        this.control.setValue(value);
+        this.control.setValue(AccessGroupSelection.restricted(it));
       })
 
     this.groupAccess = WebhookGroupAccess.RESTRICTED.valueOf()
@@ -67,10 +59,6 @@ export class WebhookAccessGroupComponent implements OnInit {
   }
 
   private initControlValue() {
-    let value: AccessGroupSelection = {
-      access: WebhookGroupAccess.PUBLIC,
-      items: []
-    }
-    this.control.setValue(value);
+    this.control.setValue(AccessGroupSelection.initPublic());
   }
 }

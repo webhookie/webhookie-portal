@@ -1,30 +1,46 @@
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {SampleYML} from "./sample";
 import {DropdownEntry} from "../../../../shared/model/dropdownEntry";
-import {Observable} from "rxjs";
+import {Observable, Observer} from "rxjs";
 import {ConsumerAccess, ProviderAccess} from "../../../../shared/model/access-group";
+import {WebhookieError} from "../../../../shared/error/webhookie-error";
 
 export class WebhookGroupForm {
-  get value() {
+  value(): Observable<any> {
     let consumerGroups: AccessGroupSelection = this.consumerGroups.value
         ? this.consumerGroups.value as AccessGroupSelection
-        : {
-          access: WebhookGroupAccess.PUBLIC,
-          items: []
-        };
+        : AccessGroupSelection.initPublic();
     let providerGroups = this.providerGroups.value
         ? this.providerGroups.value as AccessGroupSelection
-        : {
-          access: WebhookGroupAccess.PUBLIC,
-          items: []
-        };
-    return {
-      "consumerGroups": consumerGroups.items.map(it => it.key),
-      "providerGroups": providerGroups.items.map(it => it.key),
-      "consumerAccess": (consumerGroups.access == WebhookGroupAccess.PUBLIC) ? ConsumerAccess.PUBLIC : ConsumerAccess.RESTRICTED,
-      "providerAccess": (providerGroups.access == WebhookGroupAccess.PUBLIC) ? ProviderAccess.ALL : ProviderAccess.RESTRICTED,
-      "asyncApiSpec": this.spec.value
-    }
+        : AccessGroupSelection.initPublic();
+    return new Observable((observer: Observer<any>) => {
+      let errors: Array<string> = [];
+      if(consumerGroups.hasError()) {
+        errors.push("Select 'Public' or at least one Consumer Group");
+      }
+      if(providerGroups.hasError()) {
+        errors.push("Select 'All' or at least one Provider Group");
+      }
+      if(errors.length > 0) {
+        let msg = errors.reduce((value, current) => `${value} <br/> ${current}`)
+        observer.error(new WebhookieError({
+          message: msg,
+          name: "Webhook Group Creation Error"
+        }));
+      } else {
+        observer.next(
+            {
+              "consumerGroups": consumerGroups.items.map(it => it.key),
+              "providerGroups": providerGroups.items.map(it => it.key),
+              "consumerAccess": (consumerGroups.access == WebhookGroupAccess.PUBLIC) ? ConsumerAccess.PUBLIC : ConsumerAccess.RESTRICTED,
+              "providerAccess": (providerGroups.access == WebhookGroupAccess.PUBLIC) ? ProviderAccess.ALL : ProviderAccess.RESTRICTED,
+              "asyncApiSpec": this.spec.value
+            }
+        )
+      }
+
+      observer.complete();
+    })
   }
 
   constructor(
@@ -51,9 +67,24 @@ export class WebhookGroupForm {
   readonly valueChanges: Observable<any>;
 }
 
-export interface AccessGroupSelection {
-  access: WebhookGroupAccess;
-  items: Array<DropdownEntry>
+export class AccessGroupSelection {
+  constructor(
+    public access: WebhookGroupAccess,
+    public items: Array<DropdownEntry>
+  ) {
+  }
+
+  hasError(): boolean {
+    return (this.access == WebhookGroupAccess.RESTRICTED && this.items.length == 0);
+  }
+
+  static initPublic(): AccessGroupSelection {
+    return new AccessGroupSelection(WebhookGroupAccess.PUBLIC, []);
+  }
+
+  static restricted(items: Array<DropdownEntry>): AccessGroupSelection {
+    return new AccessGroupSelection(WebhookGroupAccess.RESTRICTED, items);
+  }
 }
 
 export enum WebhookGroupAccess {
