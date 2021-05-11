@@ -37,14 +37,12 @@ export class CreateWebhookComponent implements OnInit {
   }
 
   save($event: MouseEvent) {
+    this.clearError();
     console.warn(this.webhookForm.value)
     this.webhookGroupService.create(this.webhookForm.value)
       .subscribe(
         () => this.router.navigateTo("/webhooks"),
-        (err: WebhookieServerError) => {
-          this.error = err;
-          this.isCollapsed = false;
-        }
+        (err: WebhookieServerError) => this.updateError(err)
       );
 
     $event.preventDefault();
@@ -54,7 +52,13 @@ export class CreateWebhookComponent implements OnInit {
     return "Create new Webhook Group"
   }
 
-  closeError() {
+  updateError(err: WebhookieServerError) {
+    this.error = err;
+    this.isCollapsed = false;
+  }
+
+  clearError() {
+    this.error = undefined;
     this.isCollapsed = true;
   }
 }
