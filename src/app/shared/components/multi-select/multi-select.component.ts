@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {skip} from "rxjs/operators";
 import {DropdownEntry} from "../../model/dropdownEntry";
 
@@ -10,11 +10,13 @@ import {DropdownEntry} from "../../model/dropdownEntry";
   styleUrls: ['./multi-select.component.css']
 })
 export class MultiSelectComponent implements OnInit {
-  @Input() control!: FormControl
+  @Input() control?: FormControl
   @Input() entries!: Array<DropdownEntry>;
   @Input() id!: string;
+  @Input() show: boolean = false;
 
   private readonly _selectedItems$: BehaviorSubject<Set<DropdownEntry>> = new BehaviorSubject(new Set<DropdownEntry>());
+  readonly selectedItems$: Observable<Set<DropdownEntry>> = this._selectedItems$.asObservable();
 
   constructor() { }
 
@@ -22,7 +24,7 @@ export class MultiSelectComponent implements OnInit {
     this._selectedItems$
       .pipe(skip(1))
       .subscribe(it => {
-        this.control.setValue(Array.from(it));
+        this.control?.setValue(Array.from(it));
       });
   }
 

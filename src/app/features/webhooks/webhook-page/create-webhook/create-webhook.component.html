@@ -5,9 +5,10 @@
     <div class="col-md-7 col-lg-6 consumer d-flex justify-content-between">
       <div class="webgroup-heading mb-3 mb-md-0">
         <app-webhook-access-group
-          id="publicConsumerAccess"
+          publicTitle="Public"
+          id="consumerAccess"
           path="consumergroups"
-          [control]="webhookForm.selectedConsumerGroups"
+          [control]="webhookForm.consumerGroups"
           title="Consumer groups"
           [formGroup]="webhookForm.form"
         >
@@ -15,9 +16,10 @@
       </div>
       <div class="webgroup-heading">
         <app-webhook-access-group
-          id="publicProviderAccess"
+          publicTitle="All"
+          id="providerAccess"
           path="providergroups"
-          [control]="webhookForm.selectedProviderGroups"
+          [control]="webhookForm.providerGroups"
           title="Provider groups"
           [formGroup]="webhookForm.form"
         >

@@ -1,9 +1,13 @@
 <h5 class="font-weight-400 font14">{{title}}*</h5>
 <div class="select-consumer d-flex align-items-center">
-  <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="{{id}}-Checkbox" [formControl]="pControl">
-    <label class="custom-control-label font14" for="{{id}}-Checkbox">Public</label>
+  <div class="form-check form-check-inline" (click)="setAsPublic()">
+    <input class="form-check-input" type="radio" name="{{id}}Options" id="{{id}}{{publicTitle}}" value="{{publicTitle}}" [checked]="!isRestricted">
+    <label class="form-check-label" for="{{id}}{{publicTitle}}">{{publicTitle}}</label>
   </div>
-  <app-multi-select #selectComponent [id]="id" [control]="control" [entries]="groups"></app-multi-select>
+  <div class="form-check form-check-inline" (click)="setAsRestricted()">
+    <input class="form-check-input" type="radio" name="{{id}}Options" id="{{id}}Restricted" value="RESTRICTED" [checked]="isRestricted">
+    <label class="form-check-label" for="{{id}}Restricted">Restricted</label>
+  </div>
+  <app-multi-select #selectComponent [id]="id" [entries]="groups" [show]="isRestricted"></app-multi-select>
 </div>
 

@@ -6,47 +6,57 @@ import {ConsumerAccess, ProviderAccess} from "../../../../shared/model/access-gr
 
 export class WebhookGroupForm {
   get value() {
-    let consumerGroups = this.selectedConsumerGroups.value
-      ? this.selectedConsumerGroups.value as Array<DropdownEntry>
-      : [];
-    let providerGroups = this.selectedProviderGroups.value
-      ? this.selectedProviderGroups.value as Array<DropdownEntry>
-      : [];
+    let consumerGroups: AccessGroupSelection = this.consumerGroups.value
+        ? this.consumerGroups.value as AccessGroupSelection
+        : {
+          access: WebhookGroupAccess.PUBLIC,
+          items: []
+        };
+    let providerGroups = this.providerGroups.value
+        ? this.providerGroups.value as AccessGroupSelection
+        : {
+          access: WebhookGroupAccess.PUBLIC,
+          items: []
+        };
     return {
-      "consumerGroups": consumerGroups.map(it => it.key),
-      "providerGroups": providerGroups.map(it => it.key),
-      "consumerAccess": this.publicConsumerAccess.value ? ConsumerAccess.PUBLIC : ConsumerAccess.RESTRICTED,
-      "providerAccess": this.publicProviderAccess.value ? ProviderAccess.ALL : ProviderAccess.RESTRICTED,
+      "consumerGroups": consumerGroups.items.map(it => it.key),
+      "providerGroups": providerGroups.items.map(it => it.key),
+      "consumerAccess": (consumerGroups.access == WebhookGroupAccess.PUBLIC) ? ConsumerAccess.PUBLIC : ConsumerAccess.RESTRICTED,
+      "providerAccess": (providerGroups.access == WebhookGroupAccess.PUBLIC) ? ProviderAccess.ALL : ProviderAccess.RESTRICTED,
       "asyncApiSpec": this.spec.value
     }
   }
 
   constructor(
-    private readonly formBuilder: FormBuilder,
+      private readonly formBuilder: FormBuilder,
   ) {
-    this.selectedProviderGroups = new FormControl([])
-    this.selectedConsumerGroups = new FormControl([])
-    this.publicConsumerAccess = new FormControl(false)
-    this.publicProviderAccess = new FormControl(false)
+    this.providerGroups = new FormControl({})
+    this.consumerGroups = new FormControl({})
     this.spec = new FormControl(SampleYML.spec)
     const group = {
-      "providerGroups": this.selectedProviderGroups,
-      "consumerGroups": this.selectedConsumerGroups,
-      "spec": this.spec,
-      "publicConsumerAccess": this.publicConsumerAccess,
-      "publicProviderAccess": this.publicProviderAccess,
+      "providerGroups": this.providerGroups,
+      "consumerGroups": this.consumerGroups,
+      "spec": this.spec
     }
     this.form = this.formBuilder.group(group);
     this.valueChanges = this.form.valueChanges;
   }
 
-  selectedProviderGroups!: FormControl;
-  publicConsumerAccess!: FormControl;
-  publicProviderAccess!: FormControl;
-  selectedConsumerGroups!: FormControl;
+  providerGroups!: FormControl;
+  consumerGroups!: FormControl;
   spec!: FormControl;
 
   form!: FormGroup;
 
   readonly valueChanges: Observable<any>;
+}
+
+export interface AccessGroupSelection {
+  access: WebhookGroupAccess;
+  items: Array<DropdownEntry>
+}
+
+export enum WebhookGroupAccess {
+  RESTRICTED,
+  PUBLIC
 }

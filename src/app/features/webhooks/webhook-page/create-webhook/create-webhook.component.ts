@@ -37,6 +37,7 @@ export class CreateWebhookComponent implements OnInit {
   }
 
   save($event: MouseEvent) {
+    console.warn(this.webhookForm.value)
     this.webhookGroupService.create(this.webhookForm.value)
       .subscribe(
         () => this.router.navigateTo("/webhooks"),
