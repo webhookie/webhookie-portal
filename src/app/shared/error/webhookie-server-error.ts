@@ -7,13 +7,18 @@ export class WebhookieServerError extends WebhookieError{
 
   constructor(httpError: HttpErrorResponse) {
     super({
-      message: httpError.message,
+      message: httpError.error ? httpError.error.message : httpError.message,
       name: "WebhookieServerError",
       stack: null
     });
     this.name = WebhookieServerError.name;
     this.body = httpError.error;
     this.error = httpError;
+  }
+
+  // noinspection JSUnusedGlobalSymbols
+  get extraMessage(): string {
+    return this.error.message;
   }
 
   // @ts-ignore

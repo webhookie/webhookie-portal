@@ -46,7 +46,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           result = new WebhookieServerError(httpError);
           break;
       }
-      msg = `<p></p><div>${result.message}</div><p><div>${result.body?.message}</div></p>`;
+      msg = `<p></p><div>${result.message}</div><p><div>${result.message}</div></p>`;
       header = result.name
     } else {
       result = new WebhookieError({

@@ -47,7 +47,7 @@
   <div class="row mt-4" [(ngbCollapse)]="isCollapsed">
     <div class="col-md-12 pr-md-0">
       <ngb-alert [dismissible]="true" type="danger" *ngIf="error" (closed)="closeError()">
-        <strong>{{error.name}}</strong><br/>{{error.body?.message}}
+        <strong>{{error.name}}</strong><br/>{{error.message}}
       </ngb-alert>
     </div>
   </div>
