@@ -98,4 +98,8 @@ export class WebhooksContext {
   editingGroup(group: WebhookGroup) {
     this.editingWebhookGroup = group;
   }
+
+  cancelEditingWebhookGroup() {
+    this.editingWebhookGroup = undefined;
+  }
 }

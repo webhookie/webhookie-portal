@@ -82,7 +82,7 @@ export class WebhookGroupForm {
 
   constructor(
       private readonly formBuilder: FormBuilder,
-      webhookGroup?: WebhookGroup
+      webhookGroup: WebhookGroup | undefined = undefined
   ) {
     let providerGroupSelection = AccessGroupSelection.initPublic();
     let consumerGroupSelection = AccessGroupSelection.initPublic();

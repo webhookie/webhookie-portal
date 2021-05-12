@@ -9,6 +9,7 @@ import {WebhookieError} from "../../../../shared/error/webhookie-error";
 import {WebhooksContext} from "../../webhooks-context";
 import {WebhookAccessGroupComponent} from "./webhook-access-group/webhook-access-group.component";
 import {ToastService} from "../../../../shared/service/toast.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-create-webhook',
@@ -21,6 +22,7 @@ export class CreateWebhookComponent implements OnInit {
   webhookForm!: WebhookGroupForm;
   error: WebhookieError | null = null;
   isCollapsed: boolean = true;
+  formTitle?: string
 
   @ViewChild("consumerGroupsComponent") consumerGroupsComponent!: WebhookAccessGroupComponent
   @ViewChild("providerGroupsComponent") providerGroupsComponent!: WebhookAccessGroupComponent
@@ -30,11 +32,22 @@ export class CreateWebhookComponent implements OnInit {
     private readonly webhookGroupService: WebhookGroupService,
     private readonly webhooksContext: WebhooksContext,
     private readonly toastService: ToastService,
-    private readonly router: RouterService
+    private readonly router: RouterService,
+    private readonly route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.webhookForm = new WebhookGroupForm(this.formBuilder, this.webhooksContext.editingWebhookGroup);
+    this.route.data
+      .subscribe(it => {
+        this.formTitle = it.breadcrumb;
+        if(it.editMode) {
+          this.webhookForm = new WebhookGroupForm(this.formBuilder, this.webhooksContext.editingWebhookGroup);
+        } else {
+          this.webhooksContext.cancelEditingWebhookGroup();
+          this.webhookForm = new WebhookGroupForm(this.formBuilder);
+        }
+      });
+
     this.webhookForm.form.statusChanges
       .subscribe(it => {
         if(it == "INVALID") {
@@ -43,6 +56,7 @@ export class CreateWebhookComponent implements OnInit {
           this.clearError();
         }
       });
+
     this.webhookForm.form.valueChanges
       .pipe(take(1))
       .subscribe(() => {
@@ -61,7 +75,7 @@ export class CreateWebhookComponent implements OnInit {
   }
 
   title(){
-    return "Create new Webhook Group"
+    return this.formTitle ?  this.formTitle : ""
   }
 
   updateError(err: WebhookieError | null) {

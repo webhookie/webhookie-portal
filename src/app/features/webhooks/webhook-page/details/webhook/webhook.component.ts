@@ -78,7 +78,7 @@ export class WebhookComponent implements OnInit {
         .subscribe(group => {
           this.webhooksContext.editingGroup(group)
           this.routeService
-            .navigateTo("/webhooks/create-webhook")
+            .navigateTo("/webhooks/edit-webhook-group")
         })
     }
   }

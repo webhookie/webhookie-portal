@@ -37,7 +37,16 @@ const routes: Routes = [
     path: 'create-webhook',
     component: CreateWebhookComponent,
     data: {
-        breadcrumb: 'Create new webhook group'
+        breadcrumb: 'Create new webhook group',
+      editMode: false
+    },
+  },
+  {
+    path: 'edit-webhook-group',
+    component: CreateWebhookComponent,
+    data: {
+      breadcrumb: 'Update webhook group',
+      editMode: true
     },
   },
   {
