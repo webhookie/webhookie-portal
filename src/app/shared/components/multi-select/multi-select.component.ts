@@ -57,7 +57,7 @@ export class MultiSelectComponent implements OnInit {
 
   initSelection(items: Array<DropdownEntry>) {
     let itemsKeySet = items.map(it => it.key);
-    let selected = this.entries.filter(it => itemsKeySet.indexOf(it.value) > -1)
+    let selected = this.entries.filter(it => itemsKeySet.indexOf(it.key) > -1)
     this._selectedItems$.next(new Set<DropdownEntry>(selected));
   }
 
