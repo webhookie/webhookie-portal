@@ -54,4 +54,8 @@ export class MockApiService implements Api {
 
     return EMPTY;
   }
+
+  put(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: string): Observable<HttpResponse<any>> {
+    return this.post(uri, body, params, headers, responseType);
+  }
 }

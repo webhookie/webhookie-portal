@@ -42,6 +42,27 @@ export class ApiService implements Api {
     return this.http.post(url, body, options)
   }
 
+  public put(
+    uri: string,
+    body: any,
+    params: HttpParams = new HttpParams(),
+    headers: HttpHeaders = new HttpHeaders(),
+    responseType: string = ApiService.RESPONSE_TYPE_JSON
+  ): Observable<HttpResponse<any>> {
+    let options = {};
+    if (params) {
+      options = {
+        params,
+        headers,
+        responseType: responseType,
+        observe: 'response'
+      };
+    }
+    let url = `${this.apiUrl}${uri}`;
+    // @ts-ignore
+    return this.http.put(url, body, options)
+  }
+
   public json(
     uri: string,
     params: HttpParams = new HttpParams()

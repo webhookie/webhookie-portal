@@ -7,4 +7,5 @@ export interface Api {
   json(uri: string, params: HttpParams): Observable<any>
 
   post(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: string): Observable<HttpResponse<any>>;
+  put(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: string): Observable<HttpResponse<any>>;
 }
