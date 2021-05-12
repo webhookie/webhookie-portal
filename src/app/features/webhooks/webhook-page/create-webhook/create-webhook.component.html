@@ -11,6 +11,7 @@
           [control]="webhookForm.consumerGroups"
           title="Consumer groups"
           [formGroup]="webhookForm.form"
+          #consumerGroupsComponent
         >
         </app-webhook-access-group>
       </div>
@@ -22,6 +23,7 @@
           [control]="webhookForm.providerGroups"
           title="Provider groups"
           [formGroup]="webhookForm.form"
+          #providerGroupsComponent
         >
         </app-webhook-access-group>
       </div>

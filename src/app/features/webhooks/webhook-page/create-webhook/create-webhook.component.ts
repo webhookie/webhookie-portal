@@ -1,11 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import "@asyncapi/web-component/lib/asyncapi-web-component";
 import {FormBuilder} from "@angular/forms";
-import {switchMap} from "rxjs/operators";
+import {switchMap, take} from "rxjs/operators";
 import {WebhookGroupService} from "../../service/webhook-group.service";
 import {RouterService} from "../../../../shared/service/router.service";
 import {WebhookGroupForm} from "./webhook-group-form";
 import {WebhookieError} from "../../../../shared/error/webhookie-error";
+import {WebhooksContext} from "../../webhooks-context";
+import {WebhookAccessGroupComponent} from "./webhook-access-group/webhook-access-group.component";
+import {ToastService} from "../../../../shared/service/toast.service";
 
 @Component({
   selector: 'app-create-webhook',
@@ -19,14 +22,19 @@ export class CreateWebhookComponent implements OnInit {
   error: WebhookieError | null = null;
   isCollapsed: boolean = true;
 
+  @ViewChild("consumerGroupsComponent") consumerGroupsComponent!: WebhookAccessGroupComponent
+  @ViewChild("providerGroupsComponent") providerGroupsComponent!: WebhookAccessGroupComponent
+
   constructor(
     private formBuilder: FormBuilder,
     private readonly webhookGroupService: WebhookGroupService,
+    private readonly webhooksContext: WebhooksContext,
+    private readonly toastService: ToastService,
     private readonly router: RouterService
   ) { }
 
   ngOnInit(): void {
-    this.webhookForm = new WebhookGroupForm(this.formBuilder);
+    this.webhookForm = new WebhookGroupForm(this.formBuilder, this.webhooksContext.editingWebhookGroup);
     this.webhookForm.form.statusChanges
       .subscribe(it => {
         if(it == "INVALID") {
@@ -34,6 +42,12 @@ export class CreateWebhookComponent implements OnInit {
         } else {
           this.clearError();
         }
+      });
+    this.webhookForm.form.valueChanges
+      .pipe(take(1))
+      .subscribe(() => {
+        this.providerGroupsComponent.init(this.webhookForm.providerGroups.value)
+        this.consumerGroupsComponent.init(this.webhookForm.consumerGroups.value)
       });
   }
 
@@ -64,10 +78,22 @@ export class CreateWebhookComponent implements OnInit {
     this.clearError();
     this.webhookForm.value()
       .pipe(
-        switchMap(it => this.webhookGroupService.create(it)),
+        switchMap(it => {
+          if(this.webhookForm.editMode) {
+            return this.webhookGroupService.update(it, this.webhookForm.id)
+          } else {
+            return this.webhookGroupService.create(it)
+          }
+        }),
       )
       .subscribe(
-        () => this.router.navigateTo("/webhooks"),
+        () => {
+          if(this.webhookForm.editMode) {
+            this.toastService.success("Webhook Group has been saved successfully!", "SUCCESS")
+          } else {
+            this.router.navigateTo("/webhooks");
+          }
+        },
         (err: WebhookieError) => this.updateError(err)
       );
   }
