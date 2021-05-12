@@ -22,7 +22,7 @@ export class WebhookAccessGroupComponent implements OnInit {
   groups: Array<DropdownEntry> = [];
   @ViewChild("selectComponent") selectComponent!: MultiSelectComponent
 
-  groupAccess: number = WebhookGroupAccess.PUBLIC.valueOf();
+  groupAccess: number = WebhookGroupAccess.PUBLIC;
   private itemsSubscription?: Subscription;
 
   constructor(
@@ -40,7 +40,7 @@ export class WebhookAccessGroupComponent implements OnInit {
   setAsPublic() {
     this.itemsSubscription?.unsubscribe();
     this.selectComponent.clearSelection();
-    this.groupAccess = WebhookGroupAccess.PUBLIC.valueOf()
+    this.groupAccess = WebhookGroupAccess.PUBLIC
     this.control.setValue(AccessGroupSelection.initPublic());
   }
 
@@ -51,11 +51,11 @@ export class WebhookAccessGroupComponent implements OnInit {
         this.control.setValue(AccessGroupSelection.restricted(it));
       })
 
-    this.groupAccess = WebhookGroupAccess.RESTRICTED.valueOf()
+    this.groupAccess = WebhookGroupAccess.RESTRICTED
   }
 
   get isRestricted(): boolean {
-    return this.groupAccess == WebhookGroupAccess.RESTRICTED.valueOf()
+    return this.groupAccess == WebhookGroupAccess.RESTRICTED
   }
 
   private initControlValue() {
