@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-6">
+    <app-webhook-title></app-webhook-title>
+  </div>
+  <div class="col-md-6">
+    <div class="dot-buttons">
+      <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
+        <li>
+          <button class="btn mr-2 mr-md-0 btn-primary" routerLink="/webhooks/subscribe-webhook">
+            Subscribe
+          </button>
+        </li>
+        <li>
+          <button class="btn btn-default" routerLink="/webhooks/callback-test">
+            Test
+          </button>
+        </li>
+        <li class="px-2">
+          <app-context-menu [data]="data!" [menuItems]="menuItems"></app-context-menu>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <app-webhook-rate-sub-links></app-webhook-rate-sub-links>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <app-webhook-menu></app-webhook-menu>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,22 @@
+.security-option h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.security-option .table {
+  color: #0A1E42;
+  border: 1px solid #dee2e6 !important;
+}
+
+.security-option .table th {
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #dee2e6 !important;
+  border-top: 0;
+}
+
+.security-option .table td {
+  font-size: 12px;
+  font-weight: 400;
+  vertical-align: middle !important;
+}

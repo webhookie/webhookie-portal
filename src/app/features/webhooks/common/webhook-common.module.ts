@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TitleComponent} from './title/title.component';
-import {OrderTitleComponent} from './order-title/order-title.component';
-import {OrderRateSubLinksComponent} from './order-rate-sub-links/order-rate-sub-links.component';
+import {WebhookTitleComponent} from './webhook-title/webhook-title.component';
+import {WebhookRateSubLinksComponent} from './webhook-rate-sub-links/webhook-rate-sub-links.component';
 import {RequestExampleComponent} from './request-example/request-example.component';
 import {ResponseComponent} from './response/response.component';
 import {RouterModule} from '@angular/router';
@@ -12,18 +12,18 @@ import {SharedModule} from "../../../shared/shared.module";
 
 @NgModule({
   declarations: [
-    OrderTitleComponent,
+    WebhookTitleComponent,
     TitleComponent,
-    OrderRateSubLinksComponent,
+    WebhookRateSubLinksComponent,
     RequestExampleComponent,
     ResponseComponent,
     RequestHeadersComponent,
     RequestBodyComponent,
   ],
   exports: [
-    OrderTitleComponent,
+    WebhookTitleComponent,
     TitleComponent,
-    OrderRateSubLinksComponent,
+    WebhookRateSubLinksComponent,
     RequestExampleComponent,
     ResponseComponent,
     RequestHeadersComponent,

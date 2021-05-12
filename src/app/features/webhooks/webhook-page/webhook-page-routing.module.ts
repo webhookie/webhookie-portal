@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { OrderComponent } from './details/order/order.component';
+import { WebhookComponent } from './details/webhook/webhook.component';
 import { WelcomeComponent } from './details/welcome/welcome.component';
 const routes: Routes = [
     {
@@ -9,9 +9,9 @@ const routes: Routes = [
         pathMatch: "full"
     },
     {
-        path: 'order',
-        component: OrderComponent,
-        loadChildren: () => import('./details/order/order.module').then(m => m.OrderModule),
+        path: 'webhook',
+        component: WebhookComponent,
+        loadChildren: () => import('./details/webhook/webhook.module').then(m => m.WebhookModule),
     },
     {
         path: 'welcome',

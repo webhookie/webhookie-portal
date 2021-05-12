@@ -21,7 +21,7 @@ const routes: Routes = [
     path: 'callback-test',
     component: CallbackTestComponent,
     data: {
-      breadcrumb: 'Test order webhook'
+      breadcrumb: 'Test webhook'
     },
     canActivate: [CanActivateSubscribe]
   },

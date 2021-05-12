@@ -9,7 +9,7 @@ import { TitleToggleComponent } from './sidebar/title-toggle/title-toggle.compon
 import { SidebarListComponent } from './sidebar/sidebar-list/sidebar-list.component';
 import { WebhookPageComponent } from './webhook-page.component';
 import { WebhookPageRoutingModule } from './webhook-page-routing.module';
-import { OrderModule } from './details/order/order.module'
+import { WebhookModule } from './details/webhook/webhook.module'
 import { WebhookCommonModule } from '../common/webhook-common.module';
 import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
 import { WelcomeComponent } from './details/welcome/welcome.component';
@@ -42,7 +42,7 @@ import {NgbAlertModule, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
     CommonModule,
     WebhookPageRoutingModule,
     WebhookCommonModule,
-    OrderModule,
+    WebhookModule,
     MonacoEditorModule,
     FormsModule,
     SharedModule,

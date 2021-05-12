@@ -1,0 +1,32 @@
+.support p{
+    line-height: 1.7;
+}
+.support .btn-default{
+    float: right;
+    border:1px solid #BFBFBF;
+    color: #0151CC;
+}
+::placeholder {
+    font-size: 12px;
+    color: #253858;
+}
+.support label{
+    margin-bottom: 0.2rem;
+}
+.support input {
+    border-radius: 2px;
+    border-color: #E1E1E1;
+    height: 32px !important;
+}
+.support input:focus {
+    border: 1px solid #006ADF;
+    box-shadow: none;
+}
+.support textarea {
+    border-radius: 2px;
+    border-color: #E1E1E1;
+}
+.support textarea:focus {
+    border: 1px solid #006ADF;
+    box-shadow: none;
+}
