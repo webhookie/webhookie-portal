@@ -72,11 +72,11 @@ export class WebhookGroupForm {
   ) {
     this.providerGroups = new FormControl(
         AccessGroupSelection.initPublic(),
-        [AccessGroupSelection.validateFn("Select 'Public' or at least one Consumer Group")]
+        [AccessGroupSelection.validateFn("Select 'All' or at least one Provider Group")]
     )
     this.consumerGroups = new FormControl(
         AccessGroupSelection.initPublic(),
-        [AccessGroupSelection.validateFn("Select 'All' or at least one Provider Group")]
+        [AccessGroupSelection.validateFn("Select 'Public' or at least one Consumer Group")]
     )
     this.spec = new FormControl(SampleYML.spec)
     const group = {
