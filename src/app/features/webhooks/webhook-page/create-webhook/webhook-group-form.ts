@@ -1,4 +1,4 @@
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn} from "@angular/forms";
 import {SampleYML} from "./sample";
 import {DropdownEntry} from "../../../../shared/model/dropdownEntry";
 import {Observable, Observer} from "rxjs";
@@ -15,13 +15,13 @@ export class WebhookGroupForm {
         : AccessGroupSelection.initPublic();
     return new Observable((observer: Observer<any>) => {
       let errors: Array<string> = [];
-      if(consumerGroups.hasError()) {
+      if (consumerGroups.hasError()) {
         errors.push("Select 'Public' or at least one Consumer Group");
       }
-      if(providerGroups.hasError()) {
+      if (providerGroups.hasError()) {
         errors.push("Select 'All' or at least one Provider Group");
       }
-      if(errors.length > 0) {
+      if (errors.length > 0) {
         let msg = errors.reduce((value, current) => `${value} <br/> ${current}`)
         observer.error(new WebhookieError({
           message: msg,
@@ -43,11 +43,41 @@ export class WebhookGroupForm {
     })
   }
 
+  errors(): WebhookieError | null {
+    let result = null;
+    let errs = Array.of(this.consumerGroups.errors, this.providerGroups.errors)
+        .filter(it => it != null)
+    if (errs.length > 0) {
+      result = errs
+          .filter(it => it != null)
+          .map((it: ValidationErrors | null) => it?.error?.message as string)
+          .filter(it => it != null)
+          .reduce((value: string, current: string) => {
+            return `${value} <br/> ${current}`
+          });
+    }
+
+    if(result) {
+      return new WebhookieError({
+        message: result,
+        name: "Form Validation Error"
+      })
+    }
+
+    return null;
+  }
+
   constructor(
       private readonly formBuilder: FormBuilder,
   ) {
-    this.providerGroups = new FormControl({})
-    this.consumerGroups = new FormControl({})
+    this.providerGroups = new FormControl(
+        AccessGroupSelection.initPublic(),
+        [AccessGroupSelection.validateFn("Select 'Public' or at least one Consumer Group")]
+    )
+    this.consumerGroups = new FormControl(
+        AccessGroupSelection.initPublic(),
+        [AccessGroupSelection.validateFn("Select 'All' or at least one Provider Group")]
+    )
     this.spec = new FormControl(SampleYML.spec)
     const group = {
       "providerGroups": this.providerGroups,
@@ -55,7 +85,6 @@ export class WebhookGroupForm {
       "spec": this.spec
     }
     this.form = this.formBuilder.group(group);
-    this.valueChanges = this.form.valueChanges;
   }
 
   providerGroups!: FormControl;
@@ -63,8 +92,6 @@ export class WebhookGroupForm {
   spec!: FormControl;
 
   form!: FormGroup;
-
-  readonly valueChanges: Observable<any>;
 }
 
 export class AccessGroupSelection {
@@ -76,6 +103,24 @@ export class AccessGroupSelection {
 
   hasError(): boolean {
     return (this.access == WebhookGroupAccess.RESTRICTED && this.items.length == 0);
+  }
+
+  static validateFn(message: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      let value: AccessGroupSelection = control.value;
+      if (value.hasError()) {
+        let error: ValidationErrors = {
+          error: {
+            message: message,
+            value: value
+          }
+        };
+        control.setErrors(error)
+        return error
+      }
+
+      return null;
+    };
   }
 
   static initPublic(): AccessGroupSelection {

@@ -30,7 +30,7 @@
       <div class="dot-buttons">
         <ul class="d-flex mb-0">
           <li>
-            <button class="btn btn-default mr-2" (click)="save($event)">
+            <button class="btn btn-default mr-2" (click)="save($event)" [disabled]="!webhookForm.form.valid">
               Save & finish later
             </button>
           </li>
@@ -46,7 +46,7 @@
   <!-- ****** -->
   <div class="row mt-4" [(ngbCollapse)]="isCollapsed">
     <div class="col-md-12 pr-md-0">
-      <ngb-alert [dismissible]="true" type="danger" *ngIf="error" (closed)="clearError()">
+      <ngb-alert [dismissible]="false" type="danger" *ngIf="error" (closed)="clearError()">
         <strong>{{error.name}}</strong>
         <p></p>
         <span [innerHTML]="error.message"></span>
