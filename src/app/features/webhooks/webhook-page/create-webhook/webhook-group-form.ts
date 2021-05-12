@@ -1,9 +1,16 @@
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn} from "@angular/forms";
-import {SampleYML} from "./sample";
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from "@angular/forms";
 import {DropdownEntry} from "../../../../shared/model/dropdownEntry";
 import {Observable, Observer} from "rxjs";
 import {ConsumerAccess, ProviderAccess} from "../../../../shared/model/access-group";
 import {WebhookieError} from "../../../../shared/error/webhookie-error";
+import {WebhookGroup} from "../../model/webhook-group";
 
 export class WebhookGroupForm {
   value(): Observable<any> {
@@ -67,18 +74,42 @@ export class WebhookGroupForm {
     return null;
   }
 
+  id: string = "";
+
+  get editMode(): boolean {
+    return this.id != ""
+  }
+
   constructor(
       private readonly formBuilder: FormBuilder,
+      webhookGroup?: WebhookGroup
   ) {
+    let providerGroupSelection = AccessGroupSelection.initPublic();
+    let consumerGroupSelection = AccessGroupSelection.initPublic();
+    let spec = ""
+
+    if(webhookGroup) {
+      this.id = webhookGroup.id;
+      if(webhookGroup.providerAccess == ProviderAccess.RESTRICTED) {
+        let groups = webhookGroup.providerGroups.map(it => new DropdownEntry(it, it))
+        providerGroupSelection = AccessGroupSelection.restricted(groups);
+      }
+      if(webhookGroup.consumerAccess == ConsumerAccess.RESTRICTED) {
+        let groups = webhookGroup.consumerGroups.map(it => new DropdownEntry(it, it))
+        consumerGroupSelection = AccessGroupSelection.restricted(groups);
+      }
+      spec = webhookGroup.spec
+    }
+
     this.providerGroups = new FormControl(
-        AccessGroupSelection.initPublic(),
+        providerGroupSelection,
         [AccessGroupSelection.validateFn("Select 'All' or at least one Provider Group")]
     )
     this.consumerGroups = new FormControl(
-        AccessGroupSelection.initPublic(),
+        consumerGroupSelection,
         [AccessGroupSelection.validateFn("Select 'Public' or at least one Consumer Group")]
     )
-    this.spec = new FormControl(SampleYML.spec)
+    this.spec = new FormControl(spec)
     const group = {
       "providerGroups": this.providerGroups,
       "consumerGroups": this.consumerGroups,
