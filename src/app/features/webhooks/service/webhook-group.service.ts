@@ -38,6 +38,13 @@ export class WebhookGroupService {
       .pipe(map(it => this.webhookGroupAdapter.adapt(it)))
   }
 
+  fetchById(id: string): Observable<WebhookGroup> {
+    this.log.info(`Fetching webhook group by id: ${id}...`);
+    let uri = `${this.WEBHOOKGROUPS_URI}/${id}`;
+    return this.api.json(uri, new HttpParams())
+      .pipe(map(it => this.webhookGroupAdapter.adapt(it)))
+  }
+
   create(request: any): Observable<WebhookGroup> {
     this.log.info(`Creating WebhookGroup...`);
     return this.api.post(this.WEBHOOKGROUPS_URI, request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
