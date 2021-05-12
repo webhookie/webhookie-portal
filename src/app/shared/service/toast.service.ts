@@ -15,6 +15,11 @@ export class ToastService {
     this.show(textOrTpl, override );
   }
 
+  success(textOrTpl: string | TemplateRef<any>, header: string, options: any = {}) {
+    let override = {classname: 'bg-success text-light', header, ...options};
+    this.show(textOrTpl, override );
+  }
+
   remove(toast: ToastConfig) {
     this.toasts = this.toasts.filter(t => t !== toast);
   }
