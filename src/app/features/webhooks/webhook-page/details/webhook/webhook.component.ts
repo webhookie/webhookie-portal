@@ -4,6 +4,7 @@ import {WebhookGroup} from "../../../model/webhook-group";
 import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
 import {RouterService} from "../../../../../shared/service/router.service";
+import {WebhookGroupService} from "../../../service/webhook-group.service";
 
 type WebhookGroupContextMenu = ContextMenuItem<WebhookGroup, WebhookMenu>
 
@@ -22,6 +23,7 @@ export class WebhookComponent implements OnInit {
   constructor(
     private readonly routeService: RouterService,
     private readonly appContext: ApplicationContext,
+    private readonly webhookGroupService: WebhookGroupService,
     private readonly webhooksContext: WebhooksContext
   ) {
   }
@@ -71,8 +73,13 @@ export class WebhookComponent implements OnInit {
   }
 
   editWebhookGroup(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
-    return (it, item) => {
-      console.warn(`${item.item} ==> ${it.id}`);
+    return (it) => {
+      this.webhookGroupService.fetchById(it.id)
+        .subscribe(group => {
+          this.webhooksContext.editingGroup(group)
+          this.routeService
+            .navigateTo("/webhooks/create-webhook")
+        })
     }
   }
 

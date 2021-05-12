@@ -3,7 +3,7 @@ import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
 import {Application} from "./model/application";
 import {distinctUntilChanged, filter} from "rxjs/operators";
 import {WebhookGroupElement} from "./webhook-page/sidebar/sidebar-list/webhook-group-element";
-import {Topic} from "./model/webhook-group";
+import {Topic, WebhookGroup} from "./model/webhook-group";
 import {Callback} from "../../shared/model/callback";
 import {Subscription} from "../../shared/model/subscription";
 
@@ -34,6 +34,8 @@ export class WebhooksContext {
   readonly _createdApplication$: Subject<Application> = new ReplaySubject<Application>();
 
   readonly _createdCallback$: Subject<Callback> = new ReplaySubject<Callback>();
+
+  editingWebhookGroup?: WebhookGroup;
 
   constructor() {
     this._selectedWebhookGroup
@@ -91,5 +93,9 @@ export class WebhooksContext {
     this._selectedCallback$.next(null);
     // @ts-ignore
     this._selectedApplication$.next(null);
+  }
+
+  editingGroup(group: WebhookGroup) {
+    this.editingWebhookGroup = group;
   }
 }
