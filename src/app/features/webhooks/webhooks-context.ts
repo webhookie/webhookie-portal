@@ -37,7 +37,7 @@ export class WebhooksContext {
 
   constructor() {
     this._selectedWebhookGroup
-      .subscribe(it => this.selectWebhookGroup(it));
+      .subscribe(() => {});
   }
 
   get currentApplication() {

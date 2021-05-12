@@ -108,15 +108,24 @@ export class OrderComponent implements OnInit {
     return () => this.appContext.hasConsumerRole;
   }
 
-  canViewAllSubscriptions(): (it: WebhookGroup) => boolean {
-    return (it: WebhookGroup) => {
-      return this.appContext.hasProviderAccess(it.providerGroups);
+  canViewAllSubscriptions(): (it?: WebhookGroup) => boolean {
+    return (it?: WebhookGroup) => {
+      if(it) {
+        return this.appContext.hasProviderAccess(it.providerGroups);
+      }
+
+      return false;
     }
   }
 
-  canViewWebhookTraffic(): (it: WebhookGroup) => boolean {
-    return (it: WebhookGroup) => this.appContext.hasProviderAccess(it.providerGroups)
-      || this.appContext.hasAdminRole
+  canViewWebhookTraffic(): (it?: WebhookGroup) => boolean {
+    return (it?: WebhookGroup) => {
+      if(it) {
+        return this.appContext.hasProviderAccess(it.providerGroups) || this.appContext.hasAdminRole
+      }
+
+      return false;
+    }
   }
 
   canViewSubscriptionTraffic(): (it: WebhookGroup) => boolean {

@@ -5,7 +5,7 @@ import { WelcomeComponent } from './details/welcome/welcome.component';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: "order",
+        redirectTo: "welcome",
         pathMatch: "full"
     },
     {
@@ -17,7 +17,7 @@ const routes: Routes = [
         path: 'welcome',
         component: WelcomeComponent,
     },
-    
+
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
