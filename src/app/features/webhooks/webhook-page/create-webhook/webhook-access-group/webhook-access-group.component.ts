@@ -30,7 +30,6 @@ export class WebhookAccessGroupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.initControlValue();
     this.webhookieService.fetchAccessGroups(this.path)
       .subscribe(list => {
         this.groups = list.map(it => new DropdownEntry(it.iamGroupName, it.name))
@@ -58,7 +57,12 @@ export class WebhookAccessGroupComponent implements OnInit {
     return this.groupAccess == WebhookGroupAccess.RESTRICTED
   }
 
-  private initControlValue() {
-    this.control.setValue(AccessGroupSelection.initPublic());
+  init(value: AccessGroupSelection) {
+    this.selectComponent.initSelection(value.items);
+    if(value.access == WebhookGroupAccess.PUBLIC) {
+      this.setAsPublic()
+    } else {
+      this.setAsRestricted();
+    }
   }
 }
