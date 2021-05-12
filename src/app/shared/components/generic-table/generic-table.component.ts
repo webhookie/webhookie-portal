@@ -16,7 +16,7 @@ import {TableSort} from "../../request/table-sort";
 import * as $ from "jquery";
 
 @Component({
-  selector: 'app-traffic-table',
+  selector: 'app-generic-table',
   templateUrl: './generic-table.component.html',
   styleUrls: ['./generic-table.component.css']
 })
