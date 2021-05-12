@@ -1,4 +1,5 @@
 import {TableDetailData} from "../../../shared/model/table/table-detail-data";
+import {ConsumerAccess, ProviderAccess} from "../../../shared/model/access-group";
 
 export class WebhookGroup extends TableDetailData {
   constructor(
@@ -8,7 +9,9 @@ export class WebhookGroup extends TableDetailData {
     public description: string,
     public spec: string,
     public topics: Array<Topic>,
+    public consumerAccess: ConsumerAccess,
     public consumerGroups: Array<string>,
+    public providerAccess: ProviderAccess,
     public providerGroups: Array<string>,
   ) {
     super();

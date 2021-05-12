@@ -20,7 +20,9 @@ export class WebhookGroupAdapter implements Adapter<WebhookGroup> {
       item.description,
       item.raw,
       topics,
+      item.consumerAccess,
       item.consumerGroups,
+      item.providerAccess,
       item.providerGroups,
     );
   }
