@@ -55,6 +55,12 @@ export class MultiSelectComponent implements OnInit {
     this._selectedItems$.next(new Set<DropdownEntry>());
   }
 
+  initSelection(items: Array<DropdownEntry>) {
+    let itemsKeySet = items.map(it => it.key);
+    let selected = this.entries.filter(it => itemsKeySet.indexOf(it.value) > -1)
+    this._selectedItems$.next(new Set<DropdownEntry>(selected));
+  }
+
   checkedItem(entry: DropdownEntry){
     return this.selectedItems.has(entry);
   }
