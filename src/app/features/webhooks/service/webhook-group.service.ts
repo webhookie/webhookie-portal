@@ -50,4 +50,11 @@ export class WebhookGroupService {
     return this.api.post(this.WEBHOOKGROUPS_URI, request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
       .pipe(map((it: HttpResponse<any>) => this.webhookGroupAdapter.adapt(it.body)));
   }
+
+  update(request: any, id: string) {
+    this.log.info(`Creating WebhookGroup...`);
+    let uri = `${this.WEBHOOKGROUPS_URI}/${id}`;
+    return this.api.put(uri, request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
+      .pipe(map((it: HttpResponse<any>) => this.webhookGroupAdapter.adapt(it.body)));
+  }
 }
