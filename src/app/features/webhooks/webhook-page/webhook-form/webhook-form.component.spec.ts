@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateWebhookComponent } from './create-webhook.component';
+import { WebhookFormComponent } from './webhook-form.component';
 
 describe('CreateWebhookComponent', () => {
-  let component: CreateWebhookComponent;
-  let fixture: ComponentFixture<CreateWebhookComponent>;
+  let component: WebhookFormComponent;
+  let fixture: ComponentFixture<WebhookFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateWebhookComponent ]
+      declarations: [ WebhookFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateWebhookComponent);
+    fixture = TestBed.createComponent(WebhookFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

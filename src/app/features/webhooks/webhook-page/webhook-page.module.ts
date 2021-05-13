@@ -11,14 +11,14 @@ import { WebhookPageComponent } from './webhook-page.component';
 import { WebhookPageRoutingModule } from './webhook-page-routing.module';
 import { WebhookModule } from './details/webhook/webhook.module'
 import { WebhookCommonModule } from '../common/webhook-common.module';
-import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
+import { WebhookFormComponent } from './webhook-form/webhook-form.component';
 import { WelcomeComponent } from './details/welcome/welcome.component';
 import { WelcomeWithDataComponent } from './details/welcome/welcome-with-data/welcome-with-data.component';
 import { WelcomeWithoutDataComponent } from './details/welcome/welcome-without-data/welcome-without-data.component';
 import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../../../shared/shared.module";
-import { WebhookAccessGroupComponent } from './create-webhook/webhook-access-group/webhook-access-group.component';
+import { WebhookAccessGroupComponent } from './webhook-form/webhook-access-group/webhook-access-group.component';
 import {NgbAlertModule, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import {NgbAlertModule, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
     SidebarSearchComponent,
     TitleToggleComponent,
     SidebarListComponent,
-    CreateWebhookComponent,
+    WebhookFormComponent,
     WelcomeComponent,
     WelcomeWithDataComponent,
     WelcomeWithoutDataComponent,

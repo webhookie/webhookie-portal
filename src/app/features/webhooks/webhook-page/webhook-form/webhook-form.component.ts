@@ -14,11 +14,11 @@ import {DropdownEntry} from "../../../../shared/model/dropdownEntry";
 import {ApplicationContext} from "../../../../shared/application.context";
 
 @Component({
-  selector: 'app-create-webhook',
-  templateUrl: './create-webhook.component.html',
-  styleUrls: ['./create-webhook.component.css']
+  selector: 'app-webhook-form',
+  templateUrl: './webhook-form.component.html',
+  styleUrls: ['./webhook-form.component.css']
 })
-export class CreateWebhookComponent implements OnInit {
+export class WebhookFormComponent implements OnInit {
   editorOptions = {theme: 'vs-light', language: 'yaml'};
 
   webhookForm!: WebhookGroupForm;

@@ -4,7 +4,7 @@ import {SubscribeWebhookComponent} from './subscribe-webhook/subscribe-webhook.c
 import {WebhookPageComponent} from './webhook-page/webhook-page.component';
 import {CallbackTestComponent} from "./callback-test/callback-test.component";
 import { CongratsComponent } from './subscribe-webhook/congrats/congrats.component';
-import { CreateWebhookComponent } from './webhook-page/create-webhook/create-webhook.component';
+import { WebhookFormComponent } from './webhook-page/webhook-form/webhook-form.component';
 import {CanActivateSubscribe} from "./service/can-activate-subscribe";
 const routes: Routes = [
   {
@@ -35,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'create-webhook',
-    component: CreateWebhookComponent,
+    component: WebhookFormComponent,
     data: {
         breadcrumb: 'Create new webhook group',
       editMode: false
@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'edit-webhook-group',
-    component: CreateWebhookComponent,
+    component: WebhookFormComponent,
     data: {
       breadcrumb: 'Update webhook group',
       editMode: true
