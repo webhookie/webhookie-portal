@@ -10,6 +10,8 @@ import {WebhooksContext} from "../../webhooks-context";
 import {WebhookAccessGroupComponent} from "./webhook-access-group/webhook-access-group.component";
 import {ToastService} from "../../../../shared/service/toast.service";
 import {ActivatedRoute} from "@angular/router";
+import {DropdownEntry} from "../../../../shared/model/dropdownEntry";
+import {ApplicationContext} from "../../../../shared/application.context";
 
 @Component({
   selector: 'app-create-webhook',
@@ -31,6 +33,7 @@ export class CreateWebhookComponent implements OnInit {
     private formBuilder: FormBuilder,
     private readonly webhookGroupService: WebhookGroupService,
     private readonly webhooksContext: WebhooksContext,
+    private readonly appCtx: ApplicationContext,
     private readonly toastService: ToastService,
     private readonly router: RouterService,
     private readonly route: ActivatedRoute
@@ -110,5 +113,9 @@ export class CreateWebhookComponent implements OnInit {
         },
         (err: WebhookieError) => this.updateError(err)
       );
+  }
+
+  providerGroupFilter(): (entry: DropdownEntry) => boolean {
+    return this.appCtx.providerGroupFilter();
   }
 }

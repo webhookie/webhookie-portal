@@ -19,8 +19,9 @@ export class WebhookAccessGroupComponent implements OnInit {
   @Input() id!: string;
   @Input() formGroup!: FormGroup
   @Input() publicTitle!: string;
-  groups: Array<DropdownEntry> = [];
   @ViewChild("selectComponent") selectComponent!: MultiSelectComponent
+  @Input() filter: (entry: DropdownEntry) => boolean = () => true
+  groups: Array<DropdownEntry> = [];
 
   groupAccess: number = WebhookGroupAccess.PUBLIC;
   private itemsSubscription?: Subscription;
@@ -33,6 +34,7 @@ export class WebhookAccessGroupComponent implements OnInit {
     this.webhookieService.fetchAccessGroups(this.path)
       .subscribe(list => {
         this.groups = list.map(it => new DropdownEntry(it.iamGroupName, it.name))
+          .filter(it => this.filter(it))
       });
   }
 

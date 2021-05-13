@@ -7,6 +7,7 @@ import {UserService} from "./service/user.service";
 import {Constants} from "./constants";
 import {filter} from "rxjs/operators";
 import {ArrayUtils} from "./array-utils";
+import {DropdownEntry} from "./model/dropdownEntry";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,16 @@ export class ApplicationContext {
     this.log.debug(claims)
     this.userService.readUser()
       .subscribe(it => this._user$.next(it));
+  }
+
+  get userGroups(): Array<string> {
+    return this._user$.value.groups;
+  }
+
+  providerGroupFilter(): (entry: DropdownEntry) => boolean {
+    return (it) => {
+      return this.userGroups.indexOf(it.key) > -1;
+    }
   }
 
   get hasProviderRole(): boolean {

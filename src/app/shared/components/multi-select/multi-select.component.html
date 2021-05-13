@@ -14,7 +14,7 @@
     </div>
     <div class="dropdown-divider"></div>
     <div class="scrollable-list">
-      <div class="custom-control custom-checkbox" (click)="toggleAll($event)">
+      <div class="custom-control custom-checkbox" (click)="toggleAll($event)" *ngIf="entries.length > 1">
         <input type="checkbox" class="custom-control-input" id="{{id}}-All" name="example1" [checked]="allSelected">
         <label class="custom-control-label" for="{{id}}-All">Select All</label>
       </div>

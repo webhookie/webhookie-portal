@@ -23,6 +23,7 @@
           [control]="webhookForm.providerGroups"
           title="Provider groups"
           [formGroup]="webhookForm.form"
+          [filter]="providerGroupFilter()"
           #providerGroupsComponent
         >
         </app-webhook-access-group>
