@@ -1,4 +1,4 @@
-export class SampleYML {
+export class SpecTemplate {
   static spec = `asyncapi: '2.0.0'
 info:
   title: Streetlights API
