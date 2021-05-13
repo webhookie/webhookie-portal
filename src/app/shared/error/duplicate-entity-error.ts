@@ -6,5 +6,6 @@ export class DuplicateEntityError extends WebhookieServerError {
     super(httpError);
 
     this.name = DuplicateEntityError.name;
+    this.message = `Entity already exists with key : ${httpError.error.key}`
   }
 }
