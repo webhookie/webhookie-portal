@@ -102,4 +102,10 @@ export class WebhooksContext {
   cancelEditingWebhookGroup() {
     this.editingWebhookGroup = undefined;
   }
+
+  clearWebhookSelection() {
+    this._selectedWebhookGroup.next(undefined);
+    this.selectedTopic = undefined
+    this.selectedWebhook = undefined
+  }
 }

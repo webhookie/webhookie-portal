@@ -2,6 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {Topic, WebhookGroup} from "../../../../model/webhook-group";
 import {ArrayUtils} from "../../../../../../shared/array-utils";
+import {WebhooksContext} from "../../../../webhooks-context";
+import {WebhookGroupElement} from "../../../sidebar/sidebar-list/webhook-group-element";
+import {RouterService} from "../../../../../../shared/service/router.service";
 
 @Component({
   selector: 'app-welcome-with-data',
@@ -16,7 +19,10 @@ export class WelcomeWithDataComponent implements OnInit {
   topics: Array<TopicEx> = []
   chunked: Array<Array<TopicEx>> = []
 
-  constructor() { }
+  constructor(
+    private readonly routeService: RouterService,
+    private readonly webhooksContext: WebhooksContext
+  ) { }
 
   ngOnInit(): void {
     this.firstRow = []
@@ -35,6 +41,13 @@ export class WelcomeWithDataComponent implements OnInit {
     });
   }
 
+  select(tx: TopicEx) {
+    let group = WebhookGroupElement.create(tx.group);
+    this.webhooksContext.selectTopic(group, tx.topic);
+    this.webhooksContext._selectedWebhookGroup.next(group)
+    this.routeService
+      .navigateTo("webhooks/webhooks-page/webhook")
+  }
 }
 
 class TopicEx {

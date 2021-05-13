@@ -59,4 +59,8 @@ export class SidebarListComponent implements OnInit {
     return this.service.myWebhookGroups()
       .pipe(map(list => list.map(it => WebhookGroupElement.create(it))))
   }
+
+  clearSelection() {
+    this.context.clearWebhookSelection()
+  }
 }

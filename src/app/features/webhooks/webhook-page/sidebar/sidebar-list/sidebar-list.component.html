@@ -1,7 +1,13 @@
 <div id="sidebar-nav">
   <ul class="navbar-nav">
     <li class="nav-item mt-1">
-      <a routerLink="/webhooks/webhooks-page/welcome" class="nav-link" [class.portionColor]="selectedTopic == null" routerLinkActive="active">
+      <a
+        routerLink="/webhooks/webhooks-page/welcome"
+        class="nav-link"
+        [class.portionColor]="selectedTopic == null"
+        routerLinkActive="active"
+        (click)="clearSelection()"
+      >
         Welcome
       </a>
     </li>
