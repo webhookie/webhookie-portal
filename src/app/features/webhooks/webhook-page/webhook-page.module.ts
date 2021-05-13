@@ -20,6 +20,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../../../shared/shared.module";
 import { WebhookAccessGroupComponent } from './webhook-form/webhook-access-group/webhook-access-group.component';
 import {NgbAlertModule, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
+import { CreateWebhookGroupComponent } from './webhook-form/create-webhook-group/create-webhook-group.component';
+import { EditWebhookGroupComponent } from './webhook-form/edit-webhook-group/edit-webhook-group.component';
 @NgModule({
   declarations: [
     WebhookPageComponent,
@@ -35,6 +37,8 @@ import {NgbAlertModule, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
     WelcomeWithDataComponent,
     WelcomeWithoutDataComponent,
     WebhookAccessGroupComponent,
+    CreateWebhookGroupComponent,
+    EditWebhookGroupComponent,
 
 
   ],

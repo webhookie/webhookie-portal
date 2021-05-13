@@ -1,17 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import "@asyncapi/web-component/lib/asyncapi-web-component";
-import {FormBuilder} from "@angular/forms";
 import {switchMap, take} from "rxjs/operators";
-import {WebhookGroupService} from "../../service/webhook-group.service";
-import {RouterService} from "../../../../shared/service/router.service";
 import {WebhookGroupForm} from "./webhook-group-form";
 import {WebhookieError} from "../../../../shared/error/webhookie-error";
-import {WebhooksContext} from "../../webhooks-context";
 import {WebhookAccessGroupComponent} from "./webhook-access-group/webhook-access-group.component";
-import {ToastService} from "../../../../shared/service/toast.service";
-import {ActivatedRoute} from "@angular/router";
 import {DropdownEntry} from "../../../../shared/model/dropdownEntry";
 import {ApplicationContext} from "../../../../shared/application.context";
+import {Observable} from "rxjs";
+import {WebhookGroup} from "../../model/webhook-group";
 
 @Component({
   selector: 'app-webhook-form',
@@ -21,36 +17,21 @@ import {ApplicationContext} from "../../../../shared/application.context";
 export class WebhookFormComponent implements OnInit {
   editorOptions = {theme: 'vs-light', language: 'yaml'};
 
-  webhookForm!: WebhookGroupForm;
   error: WebhookieError | null = null;
   isCollapsed: boolean = true;
-  formTitle?: string
 
   @ViewChild("consumerGroupsComponent") consumerGroupsComponent!: WebhookAccessGroupComponent
   @ViewChild("providerGroupsComponent") providerGroupsComponent!: WebhookAccessGroupComponent
+  @Input() webhookForm!: WebhookGroupForm;
+  @Input() formTitle!: string
+  @Input() onSave!: (request: any) => Observable<WebhookGroup>
+  @Input() onSuccess!: (value: WebhookGroup) => void;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private readonly webhookGroupService: WebhookGroupService,
-    private readonly webhooksContext: WebhooksContext,
     private readonly appCtx: ApplicationContext,
-    private readonly toastService: ToastService,
-    private readonly router: RouterService,
-    private readonly route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.route.data
-      .subscribe(it => {
-        this.formTitle = it.breadcrumb;
-        if(it.editMode) {
-          this.webhookForm = new WebhookGroupForm(this.formBuilder, this.webhooksContext.editingWebhookGroup);
-        } else {
-          this.webhooksContext.cancelEditingWebhookGroup();
-          this.webhookForm = new WebhookGroupForm(this.formBuilder);
-        }
-      });
-
     this.webhookForm.form.statusChanges
       .subscribe(it => {
         if(it == "INVALID") {
@@ -73,7 +54,13 @@ export class WebhookFormComponent implements OnInit {
   }
 
   save($event: MouseEvent) {
-    this.onSubmit();
+    this.clearError();
+    this.webhookForm.value()
+      .pipe(switchMap(it => this.onSave(it)))
+      .subscribe(
+        it => this.onSuccess(it),
+        (err: WebhookieError) => this.updateError(err)
+      );
     $event.preventDefault();
   }
 
@@ -89,30 +76,6 @@ export class WebhookFormComponent implements OnInit {
   clearError() {
     this.error = null;
     this.isCollapsed = true;
-  }
-
-  onSubmit() {
-    this.clearError();
-    this.webhookForm.value()
-      .pipe(
-        switchMap(it => {
-          if(this.webhookForm.editMode) {
-            return this.webhookGroupService.update(it, this.webhookForm.id)
-          } else {
-            return this.webhookGroupService.create(it)
-          }
-        }),
-      )
-      .subscribe(
-        () => {
-          if(this.webhookForm.editMode) {
-            this.toastService.success("Webhook Group has been saved successfully!", "SUCCESS")
-          } else {
-            this.router.navigateTo("/webhooks");
-          }
-        },
-        (err: WebhookieError) => this.updateError(err)
-      );
   }
 
   providerGroupFilter(): (entry: DropdownEntry) => boolean {

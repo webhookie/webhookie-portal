@@ -3,9 +3,11 @@ import {RouterModule, Routes} from '@angular/router';
 import {SubscribeWebhookComponent} from './subscribe-webhook/subscribe-webhook.component';
 import {WebhookPageComponent} from './webhook-page/webhook-page.component';
 import {CallbackTestComponent} from "./callback-test/callback-test.component";
-import { CongratsComponent } from './subscribe-webhook/congrats/congrats.component';
-import { WebhookFormComponent } from './webhook-page/webhook-form/webhook-form.component';
+import {CongratsComponent} from './subscribe-webhook/congrats/congrats.component';
 import {CanActivateSubscribe} from "./service/can-activate-subscribe";
+import {EditWebhookGroupComponent} from "./webhook-page/webhook-form/edit-webhook-group/edit-webhook-group.component";
+import {CreateWebhookGroupComponent} from "./webhook-page/webhook-form/create-webhook-group/create-webhook-group.component";
+
 const routes: Routes = [
   {
     path: '',
@@ -35,18 +37,16 @@ const routes: Routes = [
   },
   {
     path: 'create-webhook',
-    component: WebhookFormComponent,
+    component: CreateWebhookGroupComponent,
     data: {
         breadcrumb: 'Create new webhook group',
-      editMode: false
     },
   },
   {
     path: 'edit-webhook-group',
-    component: WebhookFormComponent,
+    component: EditWebhookGroupComponent,
     data: {
       breadcrumb: 'Update webhook group',
-      editMode: true
     },
   },
   {
