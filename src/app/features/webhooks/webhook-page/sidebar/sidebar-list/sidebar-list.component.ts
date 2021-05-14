@@ -28,25 +28,24 @@ export class SidebarListComponent implements OnInit {
 
     this.context.webhook$
       .subscribe(it => {
-        $("#faq div.card-header a").removeClass("active")
-        $("#faq div.collapse").removeClass("show")
-        $("#faq div.collapse ul li a").removeClass("portionColor")
+        $(function () {
+          $("#faq div.card-header a").removeClass("active")
+          $("#faq div.collapse").removeClass("show")
+          $("#faq div.collapse ul li a").removeClass("portionColor")
+        });
 
         if(it != null) {
           let id = it.group.id;
           let bodyId = `faq${id}`
           let topicAId = this.topicId(it.topic)
           let groupAId = `group_a_${id}`
-
-          let topicA = $(`#${topicAId}`);
-          let body = $(`#${bodyId}`)
-          let groupA = $(`#${groupAId}`);
-
-
-          body.addClass("show");
-          groupA.addClass("active");
-          topicA.addClass("portionColor");
+          $(function () {
+            $(`#${bodyId}`).addClass("show");
+            $(`#${groupAId}`).addClass("active");
+            $(`#${topicAId}`).addClass("portionColor");
+          });
         }
+
       })
   }
 
