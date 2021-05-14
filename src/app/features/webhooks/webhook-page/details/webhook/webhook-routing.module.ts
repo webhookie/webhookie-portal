@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {WebhookDetailComponent} from './webhook-detail/webhook-detail.component';
 import {ReviewsComponent} from './reviews/reviews.component';
 import {SupportComponent} from './support/support.component';
+import {CanActivateSubscribe} from "../../../service/can-activate-subscribe";
 
 const routes: Routes = [
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   {
     path: 'webhook-detail',
     component: WebhookDetailComponent,
+    canActivate: [CanActivateSubscribe]
   },
   {
     path: 'reviews',
