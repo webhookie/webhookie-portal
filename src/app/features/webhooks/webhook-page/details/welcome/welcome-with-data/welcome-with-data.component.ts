@@ -1,9 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {Topic, WebhookGroup} from "../../../../model/webhook-group";
+import {WebhookGroup} from "../../../../model/webhook-group";
 import {ArrayUtils} from "../../../../../../shared/array-utils";
-import {WebhooksContext} from "../../../../webhooks-context";
-import {WebhookGroupElement} from "../../../sidebar/sidebar-list/webhook-group-element";
+import {Webhook, WebhooksContext} from "../../../../webhooks-context";
 import {RouterService} from "../../../../../../shared/service/router.service";
 
 @Component({
@@ -13,11 +12,11 @@ import {RouterService} from "../../../../../../shared/service/router.service";
 })
 export class WelcomeWithDataComponent implements OnInit {
   @Input() items!: Observable<Array<WebhookGroup>>
-  firstRow: Array<TopicEx> = []
-  rest: Array<Array<TopicEx>> = []
+  firstRow: Array<Webhook> = []
+  rest: Array<Array<Webhook>> = []
 
-  topics: Array<TopicEx> = []
-  chunked: Array<Array<TopicEx>> = []
+  topics: Array<Webhook> = []
+  chunked: Array<Array<Webhook>> = []
 
   constructor(
     private readonly routeService: RouterService,
@@ -31,7 +30,7 @@ export class WelcomeWithDataComponent implements OnInit {
 
     this.items.subscribe(list => {
       list.forEach(wg => {
-        let topicExList = wg.topics.map(t => new TopicEx(t, wg))
+        let topicExList = wg.topics.map(t => new Webhook(wg, t))
         this.topics.push(...topicExList)
       });
 
@@ -41,19 +40,9 @@ export class WelcomeWithDataComponent implements OnInit {
     });
   }
 
-  select(tx: TopicEx) {
-    let group = WebhookGroupElement.create(tx.group);
-    this.webhooksContext.selectTopic(group, tx.topic);
-    this.webhooksContext._selectedWebhookGroup.next(group)
+  select(webhook: Webhook) {
+    this.webhooksContext.selectTopic(webhook);
     this.routeService
-      .navigateTo("webhooks/webhooks-page/webhook")
-  }
-}
-
-class TopicEx {
-  constructor(
-    public topic: Topic,
-    public group: WebhookGroup
-  ) {
+      .navigateTo("/webhooks/webhooks-page/webhook/webhook-detail")
   }
 }

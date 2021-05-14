@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WebhooksContext} from "../../webhooks-context";
+import {Observable} from "rxjs";
+import {Topic} from "../../model/webhook-group";
 
 @Component({
   selector: 'app-congrats',
@@ -13,8 +15,8 @@ export class CongratsComponent implements OnInit {
   ) {
   }
 
-  get topic() {
-    return this.context.selectedTopic?.name
+  get topic(): Observable<Topic> {
+    return this.context.topic$
   }
 
   ngOnInit(): void {

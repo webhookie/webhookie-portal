@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WebhooksContext} from "../../webhooks-context";
+import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-webhook-rate-sub-links',
@@ -11,8 +13,9 @@ export class WebhookRateSubLinksComponent implements OnInit {
   constructor(public context: WebhooksContext) {
   }
 
-  get selectedTopic() {
-    return this.context.selectedTopic
+  get selectedTopic(): Observable<string> {
+    return this.context.topic$
+      .pipe(map(it => it.description))
   }
 
   ngOnInit(): void {

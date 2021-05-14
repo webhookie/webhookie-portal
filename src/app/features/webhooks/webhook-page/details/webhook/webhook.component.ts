@@ -5,6 +5,7 @@ import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
 import {RouterService} from "../../../../../shared/service/router.service";
 import {WebhookGroupService} from "../../../service/webhook-group.service";
+import {Observable} from "rxjs";
 
 type WebhookGroupContextMenu = ContextMenuItem<WebhookGroup, WebhookMenu>
 
@@ -16,8 +17,8 @@ type WebhookGroupContextMenu = ContextMenuItem<WebhookGroup, WebhookMenu>
 export class WebhookComponent implements OnInit {
   menuItems: Array<ContextMenuItem<WebhookGroup, WebhookMenu>> = [];
 
-  get data(): WebhookGroup | undefined{
-    return this.webhooksContext.selectedWebhook?.webhookGroup
+  get data(): Observable<WebhookGroup> {
+    return this.webhooksContext.group$
   }
 
   constructor(
@@ -29,7 +30,7 @@ export class WebhookComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.webhooksContext._selectedWebhookGroup
+    this.webhooksContext.group$
       .subscribe(() => {
         this.menuItems = this.createContextMenuItems();
       })

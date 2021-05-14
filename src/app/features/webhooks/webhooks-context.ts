@@ -1,34 +1,42 @@
 import {Injectable} from "@angular/core";
-import {ReplaySubject, Subject} from "rxjs";
-import {WebhookGroupElement} from "./webhook-page/sidebar/sidebar-list/webhook-group-element";
+import {BehaviorSubject, Observable} from "rxjs";
 import {Topic, WebhookGroup} from "./model/webhook-group";
+import {filter, map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebhooksContext {
-  selectedWebhook?: WebhookGroupElement;
-  readonly _selectedWebhookGroup: Subject<WebhookGroupElement> = new ReplaySubject()
-  selectedTopic?: Topic;
+  private readonly _webhook$: BehaviorSubject<Webhook|null> = new BehaviorSubject<Webhook | null>(null);
+
+  readonly webhook$: Observable<Webhook|null> = this._webhook$.asObservable();
+
+  // @ts-ignore
+  private readonly _forcedWebhook$: Observable<Webhook> = this.webhook$
+    .pipe(filter(it => it != null))
+
+  readonly topic$: Observable<Topic> = this._forcedWebhook$
+    .pipe(map(it => it.topic))
+  readonly group$: Observable<WebhookGroup> = this._forcedWebhook$
+    .pipe(map(it => it.group))
+
+  get selectedTopic(): Topic | undefined {
+    return this._webhook$.value?.topic
+  }
 
   editingWebhookGroup?: WebhookGroup;
 
   constructor() {
-    this._selectedWebhookGroup
+    this.webhook$
       .subscribe(() => {});
   }
 
-  selectWebhookGroup(webhookGroup: WebhookGroupElement) {
-    this.selectTopic(webhookGroup, webhookGroup.topics[0]);
+  selectWebhookGroup(webhookGroup: WebhookGroup) {
+    this.selectTopic(Webhook.create(webhookGroup));
   }
 
-  selectTopic(webhookGroup: WebhookGroupElement, topic: Topic) {
-    if (this.selectedWebhook) {
-      this.selectedWebhook?.hide();
-    }
-    this.selectedWebhook = webhookGroup;
-    this.selectedTopic = topic;
-    webhookGroup.toggle();
+  selectTopic(webhook: Webhook) {
+    this._webhook$.next(webhook);
   }
 
   editingGroup(group: WebhookGroup) {
@@ -40,8 +48,18 @@ export class WebhooksContext {
   }
 
   clearWebhookSelection() {
-    this._selectedWebhookGroup.next(undefined);
-    this.selectedTopic = undefined
-    this.selectedWebhook = undefined
+    this._webhook$.next(null);
+  }
+}
+
+export class Webhook {
+  constructor(
+    public group: WebhookGroup,
+    public topic: Topic
+  ) {
+  }
+
+  static create(group: WebhookGroup, topic: Topic|null = null): Webhook {
+    return new Webhook(group, topic ? topic : group.topics[0]);
   }
 }

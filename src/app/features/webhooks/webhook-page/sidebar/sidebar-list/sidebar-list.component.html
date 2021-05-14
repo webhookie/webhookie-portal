@@ -13,19 +13,25 @@
     </li>
   </ul>
   <div class="accordion" id="faq">
-    <div *ngFor="let webhookGroup of _webhooks$.asObservable() | async;let i=index" class="card custom-accordion">
-      <div class="card-header" id="faqhead{{i}}">
-        <a (click)="show(webhookGroup)" [attr.aria-controls]="'faq' + i" [attr.data-target]="'#faq' + i" [class.active]="webhookGroup.isShowing"
-           aria-expanded="true" class="btn btn-header-link"
-           data-toggle="collapse" href="#">{{webhookGroup.title}}</a>
+    <div *ngFor="let webhookGroup of _webhooks$.asObservable() | async" class="card custom-accordion">
+      <div class="card-header" id="faqhead{{webhookGroup.id}}">
+        <a
+          id="group_a_{{webhookGroup.id}}"
+          [attr.aria-controls]="'faq' + webhookGroup.id"
+          [attr.data-target]="'#faq' + webhookGroup.id"
+          aria-expanded="true"
+          class="btn btn-header-link"
+          data-toggle="collapse"
+          href="#">
+          {{webhookGroup.title}}
+        </a>
       </div>
-
-      <div [ngClass]="(i == 0)?'show':'collapse'" data-parent="#faq" id="faq{{i}}">
+      <div [ngClass]="'collapse'" data-parent="#faq" id="faq{{webhookGroup.id}}">
         <ul class="navbar-nav">
           <li *ngFor="let topic of webhookGroup.topics" class="nav-item">
             <a (click)="selectTopic(webhookGroup, topic)"
+               [id]="topicId(topic)"
                routerLink="/webhooks/webhooks-page/webhook/webhook-detail"
-               [class.portionColor]="isCurrentTopic(topic)"
                class="nav-link"
                href="javascript:void(0)"
                routerLinkActive="active">

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {WebhooksContext} from "../../webhooks-context";
 import {BreadcrumbService} from "angular-crumbs";
+import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-webhook-title',
@@ -22,8 +24,9 @@ export class WebhookTitleComponent implements OnInit {
       });
   }
 
-  get topic() {
-    return this.context.selectedTopic
+  get topic(): Observable<string> {
+    return this.context.topic$
+      .pipe(map(it => it.name))
   }
 
   ngOnInit(): void {

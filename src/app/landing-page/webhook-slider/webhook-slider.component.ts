@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {WebhookGroup} from "../../features/webhooks/model/webhook-group";
 import {Observable} from "rxjs";
 import {WebhooksContext} from "../../features/webhooks/webhooks-context";
-import {WebhookGroupElement} from "../../features/webhooks/webhook-page/sidebar/sidebar-list/webhook-group-element";
 
 @Component({
   selector: 'app-webhook-slider',
@@ -96,6 +95,6 @@ export class WebhookSliderComponent implements OnInit {
   }
 
   browseWebhookGroup(wg: WebhookGroup) {
-    this.webhooksContext.selectWebhookGroup(WebhookGroupElement.create(wg));
+    this.webhooksContext.selectWebhookGroup(wg);
   }
 }

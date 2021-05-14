@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable, ReplaySubject, Subject} from "rxjs";
-import {filter, map, mergeMap} from "rxjs/operators";
-import {WebhookGroupElement} from "./webhook-group-element";
+import {mergeMap} from "rxjs/operators";
 import {WebhookGroupService} from "../../../service/webhook-group.service";
 import {ApplicationContext} from "../../../../../shared/application.context";
-import {WebhooksContext} from "../../../webhooks-context";
-import {Topic} from "../../../model/webhook-group";
+import {Webhook, WebhooksContext} from "../../../webhooks-context";
+import {Topic, WebhookGroup} from "../../../model/webhook-group";
 
 @Component({
   selector: 'app-sidebar-list',
@@ -13,7 +12,7 @@ import {Topic} from "../../../model/webhook-group";
   styleUrls: ['./sidebar-list.component.css']
 })
 export class SidebarListComponent implements OnInit {
-  readonly _webhooks$: Subject<Array<WebhookGroupElement>> = new ReplaySubject();
+  readonly _webhooks$: Subject<Array<WebhookGroup>> = new ReplaySubject();
 
   constructor(
     private readonly service: WebhookGroupService,
@@ -22,42 +21,41 @@ export class SidebarListComponent implements OnInit {
   ) {
   }
 
-  // noinspection JSUnusedGlobalSymbols
-  get selectedWebhookElement() {
-    return this.context.selectedWebhook
-  }
-
-  get selectedTopic() {
-    return this.context.selectedTopic
-  }
-
   ngOnInit(): void {
-    $(function () {
-      $(this).toggleClass("active").parent().parent().siblings().find('a').removeClass('active')
-    });
-
     this.appContext.isLoggedIn
-      .pipe(
-        mergeMap(() => this.readWebhookGroups())
-      )
+      .pipe(mergeMap(() => this.readWebhookGroups()))
       .subscribe(it => this._webhooks$.next(it));
 
-    this._webhooks$.asObservable()
-      .pipe(filter(it => it.length > 0))
-      .subscribe(it => this.show(it[0]));
+    this.context.webhook$
+      .subscribe(it => {
+        $("#faq div.card-header a").removeClass("active")
+        $("#faq div.collapse").removeClass("show")
+        $("#faq div.collapse ul li a").removeClass("portionColor")
+
+        if(it != null) {
+          let id = it.group.id;
+          let bodyId = `faq${id}`
+          let topicAId = this.topicId(it.topic)
+          let groupAId = `group_a_${id}`
+
+          let topicA = $(`#${topicAId}`);
+          let body = $(`#${bodyId}`)
+          let groupA = $(`#${groupAId}`);
+
+
+          body.addClass("show");
+          groupA.addClass("active");
+          topicA.addClass("portionColor");
+        }
+      })
   }
 
-  show(webhookGroup: WebhookGroupElement) {
-    this.context._selectedWebhookGroup.next(webhookGroup);
+  selectTopic(element: WebhookGroup, topic: Topic) {
+    this.context.selectTopic(Webhook.create(element, topic))
   }
 
-  selectTopic(element: WebhookGroupElement, topic: Topic) {
-    this.context.selectTopic(element, topic)
-  }
-
-  private readWebhookGroups(): Observable<Array<WebhookGroupElement>> {
-    return this.service.myWebhookGroups()
-      .pipe(map(list => list.map(it => WebhookGroupElement.create(it))))
+  private readWebhookGroups(): Observable<Array<WebhookGroup>> {
+    return this.service.myWebhookGroups();
   }
 
   clearSelection() {
@@ -68,7 +66,7 @@ export class SidebarListComponent implements OnInit {
     return this.context.selectedTopic == undefined
   }
 
-  isCurrentTopic(topic: Topic) {
-    return this.context.selectedTopic == topic
+  topicId(topic: Topic): string {
+    return `topic_a_${topic.name.replace(/\//g, "_")}`
   }
 }
