@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {WebhooksContext} from "../../webhooks-context";
 import {CallbackService} from "../../service/callback.service";
 import {mergeMap} from "rxjs/operators";
 import {Observable, of, ReplaySubject, Subject, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {Callback} from "../../../../shared/model/callback";
 import {ModalService} from "../../../../shared/service/modal.service";
+import {SubscriptionContext} from "../subscription-context";
 
 @Component({
   selector: 'app-callback',
@@ -17,7 +17,7 @@ export class CallbackComponent implements OnInit {
 
   constructor(
     readonly modalService: ModalService,
-    private readonly context: WebhooksContext,
+    private readonly context: SubscriptionContext,
     private readonly service: CallbackService
   ) {
   }

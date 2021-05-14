@@ -15,6 +15,7 @@ import {Pageable} from "../../../shared/request/pageable";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {Constants} from "../../../shared/constants";
 import {ActivatedRoute, Router} from "@angular/router";
+import {SubscriptionContext} from "./subscription-context";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -34,6 +35,7 @@ export class SubscribeWebhookComponent implements OnInit {
 
   constructor(
     private readonly context: WebhooksContext,
+    private readonly subscriptionContext: SubscriptionContext,
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly subscriptionService: SubscriptionService,
@@ -42,7 +44,7 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   get selectedCallback() {
-    return this.context.currentCallback
+    return this.subscriptionContext.currentCallback
   }
 
   get selectedSubscription() {
@@ -66,7 +68,7 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   private clear() {
-    this.context.clear();
+    this.subscriptionContext.clear();
   }
 
   private clearSubscription() {
@@ -90,15 +92,15 @@ export class SubscribeWebhookComponent implements OnInit {
   ngOnInit(): void {
     this.clear();
 
-    this.context.callbackCleared$
+    this.subscriptionContext.callbackCleared$
     // @ts-ignore
       .subscribe(() => this.clearSubscription());
 
-    this.context._createdCallback$.asObservable()
+    this.subscriptionContext._createdCallback$.asObservable()
     // @ts-ignore
       .subscribe(() => this.clearSubscription())
 
-    this.context.selectedCallback$
+    this.subscriptionContext.selectedCallback$
       .pipe(mergeMap(it => this.fetchSubscriptions(it.callbackId)))
       .subscribe(it => {
         if (it.length > 0) {
@@ -111,7 +113,7 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   title() {
-    return `Subscribe ${this.context.selectedTopic?.name} to Webhook`
+    return `Subscribe to ${this.context.selectedTopic?.name} webhook`
   }
 
   validate() {
@@ -142,7 +144,7 @@ export class SubscribeWebhookComponent implements OnInit {
       this.response?.updateWithError(err.error);
     }
 
-    this.context.selectedCallback$
+    this.subscriptionContext.selectedCallback$
       .pipe(mergeMap(validateSubscription))
       .subscribe(successHandler, errorHandler)
   }

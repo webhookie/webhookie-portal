@@ -6,11 +6,11 @@ import {map} from "rxjs/operators";
 import {ApplicationService, CreateApplicationRequest} from "../../../service/application.service";
 import {WebhooksContext} from "../../../webhooks-context";
 import {Application} from "../../../model/application";
-// import {ToastrService} from "ngx-toastr";
 import {WebhookieError} from "../../../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
 import {ModalService} from "../../../../../shared/service/modal.service";
+import {SubscriptionContext} from "../../subscription-context";
 
 @Component({
   selector: 'app-create-application',
@@ -31,6 +31,7 @@ export class CreateApplicationComponent implements OnInit {
     private readonly service: ApplicationService,
     private readonly webhookieService: WebhookieService,
     private readonly context: WebhooksContext,
+    private readonly subscriptionContext: SubscriptionContext,
     // private readonly alertService: ToastrService,
     public modalService: ModalService
   ) {
@@ -49,15 +50,17 @@ export class CreateApplicationComponent implements OnInit {
     }
 
     let successHandler = (app: Application) => {
-      this.context.applicationCreated(app);
+      this.subscriptionContext.applicationCreated(app);
       this.modalService.hide();
     };
 
     let errorHandler = (error: WebhookieError) => {
       let message = error.message;
       if(error.name == DuplicateEntityError.name) {
+        // noinspection JSUnusedAssignment
         message = "Duplicate application name! please choose another name"
       } else if(error.name == BadRequestError.name) {
+        // noinspection JSUnusedAssignment
         message = "Request is missing name or consumer groups. please make sure to add at least 1 Consumer Group"
       }
       // this.alertService.error(message);

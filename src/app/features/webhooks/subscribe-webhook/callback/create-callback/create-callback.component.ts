@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {WebhooksContext} from "../../../webhooks-context";
 import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
 import {CallbackRequest, CallbackService} from "../../../service/callback.service";
 import {WebhookieError} from "../../../../../shared/error/webhookie-error";
@@ -7,7 +6,7 @@ import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
 import {Callback} from "../../../../../shared/model/callback";
 import {ModalService} from "../../../../../shared/service/modal.service";
-// import {ToastrService} from "ngx-toastr";
+import {SubscriptionContext} from "../../subscription-context";
 
 @Component({
   selector: 'app-create-callback',
@@ -21,8 +20,7 @@ export class CreateCallbackComponent implements OnInit {
   constructor(
     public modalService: ModalService,
     private readonly service: CallbackService,
-    // private readonly alertService: ToastrService,
-    private readonly context: WebhooksContext
+    private readonly context: SubscriptionContext
   ) {
   }
 
@@ -58,11 +56,12 @@ export class CreateCallbackComponent implements OnInit {
     let errorHandler = (error: WebhookieError) => {
       let message = error.message;
       if(error.name == DuplicateEntityError.name) {
+        // noinspection JSUnusedAssignment
         message = "Duplicate callback! please choose another method or url"
       } else if(error.name == BadRequestError.name) {
+        // noinspection JSUnusedAssignment
         message = "Request is missing url or something else is missing. please select method and proper url"
       }
-      // this.alertService.error(message);
     };
 
     this.service.createCallback(request)

@@ -3,9 +3,9 @@ import * as $ from 'jquery';
 import {ApplicationService} from "../../service/application.service";
 import {Observable, of, ReplaySubject, Subject, zip} from "rxjs";
 import {Application} from "../../model/application";
-import {WebhooksContext} from "../../webhooks-context";
 import {mergeMap} from "rxjs/operators";
 import {ModalService} from "../../../../shared/service/modal.service";
+import {SubscriptionContext} from "../subscription-context";
 
 @Component({
   selector: 'app-application',
@@ -20,7 +20,7 @@ export class ApplicationComponent implements OnInit {
 
   constructor(
     private readonly applicationService: ApplicationService,
-    private readonly context: WebhooksContext,
+    private readonly context: SubscriptionContext,
     readonly modalService: ModalService
   ) {
   }
@@ -34,11 +34,12 @@ export class ApplicationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    $(document).ready(function () {
-      $(".btn-warning").click(function () {
+    $(function() {
+      $(".btn-warning").on("click", function () {
         $(this).toggleClass("active").parent().parent().siblings().find('after').removeClass('active')
       });
-    })
+      $( "p" ).text( "The DOM is now loaded and can be manipulated." );
+    });
 
     this.context._createdApplication$.asObservable()
       .pipe(
