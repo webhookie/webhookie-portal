@@ -39,6 +39,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         case 401:
           result = new WebhookieServerError(httpError);
           break;
+        case 403:
+          result = new WebhookieServerError(httpError);
+          console.warn(httpError)
+          console.warn(result)
+          break;
         case 409:
           result = new DuplicateEntityError(httpError);
           break;
@@ -46,7 +51,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           result = new WebhookieServerError(httpError);
           break;
       }
-      msg = `<p></p><div>${result.message}</div><p><div>${result.message}</div></p>`;
+      msg = `<p></p><div>${result.message}</div><p><div>${result.extraMessage}</div></p>`;
       header = result.name
     } else {
       result = new WebhookieError({
