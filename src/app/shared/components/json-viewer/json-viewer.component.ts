@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JsonUtils} from "../../json-utils";
 import * as $ from "jquery";
 import {ModalService} from "../../service/modal.service";
@@ -9,6 +9,9 @@ import {ModalService} from "../../service/modal.service";
   styleUrls: ['./json-viewer.component.css']
 })
 export class JsonViewerComponent implements OnInit {
+
+  @Input() darkMode: boolean = true;
+  @Input() showHeader: boolean = true;
 
   constructor(
     private readonly modalService: ModalService

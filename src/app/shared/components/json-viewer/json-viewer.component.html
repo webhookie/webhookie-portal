@@ -1,5 +1,5 @@
-<div class="light-mode dark-mode-active">
-  <div class="modal-header p-0 mb-3 border-0">
+<div class="light-mode" [class.dark-mode-active]="darkMode">
+  <div class="modal-header p-0 mb-3 border-0" *ngIf="showHeader">
     <div class="custom-control custom-switch align-items-center">
       <input class="custom-control-input" id="customSwitch1" type="checkbox" checked>
       <label class="custom-control-label mode-switcher font12" for="customSwitch1">Dark mode</label>
