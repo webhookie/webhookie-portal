@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { WebhookGroup } from "../../features/webhooks/model/webhook-group";
-import { Observable } from "rxjs";
-import { OwlOptions } from "ngx-owl-carousel-o/lib/models/owl-options.model";
-import * as $ from "jquery";
+import {Component, Input, OnInit} from '@angular/core';
+import {WebhookGroup} from "../../features/webhooks/model/webhook-group";
+import {Observable} from "rxjs";
+import {WebhooksContext} from "../../features/webhooks/webhooks-context";
+import {WebhookGroupElement} from "../../features/webhooks/webhook-page/sidebar/sidebar-list/webhook-group-element";
+
 @Component({
   selector: 'app-webhook-slider',
   templateUrl: './webhook-slider.component.html',
@@ -11,30 +12,13 @@ import * as $ from "jquery";
 export class WebhookSliderComponent implements OnInit {
   @Input() items!: Observable<Array<WebhookGroup>>
 
-  // customOptions: OwlOptions = {
-  //   loop: true,
-  //   margin: 20,
-  //   autoplay:true,
-  //   nav: false,
-  //   responsive: {
-  //     0: {
-  //      items: 1
-  //    },
-  //     600: {
-  //      items: 2
-  //    },
-  //     1000: {
-  //      items: 3
-  //    }
-  //   },
-  // }
   slideConfig = {
     dots: true,
     arrows: false,
     infinite: false,
     speed: 300,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     responsive: [
       {
         breakpoint: 1024,
@@ -60,11 +44,13 @@ export class WebhookSliderComponent implements OnInit {
       }
     ]
   }
-  constructor() { }
+  constructor(
+    private readonly webhooksContext: WebhooksContext,
+  ) { }
 
   ngOnInit(): void {
     this.items.subscribe(it => {
-      if (it.length <= 3) {      
+      if (it.length <= 3) {
         // this.customOptions.loop = false;
         // this.customOptions.autoplay = false;
         this.slideConfig.dots = false;
@@ -79,7 +65,7 @@ export class WebhookSliderComponent implements OnInit {
          {
           breakpoint: 480,
           settings: {
-            dots: (it.length==1)?false:true,
+            dots: (it.length != 1),
             slidesToShow: 1,
             slidesToScroll: 1,
           }
@@ -89,20 +75,27 @@ export class WebhookSliderComponent implements OnInit {
     });
   }
 
+  // noinspection JSUnusedLocalSymbols
   slickInit(e: any) {
     console.log('slick initialized');
   }
 
+  // noinspection JSUnusedLocalSymbols
   breakpoint(e: any) {
     console.log('breakpoint');
   }
 
+  // noinspection JSUnusedLocalSymbols
   afterChange(e: any) {
     console.log('afterChange');
   }
 
+  // noinspection JSUnusedLocalSymbols
   beforeChange(e: any) {
     console.log('beforeChange');
   }
 
+  browseWebhookGroup(wg: WebhookGroup) {
+    this.webhooksContext.selectWebhookGroup(WebhookGroupElement.create(wg));
+  }
 }

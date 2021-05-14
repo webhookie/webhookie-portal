@@ -6,8 +6,9 @@
                 <p class="text-white">Check out the Webhooks we have to offer</p>
             </div>
             <div class="col-md-3 text-right">
-                <a href="/webhooks/webhooks-page/welcome" class="text-white">View all <i
-                        class="bi bi-arrow-right"></i></a>
+              <a class="text-white" routerLink="/webhooks" routerLinkActive="active">
+                View all <i class="bi bi-arrow-right"></i>
+              </a>
             </div>
         </div>
 
@@ -26,7 +27,7 @@
                                 <li>300 subscriptions</li>
                             </ul>
                             <p>{{wg.description}}</p>
-                            <a href="#">Browse <i class="bi bi-arrow-right"></i></a>
+                            <a (click)="browseWebhookGroup(wg)" routerLink="/webhooks/webhooks-page/webhook/webhook-detail" routerLinkActive="active">Browse <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
