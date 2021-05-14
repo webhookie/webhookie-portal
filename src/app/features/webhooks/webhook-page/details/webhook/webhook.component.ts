@@ -5,7 +5,6 @@ import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
 import {RouterService} from "../../../../../shared/service/router.service";
 import {WebhookGroupService} from "../../../service/webhook-group.service";
-import {Observable} from "rxjs";
 
 type WebhookGroupContextMenu = ContextMenuItem<WebhookGroup, WebhookMenu>
 
@@ -17,8 +16,8 @@ type WebhookGroupContextMenu = ContextMenuItem<WebhookGroup, WebhookMenu>
 export class WebhookComponent implements OnInit {
   menuItems: Array<ContextMenuItem<WebhookGroup, WebhookMenu>> = [];
 
-  get data(): Observable<WebhookGroup> {
-    return this.webhooksContext.group$
+  get data() {
+    return this.webhooksContext.group
   }
 
   constructor(

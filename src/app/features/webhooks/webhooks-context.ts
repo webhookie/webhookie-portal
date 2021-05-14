@@ -24,6 +24,14 @@ export class WebhooksContext {
     return this._webhook$.value?.topic
   }
 
+  get topic(): Topic {
+    return this._webhook$.value!.topic
+  }
+
+  get group(): WebhookGroup {
+    return this._webhook$.value!.group
+  }
+
   editingWebhookGroup?: WebhookGroup;
 
   constructor() {

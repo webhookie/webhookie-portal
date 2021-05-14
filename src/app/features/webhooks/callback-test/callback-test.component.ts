@@ -5,7 +5,7 @@ import {CallbackService, CallbackValidationRequest} from "../service/callback.se
 import {WebhooksContext} from "../webhooks-context";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
-import {map} from "rxjs/operators";
+
 @Component({
   selector: 'app-callback-test',
   templateUrl: './callback-test.component.html',
@@ -30,9 +30,8 @@ export class CallbackTestComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  title() {
-    return this.context.topic$
-      .pipe(map(it => `Test ${it.name} Webhook`))
+  get title() {
+    return `Test ${this.context.topic.name} Webhook`
   }
 
   test() {
