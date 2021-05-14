@@ -4,7 +4,7 @@
       <a
         routerLink="/webhooks/webhooks-page/welcome"
         class="nav-link"
-        [class.portionColor]="selectedTopic == null"
+        [class.portionColor]="topicIsNotSelected()"
         routerLinkActive="active"
         (click)="clearSelection()"
       >
@@ -23,7 +23,10 @@
       <div [ngClass]="(i == 0)?'show':'collapse'" data-parent="#faq" id="faq{{i}}">
         <ul class="navbar-nav">
           <li *ngFor="let topic of webhookGroup.topics" class="nav-item">
-            <a (click)="selectTopic(webhookGroup, topic)" routerLink="/webhooks/webhooks-page/webhook/webhook-detail" [class.portionColor]="topic==selectedTopic" class="nav-link"
+            <a (click)="selectTopic(webhookGroup, topic)"
+               routerLink="/webhooks/webhooks-page/webhook/webhook-detail"
+               [class.portionColor]="isCurrentTopic(topic)"
+               class="nav-link"
                href="javascript:void(0)"
                routerLinkActive="active">
               {{topic.name}}

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {WebhooksContext} from "../../../../features/webhooks/webhooks-context";
 
 @Component({
   selector: 'app-menu',
@@ -7,10 +8,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    private readonly ctx: WebhooksContext
+  ) {
   }
 
   ngOnInit(): void {
   }
 
+  clearContext() {
+    this.ctx.clearWebhookSelection();
+  }
 }

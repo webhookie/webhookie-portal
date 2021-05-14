@@ -63,4 +63,12 @@ export class SidebarListComponent implements OnInit {
   clearSelection() {
     this.context.clearWebhookSelection()
   }
+
+  topicIsNotSelected(): boolean {
+    return this.context.selectedTopic == undefined
+  }
+
+  isCurrentTopic(topic: Topic) {
+    return this.context.selectedTopic == topic
+  }
 }
