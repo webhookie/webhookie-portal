@@ -41,8 +41,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           break;
         case 403:
           result = new WebhookieServerError(httpError);
-          console.warn(httpError)
-          console.warn(result)
           break;
         case 409:
           result = new DuplicateEntityError(httpError);
