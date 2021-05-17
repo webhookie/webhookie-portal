@@ -108,7 +108,13 @@ export class WebhookComponent implements OnInit {
   }
 
   canEditWebhookGroup(): (it: WebhookGroup) => boolean {
-    return () => this.appContext.hasProviderRole;
+    return (it?: WebhookGroup) => {
+      if(it) {
+        return this.appContext.hasProviderAccess(it.providerGroups);
+      }
+
+      return false;
+    }
   }
 
   canViewYourSubscriptions(): (it: WebhookGroup) => boolean {
