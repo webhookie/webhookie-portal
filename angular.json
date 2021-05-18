@@ -35,6 +35,7 @@
               "rxjs",
               "pikaday",
               "@asyncapi/parser/dist/bundle",
+              "json-pointer",
               "ng2-flatpickr"
             ],
             "outputPath": "dist/webhookie-portal",
