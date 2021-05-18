@@ -1,19 +1,33 @@
-<div class="security-option mt-3">
-  <h3 class=" mb-3">Security Options</h3>
-  <table class="table table-responsive">
-    <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col" width="420px">Description</th>
-      <th scope="col">Type</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let data of securityOptions">
-      <td>{{data.name}}</td>
-      <td>{{data.description}}</td>
-      <td>{{data.type}}</td>
-    </tr>
-    </tbody>
-  </table>
+<div *ngIf="webhookGroup.hasSecuritySchema" id="security-accordion">
+  <div class="card">
+    <div class="card-header" id="security-sub-heading-1">
+      <a data-toggle="collapse" href="#security-main-collapse">Callback Security Options</a>
+    </div>
+    <div class="collapse" data-parent="#security-accordion" id="security-main-collapse">
+      <div class="card-body">
+        <div id="security-sub-accordion-1">
+          <div *ngFor="let item of webhookGroup.securityOptions;let i=index;" class="card">
+            <div class="card-header" id="security-heading-{{item.name}}-{{i}}">
+              <a class="collapsed font14 font-weight-600" data-toggle="collapse"
+                 href="#security-sub-heading-collapse-{{item.name}}-{{i}}">{{item.name}}</a>
+            </div>
+            <div class="collapse" data-parent="#security-sub-accordion-1" id="security-sub-heading-collapse-{{item.name}}-{{i}}">
+              <div class="card-body">
+                <div class="authorization">
+                  <div *ngFor="let prop of securityKeys(item.name)" class="col-2-set tree-view">
+                    <div>
+                      <h5 class="font12 mb-0 font-weight-600">{{prop}}</h5>
+                    </div>
+                    <div>
+                      <p class="font12 mb-0">{{securityValue(item, prop)}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

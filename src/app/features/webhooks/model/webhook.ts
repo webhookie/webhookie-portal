@@ -17,18 +17,8 @@ export class Webhook {
     this._message = op.message()
 
     if(this._message.headers()) {
-      let props = this._message.headers().properties();
-      this.headers = Object.keys(props)
-        .map(it => {
-          let prop = props[it]
-          return new MessageHeader(
-            it,
-            prop.format(),
-            prop.examples(),
-            prop.type(),
-            prop.description()
-          )
-        })
+      this.headers = Object.keys(this._message.headers().properties())
+        .map(it => MessageHeader.create(it, this._message.header(it)))
     }
   }
 
@@ -81,10 +71,22 @@ export class WebhookSelection {
 export class MessageHeader {
   constructor(
     public name: string,
+    public properties: any,
     public format: string,
     public example: any,
     public type: any,
     public description: string | null,
   ) {
+  }
+
+  static create(name: string, header: Schema): MessageHeader {
+    return new MessageHeader(
+      name,
+      header.json(),
+      header.format(),
+      header.examples(),
+      header.type(),
+      header.description()
+    )
   }
 }

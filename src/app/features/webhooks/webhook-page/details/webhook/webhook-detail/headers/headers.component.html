@@ -14,31 +14,15 @@
             <div class="collapse" data-parent="#sub-accordion-1" id="sub-heading-collapse-{{i}}">
               <div class="card-body">
                 <div class="authorization">
-                  <div class="col-2-set tree-view">
+                  <div *ngFor="let prop of headerKeys(item.name)" class="col-2-set tree-view">
                     <div>
-                      <h5 class="font12 mb-0 font-weight-600">Description</h5>
+                      <h5 class="font12 mb-0 font-weight-600">{{prop}}</h5>
                     </div>
                     <div>
-                      <p class="font12 mb-0">{{item.description}}</p>
-                    </div>
-                  </div>
-                  <div class="col-2-set tree-view">
-                    <div>
-                      <h5 class="font12 mb-0 font-weight-600">Type</h5>
-                    </div>
-                    <div>
-                      <p class="font12 mb-0">{{item.type}}</p>
+                      <p class="font12 mb-0">{{headerPropValue(item.name, prop)}}</p>
                     </div>
                   </div>
-                  <div class="col-2-set tree-view">
-                    <div>
-                      <h5 class="font12 mb-0 font-weight-600">Format</h5>
-                    </div>
-                    <div>
-                      <p class="font12 mb-0">{{item.format}}</p>
-                    </div>
-                  </div>
-                  <div class="col-2-set tree-view">
+                  <div *ngIf="item.example" class="col-2-set tree-view">
                     <div>
                       <h5 class="font12 mb-0 font-weight-600">Example</h5>
                     </div>
