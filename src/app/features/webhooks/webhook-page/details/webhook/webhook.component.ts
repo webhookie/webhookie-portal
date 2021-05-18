@@ -5,6 +5,7 @@ import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
 import {RouterService} from "../../../../../shared/service/router.service";
 import {WebhookGroupService} from "../../../service/webhook-group.service";
+import {ProviderAccess} from "../../../../../shared/model/access-group";
 
 type WebhookGroupContextMenu = ContextMenuItem<WebhookGroup, WebhookMenu>
 
@@ -110,7 +111,7 @@ export class WebhookComponent implements OnInit {
   canEditWebhookGroup(): (it: WebhookGroup) => boolean {
     return (it?: WebhookGroup) => {
       if(it) {
-        return this.appContext.hasProviderAccess(it.providerGroups);
+        return this.appContext.hasProviderAccess(it.providerGroups) || it.providerAccess == ProviderAccess.ALL;
       }
 
       return false;
