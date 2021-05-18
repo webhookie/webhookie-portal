@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {WebhooksContext} from "../webhooks-context";
 import {Webhook} from "../model/webhook";
 import {distinctUntilChanged, filter} from "rxjs/operators";
+import {WebhookGroup} from "../model/webhook-group";
 
 @Component({
   selector: 'webhook-base',
@@ -10,6 +11,7 @@ import {distinctUntilChanged, filter} from "rxjs/operators";
 )
 export class WebhookBaseComponent implements OnInit {
   webhook!: Webhook
+  webhookGroup!: WebhookGroup
 
   constructor(
     private readonly webhookContext: WebhooksContext
@@ -19,7 +21,10 @@ export class WebhookBaseComponent implements OnInit {
         filter(it => it != null),
         distinctUntilChanged()
       )
-      .subscribe(it => this.webhook = it!.webhook);
+      .subscribe(it => {
+        this.webhook = it!.webhook
+        this.webhookGroup = it!.group
+      });
   }
 
   ngOnInit(): void {
