@@ -2,8 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {WebhookGroup} from "../../../../model/webhook-group";
 import {ArrayUtils} from "../../../../../../shared/array-utils";
-import {Webhook, WebhooksContext} from "../../../../webhooks-context";
+import {WebhooksContext} from "../../../../webhooks-context";
 import {RouterService} from "../../../../../../shared/service/router.service";
+import {Webhook} from "../../../../model/webhook";
 
 @Component({
   selector: 'app-welcome-with-data',

@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Topic, WebhookGroup} from "./model/webhook-group";
 import {filter, map} from "rxjs/operators";
+import {Webhook} from "./model/webhook";
 
 @Injectable({
   providedIn: 'root'
@@ -60,14 +61,3 @@ export class WebhooksContext {
   }
 }
 
-export class Webhook {
-  constructor(
-    public group: WebhookGroup,
-    public topic: Topic
-  ) {
-  }
-
-  static create(group: WebhookGroup, topic: Topic|null = null): Webhook {
-    return new Webhook(group, topic ? topic : group.topics[0]);
-  }
-}

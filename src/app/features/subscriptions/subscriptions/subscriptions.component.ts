@@ -24,9 +24,10 @@ import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/tab
 import {SubscriptionContextMenuService} from "./subscription-context-menu.service";
 import {Constants} from "../../../shared/constants";
 import {RouterService} from "../../../shared/service/router.service";
-import {Webhook, WebhooksContext} from "../../webhooks/webhooks-context";
+import {WebhooksContext} from "../../webhooks/webhooks-context";
 import {WebhookGroupService} from "../../webhooks/service/webhook-group.service";
 import {SubscriptionContext} from "../../webhooks/subscribe-webhook/subscription-context";
+import {Webhook} from "../../webhooks/model/webhook";
 
 type SubscriptionContextMenu = ContextMenuItem<Subscription, SubscriptionMenu>;
 

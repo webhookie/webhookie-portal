@@ -3,8 +3,9 @@ import {Observable, ReplaySubject, Subject} from "rxjs";
 import {mergeMap} from "rxjs/operators";
 import {WebhookGroupService} from "../../../service/webhook-group.service";
 import {ApplicationContext} from "../../../../../shared/application.context";
-import {Webhook, WebhooksContext} from "../../../webhooks-context";
+import {WebhooksContext} from "../../../webhooks-context";
 import {Topic, WebhookGroup} from "../../../model/webhook-group";
+import {Webhook} from "../../../model/webhook";
 
 @Component({
   selector: 'app-sidebar-list',
