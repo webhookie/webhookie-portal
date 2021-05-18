@@ -31,7 +31,7 @@ export class CallbackTestComponent implements OnInit {
   }
 
   get title() {
-    return `Test ${this.context.topic.name} Webhook`
+    return `Test ${this.context.webhook.topic.name} Webhook`
   }
 
   test() {

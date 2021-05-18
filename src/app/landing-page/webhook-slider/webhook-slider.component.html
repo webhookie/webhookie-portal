@@ -13,7 +13,8 @@
         </div>
 
         <div class="slider mt-3">
-            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
+            <!--suppress JSUnusedGlobalSymbols -->
+          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
                 (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
                 (beforeChange)="beforeChange($event)">
                 <div ngxSlickItem *ngFor="let wg of items | async" class="slide">
@@ -23,7 +24,7 @@
                                 <!--<span class="badge bg-primary text-white font12 float-right font-weight-normal">New</span>-->
                             </h5>
                             <ul class="webhook-items-ul">
-                                <li class="ml-0">{{wg.topics.length}} webhook</li>
+                                <li class="ml-0">{{wg.webhooks.length}} webhook</li>
                                 <li>300 subscriptions</li>
                             </ul>
                             <p>{{wg.description}}</p>

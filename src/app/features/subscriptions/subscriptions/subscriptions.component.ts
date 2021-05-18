@@ -27,7 +27,7 @@ import {RouterService} from "../../../shared/service/router.service";
 import {WebhooksContext} from "../../webhooks/webhooks-context";
 import {WebhookGroupService} from "../../webhooks/service/webhook-group.service";
 import {SubscriptionContext} from "../../webhooks/subscribe-webhook/subscription-context";
-import {Webhook} from "../../webhooks/model/webhook";
+import {Webhook, WebhookSelection} from "../../webhooks/model/webhook";
 
 type SubscriptionContextMenu = ContextMenuItem<Subscription, SubscriptionMenu>;
 
@@ -172,8 +172,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     return (subscription: Subscription) => {
       this.webhookGroupService.fetchByTopic(subscription.topic)
         .subscribe(group => {
-          let topic = group.topics.filter(it => it.name == subscription.topic)[0];
-          this.context.selectTopic(Webhook.create(group, topic));
+          this.context.selectTopic(WebhookSelection.createByTopic(group, subscription.topic));
           this.subscriptionContext.selectSubscription(subscription);
           const params = {
             subscriptionId: subscription.id

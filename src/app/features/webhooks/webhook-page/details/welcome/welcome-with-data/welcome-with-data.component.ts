@@ -4,7 +4,7 @@ import {WebhookGroup} from "../../../../model/webhook-group";
 import {ArrayUtils} from "../../../../../../shared/array-utils";
 import {WebhooksContext} from "../../../../webhooks-context";
 import {RouterService} from "../../../../../../shared/service/router.service";
-import {Webhook} from "../../../../model/webhook";
+import {WebhookSelection} from "../../../../model/webhook";
 
 @Component({
   selector: 'app-welcome-with-data',
@@ -13,11 +13,11 @@ import {Webhook} from "../../../../model/webhook";
 })
 export class WelcomeWithDataComponent implements OnInit {
   @Input() items!: Observable<Array<WebhookGroup>>
-  firstRow: Array<Webhook> = []
-  rest: Array<Array<Webhook>> = []
+  firstRow: Array<WebhookSelection> = []
+  rest: Array<Array<WebhookSelection>> = []
 
-  topics: Array<Webhook> = []
-  chunked: Array<Array<Webhook>> = []
+  topics: Array<WebhookSelection> = []
+  chunked: Array<Array<WebhookSelection>> = []
 
   constructor(
     private readonly routeService: RouterService,
@@ -31,7 +31,7 @@ export class WelcomeWithDataComponent implements OnInit {
 
     this.items.subscribe(list => {
       list.forEach(wg => {
-        let topicExList = wg.topics.map(t => new Webhook(wg, t))
+        let topicExList = wg.webhooks.map(it => WebhookSelection.create(wg, it))
         this.topics.push(...topicExList)
       });
 
@@ -41,7 +41,7 @@ export class WelcomeWithDataComponent implements OnInit {
     });
   }
 
-  select(webhook: Webhook) {
+  select(webhook: WebhookSelection) {
     this.webhooksContext.selectTopic(webhook);
     this.routeService
       .navigateTo("/webhooks/webhooks-page/webhook/webhook-detail")

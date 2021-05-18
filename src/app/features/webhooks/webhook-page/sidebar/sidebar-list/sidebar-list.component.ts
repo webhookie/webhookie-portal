@@ -4,8 +4,8 @@ import {mergeMap} from "rxjs/operators";
 import {WebhookGroupService} from "../../../service/webhook-group.service";
 import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
-import {Topic, WebhookGroup} from "../../../model/webhook-group";
-import {Webhook} from "../../../model/webhook";
+import {WebhookGroup} from "../../../model/webhook-group";
+import {Webhook, WebhookSelection} from "../../../model/webhook";
 
 @Component({
   selector: 'app-sidebar-list',
@@ -38,7 +38,7 @@ export class SidebarListComponent implements OnInit {
         if(it != null) {
           let id = it.group.id;
           let bodyId = `faq${id}`
-          let topicAId = this.topicId(it.topic)
+          let topicAId = this.topicId(it.webhook)
           let groupAId = `group_a_${id}`
           $(function () {
             $(`#${bodyId}`).addClass("show");
@@ -50,8 +50,8 @@ export class SidebarListComponent implements OnInit {
       })
   }
 
-  selectTopic(element: WebhookGroup, topic: Topic) {
-    this.context.selectTopic(Webhook.create(element, topic))
+  selectTopic(element: WebhookGroup, webhook: Webhook) {
+    this.context.selectTopic(WebhookSelection.create(element, webhook))
   }
 
   private readWebhookGroups(): Observable<Array<WebhookGroup>> {
@@ -66,7 +66,7 @@ export class SidebarListComponent implements OnInit {
     return this.context.selectedTopic == undefined
   }
 
-  topicId(topic: Topic): string {
-    return `topic_a_${topic.name.replace(/\//g, "_")}`
+  topicId(webhook: Webhook): string {
+    return `topic_a_${webhook.topic.name.replace(/\//g, "_")}`
   }
 }

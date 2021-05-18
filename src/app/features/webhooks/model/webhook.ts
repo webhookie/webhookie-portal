@@ -1,41 +1,44 @@
-import {AsyncapiParserService} from "../../../shared/service/asyncapi-parser.service";
-import {AsyncAPIDocument, Channel, Message, Schema} from "@asyncapi/parser/dist/bundle";
+import {Channel} from "@asyncapi/parser/dist/bundle";
 import {Topic, WebhookGroup} from "./webhook-group";
 
 export class Webhook {
-  private readonly parser = new AsyncapiParserService();
-  doc!: AsyncAPIDocument
-  channel!: Channel
-  type!: WebhookType
-  message?: Message
-  payload?: Schema
-  headers?: Schema
-
   constructor(
-      public group: WebhookGroup,
-      public topic: Topic
+      public id: string,
+      public topic: Topic,
+      public type: WebhookType = WebhookType.SUBSCRIBE,
+      public channel: Channel,
   ) {
-    this.parser.parse(group.spec)
-        .subscribe(it => {
-          this.doc = it;
-          this.channel = it.channel(this.topic.name);
-          if (this.channel.hasSubscribe()) {
-            this.type = WebhookType.SUBSCRIBE
-            this.message = this.channel.subscribe().message()
-            this.payload = this.message.payload()
-            this.headers = this.message.headers()
-          } else {
-            this.type = WebhookType.PUBLISH
-          }
-        })
   }
 
-  static create(group: WebhookGroup, topic: Topic | null = null): Webhook {
-    return new Webhook(group, topic ? topic : group.topics[0]);
+  static create(group: WebhookGroup, channel: Channel, name: string): Webhook {
+    let type = channel.hasSubscribe() ? WebhookType.SUBSCRIBE : WebhookType.PUBLISH;
+    let topic = new Topic(name, channel.description() ? channel.description()! : "");
+    return new Webhook(group.id, topic, type, channel)
   }
 }
 
 export enum WebhookType {
   SUBSCRIBE,
   PUBLISH
+}
+
+export class WebhookSelection {
+  constructor(
+    public group: WebhookGroup,
+    public webhook: Webhook
+  ) {
+  }
+
+  get topic(): Topic {
+    return this.webhook.topic
+  }
+
+  static create(group: WebhookGroup, webhook: Webhook): WebhookSelection {
+    return new WebhookSelection(group, webhook);
+  }
+
+  static createByTopic(group: WebhookGroup, topic: string): WebhookSelection {
+    let webhook = group.webhooks.filter(it => it.topic.name == topic)[0];
+    return WebhookSelection.create(group, webhook);
+  }
 }
