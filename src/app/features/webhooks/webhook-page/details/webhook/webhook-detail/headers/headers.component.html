@@ -1,15 +1,15 @@
-<div id="header-accordion">
+<div *ngIf="webhook.hasHeaders" id="header-accordion">
   <div class="card">
     <div class="card-header" id="sub-heading-1">
-      <a data-toggle="collapse" href="#main-collapse">{{headers.label}}</a>
+      <a data-toggle="collapse" href="#main-collapse">Headers</a>
     </div>
     <div class="collapse" data-parent="#header-accordion" id="main-collapse">
       <div class="card-body">
         <div id="sub-accordion-1">
-          <div *ngFor="let item of headers.parent;let i=index;" class="card">
+          <div *ngFor="let item of webhook.headers;let i=index;" class="card">
             <div class="card-header" id="heading-1-1">
-              <a class="collapsed" class="font14 font-weight-600" data-toggle="collapse"
-                 href="#sub-heading-collapse-{{i}}">{{item.label}}</a>
+              <a class="collapsed font14 font-weight-600" data-toggle="collapse"
+                 href="#sub-heading-collapse-{{i}}">{{item.name}}</a>
             </div>
             <div class="collapse" data-parent="#sub-accordion-1" id="sub-heading-collapse-{{i}}">
               <div class="card-body">
@@ -19,7 +19,15 @@
                       <h5 class="font12 mb-0 font-weight-600">Description</h5>
                     </div>
                     <div>
-                      <p class="font12 mb-0">{{item.child.description}}</p>
+                      <p class="font12 mb-0">{{item.description}}</p>
+                    </div>
+                  </div>
+                  <div class="col-2-set tree-view">
+                    <div>
+                      <h5 class="font12 mb-0 font-weight-600">Type</h5>
+                    </div>
+                    <div>
+                      <p class="font12 mb-0">{{item.type}}</p>
                     </div>
                   </div>
                   <div class="col-2-set tree-view">
@@ -27,7 +35,7 @@
                       <h5 class="font12 mb-0 font-weight-600">Format</h5>
                     </div>
                     <div>
-                      <p class="font12 mb-0">{{item.child.format}}</p>
+                      <p class="font12 mb-0">{{item.format}}</p>
                     </div>
                   </div>
                   <div class="col-2-set tree-view">
@@ -35,7 +43,7 @@
                       <h5 class="font12 mb-0 font-weight-600">Example</h5>
                     </div>
                     <div>
-                      <p class="font12 mb-0">{{item.child.example}}</p>
+                      <p class="font12 mb-0">{{item.example}}</p>
                     </div>
                   </div>
                 </div>

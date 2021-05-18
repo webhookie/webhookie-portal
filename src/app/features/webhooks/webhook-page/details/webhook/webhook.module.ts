@@ -11,6 +11,7 @@ import {BodyComponent} from './webhook-detail/body/body.component';
 import {SecurityOptionsComponent} from './webhook-detail/security-options/security-options.component';
 import {WebhookCommonModule} from '../../../common/webhook-common.module';
 import {SharedModule} from "../../../../../shared/shared.module";
+import {WebhookBaseComponent} from "../../../common/webhook-base-component";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {SharedModule} from "../../../../../shared/shared.module";
     ReviewsComponent,
     SupportComponent,
     WebhookMenuComponent,
+    WebhookBaseComponent,
     WebhookDetailComponent,
     HeadersComponent,
     BodyComponent,

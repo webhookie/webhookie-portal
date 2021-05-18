@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {WebhookBaseComponent} from "../../../../../common/webhook-base-component";
+import {WebhooksContext} from "../../../../../webhooks-context";
 
 @Component({
   selector: 'app-security-options',
   templateUrl: './security-options.component.html',
   styleUrls: ['./security-options.component.css']
 })
-export class SecurityOptionsComponent implements OnInit {
+export class SecurityOptionsComponent extends WebhookBaseComponent {
   securityOptions: any = [
     {
       'name': 'HMAC Signature',
@@ -19,12 +21,8 @@ export class SecurityOptionsComponent implements OnInit {
     },
   ];
 
-  constructor() {
+  constructor(ctx: WebhooksContext) {
+    super(ctx)
   }
-
-  ngOnInit(): void {
-
-  }
-
 }
 

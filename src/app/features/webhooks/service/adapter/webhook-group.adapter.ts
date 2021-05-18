@@ -19,7 +19,7 @@ export class WebhookGroupAdapter implements RxAdapter<WebhookGroup> {
       .pipe(
         map(it => {
           return it.channelNames()
-            .map(name => Webhook.create(item, it.channel(name), name))
+            .map(name => Webhook.create(item.id, it, name))
         }),
         map(items => {
           return new WebhookGroup(

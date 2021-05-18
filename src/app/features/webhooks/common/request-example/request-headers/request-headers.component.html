@@ -7,35 +7,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Authorization</td>
-                        <td><input type="text" name="" value="" class="form-control form-custom-control"
-                            placeholder="Value 1" /></td>
-                        <td>Authentication information provided in this header</td>
-                    </tr>
-                    <tr>
-                        <td>Header 2</td>
-                        <td><input type="text" name="" value="" class="form-control form-custom-control"
-                            placeholder="Value 1" /></td>
-                        <td>Authentication information provided in this header</td>
-                    </tr>
-                    <tr>
-                        <td>Header 3</td>
-                        <td><input type="text" name="" value="" class="form-control form-custom-control"
-                            placeholder="Value 1" /></td>
-                        <td>Authentication information provided in this header</td>
-                    </tr>
-                    <tr>
-                        <td>Header 4</td>
-                        <td><input type="text" name="" value="" class="form-control form-custom-control"
-                            placeholder="Value 1" /></td>
-                        <td>Authentication information provided in this header</td>
-                    </tr>
-                    <tr>
-                        <td>Header 5</td>
-                        <td><input type="text" name="" value="" class="form-control form-custom-control"
-                            placeholder="Value 1" /></td>
-                        <td>Authentication information provided in this header</td>
+                    <tr *ngFor="let item of webhook.headers">
+                        <td>{{item.name}}</td>
+                        <td>
+                          <input
+                            type="text"
+                            name=""
+                            value="{{item.format}}"
+                            class="form-control form-custom-control"
+                            placeholder="{{item.format}}"
+                          />
+                        </td>
+                        <td>{{item.description}}</td>
                     </tr>
                 </tbody>
               </table>
