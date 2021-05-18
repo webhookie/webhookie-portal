@@ -41,10 +41,10 @@ export class WebhooksContext {
   }
 
   selectWebhookGroup(webhookGroup: WebhookGroup) {
-    this.selectTopic(WebhookSelection.create(webhookGroup, webhookGroup.webhooks[0]));
+    this.selectWebhook(WebhookSelection.create(webhookGroup, webhookGroup.webhooks[0]));
   }
 
-  selectTopic(webhook: WebhookSelection) {
+  selectWebhook(webhook: WebhookSelection) {
     this._webhook$.next(webhook);
   }
 

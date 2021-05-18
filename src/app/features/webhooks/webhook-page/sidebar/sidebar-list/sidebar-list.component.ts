@@ -38,20 +38,20 @@ export class SidebarListComponent implements OnInit {
         if(it != null) {
           let id = it.group.id;
           let bodyId = `faq${id}`
-          let topicAId = this.topicId(it.webhook)
+          let webhookAId = this.webhookId(it.webhook)
           let groupAId = `group_a_${id}`
           $(function () {
             $(`#${bodyId}`).addClass("show");
             $(`#${groupAId}`).addClass("active");
-            $(`#${topicAId}`).addClass("portionColor");
+            $(`#${webhookAId}`).addClass("portionColor");
           });
         }
 
       })
   }
 
-  selectTopic(element: WebhookGroup, webhook: Webhook) {
-    this.context.selectTopic(WebhookSelection.create(element, webhook))
+  selectWebhook(element: WebhookGroup, webhook: Webhook) {
+    this.context.selectWebhook(WebhookSelection.create(element, webhook))
   }
 
   private readWebhookGroups(): Observable<Array<WebhookGroup>> {
@@ -66,7 +66,7 @@ export class SidebarListComponent implements OnInit {
     return this.context.selectedTopic == undefined
   }
 
-  topicId(webhook: Webhook): string {
-    return `topic_a_${webhook.topic.name.replace(/\//g, "_")}`
+  webhookId(webhook: Webhook): string {
+    return `webhook_a_${webhook.topic.name.replace(/\//g, "_")}`
   }
 }

@@ -29,8 +29,8 @@
       <div [ngClass]="'collapse'" data-parent="#faq" id="faq{{webhookGroup.id}}">
         <ul class="navbar-nav">
           <li *ngFor="let webhook of webhookGroup.webhooks" class="nav-item">
-            <a (click)="selectTopic(webhookGroup, webhook)"
-               [id]="topicId(webhook)"
+            <a (click)="selectWebhook(webhookGroup, webhook)"
+               [id]="webhookId(webhook)"
                routerLink="/webhooks/webhooks-page/webhook/webhook-detail"
                class="nav-link"
                href="javascript:void(0)"

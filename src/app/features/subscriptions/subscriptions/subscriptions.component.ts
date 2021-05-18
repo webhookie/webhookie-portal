@@ -172,7 +172,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     return (subscription: Subscription) => {
       this.webhookGroupService.fetchByTopic(subscription.topic)
         .subscribe(group => {
-          this.context.selectTopic(WebhookSelection.createByTopic(group, subscription.topic));
+          this.context.selectWebhook(WebhookSelection.createByTopic(group, subscription.topic));
           this.subscriptionContext.selectSubscription(subscription);
           const params = {
             subscriptionId: subscription.id

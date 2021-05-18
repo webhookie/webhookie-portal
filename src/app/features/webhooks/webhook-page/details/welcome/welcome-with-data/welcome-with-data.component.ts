@@ -42,7 +42,7 @@ export class WelcomeWithDataComponent implements OnInit {
   }
 
   select(webhook: WebhookSelection) {
-    this.webhooksContext.selectTopic(webhook);
+    this.webhooksContext.selectWebhook(webhook);
     this.routeService
       .navigateTo("/webhooks/webhooks-page/webhook/webhook-detail")
   }
