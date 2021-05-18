@@ -1,16 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Adapter} from "./adapter";
+import {BaseAdapter} from "./adapter";
 import {Callback} from "../model/callback";
 import {CallbackSecurity} from "../model/callback-security";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CallbackAdapter implements Adapter<Callback> {
-
-  constructor() {
-  }
-
+export class CallbackAdapter extends BaseAdapter<Callback> {
   adapt(item: any): Callback {
     let signable: boolean = item.signable
 

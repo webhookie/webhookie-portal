@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Adapter} from "../../../shared/adapter/adapter";
+import {BaseAdapter} from "../../../shared/adapter/adapter";
 import {Span, SpanRetry, SpanStatus, SpanStatusUpdate} from "../model/span";
 import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
 import {DateUtils} from "../../../shared/date-utils";
@@ -7,9 +7,10 @@ import {DateUtils} from "../../../shared/date-utils";
 @Injectable({
   providedIn: 'root'
 })
-export class SpanAdapter implements Adapter<Span> {
+export class SpanAdapter extends BaseAdapter<Span> {
 
   constructor(private readonly callbackAdapter: CallbackAdapter) {
+    super();
   }
 
   adapt(item: any): Span {

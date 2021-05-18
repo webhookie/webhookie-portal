@@ -31,20 +31,20 @@ export class TraceService {
   readTraces(filter: any, pageable: Pageable): Observable<Array<Trace>> {
     let params = RequestUtils.httpParams(filter, pageable);
     return this.api.json(this.TRACE_URI, params)
-      .pipe(tap(it => this.log.info(`Fetched '${it.length}' traces`)))
-      .pipe(map(list => {
-        return list.map((it: any) => this.adapter.adapt(it))
-      }))
+      .pipe(
+        tap(it => this.log.info(`Fetched '${it.length}' traces`)),
+        map(it => this.adapter.adaptList(it))
+      )
   }
 
   readTraceSpans(traceId: string, filter: any, pageable: Pageable): Observable<Array<Span>> {
     let params = RequestUtils.httpParams(filter, pageable);
     const uri = `${this.TRACE_URI}/${traceId}/spans`
     return this.api.json(uri, params)
-      .pipe(tap(it => this.log.info(`Fetched '${it.length}' spans`)))
-      .pipe(map(list => {
-        return list.map((it: any) => this.spanAdapter.adapt(it))
-      }))
+      .pipe(
+        tap(it => this.log.info(`Fetched '${it.length}' spans`)),
+        map(it => this.spanAdapter.adaptList(it))
+      )
   }
 
   traceRequest(traceId: string): Observable<TraceRequest> {

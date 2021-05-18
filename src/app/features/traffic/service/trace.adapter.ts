@@ -1,16 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Adapter} from "../../../shared/adapter/adapter";
+import {BaseAdapter} from "../../../shared/adapter/adapter";
 import {Trace, TraceStatus, TraceStatusUpdate} from "../model/trace";
 import {DateUtils} from "../../../shared/date-utils";
 
 @Injectable({
   providedIn: 'root'
 })
-export class TraceAdapter implements Adapter<Trace> {
-
-  constructor() {
-  }
-
+export class TraceAdapter extends BaseAdapter<Trace> {
   adapt(item: any): Trace {
     let itemStatusUpdate = item.status
     let status: TraceStatus = itemStatusUpdate.status

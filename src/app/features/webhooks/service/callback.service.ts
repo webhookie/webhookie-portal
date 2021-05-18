@@ -37,7 +37,7 @@ export class CallbackService {
     return this.api.json(uri)
       .pipe(
         tap(it => this.log.info(`Fetched '${it.length}' callbacks`)),
-        map(list => list.map((it: any) => this.adapter.adapt(it)))
+        map(it => this.adapter.adaptList(it))
       );
   }
 

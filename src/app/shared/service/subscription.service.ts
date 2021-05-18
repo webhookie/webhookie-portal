@@ -26,10 +26,10 @@ export class SubscriptionService {
   fetchSubscriptions(filter: any, pageable: Pageable): Observable<Array<Subscription>> {
     let params = RequestUtils.httpParams(filter, pageable);
     return this.api.json(this.SUBSCRIPTIONS_URI, params)
-      .pipe(tap(it => this.log.info(`Fetched '${it.length}' subscriptions`)))
-      .pipe(map(list => {
-        return list.map((it: any) => this.adapter.adapt(it))
-      }))
+      .pipe(
+        tap(it => this.log.info(`Fetched '${it.length}' subscriptions`)),
+        map(it => this.adapter.adaptList(it))
+      )
   }
 
   createSubscription(topic?: string, callbackId?: string): Observable<Subscription> {

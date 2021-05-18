@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Adapter} from "./adapter";
+import {BaseAdapter} from "./adapter";
 import {ApplicationDetails, CallbackDetails, StatusUpdate, Subscription} from "../model/subscription";
 import {CallbackSecurity} from "../model/callback-security";
 import {DateUtils} from "../date-utils";
@@ -7,11 +7,7 @@ import {DateUtils} from "../date-utils";
 @Injectable({
   providedIn: 'root'
 })
-export class SubscriptionAdapter implements Adapter<Subscription> {
-
-  constructor() {
-  }
-
+export class SubscriptionAdapter extends BaseAdapter<Subscription> {
   private static security(callback: any): CallbackSecurity | null {
     let s = callback.security;
     if (s) {

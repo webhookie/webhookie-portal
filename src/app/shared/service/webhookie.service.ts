@@ -22,14 +22,8 @@ export class WebhookieService {
     return this.fetchAccessGroups("consumergroups")
   }
 
-  fetchProviderGroups(): Observable<Array<AccessGroup>> {
-    return this.fetchAccessGroups("providergroups")
-  }
-
   fetchAccessGroups(uri: string): Observable<Array<AccessGroup>> {
     return this.api.json(`/admin/${uri}`)
-      .pipe(
-        map(list => list.map((it: any) => this.consumerGroupAdapter.adapt(it)))
-      )
+      .pipe(map(it => this.consumerGroupAdapter.adaptList(it)))
   }
 }

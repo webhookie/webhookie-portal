@@ -26,12 +26,12 @@ export class ProviderService {
   entityApplications(entity: string): Observable<Array<Application>> {
     let params = new HttpParams().set("entity", entity);
     return this.api.json("/provider/applications", params)
-      .pipe(map(list => list.map((it: any) => this.applicationAdapter.adapt(it))));
+      .pipe(map(it => this.applicationAdapter.adaptList(it)));
   }
 
   applicationCallbacks(application: Application): Observable<Array<Callback>> {
     let params = new HttpParams().set("applicationId", application.id);
     return this.api.json("/provider/callbacks", params)
-      .pipe(map(list => list.map((it: any) => this.callbackAdapter.adapt(it))));
+      .pipe(map(it => this.callbackAdapter.adaptList(it)));
   }
 }

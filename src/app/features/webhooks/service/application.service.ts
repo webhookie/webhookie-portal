@@ -24,10 +24,10 @@ export class ApplicationService {
   public myApplications(): Observable<Array<Application>> {
     this.log.info("Fetching user's applications...");
     return this.api.json(this.REQUEST_URI)
-      .pipe(tap(it => this.log.info(`Fetched '${it.length}' applications`)))
-      .pipe(map(list => {
-        return list.map((it: any) => this.adapter.adapt(it))
-      }))
+      .pipe(
+        tap(it => this.log.info(`Fetched '${it.length}' applications`)),
+        map(it => this.adapter.adaptList(it))
+      )
   }
 
   createApplication(request: CreateApplicationRequest): Observable<Application> {
