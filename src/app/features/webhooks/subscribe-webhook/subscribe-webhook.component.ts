@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {WebhooksContext} from "../webhooks-context";
 import {ResponseComponent} from "../common/response/response.component";
 import {ApplicationComponent} from "./application/application.component";
@@ -16,13 +16,14 @@ import {RequestExampleComponent} from "../common/request-example/request-example
 import {Constants} from "../../../shared/constants";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SubscriptionContext} from "./subscription-context";
+import {WebhookBaseComponent} from "../common/webhook-base-component";
 
 @Component({
   selector: 'app-subscribe-webhook',
   templateUrl: './subscribe-webhook.component.html',
   styleUrls: ['./subscribe-webhook.component.css']
 })
-export class SubscribeWebhookComponent implements OnInit {
+export class SubscribeWebhookComponent extends WebhookBaseComponent{
 
   @ViewChild("applicationComponent") application?: ApplicationComponent
   @ViewChild("callbackComponent") callback?: CallbackComponent
@@ -41,6 +42,7 @@ export class SubscribeWebhookComponent implements OnInit {
     private readonly subscriptionService: SubscriptionService,
     private readonly routeService: RouterService
   ) {
+    super(context)
   }
 
   get selectedCallback() {
@@ -90,6 +92,8 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
+
     this.clear();
 
     this.subscriptionContext.callbackCleared$
@@ -113,7 +117,7 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   title() {
-    return `Subscribe to ${this.context.selectedTopic?.name} webhook`
+    return `Subscribe to ${this.webhook.topic.name} webhook`
   }
 
   validate() {
@@ -121,7 +125,7 @@ export class SubscribeWebhookComponent implements OnInit {
       this.isRunning = true;
       this.response?.init();
       let request: ValidateSubscriptionRequest = {
-        payload: JSON.stringify(this.requestExampleComponent?.request.jsonobj),
+        payload: JSON.stringify(this.webhook.example),
         headers: {
           "Content-Type": ["application/json"],
           "Accept": ["*/*"]
@@ -161,14 +165,14 @@ export class SubscribeWebhookComponent implements OnInit {
   }
 
   createSubscription() {
-    this.subscriptionService.createSubscription(this.context.selectedTopic?.name, this.selectedCallback.callbackId)
+    this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback.callbackId)
       .subscribe(it => this.subscription = it);
   }
 
   private fetchSubscriptions(callbackId: string): Observable<Array<Subscription>> {
     let filter = {
       role: Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER,
-      topic: this.context.selectedTopic?.name,
+      topic: this.webhook.topic.name,
       callbackId: callbackId
     }
     return this.subscriptionService.fetchSubscriptions(filter, Pageable.default())
