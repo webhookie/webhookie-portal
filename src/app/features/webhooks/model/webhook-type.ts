@@ -1,4 +1,4 @@
 export enum WebhookType {
-    SUBSCRIBE,
-    PUBLISH
+  SUBSCRIBE,
+  PUBLISH
 }
