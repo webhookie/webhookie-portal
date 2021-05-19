@@ -1,13 +1,14 @@
 import {AsyncAPIDocument, Channel, Message} from "@asyncapi/parser/dist/bundle";
 import {Topic} from "./webhook-group";
-import * as sampler from "@asyncapi/react-component/lib/helpers/generateExampleSchema"
 import {MessageHeaders} from "./message-headers";
 import {WebhookType} from "./webhook-type";
+import {MessagePayload} from "./message-payload";
 
 export class Webhook {
   private readonly _message: Message
   readonly example: any;
   readonly headers: MessageHeaders = new MessageHeaders();
+  readonly payload: MessagePayload = new MessagePayload({});
 
   constructor(
     public id: string,
@@ -15,15 +16,16 @@ export class Webhook {
     public type: WebhookType = WebhookType.SUBSCRIBE,
     public channel: Channel
   ) {
-    let op = this.type == WebhookType.SUBSCRIBE
-      ? this.channel.subscribe()
-      : this.channel.publish()
+    this._message = this.type == WebhookType.SUBSCRIBE
+      ? this.channel.subscribe().message()
+      : this.channel.publish().message()
 
-    this._message = op.message()
+    let payload = this._message.payload();
+    this.payload = new MessagePayload(payload.json())
 
-    let examples = this._message.payload().examples();
+    let examples = payload.examples();
     // @ts-ignore
-    this.example = examples ? examples : sampler.generateExampleSchema(this.payload)
+    this.example = examples ? examples : this.payload.example()
 
     if(this._message.headers()) {
       this.headers = new MessageHeaders(this._message.headers().json().properties);
@@ -32,10 +34,6 @@ export class Webhook {
 
   get hasHeaders(): boolean {
     return this.headers.hasHeaders;
-  }
-
-  get payload(): any {
-    return this._message.payload().json()
   }
 
   get contentType(): string {
