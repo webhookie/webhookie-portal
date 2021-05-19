@@ -4,7 +4,13 @@ import {Webhook, WebhookType} from "./webhook";
 import {AsyncAPIDocument, SecurityScheme} from "@asyncapi/parser/dist/bundle";
 
 export class WebhookGroup extends TableDetailData {
-  readonly securityOptions: Array<SecurityOption> = [];
+  private readonly _securityOptions: Array<SecurityOption> = [];
+
+  readonly securityOptions = this._securityOptions
+    .filter(it => it.type == "symmetricEncryption");
+
+  readonly webhooks: Array<Webhook> = this._webhooks
+      .filter(it => it.type == WebhookType.SUBSCRIBE)
 
   constructor(
     public id: string,
@@ -12,7 +18,7 @@ export class WebhookGroup extends TableDetailData {
     public version: string,
     public description: string,
     public spec: string,
-    public webhooks: Array<Webhook>,
+    private _webhooks: Array<Webhook>,
     public consumerAccess: ConsumerAccess,
     public consumerGroups: Array<string>,
     public providerAccess: ProviderAccess,
@@ -22,22 +28,12 @@ export class WebhookGroup extends TableDetailData {
     super();
 
     let components = doc.components();
-    this.securityOptions = Object.keys(components.securitySchemes())
+    this._securityOptions = Object.keys(components.securitySchemes())
       .map(name => SecurityOption.create(name, components.securityScheme(name)))
   }
 
   get hasSecuritySchema(): boolean {
-    return this.supportedSecuritySchemas.length > 0
-  }
-
-  get supportedSecuritySchemas(): Array<SecurityOption> {
-    return this.securityOptions
-      .filter(it => it.type == "symmetricEncryption")
-  }
-
-  get supportedWebhooks(): Array<Webhook> {
-    return this.webhooks
-      .filter(it => it.type == WebhookType.SUBSCRIBE)
+    return this.securityOptions.length > 0
   }
 
   static create(item: any, doc: AsyncAPIDocument): WebhookGroup {

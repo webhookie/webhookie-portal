@@ -1,9 +1,12 @@
 import {AsyncAPIDocument, Channel, Message, Schema} from "@asyncapi/parser/dist/bundle";
 import {Topic, WebhookGroup} from "./webhook-group";
+import * as sampler from "@asyncapi/react-component/lib/helpers/generateExampleSchema"
 
 export class Webhook {
   private readonly _message: Message
   readonly headers: Array<MessageHeader> = [];
+  readonly example: any;
+
   constructor(
     public id: string,
     public topic: Topic,
@@ -15,6 +18,10 @@ export class Webhook {
       : this.channel.publish()
 
     this._message = op.message()
+
+    let examples = this._message.payload().examples();
+    // @ts-ignore
+    this.example = examples ? examples : sampler.generateExampleSchema(this.payload.json())
 
     if(this._message.headers()) {
       this.headers = Object.keys(this._message.headers().properties())
