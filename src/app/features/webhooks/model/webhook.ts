@@ -78,38 +78,10 @@ export class MessageHeaders {
   readonly headers: {
     [key: string]: MessageHeader
   } = {};
-  readonly keys: Array<string>;
+  readonly values: Array<MessageHeader>;
 
   get hasHeaders(): boolean {
-    return this.keys.length > 0;
-  }
-
-  header(name: string): MessageHeader {
-    return this.headers[name];
-  }
-
-  headerKeys(name: string): Array<string> {
-    return this.header(name).props
-  }
-
-  headerPropValue(name: string, prop: string): any {
-    return this.header(name).value(prop)
-  }
-
-  description(name: string): any {
-    return this.header(name).description()
-  }
-
-  format(name: string): any {
-    return this.header(name).format()
-  }
-
-  type(name: string): any {
-    return this.header(name).type()
-  }
-
-  example(name: string): any {
-    return this.header(name).example()
+    return this.values.length > 0;
   }
 
   constructor(
@@ -117,7 +89,7 @@ export class MessageHeaders {
   ) {
     Object.keys(_headers)
       .forEach(it => this.headers[it] = new MessageHeader(it, _headers[it]));
-    this.keys = Object.keys(this.headers)
+    this.values = Object.values(this.headers)
   }
 }
 

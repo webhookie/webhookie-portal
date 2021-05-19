@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {WebhookBaseComponent} from "../../webhook-base-component";
 import {WebhooksContext} from "../../../webhooks-context";
+import {MessageHeader} from "../../../model/webhook";
 
 @Component({
   selector: 'app-request-headers',
@@ -12,19 +13,19 @@ export class RequestHeadersComponent  extends WebhookBaseComponent {
     super(ctx)
   }
 
-  placeHolder(header: string): any {
-    if(this.webhook.headers.format(header)) {
-      return this.webhook.headers.format(header)
+  placeHolder(header: MessageHeader): any {
+    if(header.format()) {
+      return header.format()
     }
 
-    if(this.webhook.headers.type(header)) {
-      return this.webhook.headers.type(header)
+    if(header.type()) {
+      return header.type()
     }
   }
 
-  value(header: string): any {
-    if(this.webhook.headers.example(header)) {
-      return this.webhook.headers.example(header)
+  value(header: MessageHeader): any {
+    if(header.example()) {
+      return header.example()
     }
 
     return this.placeHolder(header)
