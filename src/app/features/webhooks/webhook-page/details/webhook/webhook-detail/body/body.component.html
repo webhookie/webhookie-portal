@@ -1,14 +1,14 @@
 <div id="body-accordion">
   <div class="card">
     <div class="card-header">
-      <a data-toggle="collapse" href="#main-body-collapse">{{body.label}}</a>
+      <a data-toggle="collapse" href="#main-body-collapse">Body</a>
     </div>
     <div class="collapse" data-parent="#body-accordion" id="main-body-collapse">
       <div class="card-body">
         <div id="body-accordion-1">
           <div *ngFor="let item of body.parent;let i=index;" class="card">
             <div class="card-header">
-              <a class="collapsed" class="font14 font-weight-600" data-toggle="collapse"
+              <a class="collapsed font14 font-weight-600" data-toggle="collapse"
                  href="#body-heading-collapse-{{i}}">
                 {{item.label}}
                 <span *ngIf="item.type" class="badge badge-primary ml-3 mr-2">

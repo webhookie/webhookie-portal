@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import * as $ from 'jquery';
+import {Component} from '@angular/core';
+import {WebhookBaseComponent} from "../../../../../common/webhook-base-component";
+import {WebhooksContext} from "../../../../../webhooks-context";
 
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
   styleUrls: ['./body.component.css']
 })
-export class BodyComponent implements OnInit {
+export class BodyComponent extends WebhookBaseComponent {
   body: any = {
     'label': 'Body',
     parent: [
@@ -79,16 +80,13 @@ export class BodyComponent implements OnInit {
     ]
   };
 
-  constructor() {
+  constructor(webhookContext: WebhooksContext) {
+    super(webhookContext)
   }
 
-  ngOnInit(): void {
-    $(document).ready(function () {
-      $("#body-accordion a").click(function () {
-        $(this).toggleClass("active");
-        // $(this).find('a').toggleClass("active");
-      });
-    })
-  }
+  ngOnInit() {
+    super.ngOnInit();
 
+    console.warn(this.webhook.payload)
+  }
 }

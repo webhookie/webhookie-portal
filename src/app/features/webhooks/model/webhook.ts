@@ -21,7 +21,7 @@ export class Webhook {
 
     let examples = this._message.payload().examples();
     // @ts-ignore
-    this.example = examples ? examples : sampler.generateExampleSchema(this.payload.json())
+    this.example = examples ? examples : sampler.generateExampleSchema(this.payload)
 
     if(this._message.headers()) {
       this.headers = new MessageHeaders(this._message.headers().json().properties);
@@ -32,8 +32,8 @@ export class Webhook {
     return this.headers.hasHeaders;
   }
 
-  get payload(): Schema {
-    return this._message.payload()
+  get payload(): any {
+    return this._message.payload().json()
   }
 
   get contentType(): string {
