@@ -4,8 +4,8 @@ import * as sampler from "@asyncapi/react-component/lib/helpers/generateExampleS
 
 export class Webhook {
   private readonly _message: Message
-  readonly headers: Array<MessageHeader> = [];
   readonly example: any;
+  readonly headers: MessageHeaders = new MessageHeaders();
 
   constructor(
     public id: string,
@@ -24,13 +24,12 @@ export class Webhook {
     this.example = examples ? examples : sampler.generateExampleSchema(this.payload.json())
 
     if(this._message.headers()) {
-      this.headers = Object.keys(this._message.headers().properties())
-        .map(it => MessageHeader.create(it, this._message.header(it)))
+      this.headers = new MessageHeaders(this._message.headers().json().properties);
     }
   }
 
   get hasHeaders(): boolean {
-    return this.headers.length > 0;
+    return this.headers.hasHeaders;
   }
 
   get payload(): Schema {
@@ -75,25 +74,45 @@ export class WebhookSelection {
   }
 }
 
-export class MessageHeader {
-  constructor(
-    public name: string,
-    public properties: any,
-    public format: string,
-    public example: any,
-    public type: any,
-    public description: string | null,
-  ) {
+export class MessageHeaders {
+  readonly keys: Array<string>
+
+  get hasHeaders(): boolean {
+    return this.keys.length > 0;
   }
 
-  static create(name: string, header: Schema): MessageHeader {
-    return new MessageHeader(
-      name,
-      header.json(),
-      header.format(),
-      header.examples(),
-      header.type(),
-      header.description()
-    )
+  header(name: string): any {
+    return this._headers[name];
+  }
+
+  headerKeys(name: string): any {
+    return Object.keys(this.header(name))
+      .filter(it => it != "x-parser-schema-id")
+  }
+
+  headerPropValue(name: string, prop: string): any {
+    return this.header(name)[prop]
+  }
+
+  description(name: string): any {
+    return this.headerPropValue(name, "description")
+  }
+
+  format(name: string): any {
+    return this.headerPropValue(name, "format")
+  }
+
+  type(name: string): any {
+    return this.headerPropValue(name, "type")
+  }
+
+  example(name: string): any {
+    return sampler.generateExampleSchema(this.header(name))
+  }
+
+  constructor(
+    private readonly _headers: any = {}
+  ) {
+    this.keys = Object.keys(_headers);
   }
 }

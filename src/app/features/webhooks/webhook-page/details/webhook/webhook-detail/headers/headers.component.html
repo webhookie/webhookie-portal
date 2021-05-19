@@ -6,28 +6,20 @@
     <div class="collapse" data-parent="#header-accordion" id="main-collapse">
       <div class="card-body">
         <div id="sub-accordion-1">
-          <div *ngFor="let item of webhook.headers;let i=index;" class="card">
+          <div *ngFor="let name of webhook.headers.keys;let i=index;" class="card">
             <div class="card-header" id="heading-1-1">
               <a class="collapsed font14 font-weight-600" data-toggle="collapse"
-                 href="#sub-heading-collapse-{{i}}">{{item.name}}</a>
+                 href="#sub-heading-collapse-{{i}}">{{name}}</a>
             </div>
             <div class="collapse" data-parent="#sub-accordion-1" id="sub-heading-collapse-{{i}}">
               <div class="card-body">
                 <div class="authorization">
-                  <div *ngFor="let prop of headerKeys(item.name)" class="col-2-set tree-view">
+                  <div *ngFor="let prop of webhook.headers.headerKeys(name)" class="col-2-set tree-view">
                     <div>
                       <h5 class="font12 mb-0 font-weight-600">{{prop}}</h5>
                     </div>
                     <div>
-                      <p class="font12 mb-0">{{headerPropValue(item.name, prop)}}</p>
-                    </div>
-                  </div>
-                  <div *ngIf="item.example" class="col-2-set tree-view">
-                    <div>
-                      <h5 class="font12 mb-0 font-weight-600">Example</h5>
-                    </div>
-                    <div>
-                      <p class="font12 mb-0">{{item.example}}</p>
+                      <p class="font12 mb-0">{{webhook.headers.headerPropValue(name, prop)}}</p>
                     </div>
                   </div>
                 </div>

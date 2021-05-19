@@ -7,18 +7,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of webhook.headers">
-                        <td>{{item.name}}</td>
+                    <tr *ngFor="let name of webhook.headers.keys">
+                        <td>{{name}}</td>
                         <td>
                           <input
                             type="text"
                             name=""
-                            value="{{value(item)}}"
+                            value="{{value(name)}}"
                             class="form-control form-custom-control"
-                            placeholder="{{placeHolder(item)}}"
+                            placeholder="{{placeHolder(name)}}"
                           />
                         </td>
-                        <td>{{item.description}}</td>
+                        <td>{{webhook.headers.description(name)}}</td>
                     </tr>
                 </tbody>
               </table>
