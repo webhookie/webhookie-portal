@@ -9,7 +9,7 @@ export class MessagePayload {
 
   get keys() {
     let filteredItems = [
-      "properties", "minimum", "maximum", "x-parser-schema-id", "type", "description"
+      "properties", "minimum", "maximum", "x-parser-schema-id", "type", "description", "format"
     ]
     return Object.keys(this.json)
       .filter(it => filteredItems.indexOf(it) == -1)

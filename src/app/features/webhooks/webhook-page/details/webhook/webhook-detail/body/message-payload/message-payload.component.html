@@ -1,4 +1,4 @@
-<div id="{{parentId}}">
+<div id="{{parentId}}" class="body-accordion">
   <div class="card">
     <div class="card-header">
       <a data-toggle="collapse" href="#body-heading-collapse-{{payload.name}}-{{index}}">
@@ -6,6 +6,7 @@
         <span *ngIf="payload.type" class="badge badge-primary ml-3 mr-2">{{payload.type}}</span>
         <span *ngIf="payload.json.minimum != undefined" class="badge badge-warning">>={{payload.json.minimum}}</span>
         <span *ngIf="payload.json.maximum != undefined" class="badge badge-danger"><={{payload.json.maximum}}</span>
+        <span *ngIf="payload.json.format != undefined" class="badge badge-light">{{payload.json.format}}</span>
       </a>
     </div>
     <div class="collapse" [attr.data-parent]="'#' + parentId" id="body-heading-collapse-{{payload.name}}-{{index}}">
