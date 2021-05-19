@@ -75,44 +75,79 @@ export class WebhookSelection {
 }
 
 export class MessageHeaders {
-  readonly keys: Array<string>
+  readonly headers: {
+    [key: string]: MessageHeader
+  } = {};
+  readonly keys: Array<string>;
 
   get hasHeaders(): boolean {
     return this.keys.length > 0;
   }
 
-  header(name: string): any {
-    return this._headers[name];
+  header(name: string): MessageHeader {
+    return this.headers[name];
   }
 
-  headerKeys(name: string): any {
-    return Object.keys(this.header(name))
-      .filter(it => it != "x-parser-schema-id")
+  headerKeys(name: string): Array<string> {
+    return this.header(name).props
   }
 
   headerPropValue(name: string, prop: string): any {
-    return this.header(name)[prop]
+    return this.header(name).value(prop)
   }
 
   description(name: string): any {
-    return this.headerPropValue(name, "description")
+    return this.header(name).description()
   }
 
   format(name: string): any {
-    return this.headerPropValue(name, "format")
+    return this.header(name).format()
   }
 
   type(name: string): any {
-    return this.headerPropValue(name, "type")
+    return this.header(name).type()
   }
 
   example(name: string): any {
-    return sampler.generateExampleSchema(this.header(name))
+    return this.header(name).example()
   }
 
   constructor(
     private readonly _headers: any = {}
   ) {
-    this.keys = Object.keys(_headers);
+    Object.keys(_headers)
+      .forEach(it => this.headers[it] = new MessageHeader(it, _headers[it]));
+    this.keys = Object.keys(this.headers)
+  }
+}
+
+export class MessageHeader {
+  readonly props: Array<string> = Object.keys(this._props)
+    .filter(it => it != "x-parser-schema-id");
+
+  value(name: string): any {
+    return this._props[name];
+  }
+
+  description(): any {
+    return this.value("description")
+  }
+
+  format(): any {
+    return this.value("format")
+  }
+
+  type(): any {
+    return this.value("type")
+  }
+
+  example(): any {
+    return sampler.generateExampleSchema(this._props)
+  }
+
+  constructor(
+    public readonly name: string,
+    private readonly _props: any
+  ) {
   }
 }
