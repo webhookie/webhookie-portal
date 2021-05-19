@@ -1,17 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {CallbackUrlComponent} from "./callback-url/callback-url.component";
 import {ResponseComponent} from "../common/response/response.component";
 import {CallbackService, CallbackValidationRequest} from "../service/callback.service";
 import {WebhooksContext} from "../webhooks-context";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
+import {WebhookBaseComponent} from "../common/webhook-base-component";
 
 @Component({
   selector: 'app-callback-test',
   templateUrl: './callback-test.component.html',
   styleUrls: ['./callback-test.component.css']
 })
-export class CallbackTestComponent implements OnInit {
+export class CallbackTestComponent extends WebhookBaseComponent {
   // @ts-ignore
   @ViewChild('callbackUrlComponent') callback: CallbackUrlComponent
   // @ts-ignore
@@ -25,13 +26,14 @@ export class CallbackTestComponent implements OnInit {
     private readonly context: WebhooksContext,
     private readonly callbackService: CallbackService
   ) {
+    super(context)
   }
 
   ngOnInit(): void {
   }
 
   get title() {
-    return `Test ${this.context.webhook.topic.name} Webhook`
+    return `Test ${this.webhook.topic.name} Webhook`
   }
 
   test() {
@@ -40,7 +42,7 @@ export class CallbackTestComponent implements OnInit {
     let request: CallbackValidationRequest = {
       httpMethod: this.callback.method,
       url: this.callback.url,
-      payload: JSON.stringify(this.requestExampleComponent.request.jsonobj),
+      payload: JSON.stringify(this.webhook.example),
       headers: {
         "Content-Type": ["application/json"],
         "Accept": ["*/*"]
