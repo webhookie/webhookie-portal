@@ -4,24 +4,22 @@
       <a class="collapsed font14 font-weight-600" data-toggle="collapse"
          href="#body-heading-collapse-{{index}}">
         {{payload.name}}
-        <span *ngIf="payload.type" class="badge badge-primary ml-3 mr-2">
-                    {{payload.type}}
-                  </span>
-        <span *ngIf="payload.required" class="badge badge-warning">
-                    OPTIONAL
-                  </span>
-        <span *ngIf="payload.required" class="badge badge-danger">
-                    REQUIRE
-                  </span>
+        <span *ngIf="payload.type" class="badge badge-primary ml-3 mr-2">{{payload.type}}</span>
+        <span *ngIf="payload.required" class="badge badge-warning">OPTIONAL</span>
+        <span *ngIf="payload.required" class="badge badge-danger">REQUIRE</span>
+        <span *ngIf="payload.json.minimum != undefined" class="badge badge-warning">>={{payload.json.minimum}}</span>
+        <span *ngIf="payload.json.maximum != undefined" class="badge badge-danger"><={{payload.json.maximum}}</span>
       </a>
     </div>
     <div class="collapse"  id="body-heading-collapse-{{index}}">
       <div class="card-body">
         <div class="webhook webhook-view">
           <div class="col-2-set">
-            <div>
-              <p class="font12 mb-0">{{payload.message}}</p>
-            </div>
+            <div><p class="font12 mb-0">{{payload.message}}</p></div>
+          </div>
+          <div *ngFor="let key of payload.keys" class="col-2-set">
+            <div><p class="font12 mb-0">{{key}}</p></div>
+            <div ><p class="font12 mb-0"><strong>{{payload.value(key)}}</strong></p></div>
           </div>
           <!-- ..... -->
           <app-message-payload

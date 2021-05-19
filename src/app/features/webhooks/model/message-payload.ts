@@ -7,6 +7,18 @@ export class MessagePayload {
 
   readonly payloadType: PayloadType
 
+  get keys() {
+    let filteredItems = [
+      "properties", "minimum", "maximum", "x-parser-schema-id", "type", "description"
+    ]
+    return Object.keys(this.json)
+      .filter(it => filteredItems.indexOf(it) == -1)
+  }
+
+  value(key: string) {
+    return this.json[key]
+  }
+
   get child() {
     return Object.values(this.properties)
   }

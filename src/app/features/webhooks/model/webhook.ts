@@ -21,7 +21,7 @@ export class Webhook {
       : this.channel.publish().message()
 
     let payload = this._message.payload();
-    this.payload = new MessagePayload("Payload", payload.json())
+    this.payload = new MessagePayload("Body", payload.json())
 
     let examples = payload.examples();
     // @ts-ignore
