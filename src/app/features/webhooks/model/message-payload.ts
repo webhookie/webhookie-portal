@@ -4,23 +4,47 @@ export class MessagePayload {
   readonly properties: {
     [key: string]: MessagePayload
   } = {};
-  readonly type: PayloadType
+
+  readonly payloadType: PayloadType
+
+  get child() {
+    return Object.values(this.properties)
+  }
 
   example(): any {
     return sampler.generateExampleSchema(this.json)
   }
 
+  get message() {
+    return this.json.description
+  }
+
+  get required() {
+    return this.json.required
+  }
+
+  get type() {
+    return this.json.type
+  }
+
+  get format() {
+    return this.json.format
+      ? this.json.format
+      : this.json.pattern
+  }
+
   constructor(
+    readonly name: string,
     readonly json: any
   ) {
-    this.type = (this.json["type"] == "object")
+    this.payloadType = (this.json["type"] == "object")
       ? PayloadType.OBJECT
       : PayloadType.PRIMITIVE
 
-    if(this.type == PayloadType.OBJECT) {
+    if(this.payloadType == PayloadType.OBJECT) {
       let props = this.json.properties;
       Object.keys(props)
-        .forEach(it => this.properties[it] = new MessagePayload(props[it]))
+        .forEach(it => this.properties[it] = new MessagePayload(it, props[it]))
     }
   }
 }

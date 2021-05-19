@@ -8,7 +8,7 @@ export class Webhook {
   private readonly _message: Message
   readonly example: any;
   readonly headers: MessageHeaders = new MessageHeaders();
-  readonly payload: MessagePayload = new MessagePayload({});
+  readonly payload: MessagePayload;
 
   constructor(
     public id: string,
@@ -21,7 +21,7 @@ export class Webhook {
       : this.channel.publish().message()
 
     let payload = this._message.payload();
-    this.payload = new MessagePayload(payload.json())
+    this.payload = new MessagePayload("Payload", payload.json())
 
     let examples = payload.examples();
     // @ts-ignore

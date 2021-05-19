@@ -12,6 +12,7 @@ import {SecurityOptionsComponent} from './webhook-detail/security-options/securi
 import {WebhookCommonModule} from '../../../common/webhook-common.module';
 import {SharedModule} from "../../../../../shared/shared.module";
 import {WebhookBaseComponent} from "../../../common/webhook-base-component";
+import { MessagePayloadComponent } from './webhook-detail/body/message-payload/message-payload.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {WebhookBaseComponent} from "../../../common/webhook-base-component";
     WebhookDetailComponent,
     HeadersComponent,
     BodyComponent,
-    SecurityOptionsComponent
+    SecurityOptionsComponent,
+    MessagePayloadComponent
   ],
   exports: [
     HeadersComponent,
