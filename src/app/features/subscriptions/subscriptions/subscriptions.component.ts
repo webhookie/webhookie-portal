@@ -27,7 +27,8 @@ import {RouterService} from "../../../shared/service/router.service";
 import {WebhooksContext} from "../../webhooks/webhooks-context";
 import {WebhookGroupService} from "../../webhooks/service/webhook-group.service";
 import {SubscriptionContext} from "../../webhooks/subscribe-webhook/subscription-context";
-import {Webhook, WebhookSelection} from "../../webhooks/model/webhook";
+import {Webhook} from "../../webhooks/model/webhook";
+import {WebhookSelection} from "../../webhooks/model/webhook-selection";
 
 type SubscriptionContextMenu = ContextMenuItem<Subscription, SubscriptionMenu>;
 

@@ -1,6 +1,8 @@
-import {AsyncAPIDocument, Channel, Message, Schema} from "@asyncapi/parser/dist/bundle";
-import {Topic, WebhookGroup} from "./webhook-group";
+import {AsyncAPIDocument, Channel, Message} from "@asyncapi/parser/dist/bundle";
+import {Topic} from "./webhook-group";
 import * as sampler from "@asyncapi/react-component/lib/helpers/generateExampleSchema"
+import {MessageHeaders} from "./message-headers";
+import {WebhookType} from "./webhook-type";
 
 export class Webhook {
   private readonly _message: Message
@@ -48,78 +50,3 @@ export class Webhook {
   }
 }
 
-export enum WebhookType {
-  SUBSCRIBE,
-  PUBLISH
-}
-
-export class WebhookSelection {
-  constructor(
-    public group: WebhookGroup,
-    public webhook: Webhook
-  ) {
-  }
-
-  get topic(): Topic {
-    return this.webhook.topic
-  }
-
-  static create(group: WebhookGroup, webhook: Webhook): WebhookSelection {
-    return new WebhookSelection(group, webhook);
-  }
-
-  static createByTopic(group: WebhookGroup, topic: string): WebhookSelection {
-    let webhook = group.webhooks.filter(it => it.topic.name == topic)[0];
-    return WebhookSelection.create(group, webhook);
-  }
-}
-
-export class MessageHeaders {
-  readonly headers: {
-    [key: string]: MessageHeader
-  } = {};
-  readonly values: Array<MessageHeader>;
-
-  get hasHeaders(): boolean {
-    return this.values.length > 0;
-  }
-
-  constructor(
-    private readonly _headers: any = {}
-  ) {
-    Object.keys(_headers)
-      .forEach(it => this.headers[it] = new MessageHeader(it, _headers[it]));
-    this.values = Object.values(this.headers)
-  }
-}
-
-export class MessageHeader {
-  readonly props: Array<string> = Object.keys(this._props)
-    .filter(it => it != "x-parser-schema-id");
-
-  value(name: string): any {
-    return this._props[name];
-  }
-
-  description(): any {
-    return this.value("description")
-  }
-
-  format(): any {
-    return this.value("format")
-  }
-
-  type(): any {
-    return this.value("type")
-  }
-
-  example(): any {
-    return sampler.generateExampleSchema(this._props)
-  }
-
-  constructor(
-    public readonly name: string,
-    private readonly _props: any
-  ) {
-  }
-}

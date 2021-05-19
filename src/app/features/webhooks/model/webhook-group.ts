@@ -1,7 +1,8 @@
 import {TableDetailData} from "../../../shared/model/table/table-detail-data";
 import {ConsumerAccess, ProviderAccess} from "../../../shared/model/access-group";
-import {Webhook, WebhookType} from "./webhook";
+import {Webhook} from "./webhook";
 import {AsyncAPIDocument, SecurityScheme} from "@asyncapi/parser/dist/bundle";
+import {WebhookType} from "./webhook-type";
 
 export class WebhookGroup extends TableDetailData {
   private readonly _securityOptions: Array<SecurityOption> = [];

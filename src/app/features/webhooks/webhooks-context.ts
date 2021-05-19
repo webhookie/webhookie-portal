@@ -2,7 +2,8 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Topic, WebhookGroup} from "./model/webhook-group";
 import {filter, map} from "rxjs/operators";
-import {Webhook, WebhookSelection} from "./model/webhook";
+import {Webhook} from "./model/webhook";
+import {WebhookSelection} from "./model/webhook-selection";
 
 @Injectable({
   providedIn: 'root'

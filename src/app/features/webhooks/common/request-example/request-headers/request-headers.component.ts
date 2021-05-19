@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {WebhookBaseComponent} from "../../webhook-base-component";
 import {WebhooksContext} from "../../../webhooks-context";
-import {MessageHeader} from "../../../model/webhook";
+import {MessageHeader} from "../../../model/message-header";
 
 @Component({
   selector: 'app-request-headers',

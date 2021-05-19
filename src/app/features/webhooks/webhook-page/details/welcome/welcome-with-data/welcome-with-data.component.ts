@@ -4,7 +4,7 @@ import {WebhookGroup} from "../../../../model/webhook-group";
 import {ArrayUtils} from "../../../../../../shared/array-utils";
 import {WebhooksContext} from "../../../../webhooks-context";
 import {RouterService} from "../../../../../../shared/service/router.service";
-import {WebhookSelection} from "../../../../model/webhook";
+import {WebhookSelection} from "../../../../model/webhook-selection";
 
 @Component({
   selector: 'app-welcome-with-data',

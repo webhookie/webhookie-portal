@@ -5,7 +5,8 @@ import {WebhookGroupService} from "../../../service/webhook-group.service";
 import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
 import {WebhookGroup} from "../../../model/webhook-group";
-import {Webhook, WebhookSelection} from "../../../model/webhook";
+import {Webhook} from "../../../model/webhook";
+import {WebhookSelection} from "../../../model/webhook-selection";
 
 @Component({
   selector: 'app-sidebar-list',
