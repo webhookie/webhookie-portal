@@ -17,7 +17,6 @@ export class WebhookDetailComponent extends WebhookBaseComponent {
     super.updated();
 
     $(function() {
-      $(".body-accordion a").removeClass('active')
       $("div.main-body-collapse")
         .addClass("collapse")
         .removeClass('show')

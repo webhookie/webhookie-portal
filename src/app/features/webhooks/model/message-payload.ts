@@ -11,6 +11,7 @@ export class MessagePayload {
 
   readonly payloadType: PayloadType
   readonly keys: Array<string>
+  open: boolean;
 
   value(key: string) {
     return this.json[key]
@@ -66,6 +67,16 @@ export class MessagePayload {
 
     this.keys = Object.keys(this.json)
       .filter(it => MessagePayload.FILTERED_ITEMS.indexOf(it) == -1)
+
+    this.open = false;
+  }
+
+  toggleOpen() {
+    this.open = !this.open;
+  }
+
+  close() {
+    this.open = false;
   }
 }
 

@@ -1,3 +1,3 @@
 <app-headers [webhook]="webhook"></app-headers>
-<app-message-payload [payload]="webhook.payload" parentId="body-accordion"></app-message-payload>
+<app-message-payload [payload]="webhook.payload" [parentId]="webhook.topic.name + '-body-accordion'"></app-message-payload>
 <app-security-options [webhookGroup]="webhookGroup"></app-security-options>

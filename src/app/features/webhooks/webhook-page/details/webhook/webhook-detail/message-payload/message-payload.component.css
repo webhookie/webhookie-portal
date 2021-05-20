@@ -36,6 +36,15 @@
   width: 21px;
 }
 
+.card-header-empty a{
+  padding-left:40px !important;
+  pointer-events: none;
+}
+
+.body-accordion .card .card-header-empty a:after {
+  content: '';
+}
+
 .body-accordion .card .card-header a.active {
   font-weight: 700;
 }
