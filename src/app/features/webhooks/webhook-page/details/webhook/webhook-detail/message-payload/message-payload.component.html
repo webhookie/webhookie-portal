@@ -1,7 +1,7 @@
 <div id="{{parentId}}" class="body-accordion">
   <div class="card">
     <div class="card-header">
-      <a data-toggle="collapse" href="#body-heading-collapse-{{payload.name}}-{{index}}" class="main-body-collapse">
+      <a data-toggle="collapse" href="#body-heading-collapse-{{parentId}}-{{index}}" class="main-body-collapse">
         {{payload.name}}
         <span *ngIf="payload.type" class="badge badge-primary ml-3 mr-2">{{payload.type}}</span>
         <span *ngIf="payload.json.minimum != undefined" class="badge badge-warning">>={{payload.json.minimum}}</span>
@@ -9,7 +9,7 @@
         <span *ngIf="payload.json.format != undefined" class="badge badge-light">{{payload.json.format}}</span>
       </a>
     </div>
-    <div class="collapse" [attr.data-parent]="'#' + parentId" id="body-heading-collapse-{{payload.name}}-{{index}}">
+    <div class="collapse" [attr.data-parent]="'#' + parentId" id="body-heading-collapse-{{parentId}}-{{index}}">
       <div class="card-body">
         <div class="webhook webhook-view">
           <div class="col-2-set" *ngIf="payload.message">
