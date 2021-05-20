@@ -15,7 +15,7 @@ export class WebhookPayloadElement {
   }
 
   get hasChildAttributes(): boolean {
-    return (this.payload.keys.length > 0 && (this.payload.message != undefined)) || this.nestedElements.length > 0
+    return this.nestedElements.length > 0
   }
 
   get emptyAttributes(): boolean {
