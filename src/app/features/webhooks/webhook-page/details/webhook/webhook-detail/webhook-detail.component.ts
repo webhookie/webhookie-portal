@@ -1,18 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {WebhookBaseComponent} from "../../../../common/webhook-base-component";
+import {WebhooksContext} from "../../../../webhooks-context";
 
 @Component({
   selector: 'app-webhook-detail',
   templateUrl: './webhook-detail.component.html',
   styleUrls: ['./webhook-detail.component.css']
 })
-export class WebhookDetailComponent implements OnInit {
-
-  constructor() {
+export class WebhookDetailComponent extends WebhookBaseComponent {
+  constructor(webhookContext: WebhooksContext) {
+    super(webhookContext)
   }
-
-  ngOnInit(): void {
-
-
-  }
-
 }

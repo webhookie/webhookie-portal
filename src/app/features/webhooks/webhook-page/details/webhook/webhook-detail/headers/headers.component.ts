@@ -1,14 +1,11 @@
-import {Component} from '@angular/core';
-import {WebhooksContext} from "../../../../../webhooks-context";
-import {WebhookBaseComponent} from "../../../../../common/webhook-base-component";
+import {Component, Input} from '@angular/core';
+import {Webhook} from "../../../../../model/webhook";
 
 @Component({
   selector: 'app-headers',
   templateUrl: './headers.component.html',
   styleUrls: ['./headers.component.css']
 })
-export class HeadersComponent extends WebhookBaseComponent {
-  constructor(ctx: WebhooksContext) {
-    super(ctx)
-  }
+export class HeadersComponent {
+  @Input() webhook!: Webhook
 }
