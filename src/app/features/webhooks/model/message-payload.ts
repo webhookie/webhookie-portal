@@ -11,14 +11,11 @@ export class MessagePayload {
 
   readonly payloadType: PayloadType
   readonly keys: Array<string>
+  readonly nestedObjects: Array<MessagePayload>
   open: boolean;
 
   value(key: string) {
     return this.json[key]
-  }
-
-  get child() {
-    return Object.values(this.properties)
   }
 
   example(): any {
@@ -44,7 +41,7 @@ export class MessagePayload {
   }
 
   get hasChildAttributes(): boolean {
-    return (this.keys.length > 0 && (this.message != undefined)) || this.child.length > 0
+    return (this.keys.length > 0 && (this.message != undefined)) || this.nestedObjects.length > 0
   }
 
   get emptyAttributes(): boolean {
@@ -68,6 +65,8 @@ export class MessagePayload {
     this.keys = Object.keys(this.json)
       .filter(it => MessagePayload.FILTERED_ITEMS.indexOf(it) == -1)
 
+    this.nestedObjects = Object.values(this.properties)
+
     this.open = false;
   }
 
@@ -77,6 +76,7 @@ export class MessagePayload {
 
   close() {
     this.open = false;
+    this.nestedObjects.forEach(it => it.close());
   }
 }
 

@@ -16,6 +16,7 @@ export class WebhookDetailComponent extends WebhookBaseComponent {
   updated() {
     super.updated();
 
+    this.webhook.payload.close();
     $(function() {
       $("div.main-body-collapse")
         .addClass("collapse")

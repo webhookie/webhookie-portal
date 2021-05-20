@@ -8,6 +8,7 @@ import {WebhookGroup} from "../../../model/webhook-group";
 import {Webhook} from "../../../model/webhook";
 import {WebhookSelection} from "../../../model/webhook-selection";
 import * as $ from "jquery";
+import {StringUtils} from "../../../../../shared/string-utils";
 
 @Component({
   selector: 'app-sidebar-list',
@@ -78,6 +79,6 @@ export class SidebarListComponent implements OnInit {
   }
 
   webhookId(webhook: Webhook): string {
-    return `webhook_a_${webhook.topic.name.replace(/\//g, "_")}`
+    return `webhook_a_${StringUtils.encode(webhook.topic.name)}`
   }
 }

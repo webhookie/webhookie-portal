@@ -21,7 +21,7 @@
           </div>
           <!-- ..... -->
           <app-message-payload
-            *ngFor="let child of payload.child;let l=index;"
+            *ngFor="let child of payload.nestedObjects;let l=index;"
             [payload]="child"
             [index]="l"
             [parentId]="id + '-' + l"

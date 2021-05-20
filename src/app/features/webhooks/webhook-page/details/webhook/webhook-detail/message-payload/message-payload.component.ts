@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {MessagePayload} from "../../../../../model/message-payload";
+import {StringUtils} from "../../../../../../../shared/string-utils";
 
 @Component({
   selector: 'app-message-payload',
@@ -12,15 +13,11 @@ export class MessagePayloadComponent {
   @Input() parentId!: string
 
   get id() {
-    return `${this.parentId}-${this.index}-${this.payload.name}-`
+    return StringUtils.encode(`${this.parentId}-${this.index}-${this.payload.name}`);
   }
 
   toggle($event: MouseEvent) {
     this.payload.toggleOpen();
     $event.preventDefault();
-  }
-
-  reset() {
-    this.payload.close();
   }
 }
