@@ -3,11 +3,12 @@
     <div class="card-header" [class.card-header-empty]="element.emptyAttributes" [class.card-header-detailed]="element.hasChildAttributes">
       <a [class.active]="element.open" class="header-link" data-toggle="collapse" href="#body-heading-collapse-{{id}}" id="{{id}}" (click)="toggle($event)">
         {{element.payload.name}}
-        <span *ngIf="element.payload.type" class="badge badge-primary ml-3 mr-2">{{element.payload.type}}</span>
+        <span class="badge badge-primary ml-3 mr-2">{{element.payload.type.title()}}</span>
         <span *ngIf="element.payload.json.minimum != undefined" class="badge badge-warning">>={{element.payload.json.minimum}}</span>
         <span *ngIf="element.payload.json.maximum != undefined" class="badge badge-danger"><={{element.payload.json.maximum}}</span>
         <span *ngIf="element.payload.json.format != undefined" class="badge badge-light">{{element.payload.json.format}}</span>
         <span *ngIf="element.payload.isRequired" class="badge badge-warning">REQUIRED</span>
+        <span *ngIf="element.payload.type.isEnum()" class="badge badge-pill">{{element.payload.enumValues()}}</span>
       </a>
       <div class="webhook webhook-view">
         <div class="col-2-set" *ngIf="element.payload.message">
