@@ -12,6 +12,9 @@ export class HeadersComponent implements OnInit{
 
   ngOnInit(): void {
     $(function() {
+      $("a.headers-root").on("click", function () {
+        $(this).toggleClass("active");
+      });
       $(".collapsed").on("click", function () {
         $(this)
           .toggleClass('active')
