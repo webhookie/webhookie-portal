@@ -75,8 +75,8 @@ export class MessagePayload {
   }
 
   close() {
-    this.open = false;
     this.nestedObjects.forEach(it => it.close());
+    this.open = false;
   }
 }
 
