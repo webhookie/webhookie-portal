@@ -1,19 +1,19 @@
-#body-accordion a {
+.body-accordion a {
   text-decoration: none;
 }
 
-#body-accordion .card {
+.body-accordion .card {
   border: 0;
   background-color: transparent;
 }
 
-#body-accordion .card .card-header {
+.body-accordion .card .card-header {
   padding: 0;
   background-color: transparent;
   border: 0;
 }
 
-#body-accordion .card .card-header a {
+.body-accordion .card .card-header a {
   display: block;
   font-size: 16px;
   color: #0A1E42;
@@ -21,12 +21,12 @@
   padding: 9px 15px;
 }
 
-#main-body-collapse .card-body {
-  padding: 0rem !important;
-  margin: 0rem 1.25rem;
+.main-body-collapse .card-body {
+  padding: 0 !important;
+  margin: 0 1.25rem;
 }
 
-#body-accordion .card .card-header a:after {
+.body-accordion .card .card-header a:after {
   /* content: "\f105";
   font-family: 'Font Awesome 5 Free';
   font-weight: 900; */
@@ -36,11 +36,11 @@
   width: 21px;
 }
 
-#body-accordion .card .card-header a.active {
+.body-accordion .card .card-header a.active {
   font-weight: 700;
 }
 
-#body-accordion .card .card-header a.active:after {
+.body-accordion .card .card-header a.active:after {
   /* content: "\f107"; */
   content: url("src/assets/images/Chevron_down.svg");
 }
@@ -67,10 +67,10 @@
 }
 
 .fixed-amount {
-  margin: 0rem 1rem;
+  margin: 0 1rem;
 }
 
-#body-accordion .badge {
+.body-accordion .badge {
   font-size: 10px;
   font-weight: 400;
   color: #0A1E42;
@@ -78,15 +78,15 @@
   border-radius: 2px;
 }
 
-#body-accordion .badge.badge-primary {
+.body-accordion .badge.badge-primary {
   background-color: #E1F6FF;
 }
 
-#body-accordion .badge.badge-warning {
+.body-accordion .badge.badge-warning {
   background-color: #FFF4CC;
 }
 
-#body-accordion .badge.badge-danger {
+.body-accordion .badge.badge-danger {
   background-color: #FDEAE0;
 }
 
@@ -128,8 +128,8 @@
   position: absolute;
   height: 100%;
   border-left: 1px solid #E5E5E5;
-  left: 0px;
-  top: 0px;
+  left: 0;
+  top: 0;
 }
 
 .webhook-view:last-child:before {
@@ -190,12 +190,12 @@
 }
 
 @media (max-width: 767px) {
-  #body-accordion .card .card-header a {
-    padding: 6px 0px;
+  .body-accordion .card .card-header a {
+    padding: 6px 0;
   }
 
-  #main-body-collapse .card-body {
-    padding: 0rem !important;
-    margin: 0rem 9px;
+  .main-body-collapse .card-body {
+    padding: 0 !important;
+    margin: 0 9px;
   }
 }
