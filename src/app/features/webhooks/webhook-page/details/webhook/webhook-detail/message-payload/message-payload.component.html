@@ -1,28 +1,28 @@
 <div id="{{parentId}}" class="body-accordion">
   <div class="card">
-    <div class="card-header" [class.card-header-empty]="payload.emptyAttributes" [class.card-header-detailed]="payload.hasChildAttributes">
-      <a [class.active]="payload.open" class="header-link" data-toggle="collapse" href="#body-heading-collapse-{{id}}" id="{{id}}" (click)="toggle($event)">
-        {{payload.name}}
-        <span *ngIf="payload.type" class="badge badge-primary ml-3 mr-2">{{payload.type}}</span>
-        <span *ngIf="payload.json.minimum != undefined" class="badge badge-warning">>={{payload.json.minimum}}</span>
-        <span *ngIf="payload.json.maximum != undefined" class="badge badge-danger"><={{payload.json.maximum}}</span>
-        <span *ngIf="payload.json.format != undefined" class="badge badge-light">{{payload.json.format}}</span>
+    <div class="card-header" [class.card-header-empty]="element.emptyAttributes" [class.card-header-detailed]="element.hasChildAttributes">
+      <a [class.active]="element.open" class="header-link" data-toggle="collapse" href="#body-heading-collapse-{{id}}" id="{{id}}" (click)="toggle($event)">
+        {{element.payload.name}}
+        <span *ngIf="element.payload.type" class="badge badge-primary ml-3 mr-2">{{element.payload.type}}</span>
+        <span *ngIf="element.payload.json.minimum != undefined" class="badge badge-warning">>={{element.payload.json.minimum}}</span>
+        <span *ngIf="element.payload.json.maximum != undefined" class="badge badge-danger"><={{element.payload.json.maximum}}</span>
+        <span *ngIf="element.payload.json.format != undefined" class="badge badge-light">{{element.payload.json.format}}</span>
       </a>
     </div>
-    <div *ngIf="payload.hasChildAttributes" class="collapse main-body-collapse" [attr.data-parent]="'#' + parentId" id="body-heading-collapse-{{id}}">
+    <div *ngIf="element.hasChildAttributes" class="collapse main-body-collapse" [attr.data-parent]="'#' + parentId" id="body-heading-collapse-{{id}}">
       <div class="card-body">
         <div class="webhook webhook-view">
-          <div class="col-2-set" *ngIf="payload.message">
-            <div><p class="font12 mb-0">{{payload.message}}</p></div>
+          <div class="col-2-set" *ngIf="element.payload.message">
+            <div><p class="font12 mb-0">{{element.payload.message}}</p></div>
           </div>
-          <div *ngFor="let key of payload.keys" class="col-2-set">
+          <div *ngFor="let key of element.payload.keys" class="col-2-set">
             <div><p class="font12 mb-0">{{key}}</p></div>
-            <div ><p class="font12 mb-0"><strong>{{payload.value(key)}}</strong></p></div>
+            <div ><p class="font12 mb-0"><strong>{{element.payload.value(key)}}</strong></p></div>
           </div>
           <!-- ..... -->
           <app-message-payload
-            *ngFor="let child of payload.nestedObjects;let l=index;"
-            [payload]="child"
+            *ngFor="let child of element.nestedElements;let l=index;"
+            [element]="child"
             [index]="l"
             [parentId]="id + '-' + l"
           >

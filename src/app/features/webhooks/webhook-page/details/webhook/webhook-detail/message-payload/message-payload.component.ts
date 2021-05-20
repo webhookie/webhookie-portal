@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {MessagePayload} from "../../../../../model/message-payload";
 import {StringUtils} from "../../../../../../../shared/string-utils";
+import {WebhookPayloadElement} from "./webhook-payload-element";
 
 @Component({
   selector: 'app-message-payload',
@@ -8,16 +8,16 @@ import {StringUtils} from "../../../../../../../shared/string-utils";
   styleUrls: ['./message-payload.component.css']
 })
 export class MessagePayloadComponent {
-  @Input() payload!: MessagePayload
+  @Input() element!: WebhookPayloadElement
   @Input() index: number = 0;
   @Input() parentId!: string
 
   get id() {
-    return StringUtils.encode(`${this.parentId}-${this.index}-${this.payload.name}`);
+    return StringUtils.encode(`${this.parentId}-${this.index}-${this.element.payload.name}`);
   }
 
   toggle($event: MouseEvent) {
-    this.payload.toggleOpen();
+    this.element.toggleOpen();
     $event.preventDefault();
   }
 }

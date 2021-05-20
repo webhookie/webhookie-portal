@@ -12,7 +12,6 @@ export class MessagePayload {
   readonly payloadType: PayloadType
   readonly keys: Array<string>
   readonly nestedObjects: Array<MessagePayload>
-  open: boolean;
 
   value(key: string) {
     return this.json[key]
@@ -40,14 +39,6 @@ export class MessagePayload {
       : this.json.pattern
   }
 
-  get hasChildAttributes(): boolean {
-    return (this.keys.length > 0 && (this.message != undefined)) || this.nestedObjects.length > 0
-  }
-
-  get emptyAttributes(): boolean {
-    return !this.hasChildAttributes
-  }
-
   constructor(
     readonly name: string,
     readonly json: any
@@ -66,17 +57,6 @@ export class MessagePayload {
       .filter(it => MessagePayload.FILTERED_ITEMS.indexOf(it) == -1)
 
     this.nestedObjects = Object.values(this.properties)
-
-    this.open = false;
-  }
-
-  toggleOpen() {
-    this.open = !this.open;
-  }
-
-  close() {
-    this.nestedObjects.forEach(it => it.close());
-    this.open = false;
   }
 }
 
