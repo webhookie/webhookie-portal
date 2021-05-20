@@ -2,7 +2,7 @@ import * as sampler from "@asyncapi/react-component/lib/helpers/generateExampleS
 
 export class MessagePayload {
   private static readonly FILTERED_ITEMS = [
-    "properties", "minimum", "maximum", "x-parser-schema-id", "type", "description", "format"
+    "properties", "minimum", "maximum", "x-parser-schema-id", "type", "description", "format", "required"
   ]
 
   readonly properties: {
@@ -41,16 +41,18 @@ export class MessagePayload {
 
   constructor(
     readonly name: string,
+    readonly isRequired: boolean,
     readonly json: any
   ) {
     this.payloadType = (this.json["type"] == "object")
       ? PayloadType.OBJECT
       : PayloadType.PRIMITIVE
 
+    let requiredProperties = this.json.required ? this.json.required : [];
     if(this.payloadType == PayloadType.OBJECT) {
       let props = this.json.properties;
       Object.keys(props)
-        .forEach(it => this.properties[it] = new MessagePayload(it, props[it]))
+        .forEach(it => this.properties[it] = new MessagePayload(it, requiredProperties.indexOf(it) > -1, props[it]))
     }
 
     this.keys = Object.keys(this.json)
