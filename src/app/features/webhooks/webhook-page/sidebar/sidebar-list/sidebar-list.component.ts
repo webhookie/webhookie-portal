@@ -7,6 +7,7 @@ import {WebhooksContext} from "../../../webhooks-context";
 import {WebhookGroup} from "../../../model/webhook-group";
 import {Webhook} from "../../../model/webhook";
 import {WebhookSelection} from "../../../model/webhook-selection";
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-sidebar-list',
@@ -49,6 +50,15 @@ export class SidebarListComponent implements OnInit {
         }
 
       })
+
+    $(function() {
+      $(".btn-header-link").on("click", function () {
+        $(this)
+          .toggleClass("active")
+          .parent().parent().siblings().find('.btn-header-link')
+          .removeClass('active')
+      });
+    });
   }
 
   selectWebhook(element: WebhookGroup, webhook: Webhook) {

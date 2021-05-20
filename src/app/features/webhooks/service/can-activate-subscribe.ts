@@ -28,7 +28,7 @@ export class CanActivateSubscribe implements CanActivate {
 
     if(this.context.selectedTopic == undefined) {
       this.log.debug("topic is missing. redirecting to home")
-      return this.router.createUrlTree([Constants.ROUTE_HOME]);
+      return this.router.createUrlTree([Constants.ROUTE_WELCOME]);
     }
 
     this.log.debug(`${route.url} can be activated`)
