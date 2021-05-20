@@ -12,10 +12,14 @@ export class MessagePayloadComponent implements OnInit {
   @Input() index: number = 0;
   @Input() parentId!: string
 
+  get id() {
+    return `${this.payload.name}-${this.parentId}-${this.index}`
+  }
+
   ngOnInit(): void {
     $(function() {
-      $(".body-accordion > div > div > a").on("click", function () {
-        $(this).toggleClass('active')
+      $(".body-accordion a").on("click", function () {
+        $(this).toggleClass("active")
       });
     });
   }

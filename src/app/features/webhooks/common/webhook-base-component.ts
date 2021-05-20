@@ -24,7 +24,12 @@ export class WebhookBaseComponent implements OnInit {
       .subscribe(it => {
         this.webhook = it!.webhook
         this.webhookGroup = it!.group
+        this.updated();
       });
+  }
+
+  updated(): void {
+
   }
 
   ngOnInit(): void {
