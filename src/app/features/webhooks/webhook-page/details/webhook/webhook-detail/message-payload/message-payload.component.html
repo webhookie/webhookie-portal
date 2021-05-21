@@ -8,15 +8,18 @@
         <span *ngIf="element.payload.json.maximum != undefined" class="badge badge-danger"><={{element.payload.json.maximum}}</span>
         <span *ngIf="element.payload.json.format != undefined" class="badge badge-light">{{element.payload.json.format}}</span>
         <span *ngIf="element.payload.isRequired" class="badge badge-warning">REQUIRED</span>
-        <span *ngIf="element.payload.isEnum()" class="badge badge-pill">{{element.payload.values()}}</span>
       </a>
       <div class="webhook webhook-view">
         <div class="col-2-set" *ngIf="element.payload.description">
           <div><p class="font12 mb-0">{{element.payload.description}}</p></div>
         </div>
+        <div *ngIf="element.payload.isEnum()" class="col-2-set">
+          <span>enum</span>
+          <span class="font12 pl-4">{{element.payload.values()}}</span>
+        </div>
         <div *ngFor="let key of element.payload.keys" class="col-2-set">
-          <div><p class="font12 mb-0">{{key}}</p></div>
-          <div ><p class="font12 mb-0">{{element.payload.value(key)}}</p></div>
+          <span>{{key}}</span>
+          <span class="font12 pl-4">{{element.payload.value(key)}}</span>
         </div>
       </div>
       <div *ngIf="element.hasChildAttributes" class="collapse main-body-collapse" [attr.data-parent]="'#' + parentId" id="body-heading-collapse-{{id}}">

@@ -12,12 +12,18 @@ export class EnumPayload extends MessagePayload {
   }
 
   type(): string {
-    return PayloadType.ENUM.valueOf();
+    return this.json.type;
   }
 
   values(): Array<string> {
     return this.value("enum")
-      .map((it: string) => '"' + it + '"')
+      .map((it: any) => {
+        if(typeof it === "string") {
+          return '"' + it + '"'
+        }
+
+        return it
+      })
   }
 }
 
