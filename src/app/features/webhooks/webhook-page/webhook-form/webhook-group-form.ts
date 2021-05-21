@@ -11,6 +11,7 @@ import {Observable, Observer} from "rxjs";
 import {ConsumerAccess, ProviderAccess} from "../../../../shared/model/access-group";
 import {WebhookieError} from "../../../../shared/error/webhookie-error";
 import {WebhookGroup} from "../../model/webhook-group";
+import {WebhookAPITemplate} from "./create-webhook-group/WebhookAPITemplate";
 
 export class WebhookGroupForm {
   value(): Observable<any> {
@@ -86,7 +87,7 @@ export class WebhookGroupForm {
   ) {
     let providerGroupSelection = AccessGroupSelection.initPublic();
     let consumerGroupSelection = AccessGroupSelection.initPublic();
-    let spec = ""
+    let spec = WebhookAPITemplate.WEBHOOK_API_TEMPLATE;
 
     if(webhookGroup) {
       this.id = webhookGroup.id;
