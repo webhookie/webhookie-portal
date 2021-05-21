@@ -3,7 +3,7 @@
  * @author Arthur Kazemi<bidadh@gmail.com>
  * @date 20/5/21 19:37
  */
-import {MessagePayload} from "../../../../../model/message-payload";
+import {MessagePayload} from "../../../../../model/message/payload/message-payload";
 
 export class WebhookPayloadElement {
   open: boolean = false;

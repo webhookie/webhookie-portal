@@ -2,7 +2,8 @@ import {AsyncAPIDocument, Channel, Message} from "@asyncapi/parser/dist/bundle";
 import {Topic} from "./webhook-group";
 import {MessageHeaders} from "./message-headers";
 import {WebhookType} from "./webhook-type";
-import {MessagePayload} from "./message-payload";
+import {MessagePayload} from "./message/payload/message-payload";
+import {MessagePayloadFactory} from "./message/payload/message-payload-factory";
 
 export class Webhook {
   private readonly _message: Message
@@ -21,7 +22,7 @@ export class Webhook {
       : this.channel.publish().message()
 
     let payload = this._message.payload();
-    this.payload = new MessagePayload("Body", false, payload.json())
+    this.payload = MessagePayloadFactory.create("Body", false, payload.json())
 
     let examples = payload.examples();
     // @ts-ignore
