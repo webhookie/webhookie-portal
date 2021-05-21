@@ -28,7 +28,7 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
   @ViewChild("applicationComponent") application?: ApplicationComponent
   @ViewChild("callbackComponent") callback?: CallbackComponent
   @ViewChild('responseComponent') response?: ResponseComponent
-  @ViewChild('requestExampleComponent') requestExampleComponent?: RequestExampleComponent
+  @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
 
   subscription?: Subscription
   readMode = false;
@@ -124,15 +124,9 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
     let validateSubscription = (): Observable<Subscription> => {
       this.isRunning = true;
       this.response?.init();
-      let request: ValidateSubscriptionRequest = {
-        payload: JSON.stringify(this.webhook.example),
-        headers: {
-          "Content-Type": ["application/json"],
-          "Accept": ["*/*"]
-        }
-      };
-      // @ts-ignore
-      return this.subscriptionService.validateSubscription(this.subscription, request)
+      let request: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
+
+      return this.subscriptionService.validateSubscription(this.subscription!, request)
     };
 
     let successHandler = (it: Subscription) => {

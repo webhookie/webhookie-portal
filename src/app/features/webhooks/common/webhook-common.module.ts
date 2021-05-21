@@ -9,6 +9,7 @@ import {RouterModule} from '@angular/router';
 import { RequestHeadersComponent } from './request-example/request-headers/request-headers.component';
 import { RequestBodyComponent } from './request-example/request-body/request-body.component';
 import {SharedModule} from "../../../shared/shared.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -29,11 +30,12 @@ import {SharedModule} from "../../../shared/shared.module";
     RequestHeadersComponent,
     RequestBodyComponent
   ],
-    imports: [
-        RouterModule,
-        CommonModule,
-        SharedModule,
-    ],
+  imports: [
+    RouterModule,
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+  ],
 
   providers: []
 })

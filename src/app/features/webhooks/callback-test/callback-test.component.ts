@@ -6,6 +6,7 @@ import {WebhooksContext} from "../webhooks-context";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {WebhookBaseComponent} from "../common/webhook-base-component";
+import {ValidateSubscriptionRequest} from "../../../shared/service/subscription.service";
 
 @Component({
   selector: 'app-callback-test',
@@ -13,12 +14,9 @@ import {WebhookBaseComponent} from "../common/webhook-base-component";
   styleUrls: ['./callback-test.component.css']
 })
 export class CallbackTestComponent extends WebhookBaseComponent {
-  // @ts-ignore
-  @ViewChild('callbackUrlComponent') callback: CallbackUrlComponent
-  // @ts-ignore
-  @ViewChild('responseComponent') response?: ResponseComponent
-  // @ts-ignore
-  @ViewChild('requestExampleComponent') requestExampleComponent: RequestExampleComponent
+  @ViewChild('callbackUrlComponent') callback!: CallbackUrlComponent
+  @ViewChild('responseComponent') response!: ResponseComponent
+  @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
 
   subscribe: boolean = true;
 
@@ -39,14 +37,12 @@ export class CallbackTestComponent extends WebhookBaseComponent {
   test() {
     this.response?.invalidate()
 
+    let requestExample: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
     let request: CallbackValidationRequest = {
       httpMethod: this.callback.method,
       url: this.callback.url,
-      payload: JSON.stringify(this.webhook.example),
-      headers: {
-        "Content-Type": ["application/json"],
-        "Accept": ["*/*"]
-      }
+      payload: requestExample.payload,
+      headers: requestExample.headers
     }
 
     if(this.callback.isHmac) {

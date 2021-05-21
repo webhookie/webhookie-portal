@@ -94,6 +94,6 @@ export class SubscriptionService {
 }
 
 export interface ValidateSubscriptionRequest {
-  payload: string,
+  payload: any,
   headers: any
 }

@@ -1,18 +1,16 @@
-import {AfterViewChecked, Component} from '@angular/core';
+import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
 import * as $ from 'jquery';
 import {JsonUtils} from "../../../../../shared/json-utils";
-import {WebhookBaseComponent} from "../../webhook-base-component";
-import {WebhooksContext} from "../../../webhooks-context";
+import {Webhook} from "../../../model/webhook";
 
 @Component({
   selector: 'app-request-body',
   templateUrl: './request-body.component.html',
   styleUrls: ['./request-body.component.css']
 })
-export class RequestBodyComponent extends WebhookBaseComponent implements AfterViewChecked {
-  constructor(ctx: WebhooksContext) {
-    super(ctx)
-  }
+export class RequestBodyComponent implements OnInit, AfterViewChecked {
+  @Input() webhook!: Webhook
+  @Input() show: boolean = true
 
   ngOnInit(): void {
 
@@ -27,6 +25,7 @@ export class RequestBodyComponent extends WebhookBaseComponent implements AfterV
     $(".null").attr('contentEditable', 'true');
     $(".number").attr('contentEditable', 'true');
   }
+
   output(inp: string) {
     let myContainer = document.getElementById('json_str') as HTMLInputElement;
     myContainer.innerHTML = inp;
@@ -37,5 +36,9 @@ export class RequestBodyComponent extends WebhookBaseComponent implements AfterV
     // noinspection JSUnusedLocalSymbols
     let myContainer = document.getElementById('json_str');
     // console.log(myContainer);
+  }
+
+  value(): any {
+    return this.webhook.example;
   }
 }
