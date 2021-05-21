@@ -19,6 +19,7 @@ export class RequestHeadersComponent implements OnInit {
     const group: any = {};
 
     this.webhook.headers.values
+      .filter(it => it.isEditable())
       .forEach(it => group[it.name] = new FormControl(it.example()))
 
     this.headerForm = this.formBuilder.group(group);

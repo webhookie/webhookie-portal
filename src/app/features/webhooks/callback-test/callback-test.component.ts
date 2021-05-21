@@ -35,13 +35,13 @@ export class CallbackTestComponent extends WebhookBaseComponent {
   }
 
   test() {
-    this.response?.invalidate()
+    this.response.invalidate()
 
     let requestExample: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
     let request: CallbackValidationRequest = {
       httpMethod: this.callback.method,
       url: this.callback.url,
-      payload: requestExample.payload,
+      payload: JSON.stringify(requestExample.payload),
       headers: requestExample.headers
     }
 
@@ -54,8 +54,8 @@ export class CallbackTestComponent extends WebhookBaseComponent {
 
     this.callbackService.testCallback(request)
       .subscribe(
-        it => this.response?.update(it),
-        (err: BadRequestError) => this.response?.updateWithError(err.error)
+        it => this.response.update(it),
+        (err: BadRequestError) => this.response.updateWithError(err.error)
       )
   }
 }
