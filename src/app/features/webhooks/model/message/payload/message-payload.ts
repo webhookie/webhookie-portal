@@ -3,7 +3,7 @@ import {EnumPayload} from "./message-payload-factory";
 
 export abstract class MessagePayload {
   private static readonly FILTERED_ITEMS = [
-    "properties", "minimum", "maximum", "x-parser-schema-id", "type", "description", "format", "required", "items", "enum"
+    "properties", "minimum", "maximum", "x-parser-schema-id", "type", "description", "format", "required", "items"
   ]
 
   abstract readonly nestedObjects: Array<MessagePayload>

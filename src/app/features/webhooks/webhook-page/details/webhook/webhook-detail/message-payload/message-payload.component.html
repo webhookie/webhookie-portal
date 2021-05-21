@@ -13,10 +13,6 @@
         <div class="col-2-set" *ngIf="element.payload.description">
           <div><p class="font12 mb-0">{{element.payload.description}}</p></div>
         </div>
-        <div *ngIf="element.payload.isEnum()" class="col-2-set">
-          <span>enum</span>
-          <span class="font12 pl-4">{{element.payload.values()}}</span>
-        </div>
         <div *ngFor="let key of element.payload.keys" class="col-2-set">
           <span>{{key}}</span>
           <span class="font12 pl-4">{{element.payload.value(key)}}</span>

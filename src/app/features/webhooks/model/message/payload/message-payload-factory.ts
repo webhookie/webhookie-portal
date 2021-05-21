@@ -16,7 +16,7 @@ export class EnumPayload extends MessagePayload {
   }
 
   values(): Array<string> {
-    return this.value("enum")
+    return super.value(PayloadType.ENUM.valueOf())
       .map((it: any) => {
         if(typeof it === "string") {
           return '"' + it + '"'
@@ -24,6 +24,13 @@ export class EnumPayload extends MessagePayload {
 
         return it
       })
+  }
+
+  value(key: string): any {
+    if(key == PayloadType.ENUM.valueOf()) {
+      return this.values();
+    }
+    return super.value(key);
   }
 }
 
