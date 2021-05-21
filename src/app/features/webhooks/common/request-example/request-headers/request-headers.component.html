@@ -12,13 +12,15 @@
       <td>{{header.name}}</td>
       <td>
         <input
+          *ngIf="header.isEditable()"
           type="text"
           name=""
-          value="{{headerValue(header)}}"
+          value="{{header.headerValue()}}"
           class="form-control form-custom-control"
-          placeholder="{{placeHolder(header)}}"
+          placeholder="{{header.placeHolder()}}"
           [formControlName]="header.name"
         />
+        <span *ngIf="header.isReadOnly()">{{header.headerValue()}}</span>
       </td>
       <td>{{header.description()}}</td>
     </tr>

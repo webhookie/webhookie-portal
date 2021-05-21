@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MessageHeader} from "../../../model/message-header";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Webhook} from "../../../model/webhook";
 
@@ -23,24 +22,6 @@ export class RequestHeadersComponent implements OnInit {
       .forEach(it => group[it.name] = new FormControl(it.example()))
 
     this.headerForm = this.formBuilder.group(group);
-  }
-
-  placeHolder(header: MessageHeader): any {
-    if(header.format()) {
-      return header.format()
-    }
-
-    if(header.type()) {
-      return header.type()
-    }
-  }
-
-  headerValue(header: MessageHeader): any {
-    if(header.example()) {
-      return header.example()
-    }
-
-    return this.placeHolder(header)
   }
 
   value(extraHeaders: any): any {
