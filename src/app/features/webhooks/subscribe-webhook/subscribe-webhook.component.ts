@@ -124,7 +124,11 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
     let validateSubscription = (): Observable<Subscription> => {
       this.isRunning = true;
       this.response?.init();
-      let request: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
+      let requestExample: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
+      let request = {
+        payload: JSON.stringify(requestExample.payload),
+        headers: requestExample.headers
+      }
 
       return this.subscriptionService.validateSubscription(this.subscription!, request)
     };

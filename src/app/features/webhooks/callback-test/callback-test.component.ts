@@ -35,7 +35,7 @@ export class CallbackTestComponent extends WebhookBaseComponent {
   }
 
   test() {
-    this.response.invalidate()
+    this.response.init()
 
     let requestExample: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
     let request: CallbackValidationRequest = {
