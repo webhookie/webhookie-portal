@@ -20,6 +20,7 @@ export class EnumPayload extends MessagePayload {
       .map((it: string) => '"' + it + '"')
   }
 }
+
 export class ArrayPayload extends MessagePayload {
   readonly nestedObjects: Array<MessagePayload> = [];
 
