@@ -103,10 +103,11 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       .pipe(skip(1))
       .subscribe(it => {
         this._traces$.next([]);
-        let filter = this.tableComponent.currentFilter.value;
-        filter["entity"] = it.entity
-        filter["application"] = it.application?.id
-        filter["callback"] = it.callback?.callbackId
+        let filter = Object.assign(this.tableComponent.currentFilter.value, {
+          entity: it.entity,
+          application: it.application?.id,
+          callback: it.callback?.callbackId
+        });
 
         this.tableComponent.currentFilter.next(filter);
       });
