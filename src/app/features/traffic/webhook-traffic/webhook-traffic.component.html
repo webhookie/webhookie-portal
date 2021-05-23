@@ -2,49 +2,39 @@
   <div class="drop-buttons d-flex">
     <ul class="d-flex align-items-center">
       <li>
-        <h5>Entity</h5>
-        <div class="dropdown">
-          <button class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center"
-                  data-toggle="dropdown"
-                  type="button">
-            {{currentEntity ? currentEntity : 'Select Entity'}}
-          </button>
-          <div class="dropdown-menu font12 font-weight-400">
-            <a *ngIf="currentEntity" class="dropdown-item" href="javascript:void(0)" (click)="clearEntity()">Select Entity</a>
-            <a *ngFor="let entity of entities$.asObservable() | async" class="dropdown-item" href="javascript:void(0)" (click)="selectEntity(entity)">{{entity}}</a>
-          </div>
-        </div>
+        <app-searchable-select
+          title="Entity"
+          (onSelect)="onSelectEntity($event)"
+          (onClear)="clearEntity()"
+          #entitiesComponent
+        >
+        </app-searchable-select>
       </li>
-      <li>
-        <h5>Application</h5>
-        <div class="dropdown">
-          <button class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center"
-                  data-toggle="dropdown"
-                  type="button">
-            {{currentApplication ? currentApplication.name : 'Select Application'}}
-          </button>
-          <div class="dropdown-menu font12 font-weight-400">
-            <a *ngIf="currentApplication" class="dropdown-item" href="javascript:void(0)" (click)="clearApplication()">Select Application</a>
-            <a *ngFor="let app of entityApplications$.asObservable() | async" class="dropdown-item" href="javascript:void(0)" (click)="selectApplication(app)">{{app.name}}</a>
-          </div>
-        </div>
+      <li *ngIf="currentEntity">
+        <app-searchable-select
+          title="Application"
+          (onSelect)="onSelectApplication($event)"
+          (onClear)="clearApplication()"
+          #applicationsComponent
+        >
+        </app-searchable-select>
       </li>
-      <li>
-        <h5>Callback URL</h5>
-        <div class="dropdown">
-          <button class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center"
-                  data-toggle="dropdown"
-                  type="button">
-            {{currentCallback ? currentCallback.name : 'Select Callback'}}
-          </button>
-          <div class="dropdown-menu font12 font-weight-400">
-            <a *ngIf="currentCallback" class="dropdown-item" href="javascript:void(0)" (click)="clearCallback()">Select Callback</a>
-            <a *ngFor="let callback of applicationsCallbacks$.asObservable() | async" class="dropdown-item" href="javascript:void(0)" (click)="selectCallback(callback)">{{callback.name}}</a>
-          </div>
-        </div>
+      <li *ngIf="currentApplication">
+        <app-searchable-select
+          title="Callback URL"
+          (onSelect)="onSelectCallback($event)"
+          (onClear)="clearCallback()"
+          #callbacksComponent
+        >
+        </app-searchable-select>
       </li>
     </ul>
   </div>
+</div>
+
+<div>
+  <hr>
+  <pre>Model: {{ spanFilter | json }}</pre>
 </div>
 
 <app-generic-table

@@ -28,7 +28,8 @@ import {HttpTokenInterceptor} from "./interceptor/http.token.interceptor";
 import {HttpLogInterceptor} from "./interceptor/http-log.interceptor";
 import {HttpErrorInterceptor} from "./interceptor/http-error.interceptor";
 import { ToastsContainerComponent } from './components/toasts-container/toasts-container.component';
-import {NgbAlertModule, NgbToastModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbAlertModule, NgbToastModule, NgbTypeaheadModule} from "@ng-bootstrap/ng-bootstrap";
+import { SearchableSelectComponent } from './components/searchable-select/searchable-select.component';
 
 let apiProvider;
 if (environment.mock) {
@@ -53,6 +54,7 @@ if (environment.mock) {
     ConfirmDialogComponent,
     MultiSelectComponent,
     ToastsContainerComponent,
+    SearchableSelectComponent,
   ],
   imports: [
     FormsModule,
@@ -65,7 +67,8 @@ if (environment.mock) {
     ReactiveFormsModule,
     InfiniteScrollModule,
     NgbToastModule,
-    NgbAlertModule
+    NgbAlertModule,
+    NgbTypeaheadModule
   ],
   exports: [
     GenericTableComponent,
@@ -81,7 +84,8 @@ if (environment.mock) {
     JsonViewerComponent,
     ConfirmDialogComponent,
     MultiSelectComponent,
-    ToastsContainerComponent
+    ToastsContainerComponent,
+    SearchableSelectComponent
   ],
   providers: [
     {

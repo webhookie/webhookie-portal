@@ -1,0 +1,28 @@
+<div>
+  <label for="typeahead-focus">{{title}}</label>
+  <div class="input-group mb-3">
+    <input
+      id="typeahead-focus"
+      type="text"
+      class="form-control"
+      [(ngModel)]="model"
+      [ngbTypeahead]="search"
+      (selectItem)="selectItem($event)"
+      (focus)="focus$.next($any($event).target.value)"
+      (click)="click$.next($any($event).target.value)"
+      #instance="ngbTypeahead"
+      [disabled]="!hasItems()"
+      [inputFormatter]="name"
+      [resultFormatter]="name"
+    />
+    <button class="btn btn-outline-secondary input-group-text"
+            (click)="clear()"
+            [disabled]="!hasItems()">
+      <i class="fa fa-close"></i>
+    </button>
+  </div>
+  <div *ngIf="debug">
+    <hr>
+    <pre>Model: {{ model | json }}</pre>
+  </div>
+</div>

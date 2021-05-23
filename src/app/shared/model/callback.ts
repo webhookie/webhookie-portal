@@ -1,6 +1,7 @@
 import {CallbackSecurity} from "./callback-security";
+import {SelectableItem} from "../components/searchable-select/searchable-select.component";
 
-export class Callback {
+export class Callback implements SelectableItem{
   constructor(
     public callbackId: string,
     public name: string,

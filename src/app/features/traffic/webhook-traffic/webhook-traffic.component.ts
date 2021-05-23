@@ -45,6 +45,7 @@ import {JsonUtils} from "../../../shared/json-utils";
 import {ModalService} from "../../../shared/service/modal.service";
 import {SpanService} from "../service/span.service";
 import {HttpMessage} from "../model/http-message";
+import {SearchableSelectComponent} from "../../../shared/components/searchable-select/searchable-select.component";
 
 type TraceContextMenu = ContextMenuItem<Trace, TraceMenu>;
 type TraceSpanContextMenu = ContextMenuItem<Span, TraceSpansMenu>;
@@ -58,13 +59,12 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   // @ts-ignore
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
   @ViewChild("resultViewer") resultViewer?: TemplateRef<any>;
+  @ViewChild("entitiesComponent") entitiesComponent!: SearchableSelectComponent;
+  @ViewChild("applicationsComponent") applicationsComponent!: SearchableSelectComponent;
+  @ViewChild("callbacksComponent") callbacksComponent!: SearchableSelectComponent;
 
   private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
   readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();
-
-  readonly entities$: Subject<Array<string>> = new BehaviorSubject<Array<string>>([]);
-  readonly entityApplications$: Subject<Array<Application>> = new BehaviorSubject<Array<Application>>([]);
-  readonly applicationsCallbacks$: Subject<Array<Callback>> = new BehaviorSubject<Array<Callback>>([]);
 
   readonly spanFilter$: BehaviorSubject<WebhookTrafficFilter> = new BehaviorSubject<WebhookTrafficFilter>({});
 
@@ -83,21 +83,21 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   ngOnInit(): void {
     this.providerService.myEntities()
-      .subscribe(it => this.entities$.next(it));
+      .subscribe(it => this.entitiesComponent.values.next(it));
 
     this.spanFilter$.asObservable()
       .pipe(
         filter(it => it.entity != null),
         mergeMap(it => this.providerService.entityApplications(it.entity!))
       )
-      .subscribe(it => this.entityApplications$.next(it));
+      .subscribe(it => this.applicationsComponent.values.next(it));
 
     this.spanFilter$.asObservable()
       .pipe(
         filter(it => it.application != null),
         mergeMap(it => this.providerService.applicationCallbacks(it.application!))
       )
-      .subscribe(it => this.applicationsCallbacks$.next(it));
+      .subscribe(it => this.callbacksComponent.values.next(it));
 
     this.spanFilter$.asObservable()
       .pipe(skip(1))
@@ -239,6 +239,18 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       .pipe(map(() => true))
   }
 
+  onSelectEntity(entity: string) {
+    this.selectEntity(entity);
+  }
+
+  onSelectApplication(app: Application) {
+    this.selectApplication(app);
+  }
+
+  onSelectCallback(item: Callback) {
+    this.selectCallback(item)
+  }
+
   selectEntity(entity?: string) {
     let filter = this.spanFilter
     if(filter.entity == entity) {
@@ -304,14 +316,19 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   clearEntity() {
+    if(this.applicationsComponent) {
+      this.applicationsComponent.values.next([])
+    }
+    this.clearApplication()
     this.selectEntity(undefined)
-    this.entityApplications$.next([]);
-    this.applicationsCallbacks$.next([]);
   }
 
   clearApplication() {
+    if(this.callbacksComponent) {
+      this.callbacksComponent.values.next([])
+    }
+    this.clearCallback()
     this.selectApplication(undefined)
-    this.applicationsCallbacks$.next([]);
   }
 
   clearCallback() {
