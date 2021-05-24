@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {debounceTime, distinctUntilChanged, filter, map} from "rxjs/operators";
-import {BehaviorSubject, merge, Observable, OperatorFunction, Subject, zip} from "rxjs";
+import {BehaviorSubject, merge, Observable, OperatorFunction, Subject} from "rxjs";
 import {NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 import {NgbTypeaheadSelectItemEvent} from "@ng-bootstrap/ng-bootstrap/typeahead/typeahead";
 
@@ -36,17 +36,16 @@ export class SearchableSelectComponent {
     const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
     const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
     const inputFocus$ = this.focus$;
-    return zip(merge(debouncedText$, inputFocus$, clicksWithClosedPopup$), this.values)
+    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$)
       .pipe(
         // tap(it => console.warn(it)),
         map(term => {
-          let values = term[1]
-          let value = term[0] === ''
-            ? values
-            : values
+          let value = term === ''
+            ? this.values.value
+            : this.values.value
               .filter(v => {
                 let title = this.name(v)
-                return title.toLowerCase().indexOf(term[0].toLowerCase()) > -1
+                return title.toLowerCase().indexOf(term.toLowerCase()) > -1
               })
 
           return value.slice(0, 10)
