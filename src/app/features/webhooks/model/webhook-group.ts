@@ -7,11 +7,15 @@ import {WebhookType} from "./webhook-type";
 export class WebhookGroup extends TableDetailData {
   private readonly _securityOptions: Array<SecurityOption> = [];
 
-  readonly securityOptions = this._securityOptions
-    .filter(it => it.type == "symmetricEncryption");
+  get securityOptions() {
+    return this._securityOptions
+      .filter(it => it.type == "symmetricEncryption");
+  }
 
-  readonly webhooks: Array<Webhook> = this._webhooks
+  get webhooks(): Array<Webhook> {
+    return this._webhooks
       .filter(it => it.type == WebhookType.SUBSCRIBE)
+  }
 
   constructor(
     public id: string,
@@ -31,6 +35,8 @@ export class WebhookGroup extends TableDetailData {
     let components = doc.components();
     this._securityOptions = Object.keys(components.securitySchemes())
       .map(name => SecurityOption.create(name, components.securityScheme(name)))
+
+    console.warn(this.securityOptions)
   }
 
   get hasSecuritySchema(): boolean {
