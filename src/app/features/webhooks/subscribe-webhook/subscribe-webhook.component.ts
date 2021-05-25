@@ -163,7 +163,7 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
   }
 
   createSubscription() {
-    this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback.callbackId)
+    this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback!.callbackId)
       .subscribe(it => this.subscription = it);
   }
 

@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CallbackService} from "../../service/callback.service";
 import {mergeMap} from "rxjs/operators";
-import {EMPTY, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
+import {EMPTY, Observable, of, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {Callback} from "../../../../shared/model/callback";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../subscription-context";
+import {SearchableSelectComponent} from "../../../../shared/components/searchable-select/searchable-select.component";
 
 @Component({
   selector: 'app-callback',
@@ -13,7 +14,7 @@ import {SubscriptionContext} from "../subscription-context";
   styleUrls: ['./callback.component.css']
 })
 export class CallbackComponent implements OnInit {
-  readonly _callbacks$: Subject<Array<Callback>> = new ReplaySubject();
+  @ViewChild("callbacksComponent", { static: true}) callbacksComponent!: SearchableSelectComponent
 
   constructor(
     readonly modalService: ModalService,
@@ -42,7 +43,7 @@ export class CallbackComponent implements OnInit {
     this.context.selectedApplication$
       .pipe(mergeMap(it => this.service.fetchApplicationCallbacks(it)))
       .subscribe(list => {
-        this._callbacks$.next(list);
+        this.callbacksComponent.values.next(list);
         if(this.context.currentCallbackId) {
           const callback = list.filter(it => it.callbackId == this.context.currentCallbackId)[0]
           this.selectCallback(callback)
@@ -54,7 +55,7 @@ export class CallbackComponent implements OnInit {
         mergeMap(it => zip(of(it), this.loadCallbacks(this.selectedApplication)))
       )
       .subscribe(it => {
-        this._callbacks$.next(it[1]);
+        this.callbacksComponent.values.next(it[1]);
         this.selectCallback(it[0]);
       })
   }
@@ -63,7 +64,11 @@ export class CallbackComponent implements OnInit {
     this.modalService.hide();
   }
 
-  selectCallback(callback: Callback) {
+  selectCallback(callback?: Callback) {
     this.context.updateCallback(callback);
+  }
+
+  clearCallback() {
+    this.selectCallback(undefined)
   }
 }

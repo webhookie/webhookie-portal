@@ -5,6 +5,7 @@
 
     <label class="font14 font-weight-400">Select your callback URL</label>
 
+<!--
     <div class="dropdown mb-3">
       <button class="btn btn-warning dropdown-toggle text-left font12 font-weight-400 d-flex justify-content-between align-items-center"
               data-toggle="dropdown"
@@ -19,6 +20,18 @@
         <a (click)="selectCallback(callback)" *ngFor="let callback of _callbacks$.asObservable() | async" class="dropdown-item"
            href="javascript:void(0)">{{callback.name}}</a>
       </div>
+    </div>
+-->
+    <div>
+      <app-searchable-select
+        title="Application"
+        (onSelect)="selectCallback($event)"
+        [allowCreate]="true"
+        (onCreate)="modalService.open(template1)"
+        (onClear)="clearCallback()"
+        #callbacksComponent
+      >
+      </app-searchable-select>
     </div>
     <!-- start -->
 

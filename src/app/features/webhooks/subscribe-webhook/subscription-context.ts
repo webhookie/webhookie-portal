@@ -10,21 +10,23 @@ import {Injectable} from "@angular/core";
 })
 export class SubscriptionContext {
   // @ts-ignore
-  private readonly _selectedApplication$: BehaviorSubject<Application|undefined> = new BehaviorSubject<Application>(null);
-  readonly selectedApplication$: Observable<any> = this._selectedApplication$.asObservable()
-    .pipe(
-      filter(it => it != null)
-    );
+  private readonly _selectedApplication$: BehaviorSubject<Application|undefined> = new BehaviorSubject<Application>(undefined);
   // @ts-ignore
-  private readonly _selectedCallback$: BehaviorSubject<Callback> = new BehaviorSubject<Callback>(null);
+  readonly selectedApplication$: Observable<Application> = this._selectedApplication$.asObservable()
+    .pipe(filter(it => it != undefined));
+
+  // @ts-ignore
+  private readonly _selectedCallback$: BehaviorSubject<Callback|undefined> = new BehaviorSubject<Callback>(undefined);
   readonly selectedCallback$: Observable<Callback> = this._selectedCallback$.asObservable()
     .pipe(
-      filter(it => it != null),
+  // @ts-ignore
+      filter(it => it != undefined),
       distinctUntilChanged((x, y) => x.callbackId == y.callbackId),
     );
-  readonly callbackCleared$: Observable<any> = this._selectedCallback$
+  // @ts-ignore
+  readonly callbackCleared$: Observable<Callback> = this._selectedCallback$
     .asObservable()
-    .pipe(filter(it => it == null));
+    .pipe(filter(it => it == undefined));
 
   readonly _createdApplication$: Subject<Application> = new ReplaySubject<Application>();
 
@@ -59,7 +61,7 @@ export class SubscriptionContext {
     this._selectedCallback$.next(null);
   }
 
-  updateCallback(value: Callback) {
+  updateCallback(value?: Callback) {
     this._selectedCallback$.next(value);
   }
 
