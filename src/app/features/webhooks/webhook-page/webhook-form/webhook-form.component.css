@@ -1,3 +1,7 @@
+.spec-editor-height {
+  min-height:600px;
+}
+
 .create-webgroup pre{
 border: 1px solid #e1e1e1;
 padding: 10px;

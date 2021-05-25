@@ -35,8 +35,6 @@ export class WebhookGroup extends TableDetailData {
     let components = doc.components();
     this._securityOptions = Object.keys(components.securitySchemes())
       .map(name => SecurityOption.create(name, components.securityScheme(name)))
-
-    console.warn(this.securityOptions)
   }
 
   get hasSecuritySchema(): boolean {
