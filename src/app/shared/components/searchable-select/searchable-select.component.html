@@ -20,6 +20,11 @@
             [disabled]="!hasItems()">
       <i class="fa fa-close"></i>
     </button>
+    <button class="btn btn-bordered btn-primary-outline input-group-text"
+            *ngIf="allowCreate"
+            (click)="create()">
+      <i class="fa fa-plus"></i>
+    </button>
   </div>
   <div *ngIf="debug">
     <hr>

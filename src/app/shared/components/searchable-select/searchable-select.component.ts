@@ -12,10 +12,12 @@ import {NgbTypeaheadSelectItemEvent} from "@ng-bootstrap/ng-bootstrap/typeahead/
 
 export class SearchableSelectComponent {
   @Input() debug: boolean = false;
+  @Input() allowCreate: boolean = false;
   @Input() title: string = ""
   @Input() values: BehaviorSubject<Array<SelectableItem | string>> = new BehaviorSubject<Array<SelectableItem | string>>([])
   @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
   @Output("onClear") onClear: EventEmitter<any> = new EventEmitter();
+  @Output("onCreate") onCreate: EventEmitter<any> = new EventEmitter();
 
   selectItem(event$: NgbTypeaheadSelectItemEvent) {
     event$.preventDefault;
@@ -64,8 +66,8 @@ export class SearchableSelectComponent {
     return this.values.value.length > 0;
   }
 
-  reset() {
-    // this.model = '';
+  create() {
+    this.onCreate.emit();
   }
 
   clear() {
