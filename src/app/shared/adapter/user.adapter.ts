@@ -9,7 +9,8 @@ export class UserAdapter extends BaseAdapter<User> {
   adapt(item: any): User {
     return new User(
       item.entity,
-      item.groups,
+      item.consumerGroups,
+      item.providerGroups,
       item.roles,
       item.email
     );

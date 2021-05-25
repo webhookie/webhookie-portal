@@ -30,7 +30,11 @@ export class JsonUtils {
       payload: message.parsedPayload(),
       headers: message.headers
     }
+    JsonUtils.updateElement(body)
+  }
+
+  static updateElement(json: any) {
     let myContainer = document.getElementById('test_res') as HTMLInputElement;
-    myContainer.innerHTML = JsonUtils.highlightValue(body);
+    myContainer.innerHTML = JsonUtils.highlightValue(json);
   }
 }

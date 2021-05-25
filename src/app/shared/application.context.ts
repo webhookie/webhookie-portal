@@ -41,6 +41,10 @@ export class ApplicationContext {
     return this._user$.value.groups;
   }
 
+  get user(): User {
+    return this._user$.value;
+  }
+
   providerGroupFilter(): (entry: DropdownEntry) => boolean {
     return (it) => {
       return this.userGroups.indexOf(it.key) > -1;
@@ -61,6 +65,6 @@ export class ApplicationContext {
 
   hasProviderAccess(groups: Array<string>): boolean {
     return this.hasProviderRole
-      && ArrayUtils.intersect(this._user$.value.groups, groups).length > 0
+      && ArrayUtils.intersect(this._user$.value.providerGroups, groups).length > 0
   }
 }

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AuthService} from "../../../../shared/service/auth.service";
+import {JsonUtils} from "../../../../shared/json-utils";
+import {ModalService} from "../../../../shared/service/modal.service";
+import {ApplicationContext} from "../../../../shared/application.context";
 
 @Component({
   selector: 'app-profile-icon',
@@ -7,8 +10,13 @@ import {AuthService} from "../../../../shared/service/auth.service";
   styleUrls: ['./profile-icon.component.css']
 })
 export class ProfileIconComponent implements OnInit {
+  @ViewChild("resultViewer") resultViewer!: TemplateRef<any>;
 
-  constructor(readonly authService: AuthService) { }
+  constructor(
+    private readonly appContext: ApplicationContext,
+    private readonly modalService: ModalService,
+    readonly authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -23,5 +31,10 @@ export class ProfileIconComponent implements OnInit {
 
   logout() {
     this.authService.logout()
+  }
+
+  showDetails() {
+    this.modalService.open(this.resultViewer);
+    JsonUtils.updateElement(this.appContext.user);
   }
 }

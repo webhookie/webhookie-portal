@@ -1,6 +1,6 @@
 <div class="media ml-2 profile-icon align-items-center" *ngIf="authService.loggedIn">
     <div class="media-left mr-2">
-        <img [src]="picture" class="img-fluid profile-image rounded-circle"/>
+        <img [src]="picture" class="img-fluid profile-image rounded-circle" alt="profile"/>
     </div>
     <div class="media-body">
         <div class="dropdown">
@@ -8,10 +8,7 @@
             <div class="dropdown-menu dropdown-menu-right px-2">
                 <ul class="nav-vertical nav-small">
                     <li class="nav-item">
-                        <a href="javascript:void(0)" class="nav-link">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="javascript:void(0)" class="nav-link">Account Details</a>
+                        <a href="javascript:void(0)" (click)="showDetails()" class="nav-link">Account Details</a>
                     </li>
                     <li class="nav-item">
                         <a (click)="logout()" href="javascript:void(0)" class="nav-link">Logout</a>
@@ -21,3 +18,7 @@
         </div>
     </div>
 </div>
+
+<ng-template #resultViewer>
+  <app-json-viewer></app-json-viewer>
+</ng-template>

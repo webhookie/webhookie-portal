@@ -1,11 +1,16 @@
 export class User {
   constructor(
     public entity: string,
-    public groups: Array<string>,
+    public consumerGroups: Array<string>,
+    public providerGroups: Array<string>,
     public roles: Array<string>,
     public subject: string
   ) {
   }
 
-  static UNKNOWN: User = new User("", [], [], "");
+  get groups(): Array<string> {
+    return this.consumerGroups.concat(...this.providerGroups)
+  }
+
+  static UNKNOWN: User = new User("", [], [], [], "");
 }

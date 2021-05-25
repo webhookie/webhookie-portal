@@ -16,6 +16,7 @@ import {BreadcrumbModule} from 'angular-crumbs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {FormsModule} from '@angular/forms';
 import { ProfileIconComponent } from './layout/header/profile-icon/profile-icon.component';
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [MainLayoutComponent,
@@ -47,7 +48,8 @@ import { ProfileIconComponent } from './layout/header/profile-icon/profile-icon.
     RouterModule,
     FormsModule,
     BreadcrumbModule,
-    MatToolbarModule
+    MatToolbarModule,
+    SharedModule
 
   ],
 
