@@ -10,7 +10,7 @@ import {Injectable} from "@angular/core";
 })
 export class SubscriptionContext {
   // @ts-ignore
-  private readonly _selectedApplication$: BehaviorSubject<Application> = new BehaviorSubject<Application>(null);
+  private readonly _selectedApplication$: BehaviorSubject<Application|undefined> = new BehaviorSubject<Application>(null);
   readonly selectedApplication$: Observable<any> = this._selectedApplication$.asObservable()
     .pipe(
       filter(it => it != null)
@@ -53,7 +53,7 @@ export class SubscriptionContext {
     this._createdCallback$.next(callback);
   }
 
-  updateApplication(value: Application) {
+  updateApplication(value?: Application) {
     this._selectedApplication$.next(value);
     // @ts-ignore
     this._selectedCallback$.next(null);

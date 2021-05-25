@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import * as $ from 'jquery';
 import {ApplicationService} from "../../service/application.service";
-import {Observable, of, ReplaySubject, Subject, zip} from "rxjs";
+import {Observable, of, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {mergeMap} from "rxjs/operators";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../subscription-context";
+import {SearchableSelectComponent} from "../../../../shared/components/searchable-select/searchable-select.component";
 
 @Component({
   selector: 'app-application',
@@ -13,10 +14,7 @@ import {SubscriptionContext} from "../subscription-context";
   styleUrls: ['./application.component.css']
 })
 export class ApplicationComponent implements OnInit {
-  appName: any;
-  Desc: any;
-
-  readonly _applications$: Subject<Array<Application>> = new ReplaySubject();
+  @ViewChild("applicationsComponent", { static: true}) applicationsComponent!: SearchableSelectComponent
 
   constructor(
     private readonly applicationService: ApplicationService,
@@ -38,7 +36,6 @@ export class ApplicationComponent implements OnInit {
       $(".btn-warning").on("click", function () {
         $(this).toggleClass("active").parent().parent().siblings().find('after').removeClass('active')
       });
-      $( "p" ).text( "The DOM is now loaded and can be manipulated." );
     });
 
     this.context._createdApplication$.asObservable()
@@ -46,13 +43,13 @@ export class ApplicationComponent implements OnInit {
         mergeMap(it => zip(of(it), this.loadApplications()))
       )
       .subscribe(it => {
-        this._applications$.next(it[1]);
+        this.applicationsComponent.values.next(it[1])
         this.selectApp(it[0]);
       })
 
     this.loadApplications()
       .subscribe(list => {
-        this._applications$.next(list);
+        this.applicationsComponent.values.next(list)
         if(this.context.currentApplicationId) {
           let c = list.filter(it => it.id == this.context.currentApplicationId)[0]
           this.selectApp(c)
@@ -60,7 +57,11 @@ export class ApplicationComponent implements OnInit {
       });
   }
 
-  selectApp(application: Application) {
+  selectApp(application?: Application) {
     this.context.updateApplication(application);
+  }
+
+  clearApp() {
+    this.selectApp(undefined)
   }
 }

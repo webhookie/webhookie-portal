@@ -34,7 +34,7 @@ export class CreateCallbackComponent implements OnInit {
   create() {
     let request: CallbackRequest = {
       name: `${this.callback.method} ${this.callback.url}`,
-      applicationId: this.context.currentApplication.id,
+      applicationId: this.context.currentApplication!.id,
       httpMethod: this.callback.method,
       url: this.callback.url
     }

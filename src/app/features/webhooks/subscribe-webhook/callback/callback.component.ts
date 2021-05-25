@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CallbackService} from "../../service/callback.service";
 import {mergeMap} from "rxjs/operators";
-import {Observable, of, ReplaySubject, Subject, zip} from "rxjs";
+import {EMPTY, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {Callback} from "../../../../shared/model/callback";
 import {ModalService} from "../../../../shared/service/modal.service";
@@ -30,8 +30,12 @@ export class CallbackComponent implements OnInit {
     return this.context.currentCallback
   }
 
-  loadCallbacks(application: Application): Observable<Array<Callback>> {
-    return this.service.fetchApplicationCallbacks(application)
+  loadCallbacks(application?: Application): Observable<Array<Callback>> {
+    if(application) {
+      return this.service.fetchApplicationCallbacks(application)
+    }
+
+    return EMPTY;
   }
 
   ngOnInit(): void {
