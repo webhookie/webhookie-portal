@@ -1,8 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import {AccessGroup} from "../../../../../shared/model/access-group";
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {WebhookieService} from "../../../../../shared/service/webhookie.service";
-import {map} from "rxjs/operators";
 import {ApplicationService, CreateApplicationRequest} from "../../../service/application.service";
 import {WebhooksContext} from "../../../webhooks-context";
 import {Application} from "../../../model/application";
@@ -11,6 +8,8 @@ import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
 import {ModalService} from "../../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../../subscription-context";
+import {DropdownEntry} from "../../../../../shared/model/dropdownEntry";
+import {MultiSelectComponent} from "../../../../../shared/components/multi-select/multi-select.component";
 
 @Component({
   selector: 'app-create-application',
@@ -18,11 +17,9 @@ import {SubscriptionContext} from "../../subscription-context";
   styleUrls: ['./create-application.component.css']
 })
 export class CreateApplicationComponent implements OnInit {
-  // @ts-ignore
-  readonly _consumerGroups$: BehaviorSubject<Array<AccessGroup>> = new BehaviorSubject([]);
+  @ViewChild("groupsComponent") groupsComponent!: MultiSelectComponent
 
-  // @ts-ignore
-  readonly _selectedGroups$: BehaviorSubject<Array<AccessGroup>> = new BehaviorSubject([]);
+  groups: Array<DropdownEntry> = [];
 
   requestedName: string = ""
   requestedDesc?: string
@@ -32,11 +29,12 @@ export class CreateApplicationComponent implements OnInit {
     private readonly webhookieService: WebhookieService,
     private readonly context: WebhooksContext,
     private readonly subscriptionContext: SubscriptionContext,
-    // private readonly alertService: ToastrService,
     public modalService: ModalService
   ) {
     this.webhookieService.fetchConsumerGroups()
-      .subscribe(it => this._consumerGroups$.next(it));
+      .subscribe(list => {
+        this.groups = list.map(it => new DropdownEntry(it.iamGroupName, it.name))
+      });
   }
 
   ngOnInit(): void {
@@ -46,7 +44,7 @@ export class CreateApplicationComponent implements OnInit {
     let request: CreateApplicationRequest = {
       name: this.requestedName,
       description: this.requestedDesc,
-      consumerGroups: this._selectedGroups$.value.map(it => it.iamGroupName)
+      consumerGroups: Array.from(this.groupsComponent.selectedItems).map(it => it.key)
     }
 
     let successHandler = (app: Application) => {
@@ -68,60 +66,5 @@ export class CreateApplicationComponent implements OnInit {
 
     this.service.createApplication(request)
       .subscribe(successHandler, errorHandler)
-  }
-
-  isGroupSelected$(group: AccessGroup): Observable<boolean> {
-    return this._selectedGroups$.asObservable()
-      .pipe(
-        map((list: Array<AccessGroup>) => list.indexOf(group)),
-        map(it => it != -1)
-      )
-  }
-
-  selectAll() {
-    this._consumerGroups$.asObservable()
-      .subscribe(it => this._selectedGroups$.next(it));
-  }
-
-  isAllSelected() {
-    let selectedGroups = this._selectedGroups$.value;
-    let allGroups = this._consumerGroups$.value;
-
-    return selectedGroups === allGroups;
-  }
-
-  selectGroup(group: AccessGroup) {
-    let newValue = this._selectedGroups$.value
-    if (newValue.indexOf(group) == -1) {
-      newValue.push(group);
-    }
-    this._selectedGroups$.next(newValue);
-  }
-
-  handleEvent(event: Event) {
-    // @ts-ignore
-    if (event.target?.checked) {
-      console.warn("CHECKED")
-    } else {
-      console.log("!!!!!!!!!!")
-    }
-    /*
-        this.isGroupSelected$(group)
-          .pipe(
-            tap(it => {
-              if(it) {
-                this.removeGroup(group)
-              } else {
-                this.selectGroup(group)
-              }
-            })
-          )
-    */
-  }
-
-  removeGroup(group: AccessGroup) {
-    let oldValue = this._selectedGroups$.value;
-    let newValue = oldValue.filter(it => it.id != group.id)
-    this._selectedGroups$.next(newValue);
   }
 }

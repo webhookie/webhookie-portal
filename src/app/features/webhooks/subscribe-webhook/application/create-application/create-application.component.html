@@ -17,41 +17,14 @@
       <textarea [(ngModel)]="requestedDesc" class="form-control" id="Description" name="desc" placeholder="Description"
                 rows="4"></textarea>
     </div>
-    <div class="form-group">
-      <label class="font14 font-weight-400 mt-2" for="name">Consumer group</label>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="dropdown">
-            <button class="btn btn-warning dropdown-toggle font12 font-weight-400" data-toggle="dropdown" type="button">
-              2 consumers selected
-            </button>
-            <div class="dropdown-menu multi-select-dropdown">
-              <div class="scrollable-list">
-                <div (change)="selectAll()" class="custom-control custom-checkbox">
-                  <input [checked]="isAllSelected()" class="custom-control-input" id="all_groups_ch_box" name="example1"
-                         type="checkbox">
-                  <label class="custom-control-label" for="all_groups_ch_box">Select All</label>
-                </div>
-                <div (click)="selectGroup(item)" *ngFor="let item of _consumerGroups$.asObservable() | async"
-                     class="custom-control custom-checkbox">
-                  <input (change)="handleEvent($event)" (select)="selectGroup(item)" [checked]="isGroupSelected$(item) | async" [value]="item.id"
-                         class="custom-control-input" id="group-{{item.id}}" name="group-{{item.id}}"
-                         type="checkbox">
-                  <label class="custom-control-label" for="group-{{item.id}}">{{item.name}}</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="consumer-value">
-      <ul class="d-flex align-items-center mt-3">
-        <li *ngFor="let item of _selectedGroups$.asObservable() | async">
-          <span>{{item.name}}</span><img (click)="removeGroup(item)" alt="" src="assets/images/Pill_delete.svg">
-        </li>
-      </ul>
-    </div>
+    <app-multi-select
+      #groupsComponent
+      id="create-application-groups-id"
+      [entries]="groups"
+      title="Consumer groups"
+      [show]="true"
+    >
+    </app-multi-select>
   </div>
   <div class="modal-footer">
     <button (click)="modalService.hide()" aria-label="Close" class="btn btn-default cancel border"
