@@ -26,6 +26,7 @@ export class RequestHeadersComponent implements OnInit {
   }
 
   value(extraHeaders: any): any {
-    return Object.assign(this.headerForm.value, extraHeaders);
+    let extra = Object.assign(extraHeaders, this.webhook.contentTypeHeader());
+    return Object.assign(this.headerForm.value, extra);
   }
 }

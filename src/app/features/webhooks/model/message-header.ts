@@ -1,7 +1,12 @@
 import * as sampler from "@asyncapi/react-component/lib/helpers/generateExampleSchema";
+import {Constants} from "../../../shared/constants";
 
 export class MessageHeader {
-  readonly readOnlyHeaders = ["Authorization", "Content-type", "Accept"]
+  static readonly readOnlyHeaders = [
+    Constants.HEADER_AUTHORIZATION,
+    Constants.HEADER_CONTENT_TYPE,
+    Constants.HEADER_ACCEPT
+  ]
 
   readonly props: Array<string> = Object.keys(this._props)
     .filter(it => it != "x-parser-schema-id");
@@ -33,7 +38,7 @@ export class MessageHeader {
   }
 
   isEditable(): boolean {
-    return this.readOnlyHeaders.indexOf(this.name) == -1
+    return MessageHeader.readOnlyHeaders.indexOf(this.name) == -1
   }
 
   isReadOnly(): boolean {

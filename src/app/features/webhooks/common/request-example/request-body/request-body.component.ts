@@ -27,8 +27,11 @@ export class RequestBodyComponent implements OnInit, AfterViewChecked {
   }
 
   output(inp: string) {
-    let myContainer = document.getElementById('json_str') as HTMLInputElement;
-    myContainer.innerHTML = inp;
+    try {
+      let myContainer = document.getElementById('json_str') as HTMLInputElement;
+      myContainer.innerHTML = inp;
+    } catch (e) {
+    }
     // console.log(myContainer);
   }
 

@@ -10,12 +10,14 @@ export class Webhook {
   readonly example: any;
   readonly headers: MessageHeaders = new MessageHeaders();
   readonly payload: MessagePayload;
+  readonly contentType?: string;
 
   constructor(
     public id: string,
     public topic: Topic,
     public type: WebhookType = WebhookType.SUBSCRIBE,
-    public channel: Channel
+    public channel: Channel,
+    _defaultContentType: string | null
   ) {
     this._message = this.type == WebhookType.SUBSCRIBE
       ? this.channel.subscribe().message()
@@ -28,8 +30,16 @@ export class Webhook {
     // @ts-ignore
     this.example = examples ? examples : this.payload.example()
 
-    if(this._message.headers()) {
-      this.headers = new MessageHeaders(this._message.headers().json().properties);
+    if(this._message.contentType() != undefined) {
+      this.contentType = this._message.contentType();
+    } else if(_defaultContentType != null) {
+      this.contentType = _defaultContentType!
+    }
+
+    let messageHeaders = this._message.headers() ? this._message.headers().json().properties : {}
+    this.headers = new MessageHeaders(messageHeaders);
+    if(this.contentType) {
+      this.headers.setContentType(this.contentType);
     }
   }
 
@@ -37,15 +47,21 @@ export class Webhook {
     return this.headers.hasHeaders;
   }
 
-  get contentType(): string {
-    return this._message.contentType()
-  }
-
   static create(groupId: string, doc: AsyncAPIDocument, name: string): Webhook {
     let channel = doc.channel(name)
     let type = channel.hasSubscribe() ? WebhookType.SUBSCRIBE : WebhookType.PUBLISH;
     let topic = new Topic(name, channel.description() ? channel.description()! : "");
-    return new Webhook(groupId, topic, type, channel)
+    return new Webhook(groupId, topic, type, channel, doc.defaultContentType())
+  }
+
+  contentTypeHeader(): any {
+    if(this.contentType) {
+      return {
+        "Content-Type": this.contentType
+      };
+    }
+
+    return {};
   }
 }
 

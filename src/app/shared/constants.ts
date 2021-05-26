@@ -10,4 +10,9 @@ export class Constants {
 
   static readonly SUBSCRIPTIONS_VIEW_ROLE_CONSUMER = "CONSUMER"
   static readonly SUBSCRIPTIONS_VIEW_ROLE_PROVIDER = "PROVIDER"
+
+  static readonly CONTENT_TYPE_APPLICATION_JSON = "application/json"
+  static readonly HEADER_CONTENT_TYPE = "Content-Type"
+  static readonly HEADER_AUTHORIZATION = "Authorization"
+  static readonly HEADER_ACCEPT = "Accept"
 }

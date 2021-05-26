@@ -35,13 +35,9 @@ export class RequestExampleComponent implements OnInit {
   }
 
   valueEx(): any {
-    let extraHeaders = {
-      "Content-Type": ["application/json"],
-      "Accept": ["*/*"]
-    }
     return {
       payload: this.bodyComponent.value(),
-      headers: this.headersComponent.value(extraHeaders)
+      headers: this.headersComponent.value({})
     }
   }
 
