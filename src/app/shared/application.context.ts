@@ -4,8 +4,7 @@ import {AuthService} from "./service/auth.service";
 import {User} from "./model/user";
 import {LogService} from "./service/log.service";
 import {UserService} from "./service/user.service";
-import {Constants} from "./constants";
-import {filter} from "rxjs/operators";
+import {filter, map} from "rxjs/operators";
 import {ArrayUtils} from "./array-utils";
 import {DropdownEntry} from "./model/dropdownEntry";
 
@@ -16,6 +15,7 @@ export class ApplicationContext {
   readonly isLoggedIn: Observable<boolean>;
   // @ts-ignore
   private readonly _user$: BehaviorSubject<User> = new BehaviorSubject<User>(User.UNKNOWN);
+  readonly user$: Observable<User> = this._user$.asObservable();
 
   constructor(
     private readonly userService: UserService,
@@ -27,6 +27,10 @@ export class ApplicationContext {
     this.isLoggedIn
       .pipe(filter(it => it))
       .subscribe(() => this.login(this.authService.claims))
+
+    this.isLoggedIn
+      .pipe(filter(it => !it))
+      .subscribe(() => this.logout());
   }
 
   login(claims: any) {
@@ -35,6 +39,10 @@ export class ApplicationContext {
     this.log.debug(claims)
     this.userService.readUser()
       .subscribe(it => this._user$.next(it));
+  }
+
+  logout() {
+    this._user$.next(User.UNKNOWN);
   }
 
   get userGroups(): Array<string> {
@@ -52,15 +60,30 @@ export class ApplicationContext {
   }
 
   get hasProviderRole(): boolean {
-    return this._user$.value.roles.includes(Constants.ROLE_WH_PROVIDER);
+    return this._user$.value.hasProviderRole();
   }
 
   get hasConsumerRole(): boolean {
-    return this._user$.value.roles.includes(Constants.ROLE_WH_CONSUMER);
+    return this._user$.value.hasConsumerRole();
   }
 
   get hasAdminRole(): boolean {
-    return this._user$.value.roles.includes(Constants.ROLE_WH_ADMIN);
+    return this._user$.value.hasAdminRole();
+  }
+
+  hasProviderRoleRx(): Observable<boolean> {
+    return this.user$
+      .pipe(map(it => it.hasProviderRole()));
+  }
+
+  hasConsumerRoleRx(): Observable<boolean> {
+    return this.user$
+      .pipe(map(it => it.hasConsumerRole()));
+  }
+
+  hasAdminRoleRx(): Observable<boolean> {
+    return this.user$
+      .pipe(map(it => it.hasAdminRole()));
   }
 
   hasProviderAccess(groups: Array<string>): boolean {
