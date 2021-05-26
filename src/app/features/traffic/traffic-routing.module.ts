@@ -3,6 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {TrafficHomeComponent} from "./home/traffic-home.component";
 import {SubscriptionTrafficComponent} from "./subscription-traffic/subscription-traffic.component";
 import {WebhookTrafficComponent} from "./webhook-traffic/webhook-traffic.component";
+import {ConsumerActivationGuard} from "../../shared/guard/consumer-activation-guard";
+import {AdminOrProviderActivationGuard} from "../../shared/guard/admin-provider-activation-guard";
 
 
 const routes: Routes = [
@@ -11,16 +13,13 @@ const routes: Routes = [
     component: TrafficHomeComponent,
     children: [
       {
-        path:'',
-        pathMatch: 'full',
-        redirectTo:'subscription'
-      },
-      {
         path: 'subscription',
+        canActivate: [ConsumerActivationGuard],
         component: SubscriptionTrafficComponent
       },
       {
         path: 'webhook',
+        canActivate: [AdminOrProviderActivationGuard],
         component: WebhookTrafficComponent
       }
     ]

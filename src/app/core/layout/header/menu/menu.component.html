@@ -3,9 +3,9 @@
     <a class="nav-link" (click)="clearContext()" routerLink="/webhooks" routerLinkActive="active">Webhooks</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" *ngIf="subscriptionsIsAvailable() | async" routerLink="/subscriptions" routerLinkActive="active">Subscriptions</a>
+    <a class="nav-link" *ngIf="subscriptionsIsAvailable() | async" [routerLink]="subscriptionsHomeLink() | async" routerLinkActive="active">Subscriptions</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" *ngIf="trafficIsAvailable() | async" routerLink="/traffic" routerLinkActive="active">Traffic</a>
+    <a class="nav-link" *ngIf="trafficIsAvailable() | async" [routerLink]="trafficHomeLink() | async" routerLinkActive="active">Traffic</a>
   </li>
 </ul>

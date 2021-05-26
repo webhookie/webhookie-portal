@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {KeyValue} from "@angular/common";
+import {ApplicationContext} from "../../../shared/application.context";
 
 @Component({
   selector: 'app-subscriptions-home',
@@ -7,21 +7,28 @@ import {KeyValue} from "@angular/common";
   styleUrls: ['./subscriptions-home.component.css']
 })
 export class SubscriptionsHomeComponent implements OnInit {
-  links: Array<KeyValue<string, string>> = [
-    {
-      key: "/subscriptions/consumer",
-      value: "Your subscriptions"
-    },
-    {
-      key: "/subscriptions/provider",
-      value: "Your webhook subscriptions"
-    }
-  ]
+  links: Array<any> = [];
 
-  constructor(
-  ) { }
+  constructor(private readonly appContext: ApplicationContext) {
+  }
 
   ngOnInit(): void {
+    if(this.appContext.hasConsumerRole) {
+      this.links.push(...[
+        {
+          key: "/subscriptions/consumer",
+          value: "Your subscriptions"
+        }
+      ])
+    }
+    if(this.appContext.hasProviderRole || this.appContext.hasAdminRole) {
+      this.links.push(...[
+        {
+          key: "/subscriptions/provider",
+          value: "Your webhook subscriptions"
+        }
+      ])
+    }
   }
 
 }

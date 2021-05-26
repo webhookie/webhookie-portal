@@ -16,6 +16,8 @@ export class ApplicationContext {
   // @ts-ignore
   private readonly _user$: BehaviorSubject<User> = new BehaviorSubject<User>(User.UNKNOWN);
   readonly user$: Observable<User> = this._user$.asObservable();
+  readonly loggedInUser$: Observable<User> = this.user$
+    .pipe(filter(it => it != User.UNKNOWN));
 
   constructor(
     private readonly userService: UserService,
@@ -36,6 +38,11 @@ export class ApplicationContext {
   get isAnonymous(): Observable<boolean> {
     return this.user$
       .pipe(map(it => it == User.UNKNOWN))
+  }
+
+  get isUser(): Observable<boolean> {
+    return this.user$
+      .pipe(map(it => it != User.UNKNOWN))
   }
 
   login(claims: any) {
@@ -74,21 +81,6 @@ export class ApplicationContext {
 
   get hasAdminRole(): boolean {
     return this._user$.value.hasAdminRole();
-  }
-
-  hasProviderRoleRx(): Observable<boolean> {
-    return this.user$
-      .pipe(map(it => it.hasProviderRole()));
-  }
-
-  hasConsumerRoleRx(): Observable<boolean> {
-    return this.user$
-      .pipe(map(it => it.hasConsumerRole()));
-  }
-
-  hasAdminRoleRx(): Observable<boolean> {
-    return this.user$
-      .pipe(map(it => it.hasAdminRole()));
   }
 
   hasProviderAccess(groups: Array<string>): boolean {

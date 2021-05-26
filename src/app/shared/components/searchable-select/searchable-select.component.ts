@@ -40,7 +40,6 @@ export class SearchableSelectComponent {
     const inputFocus$ = this.focus$;
     return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$)
       .pipe(
-        // tap(it => console.warn(it)),
         map(term => {
           let value = term === ''
             ? this.values.value

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {WebhooksContext} from "../../../../features/webhooks/webhooks-context";
 import {ApplicationContext} from "../../../../shared/application.context";
-import {Observable, zip} from "rxjs";
-import {map, tap} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-menu',
@@ -25,12 +25,35 @@ export class MenuComponent implements OnInit {
   }
 
   subscriptionsIsAvailable(): Observable<boolean> {
-    return this.appContext.hasConsumerRoleRx()
+    return this.appContext.isUser;
   }
 
   trafficIsAvailable(): Observable<boolean> {
-    return zip(this.appContext.hasProviderRoleRx(), this.appContext.hasAdminRoleRx())
-      .pipe(tap(it => console.warn(it)))
-      .pipe(map(it => it[0] || it[1]))
+    return this.appContext.isUser;
+  }
+
+  subscriptionsHomeLink(): Observable<string|undefined> {
+    return this.roleHomeLink( "/subscriptions/consumer", "/subscriptions/provider")
+  }
+
+  trafficHomeLink(): Observable<string> {
+    return this.roleHomeLink("/traffic/subscription", "/traffic/webhook")
+  }
+
+  private roleHomeLink(consumerHome: string, providerHome: string): Observable<string> {
+    return this.appContext.loggedInUser$
+      .pipe(
+        map(it => {
+          if(it.hasConsumerRole()) {
+            return consumerHome
+          }
+
+          if(it.hasAdminRole() || it.hasProviderRole()) {
+            return providerHome
+          }
+
+          return "/"
+        })
+      )
   }
 }
