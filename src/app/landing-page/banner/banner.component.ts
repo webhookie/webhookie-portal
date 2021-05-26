@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ApplicationContext} from "../../shared/application.context";
 
 @Component({
   selector: 'app-banner',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BannerComponent implements OnInit {
 
-  constructor() { }
+  constructor(readonly appContext: ApplicationContext) { }
 
   ngOnInit(): void {
   }

@@ -33,6 +33,11 @@ export class ApplicationContext {
       .subscribe(() => this.logout());
   }
 
+  get isAnonymous(): Observable<boolean> {
+    return this.user$
+      .pipe(map(it => it == User.UNKNOWN))
+  }
+
   login(claims: any) {
     let name = claims['name']
     this.log.info(`${name} is logged in!`)
