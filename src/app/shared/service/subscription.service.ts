@@ -45,8 +45,9 @@ export class SubscriptionService {
   validateSubscription(subscription: Subscription, request: ValidateSubscriptionRequest): Observable<Subscription> {
     let httpParams = new HttpParams();
     let headers = new HttpHeaders()
-      .set("Accept", ["text/plain", "application/json"])
-      .set("Content-Type", "application/json")
+      .set("Accept", "*/*")
+    Object.keys(request.headers)
+      .forEach(k => headers.set(k, request.headers[k]))
     return this.api.post(`/subscriptions/${subscription?.id}/validate`, request, httpParams, headers, ApiService.RESPONSE_TYPE_TEXT)
       .pipe(mergeMap(() => this.fetchSubscription(subscription.id)))
   }
