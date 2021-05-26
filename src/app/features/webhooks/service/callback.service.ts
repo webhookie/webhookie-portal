@@ -24,8 +24,9 @@ export class CallbackService {
 
   testCallback(request: CallbackValidationRequest): Observable<CallbackResponse> {
     let headers = new HttpHeaders()
-      .set("Content-Type", "application/json")
       .set("Accept", "*/*")
+    Object.keys(request.headers)
+      .forEach(k => headers.set(k, request.headers[k]))
     return this.api.post(this.CALLBACK_TEST_URI, request, new HttpParams(), headers, ApiService.RESPONSE_TYPE_TEXT)
       .pipe(
         map((it: HttpResponse<any>) => new CallbackResponse(it.status, it.headers, it.body))
