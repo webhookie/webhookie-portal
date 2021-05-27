@@ -29,9 +29,10 @@ export class StringUtils {
     }
 
     let res = text;
-    matches
+    let uniqueMatches = new Set(matches);
+    uniqueMatches
       .forEach(it => {
-        let r = new RegExp(it, "m")
+        let r = new RegExp(it, "g")
         res = res.split(r).join(`<span class="text-monospace"><mark>${it}</mark></span>`);
       });
 
