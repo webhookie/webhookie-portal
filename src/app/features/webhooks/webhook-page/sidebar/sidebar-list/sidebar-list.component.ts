@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable, ReplaySubject, Subject} from "rxjs";
-import {mergeMap} from "rxjs/operators";
+import {BehaviorSubject, Observable} from "rxjs";
+import {filter, map, mergeMap} from "rxjs/operators";
 import {WebhookGroupService} from "../../../service/webhook-group.service";
 import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
@@ -16,7 +16,9 @@ import {StringUtils} from "../../../../../shared/string-utils";
   styleUrls: ['./sidebar-list.component.css']
 })
 export class SidebarListComponent implements OnInit {
-  readonly _webhooks$: Subject<Array<WebhookGroup>> = new ReplaySubject();
+  readonly _webhooks$: BehaviorSubject<Array<WebhookGroup>> = new BehaviorSubject<Array<WebhookGroup>>([]);
+  readonly filteredWebhook$: BehaviorSubject<Array<WebhookGroup>> = new BehaviorSubject<Array<WebhookGroup>>([]);
+  readonly searchSubject$: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   constructor(
     private readonly service: WebhookGroupService,
@@ -28,7 +30,10 @@ export class SidebarListComponent implements OnInit {
   ngOnInit(): void {
     this.appContext.isLoggedIn
       .pipe(mergeMap(() => this.readWebhookGroups()))
-      .subscribe(it => this._webhooks$.next(it));
+      .subscribe(it => {
+        this._webhooks$.next(it)
+        this.filteredWebhook$.next(it)
+      });
 
     this.context.webhook$
       .subscribe(it => {
@@ -52,6 +57,15 @@ export class SidebarListComponent implements OnInit {
 
       })
 
+    this.searchSubject$
+      .pipe(filter(it => it.trim() == ""))
+      .subscribe(() => this.filteredWebhook$.next(this._webhooks$.value));
+
+    this.searchSubject$
+      .pipe(filter(it => it.trim().length > 2))
+      .pipe(map(v => this._webhooks$.value.filter(it => it.matches(v))))
+      .subscribe(it => this.filteredWebhook$.next(it));
+
     $(function() {
       $(".btn-header-link").on("click", function () {
         $(this)
@@ -60,6 +74,11 @@ export class SidebarListComponent implements OnInit {
           .removeClass('active')
       });
     });
+  }
+
+  get searchMode(): Observable<boolean> {
+    return this.searchSubject$.asObservable()
+      .pipe(map(it => it.trim().length > 2))
   }
 
   selectWebhook(element: WebhookGroup, webhook: Webhook) {
@@ -80,5 +99,18 @@ export class SidebarListComponent implements OnInit {
 
   webhookId(webhook: Webhook): string {
     return `webhook_a_${StringUtils.encode(webhook.topic.name)}`
+  }
+
+  matches(webhook: Webhook): boolean {
+    return webhook.topic.matches(this.searchSubject$.value)
+  }
+
+  highlightedName(title: string): string {
+    let phrase = this.searchSubject$.value;
+    if(phrase.trim().length < 3) {
+      return title;
+    }
+
+    return StringUtils.highlightIn(title, phrase);
   }
 }

@@ -3,6 +3,7 @@ import {ConsumerAccess, ProviderAccess} from "../../../shared/model/access-group
 import {Webhook} from "./webhook";
 import {AsyncAPIDocument, SecurityScheme} from "@asyncapi/parser/dist/bundle";
 import {WebhookType} from "./webhook-type";
+import {StringUtils} from "../../../shared/string-utils";
 
 export class WebhookGroup extends TableDetailData {
   private readonly _securityOptions: Array<SecurityOption> = [];
@@ -59,6 +60,15 @@ export class WebhookGroup extends TableDetailData {
       doc
     );
   }
+
+  matches(phrase: string): boolean {
+    if(StringUtils.matchesIn(this.title, phrase)) {
+      return true;
+    }
+
+    return this.webhooks.map(it => it.topic)
+      .some(it => it.matches(phrase))
+  }
 }
 
 export class Topic {
@@ -66,6 +76,10 @@ export class Topic {
     public name: string,
     public description: string
   ) {
+  }
+
+  matches(value: string): boolean {
+    return StringUtils.matchesIn(this.name, value);
   }
 }
 

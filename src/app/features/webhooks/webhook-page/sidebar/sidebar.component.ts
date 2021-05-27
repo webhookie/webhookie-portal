@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApplicationContext} from "../../../../shared/application.context";
+import {SidebarListComponent} from "./sidebar-list/sidebar-list.component";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,6 +8,7 @@ import {ApplicationContext} from "../../../../shared/application.context";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
+  @ViewChild("sidebarListComponent", { static: true}) sidebarListComponent!: SidebarListComponent
 
   constructor(private readonly appCtx: ApplicationContext) {
   }

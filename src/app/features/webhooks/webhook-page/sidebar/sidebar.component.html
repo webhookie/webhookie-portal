@@ -1,7 +1,7 @@
 <div id="sidebar-wrapper">
   <div class="col-12">
     <app-title-toggle></app-title-toggle>
-    <app-sidebar-search></app-sidebar-search>
+    <app-sidebar-search [searchSubject$]="sidebarListComponent.searchSubject$"></app-sidebar-search>
     <a *ngIf="hasProviderRole"
       href="#"
       routerLink="/webhooks/create-webhook"
@@ -10,5 +10,5 @@
     </a>
     <!-- <a class="sidebar-nav-before-active" routerLink="webhook">Welcome</a> -->
   </div>
-  <app-sidebar-list></app-sidebar-list>
+  <app-sidebar-list #sidebarListComponent></app-sidebar-list>
 </div>

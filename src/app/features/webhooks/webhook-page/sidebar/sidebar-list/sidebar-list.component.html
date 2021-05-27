@@ -13,7 +13,7 @@
     </li>
   </ul>
   <div class="accordion" id="faq">
-    <div *ngFor="let webhookGroup of _webhooks$.asObservable() | async" class="card custom-accordion">
+    <div *ngFor="let webhookGroup of filteredWebhook$.asObservable() | async" class="card custom-accordion">
       <div class="card-header" id="faqhead{{webhookGroup.id}}">
         <a
           id="group_a_{{webhookGroup.id}}"
@@ -23,19 +23,20 @@
           class="btn btn-header-link"
           data-toggle="collapse"
           href="#">
-          {{webhookGroup.title}}
+          <span [innerHTML]="highlightedName(webhookGroup.title)"></span>
         </a>
       </div>
-      <div [ngClass]="'collapse'" data-parent="#faq" id="faq{{webhookGroup.id}}">
+      <div [class.show]="searchMode | async" [ngClass]="'collapse'" data-parent="#faq" id="faq{{webhookGroup.id}}">
         <ul class="navbar-nav">
           <li *ngFor="let webhook of webhookGroup.webhooks" class="nav-item">
             <a (click)="selectWebhook(webhookGroup, webhook)"
                [id]="webhookId(webhook)"
+               *ngIf="matches(webhook)"
                routerLink="/webhooks/webhooks-page/webhook/webhook-detail"
                class="nav-link"
                href="javascript:void(0)"
                routerLinkActive="active">
-              {{webhook.topic.name}}
+              <span [innerHTML]="highlightedName(webhook.topic.name)"></span>
             </a>
           </li>
         </ul>
