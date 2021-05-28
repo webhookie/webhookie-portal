@@ -1,5 +1,5 @@
 <app-banner></app-banner>
-<app-webhook-empty *ngIf="showEmptyBox"></app-webhook-empty>
-<app-webhook-slider *ngIf="!(isEmpty | async)" [items]="_webhookGroups.asObservable()"></app-webhook-slider>
+<app-webhook-empty *ngIf="isEmpty | async"></app-webhook-empty>
+<app-webhook-slider *ngIf="!(isEmpty | async)" [items]="webhooks$"></app-webhook-slider>
 <app-how-it-works></app-how-it-works>
 <app-why-webhook></app-why-webhook>

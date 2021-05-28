@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhookGroupService} from "../../../service/webhook-group.service";
-import {map, mergeMap, tap} from "rxjs/operators";
-import {Observable, ReplaySubject, Subject} from "rxjs";
+import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
 import {WebhookGroup} from "../../../model/webhook-group";
 
 @Component({
@@ -11,27 +10,18 @@ import {WebhookGroup} from "../../../model/webhook-group";
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
-
-  readonly _webhookGroups: Subject<Array<WebhookGroup>> = new ReplaySubject<Array<WebhookGroup>>();
-  showEmptyBox: boolean = false;
-
-  constructor(
-    private readonly appContext: ApplicationContext,
-    private readonly service: WebhookGroupService
-  ) { }
+  constructor(private readonly service: WebhookGroupService) {
+  }
 
   ngOnInit(): void {
-    this.appContext.isLoggedIn
-      .pipe(
-        mergeMap(() => this.service.myWebhookGroups()),
-        tap(it => this.showEmptyBox = it.length == 0)
-      )
-      .subscribe(it => this._webhookGroups.next(it));
   }
 
   get isEmpty(): Observable<boolean> {
-    return this._webhookGroups
+    return this.webhooks$
       .pipe(map(it => it.length == 0))
   }
 
+  get webhooks$(): Observable<Array<WebhookGroup>> {
+    return this.service.filteredWebhook$
+  }
 }

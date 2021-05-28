@@ -2,12 +2,14 @@
   <div class="input-group">
     <input class="form-control" placeholder="Search..." type="text" #searchWebhookInput>
     <div class="input-group-append">
-      <button *ngIf="!(searchMode$.asObservable() | async)" class="btn btn-secondary" type="button">
+      <button class="btn btn-secondary" type="button">
         <i class="lni lni-search-alt"></i>
       </button>
+<!--
       <button *ngIf="searchMode$.asObservable() | async" class="btn btn-secondary" type="button" (click)="clearSearch()">
         <i class="fa fa-close"></i>
       </button>
+-->
     </div>
   </div>
 </form>

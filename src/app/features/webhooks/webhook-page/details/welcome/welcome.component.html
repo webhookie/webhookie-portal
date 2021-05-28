@@ -1,2 +1,2 @@
-<app-welcome-with-data *ngIf="!(isEmpty | async)" [items]="_webhookGroups.asObservable()"></app-welcome-with-data>
-<app-welcome-without-data *ngIf="showEmptyBox"></app-welcome-without-data>
+<app-welcome-with-data *ngIf="!(isEmpty | async)" [items]="webhooks$"></app-welcome-with-data>
+<app-welcome-without-data *ngIf="isEmpty | async"></app-welcome-without-data>

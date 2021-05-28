@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {fromEvent, Observable, ReplaySubject, Subject} from "rxjs";
+import {fromEvent, ReplaySubject, Subject} from "rxjs";
 import {debounceTime, distinctUntilChanged, map, tap} from "rxjs/operators";
 
 @Component({

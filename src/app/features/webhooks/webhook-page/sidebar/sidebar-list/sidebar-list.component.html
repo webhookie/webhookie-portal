@@ -13,7 +13,7 @@
     </li>
   </ul>
   <div class="accordion" id="faq">
-    <div *ngFor="let webhookGroup of filteredWebhook$.asObservable() | async" class="card custom-accordion">
+    <div *ngFor="let webhookGroup of webhooks$ | async" class="card custom-accordion">
       <div class="card-header" id="faqhead{{webhookGroup.id}}">
         <a
           id="group_a_{{webhookGroup.id}}"
@@ -23,20 +23,20 @@
           class="btn btn-header-link"
           data-toggle="collapse"
           href="#">
-          <span [innerHTML]="highlightedName(webhookGroup.title)"></span>
+          <span [innerHTML]="service.highlightedName(webhookGroup.title)"></span>
         </a>
       </div>
-      <div [class.show]="searchMode | async" [ngClass]="'collapse'" data-parent="#faq" id="faq{{webhookGroup.id}}">
+      <div [class.show]="service.searchMode | async" [ngClass]="'collapse'" data-parent="#faq" id="faq{{webhookGroup.id}}">
         <ul class="navbar-nav">
           <li *ngFor="let webhook of webhookGroup.webhooks" class="nav-item">
             <a (click)="selectWebhook(webhookGroup, webhook)"
                [id]="webhookId(webhook)"
-               *ngIf="matches(webhook)"
+               *ngIf="service.matches(webhook)"
                routerLink="/webhooks/webhooks-page/webhook/webhook-detail"
                class="nav-link"
                href="javascript:void(0)"
                routerLinkActive="active">
-              <span [innerHTML]="highlightedName(webhook.topic.name)"></span>
+              <span [innerHTML]="service.highlightedName(webhook.topic.name)"></span>
             </a>
           </li>
         </ul>

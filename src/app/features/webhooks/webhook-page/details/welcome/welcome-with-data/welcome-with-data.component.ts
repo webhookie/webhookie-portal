@@ -5,6 +5,7 @@ import {ArrayUtils} from "../../../../../../shared/array-utils";
 import {WebhooksContext} from "../../../../webhooks-context";
 import {RouterService} from "../../../../../../shared/service/router.service";
 import {WebhookSelection} from "../../../../model/webhook-selection";
+import {WebhookGroupService} from "../../../../service/webhook-group.service";
 
 @Component({
   selector: 'app-welcome-with-data',
@@ -20,25 +21,33 @@ export class WelcomeWithDataComponent implements OnInit {
   chunked: Array<Array<WebhookSelection>> = []
 
   constructor(
+    readonly service: WebhookGroupService,
     private readonly routeService: RouterService,
     private readonly webhooksContext: WebhooksContext
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.firstRow = []
     this.rest = []
     this.topics = []
 
-    this.items.subscribe(list => {
-      list.forEach(wg => {
-        let topicExList = wg.webhooks.map(it => WebhookSelection.create(wg, it))
-        this.topics.push(...topicExList)
-      });
+    this.items
+      .subscribe(list => {
+        let phrase = this.service.searchSubject$.value;
+        list
+          .filter(it => it.matches(phrase))
+          .forEach(wg => {
+            let topicExList = wg.webhooks
+              .filter(it => it.topic.matches(phrase))
+              .map(it => WebhookSelection.create(wg, it))
+            this.topics.push(...topicExList)
+          });
 
-      this.chunked = ArrayUtils.chunkArray(this.topics, 3);
-      this.firstRow = this.chunked[0];
-      this.rest = this.chunked.slice(1, this.chunked.length);
-    });
+        this.chunked = ArrayUtils.chunkArray(this.topics, 3);
+        this.firstRow = this.chunked[0];
+        this.rest = this.chunked.slice(1, this.chunked.length);
+      });
   }
 
   select(webhook: WebhookSelection) {
