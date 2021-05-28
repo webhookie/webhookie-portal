@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApplicationContext} from "../../shared/application.context";
+import {AuthService} from "../../shared/service/auth.service";
 
 @Component({
   selector: 'app-banner',
@@ -8,7 +9,15 @@ import {ApplicationContext} from "../../shared/application.context";
 })
 export class BannerComponent implements OnInit {
 
-  constructor(readonly appContext: ApplicationContext) { }
+  constructor(
+    private readonly authService: AuthService,
+    readonly appContext: ApplicationContext,
+  ) {
+  }
+
+  login() {
+    this.authService.login();
+  }
 
   ngOnInit(): void {
   }
