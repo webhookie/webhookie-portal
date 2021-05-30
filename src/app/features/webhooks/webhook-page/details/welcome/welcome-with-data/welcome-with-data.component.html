@@ -18,6 +18,8 @@
             <h4 class="font14 font-weight-400">{{tx.group.title}}</h4>
             <h3 class="font20 font-weight-bold d-flex align-items-center" [innerHTML]="service.highlightedName(tx.topic.name)"></h3>
             <div class="user-rating d-flex">
+<!--
+    //hiding for BETA release
                 <ul class="d-flex align-items-center">
                     <li><i class="fas fa-star checked"></i></li>
                     <li><i class="fas fa-star checked"></i></li>
@@ -26,10 +28,16 @@
                     <li><i class="far fa-star unchecked"></i></li>
                     <li class="ml-2 font12">300</li>
                 </ul>
+    END OF // hiding for BETA release
+-->
                 <div class="user-subscriptions">
                     <ul class="d-flex">
+<!--
+    //hiding for BETA release
                         <li><i class="fas fa-user-alt border-left pl-2"></i></li>
-                        <li>500 Subscriptions</li>
+    END OF // hiding for BETA release
+-->
+                        <li>{{tx.webhook.numberOfSubscriptions}} Subscriptions</li>
                     </ul>
                 </div>
             </div>
@@ -50,6 +58,8 @@
             <h4 class="font14 font-weight-400">{{tx.group.title}}</h4>
             <h3 class="font20 font-weight-bold d-flex align-items-center" [innerHTML]="service.highlightedName(tx.topic.name)"></h3>
             <div class="user-rating d-flex">
+<!--
+    //hiding for BETA release
                 <ul class="d-flex align-items-center">
                     <li><i class="fas fa-star checked"></i></li>
                     <li><i class="fas fa-star checked"></i></li>
@@ -58,10 +68,16 @@
                     <li><i class="fas fa-star checked"></i></li>
                     <li class="ml-2 font12">300</li>
                 </ul>
+    END OF // hiding for BETA release
+-->
                 <div class="user-subscriptions">
                     <ul class="d-flex">
+<!--
+    //hiding for BETA release
                         <li><i class="fas fa-user-alt border-left pl-2"></i></li>
-                        <li>500 Subscriptions</li>
+    END OF // hiding for BETA release
+-->
+                        <li>{{tx.webhook.numberOfSubscriptions}} Subscriptions</li>
                     </ul>
                 </div>
             </div>

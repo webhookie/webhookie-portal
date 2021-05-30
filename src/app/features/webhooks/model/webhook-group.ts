@@ -18,6 +18,13 @@ export class WebhookGroup extends TableDetailData {
       .filter(it => it.type == WebhookType.SUBSCRIBE)
   }
 
+  get numberOfSubscriptions(): number {
+    return this.webhooks.map(it => it.numberOfSubscriptions)
+      .reduce((value: number, current: number) => {
+        return value + current;
+      });
+  }
+
   constructor(
     public id: string,
     public title: string,
@@ -42,10 +49,7 @@ export class WebhookGroup extends TableDetailData {
     return this.securityOptions.length > 0
   }
 
-  static create(item: any, doc: AsyncAPIDocument): WebhookGroup {
-    let webhooks = doc.channelNames()
-      .map(name => Webhook.create(item.id, doc, name))
-
+  static create(item: any, webhooks: Array<Webhook>, doc: AsyncAPIDocument): WebhookGroup {
     return new WebhookGroup(
       item.id,
       item.title,

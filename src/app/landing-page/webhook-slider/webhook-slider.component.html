@@ -25,7 +25,7 @@
                             </h5>
                             <ul class="webhook-items-ul">
                                 <li class="ml-0">{{wg.webhooks.length}} webhook</li>
-                                <li>300 subscriptions</li>
+                                <li>{{wg.numberOfSubscriptions}} subscriptions</li>
                             </ul>
                             <p>{{wg.description}}</p>
                             <a (click)="browseWebhookGroup(wg)" routerLink="/webhooks/webhooks-page/webhook/webhook-detail" routerLinkActive="active">Browse <i class="bi bi-arrow-right"></i></a>

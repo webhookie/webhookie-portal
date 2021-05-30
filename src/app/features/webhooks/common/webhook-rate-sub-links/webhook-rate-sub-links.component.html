@@ -1,5 +1,7 @@
 <div class="user-rating">
   <ul class="d-flex">
+<!--
+    //hiding for BETA release
     <li>
       <i class="fas fa-star checked"></i>
       <i class="fas fa-star checked"></i>
@@ -9,9 +11,15 @@
       300
       <a class="pl-1 pl-md-2 pr-1 pr-md-2" routerLink="/">Rate this webhook</a>
     </li>
+    END OF // hiding for BETA release
+-->
     <li>
+<!--
+    //hiding for BETA release
       <i class="fas fa-user pl-1 pl-md-2 pr-1 pr-md-2 border-left"></i>
-      500 subscription
+    END OF // hiding for BETA release
+-->
+      {{webhook.numberOfSubscriptions}} subscription
     </li>
   </ul>
   <div>

@@ -1,4 +1,4 @@
-import {AsyncAPIDocument, Channel, Message} from "@asyncapi/parser/dist/bundle";
+import {Channel, Message} from "@asyncapi/parser/dist/bundle";
 import {Topic} from "./webhook-group";
 import {MessageHeaders} from "./message-headers";
 import {WebhookType} from "./webhook-type";
@@ -15,6 +15,7 @@ export class Webhook {
   constructor(
     public id: string,
     public topic: Topic,
+    public numberOfSubscriptions: number,
     public type: WebhookType = WebhookType.SUBSCRIBE,
     public channel: Channel,
     _defaultContentType: string | null
@@ -45,13 +46,6 @@ export class Webhook {
 
   get hasHeaders(): boolean {
     return this.headers.hasHeaders;
-  }
-
-  static create(groupId: string, doc: AsyncAPIDocument, name: string): Webhook {
-    let channel = doc.channel(name)
-    let type = channel.hasSubscribe() ? WebhookType.SUBSCRIBE : WebhookType.PUBLISH;
-    let topic = new Topic(name, channel.description() ? channel.description()! : "");
-    return new Webhook(groupId, topic, type, channel, doc.defaultContentType())
   }
 
   contentTypeHeader(): any {
