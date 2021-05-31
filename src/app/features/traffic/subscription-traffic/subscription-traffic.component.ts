@@ -33,6 +33,7 @@ import {ModalService} from "../../../shared/service/modal.service";
 import {JsonUtils} from "../../../shared/json-utils";
 import {TraceService} from "../service/trace.service";
 import {HttpMessage} from "../model/http-message";
+import {environment} from "../../../../environments/environment";
 
 type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
 
@@ -46,6 +47,8 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   // @ts-ignore
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
   @ViewChild("resultViewer") resultViewer?: TemplateRef<any>;
+
+  debug = environment.debug
 
   readonly tableData: Observable<Array<Span>> = this._spans$.asObservable();
 
