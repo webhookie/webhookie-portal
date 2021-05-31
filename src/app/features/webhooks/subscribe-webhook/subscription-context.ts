@@ -9,11 +9,13 @@ import {Injectable} from "@angular/core";
   providedIn: 'root'
 })
 export class SubscriptionContext {
-  // @ts-ignore
-  private readonly _selectedApplication$: BehaviorSubject<Application|undefined> = new BehaviorSubject<Application>(undefined);
+  private readonly _selectedApplication$: BehaviorSubject<Application|undefined> = new BehaviorSubject<Application|undefined>(undefined);
   // @ts-ignore
   readonly selectedApplication$: Observable<Application> = this._selectedApplication$.asObservable()
     .pipe(filter(it => it != undefined));
+  // @ts-ignore
+  readonly applicationCleared$: Observable<Application> = this._selectedApplication$.asObservable()
+    .pipe(filter(it => it == undefined));
 
   // @ts-ignore
   private readonly _selectedCallback$: BehaviorSubject<Callback|undefined> = new BehaviorSubject<Callback>(undefined);
@@ -57,8 +59,7 @@ export class SubscriptionContext {
 
   updateApplication(value?: Application) {
     this._selectedApplication$.next(value);
-    // @ts-ignore
-    this._selectedCallback$.next(null);
+    this._selectedCallback$.next(undefined);
   }
 
   updateCallback(value?: Callback) {
@@ -66,9 +67,7 @@ export class SubscriptionContext {
   }
 
   clear() {
-    // @ts-ignore
-    this._selectedCallback$.next(null);
-    // @ts-ignore
-    this._selectedApplication$.next(null);
+    this._selectedCallback$.next(undefined);
+    this._selectedApplication$.next(undefined);
   }
 }

@@ -40,10 +40,14 @@ export class CallbackComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.context.applicationCleared$
+      .subscribe(() => this.callbacksComponent.clear())
+
     this.context.selectedApplication$
       .pipe(mergeMap(it => this.service.fetchApplicationCallbacks(it)))
       .subscribe(list => {
         this.callbacksComponent.values.next(list);
+        this.callbacksComponent.clear();
         if(this.context.currentCallbackId) {
           const callback = list.filter(it => it.callbackId == this.context.currentCallbackId)[0]
           this.selectCallback(callback)
