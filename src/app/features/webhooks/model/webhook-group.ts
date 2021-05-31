@@ -36,6 +36,7 @@ export class WebhookGroup extends TableDetailData {
     public consumerGroups: Array<string>,
     public providerAccess: ProviderAccess,
     public providerGroups: Array<string>,
+    public info: WebhookApiInfo,
     doc: AsyncAPIDocument
   ) {
     super();
@@ -50,6 +51,15 @@ export class WebhookGroup extends TableDetailData {
   }
 
   static create(item: any, webhooks: Array<Webhook>, doc: AsyncAPIDocument): WebhookGroup {
+    let license = doc.info().license();
+    let info: WebhookApiInfo = {
+      termsOfService: doc.info().termsOfService(),
+      license: {
+        name: license?.name(),
+        url: license?.url()
+      }
+    }
+
     return new WebhookGroup(
       item.id,
       item.title,
@@ -61,6 +71,7 @@ export class WebhookGroup extends TableDetailData {
       item.consumerGroups,
       item.providerAccess,
       item.providerGroups,
+      info,
       doc
     );
   }
@@ -104,4 +115,14 @@ export class SecurityOption {
       schema.description()
     )
   }
+}
+
+export interface WebhookApiInfo {
+  termsOfService?: string
+  license?: WebhookApiLicense
+}
+
+export interface WebhookApiLicense {
+  name: string,
+  url: string
 }
