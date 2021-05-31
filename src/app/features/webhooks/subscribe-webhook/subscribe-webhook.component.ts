@@ -156,9 +156,7 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
     this.subscriptionService.activateSubscription(this.subscription)
       .subscribe(it => {
         this.subscription = it;
-        setTimeout(() => {
-          this.routeService.navigateTo("/webhooks/congrats")
-        }, 2000);
+        this.routeService.navigateTo("/webhooks/congrats");
       })
   }
 
