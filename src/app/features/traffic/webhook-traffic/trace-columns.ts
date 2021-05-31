@@ -50,7 +50,7 @@ class TraceColumnUtils {
     let clazz;
     switch (trace.statusUpdate.status) {
       case TraceStatus.PROCESSING:
-        clazz = "primary";
+        clazz = "dark";
         break;
       case TraceStatus.NO_SUBSCRIPTION:
         clazz = "dark";
