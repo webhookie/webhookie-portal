@@ -24,8 +24,8 @@
                                 <!--<span class="badge bg-primary text-white font12 float-right font-weight-normal">New</span>-->
                             </h5>
                             <ul class="webhook-items-ul">
-                                <li class="ml-0">{{wg.webhooks.length}} webhook</li>
-                                <li>{{wg.numberOfSubscriptions}} subscriptions</li>
+                                <li class="ml-0">{{wg.webhooks.length}} webhook{{wg.webhooks.length > 1 ? 's' : ''}}</li>
+                                <li>{{wg.numberOfSubscriptions}} subscription{{wg.numberOfSubscriptions > 1 ? 's' : ''}}</li>
                             </ul>
                             <p>{{wg.description}}</p>
                             <a (click)="browseWebhookGroup(wg)" routerLink="/webhooks/webhooks-page/webhook/webhook-detail" routerLinkActive="active">Browse <i class="bi bi-arrow-right"></i></a>

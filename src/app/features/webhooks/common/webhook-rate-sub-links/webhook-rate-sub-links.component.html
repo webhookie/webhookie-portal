@@ -19,7 +19,7 @@
       <i class="fas fa-user pl-1 pl-md-2 pr-1 pr-md-2 border-left"></i>
     END OF // hiding for BETA release
 -->
-      {{webhook.numberOfSubscriptions}} subscription
+      {{webhook.numberOfSubscriptions}} subscription{{webhook.numberOfSubscriptions > 1 ? 's' : ''}}
     </li>
   </ul>
   <div>
