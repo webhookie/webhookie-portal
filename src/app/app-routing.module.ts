@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {WebhooksComponent} from './features/webhooks/webhooks.component';
 import { AdministrationComponent } from './features/administration/administration.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -60,8 +60,13 @@ const routes: Routes = [
 
 ];
 
+const routerOptions: ExtraOptions = {
+  anchorScrolling: "enabled"
+  //scrollPositionRestoration: "enabled"
+};
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
