@@ -23,7 +23,7 @@ export class SubscriptionContext {
     .pipe(
   // @ts-ignore
       filter(it => it != undefined),
-      distinctUntilChanged((x, y) => x.callbackId == y.callbackId),
+      distinctUntilChanged((x, y) => x.id == y.id),
     );
   // @ts-ignore
   readonly callbackCleared$: Observable<Callback> = this._selectedCallback$

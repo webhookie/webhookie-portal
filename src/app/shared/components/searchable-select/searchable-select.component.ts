@@ -24,6 +24,11 @@ export class SearchableSelectComponent {
     this.onSelect.emit(event$.item);
   }
 
+  init(value: SelectableItem | string) {
+    this.model = value;
+    this.onSelect.emit(value);
+  }
+
   constructor(/*config: NgbTypeaheadConfig*/) {
     // config.showHint = true;
   }
@@ -86,14 +91,10 @@ export class SearchableSelectComponent {
       }
     }
 
-    const newArr = [
+    return [
       item,
       ...arr,
-    ];
-
-    console.warn(newArr);
-
-    return newArr
+    ]
   }
 }
 

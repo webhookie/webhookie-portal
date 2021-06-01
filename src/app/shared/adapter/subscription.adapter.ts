@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BaseAdapter} from "./adapter";
-import {ApplicationDetails, CallbackDetails, StatusUpdate, Subscription} from "../model/subscription";
+import {ApplicationDetails, StatusUpdate, Subscription} from "../model/subscription";
 import {CallbackSecurity} from "../model/callback-security";
 import {DateUtils} from "../date-utils";
+import {Callback} from "../model/callback";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class SubscriptionAdapter extends BaseAdapter<Subscription> {
 
     let ic = item.callback;
 
-    let callback = new CallbackDetails(
+    let callback = new Callback(
       ic.id,
       ic.name,
       ic.httpMethod,

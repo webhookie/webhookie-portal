@@ -105,7 +105,7 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
       .subscribe(() => this.clearSubscription())
 
     this.subscriptionContext.selectedCallback$
-      .pipe(mergeMap(it => this.fetchSubscriptions(it.callbackId)))
+      .pipe(mergeMap(it => this.fetchSubscriptions(it.id)))
       .subscribe(it => {
         if (it.length > 0) {
           this.subscription = it[0]
@@ -161,7 +161,7 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
   }
 
   createSubscription() {
-    this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback!.callbackId)
+    this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback!.id)
       .subscribe(it => this.subscription = it);
   }
 

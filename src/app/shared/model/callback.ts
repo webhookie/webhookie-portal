@@ -3,12 +3,12 @@ import {SelectableItem} from "../components/searchable-select/searchable-select.
 
 export class Callback implements SelectableItem{
   constructor(
-    public callbackId: string,
+    public id: string,
     public name: string,
     public httpMethod: string,
     public url: string,
-    public security?: CallbackSecurity,
-    public signable: boolean = false
+    public signable: boolean = false,
+    public security: CallbackSecurity | null
   ) {
   }
 }

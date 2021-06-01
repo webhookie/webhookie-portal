@@ -11,12 +11,8 @@ export class CallbackAdapter extends BaseAdapter<Callback> {
     let signable: boolean = item.signable
 
     let itemSecurity = item.security
-    let security
+    let security = (itemSecurity != null) ? new CallbackSecurity(itemSecurity.method, itemSecurity.keyId) : null
 
-    if (itemSecurity != null) {
-      security = new CallbackSecurity(itemSecurity.method, itemSecurity.keyId)
-    }
-
-    return new Callback(item.id, item.name, item.httpMethod, item.url, security, signable);
+    return new Callback(item.id, item.name, item.httpMethod, item.url, signable, security);
   }
 }

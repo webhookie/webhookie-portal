@@ -49,7 +49,7 @@ export class CallbackComponent implements OnInit {
         this.callbacksComponent.values.next(list);
         this.callbacksComponent.clear();
         if(this.context.currentCallbackId) {
-          const callback = list.filter(it => it.callbackId == this.context.currentCallbackId)[0]
+          const callback = list.filter(it => it.id == this.context.currentCallbackId)[0]
           this.selectCallback(callback)
         }
       })

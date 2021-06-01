@@ -1,11 +1,11 @@
-import {CallbackSecurity} from "./callback-security";
 import {TableDetailData} from "./table/table-detail-data";
+import {Callback} from "./callback";
 
 export class Subscription extends TableDetailData {
   constructor(
     public id: string,
     public application: ApplicationDetails,
-    public callback: CallbackDetails,
+    public callback: Callback,
     public statusUpdate: StatusUpdate,
     public topic: string,
     public blocked: boolean
@@ -49,21 +49,6 @@ export class StatusUpdate {
   }
 }
 
-export class CallbackDetails {
-  // noinspection JSUnusedGlobalSymbols
-  constructor(
-    public id: string,
-    public name: string,
-    public httpMethod: string,
-    public url: string,
-    public signable: boolean,
-    public security: CallbackSecurity | null
-  ) {
-  }
-}
-
-
-// noinspection JSUnusedGlobalSymbols
 export enum SubscriptionStatus {
   SAVED = "SAVED",
   VALIDATED = "VALIDATED",
