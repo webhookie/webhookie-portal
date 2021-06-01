@@ -4,7 +4,7 @@
       <li>
         <app-searchable-select
           title="Entity"
-          (onSelect)="onSelectEntity($event)"
+          (onSelect)="spanFilter.selectEntity($event)"
           (onClear)="clearEntity()"
           #entitiesComponent
         >
@@ -13,7 +13,7 @@
       <li *ngIf="spanFilter.entity">
         <app-searchable-select
           title="Application"
-          (onSelect)="onSelectApplication($event)"
+          (onSelect)="spanFilter.selectApplication($event)"
           (onClear)="clearApplication()"
           #applicationsComponent
         >
@@ -22,7 +22,7 @@
       <li *ngIf="spanFilter.applicationId">
         <app-searchable-select
           title="Callback URL"
-          (onSelect)="onSelectCallback($event)"
+          (onSelect)="spanFilter.selectCallback($event)"
           (onClear)="clearCallback()"
           #callbacksComponent
         >
