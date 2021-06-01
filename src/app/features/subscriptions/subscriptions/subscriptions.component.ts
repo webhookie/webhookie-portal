@@ -157,8 +157,26 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   }
 
   viewTraffic(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
-    return (it: Subscription, item: SubscriptionContextMenu) => {
-      console.warn(`${item} ==> ${it.id}`);
+    return (subscription: Subscription) => {
+      if(this._role$.value == Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER) {
+        const params = {
+          topic: subscription.topic,
+          application: subscription.application.name,
+          callback: subscription.callback.url
+        }
+        this.routeService
+          .navigateTo("/traffic/subscription", params)
+      }
+      if(this._role$.value == Constants.SUBSCRIPTIONS_VIEW_ROLE_PROVIDER) {
+        const params = {
+          topic: subscription.topic,
+          applicationId: subscription.application.id,
+          callbackId: subscription.callback.id,
+          entity: subscription.application.entity
+        }
+        this.routeService
+          .navigateTo("/traffic/webhook", params)
+      }
     }
   }
 
