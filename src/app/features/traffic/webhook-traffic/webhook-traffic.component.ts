@@ -43,7 +43,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
   readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();
 
-  readonly spanFilter$: BehaviorSubject<WebhookTrafficFilter> = new BehaviorSubject<WebhookTrafficFilter>({});
+  readonly spanFilter = new SpanFilter()
 
   private readonly traceTable!: TraceTable
   private readonly spanTable!: SpanTable
@@ -68,28 +68,21 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     this.providerService.myEntities()
       .subscribe(it => this.entitiesComponent.values.next(it));
 
-    this.spanFilter$.asObservable()
-      .pipe(
-        filter(it => it.entity != null),
-        mergeMap(it => this.providerService.entityApplications(it.entity!))
-      )
+    this.spanFilter.whenEntitySet$
+      .pipe(mergeMap(it => this.providerService.entityApplications(it)))
       .subscribe(it => this.applicationsComponent.values.next(it));
 
-    this.spanFilter$.asObservable()
-      .pipe(
-        filter(it => it.application != null),
-        mergeMap(it => this.providerService.applicationCallbacks(it.application!))
-      )
+    this.spanFilter.whenApplicationSet$
+      .pipe(mergeMap(it => this.providerService.applicationCallbacks(it)))
       .subscribe(it => this.callbacksComponent.values.next(it));
 
-    this.spanFilter$.asObservable()
-      .pipe(skip(1))
+    this.spanFilter.whenSet$
       .subscribe(it => {
         this._traces$.next([]);
         let filter = Object.assign(this.tableComponent.currentFilter.value, {
           entity: it.entity,
-          application: it.application?.id,
-          callback: it.callback?.id
+          application: it.applicationId,
+          callback: it.callbackId
         });
 
         this.tableComponent.currentFilter.next(filter);
@@ -154,9 +147,9 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   fetchDetails(data: Trace): Observable<boolean> {
     let filter = {
-      entity: this.currentEntity,
-      application: this.currentApplication?.id,
-      callback: this.currentCallback?.id,
+      entity: this.spanFilter.entity,
+      application: this.spanFilter.applicationId,
+      callback: this.spanFilter.callbackId,
     }
     return this.traceService.readTraceSpans(data.traceId, filter, Pageable.unPaged())
       .pipe(tap(it => data.update(it)))
@@ -176,71 +169,49 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   selectEntity(entity?: string) {
-    let filter = this.spanFilter
-    if(filter.entity == entity) {
+    let filter = this.spanFilter.current
+    if (filter.entity == entity) {
       return;
     }
 
     let newFilter: WebhookTrafficFilter = {
-      entity: entity,
-    // @ts-ignore
-      application: null,
-    // @ts-ignore
-      callback: null
+      entity: entity
     }
 
-    this.spanFilter$.next(newFilter)
+    this.spanFilter.next(newFilter)
   }
 
   selectApplication(application?: Application) {
-    let filter = this.spanFilter
-    if(filter.application == application) {
+    let filter = this.spanFilter.current
+    if (filter.applicationId == application?.id) {
       return;
     }
 
     let newFilter: WebhookTrafficFilter = {
       entity: filter.entity,
-      application: application,
-    // @ts-ignore
-      callback: null
+      applicationId: application?.id,
     }
 
-    this.spanFilter$.next(newFilter)
+    this.spanFilter.next(newFilter)
   }
 
   selectCallback(callback?: Callback) {
-    let filter = this.spanFilter
-    if(filter.callback == callback) {
+    let filter = this.spanFilter.current
+    if (filter.callbackId == callback?.id) {
       return;
     }
 
     let newFilter: WebhookTrafficFilter = {
       entity: filter.entity,
-      application: filter.application,
-      callback: callback
+      applicationId: filter.applicationId,
+      callbackId: callback?.id
     }
 
-    this.spanFilter$.next(newFilter)
-  }
-
-  get spanFilter(): WebhookTrafficFilter {
-    return this.spanFilter$.value;
-  }
-
-  get currentEntity(): string | null | undefined {
-    return this.spanFilter.entity;
-  }
-
-  get currentApplication(): Application | null | undefined {
-    return this.spanFilter.application;
-  }
-
-  get currentCallback(): Callback | null | undefined {
-    return this.spanFilter.callback;
+    this.spanFilter.next(newFilter)
   }
 
   clearEntity() {
-    if(this.applicationsComponent) {
+    if (this.applicationsComponent) {
       this.applicationsComponent.values.next([])
     }
     this.clearApplication()
@@ -248,7 +219,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   clearApplication() {
-    if(this.callbacksComponent) {
+    if (this.callbacksComponent) {
       this.callbacksComponent.values.next([])
     }
     this.clearCallback()
@@ -262,7 +233,49 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
 interface WebhookTrafficFilter {
   entity?: string;
-  application?: Application;
-  callback?: Callback;
+  applicationId?: string;
+  callbackId?: string;
+}
+
+class SpanFilter {
+  private readonly _filter$: BehaviorSubject<WebhookTrafficFilter> = new BehaviorSubject<WebhookTrafficFilter>({});
+  private readonly filter$: Observable<WebhookTrafficFilter> = this._filter$.asObservable();
+
+  // @ts-ignore
+  readonly whenEntitySet$: Observable<string> = this.filter$
+    .pipe(
+      filter(it => it.entity != undefined),
+      map(it => it.entity)
+    )
+
+  // @ts-ignore
+  readonly whenApplicationSet$: Observable<string> = this.filter$
+    .pipe(
+      filter(it => it.applicationId != undefined),
+      map(it => it.applicationId)
+    )
+
+  readonly whenSet$: Observable<WebhookTrafficFilter> = this.filter$
+    .pipe(skip(1))
+
+  get current(): WebhookTrafficFilter {
+    return this._filter$.value
+  }
+
+  next(newFilter: WebhookTrafficFilter) {
+    this._filter$.next(newFilter)
+  }
+
+  get entity(): string | undefined {
+    return this.current.entity
+  }
+
+  get applicationId(): string | undefined {
+    return this.current.applicationId
+  }
+
+  get callbackId(): string | undefined {
+    return this.current.callbackId
+  }
 }
 

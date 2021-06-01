@@ -29,8 +29,8 @@ export class ProviderService {
       .pipe(map(it => this.applicationAdapter.adaptList(it)));
   }
 
-  applicationCallbacks(application: Application): Observable<Array<Callback>> {
-    let params = new HttpParams().set("applicationId", application.id);
+  applicationCallbacks(applicationId: string): Observable<Array<Callback>> {
+    let params = new HttpParams().set("applicationId", applicationId);
     return this.api.json("/provider/callbacks", params)
       .pipe(map(it => this.callbackAdapter.adaptList(it)));
   }

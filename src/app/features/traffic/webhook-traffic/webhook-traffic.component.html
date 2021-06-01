@@ -10,7 +10,7 @@
         >
         </app-searchable-select>
       </li>
-      <li *ngIf="currentEntity">
+      <li *ngIf="spanFilter.entity">
         <app-searchable-select
           title="Application"
           (onSelect)="onSelectApplication($event)"
@@ -19,7 +19,7 @@
         >
         </app-searchable-select>
       </li>
-      <li *ngIf="currentApplication">
+      <li *ngIf="spanFilter.applicationId">
         <app-searchable-select
           title="Callback URL"
           (onSelect)="onSelectCallback($event)"
@@ -38,7 +38,7 @@
 </div>
 <div *ngIf="debug">
   <hr>
-  <pre>Span Filter: {{ spanFilter | json }}</pre>
+  <pre>Span Filter: {{ spanFilter.current | json }}</pre>
 </div>
 <div *ngIf="debug">
   <hr>
