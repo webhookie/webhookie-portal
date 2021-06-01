@@ -46,6 +46,7 @@ import {ModalService} from "../../../shared/service/modal.service";
 import {SpanService} from "../service/span.service";
 import {HttpMessage} from "../model/http-message";
 import {SearchableSelectComponent} from "../../../shared/components/searchable-select/searchable-select.component";
+import {environment} from "../../../../environments/environment";
 
 type TraceContextMenu = ContextMenuItem<Trace, TraceMenu>;
 type TraceSpanContextMenu = ContextMenuItem<Span, TraceSpansMenu>;
@@ -56,12 +57,14 @@ type TraceSpanContextMenu = ContextMenuItem<Span, TraceSpansMenu>;
   styleUrls: ['./webhook-traffic.component.css']
 })
 export class WebhookTrafficComponent extends GenericTable<Trace, Span> implements OnInit {
-  // @ts-ignore
-  @ViewChild("tableComponent") tableComponent: GenericTableComponent;
+  @ViewChild("tableComponent") tableComponent!: GenericTableComponent;
   @ViewChild("resultViewer") resultViewer?: TemplateRef<any>;
   @ViewChild("entitiesComponent") entitiesComponent!: SearchableSelectComponent;
   @ViewChild("applicationsComponent") applicationsComponent!: SearchableSelectComponent;
   @ViewChild("callbacksComponent") callbacksComponent!: SearchableSelectComponent;
+
+  debug = environment.debug
+  subscriptionFilter: WebhookTrafficFilter = {}
 
   private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
   readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();
@@ -78,7 +81,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     super();
 
     this.activatedRoute.queryParams
-      .subscribe(it => this.initialFilters = it);
+      .subscribe(it => this.initialFilters.topic = it.topic);
   }
 
   ngOnInit(): void {
@@ -106,7 +109,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
         let filter = Object.assign(this.tableComponent.currentFilter.value, {
           entity: it.entity,
           application: it.application?.id,
-          callback: it.callback?.callbackId
+          callback: it.callback?.id
         });
 
         this.tableComponent.currentFilter.next(filter);
@@ -232,7 +235,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     let filter = {
       entity: this.currentEntity,
       application: this.currentApplication?.id,
-      callback: this.currentCallback?.callbackId,
+      callback: this.currentCallback?.id,
     }
     return this.traceService.readTraceSpans(data.traceId, filter, Pageable.unPaged())
       .pipe(tap(it => data.update(it)))
