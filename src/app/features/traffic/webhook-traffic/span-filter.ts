@@ -11,6 +11,9 @@ import {WebhookTrafficFilter} from "./webhook-traffic-filter";
  */
 
 export class SpanFilter {
+  constructor(public initialFilter: WebhookTrafficFilter) {
+  }
+
   private readonly _filter$: BehaviorSubject<WebhookTrafficFilter> = new BehaviorSubject<WebhookTrafficFilter>({});
   private readonly filter$: Observable<WebhookTrafficFilter> = this._filter$.asObservable();
 
@@ -88,5 +91,17 @@ export class SpanFilter {
     }
 
     this.next(newFilter)
+  }
+
+  clearEntity() {
+    this.selectEntity(undefined)
+  }
+
+  clearApplication() {
+    this.selectApplication(undefined)
+  }
+
+  clearCallback() {
+    this.selectCallback(undefined)
   }
 }
