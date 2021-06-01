@@ -92,6 +92,8 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
           let callback = callbacks.filter(it => it.id == this.spanFilter.initialFilter.callbackId)[0]
           this.callbacksComponent.init(callback);
         }
+
+        this.spanFilter.clear();
       });
 
     this.spanFilter.whenSet$
@@ -175,19 +177,17 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   clearEntity() {
-    if (this.applicationsComponent) {
-      this.applicationsComponent.values.next([])
-    }
+    this.applicationsComponent.values.next([])
     this.clearApplication()
     this.spanFilter.clearEntity()
+    this.applicationsComponent.clear();
   }
 
   clearApplication() {
-    if (this.callbacksComponent) {
-      this.callbacksComponent.values.next([])
-    }
-    this.clearCallback()
     this.spanFilter.clearApplication()
+    this.callbacksComponent.clear();
+    this.callbacksComponent.values.next([])
+    this.clearCallback()
   }
 
   clearCallback() {

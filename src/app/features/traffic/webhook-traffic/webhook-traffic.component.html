@@ -10,7 +10,7 @@
         >
         </app-searchable-select>
       </li>
-      <li *ngIf="spanFilter.entity">
+      <li>
         <app-searchable-select
           title="Application"
           (onSelect)="spanFilter.selectApplication($event)"
@@ -19,7 +19,7 @@
         >
         </app-searchable-select>
       </li>
-      <li *ngIf="spanFilter.applicationId">
+      <li>
         <app-searchable-select
           title="Callback URL"
           (onSelect)="spanFilter.selectCallback($event)"

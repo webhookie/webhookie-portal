@@ -104,4 +104,8 @@ export class SpanFilter {
   clearCallback() {
     this.selectCallback(undefined)
   }
+
+  clear() {
+    this.initialFilter = {};
+  }
 }
