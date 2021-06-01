@@ -1,13 +1,16 @@
-.profile-icon .dropdown-toggle{
-    color:#253858;
-    text-decoration: none;
-    font-size: 13.5px;
+.profile-icon .dropdown-toggle {
+  color: #253858;
+  text-decoration: none;
+  font-size: 13.5px;
 }
-.profile-image{
-    width:34px;
-    height:34px;
-    object-fit: cover;
+
+.profile-image {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  color: #333333;
 }
-.profile-icon .dropdown-menu{
-    top:40px;
+
+.profile-icon .dropdown-menu {
+  top: 40px;
 }

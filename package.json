@@ -40,6 +40,7 @@
     "moment": "^2.29.1",
     "monaco-editor": "^0.23.0",
     "ng-http-loader": "^9.1.0",
+    "ngx-avatar": "^4.1.0",
     "ngx-bootstrap": "^6.2.0",
     "ngx-infinite-scroll": "^10.0.1",
     "ngx-owl-carousel-o": "^5.0.0",

@@ -29,6 +29,10 @@ export class ProfileIconComponent implements OnInit {
     return this.authService.claims["name"]
   }
 
+  get hasDetails(): boolean {
+    return (this.name != undefined) || (this.picture != undefined)
+  }
+
   logout() {
     this.authService.logout()
   }

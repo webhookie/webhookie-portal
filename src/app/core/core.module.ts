@@ -17,6 +17,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {FormsModule} from '@angular/forms';
 import { ProfileIconComponent } from './layout/header/profile-icon/profile-icon.component';
 import {SharedModule} from "../shared/shared.module";
+import {AvatarModule} from "ngx-avatar";
 
 @NgModule({
   declarations: [MainLayoutComponent,
@@ -49,7 +50,8 @@ import {SharedModule} from "../shared/shared.module";
     FormsModule,
     BreadcrumbModule,
     MatToolbarModule,
-    SharedModule
+    SharedModule,
+    AvatarModule
 
   ],
 

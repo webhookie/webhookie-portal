@@ -1,11 +1,10 @@
 <div class="media ml-2 profile-icon align-items-center" *ngIf="authService.loggedIn">
-  <div class="media-left mr-2">
-    <img [src]="picture" class="img-fluid profile-image rounded-circle" alt="profile"/>
-  </div>
   <div class="media-body">
     <div class="dropdown">
-      <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><span
-        class="d-none d-md-inline-block">{{name}}</span></a>
+      <a href="javascript:void(0)" data-toggle="dropdown">
+        <ngx-avatar *ngIf="!hasDetails" [src]="picture" [name]="name" [round]="true" size="34"></ngx-avatar>
+        <i *ngIf="hasDetails"  class="fa fa-user-circle fa-2x img-fluid profile-image rounded-circle"></i>
+      </a>
       <div class="dropdown-menu dropdown-menu-right px-2">
         <ul class="nav-vertical nav-small">
           <li class="nav-item">
