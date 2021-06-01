@@ -1,45 +1,18 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
 import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
-import {Trace, TraceStatus} from "../model/trace";
-import {SimpleTableHeader, TableHeader} from "../../../shared/model/table/header/table-header";
-import {EmptyTableHeader} from "../../../shared/model/table/header/empty-table-header";
-import {SelectableTableHeader} from "../../../shared/model/table/header/selectable-table-header";
-import {SortableTableHeader} from "../../../shared/model/table/header/sortable-table-header";
+import {Trace} from "../model/trace";
+import {TableHeader} from "../../../shared/model/table/header/table-header";
 import {TableFilter} from "../../../shared/model/table/filter/table-filter";
-import {EmptyTableFilter} from "../../../shared/model/table/filter/empty-table-filter";
-import {SearchTableFilter} from "../../../shared/model/table/filter/search-table-filter";
-import {TimestampTableFilter} from "../../../shared/model/table/filter/timestamp-table-filter";
 import {GenericTableComponent} from "../../../shared/components/generic-table/generic-table.component";
 import {TableColumn} from "../../../shared/model/table/column/table-column";
-import {
-  SubscribersColumn,
-  TimestampColumn,
-  TraceIdColumn,
-  TraceMoreDataColumn,
-  TraceStatusColumn,
-  WebhookColumn
-} from "./trace-columns";
-import {SelectableTableColumn} from "../../../shared/model/table/column/selectable-table-column";
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {Span} from "../model/span";
-import {
-  ApplicationColumn,
-  CallbackColumn,
-  EntityColumn,
-  ResponseCodeColumn,
-  SpanIdColumn,
-  SpanStatusColumn,
-  TriesColumn
-} from "../subscription-traffic/span-columns";
-import {SearchListTableFilter} from "../../../shared/model/table/filter/search-list-table-filter";
 import {Pageable} from "../../../shared/request/pageable";
 import {ProviderService} from "../service/provider.service";
 import {filter, map, mergeMap, skip, tap} from "rxjs/operators";
 import {Application} from "../../webhooks/model/application";
 import {Callback} from "../../../shared/model/callback";
-import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
-import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 import {ActivatedRoute} from "@angular/router";
 import {JsonUtils} from "../../../shared/json-utils";
 import {ModalService} from "../../../shared/service/modal.service";
@@ -47,9 +20,10 @@ import {SpanService} from "../service/span.service";
 import {HttpMessage} from "../model/http-message";
 import {SearchableSelectComponent} from "../../../shared/components/searchable-select/searchable-select.component";
 import {environment} from "../../../../environments/environment";
-
-type TraceContextMenu = ContextMenuItem<Trace, TraceMenu>;
-type TraceSpanContextMenu = ContextMenuItem<Span, TraceSpansMenu>;
+import {SpanTable} from "./span-table";
+import {TraceSpanContextMenu} from "./trace-span-menu";
+import {TraceContextMenu} from "./trace-menu";
+import {TraceTable} from "./trace-table";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -71,6 +45,9 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   readonly spanFilter$: BehaviorSubject<WebhookTrafficFilter> = new BehaviorSubject<WebhookTrafficFilter>({});
 
+  private readonly traceTable!: TraceTable
+  private readonly spanTable!: SpanTable
+
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly modalService: ModalService,
@@ -82,6 +59,9 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
     this.activatedRoute.queryParams
       .subscribe(it => this.initialFilters.topic = it.topic);
+
+    this.traceTable = new TraceTable(this.viewTraceRequest);
+    this.spanTable = new SpanTable(this.viewSpanRequest, this.viewSpanResponse);
   }
 
   ngOnInit(): void {
@@ -122,47 +102,15 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   get headers(): Array<TableHeader> {
-    return [
-      new EmptyTableHeader("sticky-cell", "Webhook_Header1"),
-      new SelectableTableHeader("sticky-cell sticky-second-cell", "Webhook_Header2"),
-      new SortableTableHeader("Trace Id", "traceId"),
-      new SortableTableHeader("Webhook", "topic"),
-      new SortableTableHeader("Status", "statusUpdate.status", "text-center"),
-      new SortableTableHeader("Timestamp", "statusUpdate.time"),
-      new SortableTableHeader("Authorized Subscribers", "consumerMessage.authorizedSubscribers"),
-    ]
+    return this.traceTable.headers
   }
 
   get filters(): Array<TableFilter> {
-    return [
-      new EmptyTableFilter("sticky-cell bg-light-gray", "Webhook_Filter1", ""),
-      new EmptyTableFilter("sticky-second-cell sticky-cell bg-light-gray", "Webhook_Filter2", ""),
-      new SearchTableFilter("", "traceId", "Trace Id"),
-      new SearchTableFilter("", "topic", "Webhook"),
-      new SearchListTableFilter("", "status", "Status", TraceStatus),
-      new TimestampTableFilter("", "timestamp", "Timestamp"),
-      new SearchTableFilter("", "authorizedSubscribers", "Authorized Subscribers"),
-      new EmptyTableFilter("", "Webhook_Filter2", ""),
-    ]
+    return this.traceTable.filters
   }
 
   get columns(): Array<TableColumn> {
-    return [
-      new TraceMoreDataColumn("text-center sticky-cell", "Webhook_More_Column"),
-      new SelectableTableColumn("sticky-cell sticky-second-cell", "Webhook_Select_Column"),
-      new TraceIdColumn("Webhook_TraceId_Column"),
-      new WebhookColumn("Webhook_Topic_Column"),
-      new TraceStatusColumn("Webhook_Status_Column"),
-      new TimestampColumn("Webhook_Timestamp_Column"),
-      new SubscribersColumn("Webhook_Auth_Subscribers_Column"),
-      new ContextMenuTableColumn(this.createTraceContextMenuItems()),
-    ];
-  }
-
-  private createTraceContextMenuItems() {
-    return [
-      ContextMenuItemBuilder.create<Trace, TraceMenu>(TraceMenu.VIEW_REQUEST).handler(this.viewTraceRequest()).build(),
-    ];
+    return this.traceTable.columns
   }
 
   viewTraceRequest(): (trace: Trace, item: TraceContextMenu) => any {
@@ -182,38 +130,11 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   get detailHeaders(): Array<TableHeader> {
-    return [
-      new SimpleTableHeader("Span Id", "Webhook_Details_Span_Id_Header"),
-      new SimpleTableHeader("Company", "Webhook_Details_Company_Header"),
-      new SimpleTableHeader("Application", "Webhook_Details_Application_Header"),
-      new SimpleTableHeader("Callback URL", "Webhook_Details_Callback_Header"),
-      new SimpleTableHeader("Timestamp", "Webhook_Details_Timestamp_Header"),
-      new SimpleTableHeader("Response code", "Webhook_Details_Response_Code_Header"),
-      new SimpleTableHeader("Status", "Webhook_Details_Status_Header", "text-center"),
-      new SimpleTableHeader("Tries", "Webhook_Details_Tries_Header"),
-      new SimpleTableHeader("", "Webhook_Details_Header1")
-    ]
+    return this.spanTable.headers
   }
 
   get detailColumns(): Array<TableColumn> {
-    return [
-      new SpanIdColumn("Webhook_Span_SpanId_Column"),
-      new EntityColumn("Webhook_Span_Entity_Column"),
-      new ApplicationColumn("Webhook_Span_Application_Column"),
-      new CallbackColumn("Webhook_Span_Callback_Column"),
-      new TimestampColumn("Webhook_Span_Timestamp_Column"),
-      new ResponseCodeColumn("Webhook_Span_ResponseCode_Column"),
-      new SpanStatusColumn("Webhook_Span_Status_Column"),
-      new TriesColumn("Webhook_Span_Tries_Column"),
-      new ContextMenuTableColumn(this.createSpanContextMenuItems()),
-    ]
-  }
-
-  private createSpanContextMenuItems() {
-    return [
-      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_REQUEST).handler(this.viewSpanRequest()).build(),
-      ContextMenuItemBuilder.create<Span, TraceSpansMenu>(TraceSpansMenu.VIEW_RESPONSE).handler(this.viewSpanResponse()).build(),
-    ];
+    return this.spanTable.columns
   }
 
   viewSpanRequest(): (span: Span, item: TraceSpanContextMenu) => any {
@@ -345,12 +266,3 @@ interface WebhookTrafficFilter {
   callback?: Callback;
 }
 
-
-enum TraceMenu {
-  VIEW_REQUEST = "View Request"
-}
-
-enum TraceSpansMenu {
-  VIEW_REQUEST = "View Request",
-  VIEW_RESPONSE = "View Response",
-}
