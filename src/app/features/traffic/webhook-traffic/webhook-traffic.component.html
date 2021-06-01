@@ -32,9 +32,17 @@
   </div>
 </div>
 
-<div *ngIf="false">
+<div *ngIf="debug">
   <hr>
-  <pre>Model: {{ spanFilter | json }}</pre>
+  <pre>Subscriptions Filter: {{ subscriptionFilter | json }}</pre>
+</div>
+<div *ngIf="debug">
+  <hr>
+  <pre>Span Filter: {{ spanFilter | json }}</pre>
+</div>
+<div *ngIf="debug">
+  <hr>
+  <pre>Filters: {{ initialFilters | json }}</pre>
 </div>
 
 <app-generic-table
