@@ -19,8 +19,6 @@ import {HttpMessage} from "../model/http-message";
 import {SearchableSelectComponent} from "../../../shared/components/searchable-select/searchable-select.component";
 import {environment} from "../../../../environments/environment";
 import {SpanTable} from "./span-table";
-import {TraceSpanContextMenu} from "./trace-span-menu";
-import {TraceContextMenu} from "./trace-menu";
 import {TraceTable} from "./trace-table";
 import {SpanFilter} from "./span-filter";
 
@@ -45,6 +43,21 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   private readonly traceTable!: TraceTable
   private readonly spanTable!: SpanTable
+
+  viewTraceRequest = (trace: Trace) => {
+    this.viewRequest(trace.traceId)
+  }
+
+  viewSpanRequest = (span: Span) => {
+    this.viewRequest(span.traceId)
+  }
+
+  viewSpanResponse = (span: Span) => {
+    this.spanService.spanResponse(span)
+      .subscribe(it => {
+        this.showBody(it);
+      })
+  }
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -126,12 +139,6 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     return this.traceTable.columns
   }
 
-  viewTraceRequest(): (trace: Trace, item: TraceContextMenu) => any {
-    return (trace: Trace) => {
-      this.viewRequest(trace.traceId)
-    }
-  }
-
   viewRequest(traceId: string) {
     this.traceService.traceRequest(traceId)
       .subscribe(it => this.showBody(it));
@@ -148,21 +155,6 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   get detailColumns(): Array<TableColumn> {
     return this.spanTable.columns
-  }
-
-  viewSpanRequest(): (span: Span, item: TraceSpanContextMenu) => any {
-    return (span: Span) => {
-      this.viewRequest(span.traceId)
-    }
-  }
-
-  viewSpanResponse(): (span: Span, item: TraceSpanContextMenu) => any {
-    return (span: Span) => {
-      this.spanService.spanResponse(span)
-        .subscribe(it => {
-          this.showBody(it);
-        })
-    }
   }
 
   fetchDetails(data: Trace): Observable<boolean> {

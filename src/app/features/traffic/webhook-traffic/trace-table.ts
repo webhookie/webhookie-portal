@@ -45,7 +45,6 @@ export class TraceTable {
   get filters(): Array<TableFilter> {
     return [
       new EmptyTableFilter("sticky-cell bg-light-gray", "Webhook_Filter1", ""),
-      new EmptyTableFilter("sticky-second-cell sticky-cell bg-light-gray", "Webhook_Filter2", ""),
       new SearchTableFilter("", "traceId", "Trace Id"),
       new SearchTableFilter("", "topic", "Webhook"),
       new SearchListTableFilter("", "status", "Status", TraceStatus),
