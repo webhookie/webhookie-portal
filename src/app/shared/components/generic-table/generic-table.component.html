@@ -1,7 +1,7 @@
 <div class="common-table">
   <div class="number d-flex justify-content-between mb-3 align-items-center">
     <h5 class="font12 font-weight-600 mb-0">{{dataSource.data.length}} rows</h5>
-    <div class="resend d-flex align-items-center">
+    <div *ngIf="selectable" class="resend d-flex align-items-center">
       <h5 class="font12 font-weight-600 mb-0 mr-3">{{table.selectedRows.length}} Items selected</h5>
       <button class="btn btn-primary" [class.disabled]="table.emptySelectedRows" [disabled]="table.emptySelectedRows">Resend message</button>
     </div>

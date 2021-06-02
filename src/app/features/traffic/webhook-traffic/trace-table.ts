@@ -2,7 +2,6 @@ import {Trace, TraceStatus} from "../model/trace";
 import {TraceContextMenu, TraceMenu} from "./trace-menu";
 import {TableHeader} from "../../../shared/model/table/header/table-header";
 import {EmptyTableHeader} from "../../../shared/model/table/header/empty-table-header";
-import {SelectableTableHeader} from "../../../shared/model/table/header/selectable-table-header";
 import {SortableTableHeader} from "../../../shared/model/table/header/sortable-table-header";
 import {TableFilter} from "../../../shared/model/table/filter/table-filter";
 import {EmptyTableFilter} from "../../../shared/model/table/filter/empty-table-filter";
@@ -18,7 +17,6 @@ import {
   TraceStatusColumn,
   WebhookColumn
 } from "./trace-columns";
-import {SelectableTableColumn} from "../../../shared/model/table/column/selectable-table-column";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
 import {ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 
@@ -36,7 +34,6 @@ export class TraceTable {
   get headers(): Array<TableHeader> {
     return [
       new EmptyTableHeader("sticky-cell", "Webhook_Header1"),
-      new SelectableTableHeader("sticky-cell sticky-second-cell", "Webhook_Header2"),
       new SortableTableHeader("Trace Id", "traceId"),
       new SortableTableHeader("Webhook", "topic"),
       new SortableTableHeader("Status", "statusUpdate.status", "text-center"),
@@ -61,7 +58,6 @@ export class TraceTable {
   get columns(): Array<TableColumn> {
     return [
       new TraceMoreDataColumn("text-center sticky-cell", "Webhook_More_Column"),
-      new SelectableTableColumn("sticky-cell sticky-second-cell", "Webhook_Select_Column"),
       new TraceIdColumn("Webhook_TraceId_Column"),
       new WebhookColumn("Webhook_Topic_Column"),
       new TraceStatusColumn("Webhook_Status_Column"),

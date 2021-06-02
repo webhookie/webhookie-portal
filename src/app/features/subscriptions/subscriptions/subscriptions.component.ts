@@ -10,7 +10,6 @@ import {TableHeader} from "../../../shared/model/table/header/table-header";
 import {TableFilter} from "../../../shared/model/table/filter/table-filter";
 import {TableColumn} from "../../../shared/model/table/column/table-column";
 import {SortableTableHeader} from "../../../shared/model/table/header/sortable-table-header";
-import {SelectableTableHeader} from "../../../shared/model/table/header/selectable-table-header";
 import {
   SubscriptionApplicationColumn,
   SubscriptionCallbackColumn,
@@ -18,7 +17,6 @@ import {
   SubscriptionStatusColumn,
   SubscriptionWebhookColumn
 } from "./subscription-columns";
-import {SelectableTableColumn} from "../../../shared/model/table/column/selectable-table-column";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
 import {SubscriptionContextMenuService} from "./subscription-context-menu.service";
@@ -80,7 +78,6 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
   get headers(): Array<TableHeader> {
     return [
-      new SelectableTableHeader("sticky-cell", "Subscription_Select_Header"),
       new SortableTableHeader("Company", "application.entity"),
       new SortableTableHeader("Application", "application.name"),
       new SortableTableHeader("Webhook", "topic"),
@@ -95,7 +92,6 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
   get columns(): Array<TableColumn> {
     return [
-      new SelectableTableColumn("sticky-cell", "Subscription_Select_Column"),
       new SubscriptionEntityColumn("Subscription_Entity"),
       new SubscriptionApplicationColumn("Subscription_Application"),
       new SubscriptionWebhookColumn("Subscription_Topic"),

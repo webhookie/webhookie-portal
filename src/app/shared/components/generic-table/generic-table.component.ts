@@ -22,7 +22,8 @@ import * as $ from "jquery";
 })
 export class GenericTableComponent implements OnInit {
   // @ts-ignore
-  @Input("component") table: GenericTable
+  @Input("component") table!: GenericTable
+  @Input("selectable") selectable: boolean = false
 
   dataSource: TableDataSource = new TableDataSource();
 
@@ -130,6 +131,7 @@ export class GenericTableComponent implements OnInit {
     this.currentPageable.next(Pageable.desc(header));
   }
 
+  // noinspection JSUnusedGlobalSymbols
   filterList(filter: TableFilter): any {
     if(filter instanceof SearchListTableFilter) {
       return filter.list;

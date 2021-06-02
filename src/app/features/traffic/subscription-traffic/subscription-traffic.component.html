@@ -1,6 +1,7 @@
 <div *ngIf="debug">{{initialFilters | json}}</div>
 <app-generic-table
   #tableComponent
+  [selectable]="true"
   [component]="this"
 >
 </app-generic-table>
