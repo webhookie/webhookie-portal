@@ -30,6 +30,7 @@ import {HttpErrorInterceptor} from "./interceptor/http-error.interceptor";
 import { ToastsContainerComponent } from './components/toasts-container/toasts-container.component';
 import {NgbAlertModule, NgbToastModule, NgbTypeaheadModule} from "@ng-bootstrap/ng-bootstrap";
 import { SearchableSelectComponent } from './components/searchable-select/searchable-select.component';
+import {HttpLoaderInterceptor} from "./interceptor/http.loader.interceptor";
 
 let apiProvider;
 if (environment.mock) {
@@ -88,6 +89,11 @@ if (environment.mock) {
     SearchableSelectComponent
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpLoaderInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpTokenInterceptor,
