@@ -5,7 +5,7 @@ import {map, tap} from "rxjs/operators";
 import {Api} from "../../../shared/api";
 import {Application} from "../model/application";
 import {LogService} from "../../../shared/service/log.service";
-import {ApiService} from "../../../shared/service/api.service";
+import {HttpResponseType} from "../../../shared/service/api.service";
 import {Callback} from "../../../shared/model/callback";
 import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
 
@@ -27,7 +27,7 @@ export class CallbackService {
       .set("Accept", "*/*")
     Object.keys(request.headers)
       .forEach(k => headers.set(k, request.headers[k]))
-    return this.api.post(this.CALLBACK_TEST_URI, request, new HttpParams(), headers, ApiService.RESPONSE_TYPE_TEXT)
+    return this.api.post(this.CALLBACK_TEST_URI, request, new HttpParams(), headers, HttpResponseType.TEXT)
       .pipe(
         map((it: HttpResponse<any>) => new CallbackResponse(it.status, it.headers, it.body))
       );
@@ -44,7 +44,7 @@ export class CallbackService {
 
   createCallback(request: CallbackRequest): Observable<Callback> {
     let uri = `/applications/${request.applicationId}/callbacks`
-    return this.api.post(uri, request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
+    return this.api.post(uri, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(
         map((it: HttpResponse<any>) => this.adapter.adapt(it.body)),
       )

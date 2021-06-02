@@ -1,17 +1,23 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpContext, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {LogService} from "./log.service";
 import {Api} from "../api";
 import {environment} from "../../../environments/environment";
 
+export enum HttpResponseType {
+  JSON = 'json',
+  TEXT = 'text'
+}
+
+export enum HttpObserveType {
+  RESPONSE = 'response'
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService implements Api {
-  public static RESPONSE_TYPE_JSON = "json"
-  public static RESPONSE_TYPE_TEXT = "text"
-
   private apiUrl: string = environment.apiUrl
 
   constructor(
@@ -20,64 +26,63 @@ export class ApiService implements Api {
   ) {
   }
 
-  //TODO: refactor
-  public post(
+  private request(
+    method: string,
     uri: string,
     body: any,
     params: HttpParams = new HttpParams(),
     headers: HttpHeaders = new HttpHeaders(),
-    responseType: string = ApiService.RESPONSE_TYPE_JSON
+    responseType: HttpResponseType = HttpResponseType.JSON
   ): Observable<HttpResponse<any>> {
-    let options = {};
-    if (params) {
-      options = {
-        params,
-        headers,
-        responseType: responseType,
-        observe: 'response'
-      };
-    }
+    let options: HttpRequestOptions = {
+      params: params,
+      headers: headers,
+      body: body,
+      responseType: responseType,
+      observe: HttpObserveType.RESPONSE
+    };
     let url = `${this.apiUrl}${uri}`;
-    // @ts-ignore
-    return this.http.post(url, body, options)
-  }
 
-  public put(
-    uri: string,
-    body: any,
-    params: HttpParams = new HttpParams(),
-    headers: HttpHeaders = new HttpHeaders(),
-    responseType: string = ApiService.RESPONSE_TYPE_JSON
-  ): Observable<HttpResponse<any>> {
-    let options = {};
-    if (params) {
-      options = {
-        params,
-        headers,
-        responseType: responseType,
-        observe: 'response'
-      };
-    }
-    let url = `${this.apiUrl}${uri}`;
-    // @ts-ignore
-    return this.http.put(url, body, options)
+    return this.http.request(method, url, options)
   }
 
   public json(
     uri: string,
-    params: HttpParams = new HttpParams()
+    params: HttpParams = new HttpParams(),
+    headers: HttpHeaders = new HttpHeaders()
   ): Observable<any> {
 
-    let option = {};
-    if (params) {
-      option = {
-        params
-        // observe: 'response'
-      };
-    }
+    let option = {
+      params,
+      headers
+      // observe: 'response'
+    };
     let url = `${this.apiUrl}${uri}`;
 
     return this.http.get(url, option)
   }
+
+  post(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>> {
+    return this.request("POST", uri, body, params, headers, responseType)
+  }
+
+  put(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>> {
+    return this.request("PUT", uri, body, params, headers, responseType)
+  }
+}
+
+interface HttpRequestOptions {
+  body?: any;
+  headers?: HttpHeaders | {
+    [header: string]: string | string[];
+  };
+  context?: HttpContext;
+  reportProgress?: boolean;
+  observe: HttpObserveType;
+  params?: HttpParams | {
+    [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
+  };
+  responseType?: HttpResponseType;
+  withCredentials?: boolean;
 }
 

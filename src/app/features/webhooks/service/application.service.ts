@@ -6,7 +6,7 @@ import {map, tap} from "rxjs/operators";
 import {ApplicationAdapter} from "./adapter/application.adapter";
 import {Api} from "../../../shared/api";
 import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
-import {ApiService} from "../../../shared/service/api.service";
+import {HttpResponseType} from "../../../shared/service/api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class ApplicationService {
   }
 
   createApplication(request: CreateApplicationRequest): Observable<Application> {
-    return this.api.post(this.REQUEST_URI, request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
+    return this.api.post(this.REQUEST_URI, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(
         map((it: HttpResponse<any>) => this.adapter.adapt(it.body)),
       )

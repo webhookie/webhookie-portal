@@ -6,7 +6,7 @@ import {WebhookGroupAdapter} from "./adapter/webhook-group.adapter";
 import {WebhookGroup} from "../model/webhook-group";
 import {Api} from "../../../shared/api";
 import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
-import {ApiService} from "../../../shared/service/api.service";
+import {HttpResponseType} from "../../../shared/service/api.service";
 import {Webhook} from "../model/webhook";
 import {StringUtils} from "../../../shared/string-utils";
 import {ApplicationContext} from "../../../shared/application.context";
@@ -93,14 +93,14 @@ export class WebhookGroupService {
 
   create(request: any): Observable<WebhookGroup> {
     this.log.info(`Creating WebhookGroup...`);
-    return this.api.post(this.WEBHOOKGROUPS_URI, request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
+    return this.api.post(this.WEBHOOKGROUPS_URI, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(mergeMap((it: HttpResponse<any>) => this.webhookGroupAdapter.adapt(it.body)));
   }
 
   update(request: any, id: string) {
     this.log.info(`Creating WebhookGroup...`);
     let uri = `${this.WEBHOOKGROUPS_URI}/${id}`;
-    return this.api.put(uri, request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
+    return this.api.put(uri, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(mergeMap((it: HttpResponse<any>) => this.webhookGroupAdapter.adapt(it.body)));
   }
 }

@@ -6,7 +6,8 @@ import {MockData} from "./modk-data";
 export class MockApiService implements Api {
   json(
     uri: string,
-    params: HttpParams = new HttpParams()
+    params: HttpParams = new HttpParams(),
+    headers: HttpHeaders = new HttpHeaders()
   ): Observable<any> {
     return MockData.for(uri, params)
   }

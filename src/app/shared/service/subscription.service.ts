@@ -6,7 +6,7 @@ import {Api} from "../api";
 import {LogService} from "./log.service";
 import {SubscriptionAdapter} from "../adapter/subscription.adapter";
 import {Subscription} from "../model/subscription";
-import {ApiService} from "./api.service";
+import {HttpResponseType} from "./api.service";
 import {Pageable} from "../request/pageable";
 import {RequestUtils} from "../request/request-utils";
 
@@ -38,7 +38,7 @@ export class SubscriptionService {
       callbackId: callbackId
     }
 
-    return this.api.post("/subscriptions", request, new HttpParams(), new HttpHeaders(), ApiService.RESPONSE_TYPE_JSON)
+    return this.api.post("/subscriptions", request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
 
@@ -48,7 +48,7 @@ export class SubscriptionService {
       .set("Accept", "*/*")
     Object.keys(request.headers)
       .forEach(k => headers.set(k, request.headers[k]))
-    return this.api.post(`/subscriptions/${subscription?.id}/validate`, request, httpParams, headers, ApiService.RESPONSE_TYPE_TEXT)
+    return this.api.post(`/subscriptions/${subscription?.id}/validate`, request, httpParams, headers, HttpResponseType.TEXT)
       .pipe(mergeMap(() => this.fetchSubscription(subscription.id)))
   }
 
@@ -86,7 +86,7 @@ export class SubscriptionService {
       reason: ""
     };
     return this.api
-      .post(`/subscriptions/${subscription?.id}/${action}`, body, httpParams, headers, ApiService.RESPONSE_TYPE_TEXT)
+      .post(`/subscriptions/${subscription?.id}/${action}`, body, httpParams, headers, HttpResponseType.TEXT)
       .pipe(
         tap(it => this.log.debug(`Subscription '${subscription.id}' was updated to: ${it.body}`)),
         mergeMap(() => this.fetchSubscription(subscription.id))
