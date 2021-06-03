@@ -19,6 +19,9 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     WhyWebhookComponent,
 
   ],
+  exports: [
+    WebhookEmptyComponent
+  ],
   imports: [
     CommonModule,
     CarouselModule,

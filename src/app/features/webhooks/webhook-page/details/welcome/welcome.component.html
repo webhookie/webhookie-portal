@@ -1,2 +1,2 @@
 <app-welcome-with-data *ngIf="!(isEmpty | async)" [items]="webhooks$"></app-welcome-with-data>
-<app-welcome-without-data *ngIf="isEmpty | async"></app-welcome-without-data>
+<app-webhook-empty *ngIf="isEmpty | async"></app-webhook-empty>

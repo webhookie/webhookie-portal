@@ -14,7 +14,6 @@ import { WebhookCommonModule } from '../common/webhook-common.module';
 import { WebhookFormComponent } from './webhook-form/webhook-form.component';
 import { WelcomeComponent } from './details/welcome/welcome.component';
 import { WelcomeWithDataComponent } from './details/welcome/welcome-with-data/welcome-with-data.component';
-import { WelcomeWithoutDataComponent } from './details/welcome/welcome-without-data/welcome-without-data.component';
 import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../../../shared/shared.module";
@@ -22,6 +21,7 @@ import { WebhookAccessGroupComponent } from './webhook-form/webhook-access-group
 import {NgbAlertModule, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 import { CreateWebhookGroupComponent } from './webhook-form/create-webhook-group/create-webhook-group.component';
 import { EditWebhookGroupComponent } from './webhook-form/edit-webhook-group/edit-webhook-group.component';
+import {LandingPageModule} from "../../../landing-page/landing-page.module";
 @NgModule({
   declarations: [
     WebhookPageComponent,
@@ -35,7 +35,6 @@ import { EditWebhookGroupComponent } from './webhook-form/edit-webhook-group/edi
     WebhookFormComponent,
     WelcomeComponent,
     WelcomeWithDataComponent,
-    WelcomeWithoutDataComponent,
     WebhookAccessGroupComponent,
     CreateWebhookGroupComponent,
     EditWebhookGroupComponent,
@@ -53,6 +52,7 @@ import { EditWebhookGroupComponent } from './webhook-form/edit-webhook-group/edi
     ReactiveFormsModule,
     NgbAlertModule,
     NgbCollapseModule,
+    LandingPageModule,
   ],
 
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
