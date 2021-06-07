@@ -8,9 +8,10 @@ import {Api} from "../../../shared/api";
 import {RequestUtils} from "../../../shared/request/request-utils";
 import {Pageable} from "../../../shared/request/pageable";
 import {TraceRequestAdapter} from "./trace-request.adapter";
-import {HttpParams} from "@angular/common/http";
+import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {SpanResponseAdapter} from "./span-response.adapter";
 import {SpanResponse} from "../model/span-response";
+import {HttpResponseType} from "../../../shared/service/api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,14 @@ export class SpanService {
     let uri = `${this.SPAN_URI}/${span.spanId}/response`;
     return this.api.json(uri, params)
       .pipe(map(it => this.spanResponseAdapter.adapt(it)))
+  }
+
+  retry(span: Span): Observable<string> {
+    let httpParams = new HttpParams();
+    let headers = new HttpHeaders()
+      .set("Content-Type", "application/json")
+      .set("Accept", "*/*")
+    return this.api.post(`/traffic/span/resend`, span.spanId, httpParams, headers, HttpResponseType.TEXT)
+      .pipe(map((it: HttpResponse<any>) => it.body))
   }
 }

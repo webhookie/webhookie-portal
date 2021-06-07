@@ -34,6 +34,8 @@ import {JsonUtils} from "../../../shared/json-utils";
 import {TraceService} from "../service/trace.service";
 import {HttpMessage} from "../model/http-message";
 import {environment} from "../../../../environments/environment";
+import {ToastService} from "../../../shared/service/toast.service";
+import {LogService} from "../../../shared/service/log.service";
 
 type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
 
@@ -53,6 +55,8 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   readonly tableData: Observable<Array<Span>> = this._spans$.asObservable();
 
   constructor(
+    private readonly log: LogService,
+    private readonly toastService: ToastService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly modalService: ModalService,
     private readonly spanService: SpanService,
@@ -121,6 +125,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 
   private createContextMenuItems() {
     return [
+      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.RETRY).handler(this.retry()).build(),
       ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_REQUEST).handler(this.viewRequest()).build(),
       ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_RESPONSE).handler(this.viewResponse()).build(),
     ];
@@ -138,13 +143,22 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     JsonUtils.updateElementWithJson(message);
   }
 
+  retry(): (span: Span, item: SpanContextMenu) => any {
+    return (span: Span) => {
+      this.spanService.retry(span)
+        .subscribe(it => {
+          this.log.info(`Message(s) resend successfully!!`);
+          this.toastService.success("Message(s) resend successfully! response: " + it, "SUCCESS")
+        });
+    }
+  }
+
   viewRequest(): (span: Span, item: SpanContextMenu) => any {
     return (span: Span) => {
       this.traceService.traceRequest(span.traceId)
         .subscribe(it => this.showBody(it));
     }
   }
-
 
   viewResponse(): (span: Span, item: SpanContextMenu) => any {
     return (span: Span) => {
@@ -155,6 +169,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 }
 
 enum SpanMenu {
+  RETRY = "Retry",
   VIEW_REQUEST = "View Request",
   VIEW_RESPONSE = "View Response"
 }
