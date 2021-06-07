@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {AuthService} from "./service/auth.service";
 import {User} from "./model/user";
@@ -21,7 +21,7 @@ export class ApplicationContext {
 
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService,
+    @Inject("Auth") private readonly authService: AuthService,
     private readonly log: LogService
   ) {
     this.isLoggedIn = this.authService.loggedIn$;

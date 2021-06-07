@@ -31,13 +31,18 @@ import { ToastsContainerComponent } from './components/toasts-container/toasts-c
 import {NgbAlertModule, NgbToastModule, NgbTypeaheadModule} from "@ng-bootstrap/ng-bootstrap";
 import { SearchableSelectComponent } from './components/searchable-select/searchable-select.component';
 import {HttpLoaderInterceptor} from "./interceptor/http.loader.interceptor";
+import {AuthService} from "./service/auth.service";
+import {MockAuthService} from "./mock/mock-auth.service";
 
 let apiProvider;
+let authProvider;
 if (environment.mock) {
   console.warn("Using MOCK API!!! make sure to remove this in production")
   apiProvider = MockApiService
+  authProvider = MockAuthService
 } else {
   apiProvider = ApiService
+  authProvider = AuthService
 }
 
 @NgModule({
@@ -112,6 +117,10 @@ if (environment.mock) {
     {
       provide: 'Api',
       useClass: apiProvider
+    },
+    {
+      provide: 'Auth',
+      useClass: authProvider
     },
     BsDatepickerConfig
   ]

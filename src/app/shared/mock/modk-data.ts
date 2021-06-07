@@ -96,6 +96,25 @@ export class MockData {
     }
   };
 
+  public static readonly user = {
+    "entity": "Hookie Solutions",
+    "consumerGroups": [
+      "Customers",
+      "Suppliers",
+      "webhookie-consumer-group-1"
+    ],
+    "providerGroups": [
+      "Product Management"
+    ],
+    "roles": [
+      "WH_CONSUMER",
+      "WH_USER",
+      "WH_PROVIDER",
+      "WH_ADMIN"
+    ],
+    "email": "auth0|5fdc19e1b10d6d006f621d6f"
+  };
+
   public static readonly applications = [
     {
       "name": "Products Application",
@@ -613,6 +632,10 @@ export class MockData {
   static for(uri: string, params: HttpParams): Observable<any> {
     if (uri.startsWith("/public/config")) {
       return of(this.config)
+    }
+
+    if (uri.startsWith("/user")) {
+      return of(this.user)
     }
 
     if (uri.startsWith("/applications")) {

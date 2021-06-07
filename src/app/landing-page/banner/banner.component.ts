@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ApplicationContext} from "../../shared/application.context";
 import {AuthService} from "../../shared/service/auth.service";
 
@@ -10,7 +10,7 @@ import {AuthService} from "../../shared/service/auth.service";
 export class BannerComponent implements OnInit {
 
   constructor(
-    private readonly authService: AuthService,
+    @Inject("Auth") private readonly authService: AuthService,
     readonly appContext: ApplicationContext,
   ) {
   }

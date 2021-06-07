@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {EMPTY, Observable, throwError} from 'rxjs';
 import {LogService} from "../service/log.service";
@@ -17,7 +17,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     private readonly log: LogService,
     private readonly toastService: ToastService,
-    private readonly authService: AuthService
+    @Inject("Auth") private readonly authService: AuthService
   ) {
   }
 

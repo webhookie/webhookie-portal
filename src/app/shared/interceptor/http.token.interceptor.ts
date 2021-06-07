@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {Observable, throwError as observableThrowError} from 'rxjs';
@@ -11,7 +11,7 @@ import {environment} from "../../../environments/environment";
 export class HttpTokenInterceptor implements HttpInterceptor {
 
   constructor(
-    private authService: AuthService,
+    @Inject("Auth") private authService: AuthService,
     private readonly log: LogService
   ) {
   }

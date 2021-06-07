@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AuthService} from "../../../../shared/service/auth.service";
 
 @Component({
@@ -8,7 +8,7 @@ import {AuthService} from "../../../../shared/service/auth.service";
 })
 export class LoginGetStartedComponent implements OnInit {
 
-  constructor(private readonly authService: AuthService) {
+  constructor(@Inject("Auth") private readonly authService: AuthService) {
   }
 
   get loggedIn() {

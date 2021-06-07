@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {Observable} from "rxjs";
 import {WebhooksContext} from "../webhooks-context";
@@ -16,7 +16,7 @@ export class CanActivateSubscribe implements CanActivate {
     private readonly log: LogService,
     private readonly routeService: RouterService,
     private readonly router: Router,
-    private readonly authService: AuthService
+    @Inject("Auth") private readonly authService: AuthService
   ) {
   }
 

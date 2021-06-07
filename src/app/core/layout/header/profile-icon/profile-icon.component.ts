@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AuthService} from "../../../../shared/service/auth.service";
 import {JsonUtils} from "../../../../shared/json-utils";
 import {ModalService} from "../../../../shared/service/modal.service";
@@ -15,7 +15,7 @@ export class ProfileIconComponent implements OnInit {
   constructor(
     private readonly appContext: ApplicationContext,
     private readonly modalService: ModalService,
-    readonly authService: AuthService
+    @Inject("Auth") readonly authService: AuthService
   ) { }
 
   ngOnInit(): void {

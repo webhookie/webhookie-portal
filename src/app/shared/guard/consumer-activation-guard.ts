@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {ApplicationContext} from "../application.context";
 import {Constants} from "../constants";
@@ -15,7 +15,7 @@ export class ConsumerActivationGuard extends RoleActivationGuard {
     log: LogService,
     routeService: RouterService,
     router: Router,
-    authService: AuthService,
+    @Inject("Auth") authService: AuthService,
     appCtx: ApplicationContext
   ) {
     super(log, routeService, router, authService, appCtx);

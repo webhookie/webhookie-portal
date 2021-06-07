@@ -7,6 +7,7 @@ import {AuthService} from "../service/auth.service";
 import {ApplicationContext} from "../application.context";
 import {ArrayUtils} from "../array-utils";
 import {map} from "rxjs/operators";
+import {Inject} from "@angular/core";
 
 export abstract class RoleActivationGuard  implements CanActivate {
   abstract supportedRoles: Array<string>
@@ -15,7 +16,7 @@ export abstract class RoleActivationGuard  implements CanActivate {
     private readonly log: LogService,
     private readonly routeService: RouterService,
     private readonly router: Router,
-    private readonly authService: AuthService,
+    @Inject("Auth") private readonly authService: AuthService,
     private readonly appCtx: ApplicationContext
   ) {
   }
