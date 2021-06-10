@@ -30,3 +30,11 @@
     opacity: 1;
 }
 
+.bg-white p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 42px;
+}

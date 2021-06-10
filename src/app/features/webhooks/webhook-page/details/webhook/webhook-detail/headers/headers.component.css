@@ -32,7 +32,7 @@
   /* content: "\f105";
   font-family: 'Font Awesome 5 Free';
   font-weight: 900; */
-  content: url("../../../../../../../../assets/images/Chevron.svg");
+  content: url("/assets/images/Chevron_Breadcrumb.svg");
   float: left;
   width: 21px;
   margin-top: -3px;
@@ -44,7 +44,7 @@
 
 #header-accordion .card .card-header a.active:after {
   /* content: "\f107"; */
-  content: url("../../../../../../../../assets/images/Chevron_down.svg");
+  content: url("/assets/images/Chevron_down.svg");
 }
 
 .col-2-set {
