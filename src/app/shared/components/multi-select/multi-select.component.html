@@ -2,7 +2,7 @@
   <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 mw-180" data-toggle="dropdown">
     {{title}}
   </button>
-  <div class="search-small dropdown-menu multi-select-dropdown mt-0">
+  <div class="search-small dropdown-menu multi-select-dropdown mt-0 p-2">
     <div class="input-group">
       <input type="text" placeholder="Search..." class="form-control border-right-0" id="{{id}}-Search">
       <label for="{{id}}-Search"></label>
@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  <div class="item-value">
+  <div class="item-value d-none">
     <ul class="d-flex align-items-center mt-3">
       <li *ngFor="let item of selectedItems">
         <span>{{item.value}}</span><img (click)="toggle(item, $event)" alt="" src="assets/images/Pill_delete.svg">

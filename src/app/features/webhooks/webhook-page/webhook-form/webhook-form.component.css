@@ -10,7 +10,9 @@ font-size: 16px;
 line-height: 2;
 margin-right: 20px;
 }
-
+.editor-height{
+    min-height: 1024px !important;
+}
 .dot-buttons ul{
 list-style-type: none;
 padding: 0;

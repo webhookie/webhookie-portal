@@ -9,23 +9,27 @@
         <span *ngIf="element.payload.json.format != undefined" class="badge badge-light">{{element.payload.json.format}}</span>
         <span *ngIf="element.payload.isRequired" class="badge badge-warning">REQUIRED</span>
       </a>
-      <div class="webhook webhook-view">
+      <div class="webhook">
         <div class="col-2-set" *ngIf="element.payload.description">
           <div><p class="font12 mb-0">{{element.payload.description}}</p></div>
         </div>
         <div *ngFor="let key of element.payload.keys" class="col-2-set">
           <span>{{key}}</span>
-          <span class="font12 pl-4">{{element.payload.value(key)}}</span>
+          <span class="font12 pl-4 space-top">{{element.payload.value(key)}}</span>
         </div>
       </div>
       <div *ngIf="element.hasChildAttributes" class="collapse main-body-collapse" [attr.data-parent]="'#' + parentId" id="body-heading-collapse-{{id}}">
-        <div class="card-body">
+        <div class="card-body" [class.card-header-detailed]="element.hasChildAttributes" [class.webhook-view]="element.payload.name !== 'Body'">
           <!-- ..... -->
           <app-message-payload
             *ngFor="let child of element.nestedElements;let l=index;"
             [element]="child"
             [index]="l"
+            [_length]=element.nestedElements.length
             [parentId]="id + '-' + l"
+            [class.__last-child-before]="index + 1 == _length" [class.card-header-empty]="element.emptyAttributes"
+            [class.card-header-detailed]="element.hasChildAttributes"
+            [class.webhook-view]="element.payload.name !== 'Body'"
           >
           </app-message-payload>
         </div>

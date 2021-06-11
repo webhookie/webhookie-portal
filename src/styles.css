@@ -575,7 +575,11 @@ input:focus{
 .btn-primary-outline:hover {
     color: #0151CC;
 }
-
+.monaco-editor .view-overlays .focused {
+    height: 1042px !important;
+    min-height: 1042px !important;
+    max-width: 1024px !important;
+}
 
 
 @media (max-width: 1024px) {

@@ -11,7 +11,8 @@ export class MessagePayloadComponent {
   @Input() element!: WebhookPayloadElement
   @Input() index: number = 0;
   @Input() parentId!: string
-
+  @Input() _length: number = 0;
+  
   get id() {
     return StringUtils.encode(`${this.parentId}-${this.index}-${this.element.payload.name}`);
   }
