@@ -233,7 +233,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
   unblock(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription) => {
-      this.service.unblockSubscription(subscription)
+      this.service.unblockSubscription(subscription.id)
         .subscribe(it => subscription.statusUpdate = it.statusUpdate);
     }
   }

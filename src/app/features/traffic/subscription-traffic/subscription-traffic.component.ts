@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, TemplateRef, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
 import {Observable, of, ReplaySubject, Subject} from "rxjs";
 import {Span, SpanStatus} from "../model/span";
@@ -36,6 +36,7 @@ import {HttpMessage} from "../model/http-message";
 import {environment} from "../../../../environments/environment";
 import {ToastService} from "../../../shared/service/toast.service";
 import {LogService} from "../../../shared/service/log.service";
+import {SubscriptionService} from "../../../shared/service/subscription.service";
 
 type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
 
@@ -44,7 +45,7 @@ type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
   templateUrl: './subscription-traffic.component.html',
   styleUrls: ['./subscription-traffic.component.css']
 })
-export class SubscriptionTrafficComponent extends GenericTable<Span, Span> implements OnInit {
+export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
   private readonly _spans$: Subject<Array<Span>> = new ReplaySubject();
   // @ts-ignore
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
@@ -61,14 +62,12 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     private readonly modalService: ModalService,
     private readonly spanService: SpanService,
     private readonly traceService: TraceService,
+    private readonly subscriptionService: SubscriptionService
   ) {
     super();
 
     this.activatedRoute.queryParams
       .subscribe(it => this.initialFilters = it);
-  }
-
-  ngOnInit(): void {
   }
 
   fetchData(filter: any, pageable: Pageable) {
@@ -125,10 +124,28 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 
   private createContextMenuItems() {
     return [
-      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.RETRY).handler(this.retry()).build(),
+      ContextMenuItemBuilder
+        .create<Span, SpanMenu>(SpanMenu.RETRY)
+        .handler(this.retry())
+        .isAvailable(this.canBeRetried())
+        .build(),
+      ContextMenuItemBuilder
+        .create<Span, SpanMenu>(SpanMenu.UNBLOCK_SUBSCRIPTION)
+        .handler(this.unblockSubscription())
+        .isAvailable(this.spanSubscriptionIsBlocked())
+        .build(),
+      ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.DETAILS).handler(this.details()).build(),
       ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_REQUEST).handler(this.viewRequest()).build(),
       ContextMenuItemBuilder.create<Span, SpanMenu>(SpanMenu.VIEW_RESPONSE).handler(this.viewResponse()).build(),
     ];
+  }
+
+  canBeRetried(): (span: Span) => boolean {
+    return (span) => span.canBeRetried()
+  }
+
+  spanSubscriptionIsBlocked(): (span: Span) => boolean {
+    return (span) => span.subscriptionIsBlocked()
   }
 
   fetchDetails(data: any): Observable<boolean> {
@@ -143,12 +160,33 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     JsonUtils.updateElementWithJson(message);
   }
 
+  unblockSubscription(): (span: Span, item: SpanContextMenu) => any {
+    return (span: Span) => {
+      this.subscriptionService.unblockSubscription(span.subscription.id)
+        .subscribe(it => {
+          let message = "Subscription is unblocked successfully!!";
+          this.log.info(message);
+          this.toastService.success(`${message} : ${it.statusUpdate.status}`, "SUCCESS")
+        });
+    }
+  }
+
   retry(): (span: Span, item: SpanContextMenu) => any {
     return (span: Span) => {
       this.spanService.retry(span)
         .subscribe(it => {
           this.log.info(`Message(s) resend successfully!!`);
           this.toastService.success("Message(s) resend successfully! response: " + it, "SUCCESS")
+        });
+    }
+  }
+
+  details(): (span: Span, item: SpanContextMenu) => any {
+    return (span: Span) => {
+      this.spanService.fetchSpan(span.spanId)
+        .subscribe(it => {
+          this.modalService.open(this.resultViewer!);
+          JsonUtils.updateElement(it);
         });
     }
   }
@@ -170,6 +208,8 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 
 enum SpanMenu {
   RETRY = "Retry",
+  UNBLOCK_SUBSCRIPTION = "Unblock Subscription",
+  DETAILS = "View Details",
   VIEW_REQUEST = "View Request",
   VIEW_RESPONSE = "View Response"
 }

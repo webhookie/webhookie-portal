@@ -58,27 +58,27 @@ export class SubscriptionService {
   }
 
   activateSubscription(subscription: Subscription): Observable<Subscription> {
-    return this.subscriptionStatusUpdate(subscription, "activate");
+    return this.subscriptionStatusUpdate(subscription.id, "activate");
   }
 
   deactivateSubscription(subscription: Subscription): Observable<Subscription> {
-    return this.subscriptionStatusUpdate(subscription, "deactivate");
+    return this.subscriptionStatusUpdate(subscription.id, "deactivate");
   }
 
   suspendSubscription(subscription: Subscription): Observable<Subscription> {
-    return this.subscriptionStatusUpdate(subscription, "suspend");
+    return this.subscriptionStatusUpdate(subscription.id, "suspend");
   }
 
   unsuspendSubscription(subscription: Subscription): Observable<Subscription> {
-    return this.subscriptionStatusUpdate(subscription, "unsuspend");
+    return this.subscriptionStatusUpdate(subscription.id, "unsuspend");
   }
 
-  unblockSubscription(subscription: Subscription): Observable<Subscription> {
-    return this.subscriptionStatusUpdate(subscription, "unblock");
+  unblockSubscription(subscriptionId: string): Observable<Subscription> {
+    return this.subscriptionStatusUpdate(subscriptionId, "unblock");
   }
 
-  private subscriptionStatusUpdate(subscription: Subscription, action: string): Observable<Subscription> {
-    this.log.debug(`'${action.toUpperCase()}'ing subscription: ${subscription.id}`)
+  private subscriptionStatusUpdate(id: string, action: string): Observable<Subscription> {
+    this.log.debug(`'${action.toUpperCase()}'ing subscription: ${id}`)
     let httpParams = new HttpParams();
     let headers = new HttpHeaders()
       .set("Accept", ["text/plain", "application/json"]);
@@ -86,10 +86,10 @@ export class SubscriptionService {
       reason: ""
     };
     return this.api
-      .post(`/subscriptions/${subscription?.id}/${action}`, body, httpParams, headers, HttpResponseType.TEXT)
+      .post(`/subscriptions/${id}/${action}`, body, httpParams, headers, HttpResponseType.TEXT)
       .pipe(
-        tap(it => this.log.debug(`Subscription '${subscription.id}' was updated to: ${it.body}`)),
-        mergeMap(() => this.fetchSubscription(subscription.id))
+        tap(it => this.log.debug(`Subscription '${id}' was updated to: ${it.body}`)),
+        mergeMap(() => this.fetchSubscription(id))
       )
   }
 }
