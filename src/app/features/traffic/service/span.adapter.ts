@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BaseAdapter} from "../../../shared/adapter/adapter";
-import {Span, SpanRetry, SpanStatus, SpanStatusUpdate} from "../model/span";
+import {Span, SpanRetry, SpanStatus, SpanStatusUpdate, SubscriptionDetails} from "../model/span";
 import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
 import {DateUtils} from "../../../shared/date-utils";
+import {ApplicationDetails} from "../../../shared/model/subscription";
 
 @Injectable({
   providedIn: 'root'
@@ -31,16 +32,26 @@ export class SpanAdapter extends BaseAdapter<Span> {
         itemNextRetry.statusCode
       );
     }
+    let subscriptionItem = item.subscription
 
-    let callback = this.callbackAdapter.adapt(item.callback);
+    let callback = this.callbackAdapter.adapt(subscriptionItem.callback);
+    let ia = subscriptionItem.application
+    let application = new ApplicationDetails(
+      ia.id,
+      ia.name,
+      ia.entity
+    );
+    let subscription = new SubscriptionDetails(
+      subscriptionItem.id,
+      application,
+      subscriptionItem.topic,
+      callback
+    )
 
     return new Span(
       item.traceId,
       item.spanId,
-      item.application,
-      item.entity,
-      item.topic,
-      callback,
+      subscription,
       item.responseCode,
       item.responseBody,
       statusUpdate,

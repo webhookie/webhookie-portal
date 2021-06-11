@@ -44,6 +44,12 @@ export class SpanService {
       .pipe(map(it => this.spanResponseAdapter.adapt(it)))
   }
 
+  fetchSpan(spanId: string): Observable<any> {
+    let params = new HttpParams()
+    let uri = `${this.SPAN_URI}/${spanId}`;
+    return this.api.json(uri, params)
+  }
+
   retry(span: Span): Observable<string> {
     let httpParams = new HttpParams();
     let headers = new HttpHeaders()
