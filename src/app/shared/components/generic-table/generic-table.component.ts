@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GenericTable} from "./generic-table";
 import {TableMasterData} from "../../model/table/table-master-data";
 import {TableData} from "../../model/table/table-data";
@@ -14,6 +14,8 @@ import {Pageable} from "../../request/pageable";
 import {TimestampTableFilter} from "../../model/table/filter/timestamp-table-filter";
 import {TableSort} from "../../request/table-sort";
 import * as $ from "jquery";
+import {TableColumn} from "../../model/table/column/table-column";
+import {SelectableTableColumn} from "../../model/table/column/selectable-table-column";
 
 @Component({
   selector: 'app-generic-table',
@@ -24,6 +26,8 @@ export class GenericTableComponent implements OnInit {
   // @ts-ignore
   @Input("component") table!: GenericTable
   @Input("selectable") selectable: boolean = false
+  @Input("selectActionTitle") selectActionTitle: string = ""
+  @Output("selectedAction") selectedAction: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
 
   dataSource: TableDataSource = new TableDataSource();
 
@@ -149,6 +153,16 @@ export class GenericTableComponent implements OnInit {
   onScroll() {
     this.currentPage = this.currentPage + 1;
     this.currentPageable.next(new Pageable(this.currentPage, 20, this.currentSort))
+  }
+
+  isSelectable(column: TableColumn, data: TableData): boolean {
+    if(!this.dataSource.isSelectableColumn(column)) {
+      return false;
+    }
+
+    let selectableColumn = column as SelectableTableColumn<any>
+
+    return selectableColumn.isSelectable(data);
   }
 }
 

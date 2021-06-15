@@ -51,11 +51,15 @@ export class SpanService {
   }
 
   retry(span: Span): Observable<string> {
+    return this.retryAll([span.spanId])
+  }
+
+  retryAll(ids: Array<string>): Observable<string> {
     let httpParams = new HttpParams();
     let headers = new HttpHeaders()
       .set("Content-Type", "application/json")
       .set("Accept", "*/*")
-    return this.api.post(`/traffic/span/resend`, span.spanId, httpParams, headers, HttpResponseType.TEXT)
+    return this.api.post(`/traffic/span/resend`, ids, httpParams, headers, HttpResponseType.TEXT)
       .pipe(map((it: HttpResponse<any>) => it.body))
   }
 }

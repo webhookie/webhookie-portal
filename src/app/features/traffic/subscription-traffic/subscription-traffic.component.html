@@ -3,6 +3,8 @@
   #tableComponent
   [selectable]="true"
   [component]="this"
+  (selectedAction)="resendSelectedSpans($event)"
+  selectActionTitle="Resend selected"
 >
 </app-generic-table>
 

@@ -108,7 +108,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
 
   get columns(): Array<TableColumn> {
     return [
-      new SelectableTableColumn("sticky-cell", "Subscription_Select_Column"),
+      new SelectableTableColumn<Span>("sticky-cell", "Subscription_Select_Column", (data => data.canBeRetried())),
       new TraceIdColumn("Subscription_TraceId_Column"),
       new ApplicationColumn("Subscription_Application_Column"),
       new WebhookColumn("Subscription_Webhook_Column"),
@@ -175,10 +175,18 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
     return (span: Span) => {
       this.spanService.retry(span)
         .subscribe(it => {
-          this.log.info(`Message(s) resend successfully!!`);
-          this.toastService.success("Message(s) resend successfully! response: " + it, "SUCCESS")
+          this.log.info(`Message(s) resent successfully!!`);
+          this.toastService.success("Message(s) resent successfully! response: " + it, "SUCCESS")
         });
     }
+  }
+
+  resendSelectedSpans(ids: Array<string>) {
+    this.spanService.retryAll(ids)
+      .subscribe(it => {
+        this.log.info(`${it} Message(s) resent successfully!!`);
+        this.toastService.success(`${it} Message(s) resent successfully! response: `, "SUCCESS")
+      });
   }
 
   details(): (span: Span, item: SpanContextMenu) => any {

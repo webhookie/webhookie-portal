@@ -3,7 +3,13 @@
     <h5 class="font12 font-weight-600 mb-0">{{dataSource.data.length}} rows</h5>
     <div *ngIf="selectable" class="resend d-flex align-items-center">
       <h5 class="font12 font-weight-600 mb-0 mr-3">{{table.selectedRows.length}} Items selected</h5>
-      <button class="btn btn-primary" [class.disabled]="table.emptySelectedRows" [disabled]="table.emptySelectedRows">Resend message</button>
+      <button
+        class="btn btn-primary"
+        [class.disabled]="table.emptySelectedRows"
+        [disabled]="table.emptySelectedRows"
+        (click)="selectedAction.emit(table.selectedRows)">
+        {{selectActionTitle}}
+      </button>
     </div>
   </div>
 </div>
@@ -58,7 +64,7 @@
               <img *ngIf="!isOpen(data)" src="assets/images/Chevron.svg" alt="right">
             </a>
             <div *ngIf="dataSource.isSelectableColumn(column)" class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="table.rowSelectionChanged(column, data, $event)">
+              <input [disabled]="!isSelectable(column, data)" type="checkbox" class="custom-control-input" id="check1{{i}}" (change)="table.rowSelectionChanged(column, data, $event)">
               <label class="custom-control-label" for="check1{{i}}"></label>
             </div>
             <app-context-menu *ngIf="dataSource.isContextMenuColumn(column)" [column]="column" [data]="data"></app-context-menu>
