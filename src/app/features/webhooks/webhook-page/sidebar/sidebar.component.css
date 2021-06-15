@@ -36,6 +36,10 @@
   text-decoration: none;
 }
 
+.spacing {
+   margin-top: 14px;
+   margin-bottom: 10px;
+}
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 260px;
