@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {BreadcrumbComponent} from "angular-crumbs";
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -13,4 +14,11 @@ export class BreadcrumbsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  hasParent(parent: BreadcrumbComponent): boolean {
+    if(parent && parent.breadcrumbs) {
+      return parent.breadcrumbs.length>0
+    }
+
+    return false
+  }
 }

@@ -1,7 +1,7 @@
 import {Component, TemplateRef, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
-import {Observable, of, ReplaySubject, Subject} from "rxjs";
-import {Span, SpanStatus} from "../model/span";
+import {BehaviorSubject, Observable, of} from "rxjs";
+import {Span, SpanStatus, SpanStatusUpdate} from "../model/span";
 import {TableHeader} from "../../../shared/model/table/header/table-header";
 import {SelectableTableHeader} from "../../../shared/model/table/header/selectable-table-header";
 import {SortableTableHeader} from "../../../shared/model/table/header/sortable-table-header";
@@ -37,6 +37,7 @@ import {environment} from "../../../../environments/environment";
 import {ToastService} from "../../../shared/service/toast.service";
 import {LogService} from "../../../shared/service/log.service";
 import {SubscriptionService} from "../../../shared/service/subscription.service";
+import {EventService, ServerSentEvent} from "../../../shared/service/event.service";
 
 type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
 
@@ -46,7 +47,7 @@ type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
   styleUrls: ['./subscription-traffic.component.css']
 })
 export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
-  private readonly _spans$: Subject<Array<Span>> = new ReplaySubject();
+  private readonly _spans$: BehaviorSubject<Array<Span>> = new BehaviorSubject<Array<Span>>([]);
   // @ts-ignore
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
   @ViewChild("resultViewer") resultViewer?: TemplateRef<any>;
@@ -55,6 +56,12 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
 
   readonly tableData: Observable<Array<Span>> = this._spans$.asObservable();
 
+  eventTypes = [
+    "spanCreated", "spanBlocked",
+    "spanFailedWithServerError", "spanFailedWithClientError", "spanFailedWithOtherError",
+    "spanFailedStatusUpdate", "spanWasOK", "spanMarkedRetrying", "spanIsRetrying"
+  ]
+
   constructor(
     private readonly log: LogService,
     private readonly toastService: ToastService,
@@ -62,12 +69,43 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
     private readonly modalService: ModalService,
     private readonly spanService: SpanService,
     private readonly traceService: TraceService,
+    private readonly eventService: EventService,
     private readonly subscriptionService: SubscriptionService
   ) {
     super();
 
     this.activatedRoute.queryParams
       .subscribe(it => this.initialFilters = it);
+
+    this.tableData.subscribe(spans => {
+      let ids = spans.map(it => it.spanId)
+      this.eventService.createEventSource("traffic/span/events", ids, this.eventTypes)
+        .subscribe(it => this.handleEvent(it))
+    })
+  }
+
+  handleEvent(event: ServerSentEvent<any>) {
+    let span = this._spans$.value.filter(it => it.spanId == event.data.spanId)[0]
+    let lastStatus = event.data.lastStatus
+    console.warn(event)
+    switch (event.type) {
+      case "spanMarkedRetrying":
+      case "spanWasOK":
+      case "spanBlocked":
+      case "spanFailedWithServerError":
+      case "spanFailedWithClientError":
+      case "spanFailedWithOtherError":
+      case "spanFailedStatusUpdate":
+      case "spanIsRetrying":
+        span.statusUpdate = new SpanStatusUpdate(
+          lastStatus.status,
+          lastStatus.time
+        )
+        span.tries = event.data.totalNumberOfTries
+        span.responseCode = event.data.latestResult.statusCode
+        break;
+      default: console.warn(event)
+    }
   }
 
   fetchData(filter: any, pageable: Pageable) {

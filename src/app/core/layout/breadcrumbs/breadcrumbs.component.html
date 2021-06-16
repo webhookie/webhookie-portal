@@ -1,7 +1,7 @@
 <mat-toolbar>
   <breadcrumb #parent>
     <div class="breadcrumb">
-      <span class="breadcrumb" *ngIf="parent.breadcrumbs.length>0">
+      <span class="breadcrumb" *ngIf="hasParent(parent)">
         <a  routerLink="/" mat-button>Home</a>
       </span>
       <span *ngFor="let route of parent.breadcrumbs" class="breadcrumb">
