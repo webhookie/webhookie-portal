@@ -87,7 +87,6 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
   handleEvent(event: ServerSentEvent<any>) {
     let span = this._spans$.value.filter(it => it.spanId == event.data.spanId)[0]
     let lastStatus = event.data.lastStatus
-    console.warn(event)
     switch (event.type) {
       case "spanMarkedRetrying":
       case "spanWasOK":
