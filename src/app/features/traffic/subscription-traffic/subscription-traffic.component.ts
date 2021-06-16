@@ -1,4 +1,4 @@
-import {Component, TemplateRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {Span, SpanStatus, SpanStatusUpdate} from "../model/span";
@@ -38,6 +38,7 @@ import {ToastService} from "../../../shared/service/toast.service";
 import {LogService} from "../../../shared/service/log.service";
 import {SubscriptionService} from "../../../shared/service/subscription.service";
 import {EventService, ServerSentEvent} from "../../../shared/service/event.service";
+import {filter} from "rxjs/operators";
 
 type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
 
@@ -46,7 +47,7 @@ type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
   templateUrl: './subscription-traffic.component.html',
   styleUrls: ['./subscription-traffic.component.css']
 })
-export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
+export class SubscriptionTrafficComponent extends GenericTable<Span, Span> implements AfterViewInit {
   private readonly _spans$: BehaviorSubject<Array<Span>> = new BehaviorSubject<Array<Span>>([]);
   // @ts-ignore
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
@@ -77,25 +78,44 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
     this.activatedRoute.queryParams
       .subscribe(it => this.initialFilters = it);
 
-    this.tableData.subscribe(spans => {
-      let ids = spans.map(it => it.spanId)
-      this.eventService.createEventSource("traffic/span/events", ids, this.eventTypes)
-        .subscribe(it => this.handleEvent(it))
-    })
+  }
+
+  ngOnDestroy() {
+    this.eventService.close("traffic/span/events")
+  }
+
+  ngAfterViewInit() {
+    this.tableComponent.dataSource.data$
+      .pipe(filter(it => it.length > 0))
+      .subscribe(spans => {
+        // @ts-ignore
+        let ids = spans.map(it => it.spanId)
+        this.eventService.createEventSource("traffic/span/events", ids, this.eventTypes)
+          .subscribe(it => this.handleEvent(it))
+      })
   }
 
   handleEvent(event: ServerSentEvent<any>) {
-    let span = this._spans$.value.filter(it => it.spanId == event.data.spanId)[0]
+    // @ts-ignore
+    let data: Array<Span> = this.tableComponent.dataSource.data$.value;
+    let span = data.filter(it => it.spanId == event.data.spanId)[0]
     let lastStatus = event.data.lastStatus
     switch (event.type) {
       case "spanMarkedRetrying":
-      case "spanWasOK":
-      case "spanBlocked":
+      case "spanIsRetrying":
+        span.statusUpdate = new SpanStatusUpdate(
+          lastStatus.status,
+          lastStatus.time
+        )
+        span.tries = event.data.totalNumberOfTries
+        span.responseCode = -1
+        break;
       case "spanFailedWithServerError":
       case "spanFailedWithClientError":
       case "spanFailedWithOtherError":
       case "spanFailedStatusUpdate":
-      case "spanIsRetrying":
+      case "spanBlocked":
+      case "spanWasOK":
         span.statusUpdate = new SpanStatusUpdate(
           lastStatus.status,
           lastStatus.time
@@ -103,7 +123,8 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
         span.tries = event.data.totalNumberOfTries
         span.responseCode = event.data.latestResult.statusCode
         break;
-      default: console.warn(event)
+      default:
+        console.warn(event)
     }
   }
 
@@ -129,7 +150,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> {
 
   get filters(): Array<TableFilter> {
     return [
-      new EmptyTableFilter("sticky-cell bg-light-gray", "Subscription_Filter1",""),
+      new EmptyTableFilter("sticky-cell bg-light-gray", "Subscription_Filter1", ""),
       new SearchTableFilter("", "traceId", "Trace Id"),
       new SearchTableFilter("", "application", "Application"),
       new SearchTableFilter("", "topic", "Webhook"),

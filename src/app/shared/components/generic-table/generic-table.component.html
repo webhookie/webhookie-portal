@@ -1,6 +1,6 @@
 <div class="common-table">
   <div class="number d-flex justify-content-between mb-3 align-items-center">
-    <h5 class="font12 font-weight-600 mb-0">{{dataSource.data.length}} rows</h5>
+    <h5 class="font12 font-weight-600 mb-0">{{dataSource.numberOfRows()}} rows</h5>
     <div *ngIf="selectable" class="resend d-flex align-items-center">
       <h5 class="font12 font-weight-600 mb-0 mr-3">{{table.selectedRows.length}} Items selected</h5>
       <button
@@ -56,7 +56,7 @@
         </td>
       </tr>
       <!-- main-table -->
-      <ng-container *ngFor="let data of dataSource.data;let i=index; trackBy:dataSource.trackByData">
+      <ng-container *ngFor="let data of dataSource.data$ | async;let i=index; trackBy:dataSource.trackByData">
         <tr class="sticky-header">
           <td *ngFor="let column of table.columns; trackBy:dataSource.trackByColumn" [ngClass]="column.clazz">
             <a *ngIf="dataSource.isMoreDataColumn(column)" href="javascript:void(0)" (click)="table.loadDetails(data)" class="clickable">

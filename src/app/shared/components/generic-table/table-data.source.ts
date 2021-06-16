@@ -1,6 +1,6 @@
 import {TableData} from "../../model/table/table-data";
 import {TableMasterData} from "../../model/table/table-master-data";
-import {EMPTY, Observable} from "rxjs";
+import {BehaviorSubject, EMPTY, Observable} from "rxjs";
 import {TableDetailData} from "../../model/table/table-detail-data";
 import {TableHeader} from "../../model/table/header/table-header";
 import {TableFilter} from "../../model/table/filter/table-filter";
@@ -13,17 +13,22 @@ import {TimestampTableFilter} from "../../model/table/filter/timestamp-table-fil
 import {MoreDataTableColumn} from "../../model/table/column/more-data-table-column";
 import {SelectableTableColumn} from "../../model/table/column/selectable-table-column";
 import {ContextMenuTableColumn} from "../../model/table/column/context-menu-table-column";
-import {ContextMenuItem} from "../../model/table/column/context-menu-item";
 
 export class TableDataSource {
-  data: Array<TableData> = [];
+  data$: BehaviorSubject<Array<TableData>> = new BehaviorSubject<Array<TableData>>([]);
 
   update(data: TableData[]) {
-    this.data.push(...data);
+    let d = this.data$.value
+    d.push(...data)
+    this.data$.next(d);
   }
 
   reset() {
-    this.data = [];
+    this.data$.next([]);
+  }
+
+  numberOfRows(): number {
+    return this.data$.value.length
   }
 
   isMasterData(item: TableData) {

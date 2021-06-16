@@ -16,12 +16,7 @@ export class EventService {
 
   createEventSource(uri: string, payload: any, types: Array<string>): Observable<any> {
     return new Observable<any>(observer => {
-      let cacheElement = this.sourceCache[uri];
-      if(cacheElement) {
-        console.warn(`Closing event source to ${uri}`)
-        cacheElement.close();
-      }
-
+      this.close(uri)
       console.info(`subscribing to events for ${uri}, ${payload}`);
       const source = new SSE(`${environment.apiUrl}/${uri}`, {
         headers: {
@@ -57,17 +52,18 @@ export class EventService {
         }
         console.debug(sse)
       })
-/*
-      source.onmessage = event => {
-        console.warn(event);
-        observer.next(event);
-      };
-*/
 
       source.stream();
     });
   }
 
+  close(uri: string) {
+    let cacheElement = this.sourceCache[uri];
+    if(cacheElement) {
+      console.warn(`Closing event source to ${uri}`)
+      cacheElement.close();
+    }
+  }
 }
 
 export interface ServerSentEvent<T> {
