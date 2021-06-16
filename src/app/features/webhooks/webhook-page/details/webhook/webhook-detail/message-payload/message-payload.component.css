@@ -21,7 +21,7 @@
 }
 .card-header.card-header-empty {
 
-  padding-left: 22px;
+  padding-left: 2px;
 
 }
 
@@ -160,9 +160,9 @@
 .webhook-view:before {
   content: "";
   position: absolute;
-  height: 83%;
+  height: 79%;
   border-left: 1px solid #E5E5E5;
-  left: 4px;
+  left: -15px;
   top: 0;
 }
 
@@ -175,9 +175,9 @@
   width: 15px;
   height: 1px;
   position: absolute;
-  top: 29px;
+  top: 14px;
   background-color: #E5E5E5;
-  left: 4px;
+  left: -15px;
 }
 
 .tree-view2 {
@@ -210,6 +210,9 @@
 
 }
 
+.card-body .card-header-detailed{
+  padding-left:0px;
+}
 @media (max-width: 1024px) {
   .col-2-set {
     display: inline-flex;
