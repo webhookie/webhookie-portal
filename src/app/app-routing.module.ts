@@ -3,6 +3,7 @@ import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {WebhooksComponent} from './features/webhooks/webhooks.component';
 import { AdministrationComponent } from './features/administration/administration.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import {AdminActivationGuard} from "./shared/guard/admin-activation-guard";
 const routes: Routes = [
   {
     path: '',
@@ -47,6 +48,7 @@ const routes: Routes = [
   {
     path: 'administration',
     component: AdministrationComponent,
+    canActivate: [AdminActivationGuard],
     data: {
       breadcrumb: 'Administration'
     },

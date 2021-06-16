@@ -32,6 +32,10 @@ export class MenuComponent implements OnInit {
     return this.appContext.isUser;
   }
 
+  hasAdminRole(): boolean {
+    return this.appContext.hasAdminRole;
+  }
+
   subscriptionsHomeLink(): Observable<string|undefined> {
     return this.roleHomeLink( "/subscriptions/consumer", "/subscriptions/provider")
   }
