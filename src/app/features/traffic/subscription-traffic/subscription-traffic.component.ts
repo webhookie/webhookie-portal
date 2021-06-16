@@ -96,13 +96,13 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   }
 
   handleEvent(event: ServerSentEvent<any>) {
+    this.log.debug(event)
     // @ts-ignore
     let data: Array<Span> = this.tableComponent.dataSource.data$.value;
     let span = data.filter(it => it.spanId == event.data.spanId)[0]
     let lastStatus = event.data.lastStatus
     switch (event.type) {
       case "spanMarkedRetrying":
-      case "spanIsRetrying":
         span.statusUpdate = new SpanStatusUpdate(
           lastStatus.status,
           lastStatus.time
@@ -110,6 +110,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
         span.tries = event.data.totalNumberOfTries
         span.responseCode = -1
         break;
+      case "spanIsRetrying":
       case "spanFailedWithServerError":
       case "spanFailedWithClientError":
       case "spanFailedWithOtherError":
