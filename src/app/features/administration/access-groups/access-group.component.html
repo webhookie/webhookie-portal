@@ -21,19 +21,19 @@
 
 <div class="modalSave">
   <ng-template #createGroupTemplate>
-    <app-create-access-group [groupType]="type" [parent]="this"></app-create-access-group>
+    <app-access-group-form [groupType]="type" [parent]="this"></app-access-group-form>
   </ng-template>
 </div>
 
 
 <div class="modalSave">
   <ng-template #editGroupTemplate>
-    <app-create-access-group
+    <app-access-group-form
       [groupType]="type"
       [formType]="editFormType"
       [parent]="this"
       [group]="selectedGroup">
-    </app-create-access-group>
+    </app-access-group-form >
   </ng-template>
 </div>
 

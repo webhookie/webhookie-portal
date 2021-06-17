@@ -15,7 +15,7 @@ import {ModalService} from "../../../shared/service/modal.service";
 import {AdminService} from "../admin.service";
 import {ToastService} from "../../../shared/service/toast.service";
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
-import {AccessGroupFormType} from "./create-access-group/create-access-group.component";
+import {AccessGroupFormType} from "./access-group-form/access-group-form.component";
 
 type AccessGroupContextMenu = ContextMenuItem<AccessGroup, AccessGroupMenu>;
 

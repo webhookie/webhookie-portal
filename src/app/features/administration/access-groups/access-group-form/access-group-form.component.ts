@@ -11,11 +11,11 @@ import {environment} from "../../../../../environments/environment";
 import {AccessGroupComponent} from "../access-group.component";
 
 @Component({
-  selector: 'app-create-access-group',
-  templateUrl: './create-access-group.component.html',
-  styleUrls: ['./create-access-group.component.css']
+  selector: 'app-access-group-form',
+  templateUrl: './access-group-form.component.html',
+  styleUrls: ['./access-group-form.component.css']
 })
-export class CreateAccessGroupComponent implements OnInit {
+export class AccessGroupFormComponent implements OnInit {
   accessGroupForm!: FormGroup
   @Input("group") group?: AccessGroup
   @Input("groupType") groupType!: string
