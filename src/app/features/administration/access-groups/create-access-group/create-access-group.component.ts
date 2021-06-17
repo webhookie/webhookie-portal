@@ -17,8 +17,9 @@ import {AccessGroupComponent} from "../access-group.component";
 })
 export class CreateAccessGroupComponent implements OnInit {
   accessGroupForm!: FormGroup
-  group?: AccessGroup
-  @Input("type") type!: string
+  @Input("group") group?: AccessGroup
+  @Input("groupType") groupType!: string
+  @Input("formType") formType: AccessGroupFormType = AccessGroupFormType.CREATE
   @Input("parent") parentComponent!: AccessGroupComponent
 
   debug = environment.debug
@@ -53,8 +54,8 @@ export class CreateAccessGroupComponent implements OnInit {
   create() {
     let request = this.accessGroupForm.value
 
-    let successHandler = (group: AccessGroup) => {
-      this.parentComponent.groupCreated(group)
+    let successHandler = () => {
+      this.parentComponent.reload();
       this.modalService.hide();
     };
 
@@ -68,7 +69,33 @@ export class CreateAccessGroupComponent implements OnInit {
       this.toastService.error(message, "Server Error")
     };
 
-    this.adminService.createAccessGroup(this.type, request)
-      .subscribe(successHandler, errorHandler)
+    if(this.formType == AccessGroupFormType.CREATE) {
+      this.adminService.createAccessGroup(this.groupType, request)
+        .subscribe(successHandler, errorHandler)
+    } else if(this.formType == AccessGroupFormType.EDIT) {
+      this.adminService.updateAccessGroup(this.groupType, request, this.group!.id)
+        .subscribe(successHandler, errorHandler)
+    }
   }
+
+  get title(): string {
+    if(this.formType == AccessGroupFormType.EDIT) {
+      return `Edit ${this.groupType} Group`
+    } else {
+      return `Create new ${this.groupType} Group`
+    }
+  }
+
+  get buttonTitle(): string {
+    if(this.formType == AccessGroupFormType.EDIT) {
+      return `Update`
+    } else {
+      return `Create`
+    }
+  }
+}
+
+export enum AccessGroupFormType {
+  CREATE = "CREATE",
+  EDIT = "EDIT"
 }

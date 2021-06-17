@@ -34,11 +34,22 @@ export class AdminService {
   }
 
   createAccessGroup(type: string, body: any): Observable<AccessGroup> {
-    let uri = "/consumergroups"
+    let uri = "consumergroups"
     if(type == "Provider") {
-      uri = "/providergroups"
+      uri = "providergroups"
     }
-    return this.api.post(`/admin${uri}`, body, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
+    return this.api.post(`/admin/${uri}`, body, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
+      .pipe(
+        map((it: HttpResponse<any>) => this.accessGroupAdapter.adapt(it.body)),
+      )
+  }
+
+  updateAccessGroup(type: string, body: any, id: string): Observable<AccessGroup> {
+    let uri = "consumergroups"
+    if(type == "Provider") {
+      uri = "providergroups"
+    }
+    return this.api.put(`/admin/${uri}/${id}`, body, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(
         map((it: HttpResponse<any>) => this.accessGroupAdapter.adapt(it.body)),
       )

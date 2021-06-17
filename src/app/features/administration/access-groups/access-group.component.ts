@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {AccessGroup} from "../../../shared/model/access-group";
 import {BehaviorSubject, Observable, of} from "rxjs";
@@ -14,6 +14,10 @@ import {map, mergeMap, tap} from "rxjs/operators";
 import {ModalService} from "../../../shared/service/modal.service";
 import {AdminService} from "../admin.service";
 import {ToastService} from "../../../shared/service/toast.service";
+import {ContextMenuItem, ContextMenuItemBuilder} from "../../../shared/model/table/column/context-menu-item";
+import {AccessGroupFormType} from "./create-access-group/create-access-group.component";
+
+type AccessGroupContextMenu = ContextMenuItem<AccessGroup, AccessGroupMenu>;
 
 @Component({
   selector: 'app-access-group',
@@ -24,11 +28,15 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
   private readonly _groups$: BehaviorSubject<Array<AccessGroup>> = new BehaviorSubject<Array<AccessGroup>>([]);
   // @ts-ignore
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
+  @ViewChild("editGroupTemplate") editGroupTemplate!: TemplateRef<any>;
 
   readonly tableData: Observable<Array<AccessGroup>> = this._groups$.asObservable();
   loadMoreEnabled: boolean = false;
 
+  selectedGroup?: AccessGroup
+
   type: string = "Consumer"
+  editFormType: AccessGroupFormType = AccessGroupFormType.EDIT
 
   constructor(
     private readonly toastService: ToastService,
@@ -66,8 +74,20 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
       new GroupNameColumn("Group_Name_Col"),
       new GroupDescColumn("Group_Desc_Col"),
       new GroupIAMNameColumn("Group_IAM_Col"),
-      new ContextMenuTableColumn([]),
+      new ContextMenuTableColumn([
+        ContextMenuItemBuilder
+          .create<AccessGroup, AccessGroupMenu>(AccessGroupMenu.EDIT)
+          .handler(this.openEditForm())
+          .build(),
+      ]),
     ]
+  }
+
+  openEditForm(): (group: AccessGroup, item: AccessGroupContextMenu) => any {
+    return (group: AccessGroup) => {
+      this.selectedGroup = group
+      this.modalService.open(this.editGroupTemplate)
+    }
   }
 
   fetchDetails(data: any): Observable<boolean> {
@@ -80,11 +100,10 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
   ngOnInit(): void {
   }
 
-  groupCreated(group: AccessGroup) {
-    let values = this.tableComponent.dataSource.data$.value
-    values.push(group)
-    this.tableComponent.dataSource.data$.next(values)
+  reload() {
     this.toastService.success(`${this.type} Group has been saved successfully!`, "SUCCESS")
+    this.tableComponent.dataSource.reset()
+    this.fetchData({}, Pageable.unPaged())
   }
 }
 
@@ -104,5 +123,9 @@ export class GroupIAMNameColumn extends BaseTableColumn<AccessGroup>{
   value(data: AccessGroup): string {
     return data.iamGroupName
   }
+}
+
+export enum AccessGroupMenu {
+  EDIT = "Edit"
 }
 

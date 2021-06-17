@@ -1,6 +1,6 @@
 <form [formGroup]="accessGroupForm">
   <div class="modal-header">
-    <h2 class="modal-title pull-left font16 font-weight-bold">Create new application</h2>
+    <h2 class="modal-title pull-left font16 font-weight-bold">{{title}}</h2>
     <button (click)="modalService.hide()" aria-label="Close" class="close pull-right" type="button">
       <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
     </button>
@@ -46,7 +46,7 @@
       (click)="create()"
       class="btn btn-primary"
       type="button">
-      Create
+      {{buttonTitle}}
     </button>
   </div>
 </form>
