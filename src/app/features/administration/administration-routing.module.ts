@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ConsumerComponent} from "./consumer/consumer.component";
+import {AccessGroupComponent} from "./groups/access-group.component";
 import {WhiteLabelComponent} from "./white-label/white-label.component";
-import {ProviderComponent} from "./provider/provider.component";
+
 const routes: Routes = [
   {
     path:'',
@@ -11,16 +11,18 @@ const routes: Routes = [
   },
   {
     path: 'consumer',
-    component: ConsumerComponent,
+    component: AccessGroupComponent,
     data: {
-      breadcrumb: 'Consumer'
+      breadcrumb: 'Consumer',
+      type: "Consumer"
     }
   },
   {
     path: 'provider',
-    component: ProviderComponent,
+    component: AccessGroupComponent,
     data: {
-      breadcrumb: 'Provider'
+      breadcrumb: 'Provider',
+      type: "Provider"
     }
   },
   {

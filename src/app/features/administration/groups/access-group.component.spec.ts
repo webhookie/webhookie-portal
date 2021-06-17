@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConsumerComponent } from './consumer.component';
+import { AccessGroupComponent } from './access-group.component';
 
 describe('ConsumerComponent', () => {
-  let component: ConsumerComponent;
-  let fixture: ComponentFixture<ConsumerComponent>;
+  let component: AccessGroupComponent;
+  let fixture: ComponentFixture<AccessGroupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConsumerComponent ]
+      declarations: [ AccessGroupComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConsumerComponent);
+    fixture = TestBed.createComponent(AccessGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

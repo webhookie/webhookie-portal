@@ -1,0 +1,18 @@
+<div class="row mb-3 align-items-center">
+  <div class="col-md-6">
+    <h4 class="font20 font-weight-bold">
+      <a href="javascript:void(0)" class="administration-menu-toggle d-inline-block d-md-none">
+        <i class="fas text-primary fa-grip-lines" aria-hidden="true"></i>
+      </a>
+      {{type}} groups
+    </h4>
+  </div>
+  <div class="col-md-6 text-md-right">
+    <a href="#" class="btn btn-primary">Create a new group</a>
+  </div>
+</div>
+<app-generic-table
+  #tableComponent
+  [component]="this"
+>
+</app-generic-table>

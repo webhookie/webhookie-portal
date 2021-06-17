@@ -1,4 +1,6 @@
-export class AccessGroup {
+import {BaseTableData} from "./table/table-data";
+
+export class AccessGroup extends BaseTableData {
   constructor(
     public id: string,
     public name: string,
@@ -6,6 +8,7 @@ export class AccessGroup {
     public iamGroupName: string,
     public enabled: boolean
   ) {
+    super();
   }
 }
 
