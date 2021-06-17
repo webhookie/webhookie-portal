@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AccessGroupComponent} from "./access-group/groups/access-group.component";
+import {AccessGroupComponent} from "./access-groups/access-group.component";
 import {WhiteLabelComponent} from "./white-label/white-label.component";
 
 const routes: Routes = [
