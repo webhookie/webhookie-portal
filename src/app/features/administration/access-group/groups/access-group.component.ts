@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {GenericTable} from "../../../shared/components/generic-table/generic-table";
-import {AccessGroup} from "../../../shared/model/access-group";
+import {GenericTable} from "../../../../shared/components/generic-table/generic-table";
+import {AccessGroup} from "../../../../shared/model/access-group";
 import {BehaviorSubject, Observable, of} from "rxjs";
-import {GenericTableComponent} from "../../../shared/components/generic-table/generic-table.component";
-import {Pageable} from "../../../shared/request/pageable";
-import {WebhookieService} from "../../../shared/service/webhookie.service";
-import {TableHeader} from "../../../shared/model/table/header/table-header";
-import {TableFilter} from "../../../shared/model/table/filter/table-filter";
-import {BaseTableColumn, TableColumn} from "../../../shared/model/table/column/table-column";
-import {SortableTableHeader} from "../../../shared/model/table/header/sortable-table-header";
-import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
+import {GenericTableComponent} from "../../../../shared/components/generic-table/generic-table.component";
+import {Pageable} from "../../../../shared/request/pageable";
+import {WebhookieService} from "../../../../shared/service/webhookie.service";
+import {TableHeader} from "../../../../shared/model/table/header/table-header";
+import {TableFilter} from "../../../../shared/model/table/filter/table-filter";
+import {BaseTableColumn, TableColumn} from "../../../../shared/model/table/column/table-column";
+import {SortableTableHeader} from "../../../../shared/model/table/header/sortable-table-header";
+import {ContextMenuTableColumn} from "../../../../shared/model/table/column/context-menu-table-column";
 import {ActivatedRoute} from "@angular/router";
 import {map, mergeMap, tap} from "rxjs/operators";
 
