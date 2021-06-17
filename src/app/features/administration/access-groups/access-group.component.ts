@@ -4,7 +4,6 @@ import {AccessGroup} from "../../../shared/model/access-group";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {GenericTableComponent} from "../../../shared/components/generic-table/generic-table.component";
 import {Pageable} from "../../../shared/request/pageable";
-import {WebhookieService} from "../../../shared/service/webhookie.service";
 import {TableHeader} from "../../../shared/model/table/header/table-header";
 import {TableFilter} from "../../../shared/model/table/filter/table-filter";
 import {BaseTableColumn, TableColumn} from "../../../shared/model/table/column/table-column";
@@ -12,6 +11,9 @@ import {SortableTableHeader} from "../../../shared/model/table/header/sortable-t
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
 import {ActivatedRoute} from "@angular/router";
 import {map, mergeMap, tap} from "rxjs/operators";
+import {ModalService} from "../../../shared/service/modal.service";
+import {AdminService} from "../admin.service";
+import {ToastService} from "../../../shared/service/toast.service";
 
 @Component({
   selector: 'app-access-group',
@@ -24,12 +26,15 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
 
   readonly tableData: Observable<Array<AccessGroup>> = this._groups$.asObservable();
+  loadMoreEnabled: boolean = false;
 
   type: string = "Consumer"
 
   constructor(
+    private readonly toastService: ToastService,
+    readonly modalService: ModalService,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly webhookieService: WebhookieService
+    private readonly adminService: AdminService
   ) {
     super();
   }
@@ -39,7 +44,7 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
       .pipe(
         map(it => it.type),
         tap(it => this.type = it),
-        mergeMap(it => this.webhookieService.fetchAccessGroupsByType(it))
+        mergeMap(it => this.adminService.fetchAccessGroupsByType(it))
       )
       .subscribe(it => this._groups$.next(it));
   }
@@ -75,6 +80,12 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
   ngOnInit(): void {
   }
 
+  groupCreated(group: AccessGroup) {
+    let values = this.tableComponent.dataSource.data$.value
+    values.push(group)
+    this.tableComponent.dataSource.data$.next(values)
+    this.toastService.success(`${this.type} Group has been saved successfully!`, "SUCCESS")
+  }
 }
 
 export class GroupNameColumn extends BaseTableColumn<AccessGroup>{

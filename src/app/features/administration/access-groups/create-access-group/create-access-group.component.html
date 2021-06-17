@@ -1,0 +1,52 @@
+<form [formGroup]="accessGroupForm">
+  <div class="modal-header">
+    <h2 class="modal-title pull-left font16 font-weight-bold">Create new application</h2>
+    <button (click)="modalService.hide()" aria-label="Close" class="close pull-right" type="button">
+      <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
+    </button>
+  </div>
+  <div *ngIf="debug">{{accessGroupForm.value | json}}</div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="font14 font-weight-400" for="name">Name</label>
+      <input type="text" id="name" class="form-control" formControlName="name" placeholder="Group Name" required>
+    </div>
+    <div class="form-group">
+      <label class="font14 font-weight-400" for="name">IAM Group Name</label>
+      <input type="text" id="iamGroupName" class="form-control" formControlName="iamGroupName" placeholder="IAM Group Name" required>
+    </div>
+    <div class="form-group">
+      <label class="font14 font-weight-400" for="Description">Description</label>
+      <textarea class="form-control" id="Description" name="desc" placeholder="Description" formControlName="description" rows="4"></textarea>
+    </div>
+  </div>
+  <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="alert alert-danger">
+    <div *ngIf="name?.errors?.required">
+      Name is required.
+    </div>
+    <div *ngIf="name?.errors?.minlength">
+      Name must be at least 4 characters long.
+    </div>
+  </div>
+  <div *ngIf="iamGroupName?.invalid && (iamGroupName?.dirty || iamGroupName?.touched)" class="alert alert-danger">
+    <div *ngIf="iamGroupName?.errors?.required">
+      IAM Group Name is required.
+    </div>
+  </div>
+  <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="alert alert-danger">
+    <div *ngIf="description?.errors?.required">
+      Description is required.
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button (click)="modalService.hide()" aria-label="Close" class="btn btn-default cancel border" type="button">Cancel</button>
+    <button
+      [disabled]="!formIsValid()"
+      [class.disabled]="!formIsValid()"
+      (click)="create()"
+      class="btn btn-primary"
+      type="button">
+      Create
+    </button>
+  </div>
+</form>

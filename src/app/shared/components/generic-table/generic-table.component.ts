@@ -151,8 +151,10 @@ export class GenericTableComponent implements OnInit {
   }
 
   onScroll() {
-    this.currentPage = this.currentPage + 1;
-    this.currentPageable.next(new Pageable(this.currentPage, 20, this.currentSort))
+    if(this.table.loadMoreEnabled) {
+      this.currentPage = this.currentPage + 1;
+      this.currentPageable.next(new Pageable(this.currentPage, 20, this.currentSort))
+    }
   }
 
   isSelectable(column: TableColumn, data: TableData): boolean {

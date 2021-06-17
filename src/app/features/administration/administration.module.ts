@@ -8,20 +8,24 @@ import {AccessGroupComponent} from './access-groups/access-group.component';
 import {AdministrationRoutingModule} from './administration-routing.module';
 import {ColorPickerModule} from '@iplab/ngx-color-picker';
 import {SharedModule} from "../../shared/shared.module";
+import { CreateAccessGroupComponent } from './access-groups/create-access-group/create-access-group.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AdministrationComponent,
     LeftSidebarComponent,
     WhiteLabelComponent,
-    AccessGroupComponent
+    AccessGroupComponent,
+    CreateAccessGroupComponent
   ],
   imports: [
     CommonModule,
     AdministrationRoutingModule,
     WebhookCommonModule,
     ColorPickerModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class AdministrationModule { }

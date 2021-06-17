@@ -13,6 +13,7 @@ export abstract class GenericTable<T extends BaseTableData, R extends BaseTableD
   abstract detailHeaders?: Array<TableHeader>;
   abstract detailColumns?: Array<TableColumn>;
   private isLoading: boolean = false;
+  loadMoreEnabled: boolean = true;
   initialFilters: any = {};
 
   abstract fetchDetails(data: T): Observable<boolean>;

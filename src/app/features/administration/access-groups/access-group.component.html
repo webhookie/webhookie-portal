@@ -8,7 +8,9 @@
     </h4>
   </div>
   <div class="col-md-6 text-md-right">
-    <a href="#" class="btn btn-primary">Create a new group</a>
+    <button (click)="modalService.open(createGroupTemplate)" class="btn btn-primary">
+      <i class="lni lni-plus mr-2"></i>Create a new group
+    </button>
   </div>
 </div>
 <app-generic-table
@@ -16,3 +18,10 @@
   [component]="this"
 >
 </app-generic-table>
+
+<div class="modalSave">
+  <ng-template #createGroupTemplate>
+    <app-create-access-group [type]="type" [parent]="this"></app-create-access-group>
+  </ng-template>
+</div>
+
