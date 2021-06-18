@@ -21,6 +21,8 @@ export class AccessGroupFormComponent implements OnInit {
   @Input("groupType") groupType!: string
   @Input("formType") formType: AccessGroupFormType = AccessGroupFormType.CREATE
   @Input("parent") parentComponent!: AccessGroupComponent
+  @Input("title") title!: string
+  @Input("buttonTitle") buttonTitle!: string
 
   debug = environment.debug
 
@@ -75,22 +77,6 @@ export class AccessGroupFormComponent implements OnInit {
     } else if(this.formType == AccessGroupFormType.EDIT) {
       this.adminService.updateAccessGroup(this.groupType, request, this.group!.id)
         .subscribe(successHandler, errorHandler)
-    }
-  }
-
-  get title(): string {
-    if(this.formType == AccessGroupFormType.EDIT) {
-      return `Edit ${this.groupType} Group`
-    } else {
-      return `Create new ${this.groupType} Group`
-    }
-  }
-
-  get buttonTitle(): string {
-    if(this.formType == AccessGroupFormType.EDIT) {
-      return `Update`
-    } else {
-      return `Create`
     }
   }
 }

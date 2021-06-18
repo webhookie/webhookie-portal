@@ -35,7 +35,12 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
 
   selectedGroup?: AccessGroup
 
-  type: string = "Consumer"
+  type$: BehaviorSubject<string> = new BehaviorSubject<string>("Consumer")
+
+  get type(): string {
+    return this.type$.value
+  }
+
   editFormType: AccessGroupFormType = AccessGroupFormType.EDIT
 
   constructor(
@@ -51,7 +56,7 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
     this.activatedRoute.data
       .pipe(
         map(it => it.type),
-        tap(it => this.type = it),
+        tap(it => this.type$.next(it)),
         mergeMap(it => this.adminService.fetchAccessGroupsByType(it))
       )
       .subscribe(it => this._groups$.next(it));
@@ -101,7 +106,7 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
   }
 
   reload() {
-    this.toastService.success(`${this.type} Group has been saved successfully!`, "SUCCESS")
+    this.toastService.success(`${this.type$.value} Group has been saved successfully!`, "SUCCESS")
     this.tableComponent.dataSource.reset()
     this.fetchData({}, Pageable.unPaged())
   }
