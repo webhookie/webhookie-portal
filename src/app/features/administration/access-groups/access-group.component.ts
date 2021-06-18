@@ -10,7 +10,6 @@ import {BaseTableColumn, TableColumn} from "../../../shared/model/table/column/t
 import {SortableTableHeader} from "../../../shared/model/table/header/sortable-table-header";
 import {ContextMenuTableColumn} from "../../../shared/model/table/column/context-menu-table-column";
 import {ActivatedRoute} from "@angular/router";
-import {map, mergeMap, tap} from "rxjs/operators";
 import {ModalService} from "../../../shared/service/modal.service";
 import {AdminService} from "../admin.service";
 import {ToastService} from "../../../shared/service/toast.service";
@@ -36,6 +35,7 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
   selectedGroup?: AccessGroup
 
   type$: BehaviorSubject<string> = new BehaviorSubject<string>("Consumer")
+  title: string = ""
 
   get type(): string {
     return this.type$.value
@@ -53,12 +53,7 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
   }
 
   fetchData(filter: any, pageable: Pageable) {
-    this.activatedRoute.data
-      .pipe(
-        map(it => it.type),
-        tap(it => this.type$.next(it)),
-        mergeMap(it => this.adminService.fetchAccessGroupsByType(it))
-      )
+    this.adminService.fetchAccessGroupsByType(this.type)
       .subscribe(it => this._groups$.next(it));
   }
 
@@ -103,6 +98,12 @@ export class AccessGroupComponent extends GenericTable<AccessGroup, AccessGroup>
   detailColumns?: TableColumn[];
 
   ngOnInit(): void {
+    this.activatedRoute.data
+      .subscribe(it => {
+        let type = it.type;
+        this.type$.next(type)
+        this.title = `${type} groups`
+      })
   }
 
   reload() {
