@@ -1,6 +1,6 @@
 .table{
     border: 1px solid #E1E1E1;
-    color: #0A1E42;
+    color: var(--primary-text-color);
 }
 .table th{
     border:0px;
