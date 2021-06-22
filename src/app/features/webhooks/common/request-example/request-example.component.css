@@ -13,11 +13,11 @@
 
 .light-mode .custom-switch .custom-control-label::after {
   top: 3px !important;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 
 .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: #1A73E8;
+  background-color: var(--secondary-color);
 }
 
 .light-mode.dark-mode-active {
@@ -33,14 +33,14 @@
   line-height: 1.9;
   white-space: pre-wrap;
 }
- 
+
 .mode-switcher {
   cursor: pointer;
   display: inline-block;
   user-select: none;
 }
 .nav-pills a{
-  color: #0A1E42;
+  color: var(--primary-text-color);
   font-size: 16px !important;
   font-weight: 400 !important;
   padding: 8px;
@@ -50,20 +50,20 @@
 }
 .nav-pills a:hover{
   text-decoration: none;
-  border-bottom: 1px solid #0151CC;
-    color: #0151CC;
+  border-bottom: 1px solid var(--primary-color);
+    color: var(--primary-color);
     font-weight: 600 !important;
 }
 .nav-pills a:focus{
   text-decoration: none;
-  border-bottom: 1px solid #0151CC;
-    color: #0151CC;
+  border-bottom: 1px solid var(--primary-color);
+    color: var(--primary-color);
     font-weight: 600 !important;
 }
 .active{
   text-decoration: none;
-  border-bottom: 1px solid #0151CC;
-    color: #0151CC;
+  border-bottom: 1px solid var(--primary-color);
+    color: var(--primary-color);
     font-weight: 600 !important;
 }
 @media (max-width: 767px) {

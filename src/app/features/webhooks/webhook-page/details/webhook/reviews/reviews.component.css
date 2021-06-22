@@ -12,7 +12,7 @@
 }
 .reviews-list li{
     margin-right:1.5rem;
-    color:#0A1E42;
+    color:var(--primary-text-color);
     font-size:12px;
 }
 .reviews-reply-delete li:last-child a{
@@ -27,7 +27,7 @@
     border-right: 1px solid #041C39;
     font-size: 12px;
     font-weight: 600;
-    color: #1A73E8;
+    color: var(--secondary-color);
 }
 .comments{
     background-color:#F4F5F7;

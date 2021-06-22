@@ -8,7 +8,7 @@
   width: 34px;
   height: 34px;
   object-fit: cover;
-  color: #0151CC;
+  color: var(--primary-color);
 }
 
 .profile-icon .dropdown-menu {

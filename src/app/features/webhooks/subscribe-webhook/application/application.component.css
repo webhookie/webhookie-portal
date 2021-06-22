@@ -3,11 +3,11 @@
 }
 
 .subscribe-application form label {
-  color: #0A1E42;
+  color: var(--primary-text-color);
 }
 
 .subscribe-application p {
-  color: #0A1E42;
+  color: var(--primary-text-color);
 }
 
 .subscribe-application .btn-warning {
@@ -22,7 +22,7 @@
 }
 
 .subscribe-application .btn-default {
-  color: #1A73E8;
+  color: var(--secondary-color);
   padding: 0 6px;
 }
 
@@ -46,8 +46,8 @@
 }
 
 .subscribe-application .dropdown-item:active {
-  color: #fff !important;
-  background-color: #0151CC !important;
+  color: var(--color-white) !important;
+  background-color: var(--primary-color) !important;
 }
 
 .subscribe-application .dropdown-toggle::after {
@@ -129,5 +129,5 @@
 
 .consumer-value li a {
   text-decoration: none;
-  color: #0A1E42;
+  color: var(--primary-text-color);
 }

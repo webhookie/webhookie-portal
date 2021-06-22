@@ -7,7 +7,7 @@
 .user-rating ul li {
   font-size: 12px;
   font-weight: 400;
-  color: #0A1E42;
+  color: var(--primary-text-color);
 }
 
 .user-rating i {
@@ -15,12 +15,12 @@
 }
 
 .user-rating .checked {
-  color: #FFC500;
+  color: var(--primary-color);
 }
 
 .user-rating a {
   text-decoration: none;
-  color: #1A73E8;
+  color: var(--secondary-color);
   font-weight: 600;
   font-size: 12px;
 }

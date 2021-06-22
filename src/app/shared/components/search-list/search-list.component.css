@@ -36,7 +36,7 @@
 
     content: url("../../../../assets/images/Chevron_down.svg");
 
-} 
+}
 
 .mw-180 {
     min-width: 180px;
@@ -55,7 +55,7 @@
 }
 .search-small .input-group-text {
     border-color: #E1E1E1;
-    color: #0A1E42 !important;
+    color: var(--primary-text-color) !important;
 }
 .dropdown-menu a {
     color: #242424;

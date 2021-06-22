@@ -12,11 +12,11 @@
 
 .light-mode .custom-switch .custom-control-label::after {
   top: 3px !important;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 
 .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: #1A73E8;
+  background-color: var(--secondary-color);
 }
 
 .light-mode.dark-mode-active {
@@ -34,7 +34,7 @@
 }
 
 .light-mode.dark-mode-active pre {
-  color: #fff;
+  color: var(--color-white);
 }
 
 .mode-switcher {

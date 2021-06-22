@@ -47,13 +47,13 @@
   content: "\25CF" !important;
   background-image: none;
   font-size: 20px;
-  color: #1A73E8;
+  color: var(--secondary-color);
   top: -3px;
   left: -22px;
 }
 
 .security-label .custom-control-input:checked ~ ::before {
-  background-color: #fff;
+  background-color: var(--color-white);
   border-color: #B2B2B2;
 }
 

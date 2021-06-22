@@ -14,7 +14,7 @@
   font-weight: 400;
   border: 1px solid #ddd;
   margin-left: 8px;
-  color: #0151CC;
+  color: var(--primary-color);
 }
 
 .dot-buttons ul {
@@ -23,11 +23,11 @@
 
 .dot-buttons i {
   font-size: 12px;
-  color: #0A1E42;
+  color: var(--primary-text-color);
 }
 
 .test_color {
-  color: #fff !important;
+  color: var(--color-white) !important;
 }
 
 .dot-buttons input, label {

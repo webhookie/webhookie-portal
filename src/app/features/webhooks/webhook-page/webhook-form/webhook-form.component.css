@@ -18,18 +18,28 @@ list-style-type: none;
 padding: 0;
 }
 .dot-buttons .btn-default{
-    border: 1px solid #e1e1e1;
-    color: #0151CC;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
 }
 .create-webgroup pre span{
 
-color: #1A73E8;
+color: var(--secondary-color);
 }
+.btn-primary {
+  border: 1px solid #e1e1e1;
+  color: var(--color-white);
+  background: var(--primary-color)
+}
+.btn-primary:hover {
+  color: var(--color-white);
+  background: var(--primary-color)
+}
+
 .create-webgroup h4{
-color: #0A1E42;
+color: var(--primary-text-color);
 }
 .create-webgroup p{
-color: #0A1E42;
+color: var(--primary-text-color);
 }
 .consumer .btn-warning{
 background-color: transparent;
@@ -37,7 +47,7 @@ color: #253858;
 border-color: #E1E1E1;
 }
 .consumer .btn-default{
-color: #1A73E8;
+color: var(--secondary-color);
 padding: 0 6px;
 }
 .consumer .dropdown-menu a{
@@ -69,8 +79,8 @@ box-shadow: none;
     top:2px
 }
 .consumer .dropdown-item:active {
-color: #fff !important;
-background-color: #0151CC !important;
+color: var(--color-white) !important;
+background-color: var(--primary-color) !important;
 }
 .consumer .dropdown-toggle::after{
 content:url("../../../../../assets/images/Chevron_down.svg");

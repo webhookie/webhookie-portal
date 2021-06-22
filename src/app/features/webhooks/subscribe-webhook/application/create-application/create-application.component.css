@@ -63,7 +63,7 @@
 
 .consumer-value li a {
   text-decoration: none;
-  color: #0A1E42;
+  color: var(--primary-text-color);
 }
 
 .multi-select-dropdown {
@@ -105,7 +105,7 @@
 }
 
 .scrollable-list::-webkit-scrollbar-track {
-  background: #fff;
+  background: var(--color-white);
 }
 
 ::-webkit-scrollbar-thumb {

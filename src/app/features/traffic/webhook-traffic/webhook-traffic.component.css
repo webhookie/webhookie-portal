@@ -22,7 +22,7 @@
     border-color: #E1E1E1;
 }
 .traffic-dropdowns .btn-default{
-    color: #1A73E8;
+    color: var(--secondary-color);
     padding: 0 6px;
 }
 .traffic-dropdowns .dropdown-menu a{
@@ -44,4 +44,4 @@
 .consumer .dropdown-toggle.active:after{
     /* content: "\f107"; */
     content: url("../../../../assets/images/Chevron_up.svg");
-  } 
+  }

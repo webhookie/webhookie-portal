@@ -34,7 +34,7 @@ nav{
 }
 .place{
     min-width: 55px;
-    background-color: #0151CC;
+    background-color: var(--primary-color);
     display: inline-block;
     opacity:0.1;
 }
@@ -45,17 +45,17 @@ nav{
     height: 9px;
 }
 .white{
-    background-color:#fff;
+    background-color:var(--color-white);
     opacity:0.5;
 }
 .lh-normal > div {
     line-height: 12px;
 }
 .carousel_wrapper{
-    background-color: #0151CC;
+    background-color: var(--primary-color);
 }
 .carousel_wrapper .indicators i{
-    color: #fff !important;
+    color: var(--color-white) !important;
     font-size: 6px;
     padding: 1px;
 }
@@ -96,7 +96,7 @@ nav{
     width:45px;
 }
 .add_image{
-    background-color:#fff;
+    background-color:var(--color-white);
     border:1px dashed #E1E1E1;
     border-radius:4px;
     display: block;
@@ -120,7 +120,7 @@ nav{
 }
 .dropdown-menu.show .btn-default {
     border: 1px solid #BFBFBF;
-    color: #0151CC;
+    color: var(--primary-color);
     width: 80%;
     margin: 5px 21px !important;
 }

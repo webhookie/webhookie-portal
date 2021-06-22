@@ -1,5 +1,5 @@
 .searchbox-icon {
-  color: #0A1E42;
+  color: var(--primary-text-color);
   position: relative;
   z-index: 2;
 }
@@ -33,7 +33,7 @@
     position: absolute;
     left: 0;
     top: 60px;
-    background-color: #fff;
+    background-color: var(--color-white);
     box-shadow: 2px 2px 7px #00000019 !important;
     z-index: 1;
     height: 40px;

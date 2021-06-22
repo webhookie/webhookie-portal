@@ -2,11 +2,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
+@import "vars.css";
 
 body {
     font-family: 'Open Sans', sans-serif !important;
     font-size: 14px;
-    color: #0A1E42;
+    color: var(--primary-text-color);
 }
 webhookie-root {
     display: flex;
@@ -18,7 +19,7 @@ app-footer {
 }
 p {
     font-size: 14px;
-    color: #0A1E42;
+    color: var(--primary-text-color);
 }
 
 pre {
@@ -28,7 +29,7 @@ pre {
 h1 {
     font-size: 35px;
     font-weight: bold;
-    color: #0A1E42;
+    color: var(--primary-text-color);
 }
 
 .bg-light-gray {
@@ -36,7 +37,7 @@ h1 {
 }
 
 .bg-primary {
-    background-color: #0151CC !important;
+    background-color: var(--primary-color) !important;
 }
 
 .shadow-sm {
@@ -47,7 +48,7 @@ h1 {
     font-size: 14px;
     padding: 5px 12px;
     font-weight: 600;
-    color: #0A1E42;
+    color: var(--primary-text-color);
 }
 
 .btn:focus {
@@ -56,30 +57,31 @@ h1 {
 }
 
 .btn-primary {
-    color: #fff;
-    background: #0151CC;
-    border-color: #0151CC;
+    color: var(--color-white);
+    background: var(--primary-color);
+    border-color: var(--primary-color);
     font-weight: 400;
 }
 
 .btn-primary:hover {
-    color: #fff;
-    background: #0151CC;
-    border-color: #0151CC;
+    color: var(--color-white);
+    background: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .btn-primary-gradient {
-    color: #fff;
+    color: var(--color-white);
     background: linear-gradient(90deg, rgba(1, 81, 204, 1) 0%, rgba(0, 145, 215, 1) 37%, rgba(0, 180, 245, 1) 100%);
     border: 0;
 }
 
 .btn-primary-gradient:hover {
-    color: #fff;
-    background: linear-gradient(90deg, rgba(1, 81, 204, 1) 0%, rgba(1, 81, 204, 1) 37%, rgba(1, 81, 204, 1) 100%);
+    color: var(--color-white);
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-color) 37%, var(--primary-color) 100%);
 }
+
 .text-primary{
-    color:#0151CC !important;
+    color:var(--primary-color) !important;
 }
 .text-dark-blue{
     color:#253858;
@@ -129,7 +131,7 @@ h1 {
 }
 
 .light-mode span.key {
-    color: #1A73E8 !important;
+    color: var(--secondary-color) !important;
 }
 
 .light-mode.dark-mode-active span.key {
@@ -215,7 +217,7 @@ h1 {
 
 .btn-bordered {
     border: 1px solid #E1E1E1;
-    background-color: #fff;
+    background-color: var(--color-white);
     font-weight: normal;
     color: #253858;
 }
@@ -243,7 +245,7 @@ h1 {
 
 .search-small .input-group-text {
     border-color: #E1E1E1;
-    color: #0A1E42 !important;
+    color: var(--primary-text-color) !important;
 }
 
 #filters_collapse_wrapper, .table-filters-collapse.active {
@@ -264,11 +266,11 @@ h1 {
 }
 
 .theme-green .bs-datepicker-head {
-    background-color: #fff;
+    background-color: var(--color-white);
 }
 
 .theme-green .bs-datepicker-body table td span.selected, .theme-green .bs-datepicker-body table td.selected span, .theme-green .bs-datepicker-body table td span[class*="select-"]:after, .theme-green .bs-datepicker-body table td[class*="select-"] span:after {
-    background-color: #0151cc;
+    background-color: var(--primary-color);
 }
 
 .bs-datepicker-body tbody tr td:first-child, .bs-datepicker-body thead tr th:first-child {
@@ -315,7 +317,7 @@ h1 {
 
 .popover {
     border-radius: 0;
-    background: #fff;
+    background: var(--color-white);
     box-shadow: 0 0 10px 0 #d4d4d4;
     border: 0;
 }
@@ -371,12 +373,12 @@ h1 {
 }
 
 .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
-    background: #fff;
+    background: var(--color-white);
 }
 
 .owl-theme .owl-dots .owl-dot span {
     background: transparent;
-    border: 2px solid #fff;
+    border: 2px solid var(--color-white);
 }
 
 .owl-theme .owl-dots .owl-dot span {
@@ -387,12 +389,12 @@ h1 {
     background-color: rgba(1, 81, 204, 0.05);
 }
 .common-table .table {
-    color: #0A1E42;
+    color: var(--primary-text-color);
     border: 1px solid #E1E1E1;
 }
 .common-table .table .custom-control-label::before {
     border-radius: 1px !important;
-    /* background-color:#0151CC; */
+    /* background-color:var(--main-color); */
 }
 .common-table .custom-control-label {
     margin-left: 0px;
@@ -404,7 +406,7 @@ h1 {
     margin-left: 5px;
 }
 .common-table .table tbody td a {
-    color: #1A73E8;
+    color: var(--secondary-color);
     text-decoration: none;
 }
 .collapse-down{
@@ -434,7 +436,7 @@ h1 {
     width:200px;
 }
 .common-table .btn-default{
-    color: #1A73E8;
+    color: var(--secondary-color);
     padding: 0 6px;
 }
 .common-table .dropdown-menu a{
@@ -488,7 +490,7 @@ h1 {
     margin:0 1.2px;
 }
 .rating .checked{
-    color: #FFC500;
+    color: var(--primary-color);
 }
 .form-custom-control{
     border:1px solid #E1E1E1;
@@ -530,10 +532,10 @@ input:focus{
     box-shadow: none !important;
 }
 .dark-mode-active pre {
-    color: #fff !important;
+    color: var(--color-white) !important;
   }
   .dark-mode-active table{
-    color: #fff !important;
+    color: var(--color-white) !important;
   }
 
   .slide.slick-slide {
@@ -544,7 +546,7 @@ input:focus{
     width:15px;
 }
 .slick-dots li.slick-active button:before {
-    color: #fff !important;
+    color: var(--color-white) !important;
     content: "\25CF" !important;
     opacity: 1 !important;
 }
@@ -560,7 +562,7 @@ input:focus{
 .slick-dots li button:before {
     content: "\25CB";
    font-size: 14px;
-    color:#fff;
+    color:var(--color-white);
     opacity: 1;
 }
 .slick-track {
@@ -569,11 +571,11 @@ input:focus{
 }
 
 .btn-primary-outline {
-    color: #0151CC;
-    border: 1px solid #0151CC;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
 }
 .btn-primary-outline:hover {
-    color: #0151CC;
+    color: var(--primary-color);
 }
 .monaco-editor .view-overlays .focused {
     height: 1042px !important;

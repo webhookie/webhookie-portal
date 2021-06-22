@@ -3,11 +3,11 @@
 }
 
 .subscribe-call-back form label {
-  color: #0A1E42;
+  color: var(--primary-text-color);
 }
 
 .subscribe-call-back p {
-  color: #0A1E42;
+  color: var(--primary-text-color);
 }
 
 .subscribe-call-back .btn-warning {
@@ -22,7 +22,7 @@
 }
 
 .subscribe-call-back .btn-default {
-  color: #1A73E8;
+  color: var(--secondary-color);
   padding: 0 6px;
 }
 

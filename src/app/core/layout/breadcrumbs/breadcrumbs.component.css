@@ -21,17 +21,17 @@
   display: inline-block;
   margin: 0 10px;
   -webkit-font-smoothing: antialiased;
-  color: #0a1e42;
+  color: var(--primary-text-color);
   font-size: 11px;
 }
 
 .breadcrumb span a {
-  color: #1a73e8;
+  color: var(--secondary-color);
   text-decoration: none;
   font-weight: 600;
   font-size: 12px;
 }
 
 .breadcrumb span:last-child a {
-  color: #0a1e42;
+  color: var(--primary-text-color);
 }

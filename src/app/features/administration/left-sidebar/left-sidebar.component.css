@@ -12,12 +12,12 @@
 }
 #sidebar-nav .nav-item .nav-link{
     font-size:14px;
-    color:#0A1E42;
+    color:var(--primary-text-color);
     padding: 8px 15px;
 }
 #sidebar-nav .nav-item .nav-link.active{
-    background-color: #0151CC;
-    color:#fff;
+    background-color: var(--primary-color);
+    color:var(--color-white);
     font-weight:bold;
 }
 

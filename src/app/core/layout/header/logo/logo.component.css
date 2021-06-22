@@ -1,12 +1,12 @@
 .navbar-brand {
   width: 15rem;
-  color: #0151CC;
+  color: var(--primary-color);
   font-weight: 800;
   font-size: 14px;
 }
 
 .navbar-brand:hover {
-  color: #0151CC;
+  color: var(--primary-color);
 }
 
 @media (max-width: 768px) {

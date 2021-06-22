@@ -6,14 +6,14 @@
 }
 
 span.sort_icons a:hover i:before {
-    color: #0151CC;
+    color: var(--primary-color);
 }
 
 .sort_icons>a, .sort_icons a>i, .sort_icons>a i::before {
     height: 6px;
     display: block;
     line-height: normal;
-    color: #0A1E42;
+    color: var(--primary-text-color);
     font-size: 12px;
     font-weight: 400;
 }

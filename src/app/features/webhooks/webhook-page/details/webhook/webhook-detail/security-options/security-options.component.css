@@ -4,7 +4,7 @@
 }
 
 .security-option .table {
-  color: #0A1E42;
+  color: var(--primary-text-color);
   border: 1px solid #dee2e6 !important;
 }
 
@@ -41,7 +41,7 @@
   display: block;
   font-size: 16px;
   text-align: left;
-  color: #0A1E42;
+  color: var(--primary-text-color);
   font-weight: normal;
   padding: 9px 15px;
 }

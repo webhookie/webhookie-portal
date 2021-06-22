@@ -19,7 +19,7 @@ a.list-group-item {
 #sidebar-nav .card .card-header a {
   display: block;
   text-align: left;
-  color: #0A1E42;
+  color: var(--primary-text-color);
   font-weight: normal;
   padding: 9px 15px;
 }
@@ -44,13 +44,13 @@ a.list-group-item {
 }
 
 #sidebar-nav .navbar-nav li a {
-  color: #0A1E42;
+  color: var(--primary-text-color);
   padding: 8px 15px 8px 44px;
 }
 
 #sidebar-nav .navbar-nav li a:hover {
-  background-color: #0151CC;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--color-white);
 }
 
 .badge {
@@ -59,12 +59,12 @@ a.list-group-item {
   font-size: 10px;
   line-height: 15px;
   font-weight: normal;
-  color: #fff;
+  color: var(--color-white);
   padding: 1px 4px;
 }
 
 .badge-primary {
-  background-color: #0151CC;
+  background-color: var(--primary-color);
 }
 
 .badge-warning {
@@ -72,8 +72,8 @@ a.list-group-item {
 }
 
 .portionColor {
-  background-color: #0151CC !important;
-  color: #fff !important;
+  background-color: var(--primary-color) !important;
+  color: var(--color-white) !important;
 }
 
 @media (max-width: 992px) {

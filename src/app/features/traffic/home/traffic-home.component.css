@@ -5,13 +5,13 @@
 .traffic ul li a {
   display: block;
   padding: 6px 0px;
-  color: #0A1E42;
+  color: var(--primary-text-color);
   font-size: 12px;
   text-decoration: none;
 }
 
 .traffic ul li .active {
-  border-bottom: 1px solid #0151CC;
-  color: #0151CC;
+  border-bottom: 1px solid var(--primary-color);
+  color: var(--primary-color);
   font-weight: 600;
 }

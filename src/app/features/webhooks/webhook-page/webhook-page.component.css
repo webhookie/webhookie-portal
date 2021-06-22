@@ -38,7 +38,7 @@ i#menu-toggle {
 }
 
 .text-primary {
-  color: #0151CC;
+  color: var(--primary-color);
 }
 
 @media (min-width: 768px) {

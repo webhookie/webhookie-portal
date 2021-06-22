@@ -10,7 +10,7 @@
     width:15px;
 }
 .slick-dots li.slick-active button:before {
-    color: #fff !important;
+    color: var(--color-white) !important;
     content: "\25CF" !important;
     opacity: 1 !important;
 }
@@ -26,7 +26,7 @@
 .slick-dots li button:before {
     content: "\25CB";
    font-size: 14px;
-    color:#fff;
+    color:var(--color-white);
     opacity: 1;
 }
 

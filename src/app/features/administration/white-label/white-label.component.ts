@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import * as $ from 'jquery';
 
 @Component({
@@ -9,8 +9,9 @@ import * as $ from 'jquery';
 
 
 export class WhiteLabelComponent implements OnInit {
-  selectedColor='#0151CC';
-  constructor() { }
+  @HostBinding("style.--primary-color") selectedColor!: string;
+  constructor() {
+  }
 
   ngOnInit(): void {
     $(document).click(function(){
@@ -21,6 +22,7 @@ export class WhiteLabelComponent implements OnInit {
       e.stopPropagation();
     });
 
+    console.warn(this.selectedColor)
 
 
   }

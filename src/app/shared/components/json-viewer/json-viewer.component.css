@@ -24,7 +24,7 @@
 }
 
 .light-mode.dark-mode-active pre {
-  color: #fff;
+  color: var(--color-white);
 }
 
 .mode-switcher {
@@ -38,7 +38,7 @@
 }
 
 .custom-control-input:checked~.custom-control-label::before {
-  color: #fff;
+  color: var(--color-white);
   border-color: #007bff;
   background-color: #007bff;
 }

@@ -45,3 +45,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - [401-errors-on-a-global-basis](https://stackoverflow.com/questions/46795106/angular-2-how-to-handle-http-oauth-authtoken-401-errors-on-a-global-basis)
 - [angular-jwt](https://dev-academy.com/angular-jwt/)
 - [Support for refresh and retry upon 401/403 errors in interceptor](https://github.com/manfredsteyer/angular-oauth2-oidc/issues/414)
+
+
+# Angular White label and theme
+- [using-css-variables-in-angular](https://medium.com/@ingobrk/using-css-variables-in-angular-282a9edf1a20)
+- [Using_CSS_custom_properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)

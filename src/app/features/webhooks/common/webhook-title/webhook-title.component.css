@@ -1,5 +1,5 @@
 .head-webhook-title span.badge {
-  background-color: #0151CC;
+  background-color: var(--primary-color);
   font-size: 10px;
   border-radius: 2px;
 }

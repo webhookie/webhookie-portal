@@ -5,7 +5,7 @@ input.form-control {
 }
 
 button.btn.btn-secondary {
-  background-color: #fff;
+  background-color: var(--color-white);
   border: 1px solid #e1e1e1;
   height: 32px;
   border-left: 0;
@@ -16,11 +16,11 @@ button.btn.btn-secondary {
 }
 
 .text-primary {
-  color: #0151CC !important;
+  color: var(--primary-color) !important;
 }
 
 .btn-secondary:hover {
-  color: #0A1E42;
+  color: var(--primary-text-color);
 }
 
 .sidebar-heading i {

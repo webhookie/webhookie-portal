@@ -10,7 +10,7 @@
     padding: 5px 8px;
     margin-left: 10px;
     border-radius: 2px;
-    background-color: #0151CC;
+    background-color: var(--primary-color);
 }
 .user-rating ul{
     list-style-type:none;
@@ -21,10 +21,10 @@
     padding-left: 2px;
 }
 .checked{
-  color: #FFC500;
+  color: var(--primary-color);
 }
 .unchecked{
- color: #FFC500;
+ color: var(--primary-color);
 }
 .user-subscriptions ul{
     list-style-type:none;
@@ -38,7 +38,7 @@
     border-left: 2px solid #222 !important;
 }
 .border-box .btn{
-    color: #1A73E8;
+    color: var(--secondary-color);
     padding: 0px;
 }
 

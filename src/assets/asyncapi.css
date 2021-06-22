@@ -68,7 +68,7 @@
   color: #22292f;
 }
 .text-white {
-  color: #fff;
+  color: var(--color-white);
 }
 .text-gray-600 {
   color: #718096;
@@ -406,7 +406,7 @@
 .asyncapi__code {
   border: solid 1px rgba(137, 145, 154, 0.675);
   border-radius: 5px;
-  background: #fff;
+  background: var(--color-white);
 }
 
 .asyncapi__code-header {
@@ -438,7 +438,7 @@
 }
 
 .asyncapi__info {
-  background: #fff;
+  background: var(--color-white);
   border-radius: 5px;
   padding: 16px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
@@ -469,7 +469,7 @@
 }
 .asyncapi__collapse-button:hover {
   background-color: #085caf;
-  color: #fff;
+  color: var(--color-white);
 }
 .asyncapi__collapse-button:focus {
   outline: none;
@@ -509,7 +509,7 @@
 }
 .asyncapi__info-list > li:hover,
 .asyncapi__info-list > li:hover a {
-  color: #fff;
+  color: var(--color-white);
 }
 .asyncapi__info-list .asyncapi__anchor:hover > .asyncapi__anchor-content {
   text-decoration: none;
@@ -519,7 +519,7 @@
 }
 .asyncapi__messages > div {
   margin-top: 24px;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 5px;
   padding: 16px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
@@ -758,7 +758,7 @@
 }
 .asyncapi__schemas > div {
   margin-top: 24px;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 5px;
   padding: 16px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
@@ -828,7 +828,7 @@
 
 .asyncapi__security {
   margin-top: 24px;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 5px;
   padding: 16px;
 }
@@ -847,7 +847,7 @@
 }
 .asyncapi__servers > div {
   margin-top: 24px;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 5px;
   padding: 16px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
@@ -1082,7 +1082,7 @@
 }
 .asyncapi__channels > div {
   margin-top: 24px;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 5px;
   padding: 16px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
@@ -1335,7 +1335,7 @@
   background-color: #263238;
   white-space: pre-wrap;
   word-break: break-word;
-  color: #fff;
+  color: var(--color-white);
   border-bottom-right-radius: 4px;
   font-size: 11px;
 }

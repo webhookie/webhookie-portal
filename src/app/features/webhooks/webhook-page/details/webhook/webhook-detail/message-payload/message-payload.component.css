@@ -15,7 +15,7 @@
 .body-accordion .card .card-header a {
   display: block;
   font-size: 16px;
-  color: #0A1E42;
+  color: var(--primary-text-color);
   font-weight: normal;
   padding: 0px;
 }
@@ -99,7 +99,7 @@
 .body-accordion .badge {
   font-size: 10px;
   font-weight: 400;
-  color: #0A1E42;
+  color: var(--primary-text-color);
   padding: 3px 7px;
   border-radius: 2px;
 }

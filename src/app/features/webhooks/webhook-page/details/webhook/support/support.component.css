@@ -4,7 +4,7 @@
 .support .btn-default{
     float: right;
     border:1px solid #BFBFBF;
-    color: #0151CC;
+    color: var(--primary-color);
 }
 ::placeholder {
     font-size: 12px;

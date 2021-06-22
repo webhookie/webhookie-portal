@@ -1,5 +1,5 @@
 .common-table .table {
-    color: #0A1E42;
+    color: var(--primary-text-color);
     border: 1px solid #E1E1E1;
 }
 
@@ -26,7 +26,7 @@
 
 .resend .btn-primary {
     padding: 4px 12px;
-    background-color: #0151CC;
+    background-color: var(--primary-color);
     font-size: 14px;
     font-weight: 400;
 }
@@ -44,7 +44,7 @@
 }
 
 .common-table .table tbody td a {
-    color: #1A73E8;
+    color: var(--secondary-color);
     text-decoration: none;
 }
 
@@ -87,7 +87,7 @@
 }
 
 .common-table .btn-default {
-    color: #1A73E8;
+    color: var(--secondary-color);
     padding: 0 6px;
 }
 
