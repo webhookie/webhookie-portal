@@ -3,6 +3,7 @@
   --primary-color:#0151cc;
   --primary-dark-color: #13204a;
   --secondary-color: #1a73e8;
+  --background-color: rgba(1, 81, 204, 0.05);
   --primary-text-color:#0A1E42;
 }
 
@@ -12,6 +13,7 @@
   --primary-color:#FFC500;
   --primary-dark-color: #795f01;
   --secondary-color: #f7d154;
+  --background-color: rgba(247,209,84,0.05);
   --primary-text-color:#795f01;
 }
 */
@@ -22,7 +24,7 @@
   --primary-color: #ff004d;
   --primary-dark-color: #5b021d;
   --secondary-color: rgba(255, 0, 77, 0.72);
-  --background-color: rgba(255,0,77,0.08);
+  --background-color: rgba(255,0,77,0.05);
   --primary-text-color:#5b021d;
 }
 */
