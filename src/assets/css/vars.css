@@ -19,13 +19,12 @@
   --primary-text-color:#795f01;
   --color-white:#fff;
 }
-*/
 
+*/
 /*RED:*/
 :root {
   --primary-color: #ff004d;
   --primary-dark-color: #5b021d;
   --secondary-color: rgba(255, 0, 77, 0.72);
   --primary-text-color:#5b021d;
-  --color-white:#fff;
 }
