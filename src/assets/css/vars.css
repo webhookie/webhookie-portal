@@ -1,14 +1,10 @@
-
 /*BLUE:*/
-/*
 :root {
   --primary-color:#0151cc;
   --primary-dark-color: #13204a;
   --secondary-color: #1a73e8;
   --primary-text-color:#0A1E42;
-  --color-white:#fff;
 }
-*/
 
 /*YELLOW:*/
 /*
@@ -17,11 +13,11 @@
   --primary-dark-color: #795f01;
   --secondary-color: #f7d154;
   --primary-text-color:#795f01;
-  --color-white:#fff;
 }
-
 */
+
 /*RED:*/
+/*
 :root {
   --primary-color: #ff004d;
   --primary-dark-color: #5b021d;
@@ -29,3 +25,4 @@
   --background-color: rgba(255,0,77,0.08);
   --primary-text-color:#5b021d;
 }
+*/
