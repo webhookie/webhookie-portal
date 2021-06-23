@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AccessGroupComponent} from "./access-groups/access-group.component";
-import {WhiteLabelComponent} from "./white-label/white-label.component";
 
 const routes: Routes = [
   {
@@ -24,6 +23,7 @@ const routes: Routes = [
       breadcrumb: 'Provider',
       type: "Provider"
     }
+/*
   },
   {
     path: 'whitelabel',
@@ -31,6 +31,7 @@ const routes: Routes = [
     data: {
       breadcrumb: "White Label"
     }
+*/
   }
 ];
 
