@@ -26,5 +26,6 @@
   --primary-color: #ff004d;
   --primary-dark-color: #5b021d;
   --secondary-color: rgba(255, 0, 77, 0.72);
+  --background-color: rgba(255,0,77,0.08);
   --primary-text-color:#5b021d;
 }
