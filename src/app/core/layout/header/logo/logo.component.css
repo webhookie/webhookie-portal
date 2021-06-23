@@ -1,3 +1,11 @@
+.logo-svg-main {
+  fill: var(--primary-color);
+}
+
+.logo-svg-dark-color {
+  fill: var(--primary-dark-color);
+}
+
 .navbar-brand {
   width: 15rem;
   color: var(--primary-color);

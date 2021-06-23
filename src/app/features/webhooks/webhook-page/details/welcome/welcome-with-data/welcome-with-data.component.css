@@ -1,3 +1,8 @@
+.arrow-right-svg-a {
+  fill: var(--primary-color);
+  fill-rule: evenodd;
+}
+
 .border-box{
     border: 1px solid #E1E1E1;
 }

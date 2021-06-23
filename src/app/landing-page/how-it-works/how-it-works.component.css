@@ -42,3 +42,284 @@
         display:none;
     }
 }
+
+.login-svg-a, .login-svg-g, .login-svg-i {
+  fill: var(--primary-color);
+}
+
+.login-svg-a {
+  opacity: 0.1;
+}
+
+.login-svg-b {
+  fill: #ebebeb;
+}
+
+.login-svg-c {
+  fill: #f5f5f5;
+}
+
+.login-svg-d {
+  fill: #e0e0e0;
+}
+
+.login-svg-e {
+  fill: #263238;
+}
+
+.login-svg-f {
+  fill: #fafafa;
+}
+
+.login-svg-g, .login-svg-p {
+  opacity: 0.3;
+}
+
+.login-svg-h {
+  fill: #fff;
+}
+
+.login-svg-j {
+  fill: #79f2c1;
+}
+
+.login-svg-k {
+  fill: #0a1e42;
+}
+
+.login-svg-l {
+  fill: #253858;
+}
+
+.login-svg-m {
+  fill: #ffbe9d;
+}
+
+.login-svg-n {
+  fill: #f69110;
+}
+
+.login-svg-o {
+  fill: #eb996e;
+}
+
+.discovery-svg-a, .discovery-svg-b, .discovery-svg-c, .discovery-svg-f, .discovery-svg-i {
+  fill: var(--primary-color);
+}
+
+.discovery-svg-a {
+  opacity: 0.1;
+}
+
+.discovery-svg-b {
+  opacity: 0.135;
+}
+
+.discovery-svg-c {
+  opacity: 0.163;
+}
+
+.discovery-svg-d {
+  fill: #fafafa;
+}
+
+.discovery-svg-e {
+  fill: #e0e0e0;
+}
+
+.discovery-svg-f, .discovery-svg-r {
+  opacity: 0.3;
+}
+
+.discovery-svg-g, .discovery-svg-v {
+  fill: #fff;
+}
+
+.discovery-svg-h {
+  fill: #c6c6c6;
+}
+
+.discovery-svg-j {
+  opacity: 0.737;
+}
+
+.discovery-svg-k {
+  fill: #79f2c1;
+}
+
+.discovery-svg-l {
+  fill: #263238;
+}
+
+.discovery-svg-m {
+  fill: #253858;
+}
+
+.discovery-svg-n {
+  fill: #0a1e42;
+}
+
+.discovery-svg-o {
+  fill: #1e324c;
+}
+
+.discovery-svg-p {
+  fill: #3ed397;
+}
+
+.discovery-svg-q {
+  fill: #00834e;
+}
+
+.discovery-svg-s {
+  fill: #ffbe9d;
+}
+
+.discovery-svg-t {
+  fill: #eb996e;
+}
+
+.discovery-svg-u {
+  fill: #f69110;
+}
+
+.discovery-svg-v {
+  opacity: 0.278;
+}
+
+.discovery-svg-w {
+  fill: #f5f5f5;
+}
+
+.discovery-svg-x {
+  opacity: 0.6;
+}
+
+.test-svg-a, .test-svg-f, .test-svg-m {
+  fill: var(--primary-color);
+}
+
+.test-svg-a {
+  opacity: 0.1;
+}
+
+.test-svg-b {
+  fill: #fff;
+}
+
+.test-svg-c {
+  fill: #0a1e42;
+}
+
+.test-svg-d, .test-svg-f, .test-svg-n {
+  opacity: 0.3;
+}
+
+.test-svg-e {
+  fill: #c6d8f4;
+}
+
+.test-svg-g {
+  fill: #e0e0e0;
+}
+
+.test-svg-h {
+  fill: #263238;
+}
+
+.test-svg-i {
+  fill: #041c39;
+}
+
+.test-svg-j {
+  fill: #79f2c1;
+}
+
+.test-svg-k {
+  fill: #253858;
+}
+
+.test-svg-l {
+  fill: #1e324c;
+}
+
+.test-svg-o {
+  fill: #f69110;
+}
+
+.test-svg-p {
+  fill: #ffbe9d;
+}
+
+.test-svg-q {
+  fill: #eb996e;
+}
+
+.subscribe-svg-a, .subscribe-svg-e, .subscribe-svg-f, .subscribe-svg-j {
+  fill: var(--primary-color);
+}
+
+.subscribe-svg-a, .subscribe-svg-e {
+  opacity: 0.1;
+}
+
+.subscribe-svg-b, .subscribe-svg-f {
+  opacity: 0.3;
+}
+
+.subscribe-svg-c {
+  fill: #e0e0e0;
+}
+
+.subscribe-svg-d {
+  fill: none;
+}
+
+.subscribe-svg-e, .subscribe-svg-f {
+  fill-rule: evenodd;
+}
+
+.subscribe-svg-g {
+  fill: #0a1e42;
+}
+
+.subscribe-svg-h {
+  fill: #263238;
+}
+
+.subscribe-svg-i {
+  fill: #fff;
+}
+
+.subscribe-svg-k {
+  fill: #3b484e;
+}
+
+.subscribe-svg-l {
+  fill: #ffbe9d;
+}
+
+.subscribe-svg-m {
+  opacity: 0.6;
+}
+
+.subscribe-svg-n {
+  fill: #1e324c;
+}
+
+.subscribe-svg-o {
+  fill: #f69110;
+}
+
+.subscribe-svg-p {
+  fill: #eb996e;
+}
+
+.subscribe-svg-q {
+  fill: #79f2c1;
+}
+
+.subscribe-svg-r {
+  fill: #253858;
+}
+

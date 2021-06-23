@@ -28,7 +28,7 @@
                                 <li [class.ml-0]="wg.webhooks.length==0">{{wg.numberOfSubscriptions}} subscription{{wg.numberOfSubscriptions > 1 ? 's' : ''}}</li>
                             </ul>
                             <p>{{wg.description}}</p>
-                            <a (click)="browseWebhookGroup(wg)" routerLink="/webhooks/webhooks-page/webhook/webhook-detail" routerLinkActive="active">Browse <i class="bi bi-arrow-right"></i></a>
+                            <a (click)="browseWebhookGroup(wg)" class="text-primary" routerLink="/webhooks/webhooks-page/webhook/webhook-detail" routerLinkActive="active">Browse <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
