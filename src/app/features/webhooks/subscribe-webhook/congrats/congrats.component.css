@@ -1,3 +1,80 @@
+.congrats-svg-a {
+  fill: #263238;
+}
+
+.congrats-svg-b, .congrats-svg-o {
+  fill: var(--primary-text-color);
+}
+
+.congrats-svg-c {
+  fill: #ebebeb;
+}
+
+.congrats-svg-d {
+  fill: #fafafa;
+}
+
+.congrats-svg-e {
+  fill: #f5f5f5;
+}
+
+.congrats-svg-f, .congrats-svg-i {
+  fill: var(--secondary-color);
+}
+
+.congrats-svg-g {
+  opacity: 0.2;
+}
+
+.congrats-svg-h {
+  fill: var(--secondary-color);
+}
+
+.congrats-svg-i {
+  opacity: 0.4;
+}
+
+.congrats-svg-j, .congrats-svg-p {
+  fill: var(--primary-color);
+}
+
+.congrats-svg-k, .congrats-svg-q {
+  fill: var(--primary-dark-color);
+}
+
+.congrats-svg-l {
+  fill: var(--secondary-color);
+}
+
+.congrats-svg-m {
+  fill: #ffc3bd;
+}
+
+.congrats-svg-n {
+  fill: #fff;
+}
+
+.congrats-svg-o {
+  opacity: 0.3;
+}
+
+.congrats-svg-p {
+  stroke: rgba(0, 0, 0, 0);
+  stroke-miterlimit: 10;
+}
+
+.congrats-svg-q {
+  opacity: 0.8;
+}
+
+.congrats-svg-r {
+  fill: #ed847e;
+}
+.arrow-right-svg-a {
+  fill: var(--primary-color);
+  fill-rule: evenodd;
+}
+
 .congrats-comp {
   margin: 0 auto;
   text-align: center;

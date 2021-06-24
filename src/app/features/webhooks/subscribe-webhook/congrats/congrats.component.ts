@@ -1,25 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {WebhooksContext} from "../../webhooks-context";
 import {Observable} from "rxjs";
-import {Topic} from "../../model/webhook-group";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-congrats',
   templateUrl: './congrats.component.html',
   styleUrls: ['./congrats.component.css']
 })
-export class CongratsComponent implements OnInit {
+export class CongratsComponent {
 
   constructor(
     private readonly context: WebhooksContext
   ) {
   }
 
-  get topic(): Observable<Topic> {
+  get topic(): Observable<string> {
     return this.context.topic$
+      .pipe(map(it => it.name))
   }
-
-  ngOnInit(): void {
-  }
-
 }
