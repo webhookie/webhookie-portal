@@ -2,6 +2,7 @@ import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
 import * as $ from 'jquery';
 import {JsonUtils} from "../../../../../shared/json-utils";
 import {Webhook} from "../../../model/webhook";
+import {Constants} from "../../../../../shared/constants";
 
 @Component({
   selector: 'app-request-body',
@@ -32,7 +33,6 @@ export class RequestBodyComponent implements OnInit, AfterViewChecked {
       myContainer.innerHTML = inp;
     } catch (e) {
     }
-    // console.log(myContainer);
   }
 
   changeData() {
@@ -42,6 +42,18 @@ export class RequestBodyComponent implements OnInit, AfterViewChecked {
   }
 
   value(): any {
-    return this.webhook.example;
+    let myContainer = document.getElementById('json_str')
+    let data = this.extractContent(myContainer!.innerText);
+    if(this.webhook.contentType == Constants.CONTENT_TYPE_APPLICATION_JSON) {
+      return JSON.parse(data);
+    } else {
+      return data;
+    }
   }
+
+  extractContent(s: string) {
+    let span = document.createElement('span');
+    span.innerHTML = s;
+    return span.textContent || span.innerText;
+  };
 }
