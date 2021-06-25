@@ -33,6 +33,8 @@ import { SearchableSelectComponent } from './components/searchable-select/search
 import {HttpLoaderInterceptor} from "./interceptor/http.loader.interceptor";
 import {AuthService} from "./service/auth.service";
 import {MockAuthService} from "./mock/mock-auth.service";
+import { TableSelectHeaderComponent } from './components/generic-table/table-select-header/table-select-header.component';
+import { ArrowRightComponent } from './components/arrow-right/arrow-right.component';
 
 let apiProvider;
 let authProvider;
@@ -61,6 +63,8 @@ if (environment.mock) {
     MultiSelectComponent,
     ToastsContainerComponent,
     SearchableSelectComponent,
+    TableSelectHeaderComponent,
+    ArrowRightComponent,
   ],
   imports: [
     FormsModule,
@@ -91,7 +95,8 @@ if (environment.mock) {
     ConfirmDialogComponent,
     MultiSelectComponent,
     ToastsContainerComponent,
-    SearchableSelectComponent
+    SearchableSelectComponent,
+    ArrowRightComponent
   ],
   providers: [
     {

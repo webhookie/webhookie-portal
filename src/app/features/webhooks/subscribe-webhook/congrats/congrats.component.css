@@ -70,10 +70,6 @@
 .congrats-svg-r {
   fill: #ed847e;
 }
-.arrow-right-svg-a {
-  fill: var(--primary-color);
-  fill-rule: evenodd;
-}
 
 .congrats-comp {
   margin: 0 auto;
