@@ -15,4 +15,14 @@ export class Constants {
   static readonly HEADER_CONTENT_TYPE = "Content-Type"
   static readonly HEADER_AUTHORIZATION = "Authorization"
   static readonly HEADER_ACCEPT = "Accept"
+
+  static readonly CSS_PRIMARY_COLOR = "var(--primary-color)"
+  // noinspection JSUnusedGlobalSymbols
+  static readonly CSS_PRIMARY_DARK_COLOR = "var(--primary-dark-color)"
+  // noinspection JSUnusedGlobalSymbols
+  static readonly CSS_SECONDARY_COLOR = "var(--secondary-color)";
+  // noinspection JSUnusedGlobalSymbols
+  static readonly CSS_BACKGROUND_COLOR = "var(--background-color)";
+  // noinspection JSUnusedGlobalSymbols
+  static readonly CSS_PRIMARY_TEXT_COLOR = "var(--primary-text-color)";
 }

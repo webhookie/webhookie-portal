@@ -1,24 +1,25 @@
-import {Component, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, Inject, TemplateRef, ViewChild} from '@angular/core';
 import {AuthService} from "../../../../shared/service/auth.service";
 import {JsonUtils} from "../../../../shared/json-utils";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {ApplicationContext} from "../../../../shared/application.context";
+import {Constants} from "../../../../shared/constants";
 
 @Component({
   selector: 'app-profile-icon',
   templateUrl: './profile-icon.component.html',
   styleUrls: ['./profile-icon.component.css']
 })
-export class ProfileIconComponent implements OnInit {
+export class ProfileIconComponent {
   @ViewChild("resultViewer") resultViewer!: TemplateRef<any>;
+  primaryColor!: string
 
   constructor(
     private readonly appContext: ApplicationContext,
     private readonly modalService: ModalService,
     @Inject("Auth") readonly authService: AuthService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
+    this.primaryColor = Constants.CSS_PRIMARY_COLOR;
   }
 
   get picture(): string {
