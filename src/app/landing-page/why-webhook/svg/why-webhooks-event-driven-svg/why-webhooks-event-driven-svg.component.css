@@ -1,0 +1,19 @@
+.ed-svg-a, .ed-svg-d, .ed-svg-e, .ed-svg-f {
+  fill: var(--primary-color);
+}
+
+.ed-svg-b, .ed-svg-f {
+  opacity: 0.1;
+}
+
+.ed-svg-c {
+  fill: #fff;
+}
+
+.ed-svg-d {
+  opacity: 0.372;
+}
+
+.ed-svg-e {
+  opacity: 0.637;
+}

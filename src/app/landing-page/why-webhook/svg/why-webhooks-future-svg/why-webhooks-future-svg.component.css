@@ -1,0 +1,15 @@
+.b2b-svg-a, .b2b-svg-b, .b2b-svg-c, .b2b-svg-e {
+  fill: var(--primary-color);
+}
+
+.b2b-svg-b, .b2b-svg-d {
+  opacity: 0.1;
+}
+
+.b2b-svg-c {
+  opacity: 0.372;
+}
+
+.b2b-svg-e {
+  opacity: 0.3;
+}

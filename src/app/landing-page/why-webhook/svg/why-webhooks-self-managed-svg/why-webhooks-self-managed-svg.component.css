@@ -1,0 +1,19 @@
+.self-managed-svg-a, .self-managed-svg-b, .self-managed-svg-c, .self-managed-svg-e {
+  fill: var(--primary-color);
+}
+
+.self-managed-svg-b {
+  opacity: 0.05;
+}
+
+.self-managed-svg-c {
+  opacity: 0.372;
+}
+
+.self-managed-svg-d {
+  fill: #fff;
+}
+
+.self-managed-svg-e {
+  opacity: 0.1;
+}

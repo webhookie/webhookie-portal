@@ -1,0 +1,16 @@
+.discoverable-svg-a, .discoverable-svg-b, .discoverable-svg-c {
+  fill: var(--primary-color);
+}
+
+.discoverable-svg-a {
+  opacity: 0.1;
+}
+
+.discoverable-svg-b {
+  opacity: 0.372;
+}
+
+.discoverable-svg-c {
+  stroke: rgba(0, 0, 0, 0);
+  stroke-miterlimit: 10;
+}

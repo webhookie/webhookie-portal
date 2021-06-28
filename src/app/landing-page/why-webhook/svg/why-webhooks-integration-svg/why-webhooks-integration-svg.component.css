@@ -1,0 +1,23 @@
+.integration-svg-a {
+  fill: #fff;
+}
+
+.integration-svg-b, .integration-svg-c, .integration-svg-d, .integration-svg-e, .integration-svg-f {
+  fill: var(--primary-color);
+}
+
+.integration-svg-c {
+  opacity: 0.15;
+}
+
+.integration-svg-d {
+  opacity: 0.1;
+}
+
+.integration-svg-e {
+  opacity: 0.372;
+}
+
+.integration-svg-f {
+  opacity: 0.2;
+}

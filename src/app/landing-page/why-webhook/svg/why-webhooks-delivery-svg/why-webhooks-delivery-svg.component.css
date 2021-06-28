@@ -1,0 +1,21 @@
+
+.delivery-svg-a, .delivery-svg-c, .delivery-svg-d, .delivery-svg-e {
+  fill: var(--primary-color);
+}
+
+.delivery-svg-a {
+  opacity: 0.1;
+}
+
+.delivery-svg-b {
+  fill: #fff;
+}
+
+.delivery-svg-c {
+  opacity: 0.372;
+}
+
+.delivery-svg-d {
+  opacity: 0.2;
+}
+
