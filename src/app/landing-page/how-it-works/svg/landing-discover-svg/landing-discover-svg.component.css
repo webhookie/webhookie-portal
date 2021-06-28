@@ -1,0 +1,91 @@
+.discover-svg-a, .discover-svg-b, .discover-svg-c, .discover-svg-f, .discover-svg-i {
+  fill: var(--primary-color);
+}
+
+.discover-svg-a {
+  opacity: 0.1;
+}
+
+.discover-svg-b {
+  opacity: 0.135;
+}
+
+.discover-svg-c {
+  opacity: 0.163;
+}
+
+.discover-svg-d {
+  fill: #fafafa;
+}
+
+.discover-svg-e {
+  fill: #e0e0e0;
+}
+
+.discover-svg-f, .discover-svg-r {
+  opacity: 0.3;
+}
+
+.discover-svg-g, .discover-svg-v {
+  fill: #fff;
+}
+
+.discover-svg-h {
+  fill: #c6c6c6;
+}
+
+.discover-svg-j {
+  opacity: 0.737;
+}
+
+.discover-svg-k {
+  fill: #79f2c1;
+}
+
+.discover-svg-l {
+  fill: #263238;
+}
+
+.discover-svg-m {
+  fill: #253858;
+}
+
+.discover-svg-n {
+  fill: #0a1e42;
+}
+
+.discover-svg-o {
+  fill: #1e324c;
+}
+
+.discover-svg-p {
+  fill: #3ed397;
+}
+
+.discover-svg-q {
+  fill: #00834e;
+}
+
+.discover-svg-s {
+  fill: #ffbe9d;
+}
+
+.discover-svg-t {
+  fill: #eb996e;
+}
+
+.discover-svg-u {
+  fill: #f69110;
+}
+
+.discover-svg-v {
+  opacity: 0.278;
+}
+
+.discover-svg-w {
+  fill: #f5f5f5;
+}
+
+.discover-svg-x {
+  opacity: 0.6;
+}

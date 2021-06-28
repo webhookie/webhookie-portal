@@ -1,0 +1,59 @@
+.login-svg-a, .login-svg-g, .login-svg-i {
+  fill: var(--primary-color);
+}
+
+.login-svg-a {
+  opacity: 0.1;
+}
+
+.login-svg-b {
+  fill: #ebebeb;
+}
+
+.login-svg-c {
+  fill: #f5f5f5;
+}
+
+.login-svg-d {
+  fill: #e0e0e0;
+}
+
+.login-svg-e {
+  fill: #263238;
+}
+
+.login-svg-f {
+  fill: #fafafa;
+}
+
+.login-svg-g, .login-svg-p {
+  opacity: 0.3;
+}
+
+.login-svg-h {
+  fill: #fff;
+}
+
+.login-svg-j {
+  fill: #79f2c1;
+}
+
+.login-svg-k {
+  fill: #0a1e42;
+}
+
+.login-svg-l {
+  fill: #253858;
+}
+
+.login-svg-m {
+  fill: #ffbe9d;
+}
+
+.login-svg-n {
+  fill: #f69110;
+}
+
+.login-svg-o {
+  fill: #eb996e;
+}

@@ -1,0 +1,59 @@
+.test-svg-a, .test-svg-f, .test-svg-m {
+  fill: var(--primary-color);
+}
+
+.test-svg-a {
+  opacity: 0.1;
+}
+
+.test-svg-b {
+  fill: #fff;
+}
+
+.test-svg-c {
+  fill: #0a1e42;
+}
+
+.test-svg-d, .test-svg-f, .test-svg-n {
+  opacity: 0.3;
+}
+
+.test-svg-e {
+  fill: #c6d8f4;
+}
+
+.test-svg-g {
+  fill: #e0e0e0;
+}
+
+.test-svg-h {
+  fill: #263238;
+}
+
+.test-svg-i {
+  fill: #041c39;
+}
+
+.test-svg-j {
+  fill: #79f2c1;
+}
+
+.test-svg-k {
+  fill: #253858;
+}
+
+.test-svg-l {
+  fill: #1e324c;
+}
+
+.test-svg-o {
+  fill: #f69110;
+}
+
+.test-svg-p {
+  fill: #ffbe9d;
+}
+
+.test-svg-q {
+  fill: #eb996e;
+}

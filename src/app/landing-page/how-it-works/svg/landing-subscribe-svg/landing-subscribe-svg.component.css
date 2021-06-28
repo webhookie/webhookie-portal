@@ -1,0 +1,67 @@
+.subscribe-svg-a, .subscribe-svg-e, .subscribe-svg-f, .subscribe-svg-j {
+  fill: var(--primary-color);
+}
+
+.subscribe-svg-a, .subscribe-svg-e {
+  opacity: 0.1;
+}
+
+.subscribe-svg-b, .subscribe-svg-f {
+  opacity: 0.3;
+}
+
+.subscribe-svg-c {
+  fill: #e0e0e0;
+}
+
+.subscribe-svg-d {
+  fill: none;
+}
+
+.subscribe-svg-e, .subscribe-svg-f {
+  fill-rule: evenodd;
+}
+
+.subscribe-svg-g {
+  fill: #0a1e42;
+}
+
+.subscribe-svg-h {
+  fill: #263238;
+}
+
+.subscribe-svg-i {
+  fill: #fff;
+}
+
+.subscribe-svg-k {
+  fill: #3b484e;
+}
+
+.subscribe-svg-l {
+  fill: #ffbe9d;
+}
+
+.subscribe-svg-m {
+  opacity: 0.6;
+}
+
+.subscribe-svg-n {
+  fill: #1e324c;
+}
+
+.subscribe-svg-o {
+  fill: #f69110;
+}
+
+.subscribe-svg-p {
+  fill: #eb996e;
+}
+
+.subscribe-svg-q {
+  fill: #79f2c1;
+}
+
+.subscribe-svg-r {
+  fill: #253858;
+}
