@@ -16,6 +16,7 @@ import {CreateApplicationComponent} from './subscribe-webhook/application/create
 import {CreateCallbackComponent} from './subscribe-webhook/callback/create-callback/create-callback.component';
 import {DotMenuComponent} from 'src/app/shared/components/dot-menu/dot-menu.component';
 import {SharedModule} from "../../shared/shared.module";
+import { CongratsSvgComponent } from './subscribe-webhook/congrats/congrats-svg/congrats-svg.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {SharedModule} from "../../shared/shared.module";
     CongratsComponent,
     CreateApplicationComponent,
     CreateCallbackComponent,
-    DotMenuComponent
+    DotMenuComponent,
+    CongratsSvgComponent
   ],
   imports: [
     CommonModule,
