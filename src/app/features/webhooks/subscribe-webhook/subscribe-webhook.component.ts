@@ -17,6 +17,7 @@ import {Constants} from "../../../shared/constants";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SubscriptionContext} from "./subscription-context";
 import {WebhookBaseComponent} from "../common/webhook-base-component";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -33,6 +34,8 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
   subscription?: Subscription
   readMode = false;
   isRunning = false;
+
+  debug = environment.debug
 
   constructor(
     private readonly context: WebhooksContext,
