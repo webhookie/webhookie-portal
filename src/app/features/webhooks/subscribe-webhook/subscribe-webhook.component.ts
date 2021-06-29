@@ -18,6 +18,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SubscriptionContext} from "./subscription-context";
 import {WebhookBaseComponent} from "../common/webhook-base-component";
 import {environment} from "../../../../environments/environment";
+import {WebhookieError} from "../../../shared/error/webhookie-error";
+import {DuplicateEntityError} from "../../../shared/error/duplicate-entity-error";
+import {ToastService} from "../../../shared/service/toast.service";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -38,6 +41,7 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
   debug = environment.debug
 
   constructor(
+    private readonly toastService: ToastService,
     private readonly context: WebhooksContext,
     private readonly subscriptionContext: SubscriptionContext,
     private readonly activatedRoute: ActivatedRoute,
@@ -76,10 +80,11 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
     this.subscriptionContext.clear();
   }
 
+/*
   private clearSubscription() {
-    // @ts-ignore
     this.subscription = null;
   }
+*/
 
   // noinspection JSUnusedGlobalSymbols
   ngAfterViewInit() {
@@ -99,22 +104,24 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
 
     this.clear();
 
+/*
     this.subscriptionContext.callbackCleared$
-    // @ts-ignore
       .subscribe(() => this.clearSubscription());
 
     this.subscriptionContext._createdCallback$.asObservable()
-    // @ts-ignore
       .subscribe(() => this.clearSubscription())
+*/
 
     this.subscriptionContext.selectedCallback$
-      .pipe(mergeMap(it => this.fetchSubscriptions(it.id)))
+      // .pipe(mergeMap(it => this.fetchSubscriptions(it.id)))
       .subscribe(it => {
+/*
         if (it.length > 0) {
           this.subscription = it[0]
         } else {
           this.clearSubscription();
         }
+*/
         this.response?.invalidate()
       })
   }
@@ -164,8 +171,20 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
   }
 
   createSubscription() {
+    let successHandler = (it: Subscription) => {
+      this.subscription = it
+    };
+
+    let errorHandler = (error: WebhookieError) => {
+      let message = error.message;
+      if(error.name == DuplicateEntityError.name) {
+        message = `There is a subscription with the selected Callback and Application for ${this.webhook.topic.name}`
+      }
+      this.toastService.error(message, "Server Error")
+    };
+
     this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback!.id)
-      .subscribe(it => this.subscription = it);
+      .subscribe(successHandler, errorHandler);
   }
 
   private fetchSubscriptions(callbackId: string): Observable<Array<Subscription>> {
