@@ -13,6 +13,10 @@ export class AppComponent {
   spinnerStyle = Spinkit;
   primaryColor!: string
 
+  get hideLoadingHeaders(): Array<string> {
+    return [Constants.HEADER_HIDE_LOADING_KEY]
+  }
+
   constructor(private readonly configService: ConfigService) {
     this.configService.read()
     this.primaryColor = Constants.CSS_PRIMARY_COLOR;

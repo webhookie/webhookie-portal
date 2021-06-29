@@ -25,4 +25,9 @@ export class Constants {
   static readonly CSS_BACKGROUND_COLOR = "var(--background-color)";
   // noinspection JSUnusedGlobalSymbols
   static readonly CSS_PRIMARY_TEXT_COLOR = "var(--primary-text-color)";
+
+  static readonly HEADER_HIDE_LOADING_KEY = "HEADER_HIDE_LOADING_KEY"
+  static readonly HEADER_HIDE_LOADING = {
+    HEADER_HIDE_LOADING_KEY: "true"
+  }
 }

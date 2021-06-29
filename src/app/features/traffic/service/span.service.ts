@@ -30,7 +30,7 @@ export class SpanService {
 
   readSpans(filter: any, pageable: Pageable): Observable<Span[]> {
     let params = RequestUtils.httpParams(filter, pageable);
-    return this.api.json(this.SPAN_URI, params)
+    return this.api.json(this.SPAN_URI, params, RequestUtils.hideLoadingHeader())
       .pipe(
         tap(it => this.log.info(`Fetched '${it.length}' spans`)),
         map(it => this.adapter.adaptList(it))

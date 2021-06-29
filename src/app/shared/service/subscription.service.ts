@@ -25,7 +25,7 @@ export class SubscriptionService {
 
   fetchSubscriptions(filter: any, pageable: Pageable): Observable<Array<Subscription>> {
     let params = RequestUtils.httpParams(filter, pageable);
-    return this.api.json(this.SUBSCRIPTIONS_URI, params)
+    return this.api.json(this.SUBSCRIPTIONS_URI, params, RequestUtils.hideLoadingHeader())
       .pipe(
         tap(it => this.log.info(`Fetched '${it.length}' subscriptions`)),
         map(it => this.adapter.adaptList(it))
