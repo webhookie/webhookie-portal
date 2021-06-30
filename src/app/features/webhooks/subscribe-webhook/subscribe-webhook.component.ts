@@ -59,15 +59,16 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
   }
 
   get canBeSaved() {
-    return this.selectedCallback && !this.selectedSubscription
+    return this.selectedCallback &&
+      this.subscription?.callback?.id != this.selectedCallback.id
   }
 
   get canBeValidated() {
-    return this.subscription?.canBeValidated() && !this.isRunning
+    return this.subscription?.canBeValidated() && !this.isRunning  && !this.canBeSaved
   }
 
   get canBeActivated() {
-    return this.subscription?.canBeActivated()
+    return this.subscription?.canBeActivated() && !this.canBeSaved
   }
 
   get hasResponse() {
@@ -129,8 +130,7 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
       this.response?.updateWithError(err.error);
     }
 
-    this.subscriptionContext.selectedCallback$
-      .pipe(mergeMap(validateSubscription))
+    validateSubscription()
       .subscribe(successHandler, errorHandler)
   }
 
@@ -145,6 +145,7 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
   createSubscription() {
     let successHandler = (it: Subscription) => {
       this.subscription = it
+      this.toastService.success(`subscription has been saved successfully!`, "Done")
     };
 
     let errorHandler = (error: WebhookieError) => {
@@ -155,7 +156,12 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
       this.toastService.error(message, "Server Error")
     };
 
-    this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback!.id)
-      .subscribe(successHandler, errorHandler);
+    if(this.subscription?.id) {
+      this.subscriptionService.updateSubscription(this.subscription, this.selectedCallback!.id)
+        .subscribe(successHandler, errorHandler);
+    } else {
+      this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback!.id)
+        .subscribe(successHandler, errorHandler);
+    }
   }
 }

@@ -121,7 +121,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VALIDATE)
-        .handler(this.validate())
+        .handler(this.edit())
         .isAvailable(this.contextMenuService.canValidate(this._role$))
         .build(),
       ContextMenuItemBuilder
@@ -183,7 +183,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     }
   }
 
-  validate(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+  edit(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription: Subscription) => {
       this.webhookGroupService.fetchByTopic(subscription.topic)
         .subscribe(group => {
@@ -195,12 +195,6 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
           this.routeService
             .navigateTo("webhooks/subscribe-webhook", params)
         })
-    }
-  }
-
-  edit(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
-    return (it: Subscription, item: SubscriptionContextMenu) => {
-      console.warn(`${item.item} ==> ${it.id}`);
     }
   }
 
