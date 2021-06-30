@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {WebhooksContext} from "../webhooks-context";
 import {ResponseComponent} from "../common/response/response.component";
 import {ApplicationComponent} from "./application/application.component";
@@ -11,9 +11,7 @@ import {RouterService} from "../../../shared/service/router.service";
 import {HttpHeaders} from "@angular/common/http";
 import {CallbackResponse} from "../service/callback.service";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
-import {Pageable} from "../../../shared/request/pageable";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
-import {Constants} from "../../../shared/constants";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SubscriptionContext} from "./subscription-context";
 import {WebhookBaseComponent} from "../common/webhook-base-component";
@@ -27,7 +25,7 @@ import {ToastService} from "../../../shared/service/toast.service";
   templateUrl: './subscribe-webhook.component.html',
   styleUrls: ['./subscribe-webhook.component.css']
 })
-export class SubscribeWebhookComponent extends WebhookBaseComponent{
+export class SubscribeWebhookComponent extends WebhookBaseComponent implements AfterViewInit {
 
   @ViewChild("applicationComponent") application?: ApplicationComponent
   @ViewChild("callbackComponent") callback?: CallbackComponent
@@ -80,13 +78,6 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
     this.subscriptionContext.clear();
   }
 
-/*
-  private clearSubscription() {
-    this.subscription = null;
-  }
-*/
-
-  // noinspection JSUnusedGlobalSymbols
   ngAfterViewInit() {
     this.activatedRoute.queryParams
       .pipe(
@@ -104,26 +95,8 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
 
     this.clear();
 
-/*
-    this.subscriptionContext.callbackCleared$
-      .subscribe(() => this.clearSubscription());
-
-    this.subscriptionContext._createdCallback$.asObservable()
-      .subscribe(() => this.clearSubscription())
-*/
-
     this.subscriptionContext.selectedCallback$
-      // .pipe(mergeMap(it => this.fetchSubscriptions(it.id)))
-      .subscribe(it => {
-/*
-        if (it.length > 0) {
-          this.subscription = it[0]
-        } else {
-          this.clearSubscription();
-        }
-*/
-        this.response?.invalidate()
-      })
+      .subscribe(() => this.response?.invalidate());
   }
 
   title() {
@@ -162,8 +135,7 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
   }
 
   activate() {
-    // @ts-ignore
-    this.subscriptionService.activateSubscription(this.subscription)
+    this.subscriptionService.activateSubscription(this.subscription!)
       .subscribe(it => {
         this.subscription = it;
         this.routeService.navigateTo("/webhooks/congrats");
@@ -185,14 +157,5 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent{
 
     this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback!.id)
       .subscribe(successHandler, errorHandler);
-  }
-
-  private fetchSubscriptions(callbackId: string): Observable<Array<Subscription>> {
-    let filter = {
-      role: Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER,
-      topic: this.webhook.topic.name,
-      callbackId: callbackId
-    }
-    return this.subscriptionService.fetchSubscriptions(filter, Pageable.default())
   }
 }
