@@ -6,6 +6,9 @@ import {Application} from "../../model/application";
 import {Callback} from "../../../../shared/model/callback";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../subscription-context";
+import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../shared/model/table/column/context-menu-item";
+
+type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
 @Component({
   selector: 'app-callback',
@@ -28,6 +31,21 @@ export class CallbackComponent implements OnInit {
 
   get selectedCallback() {
     return this.context.currentCallback
+  }
+
+  get callbackMenuItems(): Array<CallbackContextMenu> {
+    return [
+      ContextMenuItemBuilder
+        .create<Callback, CallbackMenu>(CallbackMenu.EDIT)
+        .handler(this.editCallback())
+        .build()
+    ]
+  }
+
+  editCallback(): (it: Callback, item: CallbackContextMenu) => any {
+    return (it) => {
+      console.warn(it)
+    }
   }
 
   loadCallbacks(application?: Application): Observable<Array<Callback>> {
@@ -66,4 +84,8 @@ export class CallbackComponent implements OnInit {
   selectCallback(callback: Callback) {
     this.context.updateCallback(callback);
   }
+}
+
+enum CallbackMenu {
+  EDIT = "Edit"
 }
