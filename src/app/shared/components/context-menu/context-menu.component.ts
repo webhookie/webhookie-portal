@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {ContextMenuTableColumn} from "../../../model/table/column/context-menu-table-column";
-import {TableData} from "../../../model/table/table-data";
-import {TableColumn} from "../../../model/table/column/table-column";
-import {ContextMenuItem} from "../../../model/table/column/context-menu-item";
+import {ContextMenuTableColumn} from "../../model/table/column/context-menu-table-column";
+import {TableData} from "../../model/table/table-data";
+import {TableColumn} from "../../model/table/column/table-column";
+import {ContextMenuItem} from "../../model/table/column/context-menu-item";
 
 @Component({
   selector: 'app-context-menu',

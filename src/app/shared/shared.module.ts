@@ -19,7 +19,7 @@ import {SearchListComponent} from './components/search-list/search-list.componen
 import {GenericTableComponent} from "./components/generic-table/generic-table.component";
 import {TimestampFilterComponent} from './components/timestamp-filter/timestamp-filter.component';
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
-import {ContextMenuComponent} from './components/generic-table/table-menu/context-menu.component';
+import {ContextMenuComponent} from './components/context-menu/context-menu.component';
 import {JsonViewerComponent} from './components/json-viewer/json-viewer.component';
 import {MultiSelectComponent} from './components/multi-select/multi-select.component';
 import {ConfirmDialogComponent} from './components/confirm-dialog/confirm-dialog.component';
