@@ -584,12 +584,23 @@ input:focus{
 .btn-primary-outline:hover {
     color: var(--primary-color);
 }
+.btn-primary.disabled, .btn-primary:disabled{
+    background-color:#E5E5E5;
+    border-color: #E5E5E5;
+    color: #C6C6C6;
+}
+.btn.disabled, .btn:disabled {
+    opacity: .65;
+    color: #C6C6C6 !important;
+}
 .monaco-editor .view-overlays .focused {
     height: 1042px !important;
     min-height: 1042px !important;
     max-width: 1024px !important;
 }
-
+.asyncapi .asyncapi__collapse-button {
+    background-color: aqua !important;
+}
 
 @media (max-width: 1024px) {
     h1 {

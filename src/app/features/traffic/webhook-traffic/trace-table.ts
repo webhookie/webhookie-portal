@@ -36,7 +36,7 @@ export class TraceTable {
       new EmptyTableHeader("sticky-cell", "Webhook_Header1"),
       new SortableTableHeader("Trace Id", "traceId"),
       new SortableTableHeader("Webhook", "topic"),
-      new SortableTableHeader("Status", "statusUpdate.status", "text-center"),
+      new SortableTableHeader("Status", "statusUpdate.status"),
       new SortableTableHeader("Timestamp", "statusUpdate.time"),
       new SortableTableHeader("Authorized Subscribers", "consumerMessage.authorizedSubscribers"),
     ]

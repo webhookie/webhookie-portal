@@ -35,3 +35,7 @@
 .breadcrumb span:last-child a {
   color: var(--primary-text-color);
 }
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button{
+  min-width: 35px !important;
+  padding: 0 !important;
+}

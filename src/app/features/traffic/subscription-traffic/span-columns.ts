@@ -56,7 +56,7 @@ export class SpanStatusColumn extends BaseTableColumn<Span>{
     return `<h5><span class="${SpanColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span></h5>`;
   }
 
-  clazz = "text-center"
+  clazz = "text-left"
 }
 
 export class TriesColumn extends NumberTableColumn<Span>{

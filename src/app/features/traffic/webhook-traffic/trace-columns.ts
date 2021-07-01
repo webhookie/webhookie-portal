@@ -33,7 +33,7 @@ export class TraceStatusColumn extends BaseTableColumn<Trace> {
     return `<h5><span class="${TraceColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span></h5>`;
   }
 
-  clazz = "text-center"
+  clazz = "text-left"
 }
 
 export class TraceMoreDataColumn extends MoreDataTableColumn<Trace> {

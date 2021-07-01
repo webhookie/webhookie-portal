@@ -34,7 +34,7 @@ export class SpanTable {
       new SimpleTableHeader("Callback URL", "Webhook_Details_Callback_Header"),
       new SimpleTableHeader("Timestamp", "Webhook_Details_Timestamp_Header"),
       new SimpleTableHeader("Response code", "Webhook_Details_Response_Code_Header"),
-      new SimpleTableHeader("Status", "Webhook_Details_Status_Header", "text-center"),
+      new SimpleTableHeader("Status", "Webhook_Details_Status_Header"),
       new SimpleTableHeader("Tries", "Webhook_Details_Tries_Header"),
       new SimpleTableHeader("", "Webhook_Details_Header1")
     ]
