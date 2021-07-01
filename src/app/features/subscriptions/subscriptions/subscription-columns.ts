@@ -30,7 +30,7 @@ export class SubscriptionStatusColumn extends BaseTableColumn<Subscription>{
     return `<h5><span class="${SubscriptionColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span></h5>`;
   }
 
-  clazz = "text-center"
+  clazz = "text-left"
 }
 
 class SubscriptionColumnUtils {
