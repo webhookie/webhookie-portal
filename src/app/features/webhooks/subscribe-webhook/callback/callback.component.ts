@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {CallbackService} from "../../service/callback.service";
 import {mergeMap} from "rxjs/operators";
 import {EMPTY, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
@@ -7,6 +7,7 @@ import {Callback} from "../../../../shared/model/callback";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../subscription-context";
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../shared/model/table/column/context-menu-item";
+import {CallbackUrlComponent} from "../../callback-test/callback-url/callback-url.component";
 
 type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
@@ -16,6 +17,8 @@ type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
   styleUrls: ['./callback.component.css']
 })
 export class CallbackComponent implements OnInit {
+  @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
+
   readonly _callbacks$: Subject<Array<Callback>> = new ReplaySubject();
 
   constructor(
@@ -33,6 +36,10 @@ export class CallbackComponent implements OnInit {
     return this.context.currentCallback
   }
 
+  get encodedSecret(): string {
+    return CallbackUrlComponent.ENCODED_SECRET
+  }
+
   get callbackMenuItems(): Array<CallbackContextMenu> {
     return [
       ContextMenuItemBuilder
@@ -43,8 +50,8 @@ export class CallbackComponent implements OnInit {
   }
 
   editCallback(): (it: Callback, item: CallbackContextMenu) => any {
-    return (it) => {
-      console.warn(it)
+    return () => {
+      this.modalService.open(this.editCallbackTemplate)
     }
   }
 

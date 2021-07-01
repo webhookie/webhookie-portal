@@ -49,6 +49,14 @@ export class CallbackService {
         map((it: HttpResponse<any>) => this.adapter.adapt(it.body)),
       )
   }
+
+  updateCallback(request: CallbackRequest, callbackId: string): Observable<Callback> {
+    let uri = `/applications/${request.applicationId}/callbacks/${callbackId}`
+    return this.api.put(uri, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
+      .pipe(
+        map((it: HttpResponse<any>) => this.adapter.adapt(it.body)),
+      )
+  }
 }
 
 export interface CallbackValidationRequest {
