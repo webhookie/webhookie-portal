@@ -1,5 +1,6 @@
 <a href="#" class="dropdown-toggle hide-after" data-toggle="dropdown">
-  <img src="/assets/images/provider-menu.svg" alt="menu">
+  <img *ngIf="!isVertical" src="/assets/images/provider-menu.svg" alt="menu">
+  <img *ngIf="isVertical" src="/assets/images/provider-menu-vertical.svg" alt="menu">
 </a>
 <div class="dropdown-menu dropdown-menu-right px-2">
   <ul class="nav-vertical nav-small">
