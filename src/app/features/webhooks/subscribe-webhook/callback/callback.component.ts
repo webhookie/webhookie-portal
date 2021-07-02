@@ -1,6 +1,6 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {CallbackService} from "../../service/callback.service";
-import {mergeMap} from "rxjs/operators";
+import {mergeMap, tap} from "rxjs/operators";
 import {EMPTY, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {Callback} from "../../../../shared/model/callback";
@@ -18,6 +18,9 @@ type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 })
 export class CallbackComponent implements OnInit {
   @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
+
+  callbackToEdit?: Callback
+  noOfActiveSubscriptions?: number
 
   readonly _callbacks$: Subject<Array<Callback>> = new ReplaySubject();
 
@@ -50,8 +53,16 @@ export class CallbackComponent implements OnInit {
   }
 
   editCallback(): (it: Callback, item: CallbackContextMenu) => any {
-    return () => {
-      this.modalService.open(this.editCallbackTemplate)
+    return (callback: Callback) => {
+      this.service.fetchApplicationCallback(this.selectedApplication!.id, callback.id)
+        .pipe(
+          tap(it => this.callbackToEdit = it),
+          mergeMap(() => this.service.noOfCallbackSubscriptions(this.selectedApplication!.id, callback.id))
+        )
+        .subscribe((it: number) => {
+          this.noOfActiveSubscriptions = it
+          this.modalService.open(this.editCallbackTemplate)
+        })
     }
   }
 

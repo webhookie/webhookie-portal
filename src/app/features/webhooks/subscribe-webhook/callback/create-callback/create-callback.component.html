@@ -10,6 +10,11 @@
     <app-callback-url [callback]="callback" #callbackComponent></app-callback-url>
   </div>
   <div class="modal-footer">
+    <ngb-alert [dismissible]="false" type="warning" *ngIf="hasActiveSubscriptions">
+      There {{hasMoreThanOnOtherActiveSubscription ? "are" : "is"}}
+      <strong>{{numberOfOtherSubscriptionsSharingCallback}}</strong> other active subscription{{hasMoreThanOnOtherActiveSubscription ? "s" : ""}} using same callback!
+      Updating the details impacts other active subscriptions
+    </ngb-alert>
     <button (click)="modalService.hide()" aria-label="Close" class="btn btn-default cancel border"
             type="button">Cancel
     </button>

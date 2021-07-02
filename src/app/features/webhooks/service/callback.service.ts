@@ -42,6 +42,20 @@ export class CallbackService {
       );
   }
 
+  fetchApplicationCallback(applicationId: string, callbackId: string): Observable<Callback> {
+    let uri = `/applications/${applicationId}/callbacks/${callbackId}`
+    return this.api.json(uri)
+      .pipe(map(it => this.adapter.adapt(it)));
+  }
+
+  noOfCallbackSubscriptions(applicationId: string, callbackId: string): Observable<number> {
+    let uri = `/applications/${applicationId}/callbacks/${callbackId}/noOfSubscriptions`
+    return this.api.json(uri)
+      .pipe(
+        map(it => it.noOfActiveSubscriptions)
+      );
+  }
+
   createCallback(request: CallbackRequest): Observable<Callback> {
     let uri = `/applications/${request.applicationId}/callbacks`
     return this.api.post(uri, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)

@@ -17,12 +17,33 @@ export class CreateCallbackComponent {
   // @ts-ignore
   @ViewChild("callbackComponent") callbackComponent: CallbackUrlComponent
   @Input() callback?: Callback
+  @Input() noOfActiveSubscriptions?: number
 
   constructor(
     public modalService: ModalService,
     private readonly service: CallbackService,
     private readonly context: SubscriptionContext
   ) {
+  }
+
+  get hasActiveSubscriptions(): boolean {
+    if(this.noOfActiveSubscriptions) {
+      return this.noOfActiveSubscriptions > 1
+    }
+
+    return false
+  }
+
+  get numberOfOtherSubscriptionsSharingCallback(): number {
+    if(this.noOfActiveSubscriptions) {
+      return this.noOfActiveSubscriptions - 1
+    }
+
+    return 0
+  }
+
+  get hasMoreThanOnOtherActiveSubscription(): boolean {
+    return this.numberOfOtherSubscriptionsSharingCallback > 1
   }
 
   get selectedApplication() {
