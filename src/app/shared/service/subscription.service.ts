@@ -46,14 +46,9 @@ export class SubscriptionService {
     let request = {
       callbackId: callbackId
     }
-    console.warn(`updateSubscription: ${subscription.id}, ${request.callbackId}`)
 
-    return of(subscription)
-/*
-
-    return this.api.put("/subscriptions", request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
+    return this.api.put(`/subscriptions/${subscription.id}`, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(map(it => this.adapter.adapt(it.body)))
-*/
   }
 
   validateSubscription(subscription: Subscription, request: ValidateSubscriptionRequest): Observable<Subscription> {
