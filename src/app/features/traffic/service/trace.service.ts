@@ -30,7 +30,7 @@ export class TraceService {
 
   readTraces(filter: any, pageable: Pageable): Observable<Array<Trace>> {
     let params = RequestUtils.httpParams(filter, pageable);
-    return this.api.json(this.TRACE_URI, params)
+    return this.api.json(this.TRACE_URI, params, RequestUtils.hideLoadingHeader())
       .pipe(
         tap(it => this.log.info(`Fetched '${it.length}' traces`)),
         map(it => this.adapter.adaptList(it))

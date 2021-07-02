@@ -17,6 +17,7 @@ import {CreateCallbackComponent} from './subscribe-webhook/callback/create-callb
 import {DotMenuComponent} from 'src/app/shared/components/dot-menu/dot-menu.component';
 import {SharedModule} from "../../shared/shared.module";
 import { CongratsSvgComponent } from './subscribe-webhook/congrats/congrats-svg/congrats-svg.component';
+import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CongratsSvgComponent } from './subscribe-webhook/congrats/congrats-svg/
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    NgbAlertModule,
   ],
 
 })

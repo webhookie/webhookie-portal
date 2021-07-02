@@ -1,5 +1,6 @@
-import {HttpParams} from "@angular/common/http";
+import {HttpHeaders, HttpParams} from "@angular/common/http";
 import {Pageable} from "./pageable";
+import {Constants} from "../constants";
 
 export class RequestUtils {
   static httpParams(filter: any, pageable: Pageable): HttpParams {
@@ -30,5 +31,9 @@ export class RequestUtils {
     }
 
     return params;
+  }
+
+  static hideLoadingHeader(): HttpHeaders {
+    return new HttpHeaders(Constants.HEADER_HIDE_LOADING)
   }
 }

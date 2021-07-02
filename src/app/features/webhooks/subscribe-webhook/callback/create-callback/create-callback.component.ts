@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
 import {CallbackRequest, CallbackService} from "../../../service/callback.service";
 import {WebhookieError} from "../../../../../shared/error/webhookie-error";
@@ -13,9 +13,11 @@ import {SubscriptionContext} from "../../subscription-context";
   templateUrl: './create-callback.component.html',
   styleUrls: ['./create-callback.component.css']
 })
-export class CreateCallbackComponent implements OnInit {
+export class CreateCallbackComponent {
   // @ts-ignore
-  @ViewChild("callbackComponent") callback: CallbackUrlComponent
+  @ViewChild("callbackComponent") callbackComponent: CallbackUrlComponent
+  @Input() callback?: Callback
+  @Input() noOfActiveSubscriptions?: number
 
   constructor(
     public modalService: ModalService,
@@ -24,26 +26,54 @@ export class CreateCallbackComponent implements OnInit {
   ) {
   }
 
+  get hasActiveSubscriptions(): boolean {
+    if(this.noOfActiveSubscriptions) {
+      return this.noOfActiveSubscriptions > 1
+    }
+
+    return false
+  }
+
+  get numberOfOtherSubscriptionsSharingCallback(): number {
+    if(this.noOfActiveSubscriptions) {
+      return this.noOfActiveSubscriptions - 1
+    }
+
+    return 0
+  }
+
+  get hasMoreThanOnOtherActiveSubscription(): boolean {
+    return this.numberOfOtherSubscriptionsSharingCallback > 1
+  }
+
   get selectedApplication() {
     return this.context.currentApplication
   }
 
-  ngOnInit(): void {
+  get buttonTitle(): string {
+    return this.isEditMode ? "Update" : "Create"
+  }
+
+  get isEditMode(): boolean {
+    return !!this.callback
   }
 
   create() {
+    let name = this.callbackComponent.name != ""
+      ? this.callbackComponent.name
+      :`${this.callbackComponent.method} ${this.callbackComponent.url}`
     let request: CallbackRequest = {
-      name: `${this.callback.method} ${this.callback.url}`,
+      name: name,
       applicationId: this.context.currentApplication!.id,
-      httpMethod: this.callback.method,
-      url: this.callback.url
+      httpMethod: this.callbackComponent.method,
+      url: this.callbackComponent.url
     }
 
-    if(this.callback.isHmac) {
+    if(this.callbackComponent.isHmac) {
       request.security = {
         secret: {
-          keyId: this.callback.keyId,
-          secret: this.callback.secret
+          keyId: this.callbackComponent.keyId,
+          secret: this.callbackComponent.secret
         }
       }
     }
@@ -64,7 +94,10 @@ export class CreateCallbackComponent implements OnInit {
       }
     };
 
-    this.service.createCallback(request)
-      .subscribe(successHandler, errorHandler)
+    let callbackObservable = this.isEditMode
+      ? this.service.updateCallback(request, this.callback!.id)
+      : this.service.createCallback(request)
+
+    callbackObservable.subscribe(successHandler, errorHandler)
   }
 }

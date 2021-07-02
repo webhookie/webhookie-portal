@@ -1,11 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {CallbackService} from "../../service/callback.service";
-import {mergeMap} from "rxjs/operators";
+import {mergeMap, tap} from "rxjs/operators";
 import {EMPTY, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {Callback} from "../../../../shared/model/callback";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../subscription-context";
+import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../shared/model/table/column/context-menu-item";
+import {CallbackUrlComponent} from "../../callback-test/callback-url/callback-url.component";
+
+type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
 @Component({
   selector: 'app-callback',
@@ -13,6 +17,11 @@ import {SubscriptionContext} from "../subscription-context";
   styleUrls: ['./callback.component.css']
 })
 export class CallbackComponent implements OnInit {
+  @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
+
+  callbackToEdit?: Callback
+  noOfActiveSubscriptions?: number
+
   readonly _callbacks$: Subject<Array<Callback>> = new ReplaySubject();
 
   constructor(
@@ -28,6 +37,33 @@ export class CallbackComponent implements OnInit {
 
   get selectedCallback() {
     return this.context.currentCallback
+  }
+
+  get encodedSecret(): string {
+    return CallbackUrlComponent.ENCODED_SECRET
+  }
+
+  get callbackMenuItems(): Array<CallbackContextMenu> {
+    return [
+      ContextMenuItemBuilder
+        .create<Callback, CallbackMenu>(CallbackMenu.EDIT)
+        .handler(this.editCallback())
+        .build()
+    ]
+  }
+
+  editCallback(): (it: Callback, item: CallbackContextMenu) => any {
+    return (callback: Callback) => {
+      this.service.fetchApplicationCallback(this.selectedApplication!.id, callback.id)
+        .pipe(
+          tap(it => this.callbackToEdit = it),
+          mergeMap(() => this.service.noOfCallbackSubscriptions(this.selectedApplication!.id, callback.id))
+        )
+        .subscribe((it: number) => {
+          this.noOfActiveSubscriptions = it
+          this.modalService.open(this.editCallbackTemplate)
+        })
+    }
   }
 
   loadCallbacks(application?: Application): Observable<Array<Callback>> {
@@ -66,4 +102,8 @@ export class CallbackComponent implements OnInit {
   selectCallback(callback: Callback) {
     this.context.updateCallback(callback);
   }
+}
+
+enum CallbackMenu {
+  EDIT = "Edit"
 }

@@ -3,6 +3,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import {Observable} from 'rxjs';
 import {LogService} from "../service/log.service";
 import {environment} from "../../../environments/environment";
+import {Constants} from "../constants";
 
 
 @Injectable()
@@ -12,11 +13,13 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
   ) {
   }
 
+/*
   HTTP_LOADER_IGNORE_LIST = [
     "/subscriptions",
     "/traffic/span",
     "/traffic/trace"
   ]
+*/
 
   /**
    * Interceptor inject token in header Authorization
@@ -25,6 +28,13 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
    * @returns {Observable<HttpEvent<any>>}
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> | Observable<any> {
+    let reqId = `${req.method} ${req.url.replace(environment.apiUrl, "")}`
+    let header = req.headers.get(Constants.HEADER_HIDE_LOADING_KEY);
+    if(header) {
+      this.log.warn(`${reqId} => headers: ${header}`)
+    }
+
+/*
     if (!req.url.includes(environment.apiUrl)) {
       return next.handle(req)
     }
@@ -36,13 +46,12 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
     if(this.HTTP_LOADER_IGNORE_LIST.some(it => req.url.startsWith(environment.apiUrl + it))) {
       this.log.debug(`Ignoring http loader: ${req.method.toUpperCase()} ${req.url}`)
 
-      const headersConfig = {
-        "hide_loader": "true"
-      };
+      const headersConfig = Constants.HEADER_HIDE_LOADING;
       const request = req.clone({setHeaders: headersConfig});
 
       return next.handle(request);
     }
+*/
 
 
     return next.handle(req);

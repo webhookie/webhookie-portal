@@ -73,12 +73,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
   showError(request: HttpRequest<unknown>, msg: string, header: string) {
     let reqId = `${request.method} ${request.url.replace(environment.apiUrl, "")}`
-    if(!this.ignoreRequests.has(reqId)) {
+    let shouldBeIgnored = this.ignoreRequests.has(reqId);
+    this.log.warn(`Checking ${reqId} for errors, ignore? : ${shouldBeIgnored}`)
+    if(!shouldBeIgnored) {
       this.toastService.error(msg, header, { delay: 10000 });
     }
   }
 
   ignoreRequests: Set<string> = new Set<string>([
-    "POST /webhookgroups"
+    "POST /webhookgroups",
+    "POST /subscriptions"
   ]);
 }

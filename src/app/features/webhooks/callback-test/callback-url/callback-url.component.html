@@ -1,7 +1,14 @@
 <div class="call-back-url border-top">
   <fieldset class="p-3 mt-3 mr-lg-3">
     <form>
-      <h4 class="font14 font-weight-400">Callback URL</h4>
+      <label for="name" class="font14 font-weight-400">Callback Name</label>
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <input [(ngModel)]="name" class="form-control" id="name" name="name" placeholder="Callback Name"
+                 type="text">
+        </div>
+      </div>
+      <label for="url" class="font14 font-weight-400">Callback URL</label>
       <div class="form-row">
         <!-- <div class="form-group col-md-2">
           <select class="custom-select text-uppercase test-select">
@@ -32,7 +39,7 @@
                name="security" type="radio">
         <label class="custom-control-label font12 pt-1" for="{{s}}">{{s}}</label>
       </div>
-      <div *ngIf="securityModel=='HMAC Signature'" class="callback-test-key mt-3">
+      <div *ngIf="isHmac" class="callback-test-key mt-3">
         <div class="form-row">
           <div class="form-group col-md-8">
             <label class="font14 font-weight-400 mb-1" for="keyId">Key ID</label>

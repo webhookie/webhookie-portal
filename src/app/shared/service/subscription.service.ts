@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {EMPTY, Observable, of} from "rxjs";
 import {map, mergeMap, tap} from "rxjs/operators";
 import {HttpHeaders, HttpParams} from "@angular/common/http";
 import {Api} from "../api";
@@ -25,7 +25,7 @@ export class SubscriptionService {
 
   fetchSubscriptions(filter: any, pageable: Pageable): Observable<Array<Subscription>> {
     let params = RequestUtils.httpParams(filter, pageable);
-    return this.api.json(this.SUBSCRIPTIONS_URI, params)
+    return this.api.json(this.SUBSCRIPTIONS_URI, params, RequestUtils.hideLoadingHeader())
       .pipe(
         tap(it => this.log.info(`Fetched '${it.length}' subscriptions`)),
         map(it => this.adapter.adaptList(it))
@@ -39,6 +39,15 @@ export class SubscriptionService {
     }
 
     return this.api.post("/subscriptions", request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
+      .pipe(map(it => this.adapter.adapt(it.body)))
+  }
+
+  updateSubscription(subscription: Subscription, callbackId: string): Observable<Subscription> {
+    let request = {
+      callbackId: callbackId
+    }
+
+    return this.api.put(`/subscriptions/${subscription.id}`, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
 

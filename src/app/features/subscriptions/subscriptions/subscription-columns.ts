@@ -1,5 +1,6 @@
 import {BaseTableColumn} from "../../../shared/model/table/column/table-column";
 import {Subscription, SubscriptionStatus} from "../../../shared/model/subscription";
+import {environment} from "../../../../environments/environment";
 
 export class SubscriptionEntityColumn extends BaseTableColumn<Subscription>{
   value(data: Subscription): string {
@@ -21,7 +22,11 @@ export class SubscriptionWebhookColumn extends BaseTableColumn<Subscription>{
 
 export class SubscriptionCallbackColumn extends BaseTableColumn<Subscription>{
   value(data: Subscription): string {
-    return `<a class="text-primary" title="${data.callback.url}">${data.callback.name}</a>`;
+    let content = `<a class="text-primary" title="${data.callback.url}">${data.callback.name}</a>`;
+    if(data.callback.signable) {
+      content = `${content} [${data.callback.security?.method}]`
+    }
+    return content;
   }
 }
 

@@ -11,7 +11,7 @@
         {{selectedCallback ? selectedCallback?.url : 'Select your callback URL'}}
       </button>
       <div class="dropdown-menu font12 font-weight-400">
-        <button (click)="modalService.open(template1)" class="btn btn-default font-weight-400 font12">
+        <button (click)="modalService.open(createCallbackTemplate)" class="btn btn-default font-weight-400 font12">
           <i class="lni lni-plus mr-2"></i>Create New Callback Url
         </button>
         <div class="dropdown-divider"></div>
@@ -35,31 +35,43 @@
     <!-- start -->
 
     <div *ngIf="selectedCallback" class="callback-read-only">
-      <form>
-        <h4 class="font14 font-weight-400">Callback URL</h4>
-        <div class="form-row mb-1">
-          <div class="form-group col-md-2">
-            <input class="form-control" readonly type="text" value="{{selectedCallback?.httpMethod}}">
+      <fieldset class="p-3 mt-3 mr-lg-3">
+        <form>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="font14 font-weight-400">Callback URL name</h4>
+            <app-context-menu [data]="selectedCallback" [menuItems]="callbackMenuItems"></app-context-menu>
           </div>
-          <div class="form-group col-md-6">
-            <input class="form-control" readonly type="text" value="{{selectedCallback?.url}}">
+          <div class="form-row mb-1">
+            <div class="form-group col-md-6">
+              <input class="form-control" readonly type="text" value="{{selectedCallback?.name}}">
+            </div>
           </div>
-        </div>
 
-        <h4 *ngIf="selectedCallback?.signable" class="font14 font-weight-400">Security</h4>
-        <label *ngIf="selectedCallback?.signable" class="font12 pt-1">HMAC Signature</label>
-        <div *ngIf="selectedCallback?.signable" class="form-row mt-1">
-          <div class="form-group col-md-8">
-            <label class="font14 font-weight-400 mb-1">Key ID</label>
-            <input class="form-control" readonly type="text" value="{{selectedCallback?.security?.keyId}}">
+          <h4 class="font14 font-weight-400">Callback URL</h4>
+          <div class="form-row mb-1">
+            <div class="form-group col-md-2">
+              <input class="form-control" readonly type="text" value="{{selectedCallback?.httpMethod}}">
+            </div>
+            <div class="form-group col-md-6">
+              <input class="form-control" readonly type="text" value="{{selectedCallback?.url}}">
+            </div>
           </div>
-        </div>
-        <div *ngIf="selectedCallback?.signable" class="form-row">
-          <div class="form-group col-md-8">
-            <h4 class="font14 font-weight-400 mb-1">Secret API Key: ****</h4>
+
+          <h4 *ngIf="selectedCallback?.signable" class="font14 font-weight-400">Security</h4>
+          <label *ngIf="selectedCallback?.signable" class="font12 pt-1">HMAC Signature</label>
+          <div *ngIf="selectedCallback?.signable" class="form-row mt-1">
+            <div class="form-group col-md-8">
+              <label class="font14 font-weight-400 mb-1">Key ID</label>
+              <input class="form-control" readonly type="text" value="{{selectedCallback?.security?.keyId}}">
+            </div>
           </div>
-        </div>
-      </form>
+          <div *ngIf="selectedCallback?.signable" class="form-row">
+            <div class="form-group col-md-8">
+              <h4 class="font14 font-weight-400 mb-1">Secret API Key: {{encodedSecret}}</h4>
+            </div>
+          </div>
+        </form>
+      </fieldset>
     </div>
     <!-- end -->
   </fieldset>
@@ -67,7 +79,13 @@
 
 
 <div class="modalSave">
-  <ng-template #template1>
+  <ng-template #createCallbackTemplate>
     <app-create-callback></app-create-callback>
+  </ng-template>
+</div>
+
+<div class="modalSave">
+  <ng-template #editCallbackTemplate>
+    <app-create-callback [callback]="selectedCallback" [noOfActiveSubscriptions]="noOfActiveSubscriptions"></app-create-callback>
   </ng-template>
 </div>
