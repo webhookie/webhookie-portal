@@ -12,7 +12,9 @@
   <div class="modal-footer">
     <ngb-alert [dismissible]="false" type="warning" *ngIf="hasActiveSubscriptions">
       There {{hasMoreThanOnOtherActiveSubscription ? "are" : "is"}}
-      <strong>{{numberOfOtherSubscriptionsSharingCallback}}</strong> other active subscription{{hasMoreThanOnOtherActiveSubscription ? "s" : ""}} using same callback!
+      <strong>{{hasMoreThanOnOtherActiveSubscription ? numberOfOtherSubscriptionsSharingCallback : ""}}</strong>
+      {{hasMoreThanOnOtherActiveSubscription ? "other" : "another"}}
+      active subscription{{hasMoreThanOnOtherActiveSubscription ? "s" : ""}} using same callback!
       Updating the details impacts other active subscriptions
     </ngb-alert>
     <button (click)="modalService.hide()" aria-label="Close" class="btn btn-default cancel border"

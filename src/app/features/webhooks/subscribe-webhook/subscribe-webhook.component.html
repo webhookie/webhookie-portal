@@ -58,7 +58,7 @@
   <div class="row">
     <div class="col-lg-6 pr-lg-0">
       <app-application #applicationComponent></app-application>
-      <app-callback #callbackComponent></app-callback>
+      <app-callback [subscription]="subscription" #callbackComponent></app-callback>
       <app-response #responseComponent></app-response>
     </div>
     <div class="col-lg-6 pl-lg-0 pr-lg-0 mt-2 mt-lg-0">

@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {CallbackService} from "../../service/callback.service";
 import {mergeMap, tap} from "rxjs/operators";
 import {EMPTY, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
@@ -8,6 +8,7 @@ import {ModalService} from "../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../subscription-context";
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../shared/model/table/column/context-menu-item";
 import {CallbackUrlComponent} from "../../callback-test/callback-url/callback-url.component";
+import {Subscription, SubscriptionStatus} from "../../../../shared/model/subscription";
 
 type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
@@ -18,9 +19,10 @@ type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 })
 export class CallbackComponent implements OnInit {
   @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
+  @Input() subscription?: Subscription
 
   callbackToEdit?: Callback
-  noOfActiveSubscriptions?: number
+  noOfOtherActiveSubscriptions?: number
 
   readonly _callbacks$: Subject<Array<Callback>> = new ReplaySubject();
 
@@ -60,7 +62,9 @@ export class CallbackComponent implements OnInit {
           mergeMap(() => this.service.noOfCallbackSubscriptions(this.selectedApplication!.id, callback.id))
         )
         .subscribe((it: number) => {
-          this.noOfActiveSubscriptions = it
+          this.noOfOtherActiveSubscriptions = this.subscription?.statusUpdate?.status == SubscriptionStatus.ACTIVATED
+            ? it - 1
+            : it
           this.modalService.open(this.editCallbackTemplate)
         })
     }

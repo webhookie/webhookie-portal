@@ -17,7 +17,7 @@ export class CreateCallbackComponent {
   // @ts-ignore
   @ViewChild("callbackComponent") callbackComponent: CallbackUrlComponent
   @Input() callback?: Callback
-  @Input() noOfActiveSubscriptions?: number
+  @Input() noOfOtherActiveSubscriptions?: number
 
   constructor(
     public modalService: ModalService,
@@ -27,16 +27,16 @@ export class CreateCallbackComponent {
   }
 
   get hasActiveSubscriptions(): boolean {
-    if(this.noOfActiveSubscriptions) {
-      return this.noOfActiveSubscriptions > 1
+    if(this.noOfOtherActiveSubscriptions) {
+      return this.noOfOtherActiveSubscriptions > 0
     }
 
     return false
   }
 
   get numberOfOtherSubscriptionsSharingCallback(): number {
-    if(this.noOfActiveSubscriptions) {
-      return this.noOfActiveSubscriptions - 1
+    if(this.noOfOtherActiveSubscriptions) {
+      return this.noOfOtherActiveSubscriptions
     }
 
     return 0
