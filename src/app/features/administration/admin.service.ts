@@ -13,6 +13,7 @@ import {map} from "rxjs/operators";
   providedIn: 'root'
 })
 export class AdminService {
+  static ADMIN_URI = "/admin/"
 
   constructor(
     private readonly log: LogService,
@@ -22,12 +23,16 @@ export class AdminService {
   ) { }
 
   fetchProviderGroups(): Observable<Array<AccessGroup>> {
-    return this.webhookieService.fetchAccessGroups("providergroups")
+    return this.webhookieService.fetchAccessGroups(`${AdminService.ADMIN_URI}providergroups`)
+  }
+
+  fetchConsumerGroups(): Observable<Array<AccessGroup>> {
+    return this.webhookieService.fetchAccessGroups(`${AdminService.ADMIN_URI}consumergroups`)
   }
 
   fetchAccessGroupsByType(type: string): Observable<Array<AccessGroup>> {
     if(type == "Consumer") {
-      return this.webhookieService.fetchConsumerGroups()
+      return this.fetchConsumerGroups()
     } else {
       return this.fetchProviderGroups()
     }
@@ -38,7 +43,7 @@ export class AdminService {
     if(type == "Provider") {
       uri = "providergroups"
     }
-    return this.api.post(`/admin/${uri}`, body, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
+    return this.api.post(`${AdminService.ADMIN_URI}${uri}`, body, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(
         map((it: HttpResponse<any>) => this.accessGroupAdapter.adapt(it.body)),
       )
@@ -49,7 +54,7 @@ export class AdminService {
     if(type == "Provider") {
       uri = "providergroups"
     }
-    return this.api.put(`/admin/${uri}/${id}`, body, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
+    return this.api.put(`${AdminService.ADMIN_URI}${uri}/${id}`, body, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(
         map((it: HttpResponse<any>) => this.accessGroupAdapter.adapt(it.body)),
       )

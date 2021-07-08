@@ -14,16 +14,12 @@ export class WebhookieService {
   constructor(
     private readonly log: LogService,
     @Inject("Api") private readonly api: Api,
-    private readonly consumerGroupAdapter: AccessGroupAdapter
+    private readonly accessGroupAdapter: AccessGroupAdapter
   ) {
   }
 
-  fetchConsumerGroups(): Observable<Array<AccessGroup>> {
-    return this.fetchAccessGroups("consumergroups")
-  }
-
   fetchAccessGroups(uri: string): Observable<Array<AccessGroup>> {
-    return this.api.json(`/admin/${uri}`)
-      .pipe(map(it => this.consumerGroupAdapter.adaptList(it)))
+    return this.api.json(uri)
+      .pipe(map(it => this.accessGroupAdapter.adaptList(it)))
   }
 }

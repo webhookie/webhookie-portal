@@ -31,7 +31,7 @@ export class CreateApplicationComponent implements OnInit {
     private readonly subscriptionContext: SubscriptionContext,
     public modalService: ModalService
   ) {
-    this.webhookieService.fetchConsumerGroups()
+    this.webhookieService.fetchAccessGroups("/group/consumergroups")
       .subscribe(list => {
         this.groups = list.map(it => new DropdownEntry(it.iamGroupName, it.name))
       });
