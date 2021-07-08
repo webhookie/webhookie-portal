@@ -85,7 +85,7 @@ export class HealthService {
           if(reason == "") {
             reason = "Please wait for the green light and the refresh the page"
           }
-          this.toastService.error(reason, "Server is Ready!")
+          this.toastService.error(reason, "Server is NOT Ready!")
         }
       } catch (e) {
         this.log.warn("Unable to read health response")
