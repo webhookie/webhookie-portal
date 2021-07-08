@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {Observable} from "rxjs";
 import {HealthService} from "../../service/health.service";
 
@@ -10,6 +10,10 @@ import {HealthService} from "../../service/health.service";
 export class HealthIndicatorComponent {
   get healthy(): Observable<boolean> {
     return this.healthService.healthy$
+  }
+
+  downReason(): Observable<string> {
+    return this.healthService.downReason
   }
 
   constructor(

@@ -1,1 +1,11 @@
-<span class="badge badge-pill border-radius" [class.badge-success]="healthy | async" [class.badge-danger]="!(healthy | async)">&nbsp;</span>
+<span
+  data-html="true"
+  data-toggle="tooltip"
+  data-placement="bottom"
+  class="badge badge-pill border-radius red-tooltip"
+  [class.badge-success]="healthy | async"
+  [class.badge-danger]="!(healthy | async)"
+  [title]="downReason() | async"
+>
+  &nbsp;
+</span>
