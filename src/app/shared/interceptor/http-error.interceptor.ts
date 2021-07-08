@@ -72,6 +72,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   showError(request: HttpRequest<unknown>, msg: string, header: string) {
+    if (request.url.includes(environment.apiUrl)) {
+      return;
+    }
+
     let reqId = `${request.method} ${request.url.replace(environment.apiUrl, "")}`
     let shouldBeIgnored = this.ignoreRequests.has(reqId);
     this.log.warn(`Checking ${reqId} for errors, ignore? : ${shouldBeIgnored}`)
