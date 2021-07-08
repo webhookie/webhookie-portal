@@ -35,6 +35,7 @@ import {AuthService} from "./service/auth.service";
 import {MockAuthService} from "./mock/mock-auth.service";
 import { TableSelectHeaderComponent } from './components/generic-table/table-select-header/table-select-header.component';
 import { ArrowRightComponent } from './components/arrow-right/arrow-right.component';
+import { HealthIndicatorComponent } from './components/health-indicator/health-indicator.component';
 
 let apiProvider;
 let authProvider;
@@ -65,6 +66,7 @@ if (environment.mock) {
     SearchableSelectComponent,
     TableSelectHeaderComponent,
     ArrowRightComponent,
+    HealthIndicatorComponent,
   ],
   imports: [
     FormsModule,
@@ -96,7 +98,8 @@ if (environment.mock) {
     MultiSelectComponent,
     ToastsContainerComponent,
     SearchableSelectComponent,
-    ArrowRightComponent
+    ArrowRightComponent,
+    HealthIndicatorComponent
   ],
   providers: [
     {
