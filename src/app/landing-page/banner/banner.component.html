@@ -4,7 +4,7 @@
             <div class="col-md-6">
                 <h1 class="font35 font-weight-bold">Automate your processes with our webhooks</h1>
                 <p class="font16 font-weight-400">Receive events from our system when they happen. No need to poll for changes, use EDI or any other outdated technology. Take a look at the webhooks we offer, manage your own subscription and get the information when it happens.</p>
-                <button (click)="login()" *ngIf="appContext.isAnonymous | async" class="btn btn-primary">Register for free</button>
+                <button [disabled]="!(healthy | async)" [class.disabled]="!(healthy | async)" (click)="login()" *ngIf="appContext.isAnonymous | async" class="btn btn-primary">Register for free</button>
             </div>
             <div class="col-md-6 text-center">
               <app-landing-banner-svg></app-landing-banner-svg>

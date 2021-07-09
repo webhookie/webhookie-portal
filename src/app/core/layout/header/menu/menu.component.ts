@@ -3,6 +3,7 @@ import {WebhooksContext} from "../../../../features/webhooks/webhooks-context";
 import {ApplicationContext} from "../../../../shared/application.context";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
+import {HealthService} from "../../../../shared/service/health.service";
 
 @Component({
   selector: 'app-menu',
@@ -13,8 +14,13 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private readonly appContext: ApplicationContext,
+    private readonly healthService: HealthService,
     private readonly ctx: WebhooksContext
   ) {
+  }
+
+  get healthy(): Observable<boolean> {
+    return this.healthService.healthy$
   }
 
   ngOnInit(): void {

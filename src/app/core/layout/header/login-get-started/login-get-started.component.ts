@@ -1,5 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AuthService} from "../../../../shared/service/auth.service";
+import {HealthService} from "../../../../shared/service/health.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login-get-started',
@@ -8,7 +10,14 @@ import {AuthService} from "../../../../shared/service/auth.service";
 })
 export class LoginGetStartedComponent implements OnInit {
 
-  constructor(@Inject("Auth") private readonly authService: AuthService) {
+  constructor(
+    @Inject("Auth") private readonly authService: AuthService,
+    private readonly healthService: HealthService
+  ) {
+  }
+
+  get healthy(): Observable<boolean> {
+    return this.healthService.healthy$
   }
 
   get loggedIn() {
