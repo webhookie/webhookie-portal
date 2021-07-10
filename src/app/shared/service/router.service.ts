@@ -39,4 +39,8 @@ export class RouterService {
       this.storage.remove(callback);
     }
   }
+
+  navigateToWebhooks() {
+    this.navigateTo("/webhooks")
+  }
 }

@@ -40,7 +40,7 @@ export class CreateWebhookGroupComponent implements OnInit {
     return (value) => {
       this.log.info(`WebhookGroup: ${value.id} has been created!`);
       this.webhooksContext.editingGroup(value)
-      this.router.navigateTo("/webhooks/edit-webhook-group")
+      this.router.navigateToWebhooks()
     }
   }
 }
