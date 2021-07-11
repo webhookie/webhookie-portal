@@ -7,7 +7,6 @@ import {HealthComponent, HealthResult, HealthStatus} from "../model/health-resul
 })
 export class HealthResultAdapter extends BaseAdapter<HealthResult>{
   adapt(item: any): HealthResult {
-    console.warn(item)
     let status: HealthStatus = item.status
     let components = Object.keys(item.components)
       .map(name => {
