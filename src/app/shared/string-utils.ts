@@ -1,8 +1,17 @@
 export class StringUtils {
   static truncatedUUID(id: string): string {
+    const MAX_LEN = 20
+    if(id.length <= MAX_LEN) {
+      return id;
+    }
+
+    if(!id.includes("-")) {
+      return id.substr(0, MAX_LEN).concat("...");
+    }
+
     let first = id.indexOf("-") + 1;
     let last = id.lastIndexOf("-");
-    return id.substr(0, first) + "...." + id.substr(last, id.length);
+    return id.substr(0, first) + "..." + id.substr(last, id.length);
   }
 
   static encode(str: string): string {
