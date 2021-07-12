@@ -1,11 +1,10 @@
 import {BaseTableColumn, NumberTableColumn} from "../../../shared/model/table/column/table-column";
 import {Span, SpanStatus} from "../model/span";
-import {StringUtils} from "../../../shared/string-utils";
 import {DateUtils} from "../../../shared/date-utils";
 
 export class TraceIdColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
-    return StringUtils.truncatedUUID(data.traceId);
+    return data.traceId
   }
 }
 
@@ -41,7 +40,7 @@ export class TimestampColumn extends BaseTableColumn<Span>{
 
 export class SpanIdColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
-    return StringUtils.truncatedUUID(data.spanId);
+    return data.spanId;
   }
 }
 

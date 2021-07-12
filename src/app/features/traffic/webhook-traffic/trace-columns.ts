@@ -1,12 +1,11 @@
 import {BaseTableColumn} from "../../../shared/model/table/column/table-column";
 import {Trace, TraceStatus} from "../model/trace";
 import {MoreDataTableColumn} from "../../../shared/model/table/column/more-data-table-column";
-import {StringUtils} from "../../../shared/string-utils";
 import {DateUtils} from "../../../shared/date-utils";
 
 export class TraceIdColumn extends BaseTableColumn<Trace> {
   value(data: Trace): string {
-    return StringUtils.truncatedUUID(data.traceId);
+    return data.traceId;
   }
 }
 

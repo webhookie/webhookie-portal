@@ -1,4 +1,5 @@
 export class StringUtils {
+  // noinspection JSUnusedGlobalSymbols
   static truncatedUUID(id: string): string {
     const MAX_LEN = 20
     if(id.length <= MAX_LEN) {
