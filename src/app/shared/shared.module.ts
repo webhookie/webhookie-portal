@@ -36,6 +36,7 @@ import {MockAuthService} from "./mock/mock-auth.service";
 import { TableSelectHeaderComponent } from './components/generic-table/table-select-header/table-select-header.component';
 import { ArrowRightComponent } from './components/arrow-right/arrow-right.component';
 import { HealthIndicatorComponent } from './components/health-indicator/health-indicator.component';
+import { ScrollingTextComponent } from './components/scrolling-text/scrolling-text.component';
 
 let apiProvider;
 let authProvider;
@@ -67,6 +68,7 @@ if (environment.mock) {
     TableSelectHeaderComponent,
     ArrowRightComponent,
     HealthIndicatorComponent,
+    ScrollingTextComponent,
   ],
   imports: [
     FormsModule,

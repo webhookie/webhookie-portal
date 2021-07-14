@@ -1,0 +1,19 @@
+.container {
+  height: 30px;
+  overflow: hidden;
+  position: relative;
+  width: 200px;
+}
+
+.scrolling-text {
+  position: absolute;
+  white-space: nowrap;
+}
+
+/* Below doesn't work to pause */
+
+.scrolling-text:hover, .container:hover {
+  -moz-animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
