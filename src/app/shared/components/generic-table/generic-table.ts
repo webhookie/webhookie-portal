@@ -31,10 +31,12 @@ export abstract class GenericTable<T extends BaseTableData, R extends BaseTableD
   }
 
   loadDetails(data: T): void {
-    data.loading();
-    this.fetchDetails(data)
-      .pipe(delay(500))
-      .subscribe(() => data.loaded());
+    if(this.hasDetails(data)) {
+      data.loading();
+      this.fetchDetails(data)
+        .pipe(delay(500))
+        .subscribe(() => data.loaded());
+    }
   }
 
   selectedRows: Array<string> = [];

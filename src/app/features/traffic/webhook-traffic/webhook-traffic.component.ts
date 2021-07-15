@@ -1,7 +1,7 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
-import {Trace} from "../model/trace";
+import {Trace, TraceStatus} from "../model/trace";
 import {TableHeader} from "../../../shared/model/table/header/table-header";
 import {TableFilter} from "../../../shared/model/table/filter/table-filter";
 import {GenericTableComponent} from "../../../shared/components/generic-table/generic-table.component";
@@ -166,6 +166,10 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     return this.traceService.readTraceSpans(data.traceId, filter, Pageable.unPaged())
       .pipe(tap(it => data.update(it)))
       .pipe(map(() => true))
+  }
+
+  hasDetails(data: Trace): boolean {
+    return data.statusUpdate.status != TraceStatus.NO_SUBSCRIPTION;
   }
 
   clearEntity() {

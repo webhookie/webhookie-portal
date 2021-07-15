@@ -59,7 +59,7 @@
       <ng-container *ngFor="let data of dataSource.data$ | async;let i=index; trackBy:dataSource.trackByData">
         <tr class="sticky-header">
           <td *ngFor="let column of table.columns; trackBy:dataSource.trackByColumn" [ngClass]="column.clazz">
-            <a *ngIf="dataSource.isMoreDataColumn(column)" href="javascript:void(0)" (click)="table.loadDetails(data)" class="clickable">
+            <a *ngIf="dataSource.isMoreDataColumn(column) && table.hasDetails(data)" href="javascript:void(0)" (click)="table.loadDetails(data)" class="clickable">
               <img *ngIf="isOpen(data)" src="assets/images/Chevron_down.svg" alt="down">
               <img *ngIf="!isOpen(data)" src="assets/images/Chevron.svg" alt="right">
             </a>
