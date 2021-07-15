@@ -26,6 +26,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     if (req.url.includes("/public/")) {
       return next.handle(req)
     }
+    if (req.url.includes("/manage/health")) {
+      return next.handle(req)
+    }
     if (!req.url.includes(environment.apiUrl)) {
       return next.handle(req)
     }
@@ -54,4 +57,10 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       })
     );
   }
+
+  ignoreRequests: Set<string> = new Set<string>([
+    "/public/",
+    "/manage/health",
+  ]);
+
 }

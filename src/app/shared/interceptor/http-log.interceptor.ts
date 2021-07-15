@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpEventType, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {HttpEvent, HttpEventType, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {LogService} from "../service/log.service";
 import {environment} from "../../../environments/environment";
@@ -15,6 +15,10 @@ export class HttpLogInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (!request.url.includes(environment.apiUrl)) {
+      return next.handle(request);
+    }
+
+    if(request.url.includes("/manage/health")) {
       return next.handle(request);
     }
 

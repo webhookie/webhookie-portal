@@ -31,7 +31,9 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
     let reqId = `${req.method} ${req.url.replace(environment.apiUrl, "")}`
     let header = req.headers.get(Constants.HEADER_HIDE_LOADING_KEY);
     if(header) {
-      this.log.warn(`${reqId} => headers: ${header}`)
+      if(!req.url.includes("/manage/health")) {
+        this.log.warn(`${reqId} => headers: ${header}`)
+      }
     }
 
 /*
