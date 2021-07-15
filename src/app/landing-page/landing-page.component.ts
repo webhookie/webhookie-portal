@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {WebhookGroup} from "../features/webhooks/model/webhook-group";
 import {map} from "rxjs/operators";
 import {ApplicationContext} from "../shared/application.context";
+import {LogService} from "../shared/service/log.service";
 
 @Component({
   selector: 'app-landing-page',
@@ -13,12 +14,13 @@ import {ApplicationContext} from "../shared/application.context";
 export class LandingPageComponent implements OnInit {
   constructor(
     private readonly appContext: ApplicationContext,
+    private readonly log: LogService,
     private readonly service: WebhookGroupService
   ) { }
 
   ngOnInit(): void {
     this.service.myWebhookGroups()
-      .subscribe(it => console.info(`${it.length} Webhook API(s) fetched...`));
+      .subscribe(it => this.log.info(`${it.length} Webhook API(s) fetched...`));
   }
 
   get webhooks$(): Observable<Array<WebhookGroup>> {

@@ -64,10 +64,10 @@ export class WebhookGroupService {
   }
 
   public myWebhookGroups(): Observable<Array<WebhookGroup>> {
-    console.info(`Fetching user's webhook groups...`);
+    this.log.info(`Fetching user's webhook groups...`);
     return this.api.json(this.WEBHOOKGROUPS_URI)
       .pipe(
-        tap(it => console.info(`Fetched '${it.length}' webhook groups`)),
+        tap(it => this.log.info(`Fetched '${it.length}' webhook groups`)),
         mergeMap(it => this.webhookGroupAdapter.adaptList(it)),
         tap(it => {
           this._webhooks$.next(it);

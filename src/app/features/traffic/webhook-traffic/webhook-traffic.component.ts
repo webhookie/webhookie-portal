@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TraceService} from "../service/trace.service";
 import {Observable, ReplaySubject, Subject} from "rxjs";
 import {Trace, TraceStatus} from "../model/trace";
@@ -17,7 +17,6 @@ import {ModalService} from "../../../shared/service/modal.service";
 import {SpanService} from "../service/span.service";
 import {HttpMessage} from "../model/http-message";
 import {SearchableSelectComponent} from "../../../shared/components/searchable-select/searchable-select.component";
-import {environment} from "../../../../environments/environment";
 import {SpanTable} from "./span-table";
 import {TraceTable} from "./trace-table";
 import {SpanFilter} from "./span-filter";
@@ -27,14 +26,14 @@ import {SpanFilter} from "./span-filter";
   templateUrl: './webhook-traffic.component.html',
   styleUrls: ['./webhook-traffic.component.css']
 })
-export class WebhookTrafficComponent extends GenericTable<Trace, Span> implements OnInit {
+export class WebhookTrafficComponent extends GenericTable<Trace, Span> implements OnInit, AfterViewInit {
   @ViewChild("tableComponent") tableComponent!: GenericTableComponent;
   @ViewChild("resultViewer") resultViewer?: TemplateRef<any>;
   @ViewChild("entitiesComponent") entitiesComponent!: SearchableSelectComponent;
   @ViewChild("applicationsComponent") applicationsComponent!: SearchableSelectComponent;
   @ViewChild("callbacksComponent") callbacksComponent!: SearchableSelectComponent;
 
-  debug = environment.debug
+  debug = true//environment.debug
 
   private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
   readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();
@@ -109,20 +108,25 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
         this.spanFilter.clear();
       });
 
+  }
+
+  ngAfterViewInit(): void {
     this.spanFilter.whenSet$
       .subscribe(it => {
         this._traces$.next([]);
-        let filter = Object.assign(this.tableComponent.currentFilter.value, {
-          entity: it.entity,
-          application: it.applicationId,
-          callback: it.callbackId
-        });
+        let filter = this.tableComponent.currentFilter.value
 
+        filter.entity = it.entity
+        filter.callbackId = it.callbackId
+        filter.applicationId = it.applicationId
         this.tableComponent.currentFilter.next(filter);
       });
   }
 
   fetchData(filter: any, pageable: Pageable) {
+    filter.entity = this.spanFilter.current.entity
+    filter.callbackId = this.spanFilter.current.callbackId
+    filter.applicationId = this.spanFilter.current.applicationId
     this.traceService.readTraces(filter, pageable)
       .subscribe(it => this._traces$.next(it));
   }

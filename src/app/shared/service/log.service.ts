@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LogService {
   debug(message?: any, ...optionalParams: any[]): void {
-    console.debug(message, optionalParams);
+    if(environment.debug && !environment.production) {
+      console.debug(message, optionalParams);
+    }
   }
 
   info(message?: any, ...optionalParams: any[]): void {

@@ -72,7 +72,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   showError(request: HttpRequest<unknown>, msg: string, header: string) {
-    if (request.url.includes(environment.apiUrl)) {
+    if (!request.url.includes(environment.apiUrl)) {
       return;
     }
 

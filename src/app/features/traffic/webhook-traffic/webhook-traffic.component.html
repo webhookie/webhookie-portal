@@ -42,7 +42,7 @@
 </div>
 <div *ngIf="debug">
   <hr>
-  <pre>Filters: {{ initialFilters | json }}</pre>
+  <pre>Filters: {{ tableComponent.currentFilter | async | json }}</pre>
 </div>
 
 <app-generic-table

@@ -3,12 +3,16 @@ import {environment} from "../../../environments/environment";
 import {SSE} from 'sse.js';
 import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
+import {LogService} from "./log.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
-  constructor(private readonly authService: AuthService) { }
+  constructor(
+    private readonly authService: AuthService,
+    private readonly log: LogService,
+  ) { }
 
   sourceCache: {
     [key: string]: SSE
@@ -17,7 +21,7 @@ export class EventService {
   createEventSource(uri: string, payload: any, types: Array<string>): Observable<any> {
     return new Observable<any>(observer => {
       this.close(uri)
-      console.info(`subscribing to events for ${uri}, ${payload}`);
+      this.log.info(`subscribing to events for ${uri}, ${payload}`);
       const source = new SSE(`${environment.apiUrl}/${uri}`, {
         headers: {
           "Authorization": `Bearer ${this.authService.getToken()}`,
@@ -60,7 +64,7 @@ export class EventService {
   close(uri: string) {
     let cacheElement = this.sourceCache[uri];
     if(cacheElement) {
-      console.warn(`Closing event source to ${uri}`)
+      this.log.warn(`Closing event source to ${uri}`)
       cacheElement.close();
     }
   }
