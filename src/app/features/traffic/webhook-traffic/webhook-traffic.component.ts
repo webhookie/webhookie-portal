@@ -20,6 +20,8 @@ import {SearchableSelectComponent} from "../../../shared/components/searchable-s
 import {SpanTable} from "./span-table";
 import {TraceTable} from "./trace-table";
 import {SpanFilter} from "./span-filter";
+import {WebhookTrafficFilter} from "./webhook-traffic-filter";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-webhook-traffic',
@@ -33,7 +35,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   @ViewChild("applicationsComponent") applicationsComponent!: SearchableSelectComponent;
   @ViewChild("callbacksComponent") callbacksComponent!: SearchableSelectComponent;
 
-  debug = true//environment.debug
+  debug = environment.debug
 
   private readonly _traces$: Subject<Array<Trace>> = new ReplaySubject();
   readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();
@@ -110,24 +112,28 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   }
 
+  combineFilters(tableFilter: any, pageFilter: WebhookTrafficFilter): any {
+    let filter = tableFilter;
+    filter.entity = pageFilter.entity
+    filter.callbackId = pageFilter.callbackId
+    filter.applicationId = pageFilter.applicationId
+
+    return filter;
+  }
+
   ngAfterViewInit(): void {
     this.spanFilter.whenSet$
       .subscribe(it => {
         this._traces$.next([]);
-        let filter = this.tableComponent.currentFilter.value
-
-        filter.entity = it.entity
-        filter.callbackId = it.callbackId
-        filter.applicationId = it.applicationId
+        let filter = this.combineFilters(this.tableComponent.currentFilter.value, it);
         this.tableComponent.currentFilter.next(filter);
       });
   }
 
   fetchData(filter: any, pageable: Pageable) {
-    filter.entity = this.spanFilter.current.entity
-    filter.callbackId = this.spanFilter.current.callbackId
-    filter.applicationId = this.spanFilter.current.applicationId
-    this.traceService.readTraces(filter, pageable)
+    let aggregatedFilter = this.combineFilters(filter, this.spanFilter.current);
+
+    this.traceService.readTraces(aggregatedFilter, pageable)
       .subscribe(it => this._traces$.next(it));
   }
 
