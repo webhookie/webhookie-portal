@@ -52,7 +52,7 @@ export class ResponseCodeColumn extends NumberTableColumn<Span>{
 
 export class SpanStatusColumn extends BaseTableColumn<Span>{
   value(data: Span): string {
-    return `<h5><span class="${SpanColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span></h5>`;
+    return `<h5><span class="${SpanColumnUtils.classByStatus(data)} font-weight-normal">${data.statusUpdate.status}</span></h5>`;
   }
 
   clazz = "text-left"

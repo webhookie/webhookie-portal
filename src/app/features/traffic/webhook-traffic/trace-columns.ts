@@ -29,7 +29,7 @@ export class TimestampColumn extends BaseTableColumn<Trace> {
 
 export class TraceStatusColumn extends BaseTableColumn<Trace> {
   value(data: Trace): string {
-    return `<h5><span class="${TraceColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span></h5>`;
+    return `<h5><span class="${TraceColumnUtils.classByStatus(data)} font-weight-normal">${data.statusUpdate.status}</span></h5>`;
   }
 
   clazz = "text-left"
