@@ -20,6 +20,10 @@ export abstract class GenericTable<T extends BaseTableData, R extends BaseTableD
   abstract readonly tableData: Observable<Array<TableData>>;
   abstract fetchData(filter: any, pageable: Pageable): void;
 
+  hasDetails(data: T): boolean {
+    return false;
+  }
+
   init() {
     this.tableData
       .subscribe(() => this.isLoading = false);
