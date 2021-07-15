@@ -27,6 +27,7 @@ export class SpanFilter {
   // @ts-ignore
   readonly whenApplicationSet$: Observable<string> = this.filter$
     .pipe(
+      filter(it => it.entity != undefined),
       filter(it => it.applicationId != undefined),
       map(it => it.applicationId)
     )

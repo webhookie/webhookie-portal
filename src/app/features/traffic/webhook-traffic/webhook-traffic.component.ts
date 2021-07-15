@@ -174,8 +174,8 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   clearEntity() {
     this.applicationsComponent.values.next([])
-    this.clearApplication()
     this.spanFilter.clearEntity()
+    this.clearApplication()
     this.applicationsComponent.clear();
   }
 
