@@ -21,7 +21,7 @@ export class EventService {
   createEventSource(uri: string, payload: any, types: Array<string>): Observable<any> {
     return new Observable<any>(observer => {
       this.close(uri)
-      this.log.info(`subscribing to events for ${uri}, ${payload}`);
+      this.log.debug(`subscribing to events for ${uri}, ${payload}`);
       const source = new SSE(`${environment.apiUrl}/${uri}`, {
         headers: {
           "Authorization": `Bearer ${this.authService.getToken()}`,
