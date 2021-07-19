@@ -49,7 +49,7 @@ export class HealthComponent {
   }
 
   get reason(): string | null {
-    let reason = this.details["reason"];
+    let reason = this.details["error"];
     if(reason) {
       return reason
     }
@@ -59,5 +59,53 @@ export class HealthComponent {
     }
 
     return null
+  }
+}
+
+export class MongoDBHealthComponent extends HealthComponent {
+  static NAME = "mongo"
+
+  constructor(value: any) {
+    super(MongoDBHealthComponent.NAME, value.status, value.details);
+  }
+
+  get reason(): string {
+    if(this.isDown) {
+      return "MongoDB instance is either starting up or not available"
+    }
+
+    return ""
+  }
+}
+
+export class WebhookieHealthComponent extends HealthComponent {
+  static NAME = "webhookie"
+
+  constructor(value: any) {
+    super(WebhookieHealthComponent.NAME, value.status, value.details);
+  }
+
+  get reason(): string {
+    if(this.isDown) {
+      return "webhookie backend is either starting up or not available"
+    }
+
+    return ""
+  }
+}
+
+export class IAMHealthComponent extends HealthComponent {
+  static NAME = "IAM"
+
+  constructor(value: any) {
+    super(IAMHealthComponent.NAME, value.status, value.details);
+  }
+
+  get reason(): string {
+    if(this.isDown) {
+      return this.details["error"]
+    }
+
+    return ""
   }
 }
