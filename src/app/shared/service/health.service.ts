@@ -83,7 +83,7 @@ export class HealthService {
         if(this.currentHealth) {
           let reason = result.reason()
           if(reason == "") {
-            reason = "Please wait for the green light and the refresh the page"
+            reason = "Please wait while server is starting up..."
           }
           this.toastService.error(reason, "Server is NOT Ready!")
         }

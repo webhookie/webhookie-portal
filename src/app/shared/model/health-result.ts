@@ -7,7 +7,7 @@ export class HealthResult {
 
   static down(): HealthResult {
     return new HealthResult(HealthStatus.DOWN, [
-      new HealthComponent("Service", HealthStatus.DOWN, {message: "Connecting to the server"})
+      new HealthComponent("Service", HealthStatus.DOWN, {message: "webhookie backend is either starting up or not available"})
     ])
   }
 
