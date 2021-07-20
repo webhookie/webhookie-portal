@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {NullValidationHandler, OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
+import {OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
 import {AuthConfig} from "angular-oauth2-oidc/auth.config";
 import {filter, map} from "rxjs/operators";
 import {LogService} from "./log.service";
@@ -65,7 +65,7 @@ export class AuthService {
       clientId: iamConfig.clientId,
       redirectUri: environment.iam.redirectUri,
       responseType: "code",
-      scope: "openid profile email",
+      scope: "openid profile email offline_access",
       requireHttps: environment.iam.requireHttps,
       showDebugInformation: environment.iam.showDebugInformation,
       disableAtHashCheck: environment.iam.disableAtHashCheck,
@@ -103,7 +103,6 @@ export class AuthService {
     this.log.info(`Setting up auth module for '${config.issuer}', '${config.clientId}'`)
     this.oauthService.configure(config);
     this.oauthService.setupAutomaticSilentRefresh();
-    this.oauthService.tokenValidationHandler = new NullValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
       .then(it => this.log.info(`loadDiscoveryDocumentAndTryLogin result is: ${it}`));
   }
