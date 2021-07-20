@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../../shared/model/table/column/context-menu-item";
-import {WebhookGroup} from "../../../model/webhook-group";
+import {WebhookApi} from "../../../model/webhook-api";
 import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
 import {RouterService} from "../../../../../shared/service/router.service";
-import {WebhookGroupService} from "../../../service/webhook-group.service";
+import {WebhookApiService} from "../../../service/webhook-api.service";
 import {ProviderAccess} from "../../../../../shared/model/access-group";
 
-type WebhookGroupContextMenu = ContextMenuItem<WebhookGroup, WebhookMenu>
+type WebhookApiContextMenu = ContextMenuItem<WebhookApi, WebhookMenu>
 
 @Component({
   selector: 'app-webhook',
@@ -15,7 +15,7 @@ type WebhookGroupContextMenu = ContextMenuItem<WebhookGroup, WebhookMenu>
   styleUrls: ['./webhook.component.css']
 })
 export class WebhookComponent implements OnInit {
-  menuItems: Array<ContextMenuItem<WebhookGroup, WebhookMenu>> = [];
+  menuItems: Array<ContextMenuItem<WebhookApi, WebhookMenu>> = [];
 
   get data() {
     return this.webhooksContext.group
@@ -24,7 +24,7 @@ export class WebhookComponent implements OnInit {
   constructor(
     private readonly routeService: RouterService,
     private readonly appContext: ApplicationContext,
-    private readonly webhookGroupService: WebhookGroupService,
+    private readonly webhookApiService: WebhookApiService,
     private readonly webhooksContext: WebhooksContext
   ) {
   }
@@ -39,27 +39,27 @@ export class WebhookComponent implements OnInit {
   private createContextMenuItems() {
     return [
       ContextMenuItemBuilder
-        .create<WebhookGroup, WebhookMenu>(WebhookMenu.EDIT)
-        .handler(this.editWebhookGroup())
-        .isAvailable(this.canEditWebhookGroup())
+        .create<WebhookApi, WebhookMenu>(WebhookMenu.EDIT)
+        .handler(this.editWebhookApi())
+        .isAvailable(this.canEditWebhookApi())
         .build(),
       ContextMenuItemBuilder
-        .create<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_YOUR_SUBSCRIPTIONS)
+        .create<WebhookApi, WebhookMenu>(WebhookMenu.VIEW_YOUR_SUBSCRIPTIONS)
         .handler(this.viewYourSubscriptions())
         .isAvailable(this.canViewYourSubscriptions())
         .build(),
       ContextMenuItemBuilder
-        .create<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_ALL_SUBSCRIPTIONS)
+        .create<WebhookApi, WebhookMenu>(WebhookMenu.VIEW_ALL_SUBSCRIPTIONS)
         .handler(this.viewAllSubscriptions())
         .isAvailable(this.canViewAllSubscriptions())
         .build(),
       ContextMenuItemBuilder
-        .create<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_TRACES)
+        .create<WebhookApi, WebhookMenu>(WebhookMenu.VIEW_TRACES)
         .handler(this.viewWebhookTraffic())
         .isAvailable(this.canViewWebhookTraffic())
         .build(),
       ContextMenuItemBuilder
-        .create<WebhookGroup, WebhookMenu>(WebhookMenu.VIEW_SPANS)
+        .create<WebhookApi, WebhookMenu>(WebhookMenu.VIEW_SPANS)
         .handler(this.viewSubscriptionTraffic())
         .isAvailable(this.canViewSubscriptionTraffic())
         .build(),
@@ -73,43 +73,43 @@ export class WebhookComponent implements OnInit {
       })
   }
 
-  editWebhookGroup(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
+  editWebhookApi(): (it: WebhookApi, item: WebhookApiContextMenu) => any {
     return (it) => {
-      this.webhookGroupService.fetchById(it.id)
+      this.webhookApiService.fetchById(it.id)
         .subscribe(group => {
           this.webhooksContext.editingGroup(group)
           this.routeService
-            .navigateTo("/webhooks/edit-webhook-group")
+            .navigateTo("/webhooks/edit-webhook-api")
         })
     }
   }
 
-  viewYourSubscriptions(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
+  viewYourSubscriptions(): (it: WebhookApi, item: WebhookApiContextMenu) => any {
     return () => {
       this.navigateTo("subscriptions/consumer")
     }
   }
 
-  viewAllSubscriptions(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
+  viewAllSubscriptions(): (it: WebhookApi, item: WebhookApiContextMenu) => any {
     return () => {
       this.navigateTo("subscriptions/provider")
     }
   }
 
-  viewWebhookTraffic(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
+  viewWebhookTraffic(): (it: WebhookApi, item: WebhookApiContextMenu) => any {
     return () => {
       this.navigateTo("traffic/webhook")
     }
   }
 
-  viewSubscriptionTraffic(): (it: WebhookGroup, item: WebhookGroupContextMenu) => any {
+  viewSubscriptionTraffic(): (it: WebhookApi, item: WebhookApiContextMenu) => any {
     return () => {
       this.navigateTo("traffic/subscription")
     }
   }
 
-  canEditWebhookGroup(): (it: WebhookGroup) => boolean {
-    return (it?: WebhookGroup) => {
+  canEditWebhookApi(): (it: WebhookApi) => boolean {
+    return (it?: WebhookApi) => {
       if(it) {
         return this.appContext.hasProviderAccess(it.providerGroups) || it.providerAccess == ProviderAccess.ALL;
       }
@@ -118,12 +118,12 @@ export class WebhookComponent implements OnInit {
     }
   }
 
-  canViewYourSubscriptions(): (it: WebhookGroup) => boolean {
+  canViewYourSubscriptions(): (it: WebhookApi) => boolean {
     return () => this.appContext.hasConsumerRole;
   }
 
-  canViewAllSubscriptions(): (it?: WebhookGroup) => boolean {
-    return (it?: WebhookGroup) => {
+  canViewAllSubscriptions(): (it?: WebhookApi) => boolean {
+    return (it?: WebhookApi) => {
       if(it) {
         return this.appContext.hasProviderAccess(it.providerGroups);
       }
@@ -132,8 +132,8 @@ export class WebhookComponent implements OnInit {
     }
   }
 
-  canViewWebhookTraffic(): (it?: WebhookGroup) => boolean {
-    return (it?: WebhookGroup) => {
+  canViewWebhookTraffic(): (it?: WebhookApi) => boolean {
+    return (it?: WebhookApi) => {
       if(it) {
         return this.appContext.hasProviderAccess(it.providerGroups) || this.appContext.hasAdminRole
       }
@@ -142,7 +142,7 @@ export class WebhookComponent implements OnInit {
     }
   }
 
-  canViewSubscriptionTraffic(): (it: WebhookGroup) => boolean {
+  canViewSubscriptionTraffic(): (it: WebhookApi) => boolean {
     return () => this.appContext.hasConsumerRole;
   }
 }

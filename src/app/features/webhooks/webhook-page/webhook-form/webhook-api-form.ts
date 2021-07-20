@@ -10,10 +10,10 @@ import {DropdownEntry} from "../../../../shared/model/dropdownEntry";
 import {Observable, Observer} from "rxjs";
 import {ConsumerAccess, ProviderAccess} from "../../../../shared/model/access-group";
 import {WebhookieError} from "../../../../shared/error/webhookie-error";
-import {WebhookGroup} from "../../model/webhook-group";
-import {WebhookAPITemplate} from "./create-webhook-group/WebhookAPITemplate";
+import {WebhookApi} from "../../model/webhook-api";
+import {WebhookAPITemplate} from "./create-webhook-api/WebhookAPITemplate";
 
-export class WebhookGroupForm {
+export class WebhookApiForm {
   value(): Observable<any> {
     let consumerGroups: AccessGroupSelection = this.consumerGroups.value
         ? this.consumerGroups.value as AccessGroupSelection
@@ -33,15 +33,15 @@ export class WebhookGroupForm {
         let msg = errors.reduce((value, current) => `${value} <br/> ${current}`)
         observer.error(new WebhookieError({
           message: msg,
-          name: "Webhook Group Creation Error"
+          name: "Webhook Api Creation Error"
         }));
       } else {
         observer.next(
             {
               "consumerGroups": consumerGroups.items.map(it => it.key),
               "providerGroups": providerGroups.items.map(it => it.key),
-              "consumerAccess": (consumerGroups.access == WebhookGroupAccess.PUBLIC) ? ConsumerAccess.PUBLIC : ConsumerAccess.RESTRICTED,
-              "providerAccess": (providerGroups.access == WebhookGroupAccess.PUBLIC) ? ProviderAccess.ALL : ProviderAccess.RESTRICTED,
+              "consumerAccess": (consumerGroups.access == WebhookApiAccess.PUBLIC) ? ConsumerAccess.PUBLIC : ConsumerAccess.RESTRICTED,
+              "providerAccess": (providerGroups.access == WebhookApiAccess.PUBLIC) ? ProviderAccess.ALL : ProviderAccess.RESTRICTED,
               "asyncApiSpec": this.spec.value
             }
         )
@@ -83,23 +83,23 @@ export class WebhookGroupForm {
 
   constructor(
       private readonly formBuilder: FormBuilder,
-      webhookGroup: WebhookGroup | undefined = undefined
+      webhookApi: WebhookApi | undefined = undefined
   ) {
     let providerGroupSelection = AccessGroupSelection.initPublic();
     let consumerGroupSelection = AccessGroupSelection.initPublic();
     let spec = WebhookAPITemplate.WEBHOOK_API_TEMPLATE;
 
-    if(webhookGroup) {
-      this.id = webhookGroup.id;
-      if(webhookGroup.providerAccess == ProviderAccess.RESTRICTED) {
-        let groups = webhookGroup.providerGroups.map(it => new DropdownEntry(it, it))
+    if(webhookApi) {
+      this.id = webhookApi.id;
+      if(webhookApi.providerAccess == ProviderAccess.RESTRICTED) {
+        let groups = webhookApi.providerGroups.map(it => new DropdownEntry(it, it))
         providerGroupSelection = AccessGroupSelection.restricted(groups);
       }
-      if(webhookGroup.consumerAccess == ConsumerAccess.RESTRICTED) {
-        let groups = webhookGroup.consumerGroups.map(it => new DropdownEntry(it, it))
+      if(webhookApi.consumerAccess == ConsumerAccess.RESTRICTED) {
+        let groups = webhookApi.consumerGroups.map(it => new DropdownEntry(it, it))
         consumerGroupSelection = AccessGroupSelection.restricted(groups);
       }
-      spec = webhookGroup.spec
+      spec = webhookApi.spec
     }
 
     this.providerGroups = new FormControl(
@@ -128,13 +128,13 @@ export class WebhookGroupForm {
 
 export class AccessGroupSelection {
   constructor(
-    public access: WebhookGroupAccess,
+    public access: WebhookApiAccess,
     public items: Array<DropdownEntry>
   ) {
   }
 
   hasError(): boolean {
-    return (this.access == WebhookGroupAccess.RESTRICTED && this.items.length == 0);
+    return (this.access == WebhookApiAccess.RESTRICTED && this.items.length == 0);
   }
 
   static validateFn(message: string): ValidatorFn {
@@ -156,15 +156,15 @@ export class AccessGroupSelection {
   }
 
   static initPublic(): AccessGroupSelection {
-    return new AccessGroupSelection(WebhookGroupAccess.PUBLIC, []);
+    return new AccessGroupSelection(WebhookApiAccess.PUBLIC, []);
   }
 
   static restricted(items: Array<DropdownEntry>): AccessGroupSelection {
-    return new AccessGroupSelection(WebhookGroupAccess.RESTRICTED, items);
+    return new AccessGroupSelection(WebhookApiAccess.RESTRICTED, items);
   }
 }
 
-export enum WebhookGroupAccess {
+export enum WebhookApiAccess {
   RESTRICTED,
   PUBLIC
 }

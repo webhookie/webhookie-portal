@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {WebhooksContext} from "../webhooks-context";
 import {Webhook} from "../model/webhook";
 import {distinctUntilChanged, filter} from "rxjs/operators";
-import {WebhookGroup} from "../model/webhook-group";
+import {WebhookApi} from "../model/webhook-api";
 
 @Component({
   selector: 'webhook-base',
@@ -11,7 +11,7 @@ import {WebhookGroup} from "../model/webhook-group";
 )
 export class WebhookBaseComponent implements OnInit {
   webhook!: Webhook
-  webhookGroup!: WebhookGroup
+  webhookApi!: WebhookApi
 
   constructor(
     private readonly webhookContext: WebhooksContext
@@ -23,7 +23,7 @@ export class WebhookBaseComponent implements OnInit {
       )
       .subscribe(it => {
         this.webhook = it!.webhook
-        this.webhookGroup = it!.group
+        this.webhookApi = it!.api
         this.updated();
       });
   }

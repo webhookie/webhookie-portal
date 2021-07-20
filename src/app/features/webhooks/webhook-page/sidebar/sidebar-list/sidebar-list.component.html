@@ -13,23 +13,23 @@
     </li>
   </ul>
   <div class="accordion" id="faq">
-    <div *ngFor="let webhookGroup of webhooks$ | async" class="card custom-accordion">
-      <div class="card-header" id="faqhead{{webhookGroup.id}}">
+    <div *ngFor="let webhookApi of webhooks$ | async" class="card custom-accordion">
+      <div class="card-header" id="faqhead{{webhookApi.id}}">
         <a
-          id="group_a_{{webhookGroup.id}}"
-          [attr.aria-controls]="'faq' + webhookGroup.id"
-          [attr.data-target]="'#faq' + webhookGroup.id"
+          id="group_a_{{webhookApi.id}}"
+          [attr.aria-controls]="'faq' + webhookApi.id"
+          [attr.data-target]="'#faq' + webhookApi.id"
           aria-expanded="true"
           class="btn btn-header-link"
           data-toggle="collapse"
           href="#">
-          <span [innerHTML]="service.highlightedName(webhookGroup.title)"></span>
+          <span [innerHTML]="service.highlightedName(webhookApi.title)"></span>
         </a>
       </div>
-      <div [class.show]="service.searchMode | async" [ngClass]="'collapse'" data-parent="#faq" id="faq{{webhookGroup.id}}">
+      <div [class.show]="service.searchMode | async" [ngClass]="'collapse'" data-parent="#faq" id="faq{{webhookApi.id}}">
         <ul class="navbar-nav">
-          <li *ngFor="let webhook of webhookGroup.webhooks" class="nav-item">
-            <a (click)="selectWebhook(webhookGroup, webhook)"
+          <li *ngFor="let webhook of webhookApi.webhooks" class="nav-item">
+            <a (click)="selectWebhook(webhookApi, webhook)"
                [id]="webhookId(webhook)"
                *ngIf="service.matches(webhook)"
                routerLink="/webhooks/webhooks-page/webhook/webhook-detail"

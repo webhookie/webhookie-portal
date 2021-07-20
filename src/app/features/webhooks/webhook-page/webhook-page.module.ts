@@ -19,8 +19,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../../../shared/shared.module";
 import { WebhookAccessGroupComponent } from './webhook-form/webhook-access-group/webhook-access-group.component';
 import {NgbAlertModule, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
-import { CreateWebhookGroupComponent } from './webhook-form/create-webhook-group/create-webhook-group.component';
-import { EditWebhookGroupComponent } from './webhook-form/edit-webhook-group/edit-webhook-group.component';
+import { CreateWebhookApiComponent } from './webhook-form/create-webhook-api/create-webhook-api.component';
+import { EditWebhookApiComponent } from './webhook-form/edit-webhook-api/edit-webhook-api.component';
 import {LandingPageModule} from "../../../landing-page/landing-page.module";
 @NgModule({
   declarations: [
@@ -36,8 +36,8 @@ import {LandingPageModule} from "../../../landing-page/landing-page.module";
     WelcomeComponent,
     WelcomeWithDataComponent,
     WebhookAccessGroupComponent,
-    CreateWebhookGroupComponent,
-    EditWebhookGroupComponent,
+    CreateWebhookApiComponent,
+    EditWebhookApiComponent,
 
 
   ],

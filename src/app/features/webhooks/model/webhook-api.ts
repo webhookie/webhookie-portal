@@ -5,7 +5,7 @@ import {AsyncAPIDocument, SecurityScheme} from "@asyncapi/parser/dist/bundle";
 import {WebhookType} from "./webhook-type";
 import {StringUtils} from "../../../shared/string-utils";
 
-export class WebhookGroup extends TableDetailData {
+export class WebhookApi extends TableDetailData {
   private readonly _securityOptions: Array<SecurityOption> = [];
 
   get securityOptions() {
@@ -50,7 +50,7 @@ export class WebhookGroup extends TableDetailData {
     return this.securityOptions.length > 0
   }
 
-  static create(item: any, webhooks: Array<Webhook>, doc: AsyncAPIDocument): WebhookGroup {
+  static create(item: any, webhooks: Array<Webhook>, doc: AsyncAPIDocument): WebhookApi {
     let license = doc.info().license();
     let info: WebhookApiInfo = {
       termsOfService: doc.info().termsOfService(),
@@ -60,7 +60,7 @@ export class WebhookGroup extends TableDetailData {
       }
     }
 
-    return new WebhookGroup(
+    return new WebhookApi(
       item.id,
       item.title,
       item.webhookVersion,

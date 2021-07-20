@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import * as $ from 'jquery';
-import {WebhookGroupService} from "../service/webhook-group.service";
+import {WebhookApiService} from "../service/webhook-api.service";
 import {LogService} from "../../../shared/service/log.service";
 
 @Component({
@@ -13,9 +13,9 @@ export class WebhookPageComponent implements OnInit {
 
   constructor(
     private readonly log: LogService,
-    private readonly service: WebhookGroupService,
+    private readonly service: WebhookApiService,
   ) {
-    this.service.myWebhookGroups()
+    this.service.myWebhookApis()
       .subscribe(it => this.log.info(`'${it.length}' webhook API(s) fetched successfully!`));
 
     $(document).ready(function () {

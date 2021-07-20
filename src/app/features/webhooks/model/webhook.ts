@@ -1,5 +1,5 @@
 import {Channel, Message} from "@asyncapi/parser/dist/bundle";
-import {Topic} from "./webhook-group";
+import {Topic} from "./webhook-api";
 import {MessageHeaders} from "./message-headers";
 import {WebhookType} from "./webhook-type";
 import {MessagePayload} from "./message/payload/message-payload";

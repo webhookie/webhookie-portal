@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApplicationContext} from "../../../../shared/application.context";
-import {WebhookGroupService} from "../../service/webhook-group.service";
+import {WebhookApiService} from "../../service/webhook-api.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -10,7 +10,7 @@ import {WebhookGroupService} from "../../service/webhook-group.service";
 export class SidebarComponent implements OnInit {
   constructor(
     private readonly appCtx: ApplicationContext,
-    readonly service: WebhookGroupService
+    readonly service: WebhookApiService
   ) {
   }
 

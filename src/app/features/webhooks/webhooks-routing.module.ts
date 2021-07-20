@@ -5,8 +5,8 @@ import {WebhookPageComponent} from './webhook-page/webhook-page.component';
 import {CallbackTestComponent} from "./callback-test/callback-test.component";
 import {CongratsComponent} from './subscribe-webhook/congrats/congrats.component';
 import {CanActivateSubscribe} from "./service/can-activate-subscribe";
-import {EditWebhookGroupComponent} from "./webhook-page/webhook-form/edit-webhook-group/edit-webhook-group.component";
-import {CreateWebhookGroupComponent} from "./webhook-page/webhook-form/create-webhook-group/create-webhook-group.component";
+import {EditWebhookApiComponent} from "./webhook-page/webhook-form/edit-webhook-api/edit-webhook-api.component";
+import {CreateWebhookApiComponent} from "./webhook-page/webhook-form/create-webhook-api/create-webhook-api.component";
 
 const routes: Routes = [
   {
@@ -37,16 +37,16 @@ const routes: Routes = [
   },
   {
     path: 'create-webhook',
-    component: CreateWebhookGroupComponent,
+    component: CreateWebhookApiComponent,
     data: {
-        breadcrumb: 'Create new webhook group',
+        breadcrumb: 'Create new webhook api',
     },
   },
   {
-    path: 'edit-webhook-group',
-    component: EditWebhookGroupComponent,
+    path: 'edit-webhook-api',
+    component: EditWebhookApiComponent,
     data: {
-      breadcrumb: 'Update webhook group',
+      breadcrumb: 'Update webhook api',
     },
   },
   {

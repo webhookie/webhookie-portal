@@ -23,7 +23,7 @@ import {SubscriptionContextMenuService} from "./subscription-context-menu.servic
 import {Constants} from "../../../shared/constants";
 import {RouterService} from "../../../shared/service/router.service";
 import {WebhooksContext} from "../../webhooks/webhooks-context";
-import {WebhookGroupService} from "../../webhooks/service/webhook-group.service";
+import {WebhookApiService} from "../../webhooks/service/webhook-api.service";
 import {SubscriptionContext} from "../../webhooks/subscribe-webhook/subscription-context";
 import {Webhook} from "../../webhooks/model/webhook";
 import {WebhookSelection} from "../../webhooks/model/webhook-selection";
@@ -44,7 +44,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   readonly _role$: BehaviorSubject<string> = new BehaviorSubject(Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER);
 
   constructor(
-    private readonly webhookGroupService: WebhookGroupService,
+    private readonly webhookApiService: WebhookApiService,
     private readonly context: WebhooksContext,
     private readonly subscriptionContext: SubscriptionContext,
     private readonly routeService: RouterService,
@@ -185,7 +185,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
   edit(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription: Subscription) => {
-      this.webhookGroupService.fetchByTopic(subscription.topic)
+      this.webhookApiService.fetchByTopic(subscription.topic)
         .subscribe(group => {
           this.context.selectWebhook(WebhookSelection.createByTopic(group, subscription.topic));
           this.subscriptionContext.selectSubscription(subscription);

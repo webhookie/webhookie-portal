@@ -1,13 +1,13 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import "@asyncapi/web-component/lib/asyncapi-web-component";
 import {switchMap, take} from "rxjs/operators";
-import {WebhookGroupForm} from "./webhook-group-form";
+import {WebhookApiForm} from "./webhook-api-form";
 import {WebhookieError} from "../../../../shared/error/webhookie-error";
 import {WebhookAccessGroupComponent} from "./webhook-access-group/webhook-access-group.component";
 import {DropdownEntry} from "../../../../shared/model/dropdownEntry";
 import {ApplicationContext} from "../../../../shared/application.context";
 import {Observable} from "rxjs";
-import {WebhookGroup} from "../../model/webhook-group";
+import {WebhookApi} from "../../model/webhook-api";
 
 @Component({
   selector: 'app-webhook-form',
@@ -22,10 +22,10 @@ export class WebhookFormComponent implements OnInit {
 
   @ViewChild("consumerGroupsComponent") consumerGroupsComponent!: WebhookAccessGroupComponent
   @ViewChild("providerGroupsComponent") providerGroupsComponent!: WebhookAccessGroupComponent
-  @Input() webhookForm!: WebhookGroupForm;
+  @Input() webhookForm!: WebhookApiForm;
   @Input() formTitle!: string
-  @Input() onSave!: (request: any) => Observable<WebhookGroup>
-  @Input() onSuccess!: (value: WebhookGroup) => void;
+  @Input() onSave!: (request: any) => Observable<WebhookApi>
+  @Input() onSuccess!: (value: WebhookApi) => void;
 
   constructor(
     private readonly appCtx: ApplicationContext,

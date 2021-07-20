@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RxAdapter} from "../../../../shared/adapter/adapter";
-import {Topic, WebhookGroup} from "../../model/webhook-group";
+import {Topic, WebhookApi} from "../../model/webhook-api";
 import {AsyncapiParserService} from "../../../../shared/service/asyncapi-parser.service";
 import {map, mergeMap, toArray} from "rxjs/operators";
 import {Observable} from "rxjs";
@@ -11,11 +11,11 @@ import {WebhookType} from "../../model/webhook-type";
 @Injectable({
   providedIn: 'root'
 })
-export class WebhookGroupAdapter implements RxAdapter<WebhookGroup> {
+export class WebhookApiAdapter implements RxAdapter<WebhookApi> {
   constructor(private readonly parser: AsyncapiParserService) {
   }
 
-  adapt(item: any): Observable<WebhookGroup> {
+  adapt(item: any): Observable<WebhookApi> {
     return this.parser.parse(item.raw)
       .pipe(map(doc => {
         let webhooks = item.webhooks
@@ -27,11 +27,11 @@ export class WebhookGroupAdapter implements RxAdapter<WebhookGroup> {
 
             return new Webhook(item.id, topic, webhook.numberOfSubscriptions, type, channel, doc.defaultContentType())
           })
-        return WebhookGroup.create(item, webhooks, doc)
+        return WebhookApi.create(item, webhooks, doc)
       }))
   }
 
-  adaptList(items: any[]): Observable<WebhookGroup[]> {
+  adaptList(items: any[]): Observable<WebhookApi[]> {
     return fromArray(items)
       .pipe(mergeMap(it => this.adapt(it)))
       .pipe(toArray())

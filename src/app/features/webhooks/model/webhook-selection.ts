@@ -1,9 +1,9 @@
-import {Topic, WebhookGroup} from "./webhook-group";
+import {Topic, WebhookApi} from "./webhook-api";
 import {Webhook} from "./webhook";
 
 export class WebhookSelection {
   constructor(
-    public group: WebhookGroup,
+    public api: WebhookApi,
     public webhook: Webhook
   ) {
   }
@@ -12,12 +12,12 @@ export class WebhookSelection {
     return this.webhook.topic
   }
 
-  static create(group: WebhookGroup, webhook: Webhook): WebhookSelection {
-    return new WebhookSelection(group, webhook);
+  static create(api: WebhookApi, webhook: Webhook): WebhookSelection {
+    return new WebhookSelection(api, webhook);
   }
 
-  static createByTopic(group: WebhookGroup, topic: string): WebhookSelection {
-    let webhook = group.webhooks.filter(it => it.topic.name == topic)[0];
-    return WebhookSelection.create(group, webhook);
+  static createByTopic(api: WebhookApi, topic: string): WebhookSelection {
+    let webhook = api.webhooks.filter(it => it.topic.name == topic)[0];
+    return WebhookSelection.create(api, webhook);
   }
 }

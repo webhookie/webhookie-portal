@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {WebhookGroupService} from "../../../service/webhook-group.service";
+import {WebhookApiService} from "../../../service/webhook-api.service";
 import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
-import {WebhookGroup} from "../../../model/webhook-group";
+import {WebhookApi} from "../../../model/webhook-api";
 import {Webhook} from "../../../model/webhook";
 import {WebhookSelection} from "../../../model/webhook-selection";
 import * as $ from "jquery";
@@ -17,7 +17,7 @@ import {Observable} from "rxjs";
 })
 export class SidebarListComponent implements OnInit {
   constructor(
-    readonly service: WebhookGroupService,
+    readonly service: WebhookApiService,
     private readonly log: LogService,
     private readonly appContext: ApplicationContext,
     private readonly context: WebhooksContext
@@ -34,7 +34,7 @@ export class SidebarListComponent implements OnInit {
         });
 
         if(it != null) {
-          let id = it.group.id;
+          let id = it.api.id;
           let bodyId = `faq${id}`
           let webhookAId = this.webhookId(it.webhook)
           let groupAId = `group_a_${id}`
@@ -57,7 +57,7 @@ export class SidebarListComponent implements OnInit {
     });
   }
 
-  selectWebhook(element: WebhookGroup, webhook: Webhook) {
+  selectWebhook(element: WebhookApi, webhook: Webhook) {
     this.context.selectWebhook(WebhookSelection.create(element, webhook))
   }
 
@@ -73,7 +73,7 @@ export class SidebarListComponent implements OnInit {
     return `webhook_a_${StringUtils.encode(webhook.topic.name)}`
   }
 
-  get webhooks$(): Observable<Array<WebhookGroup>> {
+  get webhooks$(): Observable<Array<WebhookApi>> {
     return this.service.filteredWebhook$
   }
 }

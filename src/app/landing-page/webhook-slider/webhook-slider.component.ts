@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {WebhookGroup} from "../../features/webhooks/model/webhook-group";
+import {WebhookApi} from "../../features/webhooks/model/webhook-api";
 import {Observable} from "rxjs";
 import {WebhooksContext} from "../../features/webhooks/webhooks-context";
 
@@ -9,7 +9,7 @@ import {WebhooksContext} from "../../features/webhooks/webhooks-context";
   styleUrls: ['./webhook-slider.component.css']
 })
 export class WebhookSliderComponent implements OnInit {
-  @Input() items!: Observable<Array<WebhookGroup>>
+  @Input() items!: Observable<Array<WebhookApi>>
 
   slideConfig = {
     dots: true,
@@ -94,7 +94,7 @@ export class WebhookSliderComponent implements OnInit {
     console.log('beforeChange');
   }
 
-  browseWebhookGroup(wg: WebhookGroup) {
-    this.webhooksContext.selectWebhookGroup(wg);
+  browseWebhookApi(wg: WebhookApi) {
+    this.webhooksContext.selectWebhookApi(wg);
   }
 }

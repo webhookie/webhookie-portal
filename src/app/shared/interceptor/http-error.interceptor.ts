@@ -85,11 +85,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   ignoreRequests: Set<string> = new Set<string>([
-    "POST /webhookgroups",
+    "POST /webhookapis",
     "GET /manage/health",
     "GET /public/config",
     "GET /user",
-    "GET /webhookgroups",
+    "GET /webhookapis",
     "POST /subscriptions"
   ]);
 }

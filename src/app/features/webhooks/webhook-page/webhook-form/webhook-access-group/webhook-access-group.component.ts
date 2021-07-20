@@ -4,7 +4,7 @@ import {WebhookieService} from "../../../../../shared/service/webhookie.service"
 import {DropdownEntry} from "../../../../../shared/model/dropdownEntry";
 import {MultiSelectComponent} from "../../../../../shared/components/multi-select/multi-select.component";
 import {map} from "rxjs/operators";
-import {AccessGroupSelection, WebhookGroupAccess} from "../webhook-group-form";
+import {AccessGroupSelection, WebhookApiAccess} from "../webhook-api-form";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -23,7 +23,7 @@ export class WebhookAccessGroupComponent implements OnInit {
   @Input() filter: (entry: DropdownEntry) => boolean = () => true
   groups: Array<DropdownEntry> = [];
 
-  groupAccess: number = WebhookGroupAccess.PUBLIC;
+  groupAccess: number = WebhookApiAccess.PUBLIC;
   private itemsSubscription?: Subscription;
 
   constructor(
@@ -41,7 +41,7 @@ export class WebhookAccessGroupComponent implements OnInit {
   setAsPublic() {
     this.itemsSubscription?.unsubscribe();
     this.selectComponent.clearSelection();
-    this.groupAccess = WebhookGroupAccess.PUBLIC
+    this.groupAccess = WebhookApiAccess.PUBLIC
     this.control.setValue(AccessGroupSelection.initPublic());
   }
 
@@ -52,16 +52,16 @@ export class WebhookAccessGroupComponent implements OnInit {
         this.control.setValue(AccessGroupSelection.restricted(it));
       })
 
-    this.groupAccess = WebhookGroupAccess.RESTRICTED
+    this.groupAccess = WebhookApiAccess.RESTRICTED
   }
 
   get isRestricted(): boolean {
-    return this.groupAccess == WebhookGroupAccess.RESTRICTED
+    return this.groupAccess == WebhookApiAccess.RESTRICTED
   }
 
   init(value: AccessGroupSelection) {
     this.selectComponent.initSelection(value.items);
-    if(value.access == WebhookGroupAccess.PUBLIC) {
+    if(value.access == WebhookApiAccess.PUBLIC) {
       this.setAsPublic()
     } else {
       this.setAsRestricted();

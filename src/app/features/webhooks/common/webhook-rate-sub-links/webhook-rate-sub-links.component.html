@@ -24,7 +24,7 @@
   </ul>
   <div>
     <p class="font14 mb-1">{{selectedTopic | async}}</p>
-    <div class="mt-1 mb-1" *ngIf="webhookGroup.info.termsOfService"><a [href]="webhookGroup.info.termsOfService" target="_blank" >Terms of service</a></div>
-    <div class="mt-1 mb-1" *ngIf="webhookGroup.info.license?.url"><a [href]="webhookGroup.info.license?.url" target="_blank" >License</a></div>
+    <div class="mt-1 mb-1" *ngIf="webhookApi.info.termsOfService"><a [href]="webhookApi.info.termsOfService" target="_blank" >Terms of service</a></div>
+    <div class="mt-1 mb-1" *ngIf="webhookApi.info.license?.url"><a [href]="webhookApi.info.license?.url" target="_blank" >License</a></div>
   </div>
 </div>

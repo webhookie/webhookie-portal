@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditWebhookGroupComponent } from './edit-webhook-group.component';
+import { CreateWebhookApiComponent } from './create-webhook-api.component';
 
-describe('EditWebhookGroupComponent', () => {
-  let component: EditWebhookGroupComponent;
-  let fixture: ComponentFixture<EditWebhookGroupComponent>;
+describe('CreateWebhookApiComponent', () => {
+  let component: CreateWebhookApiComponent;
+  let fixture: ComponentFixture<CreateWebhookApiComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditWebhookGroupComponent ]
+      declarations: [ CreateWebhookApiComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditWebhookGroupComponent);
+    fixture = TestBed.createComponent(CreateWebhookApiComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

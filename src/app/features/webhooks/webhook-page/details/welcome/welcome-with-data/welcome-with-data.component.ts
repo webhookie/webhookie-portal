@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {WebhookGroup} from "../../../../model/webhook-group";
+import {WebhookApi} from "../../../../model/webhook-api";
 import {ArrayUtils} from "../../../../../../shared/array-utils";
 import {WebhooksContext} from "../../../../webhooks-context";
 import {RouterService} from "../../../../../../shared/service/router.service";
 import {WebhookSelection} from "../../../../model/webhook-selection";
-import {WebhookGroupService} from "../../../../service/webhook-group.service";
+import {WebhookApiService} from "../../../../service/webhook-api.service";
 
 @Component({
   selector: 'app-welcome-with-data',
@@ -13,7 +13,7 @@ import {WebhookGroupService} from "../../../../service/webhook-group.service";
   styleUrls: ['./welcome-with-data.component.css']
 })
 export class WelcomeWithDataComponent implements OnInit {
-  @Input() items!: Observable<Array<WebhookGroup>>
+  @Input() items!: Observable<Array<WebhookApi>>
   firstRow: Array<WebhookSelection> = []
   rest: Array<Array<WebhookSelection>> = []
 
@@ -21,7 +21,7 @@ export class WelcomeWithDataComponent implements OnInit {
   chunked: Array<Array<WebhookSelection>> = []
 
   constructor(
-    readonly service: WebhookGroupService,
+    readonly service: WebhookApiService,
     private readonly routeService: RouterService,
     private readonly webhooksContext: WebhooksContext
   ) {

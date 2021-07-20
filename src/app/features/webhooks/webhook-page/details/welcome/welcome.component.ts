@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {WebhookGroupService} from "../../../service/webhook-group.service";
+import {WebhookApiService} from "../../../service/webhook-api.service";
 import {map} from "rxjs/operators";
 import {Observable} from "rxjs";
-import {WebhookGroup} from "../../../model/webhook-group";
+import {WebhookApi} from "../../../model/webhook-api";
 
 @Component({
   selector: 'app-welcome',
@@ -10,7 +10,7 @@ import {WebhookGroup} from "../../../model/webhook-group";
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
-  constructor(private readonly service: WebhookGroupService) {
+  constructor(private readonly service: WebhookApiService) {
   }
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class WelcomeComponent implements OnInit {
       .pipe(map(it => it.length == 0))
   }
 
-  get webhooks$(): Observable<Array<WebhookGroup>> {
+  get webhooks$(): Observable<Array<WebhookApi>> {
     return this.service.filteredWebhook$
   }
 }

@@ -1,4 +1,4 @@
-<div *ngIf="webhookGroup.hasSecuritySchema" id="security-accordion">
+<div *ngIf="webhookApi.hasSecuritySchema" id="security-accordion">
   <div class="card">
     <div class="card-header" id="security-sub-heading-1">
       <a data-toggle="collapse" href="#security-main-collapse">Callback Security Options</a>
@@ -6,7 +6,7 @@
     <div class="collapse" data-parent="#security-accordion" id="security-main-collapse">
       <div class="card-body">
         <div id="security-sub-accordion-1">
-          <div *ngFor="let item of webhookGroup.securityOptions;let i=index;" class="card">
+          <div *ngFor="let item of webhookApi.securityOptions;let i=index;" class="card">
             <div class="card-header" id="security-heading-{{item.name}}-{{i}}">
               <a class="collapsed font14 font-weight-600" data-toggle="collapse"
                  href="#security-sub-heading-collapse-{{item.name}}-{{i}}">{{item.name}}</a>

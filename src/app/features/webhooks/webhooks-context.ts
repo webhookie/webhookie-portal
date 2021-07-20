@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable} from "rxjs";
-import {Topic, WebhookGroup} from "./model/webhook-group";
+import {Topic, WebhookApi} from "./model/webhook-api";
 import {filter, map} from "rxjs/operators";
 import {Webhook} from "./model/webhook";
 import {WebhookSelection} from "./model/webhook-selection";
@@ -19,8 +19,8 @@ export class WebhooksContext {
 
   readonly topic$: Observable<Topic> = this._forcedWebhook$
     .pipe(map(it => it.webhook.topic))
-  readonly group$: Observable<WebhookGroup> = this._forcedWebhook$
-    .pipe(map(it => it.group))
+  readonly group$: Observable<WebhookApi> = this._forcedWebhook$
+    .pipe(map(it => it.api))
 
   get selectedTopic(): Topic | undefined {
     return this._webhook$.value?.webhook?.topic
@@ -30,31 +30,31 @@ export class WebhooksContext {
     return this._webhook$.value!.webhook
   }
 
-  get group(): WebhookGroup {
-    return this._webhook$.value!.group
+  get group(): WebhookApi {
+    return this._webhook$.value!.api
   }
 
-  editingWebhookGroup?: WebhookGroup;
+  editingWebhookApi?: WebhookApi;
 
   constructor() {
     this.webhook$
       .subscribe(() => {});
   }
 
-  selectWebhookGroup(webhookGroup: WebhookGroup) {
-    this.selectWebhook(WebhookSelection.create(webhookGroup, webhookGroup.webhooks[0]));
+  selectWebhookApi(webhookApi: WebhookApi) {
+    this.selectWebhook(WebhookSelection.create(webhookApi, webhookApi.webhooks[0]));
   }
 
   selectWebhook(webhook: WebhookSelection) {
     this._webhook$.next(webhook);
   }
 
-  editingGroup(group: WebhookGroup) {
-    this.editingWebhookGroup = group;
+  editingGroup(api: WebhookApi) {
+    this.editingWebhookApi = api;
   }
 
-  cancelEditingWebhookGroup() {
-    this.editingWebhookGroup = undefined;
+  cancelEditingWebhookApi() {
+    this.editingWebhookApi = undefined;
   }
 
   clearWebhookSelection() {
