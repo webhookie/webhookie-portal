@@ -33,7 +33,7 @@ export class WebhookApiForm {
         let msg = errors.reduce((value, current) => `${value} <br/> ${current}`)
         observer.error(new WebhookieError({
           message: msg,
-          name: "Webhook Api Creation Error"
+          name: "Webhook API Creation Error"
         }));
       } else {
         observer.next(

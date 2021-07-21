@@ -6,14 +6,14 @@
 export class WebhookAPITemplate {
   static WEBHOOK_API_TEMPLATE = `asyncapi: 2.0.0
 info:
-  # Webhook Api Name
+  # Webhook API Name
   title: Petstore Events API
-  # Webhook Api Version - could show as a pill
+  # Webhook API Version - could show as a pill
   version: 1.0.0
   description: This is my first webhook API. It uses the ASYNC API Specification - check it out here [https://www.asyncapi.com/docs/specifications/2.0.0]
   termsOfService: https://webhooks.mycompany.com/terms/
   contact:
-    name: My Webhook Api Support
+    name: My Webhook API Support
     url: https://mysupport.mycompany.com/
     email: support@mycompany.com
   license:

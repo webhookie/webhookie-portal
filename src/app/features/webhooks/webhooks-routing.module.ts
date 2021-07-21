@@ -39,14 +39,14 @@ const routes: Routes = [
     path: 'create-webhook',
     component: CreateWebhookApiComponent,
     data: {
-        breadcrumb: 'Create new webhook api',
+        breadcrumb: 'Create new webhook API',
     },
   },
   {
     path: 'edit-webhook-api',
     component: EditWebhookApiComponent,
     data: {
-      breadcrumb: 'Update webhook api',
+      breadcrumb: 'Update webhook API',
     },
   },
   {

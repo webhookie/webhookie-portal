@@ -36,8 +36,8 @@ export class EditWebhookApiComponent implements OnInit {
 
   onSuccess(): (value: WebhookApi) => void {
     return (value) => {
-      this.log.info(`WebhookApi: ${value.id} has been saved!`);
-      this.toastService.success("Webhook Api has been saved successfully!", "SUCCESS")
+      this.log.info(`Webhook API: ${value.id} has been saved!`);
+      this.toastService.success("Webhook API has been saved successfully!", "SUCCESS")
     }
   }
 }

@@ -60,14 +60,14 @@ export class WebhookApiService {
     this.appContext.isLoggedIn
       .pipe(filter(it => it))
       .pipe(mergeMap(() => this.myWebhookApis()))
-      .subscribe(it => this.log.info(`${it.length} Webhook APi(s) reloaded after login`));
+      .subscribe(it => this.log.info(`${it.length} Webhook API(s) reloaded after login`));
   }
 
   public myWebhookApis(): Observable<Array<WebhookApi>> {
-    this.log.info(`Fetching user's webhook apis...`);
+    this.log.info(`Fetching user's webhook APIs...`);
     return this.api.json(this.WEBHOOKAPIS_URI)
       .pipe(
-        tap(it => this.log.info(`Fetched '${it.length}' webhook apis`)),
+        tap(it => this.log.info(`Fetched '${it.length}' webhook APIs`)),
         mergeMap(it => this.webhookApiAdapter.adaptList(it)),
         tap(it => {
           this._webhooks$.next(it);
@@ -77,7 +77,7 @@ export class WebhookApiService {
   }
 
   fetchByTopic(topic: string): Observable<WebhookApi> {
-    this.log.info(`Fetching webhook api by topic: ${topic}...`);
+    this.log.info(`Fetching webhook API by topic: ${topic}...`);
     let uri = `${this.WEBHOOKAPIS_URI}/byTopic`;
     const params = new HttpParams().set("topic", topic)
     return this.api.json(uri, params)
@@ -85,7 +85,7 @@ export class WebhookApiService {
   }
 
   fetchById(id: string): Observable<WebhookApi> {
-    this.log.info(`Fetching webhook api by id: ${id}...`);
+    this.log.info(`Fetching webhook API by id: ${id}...`);
     let uri = `${this.WEBHOOKAPIS_URI}/${id}`;
     return this.api.json(uri, new HttpParams())
       .pipe(mergeMap(it => this.webhookApiAdapter.adapt(it)))
