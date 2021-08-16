@@ -35,6 +35,7 @@ import {SortableTableHeader} from "../../../shared/model/table/header/sortable-t
 import {
   SubscriptionApplicationColumn,
   SubscriptionCallbackColumn,
+  SubscriptionEntityColumn,
   SubscriptionStatusColumn,
   SubscriptionWebhookColumn
 } from "./subscription-columns";
@@ -98,12 +99,18 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   }
 
   get headers(): Array<TableHeader> {
-    return [
+    let headers = [
       new SortableTableHeader("Application", "application.name"),
       new SortableTableHeader("Webhook", "topic"),
       new SortableTableHeader("Callback URL", "callback.url"),
       new SortableTableHeader("Status", "statusUpdate.status"),
-    ]
+    ];
+    if(this._role$.value == Constants.SUBSCRIPTIONS_VIEW_ROLE_PROVIDER) {
+      let companyHeader = new SortableTableHeader("Company", "application.entity")
+      return [companyHeader].concat(headers)
+    } else {
+      return headers
+    }
   }
 
   get filters(): Array<TableFilter> {
@@ -111,13 +118,19 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   }
 
   get columns(): Array<TableColumn> {
-    return [
+    let columns = [
       new SubscriptionApplicationColumn("Subscription_Application"),
       new SubscriptionWebhookColumn("Subscription_Topic"),
       new SubscriptionCallbackColumn("Subscription_Callback"),
       new SubscriptionStatusColumn("Subscription_Status"),
       new ContextMenuTableColumn(this.createContextMenuItems())
-    ]
+    ];
+    if(this._role$.value == Constants.SUBSCRIPTIONS_VIEW_ROLE_PROVIDER) {
+      let companyColumn = new SubscriptionEntityColumn("Subscription_Entity")
+      return [companyColumn].concat(columns)
+    } else {
+      return columns
+    }
   }
 
 
