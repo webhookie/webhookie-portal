@@ -35,7 +35,6 @@ import {SortableTableHeader} from "../../../shared/model/table/header/sortable-t
 import {
   SubscriptionApplicationColumn,
   SubscriptionCallbackColumn,
-  SubscriptionEntityColumn,
   SubscriptionStatusColumn,
   SubscriptionWebhookColumn
 } from "./subscription-columns";
@@ -100,7 +99,6 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
   get headers(): Array<TableHeader> {
     return [
-      new SortableTableHeader("Company", "application.entity"),
       new SortableTableHeader("Application", "application.name"),
       new SortableTableHeader("Webhook", "topic"),
       new SortableTableHeader("Callback URL", "callback.url"),
@@ -114,7 +112,6 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
   get columns(): Array<TableColumn> {
     return [
-      new SubscriptionEntityColumn("Subscription_Entity"),
       new SubscriptionApplicationColumn("Subscription_Application"),
       new SubscriptionWebhookColumn("Subscription_Topic"),
       new SubscriptionCallbackColumn("Subscription_Callback"),
