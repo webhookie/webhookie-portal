@@ -21,7 +21,7 @@
  */
 
 import {Inject, Injectable} from '@angular/core';
-import {EMPTY, Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {map, mergeMap, tap} from "rxjs/operators";
 import {HttpHeaders, HttpParams} from "@angular/common/http";
 import {Api} from "../api";
@@ -86,6 +86,13 @@ export class SubscriptionService {
   fetchSubscription(id: string): Observable<Subscription> {
     return this.api.json(`/subscriptions/${id}`)
       .pipe(map(it => this.adapter.adapt(it)))
+  }
+
+  delete(subscription: Subscription): Observable<Subscription> {
+    let headers = new HttpHeaders()
+      .set("Accept", ["text/plain", "application/json"]);
+    return this.api.delete(`/subscriptions/${subscription.id}`, headers)
+      .pipe(map(() => subscription))
   }
 
   activateSubscription(subscription: Subscription): Observable<Subscription> {

@@ -164,7 +164,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.DELETE)
         .handler(this.delete())
-        .isAvailable(this.contextMenuService.canWrite(this._role$))
+        .isAvailable(this.contextMenuService.canDelete(this._role$))
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.SUSPEND)
@@ -231,8 +231,9 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   }
 
   delete(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
-    return (it: Subscription, item: SubscriptionContextMenu) => {
-      console.warn(`${item.item} ==> ${it.id}`);
+    return (subscription: Subscription) => {
+      this.service.delete(subscription)
+        .subscribe(it => subscription.statusUpdate = it.statusUpdate);
     }
   }
 

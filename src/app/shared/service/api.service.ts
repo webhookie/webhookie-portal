@@ -91,6 +91,15 @@ export class ApiService implements Api {
   put(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>> {
     return this.request("PUT", uri, body, params, headers, responseType)
   }
+
+  delete(uri: string, headers: HttpHeaders): Observable<any> {
+    let url = `${this.apiUrl}${uri}`;
+    let option = {
+      headers
+      // observe: 'response'
+    };
+    return this.http.delete(url, option);
+  }
 }
 
 interface HttpRequestOptions {
