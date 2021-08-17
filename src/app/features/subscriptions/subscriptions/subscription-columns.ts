@@ -22,7 +22,6 @@
 
 import {BaseTableColumn} from "../../../shared/model/table/column/table-column";
 import {Subscription, SubscriptionStatus} from "../../../shared/model/subscription";
-import {environment} from "../../../../environments/environment";
 
 export class SubscriptionEntityColumn extends BaseTableColumn<Subscription>{
   value(data: Subscription): string {

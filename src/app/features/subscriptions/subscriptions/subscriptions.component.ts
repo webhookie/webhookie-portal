@@ -233,7 +233,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   delete(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription: Subscription) => {
       this.service.delete(subscription)
-        .subscribe(it => subscription.statusUpdate = it.statusUpdate);
+        .subscribe(it => this.tableComponent.delete(it));
     }
   }
 

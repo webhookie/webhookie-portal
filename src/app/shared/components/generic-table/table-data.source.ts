@@ -45,6 +45,13 @@ export class TableDataSource {
     this.data$.next(d);
   }
 
+  delete(item: TableData) {
+    let updatedList = this.data$.value
+      .filter(value => value.id != item.id)
+
+    this.data$.next(updatedList)
+  }
+
   reset() {
     this.data$.next([]);
   }

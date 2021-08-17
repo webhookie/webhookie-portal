@@ -188,5 +188,9 @@ export class GenericTableComponent implements OnInit {
 
     return selectableColumn.isSelectable(data);
   }
+
+  delete(item: TableData) {
+    this.dataSource.delete(item)
+  }
 }
 
