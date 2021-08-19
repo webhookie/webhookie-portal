@@ -82,7 +82,8 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   eventTypes = [
     "spanCreated", "spanBlocked",
     "spanFailedWithServerError", "spanFailedWithClientError", "spanFailedWithOtherError",
-    "spanFailedStatusUpdate", "spanWasOK", "spanMarkedRetrying", "spanIsRetrying"
+    "failedWithSubscriptionError", "spanFailedStatusUpdate", "spanWasOK", "spanMarkedRetrying",
+    "spanIsRetrying"
   ]
 
   constructor(
@@ -136,6 +137,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       case "spanFailedWithServerError":
       case "spanFailedWithClientError":
       case "spanFailedWithOtherError":
+      case "failedWithSubscriptionError":
       case "spanFailedStatusUpdate":
       case "spanBlocked":
       case "spanWasOK":
