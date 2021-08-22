@@ -83,7 +83,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     "spanCreated", "spanBlocked",
     "spanFailedWithServerError", "spanFailedWithClientError", "spanFailedWithOtherError",
     "failedWithSubscriptionError", "spanFailedStatusUpdate", "spanWasOK", "spanMarkedRetrying",
-    "spanIsRetrying"
+    "spanIsRetrying", "spanNumberOfTriesIncreased"
   ]
 
   constructor(
@@ -132,6 +132,9 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
         )
         span.tries = event.data.totalNumberOfTries
         span.responseCode = -1
+        break;
+      case "spanNumberOfTriesIncreased":
+        span.tries = event.data.totalNumberOfTries
         break;
       case "spanIsRetrying":
       case "spanFailedWithServerError":
