@@ -28,17 +28,22 @@
     <div class="dot-buttons">
       <ul class="d-flex justify-content-md-end align-items-center mb-lg-0">
         <li>
-          <button class="btn mr-2 mr-md-0 btn-primary" routerLink="/webhooks/subscribe-webhook">
+          <button (click)="login()" *ngIf="!isLoggedIn" [disabled]="!(healthy | async)" [class.disabled]="!(healthy | async)" class="btn mr-2 mr-md-0 btn-primary">
+            Login
+          </button>
+        </li>
+        <li>
+          <button [disabled]="!isLoggedIn" [class.disabled]="!isLoggedIn" class="btn mr-2 mr-md-0 btn-primary" routerLink="/webhooks/subscribe-webhook">
             Subscribe
           </button>
         </li>
         <li>
-          <button class="btn btn-default" routerLink="/webhooks/callback-test">
+          <button [disabled]="!isLoggedIn" [class.disabled]="!isLoggedIn" class="btn btn-default" routerLink="/webhooks/callback-test">
             Test
           </button>
         </li>
         <li class="px-2">
-          <app-context-menu [data]="data" [menuItems]="menuItems"></app-context-menu>
+          <app-context-menu *ngIf="isLoggedIn" [data]="data" [menuItems]="menuItems" #contextMenuComponent></app-context-menu>
         </li>
       </ul>
     </div>

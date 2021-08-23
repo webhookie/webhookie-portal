@@ -79,7 +79,7 @@ export class WebhookApiService {
       .pipe(map(v => this._webhooks$.value.filter(it => it.matches(v))))
       .subscribe(it => this._filteredWebhook$.next(it));
 
-    this.appContext.isLoggedIn
+    this.appContext.isLoggedIn$
       .pipe(filter(it => it))
       .pipe(mergeMap(() => this.myWebhookApis()))
       .subscribe(it => this.log.info(`${it.length} Webhook API(s) reloaded after login`));

@@ -20,40 +20,35 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {WebhookDetailComponent} from './webhook-detail/webhook-detail.component';
-import {ReviewsComponent} from './reviews/reviews.component';
-import {SupportComponent} from './support/support.component';
-import {CanActivateViewWebhook} from "../../../service/can-activate-view-webhook";
+import {Inject, Injectable} from "@angular/core";
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
+import {Observable} from "rxjs";
+import {WebhooksContext} from "../webhooks-context";
+import {RouterService} from "../../../shared/service/router.service";
+import {LogService} from "../../../shared/service/log.service";
+import {AuthService} from "../../../shared/service/auth.service";
+import {Constants} from "../../../shared/constants";
 
-const routes: Routes = [
-
-  {
-    path: '',
-    redirectTo: "webhook-detail",
-    pathMatch: "full"
-  },
-  {
-    path: 'webhook-detail',
-    component: WebhookDetailComponent,
-    canActivate: [CanActivateViewWebhook]
-  },
-  {
-    path: 'reviews',
-    component: ReviewsComponent,
-
-  },
-  {
-    path: 'support',
-    component: SupportComponent,
-  },
-
-];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+@Injectable({
+  providedIn: "root"
 })
-export class WebhookRoutingModule {
+export class CanActivateViewWebhook implements CanActivate {
+  constructor(
+    private readonly context: WebhooksContext,
+    private readonly log: LogService,
+    private readonly routeService: RouterService,
+    private readonly router: Router,
+    @Inject("Auth") private readonly authService: AuthService
+  ) {
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    if(this.context.selectedTopic == undefined) {
+      this.log.debug("topic is missing. redirecting to home")
+      return this.router.createUrlTree([Constants.ROUTE_WELCOME]);
+    }
+
+    this.log.debug(`${route.url} can be activated`)
+    return true;
+  }
 }

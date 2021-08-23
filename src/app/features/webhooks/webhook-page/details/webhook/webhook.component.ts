@@ -28,6 +28,9 @@ import {WebhooksContext} from "../../../webhooks-context";
 import {RouterService} from "../../../../../shared/service/router.service";
 import {WebhookApiService} from "../../../service/webhook-api.service";
 import {ProviderAccess} from "../../../../../shared/model/access-group";
+import {AuthService} from "../../../../../shared/service/auth.service";
+import {HealthService} from "../../../../../shared/service/health.service";
+import {Observable} from "rxjs";
 
 type WebhookApiContextMenu = ContextMenuItem<WebhookApi, WebhookMenu>
 
@@ -44,6 +47,8 @@ export class WebhookComponent implements OnInit {
   }
 
   constructor(
+    private readonly authService: AuthService,
+    private readonly healthService: HealthService,
     private readonly routeService: RouterService,
     private readonly appContext: ApplicationContext,
     private readonly webhookApiService: WebhookApiService,
@@ -56,6 +61,18 @@ export class WebhookComponent implements OnInit {
       .subscribe(() => {
         this.menuItems = this.createContextMenuItems();
       })
+  }
+
+  get healthy(): Observable<boolean> {
+    return this.healthService.healthy$
+  }
+
+  get isLoggedIn(): boolean {
+    return this.appContext.isLoggedIn
+  }
+
+  login() {
+    this.authService.login();
   }
 
   private createContextMenuItems() {
@@ -133,7 +150,8 @@ export class WebhookComponent implements OnInit {
   canEditWebhookApi(): (it: WebhookApi) => boolean {
     return (it?: WebhookApi) => {
       if(it) {
-        return this.appContext.hasProviderAccess(it.providerGroups) || it.providerAccess == ProviderAccess.ALL;
+        return this.appContext.isLoggedIn &&
+          (this.appContext.hasProviderAccess(it.providerGroups) || it.providerAccess == ProviderAccess.ALL);
       }
 
       return false;

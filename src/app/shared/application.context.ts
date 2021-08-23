@@ -34,7 +34,7 @@ import {DropdownEntry} from "./model/dropdownEntry";
   providedIn: 'root'
 })
 export class ApplicationContext {
-  readonly isLoggedIn: Observable<boolean>;
+  readonly isLoggedIn$: Observable<boolean>;
   // @ts-ignore
   private readonly _user$: BehaviorSubject<User> = new BehaviorSubject<User>(User.UNKNOWN);
   readonly user$: Observable<User> = this._user$.asObservable();
@@ -46,13 +46,13 @@ export class ApplicationContext {
     @Inject("Auth") private readonly authService: AuthService,
     private readonly log: LogService
   ) {
-    this.isLoggedIn = this.authService.loggedIn$;
+    this.isLoggedIn$ = this.authService.loggedIn$;
 
-    this.isLoggedIn
+    this.isLoggedIn$
       .pipe(filter(it => it))
       .subscribe(() => this.login(this.authService.claims))
 
-    this.isLoggedIn
+    this.isLoggedIn$
       .pipe(filter(it => !it))
       .subscribe(() => this.logout());
   }
@@ -91,6 +91,10 @@ export class ApplicationContext {
     return (it) => {
       return this.userGroups.indexOf(it.key) > -1;
     }
+  }
+
+  get isLoggedIn(): boolean {
+    return this._user$.value != User.UNKNOWN
   }
 
   get hasProviderRole(): boolean {
