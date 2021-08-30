@@ -102,7 +102,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     let headers = [
       new SortableTableHeader("Application", "application.name"),
       new SortableTableHeader("Webhook", "topic"),
-      new SortableTableHeader("Callback URL", "callback.url"),
+      new SortableTableHeader("Callback", "callback.name"),
       new SortableTableHeader("Status", "statusUpdate.status"),
     ];
     if(this._role$.value == Constants.SUBSCRIPTIONS_VIEW_ROLE_PROVIDER) {

@@ -169,7 +169,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       new SortableTableHeader("Trace Id", "traceId"),
       new SortableTableHeader("Application", "subscription.application.name"),
       new SortableTableHeader("Webhook", "subscription.topic"),
-      new SortableTableHeader("Callback URL", "subscription.callback.url"),
+      new SortableTableHeader("Callback", "subscription.callback.name"),
       new SortableTableHeader("Timestamp", "lastStatus.time"),
       new SortableTableHeader("Span Id", "spanId"),
       new SortableTableHeader("Response Code", "latestResult.statusCode"),
