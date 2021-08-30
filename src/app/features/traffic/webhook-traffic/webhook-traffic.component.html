@@ -54,6 +54,7 @@
   </div>
 </div>
 
+<!--
 <div *ngIf="debug">
   <hr>
   <pre>Subscriptions Filter: {{ spanFilter.initialFilter | json }}</pre>
@@ -65,6 +66,15 @@
 <div *ngIf="debug">
   <hr>
   <pre>Filters: {{ tableComponent.currentFilter | async | json }}</pre>
+</div>
+-->
+<div *ngIf="debug">
+  <hr>
+  <pre>Span Filter: {{ spanFilter.current | json }}</pre>
+</div>
+<div *ngIf="debug">
+  <hr>
+  <pre>Filters: {{ aggregatedQueryingFilter | json }}</pre>
 </div>
 
 <app-generic-table

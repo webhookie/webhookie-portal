@@ -30,4 +30,5 @@ export interface WebhookTrafficFilter {
   entity?: string;
   applicationId?: string;
   callbackId?: string;
+  subscriptionId?: string;
 }

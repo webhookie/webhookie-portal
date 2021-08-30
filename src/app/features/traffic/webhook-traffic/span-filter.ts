@@ -36,7 +36,7 @@ export class SpanFilter {
   constructor(public initialFilter: WebhookTrafficFilter) {
   }
 
-  private readonly _filter$: BehaviorSubject<WebhookTrafficFilter> = new BehaviorSubject<WebhookTrafficFilter>({});
+  private readonly _filter$: BehaviorSubject<WebhookTrafficFilter> = new BehaviorSubject<WebhookTrafficFilter>(this.initialFilter);
   private readonly filter$: Observable<WebhookTrafficFilter> = this._filter$.asObservable();
 
   // @ts-ignore
@@ -75,6 +75,10 @@ export class SpanFilter {
 
   get callbackId(): string | undefined {
     return this.current.callbackId
+  }
+
+  get subscriptionId(): string | undefined {
+    return this.current.subscriptionId
   }
 
   selectEntity(entity?: string) {

@@ -21,6 +21,7 @@
   -->
 
 <div *ngIf="debug">{{initialFilters | json}}</div>
+<div *ngIf="debug">{{aggregatedQueryingFilter | json}}</div>
 <app-generic-table
   #tableComponent
   [selectable]="true"

@@ -76,6 +76,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   @ViewChild("resultViewer") resultViewer?: TemplateRef<any>;
 
   debug = environment.debug
+  aggregatedQueryingFilter = {};
 
   readonly tableData: Observable<Array<Span>> = this._spans$.asObservable();
 
@@ -157,7 +158,8 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   }
 
   fetchData(filter: any, pageable: Pageable) {
-    this.spanService.readSpans(filter, pageable)
+    this.aggregatedQueryingFilter = Object.assign({}, filter, this.initialFilters)
+    this.spanService.readSpans(this.aggregatedQueryingFilter, pageable)
       .subscribe(it => this._spans$.next(it));
   }
 

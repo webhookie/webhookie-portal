@@ -63,6 +63,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   readonly tableData: Observable<Array<Trace>> = this._traces$.asObservable();
 
   spanFilter!: SpanFilter;
+  aggregatedQueryingFilter = {};
 
   private readonly traceTable!: TraceTable
   private readonly spanTable!: SpanTable
@@ -94,6 +95,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
     this.activatedRoute.queryParams
       .subscribe(it => {
         this.initialFilters.topic = it.topic;
+        this.initialFilters.subscriptionId = it.subscriptionId;
         this.spanFilter = new SpanFilter(it);
       });
 
@@ -135,12 +137,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   combineFilters(tableFilter: any, pageFilter: WebhookTrafficFilter): any {
-    let filter = tableFilter;
-    filter.entity = pageFilter.entity
-    filter.callbackId = pageFilter.callbackId
-    filter.applicationId = pageFilter.applicationId
-
-    return filter;
+    return Object.assign({}, tableFilter, pageFilter);
   }
 
   ngAfterViewInit(): void {
@@ -153,9 +150,9 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   }
 
   fetchData(filter: any, pageable: Pageable) {
-    let aggregatedFilter = this.combineFilters(filter, this.spanFilter.current);
+    this.aggregatedQueryingFilter = this.combineFilters(filter, this.spanFilter.current);
 
-    this.traceService.readTraces(aggregatedFilter, pageable)
+    this.traceService.readTraces(this.aggregatedQueryingFilter, pageable)
       .subscribe(it => this._traces$.next(it));
   }
 
@@ -194,6 +191,7 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       entity: this.spanFilter.entity,
       application: this.spanFilter.applicationId,
       callback: this.spanFilter.callbackId,
+      subscriptionId: this.spanFilter.subscriptionId,
     }
     return this.traceService.readTraceSpans(data.traceId, filter, Pageable.unPaged())
       .pipe(tap(it => data.update(it)))
