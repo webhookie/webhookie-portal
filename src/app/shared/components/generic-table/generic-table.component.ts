@@ -106,6 +106,7 @@ export class GenericTableComponent implements OnInit {
         this.dataSource.reset();
         let value = this.currentPageable.value;
         let p: Pageable = new Pageable(0, value.size, value.sort)
+        this.currentPage = 0;
         this.currentPageable.next(p);
       })
 
