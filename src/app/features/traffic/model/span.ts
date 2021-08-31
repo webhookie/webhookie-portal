@@ -61,7 +61,11 @@ export class Span extends TableDetailData {
   isLoading: boolean = false;
 
   canBeRetried(): boolean {
-    return [SpanStatus.OK, SpanStatus.NOT_OK].includes(this.statusUpdate.status)
+    return SpanStatus.NOT_OK == this.statusUpdate.status
+  }
+
+  canBeResent(): boolean {
+    return SpanStatus.OK == this.statusUpdate.status
   }
 
   subscriptionIsBlocked(): boolean {

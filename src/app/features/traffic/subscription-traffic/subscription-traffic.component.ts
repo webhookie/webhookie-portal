@@ -218,6 +218,11 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
         .isAvailable(this.canBeRetried())
         .build(),
       ContextMenuItemBuilder
+        .create<Span, SpanMenu>(SpanMenu.RESEND)
+        .handler(this.retry())
+        .isAvailable(this.canBeResent())
+        .build(),
+      ContextMenuItemBuilder
         .create<Span, SpanMenu>(SpanMenu.UNBLOCK_SUBSCRIPTION)
         .handler(this.unblockSubscription())
         .isAvailable(this.spanSubscriptionIsBlocked())
@@ -230,6 +235,10 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 
   canBeRetried(): (span: Span) => boolean {
     return (span) => span.canBeRetried()
+  }
+
+  canBeResent(): (span: Span) => boolean {
+    return (span) => span.canBeResent()
   }
 
   spanSubscriptionIsBlocked(): (span: Span) => boolean {
@@ -304,6 +313,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 
 enum SpanMenu {
   RETRY = "Retry",
+  RESEND = "Resend",
   UNBLOCK_SUBSCRIPTION = "Unblock Subscription",
   DETAILS = "View Details",
   VIEW_REQUEST = "View Request",
