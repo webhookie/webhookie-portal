@@ -27,6 +27,11 @@
 
 :root {
   --color-white:#fff;
+  --primary-color:rgba(var(--main-color));
+  --background-color:rgba(var(--main-color), 0.05);
+  --primary-text-color:#0A1E42;
+  --primary-dark-color: #13204a;
+  --secondary-color: #1a73e8;
 }
 
 body {
@@ -110,7 +115,7 @@ h1 {
 }
 
 .text-primary{
-    color:var(--primary-color) !important;
+    color:#0151CC !important;
 }
 .text-dark-blue{
     color:#253858;
@@ -519,7 +524,7 @@ h1 {
     margin:0 1.2px;
 }
 .rating .checked{
-    color: var(--primary-color);
+    color: #FFC500;
 }
 .form-custom-control{
     border:1px solid #E1E1E1;

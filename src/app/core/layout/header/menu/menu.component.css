@@ -27,7 +27,7 @@
 }
 
 .navbar-nav li a.active {
-  color: var(--primary-color);
+  color: var(--secondary-color);
   font-weight: 600;
 }
 

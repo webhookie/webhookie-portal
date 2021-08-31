@@ -60,7 +60,7 @@ i#menu-toggle {
 }
 
 .text-primary {
-  color: var(--primary-color);
+  color: var(--primary-text-color);
 }
 
 @media (min-width: 768px) {

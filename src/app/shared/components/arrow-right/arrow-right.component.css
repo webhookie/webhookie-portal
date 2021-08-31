@@ -21,6 +21,6 @@
  */
 
 .arrow-right-svg-a {
-  fill: var(--primary-color);
+  fill: var(--secondary-color);
   fill-rule: evenodd;
 }

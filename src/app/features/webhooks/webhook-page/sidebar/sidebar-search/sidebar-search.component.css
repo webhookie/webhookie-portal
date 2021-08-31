@@ -38,7 +38,7 @@ button.btn.btn-secondary {
 }
 
 .text-primary {
-  color: var(--primary-color) !important;
+  color: var(--primary-text-color) !important;
 }
 
 .btn-secondary:hover {

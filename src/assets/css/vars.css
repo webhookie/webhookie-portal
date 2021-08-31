@@ -20,33 +20,13 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-/*BLUE:*/
 :root {
-  --primary-color:#0151cc;
-  --primary-dark-color: #13204a;
-  --secondary-color: #1a73e8;
-  --background-color: rgba(1, 81, 204, 0.05);
-  --primary-text-color:#0A1E42;
+  --main-color:1, 81, 204;
 }
 
-/*YELLOW:*/
+/*mongo db*/
 /*
 :root {
-  --primary-color:#FFC500;
-  --primary-dark-color: #795f01;
-  --secondary-color: #f7d154;
-  --background-color: rgba(247,209,84,0.05);
-  --primary-text-color:#795f01;
-}
-*/
-
-/*RED:*/
-/*
-:root {
-  --primary-color: #ff004d;
-  --primary-dark-color: #5b021d;
-  --secondary-color: rgba(255, 0, 77, 0.72);
-  --background-color: rgba(255,0,77,0.05);
-  --primary-text-color:#5b021d;
+  --main-color:19, 170, 82;
 }
 */
