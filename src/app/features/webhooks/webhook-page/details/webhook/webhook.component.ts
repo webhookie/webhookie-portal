@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../../shared/model/table/column/context-menu-item";
 import {WebhookApi} from "../../../model/webhook-api";
 import {ApplicationContext} from "../../../../../shared/application.context";
@@ -31,7 +31,8 @@ import {ProviderAccess} from "../../../../../shared/model/access-group";
 import {AuthService} from "../../../../../shared/service/auth.service";
 import {HealthService} from "../../../../../shared/service/health.service";
 import {Observable} from "rxjs";
-import {mergeMap} from "rxjs/operators";
+import {mergeMap, tap} from "rxjs/operators";
+import {ModalService} from "../../../../../shared/service/modal.service";
 
 type WebhookApiContextMenu = ContextMenuItem<WebhookApi, WebhookMenu>
 
@@ -42,12 +43,16 @@ type WebhookApiContextMenu = ContextMenuItem<WebhookApi, WebhookMenu>
 })
 export class WebhookComponent implements OnInit {
   menuItems: Array<ContextMenuItem<WebhookApi, WebhookMenu>> = [];
+  deletingWebhookApi?: WebhookApi
+
+  @ViewChild("deleteWebhookApiConfirmDialogTemplate") deleteWebhookApiConfirmDialogTemplate!: TemplateRef<any>;
 
   get data() {
     return this.webhooksContext.group
   }
 
   constructor(
+    private readonly modalService: ModalService,
     private readonly authService: AuthService,
     private readonly healthService: HealthService,
     private readonly routeService: RouterService,
@@ -129,11 +134,29 @@ export class WebhookComponent implements OnInit {
     }
   }
 
+  cancelDelete() {
+    this.modalService.hide()
+  }
+
+  performDelete() {
+    this.webhookApiService.delete(this.deletingWebhookApi!)
+      .pipe(tap(() => this.modalService.hide()))
+      .pipe(mergeMap(() => this.webhookApiService.myWebhookApis()))
+      .subscribe(() => this.routeService.navigateTo("/webhooks"))
+  }
+
+  confirmDeleteApiMessage(): string {
+    return `Are you sure you want to delete ${this.deletingWebhookApi?.title} with ${this.deletingWebhookApi?.webhooks?.length} webhooks?`
+  }
+
+  confirmDeleteApiTitle(): string {
+    return `Delete ${this.deletingWebhookApi?.title} ?`
+  }
+
   deleteWebhookApi(): (it: WebhookApi, item: WebhookApiContextMenu) => any {
     return (it) => {
-      this.webhookApiService.delete(it)
-        .pipe(mergeMap(() => this.webhookApiService.myWebhookApis()))
-        .subscribe(() => this.routeService.navigateTo("/webhooks"))
+      this.deletingWebhookApi = it
+      this.modalService.open(this.deleteWebhookApiConfirmDialogTemplate);
     }
   }
 
