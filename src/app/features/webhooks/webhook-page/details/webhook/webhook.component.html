@@ -82,3 +82,20 @@
   </ng-template>
 </div>
 
+
+<div class="modalSave">
+  <ng-template #deleteWebhookApiInfoDialogTemplate>
+    <app-confirm-dialog
+      message="There are active subscriptions for this webhook API. To delete the API you must first suspend all active subscriptions."
+      header="Cannot delete webhook API"
+      title=""
+      mainButtonTitle="Close"
+      (onCancel)="cancelDelete()"
+      (onOk)="cancelDelete()"
+      [showCancel]="false"
+      level="primary"
+    >
+    </app-confirm-dialog>
+  </ng-template>
+</div>
+

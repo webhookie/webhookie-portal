@@ -32,10 +32,12 @@ export class ConfirmDialogComponent implements OnInit {
   @Output("onOk") onOk: EventEmitter<any> = new EventEmitter<any>();
   @Output("onCancel") onCancel: EventEmitter<any> = new EventEmitter<any>();
 
+  @Input("header") header: string = "Confirm"
   @Input("title") title: string = "Confirm"
   @Input("mainButtonTitle") mainButtonTitle: string = "Submit"
   @Input("level") level: string = "primary"
   @Input("message") message!: string
+  @Input("showCancel") showCancel: boolean = true
 
   constructor(public modalService:ModalService) { }
 

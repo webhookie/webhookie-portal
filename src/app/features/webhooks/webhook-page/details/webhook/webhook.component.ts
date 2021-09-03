@@ -33,6 +33,7 @@ import {HealthService} from "../../../../../shared/service/health.service";
 import {Observable} from "rxjs";
 import {mergeMap, tap} from "rxjs/operators";
 import {ModalService} from "../../../../../shared/service/modal.service";
+import {ToastService} from "../../../../../shared/service/toast.service";
 
 type WebhookApiContextMenu = ContextMenuItem<WebhookApi, WebhookMenu>
 
@@ -46,12 +47,14 @@ export class WebhookComponent implements OnInit {
   deletingWebhookApi?: WebhookApi
 
   @ViewChild("deleteWebhookApiConfirmDialogTemplate") deleteWebhookApiConfirmDialogTemplate!: TemplateRef<any>;
+  @ViewChild("deleteWebhookApiInfoDialogTemplate") deleteWebhookApiInfoDialogTemplate!: TemplateRef<any>;
 
   get data() {
     return this.webhooksContext.group
   }
 
   constructor(
+    private readonly toastService: ToastService,
     private readonly modalService: ModalService,
     private readonly authService: AuthService,
     private readonly healthService: HealthService,
@@ -155,8 +158,12 @@ export class WebhookComponent implements OnInit {
 
   deleteWebhookApi(): (it: WebhookApi, item: WebhookApiContextMenu) => any {
     return (it) => {
-      this.deletingWebhookApi = it
-      this.modalService.open(this.deleteWebhookApiConfirmDialogTemplate);
+      if(it.numberOfSubscriptions > 0) {
+        this.modalService.open(this.deleteWebhookApiInfoDialogTemplate);
+      } else {
+        this.deletingWebhookApi = it
+        this.modalService.open(this.deleteWebhookApiConfirmDialogTemplate);
+      }
     }
   }
 

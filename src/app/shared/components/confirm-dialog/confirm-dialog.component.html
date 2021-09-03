@@ -21,14 +21,14 @@
   -->
 
 <div class="modal-header border-0">
-    <h5 class="modal-title font16 font-weight-bold">Confirm</h5>
+    <h5 class="modal-title font16 font-weight-bold">{{header}}</h5>
     <button type="button" (click)="onCancel.emit()" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
   </div>
   <div class="modal-body">
     <h6 class="font-weight-bold">{{title}}</h6>
     <p>{{message}}</p>
     <div class="modal-footer p-0 border-0">
-      <button type="button" (click)="onCancel.emit()" class="btn btn-default border" data-dismiss="modal">Cancel</button>
+      <button *ngIf="showCancel" type="button" (click)="onCancel.emit()" class="btn btn-default border" data-dismiss="modal">Cancel</button>
       <button type="button" (click)="onOk.emit()" class="btn btn-{{level}} border text-white">{{mainButtonTitle}}</button>
     </div>
   </div>
