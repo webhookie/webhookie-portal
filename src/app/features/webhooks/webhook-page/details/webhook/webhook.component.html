@@ -73,6 +73,7 @@
     <app-confirm-dialog
       [message]="confirmDeleteApiMessage()"
       [title]="confirmDeleteApiTitle()"
+      mainButtonTitle="Delete"
       (onCancel)="cancelDelete()"
       (onOk)="performDelete()"
       level="danger"

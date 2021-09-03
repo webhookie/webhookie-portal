@@ -33,6 +33,7 @@ export class ConfirmDialogComponent implements OnInit {
   @Output("onCancel") onCancel: EventEmitter<any> = new EventEmitter<any>();
 
   @Input("title") title: string = "Confirm"
+  @Input("mainButtonTitle") mainButtonTitle: string = "Submit"
   @Input("level") level: string = "primary"
   @Input("message") message!: string
 
