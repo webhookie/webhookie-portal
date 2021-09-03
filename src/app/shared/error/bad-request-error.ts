@@ -20,13 +20,12 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {WebhookieError} from "./webhookie-error";
 import {HttpErrorResponse} from "@angular/common/http";
 import {WebhookieServerError} from "./webhookie-server-error";
 
 export class BadRequestError extends WebhookieServerError {
   constructor(httpError: HttpErrorResponse) {
-    super(httpError);
+    super(httpError, "Bad Request");
 
     this.name = BadRequestError.name;
   }

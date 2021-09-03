@@ -59,20 +59,21 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           result = new BadRequestError(httpError);
           break;
         case 401:
-          result = new WebhookieServerError(httpError);
+          result = new WebhookieServerError(httpError, "Authentication Error");
           break;
         case 403:
-          result = new WebhookieServerError(httpError);
+          result = new WebhookieServerError(httpError, "Authorization Error");
           break;
         case 409:
           result = new DuplicateEntityError(httpError);
           break;
         default:
-          result = new WebhookieServerError(httpError);
+          result = new WebhookieServerError(httpError, "Server Error");
           break;
       }
-      msg = `<p></p><div>${result.message}</div><p><div>${result.extraMessage}</div></p>`;
-      header = result.name
+      // msg = `<p></p><div>${result.errorMessage()}</div><p><div>${result.extraMessage}</div></p>`;
+      msg = `<p></p><div>${result.errorMessage()}</div>`;
+      header = result.title
     } else {
       result = new WebhookieError({
         message: error.message,

@@ -25,9 +25,9 @@ import {HttpErrorResponse} from "@angular/common/http";
 
 export class WebhookieServerError extends WebhookieError{
   error: HttpErrorResponse;
-  body?: any
+  body?: any;
 
-  constructor(httpError: HttpErrorResponse) {
+  constructor(httpError: HttpErrorResponse, public title: string) {
     super({
       message: httpError.error ?
         ( httpError.error.error_description ?
@@ -43,26 +43,25 @@ export class WebhookieServerError extends WebhookieError{
     this.error = httpError;
   }
 
-  // noinspection JSUnusedGlobalSymbols
-  get extraMessage(): string {
-    return this.error.message;
-  }
-
-  // @ts-ignore
-  jsonOr(): any | null {
+  errorMessage(): string {
     let type = typeof this.body;
     try {
       if((type === "string") || (this.body instanceof String)) {
-        return JSON.parse(this.body)
+        let json = JSON.parse(this.body);
+        return json.message
       }
 
-      return this.body
+      return this.body.message
     } catch (e) {
       if(type == "string") {
-        return null
+        return this.extraMessage
       }
 
       return this.body
     }
+  }
+
+  get extraMessage(): string {
+    return this.error.message;
   }
 }
