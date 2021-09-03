@@ -60,7 +60,7 @@ export class SubscriptionService {
       callbackId: callbackId
     }
 
-    return this.api.post("/subscriptions", request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
+    return this.api.post(this.SUBSCRIPTIONS_URI, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
 
@@ -69,7 +69,7 @@ export class SubscriptionService {
       callbackId: callbackId
     }
 
-    return this.api.put(`/subscriptions/${subscription.id}`, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
+    return this.api.put(`${this.SUBSCRIPTIONS_URI}/${subscription.id}`, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
 
@@ -79,19 +79,19 @@ export class SubscriptionService {
       .set("Accept", "*/*")
     Object.keys(request.headers)
       .forEach(k => headers.set(k, request.headers[k]))
-    return this.api.post(`/subscriptions/${subscription?.id}/validate`, request, httpParams, headers, HttpResponseType.TEXT)
+    return this.api.post(`${this.SUBSCRIPTIONS_URI}/${subscription?.id}/validate`, request, httpParams, headers, HttpResponseType.TEXT)
       .pipe(mergeMap(() => this.fetchSubscription(subscription.id)))
   }
 
   fetchSubscription(id: string): Observable<Subscription> {
-    return this.api.json(`/subscriptions/${id}`)
+    return this.api.json(`${this.SUBSCRIPTIONS_URI}/${id}`)
       .pipe(map(it => this.adapter.adapt(it)))
   }
 
   delete(subscription: Subscription): Observable<Subscription> {
     let headers = new HttpHeaders()
       .set("Accept", ["text/plain", "application/json"]);
-    return this.api.delete(`/subscriptions/${subscription.id}`, headers)
+    return this.api.delete(`${this.SUBSCRIPTIONS_URI}/${subscription.id}`, headers, HttpResponseType.TEXT)
       .pipe(map(() => subscription))
   }
 
@@ -124,7 +124,7 @@ export class SubscriptionService {
       reason: ""
     };
     return this.api
-      .post(`/subscriptions/${id}/${action}`, body, httpParams, headers, HttpResponseType.TEXT)
+      .post(`${this.SUBSCRIPTIONS_URI}/${id}/${action}`, body, httpParams, headers, HttpResponseType.TEXT)
       .pipe(
         tap(it => this.log.debug(`Subscription '${id}' was updated to: ${it.body}`)),
         mergeMap(() => this.fetchSubscription(id))
