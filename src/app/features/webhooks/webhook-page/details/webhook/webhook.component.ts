@@ -31,6 +31,7 @@ import {ProviderAccess} from "../../../../../shared/model/access-group";
 import {AuthService} from "../../../../../shared/service/auth.service";
 import {HealthService} from "../../../../../shared/service/health.service";
 import {Observable} from "rxjs";
+import {mergeMap} from "rxjs/operators";
 
 type WebhookApiContextMenu = ContextMenuItem<WebhookApi, WebhookMenu>
 
@@ -83,6 +84,11 @@ export class WebhookComponent implements OnInit {
         .isAvailable(this.canEditWebhookApi())
         .build(),
       ContextMenuItemBuilder
+        .create<WebhookApi, WebhookMenu>(WebhookMenu.DELETE)
+        .handler(this.deleteWebhookApi())
+        .isAvailable(this.canEditWebhookApi())
+        .build(),
+      ContextMenuItemBuilder
         .create<WebhookApi, WebhookMenu>(WebhookMenu.VIEW_YOUR_SUBSCRIPTIONS)
         .handler(this.viewYourSubscriptions())
         .isAvailable(this.canViewYourSubscriptions())
@@ -120,6 +126,14 @@ export class WebhookComponent implements OnInit {
           this.routeService
             .navigateTo("/webhooks/edit-webhook-api")
         })
+    }
+  }
+
+  deleteWebhookApi(): (it: WebhookApi, item: WebhookApiContextMenu) => any {
+    return (it) => {
+      this.webhookApiService.delete(it)
+        .pipe(mergeMap(() => this.webhookApiService.myWebhookApis()))
+        .subscribe(() => this.routeService.navigateTo("/webhooks"))
     }
   }
 
@@ -189,6 +203,7 @@ export class WebhookComponent implements OnInit {
 
 enum WebhookMenu {
   EDIT = "Edit",
+  DELETE = "Delete",
   VIEW_YOUR_SUBSCRIPTIONS = "Your Subscriptions",
   VIEW_ALL_SUBSCRIPTIONS = "All Subscriptions",
   VIEW_TRACES = "Webhook Traffic",

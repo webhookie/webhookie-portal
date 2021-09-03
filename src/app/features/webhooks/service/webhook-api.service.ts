@@ -106,6 +106,14 @@ export class WebhookApiService {
       .pipe(mergeMap(it => this.webhookApiAdapter.adapt(it)))
   }
 
+  delete(webhookApi: WebhookApi): Observable<WebhookApi> {
+    this.log.info(`Deleting webhook API by id: ${webhookApi.id}...`);
+    let headers = new HttpHeaders()
+      .set("Accept", ["text/plain", "application/json"]);
+    return this.api.delete(`${this.WEBHOOKAPIS_URI}/${webhookApi.id}`, headers, HttpResponseType.TEXT)
+      .pipe(map(() => webhookApi))
+  }
+
   fetchById(id: string): Observable<WebhookApi> {
     this.log.info(`Fetching webhook API by id: ${id}...`);
     let uri = `${this.WEBHOOKAPIS_URI}/${id}`;
