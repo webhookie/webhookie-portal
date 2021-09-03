@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ModalService } from '../../service/modal.service';
 
 @Component({
@@ -29,6 +29,12 @@ import { ModalService } from '../../service/modal.service';
   styleUrls: ['./confirm-dialog.component.css']
 })
 export class ConfirmDialogComponent implements OnInit {
+  @Output("onOk") onOk: EventEmitter<any> = new EventEmitter<any>();
+  @Output("onCancel") onCancel: EventEmitter<any> = new EventEmitter<any>();
+
+  @Input("title") title: string = "Confirm"
+  @Input("level") level: string = "primary"
+  @Input("message") message!: string
 
   constructor(public modalService:ModalService) { }
 
