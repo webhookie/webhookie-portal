@@ -33,7 +33,6 @@ import {HealthService} from "../../../../../shared/service/health.service";
 import {Observable} from "rxjs";
 import {mergeMap, tap} from "rxjs/operators";
 import {ModalService} from "../../../../../shared/service/modal.service";
-import {ToastService} from "../../../../../shared/service/toast.service";
 
 type WebhookApiContextMenu = ContextMenuItem<WebhookApi, WebhookMenu>
 
@@ -54,7 +53,6 @@ export class WebhookComponent implements OnInit {
   }
 
   constructor(
-    private readonly toastService: ToastService,
     private readonly modalService: ModalService,
     private readonly authService: AuthService,
     private readonly healthService: HealthService,
