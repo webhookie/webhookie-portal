@@ -298,7 +298,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 
   viewRequest(): (span: Span, item: SpanContextMenu) => any {
     return (span: Span) => {
-      this.traceService.traceRequest(span.traceId)
+      this.spanService.spanRequest(span.traceId)
         .subscribe(it => this.showBody(it));
     }
   }

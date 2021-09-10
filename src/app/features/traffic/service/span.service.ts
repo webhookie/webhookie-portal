@@ -34,6 +34,7 @@ import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {SpanResponseAdapter} from "./span-response.adapter";
 import {SpanResponse} from "../model/span-response";
 import {HttpResponseType} from "../../../shared/service/api.service";
+import {TraceRequest} from "../model/trace-request";
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,13 @@ export class SpanService {
         tap(it => this.log.info(`Fetched '${it.length}' spans`)),
         map(it => this.adapter.adaptList(it))
       )
+  }
+
+  spanRequest(traceId: string): Observable<TraceRequest> {
+    let params = new HttpParams()
+    let uri = `${this.SPAN_URI}/trace/${traceId}/request`;
+    return this.api.json(uri, params)
+      .pipe(map(it => this.traceRequestAdapter.adapt(it)))
   }
 
   spanResponse(span: Span): Observable<SpanResponse> {
