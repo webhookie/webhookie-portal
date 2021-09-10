@@ -84,8 +84,10 @@ export class ObjectPayload extends MessagePayload {
     super(name, isRequired, json);
 
     let requiredProperties = this.json.required ? this.json.required : [];
-    Object.keys(props)
-      .forEach(it => this.properties[it] = MessagePayloadFactory.create(it, requiredProperties.indexOf(it) > -1, props[it]))
+    if(props != undefined) {
+      Object.keys(props)
+        .forEach(it => this.properties[it] = MessagePayloadFactory.create(it, requiredProperties.indexOf(it) > -1, props[it]))
+    }
 
     this.nestedObjects = Object.values(this.properties)
   }
