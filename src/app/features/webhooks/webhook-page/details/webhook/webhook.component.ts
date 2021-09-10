@@ -192,8 +192,9 @@ export class WebhookComponent implements OnInit {
   canEditWebhookApi(): (it: WebhookApi) => boolean {
     return (it?: WebhookApi) => {
       if(it) {
-        return this.appContext.isLoggedIn &&
-          (this.appContext.hasProviderAccess(it.providerGroups) || it.providerAccess == ProviderAccess.ALL);
+        return this.appContext.isLoggedIn
+          && this.appContext.hasProviderRole
+          && (this.appContext.hasProviderAccess(it.providerGroups) || it.providerAccess == ProviderAccess.ALL);
       }
 
       return false;
