@@ -30,11 +30,11 @@ import {Api} from "../../../shared/api";
 import {RequestUtils} from "../../../shared/request/request-utils";
 import {Pageable} from "../../../shared/request/pageable";
 import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
-import {SpanResponseAdapter} from "./span-response.adapter";
-import {SpanResponse} from "../model/span-response";
+import {SpanHttpResponseAdapter} from "./span-http-response-adapter.service";
+import {SpanHttpResponse} from "../model/span-http-response";
 import {HttpResponseType} from "../../../shared/service/api.service";
-import {SpanRequest} from "../model/span-request";
-import {SpanRequestAdapter} from "./span-request.adapter";
+import {SpanHttpRequest} from "../model/span-http-request";
+import {SpanHttpRequestAdapter} from "./span-http-request-adapter.service";
 
 @Injectable({
   providedIn: 'root'
@@ -46,8 +46,8 @@ export class SpanService {
     @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
     private readonly adapter: SpanAdapter,
-    private readonly spanRequestAdapter: SpanRequestAdapter,
-    private readonly spanResponseAdapter: SpanResponseAdapter
+    private readonly spanRequestAdapter: SpanHttpRequestAdapter,
+    private readonly spanResponseAdapter: SpanHttpResponseAdapter
   ) {
   }
 
@@ -60,14 +60,14 @@ export class SpanService {
       )
   }
 
-  spanRequest(spanId: string): Observable<SpanRequest> {
+  spanRequest(spanId: string): Observable<SpanHttpRequest> {
     let params = new HttpParams()
     let uri = `${this.SPAN_URI}/${spanId}/request`;
     return this.api.json(uri, params)
       .pipe(map(it => this.spanRequestAdapter.adapt(it)))
   }
 
-  spanResponse(span: Span): Observable<SpanResponse> {
+  spanResponse(span: Span): Observable<SpanHttpResponse> {
     let params = new HttpParams()
     let uri = `${this.SPAN_URI}/${span.spanId}/response`;
     return this.api.json(uri, params)

@@ -23,8 +23,8 @@
 import {TableDetailData} from "../../../shared/model/table/table-detail-data";
 import {Callback} from "../../../shared/model/callback";
 import {ApplicationDetails} from "../../../shared/model/subscription";
-import {SpanRequest} from "./span-request";
-import {SpanResponse} from "./span-response";
+import {SpanHttpRequest} from "./span-http-request";
+import {SpanHttpResponse} from "./span-http-response";
 
 export class Span extends TableDetailData {
   constructor(
@@ -34,7 +34,7 @@ export class Span extends TableDetailData {
     public statusUpdate: SpanStatusUpdate,
     public tries: number,
     public nextRetry: SpanRetry,
-    public latestResponse?: SpanResponse
+    public latestResponse?: SpanHttpResponse
   ) {
     super();
   }
@@ -106,8 +106,8 @@ export class SpanRetry {
     public retryNo: number,
     public sentBy: string,
     public reason: string,
-    public request: SpanRequest,
-    public response?: SpanResponse
+    public request: SpanHttpRequest,
+    public response?: SpanHttpResponse
   ) {
   }
 

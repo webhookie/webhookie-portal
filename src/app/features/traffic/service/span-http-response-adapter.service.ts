@@ -20,18 +20,21 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {HttpMessage} from "./http-message";
+import {Injectable} from '@angular/core';
+import {BaseAdapter} from "../../../shared/adapter/adapter";
+import {SpanHttpResponse} from "../model/span-http-response";
 
-export class SpanRequest extends HttpMessage {
-  constructor(
-    public contentType: string,
-    public body: string,
-    public headers: Map<string, any>
-  ) {
-    super();
-  }
-
-  get payload(): any {
-    return this.body;
+@Injectable({
+  providedIn: 'root'
+})
+export class SpanHttpResponseAdapter extends BaseAdapter<SpanHttpResponse> {
+  adapt(item: any): SpanHttpResponse {
+    return new SpanHttpResponse(
+      item.time,
+      item.statusCode,
+      item.contentType,
+      item.body,
+      item.headers
+    );
   }
 }

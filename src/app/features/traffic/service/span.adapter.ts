@@ -26,9 +26,9 @@ import {Span, SpanRetry, SpanStatus, SpanStatusUpdate, SubscriptionDetails} from
 import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
 import {DateUtils} from "../../../shared/date-utils";
 import {ApplicationDetails} from "../../../shared/model/subscription";
-import {SpanRequestAdapter} from "./span-request.adapter";
-import {SpanResponseAdapter} from "./span-response.adapter";
-import {SpanResponse} from "../model/span-response";
+import {SpanHttpRequestAdapter} from "./span-http-request-adapter.service";
+import {SpanHttpResponseAdapter} from "./span-http-response-adapter.service";
+import {SpanHttpResponse} from "../model/span-http-response";
 
 @Injectable({
   providedIn: 'root'
@@ -37,8 +37,8 @@ export class SpanAdapter extends BaseAdapter<Span> {
 
   constructor(
     private readonly callbackAdapter: CallbackAdapter,
-    private readonly spanRequestAdapter: SpanRequestAdapter,
-    private readonly spanResponseAdapter: SpanResponseAdapter
+    private readonly spanRequestAdapter: SpanHttpRequestAdapter,
+    private readonly spanResponseAdapter: SpanHttpResponseAdapter
   ) {
     super();
   }
@@ -52,7 +52,7 @@ export class SpanAdapter extends BaseAdapter<Span> {
     );
 
     let itemNextRetry = item.nextRetry;
-    let response: SpanResponse | undefined = undefined
+    let response: SpanHttpResponse | undefined = undefined
     if(itemNextRetry.response) {
       response = this.spanResponseAdapter.adapt(itemNextRetry.response)
     }
@@ -82,7 +82,7 @@ export class SpanAdapter extends BaseAdapter<Span> {
       callback
     )
 
-    let latestResponse: SpanResponse | undefined = undefined
+    let latestResponse: SpanHttpResponse | undefined = undefined
     if(item.latestResponse) {
       latestResponse = this.spanResponseAdapter.adapt(item.latestResponse)
     }
