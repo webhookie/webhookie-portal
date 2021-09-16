@@ -23,7 +23,7 @@
 import {AfterViewInit, Component, TemplateRef, ViewChild} from '@angular/core';
 import {SpanService} from "../service/span.service";
 import {BehaviorSubject, Observable, of} from "rxjs";
-import {Span, SpanStatus, SpanStatusUpdate} from "../model/span";
+import {Span, SpanStatus} from "../model/span";
 import {TableHeader} from "../../../shared/model/table/header/table-header";
 import {SelectableTableHeader} from "../../../shared/model/table/header/selectable-table-header";
 import {SortableTableHeader} from "../../../shared/model/table/header/sortable-table-header";
@@ -61,6 +61,7 @@ import {LogService} from "../../../shared/service/log.service";
 import {SubscriptionService} from "../../../shared/service/subscription.service";
 import {EventService, ServerSentEvent} from "../../../shared/service/event.service";
 import {filter} from "rxjs/operators";
+import {SpanAdapter} from "../service/span.adapter";
 
 type SpanContextMenu = ContextMenuItem<Span, SpanMenu>;
 
@@ -95,6 +96,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     private readonly spanService: SpanService,
     private readonly traceService: TraceService,
     private readonly eventService: EventService,
+    private readonly spanAdapter: SpanAdapter,
     private readonly subscriptionService: SubscriptionService
   ) {
     super();
@@ -123,19 +125,16 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
     this.log.debug(event)
     // @ts-ignore
     let data: Array<Span> = this.tableComponent.dataSource.data$.value;
-    let span = data.filter(it => it.spanId == event.data.spanId)[0]
-    let lastStatus = event.data.lastStatus
+    let span: Span = data.filter(it => it.spanId == event.data.spanId)[0]
+    let updatedSpan: Span = this.spanAdapter.adapt(event.data)
     switch (event.type) {
       case "spanMarkedRetrying":
-        span.statusUpdate = new SpanStatusUpdate(
-          lastStatus.status,
-          lastStatus.time
-        )
-        span.tries = event.data.totalNumberOfTries
-        span.responseCode = -1
+        span.statusUpdate = updatedSpan.statusUpdate
+        span.tries = updatedSpan.tries
+        // span.responseCode = -1
         break;
       case "spanNumberOfTriesIncreased":
-        span.tries = event.data.totalNumberOfTries
+        span.tries = updatedSpan.tries
         break;
       case "spanIsRetrying":
       case "spanFailedWithServerError":
@@ -145,12 +144,10 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       case "spanFailedStatusUpdate":
       case "spanBlocked":
       case "spanWasOK":
-        span.statusUpdate = new SpanStatusUpdate(
-          lastStatus.status,
-          lastStatus.time
-        )
-        span.tries = event.data.totalNumberOfTries
-        span.responseCode = event.data.latestResult.statusCode
+        span.statusUpdate = updatedSpan.statusUpdate
+        span.tries = updatedSpan.tries
+        span.latestResponse = updatedSpan.latestResponse
+        span.nextRetry = updatedSpan.nextRetry
         break;
       default:
         console.warn(event)
@@ -172,9 +169,9 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       new SortableTableHeader("Callback", "subscription.callback.name"),
       new SortableTableHeader("Timestamp", "lastStatus.time"),
       new SortableTableHeader("Span Id", "spanId"),
-      new SortableTableHeader("Response Code", "latestResult.statusCode"),
+      new SortableTableHeader("Response Code", "nextRetry.response.statusCode"),
       new SortableTableHeader("Status", "lastStatus.status"),
-      new SortableTableHeader("Tries", "retryHistory.length"),
+      new SortableTableHeader("Tries", "totalNumberOfTries"),
     ]
   }
 
@@ -298,7 +295,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
 
   viewRequest(): (span: Span, item: SpanContextMenu) => any {
     return (span: Span) => {
-      this.spanService.spanRequest(span.traceId)
+      this.spanService.spanRequest(span.spanId)
         .subscribe(it => this.showBody(it));
     }
   }

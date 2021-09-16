@@ -69,11 +69,13 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
   private readonly spanTable!: SpanTable
 
   viewTraceRequest = (trace: Trace) => {
-    this.viewRequest(trace.traceId)
+    this.traceService.traceRequest(trace.traceId)
+      .subscribe(it => this.showBody(it));
   }
 
   viewSpanRequest = (span: Span) => {
-    this.viewRequest(span.traceId)
+    this.spanService.spanRequest(span.spanId)
+      .subscribe(it => this.showBody(it));
   }
 
   viewSpanResponse = (span: Span) => {
@@ -166,11 +168,6 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
 
   get columns(): Array<TableColumn> {
     return this.traceTable.columns
-  }
-
-  viewRequest(traceId: string) {
-    this.traceService.traceRequest(traceId)
-      .subscribe(it => this.showBody(it));
   }
 
   showBody(message: HttpMessage) {

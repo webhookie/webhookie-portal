@@ -22,10 +22,8 @@
 
 import {HttpMessage} from "./http-message";
 
-export class SpanResponse extends HttpMessage {
+export class SpanRequest extends HttpMessage {
   constructor(
-    public time: Date,
-    public statusCode: number,
     public contentType: string,
     public body: string,
     public headers: Map<string, any>

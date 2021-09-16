@@ -23,19 +23,28 @@
 import {TableDetailData} from "../../../shared/model/table/table-detail-data";
 import {Callback} from "../../../shared/model/callback";
 import {ApplicationDetails} from "../../../shared/model/subscription";
+import {SpanRequest} from "./span-request";
+import {SpanResponse} from "./span-response";
 
 export class Span extends TableDetailData {
   constructor(
     public traceId: string,
     public spanId: string,
     public subscription: SubscriptionDetails,
-    public responseCode: number,
-    public responseBody: string,
     public statusUpdate: SpanStatusUpdate,
     public tries: number,
-    public nextRetry?: SpanRetry
+    public nextRetry: SpanRetry,
+    public latestResponse?: SpanResponse
   ) {
     super();
+  }
+
+  get responseCode() {
+    if(this.latestResponse?.statusCode != undefined) {
+      return this.latestResponse!.statusCode
+    }
+
+    return ""
   }
 
   get id(): string {
@@ -94,8 +103,16 @@ export class SpanRetry {
   constructor(
     public time: Date,
     public no: number,
-    public statusCode?: number
+    public retryNo: number,
+    public sentBy: string,
+    public reason: string,
+    public request: SpanRequest,
+    public response?: SpanResponse
   ) {
+  }
+
+  get statusCode() {
+    return this.response?.statusCode
   }
 }
 

@@ -29,12 +29,12 @@ import {Span} from "../model/span";
 import {Api} from "../../../shared/api";
 import {RequestUtils} from "../../../shared/request/request-utils";
 import {Pageable} from "../../../shared/request/pageable";
-import {TraceRequestAdapter} from "./trace-request.adapter";
 import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {SpanResponseAdapter} from "./span-response.adapter";
 import {SpanResponse} from "../model/span-response";
 import {HttpResponseType} from "../../../shared/service/api.service";
-import {TraceRequest} from "../model/trace-request";
+import {SpanRequest} from "../model/span-request";
+import {SpanRequestAdapter} from "./span-request.adapter";
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +46,7 @@ export class SpanService {
     @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
     private readonly adapter: SpanAdapter,
-    private readonly traceRequestAdapter: TraceRequestAdapter,
+    private readonly spanRequestAdapter: SpanRequestAdapter,
     private readonly spanResponseAdapter: SpanResponseAdapter
   ) {
   }
@@ -60,11 +60,11 @@ export class SpanService {
       )
   }
 
-  spanRequest(traceId: string): Observable<TraceRequest> {
+  spanRequest(spanId: string): Observable<SpanRequest> {
     let params = new HttpParams()
-    let uri = `${this.SPAN_URI}/trace/${traceId}/request`;
+    let uri = `${this.SPAN_URI}/${spanId}/request`;
     return this.api.json(uri, params)
-      .pipe(map(it => this.traceRequestAdapter.adapt(it)))
+      .pipe(map(it => this.spanRequestAdapter.adapt(it)))
   }
 
   spanResponse(span: Span): Observable<SpanResponse> {

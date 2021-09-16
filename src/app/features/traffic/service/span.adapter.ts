@@ -26,13 +26,20 @@ import {Span, SpanRetry, SpanStatus, SpanStatusUpdate, SubscriptionDetails} from
 import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
 import {DateUtils} from "../../../shared/date-utils";
 import {ApplicationDetails} from "../../../shared/model/subscription";
+import {SpanRequestAdapter} from "./span-request.adapter";
+import {SpanResponseAdapter} from "./span-response.adapter";
+import {SpanResponse} from "../model/span-response";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpanAdapter extends BaseAdapter<Span> {
 
-  constructor(private readonly callbackAdapter: CallbackAdapter) {
+  constructor(
+    private readonly callbackAdapter: CallbackAdapter,
+    private readonly spanRequestAdapter: SpanRequestAdapter,
+    private readonly spanResponseAdapter: SpanResponseAdapter
+  ) {
     super();
   }
 
@@ -45,15 +52,20 @@ export class SpanAdapter extends BaseAdapter<Span> {
     );
 
     let itemNextRetry = item.nextRetry;
-    let nextRetry;
+    let response: SpanResponse | undefined = undefined
+    if(itemNextRetry.response) {
+      response = this.spanResponseAdapter.adapt(itemNextRetry.response)
+    }
 
-    if (itemNextRetry != null) {
-      nextRetry = new SpanRetry(
+    let nextRetry = new SpanRetry(
         DateUtils.toLocalDate(itemNextRetry.time),
         itemNextRetry.no,
-        itemNextRetry.statusCode
+        itemNextRetry.retryNo,
+        itemNextRetry.sentBy,
+        itemNextRetry.reason,
+        this.spanRequestAdapter.adapt(itemNextRetry.request),
+        response
       );
-    }
     let subscriptionItem = item.subscription
 
     let callback = this.callbackAdapter.adapt(subscriptionItem.callback);
@@ -70,15 +82,19 @@ export class SpanAdapter extends BaseAdapter<Span> {
       callback
     )
 
+    let latestResponse: SpanResponse | undefined = undefined
+    if(item.latestResponse) {
+      latestResponse = this.spanResponseAdapter.adapt(item.latestResponse)
+    }
+
     return new Span(
       item.traceId,
       item.spanId,
       subscription,
-      item.responseCode,
-      item.responseBody,
       statusUpdate,
       item.tries,
-      nextRetry
+      nextRetry,
+      latestResponse
     );
   }
 }

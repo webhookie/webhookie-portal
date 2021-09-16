@@ -30,7 +30,6 @@ import {SpanResponse} from "../model/span-response";
 export class SpanResponseAdapter extends BaseAdapter<SpanResponse> {
   adapt(item: any): SpanResponse {
     return new SpanResponse(
-      item.spanId,
       item.time,
       item.statusCode,
       item.contentType,
