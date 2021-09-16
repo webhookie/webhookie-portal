@@ -33,15 +33,16 @@ export class Span extends TableDetailData {
     public subscription: SubscriptionDetails,
     public statusUpdate: SpanStatusUpdate,
     public tries: number,
-    public nextRetry: SpanRetry,
-    public latestResponse?: SpanHttpResponse
+    public request: SpanHttpRequest,
+    public nextRetry?: SpanRetry,
+    public response?: SpanHttpResponse
   ) {
     super();
   }
 
   get responseCode() {
-    if(this.latestResponse?.statusCode != undefined) {
-      return this.latestResponse!.statusCode
+    if(this.response?.statusCode != undefined) {
+      return this.response!.statusCode
     }
 
     return ""
@@ -106,13 +107,8 @@ export class SpanRetry {
     public retryNo: number,
     public sentBy: string,
     public reason: string,
-    public request: SpanHttpRequest,
-    public response?: SpanHttpResponse
+    public statusCode?: number
   ) {
-  }
-
-  get statusCode() {
-    return this.response?.statusCode
   }
 }
 

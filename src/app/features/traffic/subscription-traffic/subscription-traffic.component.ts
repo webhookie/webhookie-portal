@@ -146,7 +146,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       case "spanWasOK":
         span.statusUpdate = updatedSpan.statusUpdate
         span.tries = updatedSpan.tries
-        span.latestResponse = updatedSpan.latestResponse
+        span.response = updatedSpan.response
         span.nextRetry = updatedSpan.nextRetry
         break;
       default:

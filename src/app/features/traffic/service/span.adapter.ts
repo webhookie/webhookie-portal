@@ -52,20 +52,17 @@ export class SpanAdapter extends BaseAdapter<Span> {
     );
 
     let itemNextRetry = item.nextRetry;
-    let response: SpanHttpResponse | undefined = undefined
-    if(itemNextRetry.response) {
-      response = this.spanResponseAdapter.adapt(itemNextRetry.response)
-    }
+    let nextRetry;
 
-    let nextRetry = new SpanRetry(
+    if (itemNextRetry != null) {
+      nextRetry = new SpanRetry(
         DateUtils.toLocalDate(itemNextRetry.time),
         itemNextRetry.no,
         itemNextRetry.retryNo,
         itemNextRetry.sentBy,
         itemNextRetry.reason,
-        this.spanRequestAdapter.adapt(itemNextRetry.request),
-        response
       );
+    }
     let subscriptionItem = item.subscription
 
     let callback = this.callbackAdapter.adapt(subscriptionItem.callback);
@@ -82,9 +79,10 @@ export class SpanAdapter extends BaseAdapter<Span> {
       callback
     )
 
-    let latestResponse: SpanHttpResponse | undefined = undefined
-    if(item.latestResponse) {
-      latestResponse = this.spanResponseAdapter.adapt(item.latestResponse)
+    let request = this.spanRequestAdapter.adapt(item.request)
+    let response: SpanHttpResponse | undefined = undefined
+    if(item.response) {
+      response = this.spanResponseAdapter.adapt(item.response)
     }
 
     return new Span(
@@ -93,8 +91,9 @@ export class SpanAdapter extends BaseAdapter<Span> {
       subscription,
       statusUpdate,
       item.tries,
+      request,
       nextRetry,
-      latestResponse
+      response
     );
   }
 }
