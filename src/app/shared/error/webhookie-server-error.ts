@@ -45,20 +45,23 @@ export class WebhookieServerError extends WebhookieError{
 
   errorMessage(): string {
     let type = typeof this.body;
+    let msg = ""
     try {
       if((type === "string") || (this.body instanceof String)) {
         let json = JSON.parse(this.body);
-        return json.message
+        msg = json.message
+      } else {
+        msg = this.body.message
       }
-
-      return this.body.message
     } catch (e) {
       if(type == "string") {
-        return this.extraMessage
+        msg = this.extraMessage
+      } else {
+        msg = this.body
       }
-
-      return this.body
     }
+
+    return msg.replace("\n", "</br>")
   }
 
   get extraMessage(): string {
