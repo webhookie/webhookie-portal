@@ -36,7 +36,7 @@ import {ValidateSubscriptionRequest} from "../../../shared/service/subscription.
   styleUrls: ['./callback-test.component.css']
 })
 export class CallbackTestComponent extends WebhookBaseComponent {
-  @ViewChild('callbackUrlComponent') callback!: CallbackUrlComponent
+  @ViewChild('callbackUrlComponent') callback?: CallbackUrlComponent
   @ViewChild('responseComponent') response!: ResponseComponent
   @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
 
@@ -61,16 +61,16 @@ export class CallbackTestComponent extends WebhookBaseComponent {
 
     let requestExample: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
     let request: CallbackValidationRequest = {
-      httpMethod: this.callback.method,
-      url: this.callback.url,
+      httpMethod: this.callback!.method,
+      url: this.callback!.url,
       payload: JSON.stringify(requestExample.payload),
       headers: requestExample.headers
     }
 
-    if(this.callback.isHmac) {
+    if(this.callback!.isHmac) {
       request.secret = {
-        secret: this.callback.secret,
-        keyId: this.callback.keyId
+        secret: this.callback!.secret,
+        keyId: this.callback!.keyId
       }
     }
 
@@ -79,5 +79,9 @@ export class CallbackTestComponent extends WebhookBaseComponent {
         it => this.response.update(it),
         (err: BadRequestError) => this.response.updateWithError(err.error)
       )
+  }
+
+  get isNotTestable(): boolean {
+    return !this.callback?.isValidCallback;
   }
 }

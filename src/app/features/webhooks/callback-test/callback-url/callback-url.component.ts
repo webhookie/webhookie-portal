@@ -64,4 +64,10 @@ export class CallbackUrlComponent {
   get isHmac() {
     return this.securityModel == CallbackUrlComponent.HMAC_SECURITY
   }
+
+  get isValidCallback(): boolean {
+    // const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+    const regex = new RegExp("(https?://.*):?(\\d*)\\/?(.*)")
+    return this.methods.includes(this.method) && regex.test(this.url)
+  }
 }
