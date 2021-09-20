@@ -22,7 +22,6 @@
 
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {RequestBodyComponent} from "./request-body/request-body.component";
-import * as $ from 'jquery';
 import {RequestHeadersComponent} from "./request-headers/request-headers.component";
 import {Webhook} from "../../model/webhook";
 
@@ -42,11 +41,6 @@ export class RequestExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    $(function() {
-      $(".mode-switcher").on("click", function () {
-        $(".light-mode").toggleClass("dark-mode-active");
-      });
-    });
   }
 
   value(extraHeaders: any): any {
