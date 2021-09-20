@@ -32,6 +32,8 @@ import {Webhook} from "../../model/webhook";
 })
 export class RequestExampleComponent implements OnInit {
   @Input() webhook!: Webhook
+  @Input() title: string = ""
+  @Input() fullRequest: boolean = true
   @ViewChild('bodyComponent') bodyComponent!: RequestBodyComponent
   @ViewChild('headersComponent') headersComponent!: RequestHeadersComponent
 
@@ -39,6 +41,10 @@ export class RequestExampleComponent implements OnInit {
   dark: boolean = false;
 
   constructor() {
+  }
+
+  get hasTitle(): boolean {
+    return this.title != ""
   }
 
   toggleDarkMode() {

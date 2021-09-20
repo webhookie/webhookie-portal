@@ -24,7 +24,6 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DescriptionComponent } from './description/description.component';
 import { DetailsComponent } from './details/details.component';
-import { RequestComponent } from './request/request.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarSearchComponent } from './sidebar/sidebar-search/sidebar-search.component';
 import { TitleToggleComponent } from './sidebar/title-toggle/title-toggle.component';
@@ -49,7 +48,6 @@ import {LandingPageModule} from "../../../landing-page/landing-page.module";
     WebhookPageComponent,
     DescriptionComponent,
     DetailsComponent,
-    RequestComponent,
     SidebarComponent,
     SidebarSearchComponent,
     TitleToggleComponent,
