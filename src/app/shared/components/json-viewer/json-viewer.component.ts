@@ -40,12 +40,6 @@ export class JsonViewerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    $(function() {
-      $(".mode-switcher")
-        .on("click", function () {
-          $(".light-mode").toggleClass("dark-mode-active");
-        });
-    });
   }
 
   showHtml(body: any) {

@@ -36,8 +36,13 @@ export class RequestExampleComponent implements OnInit {
   @ViewChild('headersComponent') headersComponent!: RequestHeadersComponent
 
   isBody: boolean = true;
+  dark: boolean = false;
 
   constructor() {
+  }
+
+  toggleDarkMode() {
+    this.dark = !this.dark
   }
 
   ngOnInit(): void {

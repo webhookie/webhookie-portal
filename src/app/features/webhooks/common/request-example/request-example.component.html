@@ -20,8 +20,7 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<div class="light-mode">
-
+<div class="light-mode" [class.dark-mode-active]="dark">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div class="nav nav-pills">
         <a href="javascript:void(0)" (click)="showBody()" [ngClass]="isBody?'active':''">Body</a>
@@ -29,7 +28,7 @@
       </div>
       <div class="custom-control custom-switch align-items-center">
         <input class="custom-control-input" id="customSwitch1" type="checkbox">
-        <label class="custom-control-label mode-switcher font12" for="customSwitch1">Dark mode</label>
+        <label class="custom-control-label mode-switcher font12" for="customSwitch1" (click)="toggleDarkMode()">Dark mode</label>
       </div>
     </div>
     <app-request-body [webhook]="webhook" #bodyComponent></app-request-body>

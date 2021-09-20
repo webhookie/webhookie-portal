@@ -21,7 +21,6 @@
  */
 
 import {AfterViewChecked, Component} from '@angular/core';
-import * as $ from 'jquery';
 import {JsonUtils} from "../../../../shared/json-utils";
 import {WebhookBaseComponent} from "../../common/webhook-base-component";
 import {WebhooksContext} from "../../webhooks-context";
@@ -36,12 +35,12 @@ export class RequestComponent extends WebhookBaseComponent implements AfterViewC
     super(ctx)
   }
 
+  darkMode: boolean = false;
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode
+  }
+
   ngOnInit(): void {
-    $(document).ready(function () {
-      $(".mode-switcher").click(function () {
-        $(".light-mode").toggleClass("dark-mode-active");
-      });
-    })
   }
 
   ngAfterViewChecked(){

@@ -22,12 +22,19 @@
 
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {WebhookBaseComponent} from "../../common/webhook-base-component";
+import {WebhooksContext} from "../../webhooks-context";
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
-export class DetailsComponent {
-  constructor(public router: Router) { }
+export class DetailsComponent extends WebhookBaseComponent {
+  constructor(
+    private readonly context: WebhooksContext,
+    public router: Router
+  ) {
+    super(context)
+  }
 }
