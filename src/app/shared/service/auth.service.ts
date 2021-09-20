@@ -31,6 +31,7 @@ import {ApplicationConfiguration} from "../application-configuration";
 import {Constants} from "../constants";
 import {WebhookieConfig} from "../model/webhookie-config";
 import {environment} from "../../../environments/environment";
+import {ToastService} from "./toast.service";
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,7 @@ export class AuthService {
   readonly loggedIn$: Observable<boolean> = this._isLoggedIn$.asObservable();
 
   constructor(
+    private readonly toastService: ToastService,
     private readonly oauthService: OAuthService,
     private readonly log: LogService,
     private readonly appConfiguration: ApplicationConfiguration,
@@ -126,7 +128,11 @@ export class AuthService {
     this.oauthService.configure(config);
     this.oauthService.setupAutomaticSilentRefresh();
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
-      .then(it => this.log.info(`loadDiscoveryDocumentAndTryLogin result is: ${it}`));
+      .then(it => this.log.info(`loadDiscoveryDocumentAndTryLogin result is: ${it}`))
+      .catch(it => {
+        this.toastService.error(it, "Authentication Error!");
+        this.logout();
+      })
   }
 
   refreshToken() {
