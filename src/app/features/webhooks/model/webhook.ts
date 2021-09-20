@@ -66,6 +66,13 @@ export class Webhook {
     }
   }
 
+  get subscriptionsTitle(): string {
+    let title = "Subscription";
+    return (this.numberOfSubscriptions == 0) || (this.numberOfSubscriptions > 1)
+      ? `${title}s`
+      : title
+  }
+
   get hasHeaders(): boolean {
     return this.headers.hasHeaders;
   }
