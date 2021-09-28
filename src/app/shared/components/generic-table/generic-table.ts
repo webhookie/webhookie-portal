@@ -26,7 +26,7 @@ import {TableHeader} from "../../model/table/header/table-header";
 import {TableFilter} from "../../model/table/filter/table-filter";
 import {TableColumn} from "../../model/table/column/table-column";
 import {Pageable} from "../../request/pageable";
-import {delay} from "rxjs/operators";
+import {delay, map} from "rxjs/operators";
 
 export abstract class GenericTable<T extends BaseTableData, R extends BaseTableData> {
   abstract headers: Array<TableHeader>;
@@ -41,6 +41,11 @@ export abstract class GenericTable<T extends BaseTableData, R extends BaseTableD
   abstract fetchDetails(data: T): Observable<boolean>;
   abstract readonly tableData: Observable<Array<TableData>>;
   abstract fetchData(filter: any, pageable: Pageable): void;
+
+  readTotalNumberOfRows(filter: any): Observable<number> {
+    return this.tableData
+      .pipe(map((it) => it.length))
+  }
 
   hasDetails(data: T): boolean {
     return false;

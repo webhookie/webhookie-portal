@@ -59,6 +59,11 @@ export class TraceService {
       )
   }
 
+  totalNumberOfTraces(filter: any): Observable<number> {
+    let params = RequestUtils.httpParams(filter);
+    return this.api.json(`${this.TRACE_URI}/count`, params, RequestUtils.hideLoadingHeader())
+  }
+
   readTraceSpans(traceId: string, filter: any, pageable: Pageable): Observable<Array<Span>> {
     let params = RequestUtils.httpParams(filter, pageable);
     const uri = `${this.TRACE_URI}/${traceId}/spans`

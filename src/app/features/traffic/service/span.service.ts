@@ -60,6 +60,11 @@ export class SpanService {
       )
   }
 
+  totalNumberOfSpans(filter: any): Observable<number> {
+    let params = RequestUtils.httpParams(filter);
+    return this.api.json(`${this.SPAN_URI}/count`, params, RequestUtils.hideLoadingHeader())
+  }
+
   spanRequest(spanId: string): Observable<SpanHttpRequest> {
     let params = new HttpParams()
     let uri = `${this.SPAN_URI}/${spanId}/request`;

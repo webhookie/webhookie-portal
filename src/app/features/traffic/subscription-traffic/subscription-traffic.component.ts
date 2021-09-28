@@ -160,6 +160,12 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       .subscribe(it => this._spans$.next(it));
   }
 
+  readTotalNumberOfRows(filter: any): Observable<number> {
+    let f =  Object.assign({}, filter, this.initialFilters)
+
+    return this.spanService.totalNumberOfSpans(f)
+  }
+
   get headers(): Array<TableHeader> {
     return [
       new SelectableTableHeader("sticky-cell", "Subscription_Select_Header"),
@@ -169,7 +175,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
       new SortableTableHeader("Callback", "subscription.callback.name"),
       new SortableTableHeader("Timestamp", "lastStatus.time"),
       new SortableTableHeader("Span Id", "spanId"),
-      new SortableTableHeader("Response Code", "nextRetry.response.statusCode"),
+      new SortableTableHeader("Response Code", "response.statusCode"),
       new SortableTableHeader("Status", "lastStatus.status"),
       new SortableTableHeader("Tries", "totalNumberOfTries"),
     ]

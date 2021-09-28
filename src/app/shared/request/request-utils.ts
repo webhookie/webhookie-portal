@@ -25,7 +25,7 @@ import {Pageable} from "./pageable";
 import {Constants} from "../constants";
 
 export class RequestUtils {
-  static httpParams(filter: any, pageable: Pageable): HttpParams {
+  static httpParams(filter: any, pageable?: Pageable): HttpParams {
     let params = new HttpParams();
     Object.entries(filter)
       .filter(entry => entry[1] != "")
@@ -42,12 +42,12 @@ export class RequestUtils {
         }
       });
 
-    if(pageable.size != Pageable.UN_PAGED_SIZE) {
-      params = params.set("size", pageable.size.toString());
-      params = params.set("page", pageable.page.toString());
+    if(pageable && (pageable?.size != Pageable.UN_PAGED_SIZE)) {
+      params = params.set("size", pageable!.size.toString());
+      params = params.set("page", pageable!.page.toString());
     }
 
-    let sort = pageable.sort;
+    let sort = pageable?.sort;
     if(sort) {
       params = params.set("sort", `${sort.field.name},${sort.order}`);
     }

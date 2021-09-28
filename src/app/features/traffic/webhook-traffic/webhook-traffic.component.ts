@@ -158,6 +158,12 @@ export class WebhookTrafficComponent extends GenericTable<Trace, Span> implement
       .subscribe(it => this._traces$.next(it));
   }
 
+  readTotalNumberOfRows(filter: any): Observable<number> {
+    let f =  this.combineFilters(filter, this.spanFilter.current);
+
+    return this.traceService.totalNumberOfTraces(f)
+  }
+
   get headers(): Array<TableHeader> {
     return this.traceTable.headers
   }

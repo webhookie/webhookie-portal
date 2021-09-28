@@ -38,6 +38,7 @@ import {ContextMenuTableColumn} from "../../model/table/column/context-menu-tabl
 
 export class TableDataSource {
   data$: BehaviorSubject<Array<TableData>> = new BehaviorSubject<Array<TableData>>([]);
+  count$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   update(data: TableData[]) {
     let d = this.data$.value
@@ -56,8 +57,8 @@ export class TableDataSource {
     this.data$.next([]);
   }
 
-  numberOfRows(): number {
-    return this.data$.value.length
+  totalCount$(): Observable<number> {
+    return this.count$
   }
 
   isMasterData(item: TableData) {

@@ -28,7 +28,7 @@ import {TableDataSource} from "./table-data.source";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TableFilter} from "../../model/table/filter/table-filter";
 import {EmptyTableFilter} from "../../model/table/filter/empty-table-filter";
-import {debounceTime} from "rxjs/operators";
+import {debounceTime, mergeMap} from "rxjs/operators";
 import {TableHeader} from "../../model/table/header/table-header";
 import {BehaviorSubject} from "rxjs";
 import {SearchListTableFilter} from "../../model/table/filter/search-list-table-filter";
@@ -101,6 +101,10 @@ export class GenericTableComponent implements OnInit {
 
     this.onChanges();
 
+    this.currentFilter.asObservable()
+      .pipe(mergeMap(it => this.table.readTotalNumberOfRows(it)))
+    // @ts-ignore
+      .subscribe((it) => this.dataSource.count$.next(it))
     this.currentFilter.asObservable()
       .subscribe(() => {
         this.dataSource.reset();
