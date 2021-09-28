@@ -30,7 +30,7 @@ import {TableFilter} from "../../model/table/filter/table-filter";
 import {EmptyTableFilter} from "../../model/table/filter/empty-table-filter";
 import {debounceTime, mergeMap} from "rxjs/operators";
 import {TableHeader} from "../../model/table/header/table-header";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {SearchListTableFilter} from "../../model/table/filter/search-list-table-filter";
 import {Pageable} from "../../request/pageable";
 import {TimestampTableFilter} from "../../model/table/filter/timestamp-table-filter";
@@ -102,9 +102,8 @@ export class GenericTableComponent implements OnInit {
     this.onChanges();
 
     this.currentFilter.asObservable()
-      .pipe(mergeMap(it => this.table.readTotalNumberOfRows(it)))
-    // @ts-ignore
-      .subscribe((it) => this.dataSource.count$.next(it))
+      .pipe(mergeMap(it => this.readTotalNumberOfRows(it)))
+      .subscribe(it => this.dataSource.updateCount(it))
     this.currentFilter.asObservable()
       .subscribe(() => {
         this.dataSource.reset();
@@ -129,6 +128,10 @@ export class GenericTableComponent implements OnInit {
         this.table.loadData(it[0], it[1])
       });
 */
+  }
+
+  readTotalNumberOfRows(filter: any): Observable<number> {
+    return this.table.readTotalNumberOfRows(filter)
   }
 
   private onChanges() {

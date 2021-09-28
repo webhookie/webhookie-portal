@@ -46,6 +46,10 @@ export class TableDataSource {
     this.data$.next(d);
   }
 
+  updateCount(n: number) {
+    this.count$.next(n);
+  }
+
   delete(item: TableData) {
     let updatedList = this.data$.value
       .filter(value => value.id != item.id)
