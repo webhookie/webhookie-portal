@@ -7,6 +7,7 @@
     "mock": "ng serve -c mock",
     "kc": "ng serve -c kc",
     "build": "ng build",
+    "release": "release-it",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
