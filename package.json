@@ -1,6 +1,6 @@
 {
   "name": "webhookie-portal",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "auth0": "ng serve -c auth0",
