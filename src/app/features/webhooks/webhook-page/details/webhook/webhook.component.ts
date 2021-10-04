@@ -27,12 +27,12 @@ import {ApplicationContext} from "../../../../../shared/application.context";
 import {WebhooksContext} from "../../../webhooks-context";
 import {RouterService} from "../../../../../shared/service/router.service";
 import {WebhookApiService} from "../../../service/webhook-api.service";
-import {ProviderAccess} from "../../../../../shared/model/access-group";
 import {AuthService} from "../../../../../shared/service/auth.service";
 import {HealthService} from "../../../../../shared/service/health.service";
 import {Observable} from "rxjs";
 import {mergeMap, tap} from "rxjs/operators";
 import {ModalService} from "../../../../../shared/service/modal.service";
+import {FileService} from "../../../../../shared/service/file.service";
 
 type WebhookApiContextMenu = ContextMenuItem<WebhookApi, WebhookMenu>
 
@@ -54,6 +54,7 @@ export class WebhookComponent implements OnInit {
 
   constructor(
     private readonly modalService: ModalService,
+    private readonly fileService: FileService,
     private readonly authService: AuthService,
     private readonly healthService: HealthService,
     private readonly routeService: RouterService,
@@ -87,6 +88,11 @@ export class WebhookComponent implements OnInit {
       ContextMenuItemBuilder
         .create<WebhookApi, WebhookMenu>(WebhookMenu.EDIT)
         .handler(this.editWebhookApi())
+        .isAvailable(this.canEditWebhookApi())
+        .build(),
+      ContextMenuItemBuilder
+        .create<WebhookApi, WebhookMenu>(WebhookMenu.SPEC)
+        .handler(this.downloadSpec())
         .isAvailable(this.canEditWebhookApi())
         .build(),
       ContextMenuItemBuilder
@@ -132,6 +138,13 @@ export class WebhookComponent implements OnInit {
           this.routeService
             .navigateTo("/webhooks/edit-webhook-api")
         })
+    }
+  }
+
+  downloadSpec(): (it: WebhookApi, item: WebhookApiContextMenu) => any {
+    return (it) => {
+      this.webhookApiService.fetchById(it.id)
+        .subscribe(group => this.fileService.downloadText(group.spec, `${group.title}.yaml`))
     }
   }
 
@@ -190,14 +203,8 @@ export class WebhookComponent implements OnInit {
   }
 
   canEditWebhookApi(): (it: WebhookApi) => boolean {
-    return (it?: WebhookApi) => {
-      if(it) {
-        return this.appContext.isLoggedIn
-          && this.appContext.hasProviderRole
-          && (this.appContext.hasProviderAccess(it.providerGroups) || it.providerAccess == ProviderAccess.ALL);
-      }
-
-      return false;
+    return () => {
+      return true;
     }
   }
 
@@ -232,6 +239,7 @@ export class WebhookComponent implements OnInit {
 
 enum WebhookMenu {
   EDIT = "Edit",
+  SPEC = "Download Spec",
   DELETE = "Delete",
   VIEW_YOUR_SUBSCRIPTIONS = "Your Subscriptions",
   VIEW_ALL_SUBSCRIPTIONS = "All Subscriptions",
