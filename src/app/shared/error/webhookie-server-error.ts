@@ -61,7 +61,11 @@ export class WebhookieServerError extends WebhookieError{
       }
     }
 
-    return msg.replace("\n", "</br>")
+    if(msg != undefined) {
+      return msg.replace("\n", "</br>")
+    }
+
+    return this.extraMessage
   }
 
   get extraMessage(): string {
