@@ -20,40 +20,27 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, Inject, OnInit} from '@angular/core';
-import {ApplicationContext} from "../../shared/application.context";
-import {AuthService} from "../../shared/service/auth.service";
-import {HealthService} from "../../shared/service/health.service";
-import {Observable} from "rxjs";
-import {Branding, BrandingService} from "../../shared/service/branding.service";
+import { Injectable } from '@angular/core';
+import {ApiService} from "./api.service";
 
-@Component({
-  selector: 'app-banner',
-  templateUrl: './banner.component.html',
-  styleUrls: ['./banner.component.css']
+@Injectable({
+  providedIn: 'root'
 })
-export class BannerComponent implements OnInit {
-  constructor(
-    @Inject("Auth") private readonly authService: AuthService,
-    readonly appContext: ApplicationContext,
-    private readonly brandingService: BrandingService,
-    private readonly healthService: HealthService
-  ) {
-  }
+export class BrandingService {
+  branding: Branding = {
+    title: "",
+    body: ""
+  };
 
-  get branding(): Branding {
-    return this.brandingService.branding;
+  constructor(private readonly apiService: ApiService,) {
+    this.apiService.readLoadAsset("assets/branding/title.html")
+      .subscribe(it => this.branding.title = it.body)
+    this.apiService.readLoadAsset("assets/branding/body.html")
+      .subscribe(it => this.branding.body = it.body)
   }
+}
 
-  get healthy(): Observable<boolean> {
-    return this.healthService.healthy$
-  }
-
-  login() {
-    this.authService.login();
-  }
-
-  ngOnInit(): void {
-  }
-
+export interface Branding {
+  title: string;
+  body: string;
 }

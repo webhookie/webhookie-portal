@@ -28,6 +28,7 @@ import {WebhooksContext} from "../../../../webhooks-context";
 import {RouterService} from "../../../../../../shared/service/router.service";
 import {WebhookSelection} from "../../../../model/webhook-selection";
 import {WebhookApiService} from "../../../../service/webhook-api.service";
+import {Branding, BrandingService} from "../../../../../../shared/service/branding.service";
 
 @Component({
   selector: 'app-welcome-with-data',
@@ -44,9 +45,14 @@ export class WelcomeWithDataComponent implements OnInit {
 
   constructor(
     readonly service: WebhookApiService,
+    private readonly brandingService: BrandingService,
     private readonly routeService: RouterService,
     private readonly webhooksContext: WebhooksContext
   ) {
+  }
+
+  get branding(): Branding {
+    return this.brandingService.branding;
   }
 
   ngOnInit(): void {
