@@ -42,7 +42,6 @@ import { WhyWebhooksSelfManagedSvgComponent } from './why-webhook/svg/why-webhoo
 import { WhyWebhooksFutureSvgComponent } from './why-webhook/svg/why-webhooks-future-svg/why-webhooks-future-svg.component';
 import { WhyWebhooksDeliverySvgComponent } from './why-webhook/svg/why-webhooks-delivery-svg/why-webhooks-delivery-svg.component';
 import { LandingWebhookEmptySvgComponent } from './webhook-empty/landing-webhook-empty-svg/landing-webhook-empty-svg.component';
-import { LandingBannerSvgComponent } from './banner/landing-banner-svg/landing-banner-svg.component';
 @NgModule({
   declarations: [
     LandingPageComponent,
@@ -61,8 +60,7 @@ import { LandingBannerSvgComponent } from './banner/landing-banner-svg/landing-b
     WhyWebhooksSelfManagedSvgComponent,
     WhyWebhooksFutureSvgComponent,
     WhyWebhooksDeliverySvgComponent,
-    LandingWebhookEmptySvgComponent,
-    LandingBannerSvgComponent,
+    LandingWebhookEmptySvgComponent
 
   ],
   exports: [

@@ -1,27 +1,282 @@
-<!--
-  ~ webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
-  ~ Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
-  ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU Affero General Public License as
-  ~ published by the Free Software Foundation, either version 3 of the
-  ~ License, or (at your option) any later version.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU Affero General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Affero General Public License
-  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  ~
-  ~ If your software can interact with users remotely through a computer network, you should also make sure that it provides a way for users to get its source. For example, if your program is a web application, its interface could display a "Source" link that leads users to an archive of the code. There are many ways you could offer source, and different solutions will be better for different programs; see section 13 for the specific requirements.
-  ~
-  ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
-  -->
-
 <svg xmlns="http://www.w3.org/2000/svg" width="496.901" height="372.836" viewBox="0 0 496.901 372.836">
   <defs>
+    <style>
+      .main-svg-a {
+        fill: #0151cc;
+      }
+
+      .main-svg-b, .main-svg-h {
+        fill: #92e3a9;
+      }
+
+      .main-svg-c {
+        fill: #eec1bb;
+      }
+
+      .main-svg-d {
+        fill: #2e353a;
+      }
+
+      .main-svg-ax, .main-svg-bg, .main-svg-e {
+        fill: #253858;
+      }
+
+      .main-svg-f {
+        fill: #e1f6ff;
+      }
+
+      .main-svg-af, .main-svg-f, .main-svg-h, .main-svg-j, .main-svg-t {
+        stroke: #263238;
+      }
+
+      .main-svg-ai, .main-svg-aw, .main-svg-bg, .main-svg-bk, .main-svg-bn, .main-svg-br, .main-svg-bu, .main-svg-f, .main-svg-h, .main-svg-j, .main-svg-t {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .main-svg-af, .main-svg-ai, .main-svg-aw, .main-svg-bk, .main-svg-f, .main-svg-h, .main-svg-j, .main-svg-t {
+        stroke-width: 0.75px;
+      }
+
+      .main-svg-g {
+        fill: #123559;
+      }
+
+      .main-svg-i {
+        fill: #cc987d;
+      }
+
+      .main-svg-j {
+        fill: #fdeae0;
+      }
+
+      .main-svg-aj, .main-svg-k, .main-svg-m, .main-svg-n, .main-svg-o, .main-svg-z {
+        fill: #0151cc;
+      }
+
+      .main-svg-k {
+        opacity: 0.068;
+      }
+
+      .main-svg-ak, .main-svg-aw, .main-svg-l {
+        fill: #fff;
+      }
+
+      .main-svg-ab, .main-svg-ad, .main-svg-n {
+        opacity: 0.2;
+      }
+
+      .main-svg-o {
+        opacity: 0.7;
+      }
+
+      .main-svg-as, .main-svg-p {
+        fill: rgba(0, 0, 0, 0);
+      }
+
+      .main-svg-p, .main-svg-q {
+        stroke: #ccdcf5;
+        stroke-dasharray: 2;
+      }
+
+      .main-svg-ag, .main-svg-ao, .main-svg-bg, .main-svg-bn, .main-svg-br, .main-svg-bs, .main-svg-bu, .main-svg-p, .main-svg-q, .main-svg-w, .main-svg-y, .main-svg-z {
+        stroke-width: 0.5px;
+      }
+
+      .main-svg-ai, .main-svg-ao, .main-svg-bk, .main-svg-bn, .main-svg-br, .main-svg-bs, .main-svg-bx, .main-svg-q, .main-svg-t, .main-svg-w, .main-svg-y {
+        fill: none;
+      }
+
+      .main-svg-r {
+        clip-path: url(#a);
+      }
+
+      .main-svg-an, .main-svg-s {
+        opacity: 0.1;
+      }
+
+      .main-svg-u {
+        fill: #fda67a;
+      }
+
+      .main-svg-ag, .main-svg-v {
+        fill: #ffbe9d;
+      }
+
+      .main-svg-w {
+        stroke: #eb9164;
+      }
+
+      .main-svg-x {
+        clip-path: url(#b);
+      }
+
+      .main-svg-ax, .main-svg-bg, .main-svg-bu, .main-svg-y, .main-svg-z {
+        stroke: #1e324c;
+      }
+
+      .main-svg-aa {
+        clip-path: url(#c);
+      }
+
+      .main-svg-ac {
+        clip-path: url(#d);
+      }
+
+      .main-svg-ae {
+        clip-path: url(#e);
+      }
+
+      .main-svg-af {
+        fill: #858585;
+      }
+
+      .main-svg-af, .main-svg-ao {
+        stroke-miterlimit: 10;
+      }
+
+      .main-svg-ag, .main-svg-ai, .main-svg-aw, .main-svg-br, .main-svg-bs {
+        stroke: #041c39;
+      }
+
+      .main-svg-ah {
+        fill: #0a1e42;
+      }
+
+      .main-svg-aj {
+        stroke: #0151cc;
+      }
+
+      .main-svg-ak {
+        font-size: 9px;
+        font-family: OpenSans-SemiBold, Open Sans;
+        font-weight: 600;
+      }
+
+      .main-svg-al {
+        fill: #01cc9d;
+      }
+
+      .main-svg-am {
+        clip-path: url(#f);
+      }
+
+      .main-svg-ao {
+        stroke: #00b68c;
+      }
+
+      .main-svg-ap {
+        fill: #01cb9c;
+      }
+
+      .main-svg-aq {
+        clip-path: url(#g);
+      }
+
+      .main-svg-ar {
+        fill: #00aa83;
+      }
+
+      .main-svg-as {
+        stroke: #00f8bf;
+      }
+
+      .main-svg-at {
+        fill: #00f8bf;
+      }
+
+      .main-svg-au {
+        clip-path: url(#h);
+      }
+
+      .main-svg-av {
+        fill: #f69110;
+      }
+
+      .main-svg-ay {
+        clip-path: url(#i);
+      }
+
+      .main-svg-az {
+        fill: #79f2c1;
+      }
+
+      .main-svg-ba {
+        fill: #263238;
+      }
+
+      .main-svg-bb, .main-svg-bu {
+        fill: #e0e0e0;
+      }
+
+      .main-svg-bc {
+        fill: #1e324c;
+      }
+
+      .main-svg-bd {
+        fill: #00abed;
+      }
+
+      .main-svg-be {
+        clip-path: url(#j);
+      }
+
+      .main-svg-bf {
+        opacity: 0.079;
+      }
+
+      .main-svg-bh {
+        fill: #bf6700;
+      }
+
+      .main-svg-bi {
+        clip-path: url(#k);
+      }
+
+      .main-svg-bj {
+        opacity: 0.08;
+      }
+
+      .main-svg-bk {
+        stroke: #7f7f7f;
+      }
+
+      .main-svg-bl {
+        fill: #5c3909;
+      }
+
+      .main-svg-bm {
+        clip-path: url(#l);
+      }
+
+      .main-svg-bn {
+        stroke: #cc7300;
+      }
+
+      .main-svg-bo {
+        clip-path: url(#m);
+      }
+
+      .main-svg-bp {
+        opacity: 0.072;
+      }
+
+      .main-svg-bq {
+        clip-path: url(#n);
+      }
+
+      .main-svg-bt {
+        fill: #cc7300;
+      }
+
+      .main-svg-bv {
+        clip-path: url(#o);
+      }
+
+      .main-svg-bw {
+        stroke: none;
+      }
+    </style>
     <clipPath id="a">
       <path class="main-svg-a"
             d="M498.546,347.1s-1.889-32.126-5.6-63.044c-2.227-18.551-5.951-36.929-6.8-50.66-1.115-17.964,20.817-12.972,39.913-13.771s37.648-3.276,38.973,13.422,3.146,112.994,3.146,112.994S532,355.741,498.546,347.1Z"
@@ -174,7 +429,8 @@
       <path class="main-svg-t"
             d="M540.1,436.715a35.879,35.879,0,0,0-2.489-5.06c-4.694-6.238-4.105-11.556-5.826-17.375-.527-1.782-4.123-6.184-4.123-6.184"
             transform="translate(-334.907 -205.477)"/>
-      <path class="main-svg-u" d="M604.6,340.036l-5.583,6.626,1.718,11.617,8.5-8.95Z" transform="translate(-352.658 -188.546)"/>
+      <path class="main-svg-u" d="M604.6,340.036l-5.583,6.626,1.718,11.617,8.5-8.95Z"
+            transform="translate(-352.658 -188.546)"/>
       <g transform="translate(236.403 154.134)">
         <path class="main-svg-v"
               d="M596.745,348.021c-.234-1.129-.361-4-1.451-4.378-2-.692-5.845,2.942-7.061,4.675-.571.814-1.8,2.558-1.791,3.553,0,.509.449,1.718.951,1.8.874.139,1.868-1.888,2.544-2.459a34.335,34.335,0,0,1,4.021-2.3,34.887,34.887,0,0,1-3.331,4.226c-1.438,1.178-7.42,4.507-3.62,6.492,0,0-1.466,2.152.829,2.721s5.947-2.6,5.947-2.6a13.93,13.93,0,0,1-2.329,2.519c-1.454,1.3-3.606,1.013-3.1,1.929.79,1.421,2.741,1.551,4.824.853a8,8,0,0,0,4.975-3.976C600.037,357.956,597.414,351.234,596.745,348.021Z"
@@ -190,7 +446,8 @@
       <path class="main-svg-y" d="M636.458,306.6c-4.143-2.915-10.013.147-10.013-1.767s7.067-2.088,6.479-4.063"
             transform="translate(-359.481 -178.778)"/>
       <g transform="translate(241.197 69.072)">
-        <path class="main-svg-y" d="M596.587,251.977a33.044,33.044,0,0,0,1.964-11.263" transform="translate(-593.25 -232.91)"/>
+        <path class="main-svg-y" d="M596.587,251.977a33.044,33.044,0,0,0,1.964-11.263"
+              transform="translate(-593.25 -232.91)"/>
         <path class="main-svg-y" d="M592.566,237.437c.22,4.367.44,10.571.24,15.306a1.014,1.014,0,0,0,1.934.467"
               transform="translate(-592.25 -232.095)"/>
         <path class="main-svg-z" d="M592.145,230.326s.067.935.159,2.46" transform="translate(-592.145 -230.326)"/>
@@ -208,8 +465,10 @@
         <path class="main-svg-w"
               d="M414.642,210.592l-.266-.938a6.145,6.145,0,0,1-2.605,0l-.663.938A12.336,12.336,0,0,1,414.642,210.592Z"
               transform="translate(-399.91 -194.286)"/>
-        <path class="main-svg-w" d="M411.917,205.685a4.7,4.7,0,0,1,.386,2.374" transform="translate(-400.111 -193.299)"/>
-        <path class="main-svg-w" d="M409.638,209.654a5.545,5.545,0,0,1,1.913,4.75" transform="translate(-399.544 -194.286)"/>
+        <path class="main-svg-w" d="M411.917,205.685a4.7,4.7,0,0,1,.386,2.374"
+              transform="translate(-400.111 -193.299)"/>
+        <path class="main-svg-w" d="M409.638,209.654a5.545,5.545,0,0,1,1.913,4.75"
+              transform="translate(-399.544 -194.286)"/>
         <path class="main-svg-w" d="M414.2,204.509l1.215,1.325v1.491" transform="translate(-400.678 -193.006)"/>
       </g>
       <g transform="translate(111.859 62.59)">
@@ -229,8 +488,10 @@
             transform="translate(-308.119 -159.107)"/>
       <g transform="translate(157.712 74.956)">
         <path class="main-svg-z" d="M486.337,240.946q-.109-1.339-.181-2.788" transform="translate(-482.293 -238.158)"/>
-        <path class="main-svg-z" d="M487.758,259.927c2.054-.225.26-4.441-.824-12.936" transform="translate(-482.487 -240.355)"/>
-        <path class="main-svg-z" d="M481.014,243.262s1.711,10.008,3.68,14.064" transform="translate(-481.014 -239.428)"/>
+        <path class="main-svg-z" d="M487.758,259.927c2.054-.225.26-4.441-.824-12.936"
+              transform="translate(-482.487 -240.355)"/>
+        <path class="main-svg-z" d="M481.014,243.262s1.711,10.008,3.68,14.064"
+              transform="translate(-481.014 -239.428)"/>
       </g>
       <g transform="translate(185.54 40.908)">
         <path class="main-svg-v"
@@ -352,7 +613,8 @@
       <path class="main-svg-v"
             d="M494.856,274.395s-4.393,12.225-4.393,14.865-1.174,5.279-1.212,9.585-.319,20.421,8.992,20.421c9.17,0,24.311-6.251,25.561-13.614v-1.528a4.2,4.2,0,0,0,5.557-2.084c1.945-3.75,4.75-7.063,2.222-9.724-2.639-2.778-7.223,1.945-8.057,3.751s-2.639-.556-2.639-.556,0-8.752-2.779-11.391,3.751-6.391,1.25-9.725S503.556,270.227,494.856,274.395Z"
             transform="translate(-321.769 -242.113)"/>
-      <path class="main-svg-ag" d="M500.9,296.41s-5.1,4.951-4.862,7.085c.133,1.172,3,2.115,3.473,3.2a5.864,5.864,0,0,1,0,1.806"
+      <path class="main-svg-ag"
+            d="M500.9,296.41s-5.1,4.951-4.862,7.085c.133,1.172,3,2.115,3.473,3.2a5.864,5.864,0,0,1,0,1.806"
             transform="translate(-323.458 -248.292)"/>
       <path class="main-svg-ah"
             d="M496.666,296.2c-.325.983-1.119,1.6-1.774,1.388s-.92-1.189-.594-2.173,1.12-1.6,1.774-1.388S496.992,295.215,496.666,296.2Z"
@@ -361,7 +623,8 @@
             d="M513.434,296.2c-.326.983-1.12,1.6-1.774,1.388s-.92-1.189-.6-2.173,1.12-1.6,1.774-1.388S513.759,295.215,513.434,296.2Z"
             transform="translate(-327.163 -247.688)"/>
       <path class="main-svg-ai" d="M508.434,291.119s4.307-2.624,9.03,1.4" transform="translate(-326.543 -246.766)"/>
-      <path class="main-svg-aw" d="M496.715,313.978s6.721,2.361,13.319.694C510.034,314.672,499.719,321.618,496.715,313.978Z"
+      <path class="main-svg-aw"
+            d="M496.715,313.978s6.721,2.361,13.319.694C510.034,314.672,499.719,321.618,496.715,313.978Z"
             transform="translate(-323.628 -252.662)"/>
       <path class="main-svg-ai" d="M493.086,291.872s3.056-3.2,7.085,0" transform="translate(-322.725 -246.809)"/>
       <g transform="translate(162.92 77.948)">
@@ -377,7 +640,8 @@
               transform="translate(-483.316 -336.357)"/>
         <path class="main-svg-w" d="M498.193,353.3s-1.386-1.1-2.131-.783-1,1.151-1.959,1.662"
               transform="translate(-485.898 -340.182)"/>
-        <path class="main-svg-w" d="M496.711,351.983a9.32,9.32,0,0,0,3.281-1.661" transform="translate(-486.547 -339.651)"/>
+        <path class="main-svg-w" d="M496.711,351.983a9.32,9.32,0,0,0,3.281-1.661"
+              transform="translate(-486.547 -339.651)"/>
       </g>
       <path class="main-svg-al"
             d="M560.734,335.583c-7.146-3.915-16.879,10.419-17.087,27.715s-.417,20.421-.417,20.421l-21.463-23.13s-1.459,6.043-11.669,10.836A128.479,128.479,0,0,0,523.435,398.1c8.752,13.128,17.3,24.8,22.713,24.8s15.489-12.715,19.171-29.382C573.237,357.671,575.569,343.71,560.734,335.583Z"
@@ -385,14 +649,16 @@
       <g transform="translate(220.088 128.079)">
         <path class="main-svg-ao" d="M559.45,403.668a.459.459,0,0,1,.434-.792,21.578,21.578,0,0,1,12.46,11.49"
               transform="translate(-559.279 -402.85)"/>
-        <path class="main-svg-ao" d="M568.222,418.129a26.487,26.487,0,0,0-6.246-11.882" transform="translate(-559.95 -403.695)"/>
+        <path class="main-svg-ao" d="M568.222,418.129a26.487,26.487,0,0,0-6.246-11.882"
+              transform="translate(-559.95 -403.695)"/>
       </g>
       <g transform="translate(220.087 124.554)">
         <path class="main-svg-ao" d="M579.361,404.733q.811.784,1.625,1.732" transform="translate(-564.275 -399.792)"/>
         <path class="main-svg-ao" d="M559.279,398.821s6.4-2.725,13.469,2.858" transform="translate(-559.279 -398.156)"/>
       </g>
       <g transform="translate(217.732 87.502)">
-        <path class="main-svg-ao" d="M556.624,374.925c-.2,1.068-.366,2.176-.48,3.322" transform="translate(-556.144 -355.325)"/>
+        <path class="main-svg-ao" d="M556.624,374.925c-.2,1.068-.366,2.176-.48,3.322"
+              transform="translate(-556.144 -355.325)"/>
         <path class="main-svg-ao" d="M567.324,348.835A37.007,37.007,0,0,0,558.03,364.6"
               transform="translate(-556.613 -348.835)"/>
       </g>
@@ -431,7 +697,8 @@
       <path class="main-svg-e" d="M35.28,418.18l1.009,13.8H54.022l1-13.8Z" transform="translate(-24.81 -361.155)"/>
       <rect class="main-svg-ah" width="23.572" height="5.439" transform="translate(8.756 51.586)"/>
       <path class="main-svg-ah" d="M32.63,438.71v1.507H55.814V438.71Z" transform="translate(-23.874 -368.408)"/>
-      <path class="main-svg-ah" d="M35.426,443.692,34.34,441.04H55.578l-1.268,2.652Z" transform="translate(-24.478 -369.232)"/>
+      <path class="main-svg-ah" d="M35.426,443.692,34.34,441.04H55.578l-1.268,2.652Z"
+            transform="translate(-24.478 -369.232)"/>
       <path class="main-svg-bb"
             d="M54.863,424.128a1.331,1.331,0,0,1-.084.123l-.265.356L53.479,425.9l-.045.058-.045-.058-2.535-3.512H51l-2.5,3.576-.078.11-.091-.1c-.918-1.1-1.94-2.289-2.962-3.525h.168c-.045.065-.1.129-.162.2l-2.645,3.318-.091.11-.084-.116-2.5-3.537H40.2l-3.078,3.544-.052.058-.045-.071c-.4-.679-.724-1.222-.964-1.617l-.246-.433-.078-.149a.592.592,0,0,1,.1.136l.278.414,1.009,1.591h-.1l3.033-3.544.071-.091.071.1,2.522,3.518h-.168l2.645-3.324.162-.207.084-.1.084.1,2.955,3.531h-.168l2.529-3.518.071-.1.071.1,2.483,3.544h-.11l1.08-1.293.285-.336C54.818,424.161,54.857,424.122,54.863,424.128Z"
             transform="translate(-24.973 -362.59)"/>
@@ -481,7 +748,8 @@
             transform="translate(-66.831 -143.063)"/>
       <ellipse class="main-svg-ah" cx="0.948" cy="1.75" rx="0.948" ry="1.75" transform="translate(75.486 31.469)"/>
       <path class="main-svg-ai" d="M142.777,198.966s.685,1.9,6.177,2.188" transform="translate(-72.835 -153.786)"/>
-      <path class="main-svg-ai" d="M150.09,176.446a3.712,3.712,0,0,0-4.012,2.618" transform="translate(-73.656 -148.178)"/>
+      <path class="main-svg-ai" d="M150.09,176.446a3.712,3.712,0,0,0-4.012,2.618"
+            transform="translate(-73.656 -148.178)"/>
       <path class="main-svg-bd"
             d="M110.075,229.194s-5.835-7.913,0-8.788,29.756-2.918,33.549,0-5.834,2.042-6.418,7S110.075,229.194,110.075,229.194Z"
             transform="translate(-64.054 -158.743)"/>
@@ -511,7 +779,8 @@
         </g>
       </g>
       <g transform="translate(93 168.436)">
-        <path class="main-svg-bk" d="M173.47,366.014a12.234,12.234,0,0,0,1.74-2.977" transform="translate(-173.47 -363.037)"/>
+        <path class="main-svg-bk" d="M173.47,366.014a12.234,12.234,0,0,0,1.74-2.977"
+              transform="translate(-173.47 -363.037)"/>
       </g>
       <path class="main-svg-bd"
             d="M93.61,349.05s-.438-15.753-2.626-40.259S76.543,235.276,93.61,230.9s51.116-7.125,62.576,3.939c12.691,12.253,3.064,80.517,2.626,92.332a152.266,152.266,0,0,0,1.75,25.38S115.27,362.4,93.61,349.05Z"
@@ -535,8 +804,10 @@
             <path class="main-svg-w"
                   d="M263.14,287.863l.251-.886a5.786,5.786,0,0,0,2.458,0l.625.886A11.61,11.61,0,0,0,263.14,287.863Z"
                   transform="translate(-249.743 -272.478)"/>
-            <path class="main-svg-w" d="M266.69,283.233a4.432,4.432,0,0,0-.364,2.24" transform="translate(-250.531 -271.547)"/>
-            <path class="main-svg-w" d="M268.358,286.977a5.234,5.234,0,0,0-1.8,4.482" transform="translate(-250.585 -272.478)"/>
+            <path class="main-svg-w" d="M266.69,283.233a4.432,4.432,0,0,0-.364,2.24"
+                  transform="translate(-250.531 -271.547)"/>
+            <path class="main-svg-w" d="M268.358,286.977a5.234,5.234,0,0,0-1.8,4.482"
+                  transform="translate(-250.585 -272.478)"/>
             <path class="main-svg-w" d="M264.286,282.123l-1.146,1.25v1.407" transform="translate(-249.743 -271.271)"/>
           </g>
           <g transform="translate(0 30.112)">
@@ -549,8 +820,10 @@
                     transform="translate(-192.425 -314.895)"/>
             </g>
           </g>
-          <path class="main-svg-bn" d="M236.125,369.889s1.9,1.458,3.063,5.981" transform="translate(-202.793 -293.104)"/>
-          <path class="main-svg-bn" d="M238.163,365.229a17.68,17.68,0,0,1,6.2,4.959" transform="translate(-203.3 -291.944)"/>
+          <path class="main-svg-bn" d="M236.125,369.889s1.9,1.458,3.063,5.981"
+                transform="translate(-202.793 -293.104)"/>
+          <path class="main-svg-bn" d="M238.163,365.229a17.68,17.68,0,0,1,6.2,4.959"
+                transform="translate(-203.3 -291.944)"/>
           <path class="main-svg-bn" d="M245.306,319.711a17.243,17.243,0,0,0,7.439,2.333"
                 transform="translate(-205.077 -280.621)"/>
         </g>
@@ -575,7 +848,8 @@
                 d="M198,388.3s2.361-.278,3.056.868a11.332,11.332,0,0,1,1.25,5.244,34.694,34.694,0,0,1-.625,3.473"
                 transform="translate(-166.189 -385.733)"/>
           <path class="main-svg-w" d="M200.88,388.557s1.342-.587,2.283,1.324" transform="translate(-166.905 -385.782)"/>
-          <path class="main-svg-w" d="M177.106,411.429s.556,1.389,3.056,2.778" transform="translate(-160.991 -391.493)"/>
+          <path class="main-svg-w" d="M177.106,411.429s.556,1.389,3.056,2.778"
+                transform="translate(-160.991 -391.493)"/>
         </g>
         <g transform="translate(49.842 49.784)">
           <path class="main-svg-v"
@@ -593,9 +867,11 @@
         <path class="main-svg-br"
               d="M200.474,320.636s.057-.308.232-.117c.564.847,2.037,2.888,2.928,4.118a1.189,1.189,0,0,1-.282,1.67,11.23,11.23,0,0,0-3.017,2.756c-.109.237-.117.058-.117.058"
               transform="translate(-118.566 -280.807)"/>
-        <path class="main-svg-bs" d="M197.989,335.827a5.532,5.532,0,0,1-7.531-.838" transform="translate(-116.138 -284.422)"/>
+        <path class="main-svg-bs" d="M197.989,335.827a5.532,5.532,0,0,1-7.531-.838"
+              transform="translate(-116.138 -284.422)"/>
         <path class="main-svg-bs" d="M186.537,315.338s1.65-3.646,7.458-1.771" transform="translate(-115.163 -278.959)"/>
-        <path class="main-svg-bs" d="M201.175,312.829a2.048,2.048,0,0,1,2.9,0" transform="translate(-118.804 -278.758)"/>
+        <path class="main-svg-bs" d="M201.175,312.829a2.048,2.048,0,0,1,2.9,0"
+              transform="translate(-118.804 -278.758)"/>
         <path class="main-svg-ah"
               d="M193.862,317.468c.231.862.072,1.655-.356,1.77s-.962-.492-1.194-1.354-.071-1.655.357-1.769S193.631,316.606,193.862,317.468Z"
               transform="translate(-116.573 -279.723)"/>
@@ -613,7 +889,8 @@
                 transform="translate(-96.762 -379.232)"/>
           <path class="main-svg-bn" d="M142.526,391.087s2.785,4.435,2.778,6.947,3.334-4.029,3.334-6.947"
                 transform="translate(-104.214 -373.712)"/>
-          <path class="main-svg-bn" d="M148.256,413.278s-.278,3.334,2.779,8.891" transform="translate(-105.638 -379.232)"/>
+          <path class="main-svg-bn" d="M148.256,413.278s-.278,3.334,2.779,8.891"
+                transform="translate(-105.638 -379.232)"/>
         </g>
         <path class="main-svg-bt"
               d="M146.03,357.4s2.855-8.45,6.189-7.207,19.588,8.289,21.88,16.227c0,0-3.334-4.395-6.251,0S162.138,366.9,146.03,357.4Z"
