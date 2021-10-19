@@ -26,6 +26,7 @@ import {Observable} from "rxjs";
 import {LogService} from "./log.service";
 import {Api} from "../api";
 import {environment} from "../../../environments/environment";
+import {tap} from "rxjs/operators";
 
 export enum HttpResponseType {
   JSON = 'json',
@@ -82,6 +83,20 @@ export class ApiService implements Api {
     let url = `${this.apiUrl}${uri}`;
 
     return this.http.get(url, option)
+  }
+
+  public readLoadAsset(uri: string): Observable<any> {
+    let headers = new HttpHeaders()
+      .set("Accept", ["text/plain"]);
+    let options: HttpRequestOptions = {
+      headers: headers,
+      responseType: HttpResponseType.TEXT,
+      observe: HttpObserveType.RESPONSE
+    };
+    return this.http.request("GET", uri, options)
+      .pipe(
+        tap(it => console.warn(it))
+      )
   }
 
   post(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>> {

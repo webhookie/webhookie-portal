@@ -29,6 +29,8 @@ export interface Api {
   json(uri: string, params: HttpParams): Observable<any>
   json(uri: string, params: HttpParams, headers: HttpHeaders): Observable<any>
 
+  readLoadAsset(uri: string): Observable<any>
+
   post(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>>;
   put(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>>;
   delete(uri: string, headers: HttpHeaders, responseType: HttpResponseType): Observable<any>

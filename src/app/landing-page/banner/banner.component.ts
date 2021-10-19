@@ -25,6 +25,7 @@ import {ApplicationContext} from "../../shared/application.context";
 import {AuthService} from "../../shared/service/auth.service";
 import {HealthService} from "../../shared/service/health.service";
 import {Observable} from "rxjs";
+import {ApiService} from "../../shared/service/api.service";
 
 @Component({
   selector: 'app-banner',
@@ -32,12 +33,21 @@ import {Observable} from "rxjs";
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent implements OnInit {
+  branding = {
+    title: "",
+    body: ""
+  };
 
   constructor(
     @Inject("Auth") private readonly authService: AuthService,
     readonly appContext: ApplicationContext,
+    private readonly apiService: ApiService,
     private readonly healthService: HealthService
   ) {
+    this.apiService.readLoadAsset("assets/branding/title.html")
+      .subscribe(it => this.branding.title = it.body)
+    this.apiService.readLoadAsset("assets/branding/body.html")
+      .subscribe(it => this.branding.body = it.body)
   }
 
   get healthy(): Observable<boolean> {
