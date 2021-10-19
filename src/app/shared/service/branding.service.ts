@@ -22,6 +22,7 @@
 
 import { Injectable } from '@angular/core';
 import {ApiService} from "./api.service";
+import {Observable, ReplaySubject, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,14 @@ export class BrandingService {
     body: ""
   };
 
+  private _pageTitle$: Subject<string> = new ReplaySubject<string>()
+  pageTitle$: Observable<string> = this._pageTitle$.asObservable();
+
   constructor(private readonly apiService: ApiService,) {
     this.apiService.readLoadAsset("assets/branding/title.html")
       .subscribe(it => this.branding.title = it.body)
+    this.apiService.readLoadAsset("assets/page-title.txt")
+      .subscribe(it => this._pageTitle$.next(it.body))
     this.apiService.readLoadAsset("assets/branding/body.html")
       .subscribe(it => this.branding.body = it.body)
   }

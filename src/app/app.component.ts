@@ -24,6 +24,8 @@ import {Component} from '@angular/core';
 import {ConfigService} from "./shared/service/config.service";
 import {Spinkit} from "ng-http-loader";
 import {Constants} from "./shared/constants";
+import {Title} from "@angular/platform-browser";
+import {BrandingService} from "./shared/service/branding.service";
 
 @Component({
   selector: 'webhookie-root',
@@ -39,7 +41,13 @@ export class AppComponent {
     return [Constants.HEADER_HIDE_LOADING_KEY]
   }
 
-  constructor(private readonly configService: ConfigService) {
+  constructor(
+    private readonly brandingService: BrandingService,
+    private readonly titleService: Title,
+    private readonly configService: ConfigService
+  ) {
+    this.brandingService.pageTitle$
+      .subscribe(it => this.titleService.setTitle(it))
     this.configService.read()
     this.primaryColor = Constants.CSS_PRIMARY_COLOR;
   }
