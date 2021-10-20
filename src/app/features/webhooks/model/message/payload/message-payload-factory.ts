@@ -135,7 +135,7 @@ export class MessagePayloadFactory {
       case PayloadType.OBJECT.valueOf():
         return new ObjectPayload(name, isRequired, json, json.properties);
       case PayloadType.ARRAY.valueOf():
-        if (json.items.type == PayloadType.OBJECT.valueOf()) {
+        if (json.items != undefined && json.items.type == PayloadType.OBJECT.valueOf()) {
           return new ObjectArrayPayload(name, isRequired, json, json.items.properties);
         }
         return new ArrayPayload(name, isRequired, json);
