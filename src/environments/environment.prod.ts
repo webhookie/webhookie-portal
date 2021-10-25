@@ -24,10 +24,11 @@ export const environment = {
   production: true,
   mock: false,
   debug: false,
-  apiUrl: "",
+  apiUrl: window.location.protocol + "//" + window.location.host + "/api",
   iam: {
-    requireHttps: true,
-    showDebugInformation: false,
-    disableAtHashCheck: false
+    redirectUri: window.location.protocol + "//" + window.location.host,
+    requireHttps: false,
+    showDebugInformation: true,
+    disableAtHashCheck: true
   }
 };
