@@ -93,7 +93,7 @@ export class WebhookComponent implements OnInit {
       ContextMenuItemBuilder
         .create<WebhookApi, WebhookMenu>(WebhookMenu.SPEC)
         .handler(this.downloadSpec())
-        .isAvailable(this.canEditWebhookApi())
+        .isAvailable(this.canViewSpec())
         .build(),
       ContextMenuItemBuilder
         .create<WebhookApi, WebhookMenu>(WebhookMenu.DELETE)
@@ -203,6 +203,16 @@ export class WebhookComponent implements OnInit {
   }
 
   canEditWebhookApi(): (it: WebhookApi) => boolean {
+    return (it?: WebhookApi) => {
+      if(it) {
+        return this.appContext.hasProviderAccess(it.providerGroups);
+      }
+
+      return false;
+    }
+  }
+
+  canViewSpec(): (it: WebhookApi) => boolean {
     return () => {
       return true;
     }
