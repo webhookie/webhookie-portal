@@ -39,7 +39,7 @@ export class BrandingService {
   constructor(private readonly apiService: ApiService,) {
     this.apiService.readLoadAsset("assets/branding/title.html")
       .subscribe(it => this.branding.title = it.body)
-    this.apiService.readLoadAsset("assets/branding/page-title.txt")
+    this.apiService.readLoadAsset("assets/page-title.txt")
       .subscribe(it => this._pageTitle$.next(it.body))
     this.apiService.readLoadAsset("assets/branding/body.html")
       .subscribe(it => this.branding.body = it.body)
