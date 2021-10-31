@@ -203,9 +203,9 @@ export class WebhookComponent implements OnInit {
   }
 
   canEditWebhookApi(): (it: WebhookApi) => boolean {
-    return (it?: WebhookApi) => {
+    return (it: WebhookApi) => {
       if(it) {
-        return this.appContext.hasProviderAccess(it.providerGroups);
+        return this.appContext.hasProviderAccess(it);
       }
 
       return false;
@@ -225,7 +225,7 @@ export class WebhookComponent implements OnInit {
   canViewAllSubscriptions(): (it?: WebhookApi) => boolean {
     return (it?: WebhookApi) => {
       if(it) {
-        return this.appContext.hasProviderAccess(it.providerGroups);
+        return this.appContext.hasProviderAccess(it);
       }
 
       return false;
@@ -235,7 +235,7 @@ export class WebhookComponent implements OnInit {
   canViewWebhookTraffic(): (it?: WebhookApi) => boolean {
     return (it?: WebhookApi) => {
       if(it) {
-        return this.appContext.hasProviderAccess(it.providerGroups) || this.appContext.hasAdminRole
+        return this.appContext.hasProviderAccess(it) || this.appContext.hasAdminRole
       }
 
       return false;

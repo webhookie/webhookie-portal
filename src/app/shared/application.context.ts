@@ -27,8 +27,8 @@ import {User} from "./model/user";
 import {LogService} from "./service/log.service";
 import {UserService} from "./service/user.service";
 import {filter, map} from "rxjs/operators";
-import {ArrayUtils} from "./array-utils";
 import {DropdownEntry} from "./model/dropdownEntry";
+import {WebhookApi} from "../features/webhooks/model/webhook-api";
 
 @Injectable({
   providedIn: 'root'
@@ -109,8 +109,8 @@ export class ApplicationContext {
     return this._user$.value.hasAdminRole();
   }
 
-  hasProviderAccess(groups: Array<string>): boolean {
+  hasProviderAccess(webhookApi: WebhookApi): boolean {
     return this.hasProviderRole
-      && ArrayUtils.intersect(this._user$.value.providerGroups, groups).length > 0
+      && webhookApi.isAccessibleFor(this._user$.value)
   }
 }

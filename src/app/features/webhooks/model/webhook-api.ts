@@ -26,6 +26,8 @@ import {Webhook} from "./webhook";
 import {AsyncAPIDocument, SecurityScheme} from "@asyncapi/parser/dist/bundle";
 import {WebhookType} from "./webhook-type";
 import {StringUtils} from "../../../shared/string-utils";
+import {User} from "../../../shared/model/user";
+import {ArrayUtils} from "../../../shared/array-utils";
 
 export class WebhookApi extends TableDetailData {
   private readonly _securityOptions: Array<SecurityOption> = [];
@@ -45,6 +47,11 @@ export class WebhookApi extends TableDetailData {
       .reduce((value: number, current: number) => {
         return value + current;
       });
+  }
+
+  isAccessibleFor(user: User): boolean {
+    return ArrayUtils.intersect(user.providerGroups, this.providerGroups).length > 0 ||
+      this.providerAccess == ProviderAccess.ALL
   }
 
   constructor(
