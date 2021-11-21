@@ -43,10 +43,6 @@ export class WhiteLabelComponent implements OnInit {
     $(".dropdown-menu").click(function(e){
       e.stopPropagation();
     });
-
-    console.warn(this.selectedColor)
-
-
   }
 
 }

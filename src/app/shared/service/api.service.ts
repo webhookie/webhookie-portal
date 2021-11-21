@@ -94,9 +94,6 @@ export class ApiService implements Api {
       observe: HttpObserveType.RESPONSE
     };
     return this.http.request("GET", uri, options)
-      .pipe(
-        tap(it => console.warn(it))
-      )
   }
 
   post(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>> {
