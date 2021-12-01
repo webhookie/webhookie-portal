@@ -23,7 +23,7 @@
 import {BehaviorSubject, Observable} from "rxjs";
 import {filter, map, skip} from "rxjs/operators";
 import {Application} from "../../webhooks/model/application";
-import {Callback} from "../../../shared/model/callback";
+import {Callback} from "../../../shared/model/callback/callback";
 import {WebhookTrafficFilter} from "./webhook-traffic-filter";
 
 /**

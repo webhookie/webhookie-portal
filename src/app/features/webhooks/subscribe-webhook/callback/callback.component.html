@@ -80,16 +80,41 @@
           </div>
 
           <h4 *ngIf="selectedCallback?.signable" class="font14 font-weight-400">Security</h4>
-          <label *ngIf="selectedCallback?.signable" class="font12 pt-1">HMAC Signature</label>
-          <div *ngIf="selectedCallback?.signable" class="form-row mt-1">
+          <label *ngIf="selectedCallback?.isHmac" class="font12 pt-1">HMAC Signature</label>
+          <div *ngIf="selectedCallback?.isHmac" class="form-row mt-1">
             <div class="form-group col-md-8">
               <label class="font14 font-weight-400 mb-1">Key ID</label>
-              <input class="form-control" readonly type="text" value="{{selectedCallback?.security?.keyId}}">
+              <input class="form-control" readonly type="text" value="{{selectedCallback?.hmac?.details?.keyId}}">
             </div>
           </div>
-          <div *ngIf="selectedCallback?.signable" class="form-row">
+          <div *ngIf="selectedCallback?.isHmac" class="form-row">
             <div class="form-group col-md-8">
               <h4 class="font14 font-weight-400 mb-1">Secret API Key: {{encodedSecret}}</h4>
+            </div>
+          </div>
+
+          <label *ngIf="selectedCallback?.isOAuth" class="font12 pt-1">OAuth 2.0 details</label>
+          <div *ngIf="selectedCallback?.isOAuth" class="form-row mt-1">
+            <div class="form-group col-md-8">
+              <label class="font14 font-weight-400 mb-1">Token Endpoint</label>
+              <input class="form-control" readonly type="text" value="{{selectedCallback?.oauth2?.details?.tokenEndpoint}}">
+            </div>
+          </div>
+          <div *ngIf="selectedCallback?.isOAuth" class="form-row mt-1">
+            <div class="form-group col-md-8">
+              <label class="font14 font-weight-400 mb-1">Client Id</label>
+              <input class="form-control" readonly type="text" value="{{selectedCallback?.oauth2?.details?.clientId}}">
+            </div>
+          </div>
+          <div *ngIf="selectedCallback?.isOAuth" class="form-row mt-1">
+            <div class="form-group col-md-8">
+              <label class="font14 font-weight-400 mb-1">Scopes</label>
+              <input class="form-control" readonly type="text" value="{{selectedCallback?.oauth2?.scopesString}}">
+            </div>
+          </div>
+          <div *ngIf="selectedCallback?.isOAuth" class="form-row">
+            <div class="form-group col-md-8">
+              <h4 class="font14 font-weight-400 mb-1">Client Secret: {{encodedSecret}}</h4>
             </div>
           </div>
         </form>

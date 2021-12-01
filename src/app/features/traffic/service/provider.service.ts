@@ -27,7 +27,7 @@ import {HttpParams} from "@angular/common/http";
 import {Application} from "../../webhooks/model/application";
 import {ApplicationAdapter} from "../../webhooks/service/adapter/application.adapter";
 import {map} from "rxjs/operators";
-import {Callback} from "../../../shared/model/callback";
+import {Callback} from "../../../shared/model/callback/callback";
 import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
 
 @Injectable({

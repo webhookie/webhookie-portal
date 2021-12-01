@@ -22,13 +22,19 @@
 
 import {Component, Input, ViewChild} from '@angular/core';
 import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
-import {CallbackRequest, CallbackService} from "../../../service/callback.service";
+import {
+  CallbackRequest,
+  CallbackService
+} from "../../../service/callback.service";
 import {WebhookieError} from "../../../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
-import {Callback} from "../../../../../shared/model/callback";
+import {Callback} from "../../../../../shared/model/callback/callback";
 import {ModalService} from "../../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../../subscription-context";
+import {ClientCredentialsOAuth2Details} from "../../../../../shared/model/callback/security/client-credentials-o-auth2-details";
+import {HmacSecurityScheme} from "../../../../../shared/model/callback/security/hmac-security-scheme";
+import {OAuthSecurityScheme} from "../../../../../shared/model/callback/security/o-auth-security-scheme";
 
 @Component({
   selector: 'app-create-callback',
@@ -92,12 +98,25 @@ export class CreateCallbackComponent {
     }
 
     if(this.callbackComponent.isHmac) {
-      request.security = {
-        secret: {
+      request.securityScheme = new HmacSecurityScheme(
+        {
           keyId: this.callbackComponent.keyId,
           secret: this.callbackComponent.secret
         }
-      }
+      )
+    }
+
+    if(this.callbackComponent.isOAuth) {
+      request.securityScheme = new OAuthSecurityScheme(
+        new ClientCredentialsOAuth2Details(
+          {
+            tokenEndpoint: this.callbackComponent.tokenEndpoint,
+            clientId: this.callbackComponent.clientId,
+            secret: this.callbackComponent.clientSecret,
+            scopes: this.callbackComponent.scopes,
+          }
+        )
+      )
     }
 
     let successHandler = (callback: Callback) => {

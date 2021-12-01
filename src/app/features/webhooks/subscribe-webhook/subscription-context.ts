@@ -21,7 +21,7 @@
  */
 
 import {Application} from "../model/application";
-import {Callback} from "../../../shared/model/callback";
+import {Callback} from "../../../shared/model/callback/callback";
 import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
 import {distinctUntilChanged, filter} from "rxjs/operators";
 import {Subscription} from "../../../shared/model/subscription";

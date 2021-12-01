@@ -25,7 +25,7 @@ import {CallbackService} from "../../service/callback.service";
 import {mergeMap, tap} from "rxjs/operators";
 import {EMPTY, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
 import {Application} from "../../model/application";
-import {Callback} from "../../../../shared/model/callback";
+import {Callback} from "../../../../shared/model/callback/callback";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../subscription-context";
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../shared/model/table/column/context-menu-item";

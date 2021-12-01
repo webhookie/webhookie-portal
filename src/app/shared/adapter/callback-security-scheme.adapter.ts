@@ -20,62 +20,26 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {TableDetailData} from "./table/table-detail-data";
-import {Callback} from "./callback/callback";
+import {Injectable} from '@angular/core';
+import {BaseAdapter} from "./adapter";
+import {SecuritySchemeType} from "../model/callback/security/security-scheme-type";
+import {CallbackSecurityScheme} from "../model/callback/security/callback-security-scheme";
+import {HmacSecurityScheme} from "../model/callback/security/hmac-security-scheme";
+import {OAuthSecurityScheme} from "../model/callback/security/o-auth-security-scheme";
 
-export class Subscription extends TableDetailData {
-  constructor(
-    public id: string,
-    public application: ApplicationDetails,
-    public callback: Callback,
-    public statusUpdate: StatusUpdate,
-    public topic: string,
-    public blocked: boolean
-  ) {
-    super();
+@Injectable({
+  providedIn: 'root'
+})
+export class CallbackSecuritySchemeAdapter extends BaseAdapter<CallbackSecurityScheme|null> {
+  adapt(item: any): CallbackSecurityScheme | null {
+    if(item != null) {
+      if(item.method == SecuritySchemeType.HMAC) {
+        return new HmacSecurityScheme(item.details)
+      } else if(item.method == SecuritySchemeType.OAUTH2) {
+        return new OAuthSecurityScheme(item.details);
+      }
+    }
+
+    return null;
   }
-
-  isLoading: boolean = false;
-
-  canBeValidated(): boolean {
-    let validStatusList = [SubscriptionStatus.SAVED, SubscriptionStatus.BLOCKED, SubscriptionStatus.DEACTIVATED];
-    return validStatusList
-      .filter(it => it === this.statusUpdate.status)
-      .length != 0
-  }
-
-  canBeActivated(): boolean {
-    let validStatusList = [SubscriptionStatus.VALIDATED, SubscriptionStatus.DEACTIVATED];
-    return validStatusList
-      .filter(it => it === this.statusUpdate.status)
-      .length != 0
-  }
-}
-
-export class ApplicationDetails {
-  constructor(
-    public id: string,
-    public name: string,
-    public entity: string
-  ) {
-  }
-}
-
-export class StatusUpdate {
-  // noinspection JSUnusedGlobalSymbols
-  constructor(
-    public status: SubscriptionStatus,
-    public reason: string | null,
-    public time: Date
-  ) {
-  }
-}
-
-export enum SubscriptionStatus {
-  SAVED = "SAVED",
-  VALIDATED = "VALIDATED",
-  ACTIVATED = "ACTIVATED",
-  DEACTIVATED = "DEACTIVATED",
-  BLOCKED = "BLOCKED",
-  SUSPENDED = "SUSPENDED"
 }

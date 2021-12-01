@@ -21,11 +21,11 @@
  */
 
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CallbackResponse} from "../../service/callback.service";
 import {BehaviorSubject, Observable, ReplaySubject, Subject, Subscription, timer} from "rxjs";
 import {filter, map} from "rxjs/operators";
 import {HttpErrorResponse} from "@angular/common/http";
 import {JsonViewerComponent} from "../../../../shared/components/json-viewer/json-viewer.component";
+import {CallbackResponse} from "../../../../shared/model/callback/callback-response";
 
 @Component({
   selector: 'app-response',

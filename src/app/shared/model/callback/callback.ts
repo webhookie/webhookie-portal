@@ -20,62 +20,46 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {TableDetailData} from "./table/table-detail-data";
-import {Callback} from "./callback/callback";
+import {SelectableItem} from "../../components/searchable-select/searchable-select.component";
+import {TableDetailData} from "../table/table-detail-data";
+import {SecuritySchemeType} from "./security/security-scheme-type";
+import {CallbackSecurityScheme} from "./security/callback-security-scheme";
+import {HmacSecurityScheme} from "./security/hmac-security-scheme";
+import {OAuthSecurityScheme} from "./security/o-auth-security-scheme";
 
-export class Subscription extends TableDetailData {
+export class Callback extends TableDetailData implements SelectableItem {
   constructor(
     public id: string,
-    public application: ApplicationDetails,
-    public callback: Callback,
-    public statusUpdate: StatusUpdate,
-    public topic: string,
-    public blocked: boolean
+    public name: string,
+    public httpMethod: string,
+    public url: string,
+    public signable: boolean = false,
+    public security: CallbackSecurityScheme | null
   ) {
     super();
   }
 
-  isLoading: boolean = false;
+  get hmac(): HmacSecurityScheme | null {
+    if(this.isHmac) {
+      return this.security as HmacSecurityScheme
+    }
 
-  canBeValidated(): boolean {
-    let validStatusList = [SubscriptionStatus.SAVED, SubscriptionStatus.BLOCKED, SubscriptionStatus.DEACTIVATED];
-    return validStatusList
-      .filter(it => it === this.statusUpdate.status)
-      .length != 0
+    return null
   }
 
-  canBeActivated(): boolean {
-    let validStatusList = [SubscriptionStatus.VALIDATED, SubscriptionStatus.DEACTIVATED];
-    return validStatusList
-      .filter(it => it === this.statusUpdate.status)
-      .length != 0
-  }
-}
+  get oauth2(): OAuthSecurityScheme | null {
+    if(this.isOAuth) {
+      return this.security as OAuthSecurityScheme
+    }
 
-export class ApplicationDetails {
-  constructor(
-    public id: string,
-    public name: string,
-    public entity: string
-  ) {
+    return null
   }
-}
 
-export class StatusUpdate {
-  // noinspection JSUnusedGlobalSymbols
-  constructor(
-    public status: SubscriptionStatus,
-    public reason: string | null,
-    public time: Date
-  ) {
+  get isHmac(): Boolean {
+    return this.security?.method == SecuritySchemeType.HMAC
   }
-}
 
-export enum SubscriptionStatus {
-  SAVED = "SAVED",
-  VALIDATED = "VALIDATED",
-  ACTIVATED = "ACTIVATED",
-  DEACTIVATED = "DEACTIVATED",
-  BLOCKED = "BLOCKED",
-  SUSPENDED = "SUSPENDED"
+  get isOAuth(): Boolean {
+    return this.security?.method == SecuritySchemeType.OAUTH2
+  }
 }

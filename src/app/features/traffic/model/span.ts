@@ -21,7 +21,7 @@
  */
 
 import {TableDetailData} from "../../../shared/model/table/table-detail-data";
-import {Callback} from "../../../shared/model/callback";
+import {Callback} from "../../../shared/model/callback/callback";
 import {ApplicationDetails} from "../../../shared/model/subscription";
 import {SpanHttpRequest} from "./span-http-request";
 import {SpanHttpResponse} from "./span-http-response";

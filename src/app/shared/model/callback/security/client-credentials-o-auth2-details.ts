@@ -20,62 +20,21 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {TableDetailData} from "./table/table-detail-data";
-import {Callback} from "./callback/callback";
+import {OauthCallbackSecurityDetails} from "./oauth-callback-security-details";
 
-export class Subscription extends TableDetailData {
+export class ClientCredentialsOAuth2Details implements OauthCallbackSecurityDetails {
   constructor(
-    public id: string,
-    public application: ApplicationDetails,
-    public callback: Callback,
-    public statusUpdate: StatusUpdate,
-    public topic: string,
-    public blocked: boolean
+      details: any,
   ) {
-    super();
+    this.tokenEndpoint = details.tokenEndpoint
+    this.clientId = details.clientId
+    this.secret = details.secret
+    this.scopes = details.scopes.split(",")
   }
 
-  isLoading: boolean = false;
-
-  canBeValidated(): boolean {
-    let validStatusList = [SubscriptionStatus.SAVED, SubscriptionStatus.BLOCKED, SubscriptionStatus.DEACTIVATED];
-    return validStatusList
-      .filter(it => it === this.statusUpdate.status)
-      .length != 0
-  }
-
-  canBeActivated(): boolean {
-    let validStatusList = [SubscriptionStatus.VALIDATED, SubscriptionStatus.DEACTIVATED];
-    return validStatusList
-      .filter(it => it === this.statusUpdate.status)
-      .length != 0
-  }
-}
-
-export class ApplicationDetails {
-  constructor(
-    public id: string,
-    public name: string,
-    public entity: string
-  ) {
-  }
-}
-
-export class StatusUpdate {
-  // noinspection JSUnusedGlobalSymbols
-  constructor(
-    public status: SubscriptionStatus,
-    public reason: string | null,
-    public time: Date
-  ) {
-  }
-}
-
-export enum SubscriptionStatus {
-  SAVED = "SAVED",
-  VALIDATED = "VALIDATED",
-  ACTIVATED = "ACTIVATED",
-  DEACTIVATED = "DEACTIVATED",
-  BLOCKED = "BLOCKED",
-  SUSPENDED = "SUSPENDED"
+  tokenEndpoint: string
+  clientId: string
+  secret: string
+  scopes: Array<string>
+  type = "CLIENT_CREDENTIALS"
 }

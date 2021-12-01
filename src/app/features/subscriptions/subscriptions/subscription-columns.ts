@@ -45,7 +45,7 @@ export class SubscriptionCallbackColumn extends BaseTableColumn<Subscription>{
   value(data: Subscription): string {
     let content = `<a class="text-primary" title="${data.callback.url}">${data.callback.name}</a>`;
     if(data.callback.signable) {
-      content = `${content} [${data.callback.security?.method}]`
+      content = `${content} [${data.callback.security?.title}]`
     }
     return content;
   }

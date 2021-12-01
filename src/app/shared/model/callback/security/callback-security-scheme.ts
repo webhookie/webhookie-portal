@@ -20,19 +20,11 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {CallbackSecurity} from "./callback-security";
-import {SelectableItem} from "../components/searchable-select/searchable-select.component";
-import {TableDetailData} from "./table/table-detail-data";
+import {SecuritySchemeType} from "./security-scheme-type";
+import {CallbackSecurityDetails} from "./callback-security-details";
 
-export class Callback extends TableDetailData implements SelectableItem {
-  constructor(
-    public id: string,
-    public name: string,
-    public httpMethod: string,
-    public url: string,
-    public signable: boolean = false,
-    public security: CallbackSecurity | null
-  ) {
-    super();
-  }
+export interface CallbackSecurityScheme {
+  method: SecuritySchemeType
+  title: string
+  details: CallbackSecurityDetails
 }

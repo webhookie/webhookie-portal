@@ -57,7 +57,7 @@
       </div>
       <h4 class="font14 font-weight-400">Security</h4>
       <div *ngFor="let s of securityModels" class="custom-control custom-radio custom-control-inline security-label">
-        <input (change)="securityModel=s" [checked]="securityModel==s" [disabled]="s=='API key'" class="custom-control-input" id="{{s}}"
+        <input (change)="securityModel=s" [checked]="securityModel==s" [disabled]="notAvailable(s)" class="custom-control-input" id="{{s}}"
                name="security" type="radio">
         <label class="custom-control-label font12 pt-1" for="{{s}}">{{s}}</label>
       </div>
@@ -74,6 +74,36 @@
             <label class="font14 font-weight-400 mb-1" for="secret">Secret API Key</label>
             <input [(ngModel)]="secret" class="form-control" id="secret" name="secret"
                    placeholder="Secret API Key example" type="text">
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isOAuth" class="callback-test-key mt-3">
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label class="font14 font-weight-400 mb-1" for="tokenEndpoint">Token Endpoint</label>
+            <input [(ngModel)]="tokenEndpoint" class="form-control" id="tokenEndpoint" name="tokenEndpoint" placeholder="token endpoint example"
+                   type="text">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label class="font14 font-weight-400 mb-1" for="clientSecret">Client Id</label>
+            <input [(ngModel)]="clientId" class="form-control" id="clientId" name="clientId"
+                   placeholder="Client Id example" type="text">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label class="font14 font-weight-400 mb-1" for="clientSecret">Client Secret</label>
+            <input [(ngModel)]="clientSecret" class="form-control" id="clientSecret" name="clientSecret"
+                   placeholder="Client Secret example" type="text">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label class="font14 font-weight-400 mb-1" for="scopes">Scopes</label>
+            <input [(ngModel)]="scopes" class="form-control" id="scopes" name="scopes"
+                   placeholder="scopes ( Comma separated )" type="text">
           </div>
         </div>
       </div>

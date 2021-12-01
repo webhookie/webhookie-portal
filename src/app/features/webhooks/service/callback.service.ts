@@ -28,8 +28,10 @@ import {Api} from "../../../shared/api";
 import {Application} from "../model/application";
 import {LogService} from "../../../shared/service/log.service";
 import {HttpResponseType} from "../../../shared/service/api.service";
-import {Callback} from "../../../shared/model/callback";
+import {Callback} from "../../../shared/model/callback/callback";
 import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
+import {CallbackSecurityScheme} from "../../../shared/model/callback/security/callback-security-scheme";
+import {CallbackResponse} from "../../../shared/model/callback/callback-response";
 
 @Injectable({
   providedIn: 'root'
@@ -100,7 +102,7 @@ export interface CallbackValidationRequest {
   url: string,
   payload: string,
   headers: any,
-  secret?: any,
+  securityScheme?: CallbackSecurityScheme,
   traceId?: string,
   spanId?: string
 }
@@ -110,23 +112,6 @@ export interface CallbackRequest {
   applicationId: string,
   httpMethod: string,
   url: string,
-  security?: CallbackSecurityRequest
+  securityScheme?: CallbackSecurityScheme
 }
 
-export interface CallbackSecurityRequest {
-  secret: CallbackSecret
-}
-
-export interface CallbackSecret {
-  keyId: string,
-  secret: string
-}
-
-export class CallbackResponse {
-  constructor(
-    public responseCode: number,
-    public headers: HttpHeaders,
-    public responseBody: any
-  ) {
-  }
-}

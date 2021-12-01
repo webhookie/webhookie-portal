@@ -31,7 +31,6 @@ import {Observable} from "rxjs";
 import {Subscription} from "../../../shared/model/subscription";
 import {RouterService} from "../../../shared/service/router.service";
 import {HttpHeaders} from "@angular/common/http";
-import {CallbackResponse} from "../service/callback.service";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -41,6 +40,7 @@ import {environment} from "../../../../environments/environment";
 import {WebhookieError} from "../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../shared/error/duplicate-entity-error";
 import {ToastService} from "../../../shared/service/toast.service";
+import {CallbackResponse} from "../../../shared/model/callback/callback-response";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -74,10 +74,6 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
 
   get selectedCallback() {
     return this.subscriptionContext.currentCallback
-  }
-
-  get selectedSubscription() {
-    return this.subscription
   }
 
   get canBeSaved() {

@@ -23,21 +23,18 @@
 import {Injectable} from '@angular/core';
 import {BaseAdapter} from "./adapter";
 import {ApplicationDetails, StatusUpdate, Subscription} from "../model/subscription";
-import {CallbackSecurity} from "../model/callback-security";
 import {DateUtils} from "../date-utils";
-import {Callback} from "../model/callback";
+import {Callback} from "../model/callback/callback";
+import {CallbackSecuritySchemeAdapter} from "./callback-security-scheme.adapter";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscriptionAdapter extends BaseAdapter<Subscription> {
-  private static security(callback: any): CallbackSecurity | null {
-    let s = callback.security;
-    if (s) {
-      return new CallbackSecurity(s.method, s.keyId);
-    }
-
-    return null;
+  constructor(
+    public securityAdapter: CallbackSecuritySchemeAdapter
+  ) {
+    super();
   }
 
   adapt(item: any): Subscription {
@@ -56,7 +53,7 @@ export class SubscriptionAdapter extends BaseAdapter<Subscription> {
       ic.httpMethod,
       ic.url,
       ic.signable,
-      SubscriptionAdapter.security(ic)
+      this.securityAdapter.adapt(ic.securityScheme)
     )
 
     let su = item.statusUpdate;
