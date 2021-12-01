@@ -26,6 +26,7 @@
 
 export const environment = {
   production: false,
+  enterprise: true,
   mock: false,
   debug: false,
   apiUrl: "http://localhost:8080",

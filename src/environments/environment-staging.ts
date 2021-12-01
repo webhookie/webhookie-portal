@@ -26,6 +26,7 @@
 
 export const environment = {
   production: true,
+  enterprise: false,
   mock: false,
   debug: false,
   apiUrl: window.location.protocol + "//" + window.location.host + "/api",
