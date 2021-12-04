@@ -46,7 +46,7 @@ export class CallbackUrlComponent {
       }
 
       if(callback.isOAuth) {
-        this.securityModel = CallbackUrlComponent.HMAC_SECURITY
+        this.securityModel = CallbackUrlComponent.OAUTH_SECURITY
         this.secret = CallbackUrlComponent.ENCODED_SECRET
         let scheme: OAuthSecurityScheme = callback.security as OAuthSecurityScheme
         this.tokenEndpoint = scheme.details.tokenEndpoint
