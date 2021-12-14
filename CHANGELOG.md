@@ -2,6 +2,10 @@
 <a name="1.1.0"></a>
 ## [1.1.0](https://bitbucket.org/hookie-solutions-team/webhookie-portal/compare/1.0.1...1.1.0) (2021-12-14)
 
+Features:
+
+* Add OAuth2.0 support for subscriptions
+
 
 <a name="1.0.1"></a>
 ## [1.0.1](https://bitbucket.org/hookie-solutions-team/webhookie-portal/compare/1.0.0...1.0.1) (2021-10-05)
