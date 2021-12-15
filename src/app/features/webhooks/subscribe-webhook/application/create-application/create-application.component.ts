@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {WebhookieService} from "../../../../../shared/service/webhookie.service";
 import {ApplicationService, CreateApplicationRequest} from "../../../service/application.service";
 import {WebhooksContext} from "../../../webhooks-context";
@@ -30,8 +30,6 @@ import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
 import {ModalService} from "../../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../../subscription-context";
-import {DropdownEntry} from "../../../../../shared/model/dropdownEntry";
-import {MultiSelectComponent} from "../../../../../shared/components/multi-select/multi-select.component";
 
 @Component({
   selector: 'app-create-application',
@@ -39,10 +37,6 @@ import {MultiSelectComponent} from "../../../../../shared/components/multi-selec
   styleUrls: ['./create-application.component.css']
 })
 export class CreateApplicationComponent implements OnInit {
-  @ViewChild("groupsComponent") groupsComponent!: MultiSelectComponent
-
-  groups: Array<DropdownEntry> = [];
-
   requestedName: string = ""
   requestedDesc?: string
 
@@ -53,10 +47,6 @@ export class CreateApplicationComponent implements OnInit {
     private readonly subscriptionContext: SubscriptionContext,
     public modalService: ModalService
   ) {
-    this.webhookieService.fetchAccessGroups("/group/consumergroups")
-      .subscribe(list => {
-        this.groups = list.map(it => new DropdownEntry(it.iamGroupName, it.name))
-      });
   }
 
   ngOnInit(): void {
@@ -65,8 +55,7 @@ export class CreateApplicationComponent implements OnInit {
   createApplication() {
     let request: CreateApplicationRequest = {
       name: this.requestedName,
-      description: this.requestedDesc,
-      consumerGroups: Array.from(this.groupsComponent.selectedItems).map(it => it.key)
+      description: this.requestedDesc
     }
 
     let successHandler = (app: Application) => {

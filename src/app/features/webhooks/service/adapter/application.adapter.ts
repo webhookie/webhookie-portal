@@ -29,6 +29,6 @@ import {Application} from "../../model/application";
 })
 export class ApplicationAdapter extends BaseAdapter<Application> {
   adapt(item: any): Application {
-    return new Application(item.id, item.name, item.entity, item.consumerIAMGroups, item.description);
+    return new Application(item.id, item.name, item.entity, item.description);
   }
 }

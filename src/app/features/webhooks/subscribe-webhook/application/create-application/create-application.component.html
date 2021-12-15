@@ -39,17 +39,6 @@
       <textarea [(ngModel)]="requestedDesc" class="form-control" id="Description" name="desc" placeholder="Description"
                 rows="4"></textarea>
     </div>
-    <div class="form-group">
-      <label class="font14 font-weight-400" for="Description">Consumer groups</label>
-      <app-multi-select
-        #groupsComponent
-        id="create-application-groups-id"
-        [entries]="groups"
-        title="Consumer groups"
-        [show]="true"
-      >
-      </app-multi-select>
-    </div>
   </div>
   <div class="modal-footer">
     <button (click)="modalService.hide()" aria-label="Close" class="btn btn-default cancel border"

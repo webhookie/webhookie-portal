@@ -27,7 +27,6 @@ export class Application implements SelectableItem{
     public id: string,
     public name: string,
     public entity: string,
-    public consumerIAMGroups: Array<string>,
     public description?: string
   ) {
   }

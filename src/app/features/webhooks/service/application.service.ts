@@ -62,6 +62,5 @@ export class ApplicationService {
 
 export interface CreateApplicationRequest {
   name: string,
-  consumerGroups: Array<string>
   description?: string
 }

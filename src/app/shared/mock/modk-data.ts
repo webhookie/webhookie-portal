@@ -141,27 +141,16 @@ export class MockData {
     {
       "name": "Products Application",
       "entity": "Hookie Solutions",
-      "consumerIAMGroups": [
-        "Suppliers",
-        "Customers"
-      ],
       "id": "60361fc7d7582d3e57824b5a"
     },
     {
       "name": "Orders Application",
       "entity": "Hookie Solutions",
-      "consumerIAMGroups": [
-        "Providers",
-        "Customers"
-      ],
       "id": "60361fc7d7582d3e57824b5b"
     },
     {
       "name": "Customers Application",
       "entity": "Hookie Solutions",
-      "consumerIAMGroups": [
-        "Customers"
-      ],
       "id": "60361fc7d7582d3e57824b5c"
     }
   ];
