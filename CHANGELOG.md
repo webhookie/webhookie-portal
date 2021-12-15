@@ -2,7 +2,7 @@
 <a name="1.1.1"></a>
 ## [1.1.1](https://bitbucket.org/hookie-solutions-team/webhookie-portal/compare/1.1.0...1.1.1) (2021-12-15)
 
-### Feat
+### Features
 
 * Add application management group and assign user to that group remove consumer groups from application
 
