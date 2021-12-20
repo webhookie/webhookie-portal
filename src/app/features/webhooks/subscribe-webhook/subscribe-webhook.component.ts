@@ -27,7 +27,7 @@ import {ApplicationComponent} from "./application/application.component";
 import {CallbackComponent} from "./callback/callback.component";
 import {filter, mergeMap} from "rxjs/operators";
 import {SubscriptionService, ValidateSubscriptionRequest} from "../../../shared/service/subscription.service";
-import {Observable} from "rxjs";
+import {Observable, of, ReplaySubject, Subject} from "rxjs";
 import {Subscription} from "../../../shared/model/subscription";
 import {RouterService} from "../../../shared/service/router.service";
 import {HttpHeaders} from "@angular/common/http";
@@ -41,6 +41,8 @@ import {WebhookieError} from "../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../shared/error/duplicate-entity-error";
 import {ToastService} from "../../../shared/service/toast.service";
 import {CallbackResponse} from "../../../shared/model/callback/callback-response";
+import { Application } from '../model/application';
+import { ModalService } from 'src/app/shared/service/modal.service';
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -54,10 +56,14 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
   @ViewChild('responseComponent') response?: ResponseComponent
   @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
 
+  readonly _applications$: Subject<Array<Application>> = new ReplaySubject();
   subscription?: Subscription
   readMode = false;
   isRunning = false;
-
+  currenttab:any = 1;
+  finished:any=[];
+  isRes:boolean=false;
+  isTest:boolean=false;
   debug = environment.debug
 
   constructor(
@@ -67,9 +73,11 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly subscriptionService: SubscriptionService,
-    private readonly routeService: RouterService
+    private readonly routeService: RouterService,
+    private readonly modalService: ModalService
   ) {
     super(context)
+    this.finished.push(this.currenttab);
   }
 
   get selectedCallback() {
@@ -181,5 +189,31 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
       this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback!.id)
         .subscribe(successHandler, errorHandler);
     }
+  }
+  nextPrev(tab: any){
+    if(!this.finished.includes(this.currenttab)){
+      this.finished.push(this.currenttab);
+    }
+  	this.currenttab = this.currenttab + tab
+  	if(this.currenttab == 0){
+  		this.currenttab = 1
+  	}
+  	if(this.currenttab == 5){
+  		this.currenttab = 4
+  	}
+  }
+  isFinished(tab:any){
+    return this.finished.includes(tab);
+  }
+  goToTab(tab: any){
+    this.currenttab = tab
+  }
+  selectApp(event:Event) {
+    let app:any=event.target;
+    let application:Application=app.value;
+    this.subscriptionContext.updateApplication(application);
+  }
+  get selectedApplication() {
+    return this.subscriptionContext.currentApplication
   }
 }
