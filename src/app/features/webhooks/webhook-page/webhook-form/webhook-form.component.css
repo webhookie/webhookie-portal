@@ -22,8 +22,11 @@
 
 .spec-editor-height {
   min-height:600px;
+  width:50%;
 }
-
+.spec-editor-height.bord {
+  border-right: none !important;
+}
 .create-webgroup pre{
 border: 1px solid #e1e1e1;
 padding: 10px;
@@ -113,7 +116,9 @@ padding-left: 4px;
 content: url("../../../../../assets/images/Chevron_up.svg");
 padding-left: 4px;
 }
-
+.monaco-editor{
+  cursor: default !important;
+}
 @media (max-width: 992px) {
 .create-webgroup pre{
 font-size: 14px;
@@ -123,6 +128,9 @@ font-size: 13px !important;
 }
 .font12{
 font-size: 11px !important;
+}
+.spec-editor-height {
+  width:100%;
 }
 }
 

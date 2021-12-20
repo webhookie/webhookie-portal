@@ -80,12 +80,12 @@
       </ngb-alert>
     </div>
   </div>
-  <div class="row editor-heigh">
-    <div class="col-md-5 pr-md-0 spec-editor-heightt">
+  <div class="d-flex editor-heigh">
+    <div class="pr-md-0 spec-editor-height bord" [resizableMinWidth]="5" appResizable>
       <div class="border-top mb-3 mt-3"></div>
       <ngx-monaco-editor [options]="editorOptions" formControlName="spec"></ngx-monaco-editor>
     </div>
-    <div class="col-md-7 pl-md-0 spec-editor-height">
+    <div class="pl-md-0 spec-editor-height">
       <div class="border-top mb-3 mt-3"></div>
       <asyncapi-component [schema]="specCode"></asyncapi-component>
     </div>

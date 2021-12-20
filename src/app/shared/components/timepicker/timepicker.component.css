@@ -28,3 +28,6 @@
     border: 1px solid #006ADF;
     box-shadow: none;
 }
+.time_wrapper button i {
+  margin-left: 6px;
+}
