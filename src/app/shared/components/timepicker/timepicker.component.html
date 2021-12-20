@@ -25,6 +25,6 @@
       <timepicker (ngModelChange)="changed($event)" name="endTime" [showMeridian]="false" [(ngModel)]="time"></timepicker>
     </ng-template>
     <button type="button" class="btn btn-xs btn-bordered dropdown-toggle text-left w-100 time_dropdown"
-            data-toggle="dropdown" [popover]="popTemplate1" [outsideClick]="true"
-            placement="bottom"> {{time | date : "HH:mm a"}}</button>
+            [popover]="popTemplate1" [outsideClick]="true"
+            placement="bottom"> {{time | date : "HH:mm a"}}<i class="bi bi-chevron-down"></i></button>
   </div>
