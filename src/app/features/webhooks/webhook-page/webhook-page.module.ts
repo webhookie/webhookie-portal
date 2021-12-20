@@ -43,6 +43,7 @@ import {NgbAlertModule, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 import { CreateWebhookApiComponent } from './webhook-form/create-webhook-api/create-webhook-api.component';
 import { EditWebhookApiComponent } from './webhook-form/edit-webhook-api/edit-webhook-api.component';
 import {LandingPageModule} from "../../../landing-page/landing-page.module";
+import { ResizableDirective } from './resizable.directive';
 @NgModule({
   declarations: [
     WebhookPageComponent,
@@ -58,7 +59,7 @@ import {LandingPageModule} from "../../../landing-page/landing-page.module";
     WebhookAccessGroupComponent,
     CreateWebhookApiComponent,
     EditWebhookApiComponent,
-
+    ResizableDirective
 
   ],
   imports: [
