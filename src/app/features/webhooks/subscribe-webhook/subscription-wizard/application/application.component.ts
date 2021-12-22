@@ -21,13 +21,13 @@
  */
 
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ApplicationService} from "../../service/application.service";
+import {ApplicationService} from "../../../service/application.service";
 import {BehaviorSubject, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
-import {Application} from "../../model/application";
+import {Application} from "../../../model/application";
 import {mergeMap} from "rxjs/operators";
-import {ModalService} from "../../../../shared/service/modal.service";
-import {SubscriptionContext} from "../subscription-context";
-import {Optional} from "../../../../shared/model/optional";
+import {ModalService} from "../../../../../shared/service/modal.service";
+import {SubscriptionContext} from "../../subscription-context";
+import {Optional} from "../../../../../shared/model/optional";
 
 @Component({
   selector: 'app-application',

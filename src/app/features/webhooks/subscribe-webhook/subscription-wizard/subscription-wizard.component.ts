@@ -31,7 +31,7 @@ import {WebhookBaseComponent} from "../../common/webhook-base-component";
 import {BehaviorSubject, Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {Optional} from "../../../../shared/model/optional";
-import {ApplicationComponent} from "../application/application.component";
+import {ApplicationComponent} from "./application/application.component";
 import {CallbackComponent} from "../callback/callback.component";
 import {ResponseComponent} from "../../common/response/response.component";
 import {RequestExampleComponent} from "../../common/request-example/request-example.component";

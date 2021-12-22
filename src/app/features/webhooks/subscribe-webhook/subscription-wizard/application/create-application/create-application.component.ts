@@ -21,15 +21,15 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {WebhookieService} from "../../../../../shared/service/webhookie.service";
-import {ApplicationService, CreateApplicationRequest} from "../../../service/application.service";
-import {WebhooksContext} from "../../../webhooks-context";
-import {Application} from "../../../model/application";
-import {WebhookieError} from "../../../../../shared/error/webhookie-error";
-import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
-import {BadRequestError} from "../../../../../shared/error/bad-request-error";
-import {ModalService} from "../../../../../shared/service/modal.service";
-import {SubscriptionContext} from "../../subscription-context";
+import {WebhookieService} from "../../../../../../shared/service/webhookie.service";
+import {ApplicationService, CreateApplicationRequest} from "../../../../service/application.service";
+import {WebhooksContext} from "../../../../webhooks-context";
+import {Application} from "../../../../model/application";
+import {WebhookieError} from "../../../../../../shared/error/webhookie-error";
+import {DuplicateEntityError} from "../../../../../../shared/error/duplicate-entity-error";
+import {BadRequestError} from "../../../../../../shared/error/bad-request-error";
+import {ModalService} from "../../../../../../shared/service/modal.service";
+import {SubscriptionContext} from "../../../subscription-context";
 
 @Component({
   selector: 'app-create-application',

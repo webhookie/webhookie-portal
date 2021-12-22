@@ -23,7 +23,7 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {WebhooksContext} from "../webhooks-context";
 import {ResponseComponent} from "../common/response/response.component";
-import {ApplicationComponent} from "./application/application.component";
+import {ApplicationComponent} from "./subscription-wizard/application/application.component";
 import {CallbackComponent} from "./callback/callback.component";
 import {filter, mergeMap} from "rxjs/operators";
 import {SubscriptionService, ValidateSubscriptionRequest} from "../../../shared/service/subscription.service";
