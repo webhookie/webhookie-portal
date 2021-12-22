@@ -138,6 +138,6 @@ class CommonWizardStep extends WizardStep {
     public title: string,
     public icon: string
   ) {
-    super(step, title, icon, (v) => {return v.name});
+    super(step, title, icon, (v) => {return v?.name});
   }
 }
