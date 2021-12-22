@@ -34,12 +34,15 @@ import {CallbackTestComponent} from "./callback-test/callback-test.component";
 import {CallbackUrlComponent} from "./callback-test/callback-url/callback-url.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from '@angular/router';
-import {CreateApplicationComponent} from './subscribe-webhook/application/create-application/create-application.component';
+import {
+  CreateApplicationComponent
+} from './subscribe-webhook/application/create-application/create-application.component';
 import {CreateCallbackComponent} from './subscribe-webhook/callback/create-callback/create-callback.component';
 import {DotMenuComponent} from 'src/app/shared/components/dot-menu/dot-menu.component';
 import {SharedModule} from "../../shared/shared.module";
-import { CongratsSvgComponent } from './subscribe-webhook/congrats/congrats-svg/congrats-svg.component';
+import {CongratsSvgComponent} from './subscribe-webhook/congrats/congrats-svg/congrats-svg.component';
 import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
+import {SubscriptionWizardComponent} from './subscribe-webhook/subscription-wizard/subscription-wizard.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,8 @@ import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
     CreateApplicationComponent,
     CreateCallbackComponent,
     DotMenuComponent,
-    CongratsSvgComponent
+    CongratsSvgComponent,
+    SubscriptionWizardComponent
   ],
   imports: [
     CommonModule,

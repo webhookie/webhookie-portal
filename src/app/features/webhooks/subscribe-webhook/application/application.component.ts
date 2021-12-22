@@ -20,14 +20,14 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
-import * as $ from 'jquery';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ApplicationService} from "../../service/application.service";
-import {Observable, of, ReplaySubject, Subject, zip} from "rxjs";
+import {BehaviorSubject, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {mergeMap} from "rxjs/operators";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {SubscriptionContext} from "../subscription-context";
+import {Optional} from "../../../../shared/model/optional";
 
 @Component({
   selector: 'app-application',
@@ -35,7 +35,10 @@ import {SubscriptionContext} from "../subscription-context";
   styleUrls: ['./application.component.css']
 })
 export class ApplicationComponent implements OnInit {
+  @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
+
   readonly _applications$: Subject<Array<Application>> = new ReplaySubject();
+  readonly _selectedApplication: BehaviorSubject<Optional<Application>> = new BehaviorSubject<Optional<Application>>(null)
 
   constructor(
     private readonly applicationService: ApplicationService,
@@ -45,7 +48,7 @@ export class ApplicationComponent implements OnInit {
   }
 
   get selectedApplication() {
-    return this.context.currentApplication
+    return this._selectedApplication.value
   }
 
   loadApplications(): Observable<Array<Application>> {
@@ -53,12 +56,6 @@ export class ApplicationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    $(function() {
-      $(".btn-warning").on("click", function () {
-        $(this).toggleClass("active").parent().parent().siblings().find('after').removeClass('active')
-      });
-    });
-
     this.context._createdApplication$.asObservable()
       .pipe(
         mergeMap(it => zip(of(it), this.loadApplications()))
@@ -79,6 +76,11 @@ export class ApplicationComponent implements OnInit {
   }
 
   selectApp(application: Application) {
-    this.context.updateApplication(application);
+    this._selectedApplication.next(application)
+    this.onSelect.emit(application)
+  }
+
+  clearApp() {
+    this._selectedApplication.next(null)
   }
 }

@@ -1,0 +1,299 @@
+/*
+ * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
+ * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * If your software can interact with users remotely through a computer network, you should also make sure that it provides a way for users to get its source. For example, if your program is a web application, its interface could display a "Source" link that leads users to an archive of the code. There are many ways you could offer source, and different solutions will be better for different programs; see section 13 for the specific requirements.
+ *
+ * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
+ */
+
+.dot-buttons ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.dot-buttons button {
+  padding: 4px 12px;
+  font-weight: 400;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.dot-buttons .btn-default {
+  font-weight: 400;
+  border: 1px solid #ddd;
+  margin-left: 8px;
+  color: var(--primary-color);
+}
+
+.dot-buttons ul {
+  list-style-type: none;
+}
+
+.dot-buttons i {
+  font-size: 12px;
+  color: var(--primary-text-color);
+}
+
+.test_color {
+  color: var(--color-white) !important;
+}
+
+.disable-default {
+  color: #C6C6C6;
+  border-color: #BFBFBF;
+}
+
+.diable-primary {
+  color: #C6C6C6 !important;
+  background-color: #E5E5E5 !important;
+
+}
+
+.dot-buttons input, label {
+  cursor: pointer;
+  user-select: none;
+  color: #253858;
+}
+
+.modal-header, .modal-footer {
+  border: 0px;
+}
+
+.modal-body {
+  padding: 0rem 1.1rem !important;
+}
+
+.disable-default {
+  color: #C6C6C6;
+  border-color: #BFBFBF;
+}
+
+.disable-primary {
+  color: #C6C6C6;
+  background-color: #E5E5E5;
+}
+
+.custom-control-input:checked ~ ::before {
+  border-radius: 1px !important;
+}
+
+.custom-checkbox .custom-control-label::before {
+  border-radius: 1px;
+}
+.isHidden{
+  display: none;
+}
+#subForm {
+  background-color: #ffffff;
+  margin: 20px auto 10px;
+  padding: 40px;
+  width: 65%;
+  min-width: 300px;
+}
+#subForm select{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px;
+}
+#subForm select:focus, #subForm select:focus-visible{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #E1E1E1;
+  outline: none;
+}
+#subForm .description {
+  border: 1px solid #E1E1E1;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 4px;
+}
+h1 {
+  text-align: center;
+}
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 14px;
+  border: 1px solid #E1E1E1;
+}
+input.invalid {
+  background-color: #ffdddd;
+}
+button {
+  background-color: #0151cc;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 7px 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+button.test, button.retest, #prevBtn, #cancel, #managesub, #deactive {
+  background-color: #ffffff;
+  border: 1px solid #E1E1E1;
+  color: #0151cc;
+  border-radius: 4px;
+}
+button.test, button.retest{
+  padding: 8px 40px;
+  margin: 0 5px;
+}
+.step {
+  height: 70px;
+  width: 70px;
+  margin: 0 auto;
+  background-color: #f5f8fd;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+.step.active {
+  opacity: 1;
+}
+.steppers {
+  width: 70%;
+  margin: 0 auto;
+}
+.steppers ul {
+  list-style-type: none;
+  padding: 0;
+}
+.steppers i{
+  font-size: 25px;
+  color: #0151CC;
+}
+.subscribe-btns{
+  margin: 0 auto;
+  width: 75%;
+  border-top: 1px solid #E1E1E1;
+  padding-top: 10px;
+}
+.left-btn{
+  float: left;
+}
+.right-btn{
+  float: right;
+}
+.step-div h5, .step-div p{
+  font-size: 14px;
+  font-weight: 600;
+}
+.step-div h5{
+  color: #C6C6C6;
+}
+.step-div p{
+  display: none;
+}
+.step-div.finish .step, .step-div.active .step {
+  opacity: 1;
+}
+.step-div.finish h5, .step-div.active h5 {
+  color: #333;
+}
+
+.step-div.finish p {
+  color: #0151CC;
+  display: block;
+}
+
+.min-wid{
+  width: 50%;
+  margin: 20px auto 10px;
+}
+
+.finish::before {
+  content: "\f26a";
+  position: absolute;
+  font-family: 'bootstrap-icons';
+  color: #2eaf53;
+  font-size: 20px;
+  left: 55%;
+  top: -4%;
+}
+select.form-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  background: url(https://webhookie.com/wp-content/uploads/2021/07/chevron-down.png) 95% center/13px no-repeat;
+}
+@media (max-width: 1024px) {
+  .dot-buttons label {
+    font-size: 10px !important;
+  }
+  #subForm {
+    width: 100%;
+  }
+  .min-wid{
+    width: 100%;
+  }
+  .steppers {
+    width: 100%;
+  }
+  .subscribe-btns{
+    width: 100%;
+  }
+  .step-div h5, .step-div p{
+    font-size: 13px;
+  }
+  .finish::before {
+    left: 58%;
+  }
+}
+
+@media (max-width: 767px) {
+  .dot-buttons ul {
+    padding: 0px;
+  }
+  .dot-buttons .btn-default {
+    margin-left: 0px;
+    margin-right: 8px;
+  }
+  .dot-buttons button {
+    margin-left: 0px;
+  }
+  button {
+    padding: 4px 10px;
+  }
+  #subForm {
+    padding: 15px;
+  }
+  .steppers i{
+    font-size: 20px;
+  }
+  .step {
+    height: 45px;
+    width: 45px;
+  }
+  .step-div h5, .step-div p{
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .finish::before {
+    font-size: 15px;
+  }
+}
+
+#nextBtn.disabled, #nextBtn:disabled {
+  border-color: var(--primary-dark-color);
+  color: var(--primary-text-color);;
+  background-color: var(--color-white);;
+}
+
