@@ -20,16 +20,13 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
-import {WebhookieService} from "../../../../../../shared/service/webhookie.service";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ApplicationService, CreateApplicationRequest} from "../../../../service/application.service";
-import {WebhooksContext} from "../../../../webhooks-context";
 import {Application} from "../../../../model/application";
 import {WebhookieError} from "../../../../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../../../../shared/error/duplicate-entity-error";
 import {BadRequestError} from "../../../../../../shared/error/bad-request-error";
 import {ModalService} from "../../../../../../shared/service/modal.service";
-import {SubscriptionContext} from "../../../subscription-context";
 
 @Component({
   selector: 'app-create-application',
@@ -37,14 +34,12 @@ import {SubscriptionContext} from "../../../subscription-context";
   styleUrls: ['./create-application.component.css']
 })
 export class CreateApplicationComponent implements OnInit {
+  @Output("afterCreate") afterCreate: EventEmitter<any> = new EventEmitter();
   requestedName: string = ""
   requestedDesc?: string
 
   constructor(
     private readonly service: ApplicationService,
-    private readonly webhookieService: WebhookieService,
-    private readonly context: WebhooksContext,
-    private readonly subscriptionContext: SubscriptionContext,
     public modalService: ModalService
   ) {
   }
@@ -59,7 +54,7 @@ export class CreateApplicationComponent implements OnInit {
     }
 
     let successHandler = (app: Application) => {
-      this.subscriptionContext.applicationCreated(app);
+      this.afterCreate.emit(app);
       this.modalService.hide();
     };
 

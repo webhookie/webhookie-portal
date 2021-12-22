@@ -49,7 +49,7 @@
 <div class="app-modal-w">
   <div class="modalSave">
     <ng-template #template1>
-      <app-create-application></app-create-application>
+      <app-create-application (afterCreate)="applicationIsCreated($event)"></app-create-application>
     </ng-template>
   </div>
 </div>

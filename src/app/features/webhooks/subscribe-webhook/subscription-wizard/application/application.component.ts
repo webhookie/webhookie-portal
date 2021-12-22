@@ -22,11 +22,9 @@
 
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ApplicationService} from "../../../service/application.service";
-import {BehaviorSubject, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {Application} from "../../../model/application";
-import {mergeMap} from "rxjs/operators";
 import {ModalService} from "../../../../../shared/service/modal.service";
-import {SubscriptionContext} from "../../subscription-context";
 import {Optional} from "../../../../../shared/model/optional";
 
 @Component({
@@ -37,12 +35,11 @@ import {Optional} from "../../../../../shared/model/optional";
 export class ApplicationComponent implements OnInit {
   @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
 
-  readonly _applications$: Subject<Array<Application>> = new ReplaySubject();
+  readonly _applications$: BehaviorSubject<Array<Application>> = new BehaviorSubject<Array<Application>>([]);
   readonly _selectedApplication: BehaviorSubject<Optional<Application>> = new BehaviorSubject<Optional<Application>>(null)
 
   constructor(
     private readonly applicationService: ApplicationService,
-    private readonly context: SubscriptionContext,
     readonly modalService: ModalService
   ) {
   }
@@ -55,23 +52,16 @@ export class ApplicationComponent implements OnInit {
     return this.applicationService.myApplications()
   }
 
-  ngOnInit(): void {
-    this.context._createdApplication$.asObservable()
-      .pipe(
-        mergeMap(it => zip(of(it), this.loadApplications()))
-      )
-      .subscribe(it => {
-        this._applications$.next(it[1]);
-        this.selectApp(it[0]);
-      })
+  applicationIsCreated(app: Application) {
+    let list = this._applications$.value
+    this._applications$.next(list.concat(...[app]))
+    this.selectApp(app);
+  }
 
+  ngOnInit(): void {
     this.loadApplications()
       .subscribe(list => {
         this._applications$.next(list);
-        if(this.context.currentApplicationId) {
-          let c = list.filter(it => it.id == this.context.currentApplicationId)[0]
-          this.selectApp(c)
-        }
       });
   }
 

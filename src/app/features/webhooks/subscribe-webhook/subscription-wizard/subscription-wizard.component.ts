@@ -22,10 +22,8 @@
 
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {environment} from "../../../../../environments/environment";
-import {Application} from "../../model/application";
 import {ToastService} from "../../../../shared/service/toast.service";
 import {WebhooksContext} from "../../webhooks-context";
-import {SubscriptionContext} from "../subscription-context";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {WebhookBaseComponent} from "../../common/webhook-base-component";
 import {BehaviorSubject, Observable} from "rxjs";
@@ -64,7 +62,6 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   constructor(
     private readonly toastService: ToastService,
     private readonly context: WebhooksContext,
-    private readonly subscriptionContext: SubscriptionContext,
     readonly modalService: ModalService
   ) {
     super(context)
@@ -93,12 +90,6 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
 
   goToTab(tab: WizardStep){
     this.currentStep = tab.step
-  }
-
-  selectApp(event:Event) {
-    let app:any=event.target;
-    let application:Application=app.value;
-    this.subscriptionContext.updateApplication(application);
   }
 
   ngOnInit(): void {
