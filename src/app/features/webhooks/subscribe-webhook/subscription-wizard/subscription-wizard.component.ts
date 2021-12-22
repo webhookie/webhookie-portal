@@ -111,7 +111,8 @@ abstract class WizardStep {
   protected constructor(
     public step: number,
     public title: string,
-    public icon: string
+    public icon: string,
+    public valueMapper: (v: any) => string
   ) {
   }
   private _value$: BehaviorSubject<Optional<any>> = new BehaviorSubject(null);
@@ -127,7 +128,7 @@ abstract class WizardStep {
 
   get displayValue(): Observable<string> {
     return this._value$.asObservable()
-      .pipe(map(it => `${it}`))
+      .pipe(map(it => this.valueMapper(it)))
   }
 }
 
@@ -137,6 +138,6 @@ class CommonWizardStep extends WizardStep {
     public title: string,
     public icon: string
   ) {
-    super(step, title, icon);
+    super(step, title, icon, (v) => {return v.name});
   }
 }
