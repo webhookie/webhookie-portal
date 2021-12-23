@@ -22,14 +22,14 @@
 
 <div class="subscribe-application border-top">
   <fieldset class="p-3 mt-3 mr-lg-3">
-    <h4 class="font16 font-weight-bold">Your application</h4>
+    <h4 class="font16 font-weight-600">Your application</h4>
     <p class="font12">Please select or create an application to add your callback URL.</p>
     <label class="font14 font-weight-400">Select your application</label>
     <div class="dropdown">
       <button class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center"
               data-toggle="dropdown"
               type="button" (click)="clearApp()">
-              {{selectedApplication ? selectedApplication?.name : 'Select your application'}}
+        {{selectedApplication ? selectedApplication?.name : 'Select your application'}}
       </button>
       <div class="dropdown-menu font12 font-weight-400">
         <button (click)="modalService.open(template1)" class="btn btn-default font-weight-400 font12"><i
@@ -37,12 +37,12 @@
         </button>
         <div class="dropdown-divider"></div>
         <a (click)="selectApp(app)" *ngFor="let app of _applications$.asObservable() | async" class="dropdown-item"
-          href="javascript:void(0)">{{app.name}}</a>
+            href="javascript:void(0)">{{app.name}}</a>
       </div>
     </div>
-    <div class="my-2" *ngIf="selectedApplication">
-      <h4 class="font12 font-weight-600 mt-2 mb-1">{{selectedApplication.name}}</h4>
-      <p class="font12">{{selectedApplication.description}}</p>
+    <div *ngIf="selectedApplication"  class="my-2">
+      <h4 class="font12 font-weight-600 mt-2 mb-1">{{selectedApplication?.name}}</h4>
+      <p class="font12">{{selectedApplication?.description}}</p>
     </div>
   </fieldset>
 </div>
