@@ -26,7 +26,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {Application} from "../../../model/application";
 import {ModalService} from "../../../../../shared/service/modal.service";
 import {Optional} from "../../../../../shared/model/optional";
-
+import * as $ from 'jquery';
 @Component({
   selector: 'app-application',
   templateUrl: './application.component.html',
@@ -40,7 +40,7 @@ export class ApplicationComponent implements OnInit {
 
   constructor(
     private readonly applicationService: ApplicationService,
-    readonly modalService: ModalService
+    readonly modalService: ModalService,
   ) {
   }
 
@@ -59,6 +59,11 @@ export class ApplicationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    $(function() {
+      $(".btn-warning").on("click", function () {
+        $(this).toggleClass("active").parent().parent().siblings().find('after').removeClass('active')
+      });
+    });
     this.loadApplications()
       .subscribe(list => {
         this._applications$.next(list);
