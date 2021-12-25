@@ -29,8 +29,6 @@ import {WebhookBaseComponent} from "../../common/webhook-base-component";
 import {BehaviorSubject, Observable} from "rxjs";
 import {filter, map} from "rxjs/operators";
 import {Optional} from "../../../../shared/model/optional";
-import {ApplicationComponent} from "./application/application.component";
-import {CallbackComponent} from "../callback/callback.component";
 import {ResponseComponent} from "../../common/response/response.component";
 import {RequestExampleComponent} from "../../common/request-example/request-example.component";
 import {Application} from "../../model/application";
@@ -42,8 +40,6 @@ import {Callback} from "../../../../shared/model/callback/callback";
   styleUrls: ['./subscription-wizard.component.css']
 })
 export class SubscriptionWizardComponent extends WebhookBaseComponent implements AfterViewInit {
-  @ViewChild("applicationComponent") application?: ApplicationComponent
-  @ViewChild("callbackComponent") callback?: CallbackComponent
   @ViewChild('responseComponent') response?: ResponseComponent
   @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
 
