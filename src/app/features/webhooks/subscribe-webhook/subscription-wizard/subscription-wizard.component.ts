@@ -55,10 +55,10 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   debug = environment.debug
 
   steps: Array<WizardStep<any>> = [
-    new CommonWizardStep<Application>(1, "1.Select your application", "bi bi-folder2-open"),
-    new CommonWizardStep<Callback>(2, "2.Select your callback", "bi bi-link-45deg"),
-    new CommonWizardStep(3, "3.Test callback", "bi bi-gear"),
-    new CommonWizardStep(4, "Congratulations!", "bi bi-snow2")
+    new ApplicationWizardPage("1.Select your application", "bi bi-folder2-open"),
+    new CallbackWizardPage("2.Select your callback", "bi bi-link-45deg"),
+    new DefaultWizardStep(3, "3.Test callback", "bi bi-gear"),
+    new DefaultWizardStep(4, "Congratulations!", "bi bi-snow2")
   ]
 
   constructor(
@@ -115,12 +115,13 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
 
 abstract class WizardStep<T> {
   protected constructor(
-    public step: number,
     public title: string,
-    public icon: string,
-    public valueMapper: (v: T) => string
+    public icon: string
   ) {
   }
+  abstract step: number;
+  abstract valueMapper: (v?: T) => string
+
   private _value$: BehaviorSubject<Optional<any>> = new BehaviorSubject(null);
 
   next(value: T) {
@@ -145,15 +146,47 @@ abstract class WizardStep<T> {
   }
 }
 
-class CommonWizardStep<T> extends WizardStep<T> {
+abstract class CommonWizardStep<T> extends WizardStep<T> {
+  protected constructor(
+    public title: string,
+    public icon: string
+  ) {
+    super(title, icon);
+  }
+}
+
+class DefaultWizardStep extends CommonWizardStep<any> {
   constructor(
     public step: number,
     public title: string,
     public icon: string
   ) {
-    super(step, title, icon, (v) => {
-      // @ts-ignore
-      return v?.name
-    });
+    super(title, icon);
   }
+
+  valueMapper = (v?: Application): string => v?.name ?? "";
+}
+
+class ApplicationWizardPage extends CommonWizardStep<Application> {
+  constructor(
+    public title: string,
+    public icon: string
+  ) {
+    super(title, icon);
+  }
+
+  step = 1
+  valueMapper = (v?: Application): string => v?.name ?? "";
+}
+
+class CallbackWizardPage extends CommonWizardStep<Callback> {
+  constructor(
+    public title: string,
+    public icon: string
+  ) {
+    super(title, icon);
+  }
+
+  step = 2
+  valueMapper = (v?: Callback): string => v?.name ?? "";
 }
