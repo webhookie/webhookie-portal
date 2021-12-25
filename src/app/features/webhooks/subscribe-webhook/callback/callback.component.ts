@@ -42,6 +42,12 @@ type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 export class CallbackComponent implements OnInit {
   @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
   @Input() subscription?: Subscription
+  currentApplication!: Application;
+  @Input() set application(app: Application) {
+    this.currentApplication = app
+    this.service.fetchApplicationCallbacks(app)
+      .subscribe(list => this._callbacks$.next(list))
+  }
 
   callbackToEdit?: Callback
   noOfOtherActiveSubscriptions?: number
@@ -53,10 +59,6 @@ export class CallbackComponent implements OnInit {
     private readonly context: SubscriptionContext,
     private readonly service: CallbackService
   ) {
-  }
-
-  get selectedApplication() {
-    return this.context.currentApplication
   }
 
   get selectedCallback() {
@@ -78,10 +80,10 @@ export class CallbackComponent implements OnInit {
 
   editCallback(): (it: Callback, item: CallbackContextMenu) => any {
     return (callback: Callback) => {
-      this.service.fetchApplicationCallback(this.selectedApplication!.id, callback.id)
+      this.service.fetchApplicationCallback(this.currentApplication.id, callback.id)
         .pipe(
           tap(it => this.callbackToEdit = it),
-          mergeMap(() => this.service.noOfCallbackSubscriptions(this.selectedApplication!.id, callback.id))
+          mergeMap(() => this.service.noOfCallbackSubscriptions(this.currentApplication.id, callback.id))
         )
         .subscribe((it: number) => {
           this.noOfOtherActiveSubscriptions = this.subscription?.statusUpdate?.status == SubscriptionStatus.ACTIVATED
@@ -113,7 +115,7 @@ export class CallbackComponent implements OnInit {
 
     this.context._createdCallback$.asObservable()
       .pipe(
-        mergeMap(it => zip(of(it), this.loadCallbacks(this.selectedApplication)))
+        mergeMap(it => zip(of(it), this.loadCallbacks(this.currentApplication)))
       )
       .subscribe(it => {
         this._callbacks$.next(it[1]);

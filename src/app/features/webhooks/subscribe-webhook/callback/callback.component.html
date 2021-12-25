@@ -20,9 +20,9 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<div [class.isDisabled]="!selectedApplication" class="subscribe-call-back">
+<div class="subscribe-call-back">
   <fieldset class="p-3 mt-3 mr-lg-3">
-    <h4 class="font16 font-weight-600">Add a callback URL <b>{{selectedApplication?.name}}</b></h4>
+    <h4 class="font16 font-weight-600">Add a callback URL <b>{{currentApplication.name}}</b></h4>
     <p class="font12">Please select or create an application to add your callback URL.</p>
 
     <label class="font14 font-weight-400">Select your callback URL</label>

@@ -27,12 +27,14 @@ import {WebhooksContext} from "../../webhooks-context";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {WebhookBaseComponent} from "../../common/webhook-base-component";
 import {BehaviorSubject, Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {filter, map} from "rxjs/operators";
 import {Optional} from "../../../../shared/model/optional";
 import {ApplicationComponent} from "./application/application.component";
 import {CallbackComponent} from "../callback/callback.component";
 import {ResponseComponent} from "../../common/response/response.component";
 import {RequestExampleComponent} from "../../common/request-example/request-example.component";
+import {Application} from "../../model/application";
+import {Callback} from "../../../../shared/model/callback/callback";
 
 @Component({
   selector: 'app-subscription-wizard',
@@ -52,9 +54,9 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   isTest:boolean=false;
   debug = environment.debug
 
-  steps: Array<WizardStep> = [
-    new CommonWizardStep(1, "1.Select your application", "bi bi-folder2-open"),
-    new CommonWizardStep(2, "2.Select your callback", "bi bi-link-45deg"),
+  steps: Array<WizardStep<any>> = [
+    new CommonWizardStep<Application>(1, "1.Select your application", "bi bi-folder2-open"),
+    new CommonWizardStep<Callback>(2, "2.Select your callback", "bi bi-link-45deg"),
     new CommonWizardStep(3, "3.Test callback", "bi bi-gear"),
     new CommonWizardStep(4, "Congratulations!", "bi bi-snow2")
   ]
@@ -80,15 +82,15 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
     }
   }
 
-  isFinished(tab:WizardStep){
+  isFinished(tab:WizardStep<any>){
     return this.finished.includes(tab.step);
   }
 
-  isCurrent(tab:WizardStep){
+  isCurrent(tab:WizardStep<any>){
     return this.currentStep == tab.step
   }
 
-  goToTab(tab: WizardStep){
+  goToTab(tab: WizardStep<any>){
     this.currentStep = tab.step
   }
 
@@ -102,22 +104,26 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
     this.steps[this.currentStep - 1].next(value);
   }
 
+  stepValue(step: number): any {
+    return this.steps[step - 1].currentValue;
+  }
+
   get stepIsReady$(): Observable<boolean> {
     return this.steps[this.currentStep - 1].isReady$()
   }
 }
 
-abstract class WizardStep {
+abstract class WizardStep<T> {
   protected constructor(
     public step: number,
     public title: string,
     public icon: string,
-    public valueMapper: (v: any) => string
+    public valueMapper: (v: T) => string
   ) {
   }
   private _value$: BehaviorSubject<Optional<any>> = new BehaviorSubject(null);
 
-  next(value: any) {
+  next(value: T) {
     this._value$.next(value);
   }
 
@@ -128,16 +134,26 @@ abstract class WizardStep {
 
   get displayValue(): Observable<string> {
     return this._value$.asObservable()
-      .pipe(map(it => this.valueMapper(it)))
+      .pipe(
+        filter(it => it != null),
+        map(it => this.valueMapper(it))
+      )
+  }
+
+  get currentValue(): T {
+    return this._value$.value
   }
 }
 
-class CommonWizardStep extends WizardStep {
+class CommonWizardStep<T> extends WizardStep<T> {
   constructor(
     public step: number,
     public title: string,
     public icon: string
   ) {
-    super(step, title, icon, (v) => {return v?.name});
+    super(step, title, icon, (v) => {
+      // @ts-ignore
+      return v?.name
+    });
   }
 }

@@ -33,57 +33,7 @@
 
 <form id="subForm">
   <app-application *ngIf="currentStep == 1" (onSelect)="updateStepValue($event)"></app-application>
-  <div class="tab min-wid" *ngIf="currentStep == 2">
-    <div class="text-center">
-      <h3 class="font16 font-weight-bold mb-4">2. Select your callback</h3>
-    </div>
-    <p class="font14 mb-1">Select from your previous callback</p>
-    <select class="form-select">
-      <option selected>Volvocars.com</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <div class="description">
-      <form>
-        <div class="d-flex justify-content-between align-items-center">
-          <h3 class="font14 font-weight-600">Callback name</h3><i class="bi bi-three-dots"></i>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" id="volvocars" value="Volvocars.com" readonly>
-        </div>
-        <h3 class="font14 font-weight-600">Callback</h3>
-        <div class="form-row">
-          <div class="form-group col-md-3">
-            <div class="form-group">
-              <input type="text" class="form-control" id="post" value="POST" readonly>
-            </div>
-          </div>
-          <div class="form-group col-md-9">
-            <input class="form-control" id="url" name="url" placeholder="https://www.volvocars.com/se" type="text"
-                   readonly>
-          </div>
-        </div>
-        <h4 class="font14 font-weight-400">Security</h4>
-        <p class="font12 pt-1">HMAC Signature</p>
-        <div class="callback-test-key mt-3">
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label class="font14 font-weight-400 mb-1" for="keyId">Key ID</label>
-              <input class="form-control" id="keyId" name="keyId" value="Key ID example" type="text" readonly>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label class="font14 font-weight-400 mb-1" for="secret">Secret API Key</label>
-              <input class="form-control" id="secret" name="secret" value="Secret API Key example" type="text" readonly>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-    <p class="font16">Want to create new callback? <a href="javascript:void(0)" (click)="modalService.open(template2)" class="font-weight-600">Create</a></p>
-  </div>
+  <app-callback *ngIf="currentStep == 2" [application]="stepValue(1)"></app-callback>
   <div class="tab" *ngIf="currentStep == 3">
     <div class="text-center mb-3">
       <h3 class="font16 font-weight-bold">3. Test callback</h3>
@@ -129,11 +79,5 @@
     <button type="button" id="managesub" class="ml-2" *ngIf="currentStep == 4">Manage your subscription</button>
     <button class="ml-2 btn btn-default" id="gohome" *ngIf="currentStep == 4">Go to webhooks page</button>
   </div>
-</div>
-
-<div class="modalSave">
-  <ng-template #template2>
-    <app-create-callback></app-create-callback>
-  </ng-template>
 </div>
 
