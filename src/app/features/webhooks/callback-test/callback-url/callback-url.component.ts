@@ -25,6 +25,7 @@ import {Callback} from "../../../../shared/model/callback/callback";
 import {environment} from "../../../../../environments/environment";
 import {HmacSecurityScheme} from "../../../../shared/model/callback/security/hmac-security-scheme";
 import {OAuthSecurityScheme} from "../../../../shared/model/callback/security/o-auth-security-scheme";
+import {Optional} from "../../../../shared/model/optional";
 
 @Component({
   selector: 'app-callback-url',
@@ -33,7 +34,7 @@ import {OAuthSecurityScheme} from "../../../../shared/model/callback/security/o-
 })
 //TODO: refactor!
 export class CallbackUrlComponent {
-  @Input() set callback(callback: Callback | undefined) {
+  @Input() set callback(callback: Optional<Callback>) {
     if(callback) {
       this.name = callback.name
       this.url = callback.url

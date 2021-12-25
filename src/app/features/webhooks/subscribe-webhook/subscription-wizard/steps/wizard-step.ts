@@ -20,4 +20,44 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-export type Optional<T> = T | undefined | null;
+import {BehaviorSubject, Observable} from "rxjs";
+import {Optional} from "../../../../../shared/model/optional";
+import {filter, map} from "rxjs/operators";
+
+export abstract class WizardStep<T> {
+  protected constructor(
+      public title: string,
+      public icon: string
+  ) {
+  }
+
+  abstract step: number;
+  abstract valueMapper: (v?: T) => string
+
+  private _value$: BehaviorSubject<Optional<any>> = new BehaviorSubject(null);
+
+  resetValue() {
+    this._value$.next(null)
+  }
+
+  next(value: T) {
+    this._value$.next(value);
+  }
+
+  isReady$(): Observable<boolean> {
+    return this._value$.asObservable()
+        .pipe(map(it => it != null))
+  }
+
+  get displayValue(): Observable<string> {
+    return this._value$.asObservable()
+        .pipe(
+            filter(it => it != null),
+            map(it => this.valueMapper(it))
+        )
+  }
+
+  get currentValue(): T {
+    return this._value$.value
+  }
+}

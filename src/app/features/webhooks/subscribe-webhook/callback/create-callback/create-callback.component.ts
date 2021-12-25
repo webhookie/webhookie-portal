@@ -34,6 +34,7 @@ import {
 import {HmacSecurityScheme} from "../../../../../shared/model/callback/security/hmac-security-scheme";
 import {OAuthSecurityScheme} from "../../../../../shared/model/callback/security/o-auth-security-scheme";
 import {Application} from "../../../model/application";
+import {Optional} from "../../../../../shared/model/optional";
 
 @Component({
   selector: 'app-create-callback',
@@ -43,7 +44,7 @@ import {Application} from "../../../model/application";
 export class CreateCallbackComponent {
   // @ts-ignore
   @ViewChild("callbackComponent") callbackComponent: CallbackUrlComponent
-  @Input() callback?: Callback
+  @Input() callback?: Optional<Callback>
   @Input("forApplication") selectedApplication?: Application
   @Input() noOfOtherActiveSubscriptions?: number
   @Output("afterCreate") afterCreate: EventEmitter<any> = new EventEmitter();

@@ -20,4 +20,17 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-export type Optional<T> = T | undefined | null;
+import {CommonWizardStep} from "./common-wizard-step";
+import {Application} from "../../../model/application";
+
+export class ApplicationWizardPage extends CommonWizardStep<Application> {
+  constructor(
+      public title: string,
+      public icon: string
+  ) {
+    super(title, icon);
+  }
+
+  step = 1
+  valueMapper = (v?: Application): string => v?.name ?? "";
+}

@@ -30,6 +30,7 @@ import {ModalService} from "../../../../shared/service/modal.service";
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../shared/model/table/column/context-menu-item";
 import {CallbackUrlComponent} from "../../callback-test/callback-url/callback-url.component";
 import {Subscription, SubscriptionStatus} from "../../../../shared/model/subscription";
+import {Optional} from "../../../../shared/model/optional";
 
 type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
@@ -43,9 +44,12 @@ export class CallbackComponent implements OnInit {
   @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
   @Input() subscription?: Subscription
   currentApplication!: Application;
-  currentCallback?: Callback;
+  readonly _selectedCallback: BehaviorSubject<Optional<Callback>> = new BehaviorSubject<Optional<Callback>>(null);
   @Input() set application(app: Application) {
     this.loadCallbacks(app)
+  }
+  @Input() set callback(callback: Optional<Callback>) {
+    this._selectedCallback.next(callback)
   }
 
   callbackToEdit?: Callback
@@ -60,7 +64,7 @@ export class CallbackComponent implements OnInit {
   }
 
   get selectedCallback() {
-    return this.currentCallback
+    return this._selectedCallback.value
   }
 
   get encodedSecret(): string {
@@ -106,7 +110,7 @@ export class CallbackComponent implements OnInit {
   }
 
   selectCallback(callback: Callback) {
-    this.currentCallback = callback
+    this._selectedCallback.next(callback)
     this.onSelect.emit(callback)
   }
 

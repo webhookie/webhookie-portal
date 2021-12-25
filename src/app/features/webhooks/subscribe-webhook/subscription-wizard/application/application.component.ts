@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ApplicationService} from "../../../service/application.service";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Application} from "../../../model/application";
@@ -34,6 +34,9 @@ import {Optional} from "../../../../../shared/model/optional";
 })
 export class ApplicationComponent implements OnInit {
   @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
+  @Input("application") set application(app: Optional<Application>) {
+    this._selectedApplication.next(app)
+  }
 
   readonly _applications$: BehaviorSubject<Array<Application>> = new BehaviorSubject<Array<Application>>([]);
   readonly _selectedApplication: BehaviorSubject<Optional<Application>> = new BehaviorSubject<Optional<Application>>(null)
@@ -77,6 +80,6 @@ export class ApplicationComponent implements OnInit {
   }
 
   clearApp() {
-    this._selectedApplication.next(null)
+    this._selectedApplication.next(undefined)
   }
 }

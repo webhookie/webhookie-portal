@@ -21,10 +21,10 @@
   -->
 
 <div class="row justify-content-between steppers">
-  <div *ngFor="let step of steps" class="col-3 col-md-3 text-center step-div"
-       [class.finish]="isFinished(step)"
-       [class.active]="isCurrent(step)">
-  <span class="step d-flex align-items-center justify-content-center mb-3" (click)="goToTab(step)"><i
+  <div *ngFor="let step of stepManager.steps" class="col-3 col-md-3 text-center step-div"
+       [class.finish]="stepManager.isFinished(step)"
+       [class.active]="stepManager.isCurrent(step)">
+  <span class="step d-flex align-items-center justify-content-center mb-3" (click)="stepManager.goToTab(step)"><i
     class="{{step.icon}}"></i></span>
     <h5>{{step.title}}</h5>
     <p>{{step.displayValue | async}}</p>
@@ -32,9 +32,18 @@
 </div>
 
 <form id="subForm">
-  <app-application *ngIf="isApplicationStep" (onSelect)="updateStepValue($event)"></app-application>
-  <app-callback *ngIf="isCallbackStep" [application]="stepValue(1)" (onSelect)="updateStepValue($event)"></app-callback>
-  <div class="tab" *ngIf="isVerifyCallbackStep">
+  <app-application
+    *ngIf="stepManager.isApplicationStep"
+    [application]="stepValue(1)"
+    (onSelect)="updateStepValue($event)">
+  </app-application>
+  <app-callback
+    *ngIf="stepManager.isCallbackStep"
+    [application]="stepValue(1)"
+    [callback]="stepValue(2)"
+    (onSelect)="updateStepValue($event)">
+  </app-callback>
+  <div class="tab" *ngIf="stepManager.isVerifyCallbackStep">
     <div class="text-center mb-3">
       <h3 class="font16 font-weight-bold">3. Test callback</h3>
       <p class="px-lg-5"> To validate that your callback is ready to start receiving "order" events you must send a test request. For
@@ -56,7 +65,7 @@
       </div>
     </div>
   </div>
-  <div class="tab min-wid" *ngIf="isCongratsStep">
+  <div class="tab min-wid" *ngIf="stepManager.isCongratsStep">
     <div class="text-center">
       <h3 class="font16 font-weight-bold" style="color: #0151CC;">Congratulations!</h3>
       <p>You have been successfully subscribed to order webhook.</p>
@@ -67,17 +76,17 @@
 
 <div class="subscribe-btns mb-5 p-3 p-lg-0 pt-lg-2">
   <div class="left-btn">
-    <button type="button" id="cancel" *ngIf="isCancellable" routerLink="/">Cancel</button>
-    <button type="button" id="deactive" class="ml-2" *ngIf="isFinalStep">Deactivate subscription</button>
+    <button type="button" id="cancel" *ngIf="stepManager.isCancellable" routerLink="/">Cancel</button>
+    <button type="button" id="deactive" class="ml-2" *ngIf="stepManager.isFinalStep">Deactivate subscription</button>
   </div>
   <div class="right-btn">
-    <button type="button" id="prevBtn" *ngIf="canGoBack" (click)="goBack()" class="mr-2"><i class="bi bi-arrow-left"></i>
+    <button type="button" id="prevBtn" *ngIf="stepManager.canGoBack" (click)="stepManager.goBack()" class="mr-2"><i class="bi bi-arrow-left"></i>
       Previous
     </button>
-    <button type="button" id="nextBtn" [disabled]="!(stepIsReady$ | async)" [class.disabled]="!(stepIsReady$ | async)" *ngIf="canGoNext" (click)="goNext()">Next <i class="bi bi-arrow-right"></i></button>
-    <button type="button" class="ml-2 btn btn-default" id="subscribe" *ngIf="canSubscribe" (click)="goNext()">Subscribe</button>
-    <button type="button" id="managesub" class="ml-2" *ngIf="isFinalStep">Manage your subscription</button>
-    <button class="ml-2 btn btn-default" id="gohome" *ngIf="isFinalStep">Go to webhooks page</button>
+    <button type="button" id="nextBtn" [disabled]="!(stepIsReady$ | async)" [class.disabled]="!(stepIsReady$ | async)" *ngIf="stepManager.canGoNext" (click)="stepManager.goNext()">Next <i class="bi bi-arrow-right"></i></button>
+    <button type="button" class="ml-2 btn btn-default" id="subscribe" *ngIf="stepManager.canSubscribe" (click)="stepManager.goNext()">Subscribe</button>
+    <button type="button" id="managesub" class="ml-2" *ngIf="stepManager.isFinalStep">Manage your subscription</button>
+    <button class="ml-2 btn btn-default" id="gohome" *ngIf="stepManager.isFinalStep">Go to webhooks page</button>
   </div>
 </div>
 

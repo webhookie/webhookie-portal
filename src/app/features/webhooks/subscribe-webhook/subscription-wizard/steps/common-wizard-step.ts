@@ -20,4 +20,13 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-export type Optional<T> = T | undefined | null;
+import {WizardStep} from "./wizard-step";
+
+export abstract class CommonWizardStep<T> extends WizardStep<T> {
+  protected constructor(
+      public title: string,
+      public icon: string
+  ) {
+    super(title, icon);
+  }
+}
