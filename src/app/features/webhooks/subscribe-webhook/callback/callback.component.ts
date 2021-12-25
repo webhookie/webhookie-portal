@@ -23,7 +23,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {CallbackService} from "../../service/callback.service";
 import {mergeMap, tap} from "rxjs/operators";
-import {EMPTY, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
+import {BehaviorSubject, EMPTY, Observable, of, zip} from "rxjs";
 import {Application} from "../../model/application";
 import {Callback} from "../../../../shared/model/callback/callback";
 import {ModalService} from "../../../../shared/service/modal.service";
@@ -53,7 +53,7 @@ export class CallbackComponent implements OnInit {
   callbackToEdit?: Callback
   noOfOtherActiveSubscriptions?: number
 
-  readonly _callbacks$: Subject<Array<Callback>> = new ReplaySubject();
+  readonly _callbacks$: BehaviorSubject<Array<Callback>> = new BehaviorSubject<Array<Callback>>([]);
 
   constructor(
     readonly modalService: ModalService,
@@ -131,6 +131,12 @@ export class CallbackComponent implements OnInit {
   selectCallback(callback: Callback) {
     this.context.updateCallback(callback);
     this.onSelect.emit(callback)
+  }
+
+  callbackIsCreated(callback: Callback) {
+    let list = this._callbacks$.value
+    this._callbacks$.next(list.concat(...[callback]))
+    this.selectCallback(callback);
   }
 }
 

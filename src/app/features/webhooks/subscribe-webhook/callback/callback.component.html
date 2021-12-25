@@ -127,7 +127,10 @@
 
 <div class="modalSave">
   <ng-template #createCallbackTemplate>
-    <app-create-callback></app-create-callback>
+    <app-create-callback
+      (afterCreate)="callbackIsCreated($event)"
+      [forApplication]="currentApplication">
+    </app-create-callback>
   </ng-template>
 </div>
 

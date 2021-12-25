@@ -20,21 +20,20 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
-import {
-  CallbackRequest,
-  CallbackService
-} from "../../../service/callback.service";
+import {CallbackRequest, CallbackService} from "../../../service/callback.service";
 import {WebhookieError} from "../../../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
 import {Callback} from "../../../../../shared/model/callback/callback";
 import {ModalService} from "../../../../../shared/service/modal.service";
-import {SubscriptionContext} from "../../subscription-context";
-import {ClientCredentialsOAuth2Details} from "../../../../../shared/model/callback/security/client-credentials-o-auth2-details";
+import {
+  ClientCredentialsOAuth2Details
+} from "../../../../../shared/model/callback/security/client-credentials-o-auth2-details";
 import {HmacSecurityScheme} from "../../../../../shared/model/callback/security/hmac-security-scheme";
 import {OAuthSecurityScheme} from "../../../../../shared/model/callback/security/o-auth-security-scheme";
+import {Application} from "../../../model/application";
 
 @Component({
   selector: 'app-create-callback',
@@ -45,12 +44,13 @@ export class CreateCallbackComponent {
   // @ts-ignore
   @ViewChild("callbackComponent") callbackComponent: CallbackUrlComponent
   @Input() callback?: Callback
+  @Input("forApplication") selectedApplication?: Application
   @Input() noOfOtherActiveSubscriptions?: number
+  @Output("afterCreate") afterCreate: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public modalService: ModalService,
-    private readonly service: CallbackService,
-    private readonly context: SubscriptionContext
+    private readonly service: CallbackService
   ) {
   }
 
@@ -74,10 +74,6 @@ export class CreateCallbackComponent {
     return this.numberOfOtherSubscriptionsSharingCallback > 1
   }
 
-  get selectedApplication() {
-    return this.context.currentApplication
-  }
-
   get buttonTitle(): string {
     return this.isEditMode ? "Update" : "Create"
   }
@@ -92,7 +88,7 @@ export class CreateCallbackComponent {
       :`${this.callbackComponent.method} ${this.callbackComponent.url}`
     let request: CallbackRequest = {
       name: name,
-      applicationId: this.context.currentApplication!.id,
+      applicationId: this.selectedApplication!.id,
       httpMethod: this.callbackComponent.method,
       url: this.callbackComponent.url
     }
@@ -120,7 +116,7 @@ export class CreateCallbackComponent {
     }
 
     let successHandler = (callback: Callback) => {
-      this.context.callbackCreated(callback);
+      this.afterCreate.emit(callback);
       this.modalService.hide();
     };
 
