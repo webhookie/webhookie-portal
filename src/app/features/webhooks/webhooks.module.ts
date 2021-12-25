@@ -27,7 +27,7 @@ import {CommonModule} from '@angular/common';
 import {WebhookPageModule} from './webhook-page/webhook-page.module';
 import {SubscribeWebhookComponent} from './subscribe-webhook/subscribe-webhook.component';
 import {CongratsComponent} from './subscribe-webhook/congrats/congrats.component';
-import {CallbackComponent} from './subscribe-webhook/callback/callback.component';
+import {CallbackComponent} from './subscribe-webhook/subscription-wizard/callback/callback.component';
 import {ApplicationComponent} from './subscribe-webhook/subscription-wizard/application/application.component';
 import {WebhookCommonModule} from './common/webhook-common.module';
 import {CallbackTestComponent} from "./callback-test/callback-test.component";
@@ -37,7 +37,9 @@ import {RouterModule} from '@angular/router';
 import {
   CreateApplicationComponent
 } from './subscribe-webhook/subscription-wizard/application/create-application/create-application.component';
-import {CreateCallbackComponent} from './subscribe-webhook/callback/create-callback/create-callback.component';
+import {
+  CreateCallbackComponent
+} from './subscribe-webhook/subscription-wizard/callback/create-callback/create-callback.component';
 import {DotMenuComponent} from 'src/app/shared/components/dot-menu/dot-menu.component';
 import {SharedModule} from "../../shared/shared.module";
 import {CongratsSvgComponent} from './subscribe-webhook/congrats/congrats-svg/congrats-svg.component';

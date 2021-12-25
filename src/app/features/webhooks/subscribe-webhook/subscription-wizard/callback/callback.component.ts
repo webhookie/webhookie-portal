@@ -21,16 +21,16 @@
  */
 
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
-import {CallbackService} from "../../service/callback.service";
+import {CallbackService} from "../../../service/callback.service";
 import {mergeMap, tap} from "rxjs/operators";
 import {BehaviorSubject} from "rxjs";
-import {Application} from "../../model/application";
-import {Callback} from "../../../../shared/model/callback/callback";
-import {ModalService} from "../../../../shared/service/modal.service";
-import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../shared/model/table/column/context-menu-item";
-import {CallbackUrlComponent} from "../../callback-test/callback-url/callback-url.component";
-import {Subscription, SubscriptionStatus} from "../../../../shared/model/subscription";
-import {Optional} from "../../../../shared/model/optional";
+import {Application} from "../../../model/application";
+import {Callback} from "../../../../../shared/model/callback/callback";
+import {ModalService} from "../../../../../shared/service/modal.service";
+import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../../shared/model/table/column/context-menu-item";
+import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
+import {Subscription, SubscriptionStatus} from "../../../../../shared/model/subscription";
+import {Optional} from "../../../../../shared/model/optional";
 
 type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
