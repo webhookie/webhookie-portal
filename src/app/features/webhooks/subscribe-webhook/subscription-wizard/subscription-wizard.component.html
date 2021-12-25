@@ -32,9 +32,9 @@
 </div>
 
 <form id="subForm">
-  <app-application *ngIf="currentStep == 1" (onSelect)="updateStepValue($event)"></app-application>
-  <app-callback *ngIf="currentStep == 2" [application]="stepValue(1)" (onSelect)="updateStepValue($event)"></app-callback>
-  <div class="tab" *ngIf="currentStep == 3">
+  <app-application *ngIf="isApplicationStep" (onSelect)="updateStepValue($event)"></app-application>
+  <app-callback *ngIf="isCallbackStep" [application]="stepValue(1)" (onSelect)="updateStepValue($event)"></app-callback>
+  <div class="tab" *ngIf="isVerifyCallbackStep">
     <div class="text-center mb-3">
       <h3 class="font16 font-weight-bold">3. Test callback</h3>
       <p class="px-lg-5"> To validate that your callback is ready to start receiving "order" events you must send a test request. For
@@ -56,7 +56,7 @@
       </div>
     </div>
   </div>
-  <div class="tab min-wid" *ngIf="currentStep == 4">
+  <div class="tab min-wid" *ngIf="isCongratsStep">
     <div class="text-center">
       <h3 class="font16 font-weight-bold" style="color: #0151CC;">Congratulations!</h3>
       <p>You have been successfully subscribed to order webhook.</p>
@@ -67,17 +67,17 @@
 
 <div class="subscribe-btns mb-5 p-3 p-lg-0 pt-lg-2">
   <div class="left-btn">
-    <button type="button" id="cancel" *ngIf="currentStep < 4" routerLink="/">Cancel</button>
-    <button type="button" id="deactive" class="ml-2" *ngIf="currentStep == 4">Deactivate subscription</button>
+    <button type="button" id="cancel" *ngIf="isCancellable" routerLink="/">Cancel</button>
+    <button type="button" id="deactive" class="ml-2" *ngIf="isFinalStep">Deactivate subscription</button>
   </div>
   <div class="right-btn">
-    <button type="button" id="prevBtn" *ngIf="(currentStep != 1) && (currentStep != 4)" (click)="nextPrev(-1)" class="mr-2"><i class="bi bi-arrow-left"></i>
+    <button type="button" id="prevBtn" *ngIf="canGoBack" (click)="goBack()" class="mr-2"><i class="bi bi-arrow-left"></i>
       Previous
     </button>
-    <button type="button" id="nextBtn" [disabled]="!(stepIsReady$ | async)" [class.disabled]="!(stepIsReady$ | async)" *ngIf="currentStep < 3" (click)="nextPrev(1)">Next <i class="bi bi-arrow-right"></i></button>
-    <button type="button" class="ml-2 btn btn-default" id="subscribe" *ngIf="currentStep == 3" (click)="nextPrev(1)">Subscribe</button>
-    <button type="button" id="managesub" class="ml-2" *ngIf="currentStep == 4">Manage your subscription</button>
-    <button class="ml-2 btn btn-default" id="gohome" *ngIf="currentStep == 4">Go to webhooks page</button>
+    <button type="button" id="nextBtn" [disabled]="!(stepIsReady$ | async)" [class.disabled]="!(stepIsReady$ | async)" *ngIf="canGoNext" (click)="goNext()">Next <i class="bi bi-arrow-right"></i></button>
+    <button type="button" class="ml-2 btn btn-default" id="subscribe" *ngIf="canSubscribe" (click)="goNext()">Subscribe</button>
+    <button type="button" id="managesub" class="ml-2" *ngIf="isFinalStep">Manage your subscription</button>
+    <button class="ml-2 btn btn-default" id="gohome" *ngIf="isFinalStep">Go to webhooks page</button>
   </div>
 </div>
 

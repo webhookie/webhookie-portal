@@ -44,7 +44,6 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
 
   readMode = false;
-  currentStep:any = 1;
   finished:any=[];
   isRes:boolean=false;
   isTest:boolean=false;
@@ -57,6 +56,52 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
     new DefaultWizardStep(4, "Congratulations!", "bi bi-snow2")
   ]
 
+  currentStep: WizardStep<any> = this.steps[0];
+
+  private stepMatches(step: number): boolean {
+    return this.currentStep.step == step
+  }
+
+  get isApplicationStep(): boolean {
+    return this.stepMatches(this.steps[0].step)
+  }
+
+  get isCallbackStep(): boolean {
+    return this.stepMatches(this.steps[1].step)
+  }
+
+  get isVerifyCallbackStep(): boolean {
+    return this.stepMatches(this.steps[2].step)
+  }
+
+  get isCongratsStep(): boolean {
+    return this.stepMatches(this.steps[3].step)
+  }
+
+  get isFirstStep(): boolean {
+    return this.currentStep.step == 1
+  }
+
+  get isFinalStep(): boolean {
+    return this.currentStep.step == this.steps.length
+  }
+
+  get isCancellable(): boolean {
+    return !this.isFinalStep
+  }
+
+  get canGoBack(): boolean {
+    return !(this.isFirstStep || this.isFinalStep)
+  }
+
+  get canGoNext(): boolean {
+    return this.currentStep.step < 3
+  }
+
+  get canSubscribe(): boolean {
+    return this.currentStep.step == 3
+  }
+
   constructor(
     private readonly toastService: ToastService,
     private readonly context: WebhooksContext,
@@ -65,16 +110,21 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
     super(context)
   }
 
-  nextPrev(tab: any){
-    if(!this.finished.includes(this.currentStep)){
-      this.finished.push(this.currentStep);
+  goBack() {
+    this.nextPrev(-1)
+  }
+
+  goNext() {
+    this.nextPrev(1)
+  }
+
+  private nextPrev(tab: any){
+    if(!this.finished.includes(this.currentStep.step)){
+      this.finished.push(this.currentStep.step);
     }
-    this.currentStep = this.currentStep + tab
-    if(this.currentStep == 0){
-      this.currentStep = 1
-    }
-    if(this.currentStep == 5){
-      this.currentStep = 4
+    let newStep = this.currentStep.step + tab
+    if((newStep > 0) && (newStep < this.steps.length)) {
+      this.currentStep = this.steps[newStep - 1]
     }
   }
 
@@ -83,11 +133,11 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   }
 
   isCurrent(tab:WizardStep<any>){
-    return this.currentStep == tab.step
+    return this.currentStep.step == tab.step
   }
 
   goToTab(tab: WizardStep<any>){
-    this.currentStep = tab.step
+    this.currentStep = tab
   }
 
   ngOnInit(): void {
@@ -97,7 +147,7 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   }
 
   updateStepValue(value: any) {
-    this.steps[this.currentStep - 1].next(value);
+    this.currentStep.next(value);
   }
 
   stepValue(step: number): any {
@@ -105,7 +155,7 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   }
 
   get stepIsReady$(): Observable<boolean> {
-    return this.steps[this.currentStep - 1].isReady$()
+    return this.currentStep.isReady$();
   }
 }
 
