@@ -34,13 +34,13 @@
 <form id="subForm">
   <app-application
     *ngIf="stepManager.isApplicationStep"
-    [application]="stepValue(1)"
+    [application]="selectedApplication"
     (onSelect)="updateStepValue($event)">
   </app-application>
   <app-callback
     *ngIf="stepManager.isCallbackStep"
-    [application]="stepValue(1)"
-    [callback]="stepValue(2)"
+    [application]="selectedApplication!!"
+    [callback]="selectedCallback"
     (onSelect)="updateStepValue($event)">
   </app-callback>
   <div class="tab" *ngIf="stepManager.isVerifyCallbackStep">

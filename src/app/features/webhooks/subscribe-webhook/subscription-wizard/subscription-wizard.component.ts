@@ -30,6 +30,9 @@ import {Observable} from "rxjs";
 import {ResponseComponent} from "../../common/response/response.component";
 import {RequestExampleComponent} from "../../common/request-example/request-example.component";
 import {WizardStepManager} from "./steps/wizard-step.manager";
+import {Optional} from "../../../../shared/model/optional";
+import {Application} from "../../model/application";
+import {Callback} from "../../../../shared/model/callback/callback";
 
 @Component({
   selector: 'app-subscription-wizard',
@@ -59,11 +62,19 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   ngAfterViewInit(): void {
   }
 
+  get selectedApplication(): Optional<Application> {
+    return this.stepValue(1)
+  }
+
+  get selectedCallback(): Optional<Callback> {
+    return this.stepValue(2)
+  }
+
   updateStepValue(value: any) {
     this.stepManager.updateStepValue(value)
   }
 
-  stepValue(step: number): any {
+  private stepValue(step: number): any {
     return this.stepManager.stepValue(step)
   }
 
