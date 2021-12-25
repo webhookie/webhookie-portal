@@ -76,29 +76,32 @@ export class WizardStepManager {
   }
 
   goBack() {
+    if(this.finished.has(this.currentStep.step)){
+      this.finished.delete(this.currentStep.step);
+    }
     this.currentStep.resetValue();
     this.nextPrev(-1)
   }
 
   goNext() {
+    if(!this.finished.has(this.currentStep.step)){
+      this.finished.add(this.currentStep.step);
+    }
     this.nextPrev(1)
   }
 
   private nextPrev(tab: any){
-    if(!this.finished.includes(this.currentStep.step)){
-      this.finished.push(this.currentStep.step);
-    }
     let newStep = this.currentStep.step + tab
     if((newStep > 0) && (newStep < this.steps.length)) {
       this.currentStep = this.steps[newStep - 1]
     }
   }
 
-  isFinished(tab:WizardStep<any>){
-    return this.finished.includes(tab.step);
+  isFinished(tab: WizardStep<any>) {
+    return this.finished.has(tab.step);
   }
 
-  isCurrent(tab:WizardStep<any>){
+  isCurrent(tab: WizardStep<any>) {
     return this.currentStep.step == tab.step
   }
 
@@ -118,7 +121,7 @@ export class WizardStepManager {
     return this.currentStep.isReady$();
   }
 
-  finished: any = [];
+  finished: Set<number> = new Set<number>();
 
   private APPLICATION_STEP = new ApplicationWizardPage("1.Select your application", "bi bi-folder2-open");
   private CALLBACK_STEP = new CallbackWizardPage("2.Select your callback", "bi bi-link-45deg");
