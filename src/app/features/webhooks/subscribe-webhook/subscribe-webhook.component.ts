@@ -34,14 +34,12 @@ import {HttpHeaders} from "@angular/common/http";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {ActivatedRoute, Router} from "@angular/router";
-import {SubscriptionContext} from "./subscription-context";
 import {WebhookBaseComponent} from "../common/webhook-base-component";
 import {environment} from "../../../../environments/environment";
 import {WebhookieError} from "../../../shared/error/webhookie-error";
 import {DuplicateEntityError} from "../../../shared/error/duplicate-entity-error";
 import {ToastService} from "../../../shared/service/toast.service";
 import {CallbackResponse} from "../../../shared/model/callback/callback-response";
-import {Application} from '../model/application';
 import {ModalService} from 'src/app/shared/service/modal.service';
 
 @Component({
@@ -64,7 +62,6 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
   constructor(
     private readonly toastService: ToastService,
     private readonly context: WebhooksContext,
-    private readonly subscriptionContext: SubscriptionContext,
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly subscriptionService: SubscriptionService,
@@ -74,13 +71,8 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
     super(context)
   }
 
-  get selectedCallback() {
-    return this.subscriptionContext.currentCallback
-  }
-
   get canBeSaved() {
-    return this.selectedCallback &&
-      this.subscription?.callback?.id != this.selectedCallback.id
+    return false
   }
 
   get canBeValidated() {
@@ -96,7 +88,6 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
   }
 
   private clear() {
-    this.subscriptionContext.clear();
   }
 
   ngAfterViewInit() {
@@ -116,8 +107,10 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
 
     this.clear();
 
+/*
     this.subscriptionContext.selectedCallback$
       .subscribe(() => this.response?.invalidate());
+*/
   }
 
   title() {
@@ -177,20 +170,11 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
     };
 
     if(this.subscription?.id) {
-      this.subscriptionService.updateSubscription(this.subscription, this.selectedCallback!.id)
+      this.subscriptionService.updateSubscription(this.subscription, "DUMMY ID")
         .subscribe(successHandler, errorHandler);
     } else {
-      this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback!.id)
+      this.subscriptionService.createSubscription(this.webhook.topic.name, "DUMMY ID")
         .subscribe(successHandler, errorHandler);
     }
-  }
-
-  selectApp(event:Event) {
-    let app:any=event.target;
-    let application:Application=app.value;
-    this.subscriptionContext.updateApplication(application);
-  }
-  get selectedApplication() {
-    return this.subscriptionContext.currentApplication
   }
 }

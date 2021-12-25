@@ -46,7 +46,6 @@ import {Constants} from "../../../shared/constants";
 import {RouterService} from "../../../shared/service/router.service";
 import {WebhooksContext} from "../../webhooks/webhooks-context";
 import {WebhookApiService} from "../../webhooks/service/webhook-api.service";
-import {SubscriptionContext} from "../../webhooks/subscribe-webhook/subscription-context";
 import {Webhook} from "../../webhooks/model/webhook";
 import {WebhookSelection} from "../../webhooks/model/webhook-selection";
 
@@ -68,7 +67,6 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   constructor(
     private readonly webhookApiService: WebhookApiService,
     private readonly context: WebhooksContext,
-    private readonly subscriptionContext: SubscriptionContext,
     private readonly routeService: RouterService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly contextMenuService: SubscriptionContextMenuService,
@@ -212,7 +210,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
       this.webhookApiService.fetchByTopic(subscription.topic)
         .subscribe(group => {
           this.context.selectWebhook(WebhookSelection.createByTopic(group, subscription.topic));
-          this.subscriptionContext.selectSubscription(subscription);
+          // this.subscriptionContext.selectSubscription(subscription);
           const params = {
             subscriptionId: subscription.id
           }

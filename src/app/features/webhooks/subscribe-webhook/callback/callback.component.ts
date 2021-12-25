@@ -23,11 +23,10 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {CallbackService} from "../../service/callback.service";
 import {mergeMap, tap} from "rxjs/operators";
-import {BehaviorSubject, EMPTY, Observable, of, zip} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {Application} from "../../model/application";
 import {Callback} from "../../../../shared/model/callback/callback";
 import {ModalService} from "../../../../shared/service/modal.service";
-import {SubscriptionContext} from "../subscription-context";
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../shared/model/table/column/context-menu-item";
 import {CallbackUrlComponent} from "../../callback-test/callback-url/callback-url.component";
 import {Subscription, SubscriptionStatus} from "../../../../shared/model/subscription";
@@ -44,10 +43,9 @@ export class CallbackComponent implements OnInit {
   @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
   @Input() subscription?: Subscription
   currentApplication!: Application;
+  currentCallback?: Callback;
   @Input() set application(app: Application) {
-    this.currentApplication = app
-    this.service.fetchApplicationCallbacks(app)
-      .subscribe(list => this._callbacks$.next(list))
+    this.loadCallbacks(app)
   }
 
   callbackToEdit?: Callback
@@ -57,13 +55,12 @@ export class CallbackComponent implements OnInit {
 
   constructor(
     readonly modalService: ModalService,
-    private readonly context: SubscriptionContext,
     private readonly service: CallbackService
   ) {
   }
 
   get selectedCallback() {
-    return this.context.currentCallback
+    return this.currentCallback
   }
 
   get encodedSecret(): string {
@@ -95,33 +92,13 @@ export class CallbackComponent implements OnInit {
     }
   }
 
-  loadCallbacks(application?: Application): Observable<Array<Callback>> {
-    if(application) {
-      return this.service.fetchApplicationCallbacks(application)
-    }
-
-    return EMPTY;
+  loadCallbacks(application: Application) {
+    this.currentApplication = application
+    this.service.fetchApplicationCallbacks(application)
+      .subscribe(list => this._callbacks$.next(list))
   }
 
   ngOnInit(): void {
-    this.context.selectedApplication$
-      .pipe(mergeMap(it => this.service.fetchApplicationCallbacks(it)))
-      .subscribe(list => {
-        this._callbacks$.next(list);
-        if(this.context.currentCallbackId) {
-          const callback = list.filter(it => it.id == this.context.currentCallbackId)[0]
-          this.selectCallback(callback)
-        }
-      })
-
-    this.context._createdCallback$.asObservable()
-      .pipe(
-        mergeMap(it => zip(of(it), this.loadCallbacks(this.currentApplication)))
-      )
-      .subscribe(it => {
-        this._callbacks$.next(it[1]);
-        this.selectCallback(it[0]);
-      })
   }
 
   create() {
@@ -129,7 +106,7 @@ export class CallbackComponent implements OnInit {
   }
 
   selectCallback(callback: Callback) {
-    this.context.updateCallback(callback);
+    this.currentCallback = callback
     this.onSelect.emit(callback)
   }
 
