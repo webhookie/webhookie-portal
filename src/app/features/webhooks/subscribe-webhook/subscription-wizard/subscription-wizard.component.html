@@ -33,7 +33,7 @@
 
 <form id="subForm">
   <app-application *ngIf="currentStep == 1" (onSelect)="updateStepValue($event)"></app-application>
-  <app-callback *ngIf="currentStep == 2" [application]="stepValue(1)"></app-callback>
+  <app-callback *ngIf="currentStep == 2" [application]="stepValue(1)" (onSelect)="updateStepValue($event)"></app-callback>
   <div class="tab" *ngIf="currentStep == 3">
     <div class="text-center mb-3">
       <h3 class="font16 font-weight-bold">3. Test callback</h3>

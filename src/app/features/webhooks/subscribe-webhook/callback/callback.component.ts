@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {CallbackService} from "../../service/callback.service";
 import {mergeMap, tap} from "rxjs/operators";
 import {EMPTY, Observable, of, ReplaySubject, Subject, zip} from "rxjs";
@@ -40,6 +40,7 @@ type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
   styleUrls: ['./callback.component.css']
 })
 export class CallbackComponent implements OnInit {
+  @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
   @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
   @Input() subscription?: Subscription
   currentApplication!: Application;
@@ -129,6 +130,7 @@ export class CallbackComponent implements OnInit {
 
   selectCallback(callback: Callback) {
     this.context.updateCallback(callback);
+    this.onSelect.emit(callback)
   }
 }
 
