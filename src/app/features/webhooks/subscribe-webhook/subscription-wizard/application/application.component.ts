@@ -59,6 +59,12 @@ export class ApplicationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    $(function() {
+      $(".btn-warning").on("click", function () {
+        $(this).toggleClass("active").parent().parent().siblings().find('after').removeClass('active')
+      });
+    });
+
     this.loadApplications()
       .subscribe(list => {
         this._applications$.next(list);
