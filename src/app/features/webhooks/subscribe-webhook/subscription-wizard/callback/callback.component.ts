@@ -35,7 +35,7 @@ import {Optional} from "../../../../../shared/model/optional";
 type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
 @Component({
-  selector: 'app-callback',
+  selector: 'app-subscription-wizard-callback',
   templateUrl: './callback.component.html',
   styleUrls: ['./callback.component.css']
 })

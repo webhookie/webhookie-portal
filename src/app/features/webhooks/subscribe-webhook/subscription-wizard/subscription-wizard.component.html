@@ -32,17 +32,17 @@
 </div>
 
 <form id="subForm">
-  <app-application
+  <app-subscription-wizard-application
     *ngIf="stepManager.isApplicationStep"
     [application]="selectedApplication"
     (onSelect)="updateStepValue($event)">
-  </app-application>
-  <app-callback
+  </app-subscription-wizard-application>
+  <app-subscription-wizard-callback
     *ngIf="stepManager.isCallbackStep"
     [application]="selectedApplication!!"
     [callback]="selectedCallback"
     (onSelect)="updateStepValue($event)">
-  </app-callback>
+  </app-subscription-wizard-callback>
   <div class="tab" *ngIf="stepManager.isVerifyCallbackStep">
     <div class="text-center mb-3">
       <h3 class="font16 font-weight-bold">3. Test callback</h3>

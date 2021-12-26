@@ -28,7 +28,7 @@ import {ModalService} from "../../../../../shared/service/modal.service";
 import {Optional} from "../../../../../shared/model/optional";
 
 @Component({
-  selector: 'app-application',
+  selector: 'app-subscription-wizard-application',
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.css']
 })
