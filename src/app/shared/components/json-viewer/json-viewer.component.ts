@@ -22,7 +22,6 @@
 
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonUtils} from "../../json-utils";
-import * as $ from "jquery";
 import {ModalService} from "../../service/modal.service";
 
 @Component({
@@ -42,16 +41,17 @@ export class JsonViewerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  showHtml(body: any) {
-    const str = JSON.stringify(body, null, '\t');
-    let json = JsonUtils.syntaxHighlight(str)
-    let myContainer = document.getElementById('test_res') as HTMLInputElement;
-    myContainer.innerHTML = json;
-  }
-
   show(body: any) {
+    let value;
+    try {
+      value = (typeof body === "string") ? JSON.parse(body) : body;
+    } catch (e) {
+      value = body;
+    }
+    let valueAsString = JSON.stringify(value, null, '\t');
+
     let myContainer = document.getElementById('test_res') as HTMLInputElement;
-    myContainer.innerText = body;
+    myContainer.innerHTML = JsonUtils.syntaxHighlight(valueAsString);
   }
 
   clear() {
