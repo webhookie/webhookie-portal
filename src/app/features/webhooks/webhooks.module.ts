@@ -48,6 +48,7 @@ import {SubscriptionWizardComponent} from './subscribe-webhook/subscription-wiza
 import {
   VerifyCallbackComponent
 } from './subscribe-webhook/subscription-wizard/verify-callback/verify-callback.component';
+import {WizardCongratsComponent} from "./subscribe-webhook/subscription-wizard/congrats/wizard-congrats.component";
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import {
     CongratsSvgComponent,
     SubscriptionWizardComponent,
     VerifyCallbackComponent,
-    VerifyCallbackComponent
+    WizardCongratsComponent
   ],
   imports: [
     CommonModule,

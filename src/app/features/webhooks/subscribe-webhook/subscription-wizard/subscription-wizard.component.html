@@ -46,13 +46,9 @@
   <app-subscription-wizard-verify-callback
     *ngIf="stepManager.isVerifyCallbackStep">
   </app-subscription-wizard-verify-callback>
-  <div class="tab min-wid" *ngIf="stepManager.isCongratsStep">
-    <div class="text-center">
-      <h3 class="font16 font-weight-bold" style="color: #0151CC;">Congratulations!</h3>
-      <p>You have been successfully subscribed to order webhook.</p>
-      <img src="assets/images/Congratulations!.svg" class="img-fluid" alt="congratulations"/>
-    </div>
-  </div>
+  <app-subscription-wizard-congrats
+    *ngIf="stepManager.isCongratsStep">
+  </app-subscription-wizard-congrats>
 </form>
 
 <div class="subscribe-btns mb-5 p-3 p-lg-0 pt-lg-2">
