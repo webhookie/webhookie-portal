@@ -30,7 +30,12 @@
       Response <span *ngIf="responseCode$ | async">{{responseCode$ | async}}</span>
     </h4>
     <h4 class="font-weight-bold font16" [ngClass]="responseClass">
-      <span class="text-primary" *ngIf="validateTimer$ | async">{{validateTimer$ | async | date:'mm:ss.SSS':'UTC'}}</span>
+      <span
+        [class.text-success]="isSuccess"
+        [class.text-danger]="isError"
+        *ngIf="validateTimer$ | async">
+        {{validateTimer$ | async | date:'mm:ss.SSS':'UTC'}}
+      </span>
     </h4>
 
   </div>
