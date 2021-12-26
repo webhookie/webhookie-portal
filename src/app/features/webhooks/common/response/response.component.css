@@ -40,3 +40,15 @@
   line-height: 1.9;
   white-space: pre-wrap;
 }
+
+.response-success {
+  background-color: rgba(25, 105, 44, 0.05) !important;
+  border-color: rgb(25, 105, 44) !important;
+  border-width: 2px;
+}
+
+.response-danger {
+  background-color: rgba(167, 29, 42, 0.05) !important;
+  border-color: rgb(167, 29, 42) !important;
+  border-width: 2px;
+}

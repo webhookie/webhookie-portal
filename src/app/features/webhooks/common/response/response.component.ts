@@ -26,6 +26,7 @@ import {filter, map} from "rxjs/operators";
 import {HttpErrorResponse} from "@angular/common/http";
 import {JsonViewerComponent} from "../../../../shared/components/json-viewer/json-viewer.component";
 import {CallbackResponse} from "../../../../shared/model/callback/callback-response";
+import {Optional} from "../../../../shared/model/optional";
 
 @Component({
   selector: 'app-response',
@@ -49,6 +50,19 @@ export class ResponseComponent implements OnInit {
     .pipe(map(it => it?.responseCode))
 
   responseClass: string = "text-default"
+  responseStatus: Optional<ResponseStatus> = null;
+
+  get isClear() {
+    return this.responseStatus == null;
+  }
+
+  get isSuccess() {
+    return this.responseStatus == ResponseStatus.SUCCESS;
+  }
+
+  get isError() {
+    return this.responseStatus == ResponseStatus.ERROR;
+  }
 
   constructor() {
   }
@@ -67,6 +81,7 @@ export class ResponseComponent implements OnInit {
   }
 
   update(response: CallbackResponse) {
+    this.responseStatus = ResponseStatus.SUCCESS
     this.stopTimer();
     this._response$.next(response);
     this.responseClass = "text-success"
@@ -85,6 +100,7 @@ export class ResponseComponent implements OnInit {
   }
 
   updateWithError(errorResponse: HttpErrorResponse) {
+    this.responseStatus = ResponseStatus.ERROR
     this.stopTimer();
     this.responseClass = "text-danger"
     let body: any;
@@ -116,6 +132,12 @@ export class ResponseComponent implements OnInit {
     this.responseViewer?.clear();
     // @ts-ignore
     this.validateTimer$.next(null);
+    this.responseStatus = null;
   }
+}
+
+enum ResponseStatus {
+  SUCCESS = 1,
+  ERROR = -1
 }
 

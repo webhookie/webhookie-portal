@@ -20,7 +20,11 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<div class="light-mode mt-3 mr-lg-3" *ngIf="preShow">
+<div class="light-mode mt-3 mr-lg-3"
+     [class.response-success]="isSuccess"
+     [class.response-danger]="isError"
+     [class.bg-transparent]="isClear"
+     *ngIf="preShow">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h4 class="font-weight-bold font16" [ngClass]="responseClass">
       Response <span *ngIf="responseCode$ | async">{{responseCode$ | async}}</span>
