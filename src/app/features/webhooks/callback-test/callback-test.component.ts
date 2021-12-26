@@ -23,16 +23,15 @@
 import {Component, ViewChild} from '@angular/core';
 import {CallbackUrlComponent} from "./callback-url/callback-url.component";
 import {ResponseComponent} from "../common/response/response.component";
-import {
-  CallbackService,
-  CallbackValidationRequest
-} from "../service/callback.service";
+import {CallbackService, CallbackValidationRequest} from "../service/callback.service";
 import {WebhooksContext} from "../webhooks-context";
 import {BadRequestError} from "../../../shared/error/bad-request-error";
 import {RequestExampleComponent} from "../common/request-example/request-example.component";
 import {WebhookBaseComponent} from "../common/webhook-base-component";
 import {ValidateSubscriptionRequest} from "../../../shared/service/subscription.service";
-import {ClientCredentialsOAuth2Details} from "../../../shared/model/callback/security/client-credentials-o-auth2-details";
+import {
+  ClientCredentialsOAuth2Details
+} from "../../../shared/model/callback/security/client-credentials-o-auth2-details";
 import {HmacSecurityScheme} from "../../../shared/model/callback/security/hmac-security-scheme";
 import {OAuthSecurityScheme} from "../../../shared/model/callback/security/o-auth-security-scheme";
 
@@ -70,7 +69,8 @@ export class CallbackTestComponent extends WebhookBaseComponent {
       httpMethod: this.callback!.method,
       url: this.callback!.url,
       payload: JSON.stringify(requestExample.payload),
-      headers: requestExample.headers
+      headers: requestExample.headers,
+      securityScheme: null
     }
 
     if(this.callback!.isHmac) {

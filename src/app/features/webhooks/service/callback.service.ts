@@ -32,6 +32,7 @@ import {Callback} from "../../../shared/model/callback/callback";
 import {CallbackAdapter} from "../../../shared/adapter/callback.adapter";
 import {CallbackSecurityScheme} from "../../../shared/model/callback/security/callback-security-scheme";
 import {CallbackResponse} from "../../../shared/model/callback/callback-response";
+import {Optional} from "../../../shared/model/optional";
 
 @Injectable({
   providedIn: 'root'
@@ -102,7 +103,7 @@ export interface CallbackValidationRequest {
   url: string,
   payload: string,
   headers: any,
-  securityScheme?: CallbackSecurityScheme,
+  securityScheme: Optional<CallbackSecurityScheme>,
   traceId?: string,
   spanId?: string
 }
