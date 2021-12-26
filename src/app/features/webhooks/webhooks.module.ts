@@ -45,6 +45,9 @@ import {SharedModule} from "../../shared/shared.module";
 import {CongratsSvgComponent} from './subscribe-webhook/congrats/congrats-svg/congrats-svg.component';
 import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
 import {SubscriptionWizardComponent} from './subscribe-webhook/subscription-wizard/subscription-wizard.component';
+import {
+  VerifyCallbackComponent
+} from './subscribe-webhook/subscription-wizard/verify-callback/verify-callback.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,9 @@ import {SubscriptionWizardComponent} from './subscribe-webhook/subscription-wiza
     CreateCallbackComponent,
     DotMenuComponent,
     CongratsSvgComponent,
-    SubscriptionWizardComponent
+    SubscriptionWizardComponent,
+    VerifyCallbackComponent,
+    VerifyCallbackComponent
   ],
   imports: [
     CommonModule,

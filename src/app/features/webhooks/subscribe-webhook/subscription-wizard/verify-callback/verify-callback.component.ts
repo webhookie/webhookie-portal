@@ -20,57 +20,26 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {environment} from "../../../../../environments/environment";
-import {ModalService} from "../../../../shared/service/modal.service";
-import {Observable} from "rxjs";
-import {ResponseComponent} from "../../common/response/response.component";
-import {RequestExampleComponent} from "../../common/request-example/request-example.component";
-import {WizardStepManager} from "./steps/wizard-step.manager";
-import {Optional} from "../../../../shared/model/optional";
-import {Application} from "../../model/application";
-import {Callback} from "../../../../shared/model/callback/callback";
+import {Component, OnInit} from '@angular/core';
+import {WebhookBaseComponent} from "../../../common/webhook-base-component";
+import {WebhooksContext} from "../../../webhooks-context";
 
 @Component({
-  selector: 'app-subscription-wizard',
-  templateUrl: './subscription-wizard.component.html',
-  styleUrls: ['./subscription-wizard.component.css']
+  selector: 'app-subscription-wizard-verify-callback',
+  templateUrl: './verify-callback.component.html',
+  styleUrls: ['./verify-callback.component.css']
 })
-export class SubscriptionWizardComponent implements AfterViewInit {
-  @ViewChild('responseComponent') response?: ResponseComponent
-  @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
-
-  debug = environment.debug
+export class VerifyCallbackComponent extends WebhookBaseComponent  implements OnInit {
+  isRes: boolean=false;
+  isTest: boolean=false;
 
   constructor(
-    readonly stepManager: WizardStepManager,
-    readonly modalService: ModalService
+    private readonly context: WebhooksContext,
   ) {
+    super(context);
   }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
-  }
-
-  get selectedApplication(): Optional<Application> {
-    return this.stepValue(1)
-  }
-
-  get selectedCallback(): Optional<Callback> {
-    return this.stepValue(2)
-  }
-
-  updateStepValue(value: any) {
-    this.stepManager.updateStepValue(value)
-  }
-
-  private stepValue(step: number): any {
-    return this.stepManager.stepValue(step)
-  }
-
-  get stepIsReady$(): Observable<boolean> {
-    return this.stepManager.stepIsReady$;
-  }
 }
