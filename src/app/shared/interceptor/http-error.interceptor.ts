@@ -109,6 +109,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
   ignoreRequests: Set<string> = new Set<string>([
     "POST /webhookapis",
+    "POST /callbacks/test",
     "GET /manage/health",
     "GET /public/config",
     "GET /user",
