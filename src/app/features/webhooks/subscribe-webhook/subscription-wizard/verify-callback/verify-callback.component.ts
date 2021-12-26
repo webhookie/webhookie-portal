@@ -20,9 +20,16 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {WebhookBaseComponent} from "../../../common/webhook-base-component";
 import {WebhooksContext} from "../../../webhooks-context";
+import {RequestExampleComponent} from "../../../common/request-example/request-example.component";
+import {ResponseComponent} from "../../../common/response/response.component";
+import {ValidateSubscriptionRequest} from "../../../../../shared/service/subscription.service";
+import {CallbackService, CallbackValidationRequest} from "../../../service/callback.service";
+import {BadRequestError} from "../../../../../shared/error/bad-request-error";
+import {Optional} from "../../../../../shared/model/optional";
+import {Callback} from "../../../../../shared/model/callback/callback";
 
 @Component({
   selector: 'app-subscription-wizard-verify-callback',
@@ -30,11 +37,16 @@ import {WebhooksContext} from "../../../webhooks-context";
   styleUrls: ['./verify-callback.component.css']
 })
 export class VerifyCallbackComponent extends WebhookBaseComponent  implements OnInit {
+  @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
+  @ViewChild('responseComponent') response!: ResponseComponent
+  @Input() callback: Optional<Callback>
+
   isRes: boolean=false;
   isTest: boolean=false;
 
   constructor(
     private readonly context: WebhooksContext,
+    private readonly callbackService: CallbackService
   ) {
     super(context);
   }
@@ -42,4 +54,24 @@ export class VerifyCallbackComponent extends WebhookBaseComponent  implements On
   ngOnInit(): void {
   }
 
+  test() {
+    this.response.init()
+
+    let requestExample: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
+    let request: CallbackValidationRequest = {
+      httpMethod: this.callback!.httpMethod,
+      url: this.callback!.url,
+      payload: JSON.stringify(requestExample.payload),
+      headers: requestExample.headers,
+      securityScheme: this.callback!.security
+    }
+
+    this.callbackService.testCallback(request)
+      .subscribe(
+        it => this.response.update(it),
+        (err: BadRequestError) => {
+          this.response.updateWithError(err.error)
+        }
+      )
+  }
 }

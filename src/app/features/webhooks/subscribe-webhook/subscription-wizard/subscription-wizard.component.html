@@ -44,7 +44,8 @@
     (onSelect)="updateStepValue($event)">
   </app-subscription-wizard-callback>
   <app-subscription-wizard-verify-callback
-    *ngIf="stepManager.isVerifyCallbackStep">
+    *ngIf="stepManager.isVerifyCallbackStep"
+    [callback]="selectedCallback">
   </app-subscription-wizard-verify-callback>
   <app-subscription-wizard-congrats
     *ngIf="stepManager.isCongratsStep">
