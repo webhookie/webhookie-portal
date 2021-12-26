@@ -92,7 +92,7 @@ export class WizardStepManager {
 
   private nextPrev(tab: any){
     let newStep = this.currentStep.step + tab
-    if((newStep > 0) && (newStep < this.steps.length)) {
+    if((newStep > 0) && (newStep <= this.steps.length)) {
       this.currentStep = this.steps[newStep - 1]
     }
   }
