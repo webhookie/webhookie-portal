@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {BehaviorSubject, Observable, ReplaySubject, Subject, Subscription, timer} from "rxjs";
 import {filter, map} from "rxjs/operators";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -33,6 +33,7 @@ import {CallbackResponse} from "../../../../shared/model/callback/callback-respo
   styleUrls: ['./response.component.css']
 })
 export class ResponseComponent implements OnInit {
+  @Input() preShow: boolean = false
   @ViewChild("responseViewer") responseViewer?: JsonViewerComponent
   // @ts-ignore
   private readonly _response$: BehaviorSubject<CallbackResponse> = new BehaviorSubject<CallbackResponse>(null);
@@ -58,16 +59,7 @@ export class ResponseComponent implements OnInit {
 
   ngOnInit(): void {
     this.response$
-      .subscribe(res => {
-        let body = res.responseBody;
-        if (res.headers.get("Content-Type")?.startsWith("application/json")) {
-          this.responseViewer?.showHtml(body);
-        } else if (res.headers.get("Content-Type")?.startsWith("text/plain")) {
-          this.responseViewer?.show(body);
-        } else {
-          this.responseViewer?.show(body);
-        }
-      })
+      .subscribe(res => this.responseViewer?.show(res.responseBody));
   }
 
   ngOnDestroy() {
@@ -112,6 +104,7 @@ export class ResponseComponent implements OnInit {
   }
 
   init() {
+    this.preShow = true;
     this.invalidate();
     this.startTimer();
   }
