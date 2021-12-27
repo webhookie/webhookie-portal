@@ -128,7 +128,7 @@
 <div class="modalSave">
   <ng-template #createCallbackTemplate>
     <app-create-callback
-      (afterCreate)="callbackIsCreated($event)"
+      (onSuccess)="callbackIsCreated($event)"
       [forApplication]="currentApplication">
     </app-create-callback>
   </ng-template>
@@ -136,6 +136,11 @@
 
 <div class="modalSave">
   <ng-template #editCallbackTemplate>
-    <app-create-callback [callback]="selectedCallback" [noOfOtherActiveSubscriptions]="noOfOtherActiveSubscriptions"></app-create-callback>
+    <app-create-callback
+      (onSuccess)="callbackIsUpdated($event)"
+      [callback]="selectedCallback"
+      [forApplication]="currentApplication"
+      [noOfOtherActiveSubscriptions]="noOfOtherActiveSubscriptions">
+    </app-create-callback>
   </ng-template>
 </div>

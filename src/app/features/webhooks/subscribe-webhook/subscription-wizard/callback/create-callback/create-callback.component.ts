@@ -47,7 +47,7 @@ export class CreateCallbackComponent {
   @Input() callback?: Optional<Callback>
   @Input("forApplication") selectedApplication?: Application
   @Input() noOfOtherActiveSubscriptions?: number
-  @Output("afterCreate") afterCreate: EventEmitter<any> = new EventEmitter();
+  @Output("onSuccess") onSuccess: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public modalService: ModalService,
@@ -77,6 +77,10 @@ export class CreateCallbackComponent {
 
   get buttonTitle(): string {
     return this.isEditMode ? "Update" : "Create"
+  }
+
+  get formTitle(): string {
+    return this.isEditMode ? "Update" : "Create new"
   }
 
   get isEditMode(): boolean {
@@ -117,7 +121,8 @@ export class CreateCallbackComponent {
     }
 
     let successHandler = (callback: Callback) => {
-      this.afterCreate.emit(callback);
+      this.callback = callback
+      this.onSuccess.emit(callback);
       this.modalService.hide();
     };
 

@@ -46,7 +46,8 @@ export class CallbackComponent implements OnInit {
   currentApplication!: Application;
   readonly _selectedCallback: BehaviorSubject<Optional<Callback>> = new BehaviorSubject<Optional<Callback>>(null);
   @Input() set application(app: Application) {
-    this.loadCallbacks(app)
+    this.currentApplication = app
+    this.loadCallbacks()
   }
   @Input() set callback(callback: Optional<Callback>) {
     this._selectedCallback.next(callback)
@@ -96,9 +97,8 @@ export class CallbackComponent implements OnInit {
     }
   }
 
-  loadCallbacks(application: Application) {
-    this.currentApplication = application
-    this.service.fetchApplicationCallbacks(application)
+  loadCallbacks() {
+    this.service.fetchApplicationCallbacks(this.currentApplication)
       .subscribe(list => this._callbacks$.next(list))
   }
 
@@ -117,6 +117,17 @@ export class CallbackComponent implements OnInit {
   callbackIsCreated(callback: Callback) {
     let list = this._callbacks$.value
     this._callbacks$.next(list.concat(...[callback]))
+    this.selectCallback(callback);
+  }
+
+  callbackIsUpdated(callback: Callback) {
+/*
+    let list = this._callbacks$.value
+    let idx = list.findIndex((it) => it.id == callback.id)
+    list[idx] = callback
+    this._callbacks$.next(list)
+*/
+    this.loadCallbacks()
     this.selectCallback(callback);
   }
 }
