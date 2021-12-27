@@ -42,16 +42,8 @@ export class JsonViewerComponent implements OnInit {
   }
 
   show(body: any) {
-    let value;
-    try {
-      value = (typeof body === "string") ? JSON.parse(body) : body;
-    } catch (e) {
-      value = body;
-    }
-    let valueAsString = JSON.stringify(value, null, '\t');
-
     let myContainer = document.getElementById('test_res') as HTMLInputElement;
-    myContainer.innerHTML = JsonUtils.syntaxHighlight(valueAsString);
+    myContainer.innerHTML = JsonUtils.syntaxHighlight(JsonUtils.anyToString(body));
   }
 
   clear() {
