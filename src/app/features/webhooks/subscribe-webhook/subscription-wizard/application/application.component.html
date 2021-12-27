@@ -20,13 +20,13 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<div class="subscribe-application border-top">
+<div class="row justify-content-center subscribe-application">
+  <div class="col-lg-5 col-sm-6">
   <fieldset class="p-3 mt-3 mr-lg-3">
-    <h4 class="font16 font-weight-bold">Your application</h4>
-    <p class="font12">Please select or create an application to add your callback URL.</p>
-    <label class="font14 font-weight-400">Select your application</label>
+    <h4 class="font16 font-weight-bold text-center">1. Select your application</h4>
+    <label class="font14 font-weight-400 mt-3">Select from your previous application</label>
     <div class="dropdown">
-      <button class="btn btn-warning dropdown-toggle text-left font-weight-400 font12 d-flex justify-content-between align-items-center"
+      <button class="btn btn-warning dropdown-toggle text-left font-weight-600 font12 d-flex justify-content-between align-items-center"
               data-toggle="dropdown"
               type="button" (click)="clearApp()">
         {{selectedApplication ? selectedApplication?.name : 'Select your application'}}
@@ -40,11 +40,18 @@
            href="javascript:void(0)">{{app.name}}</a>
       </div>
     </div>
-    <div class="my-2" *ngIf="selectedApplication">
-      <h4 class="font12 font-weight-600 mt-2 mb-1">{{selectedApplication.name}}</h4>
+    <div class="selected-app px-2 my-2" *ngIf="selectedApplication">
+      <div class="d-flex justify-content-between align-items-center mb-1">
+        <h4 class="font12 font-weight-600 mt-2 mb-1">{{selectedApplication.name}}</h4>
+        <span class="font-weight-600 pb-2">...</span>
+      </div>
       <p class="font12">{{selectedApplication.description}}</p>
     </div>
+    <p class="font14 font-weight-400">
+      Want to create new application? <a href="javascript:void(0)" class="font-weight-600 pl-1" (click)="modalService.open(template1)"> Create</a>
+    </p>
   </fieldset>
+</div>
 </div>
 
 <div class="app-modal-w">
