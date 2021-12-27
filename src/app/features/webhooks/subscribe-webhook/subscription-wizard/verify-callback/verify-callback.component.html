@@ -25,16 +25,8 @@
     <h3 class="font16 font-weight-bold">3. Test callback</h3>
     <p class="px-lg-5"> To validate that your callback is ready to start receiving "order" events you must send a test request. For
       more information about testing you callback see here:</p>
-    <button class="btn btn-default test" *ngIf="!isTest" (click)="test()">Test</button>
-    <button class="btn btn-default retest" *ngIf="isTest">Retest</button>
+    <button class="btn btn-default test" [disabled]="inProgress" [class.disabled]="inProgress" (click)="test()">{{ hasResponse ? "Retest" : "Test" }}</button>
   </div>
-<!--
-  <div class="row single">
-    <div class="col-md-12">
-      <app-request-example [webhook]="webhook" #requestExampleComponent></app-request-example>
-    </div>
-  </div>
--->
   <div class="row single">
     <div class="col-md-6 mt-3">
       <app-request-example [webhook]="webhook" #requestExampleComponent></app-request-example>

@@ -41,8 +41,8 @@ export class VerifyCallbackComponent extends WebhookBaseComponent  implements On
   @ViewChild('responseComponent') response!: ResponseComponent
   @Input() callback: Optional<Callback>
 
-  isRes: boolean=false;
-  isTest: boolean=false;
+  hasResponse: boolean = false
+  inProgress: boolean = false
 
   constructor(
     private readonly context: WebhooksContext,
@@ -55,6 +55,7 @@ export class VerifyCallbackComponent extends WebhookBaseComponent  implements On
   }
 
   test() {
+    this.inProgress = true;
     this.response.init()
 
     let requestExample: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
@@ -68,10 +69,24 @@ export class VerifyCallbackComponent extends WebhookBaseComponent  implements On
 
     this.callbackService.testCallback(request)
       .subscribe(
-        it => this.response.update(it),
-        (err: BadRequestError) => {
-          this.response.updateWithError(err.error)
-        }
+        it => this.updateWithSuccess(it),
+        (it: BadRequestError) => this.updateWithError(it)
       )
+  }
+
+  update() {
+    this.inProgress = false;
+    this.hasResponse = true;
+  }
+
+
+  updateWithSuccess(result: any) {
+    this.update();
+    this.response.update(result)
+  }
+
+  updateWithError(error: BadRequestError) {
+    this.update();
+    this.response.updateWithError(error.error)
   }
 }
