@@ -23,15 +23,15 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {RequestBodyComponent} from "./request-body/request-body.component";
 import {RequestHeadersComponent} from "./request-headers/request-headers.component";
-import {Webhook} from "../../model/webhook";
+import {WebhookBaseComponent} from "../webhook-base-component";
+import {WebhooksContext} from "../../webhooks-context";
 
 @Component({
   selector: 'app-request-example',
   templateUrl: './request-example.component.html',
   styleUrls: ['./request-example.component.css']
 })
-export class RequestExampleComponent implements OnInit {
-  @Input() webhook!: Webhook
+export class RequestExampleComponent extends WebhookBaseComponent implements OnInit {
   @Input() title: string = ""
   @Input() fullRequest: boolean = true
   @ViewChild('bodyComponent') bodyComponent!: RequestBodyComponent
@@ -40,7 +40,10 @@ export class RequestExampleComponent implements OnInit {
   isBody: boolean = true;
   dark: boolean = false;
 
-  constructor() {
+  constructor(
+    private readonly context: WebhooksContext,
+  ) {
+    super(context);
   }
 
   get hasTitle(): boolean {
