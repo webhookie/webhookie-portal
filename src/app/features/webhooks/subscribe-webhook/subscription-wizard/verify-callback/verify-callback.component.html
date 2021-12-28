@@ -40,7 +40,7 @@
   <div [ngClass]="showResponse?'col-md-12':'col-md-10'">
     <div class="row single">
       <div [ngClass]="showResponse?'col-md-6 mt-3':'col-md-12 mt-3'">
-        <app-request-example [webhook]="webhook" #requestExampleComponent></app-request-example>
+        <app-request-example #requestExampleComponent></app-request-example>
       </div>
       <div class="col-md-6">
         <app-response [preShow]="false" #responseComponent></app-response>
