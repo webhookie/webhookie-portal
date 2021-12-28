@@ -107,6 +107,7 @@ export class VerifyCallbackComponent extends WizardStepBaseComponent<Callback> i
     this.testResult = TestResult.PASSED
     this.update();
     this.response.update(result)
+    this.step.setComplete();
   }
 
   updateWithError(error: BadRequestError) {
