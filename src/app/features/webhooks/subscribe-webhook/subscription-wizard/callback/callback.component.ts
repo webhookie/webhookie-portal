@@ -31,6 +31,9 @@ import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../../shared/mod
 import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
 import {Subscription, SubscriptionStatus} from "../../../../../shared/model/subscription";
 import {Optional} from "../../../../../shared/model/optional";
+import {WizardStep} from "../steps/wizard-step";
+import {CallbackWizardStep} from "../steps/callback-wizard-step";
+import {WizardStepComponent} from "../steps/wizard-step.component";
 
 type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
@@ -39,19 +42,24 @@ type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
   templateUrl: './callback.component.html',
   styleUrls: ['./callback.component.css']
 })
-export class CallbackComponent implements OnInit {
+export class CallbackComponent implements WizardStepComponent<Callback>, OnInit {
   @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
   @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
   @Input() subscription?: Subscription
   currentApplication!: Application;
   readonly _selectedCallback: BehaviorSubject<Optional<Callback>> = new BehaviorSubject<Optional<Callback>>(null);
-  @Input() set application(app: Application) {
-    this.currentApplication = app
-    this.loadCallbacks()
+  @Input() set application(app: Optional<Application>) {
+    if(app) {
+      this.currentApplication = app
+      this.loadCallbacks()
+    }
   }
   @Input() set callback(callback: Optional<Callback>) {
     this._selectedCallback.next(callback)
   }
+
+  step: WizardStep<Callback> = new CallbackWizardStep();
+  visible: boolean = false;
 
   callbackToEdit?: Callback
   noOfOtherActiveSubscriptions?: number

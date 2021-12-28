@@ -24,12 +24,14 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {environment} from "../../../../../environments/environment";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {Observable} from "rxjs";
-import {ResponseComponent} from "../../common/response/response.component";
-import {RequestExampleComponent} from "../../common/request-example/request-example.component";
 import {WizardStepManager} from "./steps/wizard-step.manager";
 import {Optional} from "../../../../shared/model/optional";
 import {Application} from "../../model/application";
 import {Callback} from "../../../../shared/model/callback/callback";
+import {ApplicationComponent} from "./application/application.component";
+import {CallbackComponent} from "./callback/callback.component";
+import {VerifyCallbackComponent} from "./verify-callback/verify-callback.component";
+import {WizardCongratsComponent} from "./congrats/wizard-congrats.component";
 
 @Component({
   selector: 'app-subscription-wizard',
@@ -37,8 +39,10 @@ import {Callback} from "../../../../shared/model/callback/callback";
   styleUrls: ['./subscription-wizard.component.css']
 })
 export class SubscriptionWizardComponent implements AfterViewInit {
-  @ViewChild('responseComponent') response?: ResponseComponent
-  @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
+  @ViewChild('applicationComponent') applicationComponent!: ApplicationComponent
+  @ViewChild('callbackComponent') callbackComponent!: CallbackComponent
+  @ViewChild('verifyCallbackComponent') verifyCallbackComponent!: VerifyCallbackComponent
+  @ViewChild('congratsComponent') congratsComponent!: WizardCongratsComponent
 
   debug = environment.debug
 
@@ -52,6 +56,12 @@ export class SubscriptionWizardComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.stepManager.init([
+      this.applicationComponent,
+      this.callbackComponent,
+      this.verifyCallbackComponent,
+      this.congratsComponent,
+    ])
   }
 
   get selectedApplication(): Optional<Application> {

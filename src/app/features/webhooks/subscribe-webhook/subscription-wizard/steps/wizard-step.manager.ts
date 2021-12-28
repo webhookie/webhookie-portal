@@ -21,42 +21,28 @@
  */
 
 import {Injectable} from '@angular/core';
-import {WizardStep} from "./wizard-step";
-import {ApplicationWizardPage} from "./application-wizard-step";
-import {CallbackWizardPage} from "./callback-wizard-step";
-import {DefaultWizardStep} from "./default-wizard-step";
 import {Observable} from "rxjs";
+import {Optional} from "../../../../../shared/model/optional";
+import {WizardStepComponent} from "./wizard-step.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WizardStepManager {
-  private stepMatches(step: number): boolean {
-    return this.currentStep.step == step
-  }
-
-  get isApplicationStep(): boolean {
-    return this.stepMatches(this.APPLICATION_STEP.step)
-  }
-
-  get isCallbackStep(): boolean {
-    return this.stepMatches(this.CALLBACK_STEP.step)
-  }
-
-  get isVerifyCallbackStep(): boolean {
-    return this.stepMatches(this.VERIFY_STEP.step)
-  }
-
-  get isCongratsStep(): boolean {
-    return this.stepMatches(this.CONGRATS_STEP.step)
-  }
-
   get isFirstStep(): boolean {
-    return this.currentStep.step == 1
+    if(this.ready) {
+      return this.currentComponent!.step.order == 1
+    }
+
+    return false
   }
 
   get isFinalStep(): boolean {
-    return this.currentStep.step == this.steps.length
+    if(this.ready) {
+      return this.currentComponent!.step.order == this.components.length
+    }
+
+    return false;
   }
 
   get isCancellable(): boolean {
@@ -68,74 +54,84 @@ export class WizardStepManager {
   }
 
   get canGoNext(): boolean {
-    return this.currentStep.step < 3
+    if(this.ready) {
+      return this.currentComponent!.step.order < 3
+    }
+
+    return false;
   }
 
   get canSubscribe(): boolean {
-    return this.currentStep.step == 3
+    if(this.ready) {
+      return this.currentComponent!.step.order == 3
+    }
+
+    return false;
   }
 
   goBack() {
-    if(this.finished.has(this.currentStep.step)){
-      this.finished.delete(this.currentStep.step);
+    if(this.finished.has(this.currentComponent!.step.order)){
+      this.finished.delete(this.currentComponent!.step.order);
     }
-    this.currentStep.resetValue();
+    this.currentComponent!.step.resetValue();
     this.nextPrev(-1)
   }
 
   goNext() {
-    if(!this.finished.has(this.currentStep.step)){
-      this.finished.add(this.currentStep.step);
+    if(!this.finished.has(this.currentComponent!.step.order)){
+      this.finished.add(this.currentComponent!.step.order);
     }
     this.nextPrev(1)
   }
 
   private nextPrev(tab: any){
-    let newStep = this.currentStep.step + tab
-    if((newStep > 0) && (newStep <= this.steps.length)) {
-      this.currentStep = this.steps[newStep - 1]
+    this.components[this.currentComponent!.step.order - 1].visible = false
+    let newStep = this.currentComponent!.step.order + tab
+    if((newStep > 0) && (newStep <= this.components.length)) {
+      this.currentComponent = this.components[newStep - 1]
     }
+    this.components[this.currentComponent!.step.order - 1].visible = true
   }
 
-  isFinished(tab: WizardStep<any>) {
-    return this.finished.has(tab.step);
+  isFinished(tab: WizardStepComponent<any>) {
+    return this.finished.has(tab.step.order);
   }
 
-  isCurrent(tab: WizardStep<any>) {
-    return this.currentStep.step == tab.step
+  isCurrent(tab: WizardStepComponent<any>) {
+    return this.currentComponent!.step.order == tab.step.order
   }
 
-  goToTab(tab: WizardStep<any>){
-    this.currentStep = tab
+  goToTab(tab: WizardStepComponent<any>){
+    this.currentComponent = tab
   }
 
   updateStepValue(value: any) {
-    this.currentStep.next(value);
+    this.currentComponent!.step.next(value);
   }
 
   stepValue(step: number): any {
-    return this.steps[step - 1].currentValue;
+    if(this.ready) {
+      return this.components[step - 1].step.currentValue;
+    }
+    return ""
   }
 
   get stepIsReady$(): Observable<boolean> {
-    return this.currentStep.isReady$();
+    return this.currentComponent!.step.isReady$();
   }
 
   finished: Set<number> = new Set<number>();
 
-  private APPLICATION_STEP = new ApplicationWizardPage("1.Select your application", "bi bi-folder2-open");
-  private CALLBACK_STEP = new CallbackWizardPage("2.Select your callback", "bi bi-link-45deg");
-  private VERIFY_STEP = new DefaultWizardStep(3, "3.Test callback", "bi bi-gear");
-  private CONGRATS_STEP = new DefaultWizardStep(4, "Congratulations!", "bi bi-snow2");
-
-  steps: Array<WizardStep<any>> = [
-    this.APPLICATION_STEP,
-    this.CALLBACK_STEP,
-    this.VERIFY_STEP,
-    this.CONGRATS_STEP
-  ]
-
-  currentStep: WizardStep<any> = this.APPLICATION_STEP;
+  components: Array<WizardStepComponent<any>> = []
+  currentComponent: Optional<WizardStepComponent<any>> = null;
+  ready: boolean = false;
 
   constructor() { }
+
+  init(param: Array<WizardStepComponent<any>>) {
+    this.components = param
+    this.currentComponent = this.components[0];
+
+    this.ready = true;
+  }
 }

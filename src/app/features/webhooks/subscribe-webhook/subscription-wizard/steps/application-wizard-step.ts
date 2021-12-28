@@ -20,17 +20,13 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {CommonWizardStep} from "./common-wizard-step";
 import {Application} from "../../../model/application";
+import {WizardStep} from "./wizard-step";
+import {Optional} from "../../../../../shared/model/optional";
 
-export class ApplicationWizardPage extends CommonWizardStep<Application> {
-  constructor(
-      public title: string,
-      public icon: string
-  ) {
-    super(title, icon);
-  }
-
-  step = 1
-  valueMapper = (v?: Application): string => v?.name ?? "";
+export class ApplicationWizardStep extends WizardStep<Application> {
+  title = "1.Select your application";
+  icon = "bi bi-folder2-open";
+  order = 1;
+  valueMapper = (v: Optional<Application>): string => v?.name ?? "";
 }

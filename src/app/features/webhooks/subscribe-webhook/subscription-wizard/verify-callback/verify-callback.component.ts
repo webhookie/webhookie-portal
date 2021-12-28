@@ -21,8 +21,6 @@
  */
 
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {WebhookBaseComponent} from "../../../common/webhook-base-component";
-import {WebhooksContext} from "../../../webhooks-context";
 import {RequestExampleComponent} from "../../../common/request-example/request-example.component";
 import {ResponseComponent} from "../../../common/response/response.component";
 import {ValidateSubscriptionRequest} from "../../../../../shared/service/subscription.service";
@@ -30,16 +28,24 @@ import {CallbackService, CallbackValidationRequest} from "../../../service/callb
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
 import {Optional} from "../../../../../shared/model/optional";
 import {Callback} from "../../../../../shared/model/callback/callback";
+import {VerifyCallbackWizardStep} from "../steps/verify-callback-wizard-step";
+import {WizardStep} from "../steps/wizard-step";
+import {WebhookBaseComponent} from "../../../common/webhook-base-component";
+import {WebhooksContext} from "../../../webhooks-context";
+import {WizardStepComponent} from "../steps/wizard-step.component";
 
 @Component({
   selector: 'app-subscription-wizard-verify-callback',
   templateUrl: './verify-callback.component.html',
   styleUrls: ['./verify-callback.component.css']
 })
-export class VerifyCallbackComponent extends WebhookBaseComponent  implements OnInit {
+export class VerifyCallbackComponent extends WebhookBaseComponent implements WizardStepComponent<Callback>, OnInit {
   @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
   @ViewChild('responseComponent') response!: ResponseComponent
   @Input() callback: Optional<Callback>
+
+  step: WizardStep<any> = new VerifyCallbackWizardStep();
+  visible: boolean = false;
 
   hasResponse: boolean = false
   inProgress: boolean = false

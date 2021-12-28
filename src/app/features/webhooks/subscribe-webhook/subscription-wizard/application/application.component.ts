@@ -26,17 +26,23 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {Application} from "../../../model/application";
 import {ModalService} from "../../../../../shared/service/modal.service";
 import {Optional} from "../../../../../shared/model/optional";
+import {WizardStep} from '../steps/wizard-step';
+import {ApplicationWizardStep} from "../steps/application-wizard-step";
+import {WizardStepComponent} from "../steps/wizard-step.component";
 
 @Component({
   selector: 'app-subscription-wizard-application',
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.css']
 })
-export class ApplicationComponent implements OnInit {
+export class ApplicationComponent implements WizardStepComponent<Application>, OnInit {
   @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
   @Input("application") set application(app: Optional<Application>) {
     this._selectedApplication.next(app)
   }
+
+  step: WizardStep<Application> = new ApplicationWizardStep();
+  visible: boolean = true;
 
   readonly _applications$: BehaviorSubject<Array<Application>> = new BehaviorSubject<Array<Application>>([]);
   readonly _selectedApplication: BehaviorSubject<Optional<Application>> = new BehaviorSubject<Optional<Application>>(null)

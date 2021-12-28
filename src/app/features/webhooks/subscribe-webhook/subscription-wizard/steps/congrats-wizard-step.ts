@@ -20,40 +20,13 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {BehaviorSubject, Observable} from "rxjs";
+import {Callback} from "../../../../../shared/model/callback/callback";
+import {WizardStep} from "./wizard-step";
 import {Optional} from "../../../../../shared/model/optional";
-import {filter, map} from "rxjs/operators";
 
-export abstract class WizardStep<T> {
-  abstract title: string;
-  abstract icon: string;
-  abstract order: number;
-  abstract valueMapper: (v: Optional<T>) => string
-
-  private _value$: BehaviorSubject<Optional<any>> = new BehaviorSubject(null);
-
-  resetValue() {
-    this._value$.next(null)
-  }
-
-  next(value: T) {
-    this._value$.next(value);
-  }
-
-  isReady$(): Observable<boolean> {
-    return this._value$.asObservable()
-        .pipe(map(it => it != null))
-  }
-
-  get displayValue(): Observable<string> {
-    return this._value$.asObservable()
-        .pipe(
-            filter(it => it != null),
-            map(it => this.valueMapper(it))
-        )
-  }
-
-  get currentValue(): T {
-    return this._value$.value
-  }
+export class CongratsWizardStep extends WizardStep<any> {
+  title: string = "Congratulations!";
+  icon: string = "bi bi-snow2";
+  order = 4;
+  valueMapper = (v: Optional<Callback>): string => v?.name ?? "";
 }

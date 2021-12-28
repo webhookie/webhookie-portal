@@ -21,13 +21,19 @@
  */
 
 import {Component, OnInit} from '@angular/core';
+import {WizardStep} from "../steps/wizard-step";
+import {WizardStepComponent} from "../steps/wizard-step.component";
+import {CongratsWizardStep} from "../steps/congrats-wizard-step";
 
 @Component({
   selector: 'app-subscription-wizard-congrats',
   templateUrl: './wizard-congrats.component.html',
   styleUrls: ['./wizard-congrats.component.css']
 })
-export class WizardCongratsComponent implements OnInit {
+export class WizardCongratsComponent implements WizardStepComponent<any>, OnInit {
+
+  step: WizardStep<any> = new CongratsWizardStep();
+  visible: boolean = false;
 
   constructor() { }
 

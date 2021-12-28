@@ -20,7 +20,7 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<div class="row justify-content-center tab">
+<div class="row justify-content-center tab" *ngIf="visible">
   <div class="col-md-10">
     <div class="text-center mb-1">
       <h3 class="font16 font-weight-bold">3. Test callback</h3>
@@ -36,7 +36,7 @@
     </div>
   </div>
 </div>
-<div class="row justify-content-center tab">
+<div class="row justify-content-center tab" *ngIf="visible">
   <div [ngClass]="showResponse?'col-md-12':'col-md-10'">
     <div class="row single">
       <div [ngClass]="showResponse?'col-md-6 mt-3':'col-md-12 mt-3'">

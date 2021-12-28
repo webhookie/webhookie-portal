@@ -21,34 +21,33 @@
   -->
 
 <div class="row justify-content-between steppers">
-  <div *ngFor="let step of stepManager.steps" class="col-3 col-md-3 text-center step-div"
-       [class.finish]="stepManager.isFinished(step)"
-       [class.active]="stepManager.isCurrent(step)">
-  <span class="step d-flex align-items-center justify-content-center mb-3" (click)="stepManager.goToTab(step)"><i
-    class="{{step.icon}}"></i></span>
-    <h5>{{step.title}}</h5>
-    <p>{{step.displayValue | async}}</p>
+  <div *ngFor="let component of stepManager.components" class="col-3 col-md-3 text-center step-div"
+       [class.finish]="stepManager.isFinished(component)"
+       [class.active]="stepManager.isCurrent(component)">
+  <span class="step d-flex align-items-center justify-content-center mb-3" (click)="stepManager.goToTab(component)"><i
+    class="{{component.step.icon}}"></i></span>
+    <h5>{{component.step.title}}</h5>
+    <p>{{component.step.displayValue | async}}</p>
   </div>
 </div>
 
 <form id="subForm">
   <app-subscription-wizard-application
-    *ngIf="stepManager.isApplicationStep"
+    #applicationComponent
     [application]="selectedApplication"
     (onSelect)="updateStepValue($event)">
   </app-subscription-wizard-application>
   <app-subscription-wizard-callback
-    *ngIf="stepManager.isCallbackStep"
+    #callbackComponent
     [application]="selectedApplication!!"
     [callback]="selectedCallback"
     (onSelect)="updateStepValue($event)">
   </app-subscription-wizard-callback>
   <app-subscription-wizard-verify-callback
-    *ngIf="stepManager.isVerifyCallbackStep"
+    #verifyCallbackComponent
     [callback]="selectedCallback">
   </app-subscription-wizard-verify-callback>
-  <app-subscription-wizard-congrats
-    *ngIf="stepManager.isCongratsStep">
+  <app-subscription-wizard-congrats #congratsComponent>
   </app-subscription-wizard-congrats>
 </form>
 

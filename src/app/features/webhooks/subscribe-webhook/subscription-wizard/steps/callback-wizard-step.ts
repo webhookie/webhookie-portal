@@ -20,17 +20,13 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {CommonWizardStep} from "./common-wizard-step";
 import {Callback} from "../../../../../shared/model/callback/callback";
+import {WizardStep} from "./wizard-step";
+import {Optional} from "../../../../../shared/model/optional";
 
-export class CallbackWizardPage extends CommonWizardStep<Callback> {
-  constructor(
-      public title: string,
-      public icon: string
-  ) {
-    super(title, icon);
-  }
-
-  step = 2
-  valueMapper = (v?: Callback): string => v?.name ?? "";
+export class CallbackWizardStep extends WizardStep<Callback> {
+  title: string = "2.Select your callback";
+  icon: string = "bi bi-link-45deg";
+  order = 2
+  valueMapper = (v: Optional<Callback>): string => v?.name ?? "";
 }

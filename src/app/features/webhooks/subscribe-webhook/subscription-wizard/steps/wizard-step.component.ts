@@ -22,11 +22,7 @@
 
 import {WizardStep} from "./wizard-step";
 
-export abstract class CommonWizardStep<T> extends WizardStep<T> {
-  protected constructor(
-      public title: string,
-      public icon: string
-  ) {
-    super(title, icon);
-  }
+export interface WizardStepComponent<T> {
+  step: WizardStep<T>
+  visible: boolean;
 }
