@@ -32,9 +32,9 @@
         {{selectedCallback ? selectedCallback?.url : 'Select your callback URL'}}
       </button>
       <div class="dropdown-menu font12 font-weight-400">
-        <button (click)="modalService.open(createCallbackTemplate)" class="btn btn-default font-weight-400 font12">
-          <i class="lni lni-plus mr-2"></i>Create New Callback Url
-        </button>
+        <span class="font-weight-400 font12">
+          <i class="mr-2"></i>Create New Callback Url
+        </span>
         <div class="dropdown-divider"></div>
         <a (click)="selectCallback(callback)" *ngFor="let callback of _callbacks$.asObservable() | async" class="dropdown-item"
            href="javascript:void(0)">{{callback.name}}</a>

@@ -32,9 +32,9 @@
         {{selectedApplication ? selectedApplication?.name : 'Select your application'}}
       </button>
       <div class="dropdown-menu font12 font-weight-400">
-        <button (click)="modalService.open(template1)" class="btn btn-default font-weight-400 font12"><i
-          class="lni lni-plus mr-2"></i>Create New Application
-        </button>
+        <span class="font-weight-400 font12">
+          <i class="mr-2"></i>Select your Application
+        </span>
         <div class="dropdown-divider"></div>
         <a (click)="selectApp(app)" *ngFor="let app of _applications$.asObservable() | async" class="dropdown-item"
            href="javascript:void(0)">{{app.name}}</a>
