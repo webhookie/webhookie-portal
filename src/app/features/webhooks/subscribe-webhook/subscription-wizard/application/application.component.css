@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-.subscribe-application fieldset {
+.selected-app {
   border: 1px solid #E1E1E1;
 }
 
@@ -36,7 +36,7 @@
   background-color: transparent;
   color: #253858;
   border-color: #E1E1E1;
-  width: 60%;
+  width: 100%;
 }
 
 .subscribe-application .dropdown-divider {
@@ -59,7 +59,7 @@
   border-radius: 2px;
   top: 2px !important;
   padding-bottom: 0px;
-  width: 60%;
+  width: 100%;
 }
 
 .subscribe-application .dropdown-toggle:focus {

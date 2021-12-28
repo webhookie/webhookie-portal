@@ -20,14 +20,13 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<div class="subscribe-call-back">
+<div class="row justify-content-center subscribe-call-back">
+  <div class="col-md-7">
   <fieldset class="p-3 mt-3 mr-lg-3">
-    <h4 class="font16 font-weight-600">Add a callback URL <b>{{currentApplication.name}}</b></h4>
-    <p class="font12">Please select or create an application to add your callback URL.</p>
-
-    <label class="font14 font-weight-400">Select your callback URL</label>
-    <div class="dropdown mb-3">
-      <button class="btn btn-warning dropdown-toggle text-left font12 font-weight-400 d-flex justify-content-between align-items-center"
+    <h4 class="font16 font-weight-600 text-center">2. Select your callback</h4>
+    <label class="font14 font-weight-400 mt-3">Select from your previous callback</label>
+    <div class="dropdown mb-2">
+      <button class="btn btn-warning dropdown-toggle text-left font12 font-weight-600 d-flex justify-content-between align-items-center"
               data-toggle="dropdown"
               type="button">
         {{selectedCallback ? selectedCallback?.url : 'Select your callback URL'}}
@@ -40,6 +39,11 @@
         <a (click)="selectCallback(callback)" *ngFor="let callback of _callbacks$.asObservable() | async" class="dropdown-item"
            href="javascript:void(0)">{{callback.name}}</a>
       </div>
+    </div>
+    <div class="text-danger font14 mb-2">
+      There is already a subscription with this webhook and callback.
+      Please change callback or go to
+      <a href="javascript:void(0)" class="font-weight-bold">Manage your subscriptions</a>
     </div>
 <!--
     <div>
@@ -57,63 +61,65 @@
     <!-- start -->
 
     <div *ngIf="selectedCallback" class="callback-read-only">
-      <fieldset class="p-3 mt-3 mr-lg-3">
+      <fieldset class="p-2 mt-3 mr-lg-3">
         <form>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="font14 font-weight-400">Callback URL name</h4>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h4 class="font14 font-weight-400">Callback name</h4>
             <app-context-menu [data]="selectedCallback" [menuItems]="callbackMenuItems"></app-context-menu>
           </div>
-          <div class="form-row mb-1">
-            <div class="form-group col-md-6">
+          <div class="mb-1">
+            <div class="form-group">
               <input class="form-control" readonly type="text" value="{{selectedCallback?.name}}">
             </div>
           </div>
 
-          <h4 class="font14 font-weight-400">Callback URL</h4>
+          <h4 class="font14 font-weight-400">Callback</h4>
           <div class="form-row mb-1">
-            <div class="form-group col-md-2">
-              <input class="form-control" readonly type="text" value="{{selectedCallback?.httpMethod}}">
+            <div class="form-group col-md-3 pr-0">
+              <input class="form-control text-center" readonly type="text" value="{{selectedCallback?.httpMethod}}">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-9">
               <input class="form-control" readonly type="text" value="{{selectedCallback?.url}}">
             </div>
           </div>
 
           <h4 *ngIf="selectedCallback?.signable" class="font14 font-weight-400">Security</h4>
           <label *ngIf="selectedCallback?.isHmac" class="font12 pt-1">HMAC Signature</label>
-          <div *ngIf="selectedCallback?.isHmac" class="form-row mt-1">
-            <div class="form-group col-md-8">
+          <div *ngIf="selectedCallback?.isHmac" class="mt-1">
+            <div class="form-group">
               <label class="font14 font-weight-400 mb-1">Key ID</label>
-              <input class="form-control" readonly type="text" value="{{selectedCallback?.hmac?.details?.keyId}}">
+              <input class="form-control" readonly type="text" placeholder="Key ID example" value="{{selectedCallback?.hmac?.details?.keyId}}">
             </div>
           </div>
-          <div *ngIf="selectedCallback?.isHmac" class="form-row">
-            <div class="form-group col-md-8">
-              <h4 class="font14 font-weight-400 mb-1">Secret API Key: {{encodedSecret}}</h4>
+          <div *ngIf="selectedCallback?.isHmac">
+            <div class="form-group">
+              <!-- <h4 class="font14 font-weight-400 mb-1">Secret API Key: {{encodedSecret}}</h4> -->
+              <label class="font14 font-weight-400 mb-1">Secret API Key</label>
+              <input class="form-control" readonly type="text" placeholder="Secret API Key example" value="{{encodedSecret}}">
             </div>
           </div>
 
           <label *ngIf="selectedCallback?.isOAuth" class="font12 pt-1">OAuth 2.0 details</label>
-          <div *ngIf="selectedCallback?.isOAuth" class="form-row mt-1">
-            <div class="form-group col-md-8">
+          <div *ngIf="selectedCallback?.isOAuth" class="mt-1">
+            <div class="form-group">
               <label class="font14 font-weight-400 mb-1">Token Endpoint</label>
               <input class="form-control" readonly type="text" value="{{selectedCallback?.oauth2?.details?.tokenEndpoint}}">
             </div>
           </div>
-          <div *ngIf="selectedCallback?.isOAuth" class="form-row mt-1">
-            <div class="form-group col-md-8">
+          <div *ngIf="selectedCallback?.isOAuth" class="mt-1">
+            <div class="form-group">
               <label class="font14 font-weight-400 mb-1">Client Id</label>
               <input class="form-control" readonly type="text" value="{{selectedCallback?.oauth2?.details?.clientId}}">
             </div>
           </div>
-          <div *ngIf="selectedCallback?.isOAuth" class="form-row mt-1">
-            <div class="form-group col-md-8">
+          <div *ngIf="selectedCallback?.isOAuth" class="mt-1">
+            <div class="form-group">
               <label class="font14 font-weight-400 mb-1">Scopes</label>
               <input class="form-control" readonly type="text" value="{{selectedCallback?.oauth2?.scopesString}}">
             </div>
           </div>
-          <div *ngIf="selectedCallback?.isOAuth" class="form-row">
-            <div class="form-group col-md-8">
+          <div *ngIf="selectedCallback?.isOAuth">
+            <div class="form-group">
               <h4 class="font14 font-weight-400 mb-1">Client Secret: {{encodedSecret}}</h4>
             </div>
           </div>
@@ -121,7 +127,12 @@
       </fieldset>
     </div>
     <!-- end -->
+    <p class="font14 font-weight-400 mt-2">
+      Want to create new callback? <a href="javascript:void(0)" class="font-weight-600 pl-1" (click)="modalService.open(createCallbackTemplate)"> Create</a>
+    </p>
+
   </fieldset>
+  </div>
 </div>
 
 
