@@ -69,6 +69,7 @@ export class WizardStepManager {
   goBack() {
     this.currentComponent!.onPrev()
     this.nextPrev(-1);
+    this.currentComponent!.show()
   }
 
   goNext() {
@@ -82,12 +83,7 @@ export class WizardStepManager {
     let newStep = this.currentComponent!.step.order + tab
     if((newStep > 0) && (newStep <= this.components.length)) {
       this.currentComponent = this.components[newStep - 1]
-      this.currentComponent.show()
     }
-  }
-
-  goToTab(tab: WizardStepComponent<any>){
-    this.currentComponent = tab
   }
 
   updateStepValue(value: any) {

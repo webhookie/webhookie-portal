@@ -24,7 +24,7 @@
   <div *ngFor="let component of stepManager.components" class="col-3 col-md-3 text-center step-div"
        [class.finish]="component.step.completed"
        [class.active]="component.step.current">
-  <span class="step d-flex align-items-center justify-content-center mb-3" (click)="stepManager.goToTab(component)"><i
+  <span class="step d-flex align-items-center justify-content-center mb-3"><i
     class="{{component.step.icon}}"></i></span>
     <h5>{{component.step.title}}</h5>
     <p>{{component.step.displayValue | async}}</p>
