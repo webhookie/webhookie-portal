@@ -55,6 +55,7 @@ export class CallbackComponent implements OnInit {
 
   callbackToEdit?: Callback
   noOfOtherActiveSubscriptions?: number
+  subscriptionAlreadyExists: boolean = false
 
   readonly _callbacks$: BehaviorSubject<Array<Callback>> = new BehaviorSubject<Array<Callback>>([]);
 

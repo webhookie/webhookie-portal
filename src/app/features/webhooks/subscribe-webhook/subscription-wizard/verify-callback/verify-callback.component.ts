@@ -43,6 +43,7 @@ export class VerifyCallbackComponent extends WebhookBaseComponent  implements On
 
   hasResponse: boolean = false
   inProgress: boolean = false
+  testResult: TestResult = TestResult.UNKNOWN
 
   constructor(
     private readonly context: WebhooksContext,
@@ -52,6 +53,18 @@ export class VerifyCallbackComponent extends WebhookBaseComponent  implements On
   }
 
   ngOnInit(): void {
+  }
+
+  get showResponse(): boolean {
+    return this.inProgress || this.hasResponse;
+  }
+
+  get testFailed(): boolean {
+    return this.testResult == TestResult.FAILED
+  }
+
+  get testPassed(): boolean {
+    return this.testResult == TestResult.PASSED
   }
 
   test() {
@@ -79,14 +92,21 @@ export class VerifyCallbackComponent extends WebhookBaseComponent  implements On
     this.hasResponse = true;
   }
 
-
   updateWithSuccess(result: any) {
+    this.testResult = TestResult.PASSED
     this.update();
     this.response.update(result)
   }
 
   updateWithError(error: BadRequestError) {
+    this.testResult = TestResult.FAILED
     this.update();
     this.response.updateWithError(error.error)
   }
+}
+
+enum TestResult {
+  UNKNOWN,
+  FAILED,
+  PASSED
 }

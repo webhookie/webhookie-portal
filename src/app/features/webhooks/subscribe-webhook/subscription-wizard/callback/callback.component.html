@@ -40,7 +40,7 @@
            href="javascript:void(0)">{{callback.name}}</a>
       </div>
     </div>
-    <div class="text-danger font14 mb-2">
+    <div class="text-danger font14 mb-2" *ngIf="subscriptionAlreadyExists">
       There is already a subscription with this webhook and callback.
       Please change callback or go to
       <a href="javascript:void(0)" class="font-weight-bold">Manage your subscriptions</a>
