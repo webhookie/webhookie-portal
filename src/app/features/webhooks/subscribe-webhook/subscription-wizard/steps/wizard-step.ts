@@ -29,11 +29,29 @@ export abstract class WizardStep<T> {
   abstract icon: string;
   abstract order: number;
   abstract valueMapper: (v: Optional<T>) => string
+  state: WizardStepState = WizardStepState.NONE;
+
+  setComplete() {
+    this.state = WizardStepState.COMPLETED
+  }
+
+  setCurrent() {
+    this.state = WizardStepState.CURRENT
+  }
+
+  get completed(): boolean {
+    return this.state == WizardStepState.COMPLETED
+  }
+
+  get current(): boolean {
+    return this.state == WizardStepState.CURRENT
+  }
 
   private _value$: BehaviorSubject<Optional<any>> = new BehaviorSubject(null);
 
   resetValue() {
     this._value$.next(null)
+    this.state = WizardStepState.NONE
   }
 
   next(value: T) {
@@ -56,4 +74,10 @@ export abstract class WizardStep<T> {
   get currentValue(): T {
     return this._value$.value
   }
+}
+
+export enum WizardStepState {
+  NONE,
+  CURRENT,
+  COMPLETED
 }

@@ -20,15 +20,38 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {WizardStep} from "./wizard-step";
-import {Observable} from "rxjs";
-import {Optional} from "../../../../../shared/model/optional";
+import {Component} from '@angular/core';
+import {WizardStepComponent} from "../wizard-step.component";
+import {WizardStep} from "../wizard-step";
+import {Optional} from "../../../../../../shared/model/optional";
+import {Observable, of} from "rxjs";
 
-export interface WizardStepComponent<T> {
-  step: WizardStep<T>
-  visible: boolean;
-  init(value: Optional<any>): Observable<any>;
-  onNext(): Observable<any>;
-  onPrev(): void;
-  show(): void;
+@Component({
+  selector: 'app-wizard-step-base',
+  template: `works!`
+})
+export class WizardStepBaseComponent<T> implements WizardStepComponent<T> {
+  step!: WizardStep<T>;
+  visible: boolean = false;
+
+  init(value: Optional<any>): Observable<any> {
+    this.step.setCurrent()
+    this.visible = true;
+    return of(1);
+  }
+
+  onNext(): Observable<any> {
+    this.step.setComplete()
+    this.visible = false;
+    return of(1);
+  }
+
+  onPrev(): void {
+    this.visible = false;
+    this.step.resetValue();
+  }
+
+  show(): void {
+    this.visible = true;
+  }
 }

@@ -22,20 +22,21 @@
 
 import {Component, OnInit} from '@angular/core';
 import {WizardStep} from "../steps/wizard-step";
-import {WizardStepComponent} from "../steps/wizard-step.component";
 import {CongratsWizardStep} from "../steps/congrats-wizard-step";
+import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
 
 @Component({
   selector: 'app-subscription-wizard-congrats',
   templateUrl: './wizard-congrats.component.html',
   styleUrls: ['./wizard-congrats.component.css']
 })
-export class WizardCongratsComponent implements WizardStepComponent<any>, OnInit {
+export class WizardCongratsComponent extends WizardStepBaseComponent<any> implements OnInit {
 
   step: WizardStep<any> = new CongratsWizardStep();
-  visible: boolean = false;
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
   }

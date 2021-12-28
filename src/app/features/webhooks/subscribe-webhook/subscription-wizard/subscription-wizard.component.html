@@ -20,10 +20,10 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<div class="row justify-content-between steppers">
+<div class="row justify-content-between steppers" *ngIf="stepManager">
   <div *ngFor="let component of stepManager.components" class="col-3 col-md-3 text-center step-div"
-       [class.finish]="stepManager.isFinished(component)"
-       [class.active]="stepManager.isCurrent(component)">
+       [class.finish]="component.step.completed"
+       [class.active]="component.step.current">
   <span class="step d-flex align-items-center justify-content-center mb-3" (click)="stepManager.goToTab(component)"><i
     class="{{component.step.icon}}"></i></span>
     <h5>{{component.step.title}}</h5>
@@ -34,24 +34,19 @@
 <form id="subForm">
   <app-subscription-wizard-application
     #applicationComponent
-    [application]="selectedApplication"
     (onSelect)="updateStepValue($event)">
   </app-subscription-wizard-application>
   <app-subscription-wizard-callback
     #callbackComponent
-    [application]="selectedApplication!!"
-    [callback]="selectedCallback"
     (onSelect)="updateStepValue($event)">
   </app-subscription-wizard-callback>
-  <app-subscription-wizard-verify-callback
-    #verifyCallbackComponent
-    [callback]="selectedCallback">
+  <app-subscription-wizard-verify-callback #verifyCallbackComponent>
   </app-subscription-wizard-verify-callback>
   <app-subscription-wizard-congrats #congratsComponent>
   </app-subscription-wizard-congrats>
 </form>
 
-<div class="subscribe-btns mb-5 p-3 p-lg-0 pt-lg-2">
+<div class="subscribe-btns mb-5 p-3 p-lg-0 pt-lg-2" *ngIf="stepManager">
   <div class="left-btn">
     <button type="button" id="cancel" *ngIf="stepManager.isCancellable" routerLink="/">Cancel</button>
     <button type="button" id="deactive" class="ml-2" *ngIf="stepManager.isFinalStep">Deactivate subscription</button>

@@ -49,6 +49,9 @@ import {
   VerifyCallbackComponent
 } from './subscribe-webhook/subscription-wizard/verify-callback/verify-callback.component';
 import {WizardCongratsComponent} from "./subscribe-webhook/subscription-wizard/congrats/wizard-congrats.component";
+import {
+  WizardStepBaseComponent
+} from './subscribe-webhook/subscription-wizard/steps/wizard-step-base/wizard-step-base.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,8 @@ import {WizardCongratsComponent} from "./subscribe-webhook/subscription-wizard/c
     CongratsSvgComponent,
     SubscriptionWizardComponent,
     VerifyCallbackComponent,
-    WizardCongratsComponent
+    WizardCongratsComponent,
+    WizardStepBaseComponent
   ],
   imports: [
     CommonModule,

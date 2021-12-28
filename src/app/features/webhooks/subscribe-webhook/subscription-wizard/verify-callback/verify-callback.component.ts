@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {RequestExampleComponent} from "../../../common/request-example/request-example.component";
 import {ResponseComponent} from "../../../common/response/response.component";
 import {ValidateSubscriptionRequest} from "../../../../../shared/service/subscription.service";
@@ -30,32 +30,37 @@ import {Optional} from "../../../../../shared/model/optional";
 import {Callback} from "../../../../../shared/model/callback/callback";
 import {VerifyCallbackWizardStep} from "../steps/verify-callback-wizard-step";
 import {WizardStep} from "../steps/wizard-step";
-import {WebhookBaseComponent} from "../../../common/webhook-base-component";
-import {WebhooksContext} from "../../../webhooks-context";
-import {WizardStepComponent} from "../steps/wizard-step.component";
+import {Observable} from "rxjs";
+import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
 
 @Component({
   selector: 'app-subscription-wizard-verify-callback',
   templateUrl: './verify-callback.component.html',
   styleUrls: ['./verify-callback.component.css']
 })
-export class VerifyCallbackComponent extends WebhookBaseComponent implements WizardStepComponent<Callback>, OnInit {
+export class VerifyCallbackComponent extends WizardStepBaseComponent<Callback> implements OnInit {
   @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
   @ViewChild('responseComponent') response!: ResponseComponent
-  @Input() callback: Optional<Callback>
+  callback: Optional<Callback>
 
   step: WizardStep<any> = new VerifyCallbackWizardStep();
-  visible: boolean = false;
+
+  init(value: Optional<Callback>): Observable<any> {
+    this.callback = value
+    this.hasResponse = false
+    this.inProgress = false
+    this.testResult = TestResult.UNKNOWN
+    return super.init(value)
+  }
 
   hasResponse: boolean = false
   inProgress: boolean = false
   testResult: TestResult = TestResult.UNKNOWN
 
   constructor(
-    private readonly context: WebhooksContext,
     private readonly callbackService: CallbackService
   ) {
-    super(context);
+    super();
   }
 
   ngOnInit(): void {

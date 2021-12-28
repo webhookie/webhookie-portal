@@ -23,15 +23,12 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {environment} from "../../../../../environments/environment";
 import {ModalService} from "../../../../shared/service/modal.service";
-import {Observable} from "rxjs";
-import {WizardStepManager} from "./steps/wizard-step.manager";
-import {Optional} from "../../../../shared/model/optional";
-import {Application} from "../../model/application";
-import {Callback} from "../../../../shared/model/callback/callback";
+import {Observable, of} from "rxjs";
 import {ApplicationComponent} from "./application/application.component";
 import {CallbackComponent} from "./callback/callback.component";
 import {VerifyCallbackComponent} from "./verify-callback/verify-callback.component";
 import {WizardCongratsComponent} from "./congrats/wizard-congrats.component";
+import {WizardStepManager} from "./steps/wizard-step.manager";
 
 @Component({
   selector: 'app-subscription-wizard',
@@ -46,8 +43,9 @@ export class SubscriptionWizardComponent implements AfterViewInit {
 
   debug = environment.debug
 
+  stepManager!: WizardStepManager
+
   constructor(
-    readonly stepManager: WizardStepManager,
     readonly modalService: ModalService
   ) {
   }
@@ -56,7 +54,8 @@ export class SubscriptionWizardComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.stepManager.init([
+    this.applicationComponent.init(null);
+    this.stepManager = new WizardStepManager([
       this.applicationComponent,
       this.callbackComponent,
       this.verifyCallbackComponent,
@@ -64,23 +63,17 @@ export class SubscriptionWizardComponent implements AfterViewInit {
     ])
   }
 
-  get selectedApplication(): Optional<Application> {
-    return this.stepValue(1)
-  }
-
-  get selectedCallback(): Optional<Callback> {
-    return this.stepValue(2)
-  }
-
   updateStepValue(value: any) {
-    this.stepManager.updateStepValue(value)
-  }
-
-  private stepValue(step: number): any {
-    return this.stepManager.stepValue(step)
+    if(this.stepManager) {
+      this.stepManager.updateStepValue(value)
+    }
   }
 
   get stepIsReady$(): Observable<boolean> {
-    return this.stepManager.stepIsReady$;
+    if(this.stepManager) {
+      return this.stepManager.stepIsReady$;
+    }
+
+    return of(false)
   }
 }

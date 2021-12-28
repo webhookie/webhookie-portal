@@ -20,14 +20,11 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {Optional} from "../../../../../shared/model/optional";
 import {WizardStepComponent} from "./wizard-step.component";
+import {mergeMap} from "rxjs/operators";
 
-@Injectable({
-  providedIn: 'root'
-})
 export class WizardStepManager {
   get isFirstStep(): boolean {
     if(this.ready) {
@@ -70,35 +67,23 @@ export class WizardStepManager {
   }
 
   goBack() {
-    if(this.finished.has(this.currentComponent!.step.order)){
-      this.finished.delete(this.currentComponent!.step.order);
-    }
-    this.currentComponent!.step.resetValue();
-    this.nextPrev(-1)
+    this.currentComponent!.onPrev()
+    this.nextPrev(-1);
   }
 
   goNext() {
-    if(!this.finished.has(this.currentComponent!.step.order)){
-      this.finished.add(this.currentComponent!.step.order);
-    }
-    this.nextPrev(1)
+    let nextComponent = this.components[this.currentComponent!.step.order]
+    this.currentComponent!.onNext()
+      .pipe(mergeMap(it => nextComponent.init(it)))
+      .subscribe(() => this.nextPrev(1))
   }
 
   private nextPrev(tab: any){
-    this.components[this.currentComponent!.step.order - 1].visible = false
     let newStep = this.currentComponent!.step.order + tab
     if((newStep > 0) && (newStep <= this.components.length)) {
       this.currentComponent = this.components[newStep - 1]
+      this.currentComponent.show()
     }
-    this.components[this.currentComponent!.step.order - 1].visible = true
-  }
-
-  isFinished(tab: WizardStepComponent<any>) {
-    return this.finished.has(tab.step.order);
-  }
-
-  isCurrent(tab: WizardStepComponent<any>) {
-    return this.currentComponent!.step.order == tab.step.order
   }
 
   goToTab(tab: WizardStepComponent<any>){
@@ -120,16 +105,12 @@ export class WizardStepManager {
     return this.currentComponent!.step.isReady$();
   }
 
-  finished: Set<number> = new Set<number>();
-
   components: Array<WizardStepComponent<any>> = []
   currentComponent: Optional<WizardStepComponent<any>> = null;
   ready: boolean = false;
 
-  constructor() { }
-
-  init(param: Array<WizardStepComponent<any>>) {
-    this.components = param
+  constructor(params: Array<WizardStepComponent<any>>) {
+    this.components = params
     this.currentComponent = this.components[0];
 
     this.ready = true;

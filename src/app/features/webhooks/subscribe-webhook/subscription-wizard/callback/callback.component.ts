@@ -22,8 +22,8 @@
 
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {CallbackService} from "../../../service/callback.service";
-import {mergeMap, tap} from "rxjs/operators";
-import {BehaviorSubject} from "rxjs";
+import {map, mergeMap, tap} from "rxjs/operators";
+import {BehaviorSubject, Observable} from "rxjs";
 import {Application} from "../../../model/application";
 import {Callback} from "../../../../../shared/model/callback/callback";
 import {ModalService} from "../../../../../shared/service/modal.service";
@@ -33,7 +33,7 @@ import {Subscription, SubscriptionStatus} from "../../../../../shared/model/subs
 import {Optional} from "../../../../../shared/model/optional";
 import {WizardStep} from "../steps/wizard-step";
 import {CallbackWizardStep} from "../steps/callback-wizard-step";
-import {WizardStepComponent} from "../steps/wizard-step.component";
+import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
 
 type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
@@ -42,24 +42,27 @@ type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
   templateUrl: './callback.component.html',
   styleUrls: ['./callback.component.css']
 })
-export class CallbackComponent implements WizardStepComponent<Callback>, OnInit {
+export class CallbackComponent extends WizardStepBaseComponent<Callback> implements OnInit {
   @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
   @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
   @Input() subscription?: Subscription
   currentApplication!: Application;
   readonly _selectedCallback: BehaviorSubject<Optional<Callback>> = new BehaviorSubject<Optional<Callback>>(null);
-  @Input() set application(app: Optional<Application>) {
-    if(app) {
-      this.currentApplication = app
-      this.loadCallbacks()
-    }
-  }
-  @Input() set callback(callback: Optional<Callback>) {
-    this._selectedCallback.next(callback)
-  }
 
   step: WizardStep<Callback> = new CallbackWizardStep();
-  visible: boolean = false;
+
+  init(value: Optional<Application>): Observable<any> {
+    this.currentApplication = value!!
+    this._selectedCallback.next(null);
+    return super.init(value)
+      .pipe(mergeMap(() => this.loadCallbacks()))
+      .pipe(tap(it => this._callbacks$.next(it)))
+  }
+
+  onNext(): Observable<any> {
+    return super.onNext()
+      .pipe(map(() => this._selectedCallback.value))
+  }
 
   callbackToEdit?: Callback
   noOfOtherActiveSubscriptions?: number
@@ -71,6 +74,7 @@ export class CallbackComponent implements WizardStepComponent<Callback>, OnInit 
     readonly modalService: ModalService,
     private readonly service: CallbackService
   ) {
+    super();
   }
 
   get selectedCallback() {
@@ -106,9 +110,8 @@ export class CallbackComponent implements WizardStepComponent<Callback>, OnInit 
     }
   }
 
-  loadCallbacks() {
-    this.service.fetchApplicationCallbacks(this.currentApplication)
-      .subscribe(list => this._callbacks$.next(list))
+  loadCallbacks(): Observable<Array<Callback>> {
+    return this.service.fetchApplicationCallbacks(this.currentApplication)
   }
 
   ngOnInit(): void {
@@ -137,7 +140,10 @@ export class CallbackComponent implements WizardStepComponent<Callback>, OnInit 
     this._callbacks$.next(list)
 */
     this.loadCallbacks()
-    this.selectCallback(callback);
+      .subscribe(list => {
+        this._callbacks$.next(list);
+        this.selectCallback(callback);
+      })
   }
 }
 

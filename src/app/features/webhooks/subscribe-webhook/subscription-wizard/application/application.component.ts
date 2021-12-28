@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ApplicationService} from "../../../service/application.service";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Application} from "../../../model/application";
@@ -28,21 +28,24 @@ import {ModalService} from "../../../../../shared/service/modal.service";
 import {Optional} from "../../../../../shared/model/optional";
 import {WizardStep} from '../steps/wizard-step';
 import {ApplicationWizardStep} from "../steps/application-wizard-step";
-import {WizardStepComponent} from "../steps/wizard-step.component";
+import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-subscription-wizard-application',
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.css']
 })
-export class ApplicationComponent implements WizardStepComponent<Application>, OnInit {
+export class ApplicationComponent extends WizardStepBaseComponent<Application> implements OnInit {
   @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
-  @Input("application") set application(app: Optional<Application>) {
-    this._selectedApplication.next(app)
-  }
 
   step: WizardStep<Application> = new ApplicationWizardStep();
   visible: boolean = true;
+
+  onNext(): Observable<any> {
+    return super.onNext()
+      .pipe(map(() => this._selectedApplication.value))
+  }
 
   readonly _applications$: BehaviorSubject<Array<Application>> = new BehaviorSubject<Array<Application>>([]);
   readonly _selectedApplication: BehaviorSubject<Optional<Application>> = new BehaviorSubject<Optional<Application>>(null)
@@ -51,6 +54,7 @@ export class ApplicationComponent implements WizardStepComponent<Application>, O
     private readonly applicationService: ApplicationService,
     readonly modalService: ModalService
   ) {
+    super();
   }
 
   get selectedApplication() {
