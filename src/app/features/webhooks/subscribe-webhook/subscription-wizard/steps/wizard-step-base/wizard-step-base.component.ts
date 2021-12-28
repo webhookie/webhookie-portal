@@ -35,23 +35,32 @@ export class WizardStepBaseComponent<T> implements WizardStepComponent<T> {
   visible: boolean = false;
 
   init(value: Optional<any>): Observable<any> {
-    this.step.setCurrent()
-    this.visible = true;
+    this.step.resetValue();
+    this.step.setCurrent();
+    this.show();
     return of(1);
   }
 
   onNext(): Observable<any> {
-    this.step.setComplete()
-    this.visible = false;
+    this.step.setComplete();
+    this.hide();
     return of(1);
   }
 
   onPrev(): void {
-    this.visible = false;
+    this.hide();
     this.step.resetValue();
   }
 
-  show(): void {
+  onBack(): void {
+    this.show();
+  }
+
+  private show(): void {
     this.visible = true;
+  }
+
+  private hide(): void {
+    this.visible = false;
   }
 }

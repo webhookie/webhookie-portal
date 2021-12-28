@@ -30,5 +30,5 @@ export interface WizardStepComponent<T> {
   init(value: Optional<any>): Observable<any>;
   onNext(): Observable<any>;
   onPrev(): void;
-  show(): void;
+  onBack(): void;
 }

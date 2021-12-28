@@ -67,9 +67,9 @@ export class WizardStepManager {
   }
 
   goBack() {
-    this.currentComponent!.onPrev()
+    this.currentComponent!.onPrev();
     this.nextPrev(-1);
-    this.currentComponent!.show()
+    this.currentComponent!.onBack();
   }
 
   goNext() {
