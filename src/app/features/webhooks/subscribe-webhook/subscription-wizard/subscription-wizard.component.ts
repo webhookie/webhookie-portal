@@ -29,13 +29,15 @@ import {CallbackComponent} from "./callback/callback.component";
 import {VerifyCallbackComponent} from "./verify-callback/verify-callback.component";
 import {WizardCongratsComponent} from "./congrats/wizard-congrats.component";
 import {WizardStepManager} from "./steps/wizard-step.manager";
+import {WebhookBaseComponent} from "../../common/webhook-base-component";
+import {WebhooksContext} from "../../webhooks-context";
 
 @Component({
   selector: 'app-subscription-wizard',
   templateUrl: './subscription-wizard.component.html',
   styleUrls: ['./subscription-wizard.component.css']
 })
-export class SubscriptionWizardComponent implements AfterViewInit {
+export class SubscriptionWizardComponent extends WebhookBaseComponent implements AfterViewInit {
   @ViewChild('applicationComponent') applicationComponent!: ApplicationComponent
   @ViewChild('callbackComponent') callbackComponent!: CallbackComponent
   @ViewChild('verifyCallbackComponent') verifyCallbackComponent!: VerifyCallbackComponent
@@ -46,8 +48,10 @@ export class SubscriptionWizardComponent implements AfterViewInit {
   stepManager!: WizardStepManager
 
   constructor(
+    private readonly context: WebhooksContext,
     readonly modalService: ModalService
   ) {
+    super(context);
   }
 
   ngOnInit(): void {
