@@ -156,6 +156,7 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
   }
 
   private formatErrors(error: WebhookieError): Observable<any> {
+    this.step.onError(error);
     let message = error.message;
     if(error.name == DuplicateEntityError.name) {
       message = `There is a subscription with the selected Callback and Application for ${this.webhook.topic.name}`

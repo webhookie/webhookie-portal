@@ -23,6 +23,7 @@
 import {BehaviorSubject, Observable} from "rxjs";
 import {Optional} from "../../../../../shared/model/optional";
 import {filter, map} from "rxjs/operators";
+import {WebhookieError} from "../../../../../shared/error/webhookie-error";
 
 export abstract class WizardStep<T> {
   abstract title: string;
@@ -34,6 +35,15 @@ export abstract class WizardStep<T> {
   hasCancel: boolean = true;
   hasBack: boolean = true;
   hasNext: boolean = true;
+  stepError: Optional<WebhookieError> = null;
+
+  onError(err: WebhookieError) {
+    this.stepError = err;
+  }
+
+  clearError() {
+    this.stepError = null;
+  }
 
   setComplete() {
     this.state = WizardStepState.COMPLETED
@@ -56,15 +66,17 @@ export abstract class WizardStep<T> {
   resetValue() {
     this._value$.next(null)
     this.state = WizardStepState.NONE
+    this.clearError()
   }
 
   next(value: T) {
     this._value$.next(value);
+    this.clearError();
   }
 
   isReady$(): Observable<boolean> {
     return this._value$.asObservable()
-        .pipe(map(it => it != null))
+        .pipe(map(it => (it != null) && this.stepError == null))
   }
 
   get displayValue(): Observable<string> {
