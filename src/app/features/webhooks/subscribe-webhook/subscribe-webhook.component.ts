@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,27 +20,13 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {WebhooksContext} from "../webhooks-context";
-import {ResponseComponent} from "../common/response/response.component";
-import {ApplicationComponent} from "./subscription-wizard/application/application.component";
-import {CallbackComponent} from "./subscription-wizard/callback/callback.component";
 import {filter, mergeMap} from "rxjs/operators";
-import {SubscriptionService, ValidateSubscriptionRequest} from "../../../shared/service/subscription.service";
-import {Observable} from "rxjs";
-import {Subscription} from "../../../shared/model/subscription";
-import {RouterService} from "../../../shared/service/router.service";
-import {HttpHeaders} from "@angular/common/http";
-import {BadRequestError} from "../../../shared/error/bad-request-error";
-import {RequestExampleComponent} from "../common/request-example/request-example.component";
-import {ActivatedRoute, Router} from "@angular/router";
+import {SubscriptionService} from "../../../shared/service/subscription.service";
+import {ActivatedRoute} from "@angular/router";
 import {WebhookBaseComponent} from "../common/webhook-base-component";
-import {environment} from "../../../../environments/environment";
-import {WebhookieError} from "../../../shared/error/webhookie-error";
-import {DuplicateEntityError} from "../../../shared/error/duplicate-entity-error";
-import {ToastService} from "../../../shared/service/toast.service";
-import {CallbackResponse} from "../../../shared/model/callback/callback-response";
-import {ModalService} from 'src/app/shared/service/modal.service';
+import {LogService} from "../../../shared/service/log.service";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -49,45 +35,13 @@ import {ModalService} from 'src/app/shared/service/modal.service';
 })
 export class SubscribeWebhookComponent extends WebhookBaseComponent implements AfterViewInit {
 
-  @ViewChild("applicationComponent") application?: ApplicationComponent
-  @ViewChild("callbackComponent") callback?: CallbackComponent
-  @ViewChild('responseComponent') response?: ResponseComponent
-  @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
-
-  subscription?: Subscription
-  readMode = false;
-  isRunning = false;
-  debug = environment.debug
-
   constructor(
-    private readonly toastService: ToastService,
+    private readonly log: LogService,
     private readonly context: WebhooksContext,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly router: Router,
     private readonly subscriptionService: SubscriptionService,
-    private readonly routeService: RouterService,
-    readonly modalService: ModalService
   ) {
     super(context)
-  }
-
-  get canBeSaved() {
-    return false
-  }
-
-  get canBeValidated() {
-    return this.subscription?.canBeValidated() && !this.isRunning  && !this.canBeSaved
-  }
-
-  get canBeActivated() {
-    return this.subscription?.canBeActivated() && !this.canBeSaved
-  }
-
-  get hasResponse() {
-    return this.response?.hasResponse
-  }
-
-  private clear() {
   }
 
   ngAfterViewInit() {
@@ -96,85 +50,10 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
         filter(it => it.subscriptionId != null),
         mergeMap(it => this.subscriptionService.fetchSubscription(it.subscriptionId))
       )
-      .subscribe(it => {
-        this.readMode = true
-        this.subscription = it;
-      });
-  }
-
-  ngOnInit(): void {
-    super.ngOnInit();
-
-    this.clear();
-
-/*
-    this.subscriptionContext.selectedCallback$
-      .subscribe(() => this.response?.invalidate());
-*/
+      .subscribe(it => this.log.debug(`subscription to Edit: ${it.id}`));
   }
 
   title() {
     return `Subscribe to ${this.webhook.topic.name} webhook`
-  }
-
-  validate() {
-    let validateSubscription = (): Observable<Subscription> => {
-      this.isRunning = true;
-      this.response?.init();
-      let requestExample: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
-      let request = {
-        payload: JSON.stringify(requestExample.payload),
-        headers: requestExample.headers
-      }
-
-      return this.subscriptionService.validateSubscription(this.subscription!, request)
-    };
-
-    let successHandler = (it: Subscription) => {
-      this.response?.update(new CallbackResponse(
-        200, new HttpHeaders(), ""
-      ))
-      this.isRunning = false;
-      this.subscription = it;
-    };
-
-    let errorHandler = (err: BadRequestError) => {
-      this.isRunning = false;
-      this.response?.updateWithError(err.error);
-    }
-
-    validateSubscription()
-      .subscribe(successHandler, errorHandler)
-  }
-
-  activate() {
-    this.subscriptionService.activateSubscription(this.subscription!)
-      .subscribe(it => {
-        this.subscription = it;
-        this.routeService.navigateTo("/webhooks/congrats");
-      })
-  }
-
-  createSubscription() {
-    let successHandler = (it: Subscription) => {
-      this.subscription = it
-      this.toastService.success(`subscription has been saved successfully!`, "Done")
-    };
-
-    let errorHandler = (error: WebhookieError) => {
-      let message = error.message;
-      if(error.name == DuplicateEntityError.name) {
-        message = `There is a subscription with the selected Callback and Application for ${this.webhook.topic.name}`
-      }
-      this.toastService.error(message, "Server Error")
-    };
-
-    if(this.subscription?.id) {
-      this.subscriptionService.updateSubscription(this.subscription, "DUMMY ID")
-        .subscribe(successHandler, errorHandler);
-    } else {
-      this.subscriptionService.createSubscription(this.webhook.topic.name, "DUMMY ID")
-        .subscribe(successHandler, errorHandler);
-    }
   }
 }
