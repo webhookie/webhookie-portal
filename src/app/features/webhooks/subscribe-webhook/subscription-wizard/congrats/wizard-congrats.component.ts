@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -24,6 +24,14 @@ import {Component, OnInit} from '@angular/core';
 import {WizardStep} from "../steps/wizard-step";
 import {CongratsWizardStep} from "../steps/congrats-wizard-step";
 import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
+import {WizardExtraButton} from "../steps/wizard-step.component";
+import {Observable, of} from "rxjs";
+import {Optional} from "../../../../../shared/model/optional";
+import {RouterService} from "../../../../../shared/service/router.service";
+import {tap} from "rxjs/operators";
+import {ToastService} from "../../../../../shared/service/toast.service";
+import {SubscriptionService} from "../../../../../shared/service/subscription.service";
+import {Subscription} from "../../../../../shared/model/subscription";
 
 @Component({
   selector: 'app-subscription-wizard-congrats',
@@ -31,14 +39,58 @@ import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-bas
   styleUrls: ['./wizard-congrats.component.css']
 })
 export class WizardCongratsComponent extends WizardStepBaseComponent<any> implements OnInit {
+  subscription: Optional<Subscription>
 
   step: WizardStep<any> = new CongratsWizardStep();
 
-  constructor() {
+  leftExtraButtons: Array<WizardExtraButton> = [
+  ];
+
+  extraButtons: Array<WizardExtraButton> = [
+    {
+      id: "managesub",
+      title: "Manage your subscription",
+      css: "ml-2",
+
+      action(step: WizardCongratsComponent): Observable<any> {
+        step.routerService.navigateToConsumerSubscriptions()
+        return of(1)
+      },
+
+      disabled(_: WizardCongratsComponent): Observable<boolean> {
+        return of(false)
+      }
+    },
+    {
+      id: "gohome",
+      title: "Go to webhooks page",
+      css: "ml-2 btn btn-default",
+
+      action(step: WizardCongratsComponent): Observable<any> {
+        step.routerService.navigateToWebhooks()
+        return of(1)
+      },
+
+      disabled(_: WizardCongratsComponent): Observable<boolean> {
+        return of(false)
+      }
+    }
+  ]
+
+  init(value: Optional<Subscription>): Observable<any> {
+    this.subscription = value
+    return super.init(value)
+      .pipe(tap(() => this.step.setComplete()))
+  }
+
+  constructor(
+    private readonly toastService: ToastService,
+    private readonly subscriptionService: SubscriptionService,
+    private readonly routerService: RouterService
+  ) {
     super();
   }
 
   ngOnInit(): void {
   }
-
 }
