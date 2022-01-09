@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,8 +25,9 @@ import {WizardStep} from "./wizard-step";
 import {Optional} from "../../../../../shared/model/optional";
 
 export class CallbackWizardStep extends WizardStep<Callback> {
-  title: string = "2.Select your callback";
+  title: string = "2. Select your callback";
   icon: string = "bi bi-link-45deg";
   order = 2
   valueMapper = (v: Optional<Callback>): string => v?.name ?? "";
+  canGoNext: boolean = true;
 }

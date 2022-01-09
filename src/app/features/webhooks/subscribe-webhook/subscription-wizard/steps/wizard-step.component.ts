@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -31,4 +31,14 @@ export interface WizardStepComponent<T> {
   onNext(): Observable<any>;
   onPrev(): void;
   onBack(): void;
+  extraButtons: Array<WizardExtraButton>;
+  leftExtraButtons: Array<WizardExtraButton>;
+}
+
+export interface WizardExtraButton {
+  id: string;
+  title: string;
+  css: string;
+  action(step: WizardStepComponent<any>): Observable<any>;
+  disabled(step: WizardStepComponent<any>): Observable<boolean>
 }

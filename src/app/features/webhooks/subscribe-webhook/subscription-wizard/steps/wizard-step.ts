@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -29,7 +29,11 @@ export abstract class WizardStep<T> {
   abstract icon: string;
   abstract order: number;
   abstract valueMapper: (v: Optional<T>) => string
+  abstract canGoNext: boolean;
   state: WizardStepState = WizardStepState.NONE;
+  hasCancel: boolean = true;
+  hasBack: boolean = true;
+  hasNext: boolean = true;
 
   setComplete() {
     this.state = WizardStepState.COMPLETED

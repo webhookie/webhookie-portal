@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,50 +22,10 @@
 
 import {Observable} from "rxjs";
 import {Optional} from "../../../../../shared/model/optional";
-import {WizardStepComponent} from "./wizard-step.component";
+import {WizardExtraButton, WizardStepComponent} from "./wizard-step.component";
 import {mergeMap} from "rxjs/operators";
 
 export class WizardStepManager {
-  get isFirstStep(): boolean {
-    if(this.ready) {
-      return this.currentComponent!.step.order == 1
-    }
-
-    return false
-  }
-
-  get isFinalStep(): boolean {
-    if(this.ready) {
-      return this.currentComponent!.step.order == this.components.length
-    }
-
-    return false;
-  }
-
-  get isCancellable(): boolean {
-    return !this.isFinalStep
-  }
-
-  get canGoBack(): boolean {
-    return !(this.isFirstStep || this.isFinalStep)
-  }
-
-  get canGoNext(): boolean {
-    if(this.ready) {
-      return this.currentComponent!.step.order < 3
-    }
-
-    return false;
-  }
-
-  get canSubscribe(): boolean {
-    if(this.ready) {
-      return this.currentComponent!.step.order == 3
-    }
-
-    return false;
-  }
-
   goBack() {
     this.currentComponent!.onPrev();
     this.nextPrev(-1);
@@ -110,5 +70,18 @@ export class WizardStepManager {
     this.currentComponent = this.components[0];
 
     this.ready = true;
+  }
+
+  extraAction(extraButton: WizardExtraButton) {
+    extraButton.action(this.currentComponent!)
+      .subscribe(() => {
+        if(this.currentComponent!.step.canGoNext) {
+          this.goNext()
+        }
+      })
+  }
+
+  extraActionDisabled(extraButton: WizardExtraButton): Observable<boolean> {
+    return extraButton.disabled(this.currentComponent!)
   }
 }

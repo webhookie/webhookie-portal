@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -21,7 +21,7 @@
  */
 
 import {Component} from '@angular/core';
-import {WizardStepComponent} from "../wizard-step.component";
+import {WizardExtraButton, WizardStepComponent} from "../wizard-step.component";
 import {WizardStep} from "../wizard-step";
 import {Optional} from "../../../../../../shared/model/optional";
 import {Observable, of} from "rxjs";
@@ -33,6 +33,10 @@ import {Observable, of} from "rxjs";
 export class WizardStepBaseComponent<T> implements WizardStepComponent<T> {
   step!: WizardStep<T>;
   visible: boolean = false;
+
+  leftExtraButtons: Array<WizardExtraButton> = [];
+
+  extraButtons: Array<WizardExtraButton> = [];
 
   init(value: Optional<any>): Observable<any> {
     this.step.resetValue();
