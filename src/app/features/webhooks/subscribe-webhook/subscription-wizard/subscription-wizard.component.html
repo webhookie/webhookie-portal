@@ -1,6 +1,6 @@
 <!--
   ~ webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
-  ~ Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+  ~ Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as
@@ -47,19 +47,42 @@
   </app-subscription-wizard-congrats>
 </form>
 
-<div class="subscribe-btns mb-5 p-3 p-lg-0 pt-lg-2" *ngIf="stepManager">
+<div class="subscribe-btns mb-5 p-3 p-lg-0 pt-lg-2" *ngIf="current">
   <div class="left-btn">
-    <button type="button" id="cancel" *ngIf="stepManager.isCancellable" routerLink="/">Cancel</button>
-    <button type="button" id="deactive" class="ml-2" *ngIf="stepManager.isFinalStep">Deactivate subscription</button>
+    <button type="button" id="cancel" *ngIf="current?.step?.hasCancel" routerLink="/">Cancel</button>
+    <button type="button"
+            *ngFor="let extraButton of current?.leftExtraButtons"
+            id="{{extraButton.id}}"
+            [class]="extraButton.css"
+            [disabled]="stepManager.extraActionDisabled(extraButton) | async"
+            [class.disabled]="stepManager.extraActionDisabled(extraButton) | async"
+            (click)="stepManager.extraAction(extraButton)">
+      {{extraButton.title}}
+    </button>
   </div>
   <div class="right-btn">
-    <button type="button" id="prevBtn" *ngIf="stepManager.canGoBack" (click)="stepManager.goBack()" class="mr-2"><i class="bi bi-arrow-left"></i>
-      Previous
+    <button type="button" id="prevBtn"
+            *ngIf="current?.step?.hasBack"
+            (click)="stepManager.goBack()"
+            class="mr-2">
+      <i class="bi bi-arrow-left"></i> Previous
     </button>
-    <button type="button" id="nextBtn" [disabled]="!(stepIsReady$ | async)" [class.disabled]="!(stepIsReady$ | async)" *ngIf="stepManager.canGoNext" (click)="stepManager.goNext()">Next <i class="bi bi-arrow-right"></i></button>
-    <button type="button" class="ml-2 btn btn-default" id="subscribe" *ngIf="stepManager.canSubscribe" (click)="stepManager.goNext()">Subscribe</button>
-    <button type="button" id="managesub" class="ml-2" *ngIf="stepManager.isFinalStep">Manage your subscription</button>
-    <button class="ml-2 btn btn-default" id="gohome" *ngIf="stepManager.isFinalStep">Go to webhooks page</button>
+    <button type="button" id="nextBtn"
+            *ngIf="current?.step?.hasNext"
+            (click)="stepManager.goNext()"
+            [disabled]="!(stepIsReady$ | async)"
+            [class.disabled]="!(stepIsReady$ | async)">
+      Next <i class="bi bi-arrow-right"></i>
+    </button>
+    <button type="button"
+            *ngFor="let extraButton of current?.extraButtons"
+            id="{{extraButton.id}}"
+            [class]="extraButton.css"
+            [disabled]="stepManager.extraActionDisabled(extraButton) | async"
+            [class.disabled]="stepManager.extraActionDisabled(extraButton) | async"
+            (click)="stepManager.extraAction(extraButton)">
+      {{extraButton.title}}
+    </button>
   </div>
 </div>
 

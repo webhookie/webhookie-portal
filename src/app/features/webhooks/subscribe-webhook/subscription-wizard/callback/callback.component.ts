@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,8 +22,8 @@
 
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {CallbackService} from "../../../service/callback.service";
-import {map, mergeMap, tap} from "rxjs/operators";
-import {BehaviorSubject, Observable} from "rxjs";
+import {catchError, map, mergeMap, tap} from "rxjs/operators";
+import {BehaviorSubject, Observable, throwError} from "rxjs";
 import {Application} from "../../../model/application";
 import {Callback} from "../../../../../shared/model/callback/callback";
 import {ModalService} from "../../../../../shared/service/modal.service";
@@ -34,6 +34,12 @@ import {Optional} from "../../../../../shared/model/optional";
 import {WizardStep} from "../steps/wizard-step";
 import {CallbackWizardStep} from "../steps/callback-wizard-step";
 import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
+import {Webhook} from "../../../model/webhook";
+import {WebhookieError} from "../../../../../shared/error/webhookie-error";
+import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
+import {ToastService} from "../../../../../shared/service/toast.service";
+import {SubscriptionService} from "../../../../../shared/service/subscription.service";
+import {RouterService} from "../../../../../shared/service/router.service";
 
 type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
@@ -43,9 +49,10 @@ type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
   styleUrls: ['./callback.component.css']
 })
 export class CallbackComponent extends WizardStepBaseComponent<Callback> implements OnInit {
+  @Input() webhook!: Webhook
   @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
   @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
-  @Input() subscription?: Subscription
+  subscription?: Subscription
   currentApplication!: Application;
   readonly _selectedCallback: BehaviorSubject<Optional<Callback>> = new BehaviorSubject<Optional<Callback>>(null);
 
@@ -59,9 +66,11 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
       .pipe(tap(it => this._callbacks$.next(it)))
   }
 
-  onNext(): Observable<any> {
-    return super.onNext()
-      .pipe(map(() => this._selectedCallback.value))
+  onNext(): Observable<Optional<Subscription>> {
+    return this.createSubscription()
+      .pipe(tap(it => this.subscription = it))
+      .pipe(mergeMap(() => super.onNext()))
+      .pipe(map(() => this.subscription))
   }
 
   callbackToEdit?: Callback
@@ -71,6 +80,9 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
   readonly _callbacks$: BehaviorSubject<Array<Callback>> = new BehaviorSubject<Array<Callback>>([]);
 
   constructor(
+    private readonly toastService: ToastService,
+    private readonly routerService: RouterService,
+    private readonly subscriptionService: SubscriptionService,
     readonly modalService: ModalService,
     private readonly service: CallbackService
   ) {
@@ -122,6 +134,9 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
   }
 
   selectCallback(callback: Callback) {
+    if(callback.id != this.selectedCallback?.id) {
+      this.subscriptionAlreadyExists = false;
+    }
     this._selectedCallback.next(callback)
     this.onSelect.emit(callback)
   }
@@ -133,17 +148,31 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
   }
 
   callbackIsUpdated(callback: Callback) {
-/*
-    let list = this._callbacks$.value
-    let idx = list.findIndex((it) => it.id == callback.id)
-    list[idx] = callback
-    this._callbacks$.next(list)
-*/
     this.loadCallbacks()
       .subscribe(list => {
         this._callbacks$.next(list);
         this.selectCallback(callback);
       })
+  }
+
+  private formatErrors(error: WebhookieError): Observable<any> {
+    let message = error.message;
+    if(error.name == DuplicateEntityError.name) {
+      message = `There is a subscription with the selected Callback and Application for ${this.webhook.topic.name}`
+      this.subscriptionAlreadyExists = true;
+    }
+    this.toastService.error(message, "Server Error")
+
+    return throwError(error)
+  }
+
+  createSubscription(): Observable<Subscription> {
+    return this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback?.id)
+      .pipe(catchError(err => this.formatErrors(err)));
+  }
+
+  gotoSubscriptions() {
+    this.routerService.navigateToConsumerSubscriptions();
   }
 }
 

@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,15 +23,18 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {RequestExampleComponent} from "../../../common/request-example/request-example.component";
 import {ResponseComponent} from "../../../common/response/response.component";
-import {ValidateSubscriptionRequest} from "../../../../../shared/service/subscription.service";
-import {CallbackService, CallbackValidationRequest} from "../../../service/callback.service";
+import {SubscriptionService, ValidateSubscriptionRequest} from "../../../../../shared/service/subscription.service";
 import {BadRequestError} from "../../../../../shared/error/bad-request-error";
 import {Optional} from "../../../../../shared/model/optional";
 import {Callback} from "../../../../../shared/model/callback/callback";
 import {VerifyCallbackWizardStep} from "../steps/verify-callback-wizard-step";
 import {WizardStep} from "../steps/wizard-step";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
+import {Subscription} from "../../../../../shared/model/subscription";
+import {ToastService} from "../../../../../shared/service/toast.service";
+import {WizardExtraButton} from "../steps/wizard-step.component";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-subscription-wizard-verify-callback',
@@ -41,24 +44,44 @@ import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-bas
 export class VerifyCallbackComponent extends WizardStepBaseComponent<Callback> implements OnInit {
   @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
   @ViewChild('responseComponent') response!: ResponseComponent
-  callback: Optional<Callback>
+  subscription: Optional<Subscription>
 
   step: WizardStep<any> = new VerifyCallbackWizardStep();
 
-  init(value: Optional<Callback>): Observable<any> {
-    this.callback = value
-    this.hasResponse = false
+  extraButtons: Array<WizardExtraButton> = [
+    {
+      id: "subscribeBtn",
+      title: "Subscribe",
+      css: "",
+
+      action(step: VerifyCallbackComponent): Observable<any> {
+        return step.subscriptionService.activateSubscription(step.subscription!)
+      },
+
+      disabled(step: VerifyCallbackComponent): Observable<boolean> {
+        return of(!step.testPassed)
+      }
+    }
+  ]
+
+  init(value: Optional<Subscription>): Observable<any> {
+    this.subscription = value
     this.inProgress = false
     this.testResult = TestResult.UNKNOWN
     return super.init(value)
   }
 
-  hasResponse: boolean = false
+  onNext(): Observable<Optional<Subscription>> {
+    return super.onNext()
+      .pipe(map(() => this.subscription))
+  }
+
   inProgress: boolean = false
   testResult: TestResult = TestResult.UNKNOWN
 
   constructor(
-    private readonly callbackService: CallbackService
+    private readonly toastService: ToastService,
+    private readonly subscriptionService: SubscriptionService
   ) {
     super();
   }
@@ -70,6 +93,10 @@ export class VerifyCallbackComponent extends WizardStepBaseComponent<Callback> i
     return this.inProgress || this.hasResponse;
   }
 
+  get hasResponse(): boolean {
+    return this.testResult != TestResult.UNKNOWN
+  }
+
   get testFailed(): boolean {
     return this.testResult == TestResult.FAILED
   }
@@ -78,20 +105,17 @@ export class VerifyCallbackComponent extends WizardStepBaseComponent<Callback> i
     return this.testResult == TestResult.PASSED
   }
 
-  test() {
+  validate() {
     this.inProgress = true;
     this.response.init()
 
     let requestExample: ValidateSubscriptionRequest = this.requestExampleComponent.valueEx();
-    let request: CallbackValidationRequest = {
-      httpMethod: this.callback!.httpMethod,
-      url: this.callback!.url,
+    let request = {
       payload: JSON.stringify(requestExample.payload),
-      headers: requestExample.headers,
-      securityScheme: this.callback!.security
+      headers: requestExample.headers
     }
 
-    this.callbackService.testCallback(request)
+    this.subscriptionService.validateSubscription(this.subscription!, request)
       .subscribe(
         it => this.updateWithSuccess(it),
         (it: BadRequestError) => this.updateWithError(it)
@@ -100,7 +124,6 @@ export class VerifyCallbackComponent extends WizardStepBaseComponent<Callback> i
 
   update() {
     this.inProgress = false;
-    this.hasResponse = true;
   }
 
   updateWithSuccess(result: any) {

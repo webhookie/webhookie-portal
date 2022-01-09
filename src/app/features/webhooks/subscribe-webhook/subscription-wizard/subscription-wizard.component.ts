@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,7 +23,7 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {environment} from "../../../../../environments/environment";
 import {ModalService} from "../../../../shared/service/modal.service";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {ApplicationComponent} from "./application/application.component";
 import {CallbackComponent} from "./callback/callback.component";
 import {VerifyCallbackComponent} from "./verify-callback/verify-callback.component";
@@ -31,6 +31,8 @@ import {WizardCongratsComponent} from "./congrats/wizard-congrats.component";
 import {WizardStepManager} from "./steps/wizard-step.manager";
 import {WebhookBaseComponent} from "../../common/webhook-base-component";
 import {WebhooksContext} from "../../webhooks-context";
+import {WizardStepComponent} from "./steps/wizard-step.component";
+import {Optional} from "../../../../shared/model/optional";
 
 @Component({
   selector: 'app-subscription-wizard',
@@ -54,6 +56,10 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
     super(context);
   }
 
+  get current(): Optional<WizardStepComponent<any>> {
+    return this.stepManager?.currentComponent;
+  }
+
   ngOnInit(): void {
   }
 
@@ -64,20 +70,14 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
       this.callbackComponent,
       this.verifyCallbackComponent,
       this.congratsComponent,
-    ])
+    ]);
   }
 
   updateStepValue(value: any) {
-    if(this.stepManager) {
-      this.stepManager.updateStepValue(value)
-    }
+    this.stepManager?.updateStepValue(value)
   }
 
   get stepIsReady$(): Observable<boolean> {
-    if(this.stepManager) {
-      return this.stepManager.stepIsReady$;
-    }
-
-    return of(false)
+    return this.stepManager?.stepIsReady$;
   }
 }

@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -291,7 +291,7 @@ select.form-select {
   }
 }
 
-#nextBtn.disabled, #nextBtn:disabled {
+button.disabled, #button:disabled {
   border-color: var(--primary-dark-color);
   color: var(--primary-text-color);;
   background-color: var(--color-white);;

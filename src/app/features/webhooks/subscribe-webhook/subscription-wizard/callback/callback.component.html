@@ -1,6 +1,6 @@
 <!--
   ~ webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
-  ~ Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+  ~ Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as
@@ -43,7 +43,7 @@
     <div class="text-danger font14 mb-2" *ngIf="subscriptionAlreadyExists">
       There is already a subscription with this webhook and callback.
       Please change callback or go to
-      <a href="javascript:void(0)" class="font-weight-bold">Manage your subscriptions</a>
+      <a (click)="gotoSubscriptions()" class="font-weight-bold">Manage your subscriptions</a>
     </div>
 <!--
     <div>
