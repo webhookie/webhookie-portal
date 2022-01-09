@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,7 +23,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {map, mergeMap, tap} from "rxjs/operators";
-import {HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {Api} from "../api";
 import {LogService} from "./log.service";
 import {SubscriptionAdapter} from "../adapter/subscription.adapter";
@@ -31,6 +31,7 @@ import {Subscription} from "../model/subscription";
 import {HttpResponseType} from "./api.service";
 import {Pageable} from "../request/pageable";
 import {RequestUtils} from "../request/request-utils";
+import {CallbackResponse} from "../model/callback/callback-response";
 
 @Injectable({
   providedIn: 'root'
@@ -64,23 +65,14 @@ export class SubscriptionService {
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
 
-  updateSubscription(subscription: Subscription, callbackId: string): Observable<Subscription> {
-    let request = {
-      callbackId: callbackId
-    }
-
-    return this.api.put(`${this.SUBSCRIPTIONS_URI}/${subscription.id}`, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
-      .pipe(map(it => this.adapter.adapt(it.body)))
-  }
-
-  validateSubscription(subscription: Subscription, request: ValidateSubscriptionRequest): Observable<Subscription> {
+  validateSubscription(subscription: Subscription, request: ValidateSubscriptionRequest): Observable<CallbackResponse> {
     let httpParams = new HttpParams();
     let headers = new HttpHeaders()
       .set("Accept", "*/*")
     Object.keys(request.headers)
       .forEach(k => headers.set(k, request.headers[k]))
     return this.api.post(`${this.SUBSCRIPTIONS_URI}/${subscription?.id}/validate`, request, httpParams, headers, HttpResponseType.TEXT)
-      .pipe(mergeMap(() => this.fetchSubscription(subscription.id)))
+      .pipe(map((it: HttpResponse<any>) => new CallbackResponse(it.status, it.headers, it.body)))
   }
 
   fetchSubscription(id: string): Observable<Subscription> {
