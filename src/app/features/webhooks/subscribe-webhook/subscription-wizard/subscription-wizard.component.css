@@ -99,10 +99,10 @@
 }
 #subForm {
   background-color: #ffffff;
-  margin: 20px auto 10px;
-  padding: 40px;
+  margin: 20px auto;
   width: 65%;
   min-width: 300px;
+  position: relative;
 }
 #subForm select{
   width: 100%;
@@ -179,10 +179,16 @@ button.test, button.retest{
   color: #0151CC;
 }
 .subscribe-btns{
-  margin: 0 auto;
-  width: 75%;
+  margin: 0 auto !important;
+  width: 70%;
   border-top: 1px solid #E1E1E1;
-  padding-top: 10px;
+  padding: 20px !important;
+  position: sticky;
+  bottom: 0%;
+  left: 15%;
+  z-index: 9;
+  background-color: #ffffff;
+  padding-bottom: 4% !important;
 }
 .left-btn{
   float: left;
@@ -254,6 +260,9 @@ select.form-select {
   .finish::before {
     left: 58%;
   }
+  .subscribe-btns{
+    padding-bottom: 6% !important;
+  }
 }
 
 @media (max-width: 767px) {
@@ -289,8 +298,15 @@ select.form-select {
   .finish::before {
     font-size: 15px;
   }
+  .subscribe-btns{
+    padding-bottom: 15% !important;
+  }
 }
-
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  .subscribe-btns{
+    padding-bottom: 8% !important;
+  }
+}
 button.disabled, #button:disabled {
   border-color: var(--primary-dark-color);
   color: var(--primary-text-color);;
