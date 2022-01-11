@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -149,6 +149,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
         .handler(this.deactivate())
         .isAvailable(this.contextMenuService.canDeactivate(this._role$))
         .build(),
+/*
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VALIDATE)
         .handler(this.edit())
@@ -159,6 +160,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
         .handler(this.edit())
         .isAvailable(this.contextMenuService.canWrite(this._role$))
         .build(),
+*/
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.DELETE)
         .handler(this.delete())
@@ -267,8 +269,6 @@ enum SubscriptionMenu {
   VIEW_TRAFFIC = "View Traffic",
   ACTIVATE = "Activate",
   DEACTIVATE = "Deactivate",
-  VALIDATE = "Validate",
-  EDIT = "Edit",
   DELETE = "Delete",
   SUSPEND = "Suspend",
   UNSUSPEND = "Unsuspend",

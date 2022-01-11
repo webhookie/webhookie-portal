@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,11 +36,11 @@ export class SubscriptionContextMenuService {
   ) {
   }
 
-  isConsumerTraffic(role$: BehaviorSubject<string>): boolean {
+  isConsumerSubscriptions(role$: BehaviorSubject<string>): boolean {
     return role$.value == Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER;
   }
 
-  isProviderTraffic(role$: BehaviorSubject<string>): boolean {
+  isProviderSubscriptions(role$: BehaviorSubject<string>): boolean {
     return role$.value == Constants.SUBSCRIPTIONS_VIEW_ROLE_PROVIDER;
   }
 
@@ -52,19 +52,19 @@ export class SubscriptionContextMenuService {
     let validStatusList = [SubscriptionStatus.VALIDATED, SubscriptionStatus.DEACTIVATED]
     return (it) => this.context.hasConsumerRole
       && validStatusList.includes(it.statusUpdate.status)
-      && this.isConsumerTraffic(role$);
+      && this.isConsumerSubscriptions(role$);
   }
 
   canValidate(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
     let validStatusList = [SubscriptionStatus.SAVED, SubscriptionStatus.BLOCKED]
     return (it) => this.context.hasConsumerRole
       && validStatusList.includes(it.statusUpdate.status)
-      && this.isConsumerTraffic(role$);
+      && this.isConsumerSubscriptions(role$);
   }
 
   canWrite(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
     return () => this.context.hasConsumerRole
-      && this.isConsumerTraffic(role$);
+      && this.isConsumerSubscriptions(role$);
   }
 
   canDelete(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
@@ -77,26 +77,26 @@ export class SubscriptionContextMenuService {
     let validStatusList = [SubscriptionStatus.ACTIVATED]
     return (it) => this.context.hasConsumerRole
       && validStatusList.includes(it.statusUpdate.status)
-      && this.isConsumerTraffic(role$);
+      && this.isConsumerSubscriptions(role$);
   }
 
   canSuspend(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
     return (it) => this.context.hasProviderRole
       && it.statusUpdate.status != SubscriptionStatus.SUSPENDED
-      && this.isProviderTraffic(role$);
+      && this.isProviderSubscriptions(role$);
   }
 
   canUnsuspend(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
     let validStatusList = [SubscriptionStatus.SUSPENDED]
     return (it) => this.context.hasProviderRole
       && validStatusList.includes(it.statusUpdate.status)
-      && this.isProviderTraffic(role$);
+      && this.isProviderSubscriptions(role$);
   }
 
   canUnblock(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
     let validStatusList = [SubscriptionStatus.BLOCKED]
     return (it) => this.context.hasConsumerRole
       && validStatusList.includes(it.statusUpdate.status)
-      && this.isConsumerTraffic(role$);
+      && this.isConsumerSubscriptions(role$);
   }
 }
