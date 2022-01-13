@@ -99,13 +99,13 @@
 }
 #subForm {
   background-color: #ffffff;
-  margin: 20px auto;
+  margin: 10px auto;
   width: 65%;
   min-width: 300px;
   position: relative;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 250px;
+  height: 115px;
 }
 #subForm::-webkit-scrollbar {
   width: 5px !important;
