@@ -102,10 +102,9 @@
   margin: 10px auto;
   width: 65%;
   min-width: 300px;
-  position: relative;
-  overflow-y: scroll;
+  height: calc(100vh - 508px);
+  overflow-y: auto;
   overflow-x: hidden;
-  height: 115px;
 }
 #subForm::-webkit-scrollbar {
   width: 5px !important;
@@ -178,7 +177,7 @@ button.test, button.retest{
   opacity: 1;
 }
 .steppers {
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
 }
 .steppers ul {
@@ -190,16 +189,11 @@ button.test, button.retest{
   color: #0151CC;
 }
 .subscribe-btns{
-  margin: 0 auto !important;
   width: 70%;
+  margin-left: 15%;
   border-top: 1px solid #E1E1E1;
-  padding: 20px !important;
-  position: sticky;
-  bottom: 0%;
-  left: 15%;
-  z-index: 9;
-  background-color: #ffffff;
-  padding-bottom: 4% !important;
+  padding: 10px 0;
+  display: inline-block;
 }
 .left-btn{
   float: left;
@@ -210,6 +204,9 @@ button.test, button.retest{
 .step-div h5, .step-div p{
   font-size: 14px;
   font-weight: 600;
+}
+.step-div{
+  height: 150px;
 }
 .step-div h5{
   color: #C6C6C6;
@@ -264,15 +261,13 @@ select.form-select {
   }
   .subscribe-btns{
     width: 100%;
+    margin-left: 0;
   }
   .step-div h5, .step-div p{
     font-size: 13px;
   }
   .finish::before {
     left: 58%;
-  }
-  .subscribe-btns{
-    padding-bottom: 6% !important;
   }
 }
 
@@ -308,14 +303,6 @@ select.form-select {
   }
   .finish::before {
     font-size: 15px;
-  }
-  .subscribe-btns{
-    padding-bottom: 15% !important;
-  }
-}
-@media screen and (max-width: 767px) and (orientation: landscape) {
-  .subscribe-btns{
-    padding-bottom: 8% !important;
   }
 }
 button.disabled, #button:disabled {
