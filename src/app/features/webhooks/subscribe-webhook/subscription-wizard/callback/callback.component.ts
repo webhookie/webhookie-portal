@@ -25,7 +25,7 @@ import {CallbackService} from "../../../service/callback.service";
 import {catchError, map, mergeMap, tap} from "rxjs/operators";
 import {BehaviorSubject, Observable, throwError} from "rxjs";
 import {Application} from "../../../model/application";
-import {Callback} from "../../../../../shared/model/callback/callback";
+import {Callback, CallbackEditStatus} from "../../../../../shared/model/callback/callback";
 import {ModalService} from "../../../../../shared/service/modal.service";
 import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../../shared/model/table/column/context-menu-item";
 import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
@@ -87,6 +87,13 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
     private readonly service: CallbackService
   ) {
     super();
+  }
+
+  get isEditable(): Observable<boolean> {
+    return this._selectedCallback.asObservable()
+      .pipe(
+        map(it => it?.editStatus == CallbackEditStatus.OPEN)
+      )
   }
 
   get selectedCallback() {

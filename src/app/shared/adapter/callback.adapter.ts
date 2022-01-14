@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,7 +22,7 @@
 
 import {Injectable} from '@angular/core';
 import {BaseAdapter} from "./adapter";
-import {Callback} from "../model/callback/callback";
+import {Callback, CallbackEditStatus} from "../model/callback/callback";
 import {CallbackSecuritySchemeAdapter} from "./callback-security-scheme.adapter";
 
 @Injectable({
@@ -37,6 +37,7 @@ export class CallbackAdapter extends BaseAdapter<Callback> {
 
   adapt(item: any): Callback {
     let security = this.securityAdapter.adapt(item.securityScheme);
-    return new Callback(item.id, item.name, item.httpMethod, item.url, item.signable, security);
+    let editStatus = item.editStatus as CallbackEditStatus;
+    return new Callback(item.id, item.name, item.httpMethod, item.url, editStatus, item.signable, security);
   }
 }

@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -33,6 +33,7 @@ export class Callback extends TableDetailData implements SelectableItem {
     public name: string,
     public httpMethod: string,
     public url: string,
+    public editStatus: CallbackEditStatus,
     public signable: boolean = false,
     public security: CallbackSecurityScheme | null
   ) {
@@ -62,4 +63,9 @@ export class Callback extends TableDetailData implements SelectableItem {
   get isOAuth(): Boolean {
     return this.security?.method == SecuritySchemeType.OAUTH2
   }
+}
+
+export enum CallbackEditStatus {
+  LOCKED = "LOCKED",
+  OPEN = "OPEN"
 }

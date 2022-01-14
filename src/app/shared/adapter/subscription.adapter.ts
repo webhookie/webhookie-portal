@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -52,6 +52,7 @@ export class SubscriptionAdapter extends BaseAdapter<Subscription> {
       ic.name,
       ic.httpMethod,
       ic.url,
+      ic.editStatus,
       ic.signable,
       this.securityAdapter.adapt(ic.securityScheme)
     )
