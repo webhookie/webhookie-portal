@@ -89,22 +89,4 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
       .pipe(mergeMap(() => this.callbackComponent.editing(subscription)))
       .subscribe(() => this.stepManager?.goNext())
   }
-/*
-
-  prepareForEdit(subscription: Subscription) {
-    this.applicationComponent.selectBySubscription(subscription)
-      .pipe(mergeMap((app) => {
-        this.stepManager?.goto(0)
-        return this.applicationComponent.onNext()
-          .pipe(map(() => app))
-      }))
-      .pipe(mergeMap((it) => {
-        this.stepManager?.goto(1)
-        return this.callbackComponent.selectBySubscription(subscription, it)
-      }))
-      .pipe(mergeMap(() => this.callbackComponent.onNext()))
-      .pipe(mergeMap(() => this.verifyCallbackComponent.init(subscription)))
-      .subscribe(() => this.stepManager?.goto(2))
-  }
-*/
 }
