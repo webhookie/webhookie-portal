@@ -70,7 +70,16 @@ export class SubscriptionContextMenuService {
   canDelete(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
     let canWrite: (data: Subscription) => boolean = this.canWrite(role$)
     return (it) => canWrite(it)
-      && it.statusUpdate.status != SubscriptionStatus.ACTIVATED;
+      && it.statusUpdate.status != SubscriptionStatus.ACTIVATED
+      && this.isConsumerSubscriptions(role$);
+  }
+
+  canEdit(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
+    let validStatusList = [SubscriptionStatus.DRAFT, SubscriptionStatus.VALIDATED]
+    let canWrite: (data: Subscription) => boolean = this.canWrite(role$)
+    return (it) => canWrite(it)
+      && validStatusList.includes(it.statusUpdate.status)
+      && this.isConsumerSubscriptions(role$);
   }
 
   canDeactivate(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
