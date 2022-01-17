@@ -65,6 +65,16 @@ export class SubscriptionService {
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
 
+  updateSubscription(subscriptionId: string, callbackId: string): Observable<Subscription> {
+    let request = {
+      callbackId: callbackId
+    }
+
+    let uri = `${this.SUBSCRIPTIONS_URI}/${subscriptionId}`;
+    return this.api.put(uri, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
+      .pipe(map(it => this.adapter.adapt(it.body)))
+  }
+
   validateSubscription(subscription: Subscription, request: ValidateSubscriptionRequest): Observable<CallbackResponse> {
     let httpParams = new HttpParams();
     let headers = new HttpHeaders()
