@@ -20,13 +20,14 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {WebhooksContext} from "../webhooks-context";
 import {filter, mergeMap} from "rxjs/operators";
 import {SubscriptionService} from "../../../shared/service/subscription.service";
 import {ActivatedRoute} from "@angular/router";
 import {WebhookBaseComponent} from "../common/webhook-base-component";
 import {LogService} from "../../../shared/service/log.service";
+import {SubscriptionWizardComponent} from "./subscription-wizard/subscription-wizard.component";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -34,6 +35,7 @@ import {LogService} from "../../../shared/service/log.service";
   styleUrls: ['./subscribe-webhook.component.css']
 })
 export class SubscribeWebhookComponent extends WebhookBaseComponent implements AfterViewInit {
+  @ViewChild("wizardComponent") wizardComponent!: SubscriptionWizardComponent
 
   constructor(
     private readonly log: LogService,
@@ -50,7 +52,7 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
         filter(it => it.subscriptionId != null),
         mergeMap(it => this.subscriptionService.fetchSubscription(it.subscriptionId))
       )
-      .subscribe(it => this.log.debug(`subscription to Edit: ${it.id}`));
+      .subscribe(it => this.wizardComponent.prepareForEdit(it));
   }
 
   title() {

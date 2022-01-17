@@ -23,7 +23,7 @@
 import {Observable} from "rxjs";
 import {Optional} from "../../../../../shared/model/optional";
 import {WizardExtraButton, WizardStepComponent} from "./wizard-step.component";
-import {mergeMap} from "rxjs/operators";
+import {map, mergeMap, tap} from "rxjs/operators";
 
 export class WizardStepManager {
   goBack() {
@@ -33,10 +33,16 @@ export class WizardStepManager {
   }
 
   goNext() {
+    this.moveNext("")
+      .subscribe(() => console.warn("Going Next..."))
+  }
+
+  moveNext(value: any): Observable<any> {
     let nextComponent = this.components[this.currentComponent!.step.order]
-    this.currentComponent!.onNext()
+    return this.currentComponent!.onNext()
       .pipe(mergeMap(it => nextComponent.init(it)))
-      .subscribe(() => this.nextPrev(1))
+      .pipe(tap(() => this.nextPrev(1)))
+      .pipe(map(() => value))
   }
 
   private nextPrev(tab: any){
@@ -48,13 +54,6 @@ export class WizardStepManager {
 
   updateStepValue(value: any) {
     this.currentComponent!.step.next(value);
-  }
-
-  stepValue(step: number): any {
-    if(this.ready) {
-      return this.components[step - 1].step.currentValue;
-    }
-    return ""
   }
 
   get stepIsReady$(): Observable<boolean> {

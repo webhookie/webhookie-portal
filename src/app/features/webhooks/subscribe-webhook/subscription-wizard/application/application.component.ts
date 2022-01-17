@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,7 +22,7 @@
 
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ApplicationService} from "../../../service/application.service";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, of} from "rxjs";
 import {Application} from "../../../model/application";
 import {ModalService} from "../../../../../shared/service/modal.service";
 import {Optional} from "../../../../../shared/model/optional";
@@ -30,6 +30,7 @@ import {WizardStep} from '../steps/wizard-step';
 import {ApplicationWizardStep} from "../steps/application-wizard-step";
 import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
 import {map} from "rxjs/operators";
+import {Subscription} from "../../../../../shared/model/subscription";
 
 @Component({
   selector: 'app-subscription-wizard-application',
@@ -91,5 +92,14 @@ export class ApplicationComponent extends WizardStepBaseComponent<Application> i
 
   clearApp() {
     this._selectedApplication.next(undefined)
+  }
+
+  editing(subscription: Subscription): Observable<Application> {
+    let app = this._applications$.value
+      .filter((app: Application) => subscription.application.id == app.id)[0]
+
+    this.selectApp(app)
+
+    return of(app)
   }
 }

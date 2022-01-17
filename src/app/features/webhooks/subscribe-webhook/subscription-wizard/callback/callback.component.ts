@@ -23,7 +23,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {CallbackService} from "../../../service/callback.service";
 import {catchError, map, mergeMap, tap} from "rxjs/operators";
-import {BehaviorSubject, Observable, throwError} from "rxjs";
+import {BehaviorSubject, Observable, of, throwError} from "rxjs";
 import {Application} from "../../../model/application";
 import {Callback, CallbackEditStatus} from "../../../../../shared/model/callback/callback";
 import {ModalService} from "../../../../../shared/service/modal.service";
@@ -55,6 +55,7 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
   subscription?: Subscription
   currentApplication!: Application;
   readonly _selectedCallback: BehaviorSubject<Optional<Callback>> = new BehaviorSubject<Optional<Callback>>(null);
+  editMode: boolean = false;
 
   step: WizardStep<Callback> = new CallbackWizardStep();
 
@@ -67,7 +68,13 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
   }
 
   onNext(): Observable<Optional<Subscription>> {
-    return this.createSubscription()
+    let subscriptionObservable;
+    if(this.editMode) {
+      subscriptionObservable = this.updateSubscription()
+    } else {
+      subscriptionObservable = this.createSubscription()
+    }
+    return subscriptionObservable
       .pipe(tap(it => this.subscription = it))
       .pipe(mergeMap(() => super.onNext()))
       .pipe(map(() => this.subscription))
@@ -179,8 +186,24 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
       .pipe(catchError(err => this.formatErrors(err)));
   }
 
+  updateSubscription(): Observable<Subscription> {
+    return this.subscriptionService.updateSubscription(this.subscription!.id, this.selectedCallback!.id)
+      .pipe(catchError(err => this.formatErrors(err)));
+  }
+
   gotoSubscriptions() {
     this.routerService.navigateToConsumerSubscriptions();
+  }
+
+  editing(subscription: Subscription): Observable<Callback> {
+    this.editMode = true
+    this.subscription = subscription
+    let callback = this._callbacks$.value
+      .filter((c: Callback) => subscription.callback.id == c.id)[0]
+
+    this.selectCallback(callback)
+
+    return of(callback)
   }
 }
 

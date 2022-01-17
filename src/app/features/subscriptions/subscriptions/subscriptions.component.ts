@@ -149,18 +149,16 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
         .handler(this.deactivate())
         .isAvailable(this.contextMenuService.canDeactivate(this._role$))
         .build(),
-/*
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VALIDATE)
-        .handler(this.edit())
+        .handler(this.validate())
         .isAvailable(this.contextMenuService.canValidate(this._role$))
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.EDIT)
-        .handler(this.edit())
+        .handler(this.validate())
         .isAvailable(this.contextMenuService.canWrite(this._role$))
         .build(),
-*/
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.DELETE)
         .handler(this.delete())
@@ -207,7 +205,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     }
   }
 
-  edit(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+  validate(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription: Subscription) => {
       this.webhookApiService.fetchByTopic(subscription.topic)
         .subscribe(group => {
@@ -269,6 +267,8 @@ enum SubscriptionMenu {
   VIEW_TRAFFIC = "View Traffic",
   ACTIVATE = "Activate",
   DEACTIVATE = "Deactivate",
+  EDIT = "Edit",
+  VALIDATE = "Validate",
   DELETE = "Delete",
   SUSPEND = "Suspend",
   UNSUSPEND = "Unsuspend",
