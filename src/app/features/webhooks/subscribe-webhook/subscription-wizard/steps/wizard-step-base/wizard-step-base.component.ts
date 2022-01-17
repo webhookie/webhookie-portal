@@ -25,6 +25,7 @@ import {WizardExtraButton, WizardStepComponent} from "../wizard-step.component";
 import {WizardStep} from "../wizard-step";
 import {Optional} from "../../../../../../shared/model/optional";
 import {Observable, of} from "rxjs";
+import {Subscription} from "../../../../../../shared/model/subscription";
 
 @Component({
   selector: 'app-wizard-step-base',
@@ -66,5 +67,9 @@ export class WizardStepBaseComponent<T> implements WizardStepComponent<T> {
 
   private hide(): void {
     this.visible = false;
+  }
+
+  editing(subscription: Subscription): Observable<any> {
+    return of(1);
   }
 }

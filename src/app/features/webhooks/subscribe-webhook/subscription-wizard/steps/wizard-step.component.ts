@@ -23,12 +23,14 @@
 import {WizardStep} from "./wizard-step";
 import {Observable} from "rxjs";
 import {Optional} from "../../../../../shared/model/optional";
+import {Subscription} from "../../../../../shared/model/subscription";
 
 export interface WizardStepComponent<T> {
   step: WizardStep<T>
   visible: boolean;
   init(value: Optional<any>): Observable<any>;
   onNext(): Observable<any>;
+  editing(subscription: Subscription): Observable<any>
   onPrev(): void;
   onBack(): void;
   extraButtons: Array<WizardExtraButton>;
