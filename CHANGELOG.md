@@ -1,6 +1,14 @@
+<a name="v1.1.2"></a>
+## v1.1.2
+
+### Features
+
+* new Subscription UX
+* rename SAVED to DRAFT when subscription is saved
+* Ability to Edit/Validate subscription
 
 <a name="1.1.1"></a>
-## [1.1.1](https://bitbucket.org/hookie-solutions-team/webhookie-portal/compare/1.1.0...1.1.1) (2021-12-15)
+## 1.1.1
 
 ### Features
 
@@ -8,11 +16,11 @@
 
 
 <a name="1.1.0"></a>
-## [1.1.0](https://bitbucket.org/hookie-solutions-team/webhookie-portal/compare/1.0.1...1.1.0) (2021-12-14)
+## 1.1.0
 
 
 <a name="1.0.1"></a>
-## [1.0.1](https://bitbucket.org/hookie-solutions-team/webhookie-portal/compare/1.0.0...1.0.1) (2021-10-05)
+## 1.0.1
 
 
 <a name="1.0.0"></a>
