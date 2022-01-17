@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -53,7 +53,9 @@ export class SubscriptionCallbackColumn extends BaseTableColumn<Subscription>{
 
 export class SubscriptionStatusColumn extends BaseTableColumn<Subscription>{
   value(data: Subscription): string {
-    return `<h5><span class="${SubscriptionColumnUtils.classByStatus(data)} font-weight-bold">${data.statusUpdate.status}</span></h5>`;
+    return `<h5><span class="${SubscriptionColumnUtils.classByStatus(data)} font-weight-bold">
+      ${SubscriptionColumnUtils.status(data.statusUpdate.status)}
+      </span></h5>`;
   }
 
   clazz = "text-left"
@@ -87,5 +89,13 @@ class SubscriptionColumnUtils {
     }
 
     return `badge badge-pill badge-${clazz} border-radius`;
+  }
+
+  static status(status: SubscriptionStatus): string {
+    if(status == SubscriptionStatus.SAVED) {
+      return "DRAFT"
+    }
+
+    return status
   }
 }
