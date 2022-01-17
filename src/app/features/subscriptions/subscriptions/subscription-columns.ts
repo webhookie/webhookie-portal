@@ -65,7 +65,7 @@ class SubscriptionColumnUtils {
   static classByStatus(subscription: Subscription): string {
     let clazz;
     switch (subscription.statusUpdate.status) {
-      case SubscriptionStatus.SAVED:
+      case SubscriptionStatus.DRAFT:
         clazz = "dark";
         break;
       case SubscriptionStatus.VALIDATED:
@@ -92,10 +92,6 @@ class SubscriptionColumnUtils {
   }
 
   static status(status: SubscriptionStatus): string {
-    if(status == SubscriptionStatus.SAVED) {
-      return "DRAFT"
-    }
-
     return status
   }
 }

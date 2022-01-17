@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,20 +36,6 @@ export class Subscription extends TableDetailData {
   }
 
   isLoading: boolean = false;
-
-  canBeValidated(): boolean {
-    let validStatusList = [SubscriptionStatus.SAVED, SubscriptionStatus.BLOCKED, SubscriptionStatus.DEACTIVATED];
-    return validStatusList
-      .filter(it => it === this.statusUpdate.status)
-      .length != 0
-  }
-
-  canBeActivated(): boolean {
-    let validStatusList = [SubscriptionStatus.VALIDATED, SubscriptionStatus.DEACTIVATED];
-    return validStatusList
-      .filter(it => it === this.statusUpdate.status)
-      .length != 0
-  }
 }
 
 export class ApplicationDetails {
@@ -72,7 +58,7 @@ export class StatusUpdate {
 }
 
 export enum SubscriptionStatus {
-  SAVED = "SAVED",
+  DRAFT = "DRAFT",
   VALIDATED = "VALIDATED",
   ACTIVATED = "ACTIVATED",
   DEACTIVATED = "DEACTIVATED",

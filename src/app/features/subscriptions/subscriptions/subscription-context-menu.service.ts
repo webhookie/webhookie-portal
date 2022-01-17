@@ -56,7 +56,7 @@ export class SubscriptionContextMenuService {
   }
 
   canValidate(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
-    let validStatusList = [SubscriptionStatus.SAVED, SubscriptionStatus.BLOCKED]
+    let validStatusList = [SubscriptionStatus.DRAFT, SubscriptionStatus.BLOCKED]
     return (it) => this.context.hasConsumerRole
       && validStatusList.includes(it.statusUpdate.status)
       && this.isConsumerSubscriptions(role$);
