@@ -157,7 +157,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.EDIT)
         .handler(this.validate())
-        .isAvailable(this.contextMenuService.canWrite(this._role$))
+        .isAvailable(this.contextMenuService.canEdit(this._role$))
         .build(),
       ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.DELETE)
