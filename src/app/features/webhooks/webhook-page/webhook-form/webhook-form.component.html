@@ -80,14 +80,16 @@
       </ngb-alert>
     </div>
   </div>
-  <div class="d-flex editor-heigh">
-    <div class="pr-md-0 spec-editor-height bord" [resizableMinWidth]="5" appResizable>
-      <div class="border-top mb-3 mt-3"></div>
-      <ngx-monaco-editor [options]="editorOptions" formControlName="spec"></ngx-monaco-editor>
-    </div>
-    <div class="pl-md-0 spec-editor-height">
-      <div class="border-top mb-3 mt-3"></div>
-      <asyncapi-component [schema]="specCode"></asyncapi-component>
+  <div class="resizable-main">
+    <div class="resizable-content">
+      <div class="resizable-row">
+        <region-component class="resizable-section editor-height" [directions]="['right']" [rFlex]="true">
+          <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" formControlName="spec"></ngx-monaco-editor>
+        </region-component>
+        <div class="resizable-section">
+          <asyncapi-component [schema]="specCode"></asyncapi-component>
+        </div>
+      </div>
     </div>
   </div>
   </form>

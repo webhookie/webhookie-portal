@@ -20,13 +20,6 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-.spec-editor-height {
-  min-height:600px;
-  width:50%;
-}
-.spec-editor-height.bord {
-  border-right: none !important;
-}
 .create-webgroup pre{
 border: 1px solid #e1e1e1;
 padding: 10px;
@@ -119,6 +112,43 @@ padding-left: 4px;
 .monaco-editor{
   cursor: default !important;
 }
+.resizable-main {
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+  background: #fff;
+  position: relative;
+  border-top: 1px solid #e1e1e1;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.resizable-content {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-content: space-around;
+}
+.resizable-row {
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-content: space-around;
+}
+.resizable-row .resizable {
+  flex: 0 0 300px;
+}
+.resizable-section {
+  box-sizing: border-box;
+  border: 7px solid #fff;
+  flex: 1;
+  min-width: 30px;
+  position: relative;
+}
+.resizable-section .resizable {
+  flex: 0 0 50%;
+}
 @media (max-width: 992px) {
 .create-webgroup pre{
 font-size: 14px;
@@ -129,20 +159,11 @@ font-size: 13px !important;
 .font12{
 font-size: 11px !important;
 }
-.spec-editor-height {
-  width:100%;
-}
 }
 
 
 
 @media (max-width: 767px){
-/* .font14{
-font-size: 14px !important;
-}
-.font12{
-font-size: 12px !important;
-} */
 .create-webgroup pre{
     margin-right: 0px;
     }
