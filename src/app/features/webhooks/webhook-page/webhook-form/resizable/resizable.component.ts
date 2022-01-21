@@ -22,28 +22,16 @@ export class RegionComponent implements OnInit {
 	@Output() resizing:any = new EventEmitter();
 	@Output() resizeEnd:any = new EventEmitter();
 
-	// private regionElement;
-nativeElement:any;
-
-	// private window;
-
+  nativeElement:any;
 	style:any;
-
 	w:any;
 	h:any;
-
 	vx:any = 1;
 	vy:any = 1;
-
 	start:any;
-
 	dragDir:any;
-
 	axis:any;
-
 	info:any={};
-
-	// private flexBasis;
 
 	constructor(private regionElement: ElementRef, @Inject(Window) private window: Window) {
 		this.nativeElement = this.regionElement.nativeElement;
@@ -77,8 +65,6 @@ nativeElement:any;
 		this.h = parseInt(this.style.getPropertyValue('height'), 10);
 
 		this.resizeStart.emit({ info: this.info });
-
-		//prevent transition while dragging
 		this.noTransition = true;
 		this.true=true;
 	}
@@ -98,17 +84,6 @@ nativeElement:any;
 
 		var operand = 1;
 		switch(this.dragDir) {
-			// case 'top':
-			// 	operand = -1;
-            // break;
-			// case 'bottom':
-			// 	let height = (this.h - offset * this.vy * operand) + 'px';
-			// 	if (this.rFlex) {
-			// 		this.flexBasis = height;
-			// 	} else {
-			// 		this.height = height;
-			// 	}
-			// 	break;
 			case 'left':
 				operand = -1;
              break;
