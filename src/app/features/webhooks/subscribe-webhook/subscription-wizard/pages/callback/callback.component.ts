@@ -184,7 +184,7 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
   }
 
   createSubscription(): Observable<Subscription> {
-    return this.subscriptionService.createSubscription(this.webhook.topic.name, this.webhookApi.approvalDetails, this.selectedCallback!.id)
+    return this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback!.id)
       .pipe(catchError(err => this.formatErrors(err)));
   }
 
