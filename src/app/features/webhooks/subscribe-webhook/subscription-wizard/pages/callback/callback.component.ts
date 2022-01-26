@@ -40,6 +40,7 @@ import {DuplicateEntityError} from "../../../../../../shared/error/duplicate-ent
 import {ToastService} from "../../../../../../shared/service/toast.service";
 import {SubscriptionService} from "../../../../../../shared/service/subscription.service";
 import {RouterService} from "../../../../../../shared/service/router.service";
+import {WebhookApi} from "../../../../model/webhook-api";
 
 type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 
@@ -50,6 +51,7 @@ type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 })
 export class CallbackComponent extends WizardStepBaseComponent<Callback> implements OnInit {
   @Input() webhook!: Webhook
+  @Input() webhookApi!: WebhookApi
   @Output("onSelect") onSelect: EventEmitter<any> = new EventEmitter();
   @ViewChild("editCallbackTemplate") editCallbackTemplate!: TemplateRef<any>;
   subscription?: Subscription
@@ -182,7 +184,7 @@ export class CallbackComponent extends WizardStepBaseComponent<Callback> impleme
   }
 
   createSubscription(): Observable<Subscription> {
-    return this.subscriptionService.createSubscription(this.webhook.topic.name, this.selectedCallback?.id)
+    return this.subscriptionService.createSubscription(this.webhook.topic.name, this.webhookApi.approvalDetails, this.selectedCallback!.id)
       .pipe(catchError(err => this.formatErrors(err)));
   }
 

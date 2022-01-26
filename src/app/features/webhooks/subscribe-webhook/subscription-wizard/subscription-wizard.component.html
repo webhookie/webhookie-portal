@@ -39,6 +39,7 @@
   <app-subscription-wizard-callback
     #callbackComponent
     [webhook]="webhook"
+    [webhookApi]="webhookApi"
     (onSelect)="updateStepValue($event)">
   </app-subscription-wizard-callback>
   <app-subscription-wizard-verify-callback #verifyCallbackComponent>

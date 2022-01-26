@@ -32,6 +32,7 @@ import {HttpResponseType} from "./api.service";
 import {Pageable} from "../request/pageable";
 import {RequestUtils} from "../request/request-utils";
 import {CallbackResponse} from "../model/callback/callback-response";
+import {WebhookApiApprovalDetails} from "../../features/webhooks/model/webhook-api";
 
 @Injectable({
   providedIn: 'root'
@@ -55,9 +56,12 @@ export class SubscriptionService {
       )
   }
 
-  createSubscription(topic?: string, callbackId?: string): Observable<Subscription> {
+  createSubscription(topic: string, approvalDetails: WebhookApiApprovalDetails, callbackId: string): Observable<Subscription> {
     let request = {
-      topic: topic,
+      webhookDetails: {
+        topic: topic,
+        requiresApproval: approvalDetails.required
+      },
       callbackId: callbackId
     }
 
