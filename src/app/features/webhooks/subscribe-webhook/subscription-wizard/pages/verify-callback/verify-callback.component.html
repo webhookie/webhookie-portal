@@ -27,7 +27,7 @@
       <p class="px-lg-5"> To validate that your callback is ready to start receiving "order" events you must send a test request. For
         more information about testing you callback see here:</p>
       <button class="btn button test" *ngIf="!hasResponse" [disabled]="inProgress" [class.disabled]="inProgress" (click)="validate()">Test</button>
-      <button class="btn btn-default test" *ngIf="hasResponse" [disabled]="inProgress" [class.disabled]="inProgress" (click)="validate()">Retest</button>
+      <button class="btn btn-default retest" *ngIf="hasResponse" [disabled]="inProgress" [class.disabled]="inProgress" (click)="validate()">Retest</button>
       <div class="text-danger font12 mt-3" *ngIf="testFailed">
         Your test to validate your callback failed. Please resolve the issue and try again!
       </div>
