@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {RequestExampleComponent} from "../../../../common/request-example/request-example.component";
 import {ResponseComponent} from "../../../../common/response/response.component";
 import {SubscriptionService, ValidateSubscriptionRequest} from "../../../../../../shared/service/subscription.service";
@@ -35,6 +35,8 @@ import {Subscription} from "../../../../../../shared/model/subscription";
 import {ToastService} from "../../../../../../shared/service/toast.service";
 import {WizardExtraButton} from "../../steps/wizard-step.component";
 import {map} from "rxjs/operators";
+import {Webhook} from "../../../../model/webhook";
+import {WebhookApi} from "../../../../model/webhook-api";
 
 @Component({
   selector: 'app-subscription-wizard-verify-callback',
@@ -42,27 +44,35 @@ import {map} from "rxjs/operators";
   styleUrls: ['./verify-callback.component.css']
 })
 export class VerifyCallbackComponent extends WizardStepBaseComponent<Callback> implements OnInit {
+  @Input() webhook!: Webhook
+  @Input() webhookApi!: WebhookApi
   @ViewChild('requestExampleComponent') requestExampleComponent!: RequestExampleComponent
   @ViewChild('responseComponent') response!: ResponseComponent
   subscription: Optional<Subscription>
 
   step: WizardStep<any> = new VerifyCallbackWizardStep();
 
-  extraButtons: Array<WizardExtraButton> = [
-    {
-      id: "subscribeBtn",
-      title: "Subscribe",
-      css: "",
+  extraButtons(): Array<WizardExtraButton> {
+    return [
+      {
+        id: "subscribeBtn",
+        title: this.webhookApi.approvalDetails.required ? "Next" : "Subscribe",
+        css: "",
 
-      action(step: VerifyCallbackComponent): Observable<any> {
-        return step.subscriptionService.activateSubscription(step.subscription!)
-      },
+        action(step: VerifyCallbackComponent): Observable<any> {
+          if(step.webhookApi.approvalDetails.required) {
+            return of(1)
+          }
 
-      disabled(step: VerifyCallbackComponent): Observable<boolean> {
-        return of(!step.testPassed)
+          return step.subscriptionService.activateSubscription(step.subscription!)
+        },
+
+        disabled(step: VerifyCallbackComponent): Observable<boolean> {
+          return of(!step.testPassed)
+        }
       }
-    }
-  ]
+    ]
+  }
 
   init(value: Optional<Subscription>): Observable<any> {
     this.subscription = value

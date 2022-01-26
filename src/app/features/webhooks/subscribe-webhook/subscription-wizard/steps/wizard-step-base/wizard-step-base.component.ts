@@ -37,7 +37,9 @@ export class WizardStepBaseComponent<T> implements WizardStepComponent<T> {
 
   leftExtraButtons: Array<WizardExtraButton> = [];
 
-  extraButtons: Array<WizardExtraButton> = [];
+  extraButtons(): Array<WizardExtraButton>{
+    return []
+  };
 
   init(value: Optional<any>): Observable<any> {
     this.step.resetValue();

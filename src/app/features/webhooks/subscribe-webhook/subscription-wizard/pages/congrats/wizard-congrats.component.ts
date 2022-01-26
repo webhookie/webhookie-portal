@@ -46,36 +46,38 @@ export class WizardCongratsComponent extends WizardStepBaseComponent<any> implem
   leftExtraButtons: Array<WizardExtraButton> = [
   ];
 
-  extraButtons: Array<WizardExtraButton> = [
-    {
-      id: "managesub",
-      title: "Manage your subscription",
-      css: "ml-2",
+  extraButtons(): Array<WizardExtraButton> {
+    return [
+      {
+        id: "managesub",
+        title: "Manage your subscription",
+        css: "ml-2",
 
-      action(step: WizardCongratsComponent): Observable<any> {
-        step.routerService.navigateToConsumerSubscriptions()
-        return of(1)
+        action(step: WizardCongratsComponent): Observable<any> {
+          step.routerService.navigateToConsumerSubscriptions()
+          return of(1)
+        },
+
+        disabled(_: WizardCongratsComponent): Observable<boolean> {
+          return of(false)
+        }
       },
+      {
+        id: "gohome",
+        title: "Go to webhooks page",
+        css: "ml-2 btn btn-default",
 
-      disabled(_: WizardCongratsComponent): Observable<boolean> {
-        return of(false)
+        action(step: WizardCongratsComponent): Observable<any> {
+          step.routerService.navigateToWebhooks()
+          return of(1)
+        },
+
+        disabled(_: WizardCongratsComponent): Observable<boolean> {
+          return of(false)
+        }
       }
-    },
-    {
-      id: "gohome",
-      title: "Go to webhooks page",
-      css: "ml-2 btn btn-default",
-
-      action(step: WizardCongratsComponent): Observable<any> {
-        step.routerService.navigateToWebhooks()
-        return of(1)
-      },
-
-      disabled(_: WizardCongratsComponent): Observable<boolean> {
-        return of(false)
-      }
-    }
-  ]
+    ]
+  }
 
   init(value: Optional<Subscription>): Observable<any> {
     this.subscription = value

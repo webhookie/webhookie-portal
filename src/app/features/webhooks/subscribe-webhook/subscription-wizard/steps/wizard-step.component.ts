@@ -33,7 +33,7 @@ export interface WizardStepComponent<T> {
   editing(subscription: Subscription): Observable<any>
   onPrev(): void;
   onBack(): void;
-  extraButtons: Array<WizardExtraButton>;
+  extraButtons(): Array<WizardExtraButton>;
   leftExtraButtons: Array<WizardExtraButton>;
 }
 

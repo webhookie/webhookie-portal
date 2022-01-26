@@ -42,7 +42,9 @@
     [webhookApi]="webhookApi"
     (onSelect)="updateStepValue($event)">
   </app-subscription-wizard-callback>
-  <app-subscription-wizard-verify-callback #verifyCallbackComponent>
+  <app-subscription-wizard-verify-callback #verifyCallbackComponent
+    [webhook]="webhook"
+    [webhookApi]="webhookApi">
   </app-subscription-wizard-verify-callback>
   <app-subscription-wizard-congrats #congratsComponent>
   </app-subscription-wizard-congrats>
@@ -76,7 +78,7 @@
       Next <i class="bi bi-arrow-right"></i>
     </button>
     <button type="button"
-            *ngFor="let extraButton of current?.extraButtons"
+            *ngFor="let extraButton of current?.extraButtons()"
             id="{{extraButton.id}}"
             [class]="extraButton.css"
             [disabled]="stepManager.extraActionDisabled(extraButton) | async"
