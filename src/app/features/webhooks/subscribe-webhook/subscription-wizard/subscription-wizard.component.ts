@@ -47,6 +47,7 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   @ViewChild('callbackComponent') callbackComponent!: CallbackComponent
   @ViewChild('verifyCallbackComponent') verifyCallbackComponent!: VerifyCallbackComponent
   @ViewChild('congratsComponent') congratsComponent!: WizardCongratsComponent
+  @ViewChild('approvalComponent') approvalComponent!: ApprovalDetailsComponent
 
   debug = environment.debug
 
@@ -68,12 +69,21 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
 
   ngAfterViewInit(): void {
     this.applicationComponent.init(null);
-    this.stepManager = new WizardStepManager([
-      this.applicationComponent,
-      this.callbackComponent,
-      this.verifyCallbackComponent,
-      this.congratsComponent,
-    ]);
+    if(this.webhookApi.approvalDetails.required) {
+      this.stepManager = new WizardStepManager([
+        this.applicationComponent,
+        this.callbackComponent,
+        this.verifyCallbackComponent,
+        this.approvalComponent,
+      ]);
+    } else {
+      this.stepManager = new WizardStepManager([
+        this.applicationComponent,
+        this.callbackComponent,
+        this.verifyCallbackComponent,
+        this.congratsComponent,
+      ]);
+    }
   }
 
   updateStepValue(value: any) {

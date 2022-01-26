@@ -74,7 +74,8 @@ import {
     SubscriptionWizardComponent,
     VerifyCallbackComponent,
     WizardCongratsComponent,
-    WizardStepBaseComponent
+    WizardStepBaseComponent,
+    ApprovalDetailsComponent
   ],
   imports: [
     CommonModule,
