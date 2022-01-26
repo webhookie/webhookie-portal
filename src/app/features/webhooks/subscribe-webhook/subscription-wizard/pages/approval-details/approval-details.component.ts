@@ -25,6 +25,12 @@ import {WizardStepBaseComponent} from "../../steps/wizard-step-base/wizard-step-
 import {WizardStep} from "../../steps/wizard-step";
 import {WizardExtraButton} from "../../steps/wizard-step.component";
 import {ApprovalDetailsWizardStep} from "../../steps/approval-details-wizard-step";
+import {Optional} from "../../../../../../shared/model/optional";
+import {Subscription} from "../../../../../../shared/model/subscription";
+import {Observable, of} from "rxjs";
+import {ToastService} from "../../../../../../shared/service/toast.service";
+import {SubscriptionService} from "../../../../../../shared/service/subscription.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-subscription-approval-details',
@@ -32,16 +38,52 @@ import {ApprovalDetailsWizardStep} from "../../steps/approval-details-wizard-ste
   styleUrls: ['./approval-details.component.css']
 })
 export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> implements OnInit {
+  subscription: Optional<Subscription>
   step: WizardStep<any> = new ApprovalDetailsWizardStep();
 
-  leftExtraButtons: Array<WizardExtraButton> = [
-  ];
+  submitForm!: FormGroup
 
-  constructor() {
+  extraButtons(): Array<WizardExtraButton> {
+    return [
+      {
+        id: "submitBtn",
+        title: "Submit for approval",
+        css: "",
+
+        action(step: ApprovalDetailsComponent): Observable<any> {
+          return of(1)
+        },
+
+        disabled(step: ApprovalDetailsComponent): Observable<boolean> {
+          return of(!step.submitForm.dirty || (step.submitForm.dirty && !step.submitForm.valid))
+        }
+      }
+    ]
+  }
+
+  init(value: Optional<Subscription>): Observable<any> {
+    this.subscription = value
+    return super.init(value)
+  }
+
+  constructor(
+    private readonly toastService: ToastService,
+    private readonly subscriptionService: SubscriptionService
+  ) {
     super();
   }
 
   ngOnInit(): void {
+    this.submitForm = new FormGroup({
+      reason: new FormControl("", [
+        Validators.required,
+        Validators.minLength(40)
+      ]),
+      email: new FormControl("", [Validators.required, Validators.email])
+    });
   }
 
+  get reason() { return this.submitForm.get('reason'); }
+
+  get email() { return this.submitForm.get('email'); }
 }

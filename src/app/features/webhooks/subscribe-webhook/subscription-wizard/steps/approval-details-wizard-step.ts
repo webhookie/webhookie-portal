@@ -30,5 +30,6 @@ export class ApprovalDetailsWizardStep extends WizardStep<Subscription> {
   order = 4;
   valueMapper = (v: Optional<Subscription>): string => v?.topic ?? "";
   hasBack: boolean = false;
+  hasNext: boolean = false;
   canGoNext: boolean = false;
 }

@@ -20,4 +20,31 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<p *ngIf="visible">subscription-approval-details works!</p>
+<form *ngIf="visible" [formGroup]="submitForm">
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="font14 font-weight-400" for="reason">Reason for subscription</label>
+      <input type="text" id="reason" class="form-control" formControlName="reason" placeholder="Reason for subscription" required>
+    </div>
+    <div class="form-group">
+      <label class="font14 font-weight-400" for="email">Notification Email</label>
+      <input type="email" id="email" class="form-control" formControlName="email" placeholder="Notification Email" required>
+    </div>
+  </div>
+  <div *ngIf="reason?.invalid && (reason?.dirty || reason?.touched)" class="alert alert-danger">
+    <div *ngIf="reason?.errors?.required">
+      Reason for subscription is required.
+    </div>
+    <div *ngIf="reason?.errors?.minlength">
+      Reason must be at least 40 characters long.
+    </div>
+  </div>
+  <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
+    <div *ngIf="email?.errors?.required">
+      Email is required.
+    </div>
+    <div *ngIf="email?.errors?.email">
+      Invalid email address.
+    </div>
+  </div>
+</form>
