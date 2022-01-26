@@ -143,7 +143,7 @@ button {
   font-size: 14px;
   cursor: pointer;
 }
-button.test, button.retest, #prevBtn, #cancel, #managesub, #deactive {
+button.retest, #prevBtn, #cancel, #managesub, #deactive {
   background-color: #ffffff;
   border: 1px solid #E1E1E1;
   color: #0151cc;
