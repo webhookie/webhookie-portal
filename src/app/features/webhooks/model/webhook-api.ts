@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -28,6 +28,7 @@ import {WebhookType} from "./webhook-type";
 import {StringUtils} from "../../../shared/string-utils";
 import {User} from "../../../shared/model/user";
 import {ArrayUtils} from "../../../shared/array-utils";
+import {Optional} from "../../../shared/model/optional";
 
 export class WebhookApi extends TableDetailData {
   private readonly _securityOptions: Array<SecurityOption> = [];
@@ -57,6 +58,7 @@ export class WebhookApi extends TableDetailData {
   constructor(
     public id: string,
     public title: string,
+    public approvalDetails: WebhookApiApprovalDetails,
     public version: string,
     public description: string,
     public spec: string,
@@ -89,9 +91,14 @@ export class WebhookApi extends TableDetailData {
       }
     }
 
+    let approvalDetails: WebhookApiApprovalDetails = {
+      required: item.approvalDetails.required,
+      email: item.approvalDetails.email
+    }
     return new WebhookApi(
       item.id,
       item.title,
+      approvalDetails,
       item.webhookVersion,
       item.description,
       item.raw,
@@ -155,3 +162,9 @@ export interface WebhookApiLicense {
   name: string,
   url: string
 }
+
+export interface WebhookApiApprovalDetails {
+  required: boolean,
+  email: Optional<string>
+}
+
