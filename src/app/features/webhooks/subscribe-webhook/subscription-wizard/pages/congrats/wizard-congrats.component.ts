@@ -21,17 +21,17 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {WizardStep} from "../steps/wizard-step";
-import {CongratsWizardStep} from "../steps/congrats-wizard-step";
-import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
-import {WizardExtraButton} from "../steps/wizard-step.component";
+import {WizardStep} from "../../steps/wizard-step";
+import {CongratsWizardStep} from "../../steps/congrats-wizard-step";
+import {WizardStepBaseComponent} from "../../steps/wizard-step-base/wizard-step-base.component";
+import {WizardExtraButton} from "../../steps/wizard-step.component";
 import {Observable, of} from "rxjs";
-import {Optional} from "../../../../../shared/model/optional";
-import {RouterService} from "../../../../../shared/service/router.service";
+import {Optional} from "../../../../../../shared/model/optional";
+import {RouterService} from "../../../../../../shared/service/router.service";
 import {tap} from "rxjs/operators";
-import {ToastService} from "../../../../../shared/service/toast.service";
-import {SubscriptionService} from "../../../../../shared/service/subscription.service";
-import {Subscription} from "../../../../../shared/model/subscription";
+import {ToastService} from "../../../../../../shared/service/toast.service";
+import {SubscriptionService} from "../../../../../../shared/service/subscription.service";
+import {Subscription} from "../../../../../../shared/model/subscription";
 
 @Component({
   selector: 'app-subscription-wizard-congrats',

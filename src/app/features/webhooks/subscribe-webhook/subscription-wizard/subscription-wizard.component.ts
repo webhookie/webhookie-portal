@@ -24,10 +24,10 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {environment} from "../../../../../environments/environment";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {Observable} from "rxjs";
-import {ApplicationComponent} from "./application/application.component";
-import {CallbackComponent} from "./callback/callback.component";
-import {VerifyCallbackComponent} from "./verify-callback/verify-callback.component";
-import {WizardCongratsComponent} from "./congrats/wizard-congrats.component";
+import {ApplicationComponent} from "./pages/application/application.component";
+import {CallbackComponent} from "./pages/callback/callback.component";
+import {VerifyCallbackComponent} from "./pages/verify-callback/verify-callback.component";
+import {WizardCongratsComponent} from "./pages/congrats/wizard-congrats.component";
 import {WizardStepManager} from "./steps/wizard-step.manager";
 import {WebhookBaseComponent} from "../../common/webhook-base-component";
 import {WebhooksContext} from "../../webhooks-context";
@@ -35,6 +35,7 @@ import {WizardStepComponent} from "./steps/wizard-step.component";
 import {Optional} from "../../../../shared/model/optional";
 import {Subscription} from "../../../../shared/model/subscription";
 import {mergeMap} from "rxjs/operators";
+import {ApprovalDetailsComponent} from "./pages/approval-details/approval-details.component";
 
 @Component({
   selector: 'app-subscription-wizard',

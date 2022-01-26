@@ -21,25 +21,25 @@
  */
 
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
-import {CallbackService} from "../../../service/callback.service";
+import {CallbackService} from "../../../../service/callback.service";
 import {catchError, map, mergeMap, tap} from "rxjs/operators";
 import {BehaviorSubject, Observable, of, throwError} from "rxjs";
-import {Application} from "../../../model/application";
-import {Callback, CallbackEditStatus} from "../../../../../shared/model/callback/callback";
-import {ModalService} from "../../../../../shared/service/modal.service";
-import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../../shared/model/table/column/context-menu-item";
-import {CallbackUrlComponent} from "../../../callback-test/callback-url/callback-url.component";
-import {Subscription, SubscriptionStatus} from "../../../../../shared/model/subscription";
-import {Optional} from "../../../../../shared/model/optional";
-import {WizardStep} from "../steps/wizard-step";
-import {CallbackWizardStep} from "../steps/callback-wizard-step";
-import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
-import {Webhook} from "../../../model/webhook";
-import {WebhookieError} from "../../../../../shared/error/webhookie-error";
-import {DuplicateEntityError} from "../../../../../shared/error/duplicate-entity-error";
-import {ToastService} from "../../../../../shared/service/toast.service";
-import {SubscriptionService} from "../../../../../shared/service/subscription.service";
-import {RouterService} from "../../../../../shared/service/router.service";
+import {Application} from "../../../../model/application";
+import {Callback, CallbackEditStatus} from "../../../../../../shared/model/callback/callback";
+import {ModalService} from "../../../../../../shared/service/modal.service";
+import {ContextMenuItem, ContextMenuItemBuilder} from "../../../../../../shared/model/table/column/context-menu-item";
+import {CallbackUrlComponent} from "../../../../callback-test/callback-url/callback-url.component";
+import {Subscription, SubscriptionStatus} from "../../../../../../shared/model/subscription";
+import {Optional} from "../../../../../../shared/model/optional";
+import {WizardStep} from "../../steps/wizard-step";
+import {CallbackWizardStep} from "../../steps/callback-wizard-step";
+import {WizardStepBaseComponent} from "../../steps/wizard-step-base/wizard-step-base.component";
+import {Webhook} from "../../../../model/webhook";
+import {WebhookieError} from "../../../../../../shared/error/webhookie-error";
+import {DuplicateEntityError} from "../../../../../../shared/error/duplicate-entity-error";
+import {ToastService} from "../../../../../../shared/service/toast.service";
+import {SubscriptionService} from "../../../../../../shared/service/subscription.service";
+import {RouterService} from "../../../../../../shared/service/router.service";
 
 type CallbackContextMenu = ContextMenuItem<Callback, CallbackMenu>
 

@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,6 +20,68 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
+.selected-app {
+  border: 1px solid #E1E1E1;
+}
+
+.subscribe-application form label {
+  color: var(--primary-text-color);
+}
+
+.subscribe-application p {
+  color: var(--primary-text-color);
+}
+
+.subscribe-application .btn-warning {
+  background-color: transparent;
+  color: #253858;
+  border-color: #E1E1E1;
+  width: 100%;
+}
+
+.subscribe-application .dropdown-divider {
+  margin: 4px;
+}
+
+.subscribe-application .btn-default {
+  color: var(--secondary-color);
+  padding: 0 6px;
+}
+
+.subscribe-application .dropdown-menu a {
+  color: #242424;
+  padding: 4px 0px 4px 11px;
+}
+
+.subscribe-application .dropdown-menu.show {
+  border-color: #e1e1e1;
+  box-shadow: -2px 3px 10px #00000029;
+  border-radius: 2px;
+  top: 2px !important;
+  padding-bottom: 0px;
+  width: 100%;
+}
+
+.subscribe-application .dropdown-toggle:focus {
+  border: 1px solid #006ADF;
+  box-shadow: none;
+}
+
+.subscribe-application .dropdown-item:active {
+  color: var(--color-white) !important;
+  background-color: var(--primary-color) !important;
+}
+
+.subscribe-application .dropdown-toggle::after {
+  content: url("src/assets/images/Chevron_down.svg");
+  border: none;
+}
+
+.subscribe-application .dropdown-toggle.active:after {
+  /* content: "\f107"; */
+  content: url("src/assets/images/Chevron_up.svg");
+}
+
 /* Modal */
 .modal-header, .modal-footer {
   border: 0px;
@@ -31,6 +93,10 @@
 
 .modal-body input {
   height: 32px;
+}
+
+.modal-body textarea {
+  height: 163px;
 }
 
 ::placeholder {
@@ -87,50 +153,3 @@
   text-decoration: none;
   color: var(--primary-text-color);
 }
-
-.multi-select-dropdown {
-  font-size: 14px;
-}
-
-.multi-select-dropdown .custom-checkbox {
-  margin: 3px 10px;
-  cursor: pointer;
-}
-
-.multi-select-dropdown .custom-checkbox label {
-  cursor: pointer;
-}
-
-.multi-select-dropdown .custom-checkbox input {
-  height: auto !important;
-}
-
-.multi-select-dropdown .custom-control-label::before {
-  border-color: #B2B2B2;
-}
-
-.multi-select-dropdown .custom-control-input:checked ~ .custom-control-label::before {
-  border-color: #007bff;
-}
-
-.multi-select-dropdown .custom-checkbox .custom-control-label::before {
-  border-radius: 0;
-}
-
-.scrollable-list {
-  max-height: 250px;
-  overflow: auto;
-}
-
-.scrollable-list::-webkit-scrollbar {
-  width: 8px;
-}
-
-.scrollable-list::-webkit-scrollbar-track {
-  background: var(--color-white);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #E1E1E1;
-}
-

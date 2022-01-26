@@ -21,19 +21,19 @@
  */
 
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {RequestExampleComponent} from "../../../common/request-example/request-example.component";
-import {ResponseComponent} from "../../../common/response/response.component";
-import {SubscriptionService, ValidateSubscriptionRequest} from "../../../../../shared/service/subscription.service";
-import {BadRequestError} from "../../../../../shared/error/bad-request-error";
-import {Optional} from "../../../../../shared/model/optional";
-import {Callback} from "../../../../../shared/model/callback/callback";
-import {VerifyCallbackWizardStep} from "../steps/verify-callback-wizard-step";
-import {WizardStep} from "../steps/wizard-step";
+import {RequestExampleComponent} from "../../../../common/request-example/request-example.component";
+import {ResponseComponent} from "../../../../common/response/response.component";
+import {SubscriptionService, ValidateSubscriptionRequest} from "../../../../../../shared/service/subscription.service";
+import {BadRequestError} from "../../../../../../shared/error/bad-request-error";
+import {Optional} from "../../../../../../shared/model/optional";
+import {Callback} from "../../../../../../shared/model/callback/callback";
+import {VerifyCallbackWizardStep} from "../../steps/verify-callback-wizard-step";
+import {WizardStep} from "../../steps/wizard-step";
 import {Observable, of} from "rxjs";
-import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
-import {Subscription} from "../../../../../shared/model/subscription";
-import {ToastService} from "../../../../../shared/service/toast.service";
-import {WizardExtraButton} from "../steps/wizard-step.component";
+import {WizardStepBaseComponent} from "../../steps/wizard-step-base/wizard-step-base.component";
+import {Subscription} from "../../../../../../shared/model/subscription";
+import {ToastService} from "../../../../../../shared/service/toast.service";
+import {WizardExtraButton} from "../../steps/wizard-step.component";
 import {map} from "rxjs/operators";
 
 @Component({

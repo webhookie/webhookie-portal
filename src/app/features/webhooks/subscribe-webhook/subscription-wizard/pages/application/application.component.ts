@@ -21,16 +21,16 @@
  */
 
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ApplicationService} from "../../../service/application.service";
+import {ApplicationService} from "../../../../service/application.service";
 import {BehaviorSubject, Observable, of} from "rxjs";
-import {Application} from "../../../model/application";
-import {ModalService} from "../../../../../shared/service/modal.service";
-import {Optional} from "../../../../../shared/model/optional";
-import {WizardStep} from '../steps/wizard-step';
-import {ApplicationWizardStep} from "../steps/application-wizard-step";
-import {WizardStepBaseComponent} from "../steps/wizard-step-base/wizard-step-base.component";
+import {Application} from "../../../../model/application";
+import {ModalService} from "../../../../../../shared/service/modal.service";
+import {Optional} from "../../../../../../shared/model/optional";
+import {WizardStep} from '../../steps/wizard-step';
+import {ApplicationWizardStep} from "../../steps/application-wizard-step";
+import {WizardStepBaseComponent} from "../../steps/wizard-step-base/wizard-step-base.component";
 import {map} from "rxjs/operators";
-import {Subscription} from "../../../../../shared/model/subscription";
+import {Subscription} from "../../../../../../shared/model/subscription";
 
 @Component({
   selector: 'app-subscription-wizard-application',

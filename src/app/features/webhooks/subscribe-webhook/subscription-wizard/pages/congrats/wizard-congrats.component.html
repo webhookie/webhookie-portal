@@ -1,6 +1,6 @@
 <!--
   ~ webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
-  ~ Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+  ~ Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as
@@ -20,30 +20,10 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<form>
-  <div class="modal-header">
-    <h2 class="modal-title pull-left font16 font-weight-bold">Create new application</h2>
-    <button (click)="modalService.hide()" aria-label="Close" class="close pull-right" type="button">
-      <span aria-hidden="true"><i class="lni lni-close font16"></i></span>
-    </button>
+<div class="tab min-wid" *ngIf="visible">
+  <div class="text-center">
+    <h3 class="font16 font-weight-bold" style="color: #0151CC;">Congratulations!</h3>
+    <p>You have been successfully subscribed to order webhook.</p>
+    <img src="../../../../../../../assets/images/Congratulations!.svg" class="img-fluid" alt="congratulations"/>
   </div>
-  <div class="modal-body">
-
-    <div class="form-group">
-      <label class="font14 font-weight-400" for="name">Application name</label>
-      <input [(ngModel)]="requestedName" class="form-control" id="name" name="name" placeholder="Your Application"
-             type="text">
-    </div>
-    <div class="form-group">
-      <label class="font14 font-weight-400" for="Description">Description</label>
-      <textarea [(ngModel)]="requestedDesc" class="form-control" id="Description" name="desc" placeholder="Description"
-                rows="4"></textarea>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button (click)="modalService.hide()" aria-label="Close" class="btn btn-default cancel border"
-            type="button">Cancel
-    </button>
-    <button (click)="createApplication()" class="btn btn-primary" type="button">Create</button>
-  </div>
-</form>
+</div>

@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,21 +22,21 @@
 
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {WizardCongratsComponent} from './wizard-congrats.component';
+import {CreateCallbackComponent} from './create-callback.component';
 
-describe('CongratsComponent', () => {
-  let component: WizardCongratsComponent;
-  let fixture: ComponentFixture<WizardCongratsComponent>;
+describe('CreateCallbackComponent', () => {
+  let component: CreateCallbackComponent;
+  let fixture: ComponentFixture<CreateCallbackComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WizardCongratsComponent ]
+      declarations: [CreateCallbackComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WizardCongratsComponent);
+    fixture = TestBed.createComponent(CreateCallbackComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

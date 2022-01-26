@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -21,20 +21,20 @@
  */
 
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {CallbackUrlComponent} from "../../../../callback-test/callback-url/callback-url.component";
-import {CallbackRequest, CallbackService} from "../../../../service/callback.service";
-import {WebhookieError} from "../../../../../../shared/error/webhookie-error";
-import {DuplicateEntityError} from "../../../../../../shared/error/duplicate-entity-error";
-import {BadRequestError} from "../../../../../../shared/error/bad-request-error";
-import {Callback} from "../../../../../../shared/model/callback/callback";
-import {ModalService} from "../../../../../../shared/service/modal.service";
+import {CallbackUrlComponent} from "../../../../../callback-test/callback-url/callback-url.component";
+import {CallbackRequest, CallbackService} from "../../../../../service/callback.service";
+import {WebhookieError} from "../../../../../../../shared/error/webhookie-error";
+import {DuplicateEntityError} from "../../../../../../../shared/error/duplicate-entity-error";
+import {BadRequestError} from "../../../../../../../shared/error/bad-request-error";
+import {Callback} from "../../../../../../../shared/model/callback/callback";
+import {ModalService} from "../../../../../../../shared/service/modal.service";
 import {
   ClientCredentialsOAuth2Details
-} from "../../../../../../shared/model/callback/security/client-credentials-o-auth2-details";
-import {HmacSecurityScheme} from "../../../../../../shared/model/callback/security/hmac-security-scheme";
-import {OAuthSecurityScheme} from "../../../../../../shared/model/callback/security/o-auth-security-scheme";
-import {Application} from "../../../../model/application";
-import {Optional} from "../../../../../../shared/model/optional";
+} from "../../../../../../../shared/model/callback/security/client-credentials-o-auth2-details";
+import {HmacSecurityScheme} from "../../../../../../../shared/model/callback/security/hmac-security-scheme";
+import {OAuthSecurityScheme} from "../../../../../../../shared/model/callback/security/o-auth-security-scheme";
+import {Application} from "../../../../../model/application";
+import {Optional} from "../../../../../../../shared/model/optional";
 
 @Component({
   selector: 'app-create-callback',

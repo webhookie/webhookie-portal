@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -27,8 +27,8 @@ import {CommonModule} from '@angular/common';
 import {WebhookPageModule} from './webhook-page/webhook-page.module';
 import {SubscribeWebhookComponent} from './subscribe-webhook/subscribe-webhook.component';
 import {CongratsComponent} from './subscribe-webhook/congrats/congrats.component';
-import {CallbackComponent} from './subscribe-webhook/subscription-wizard/callback/callback.component';
-import {ApplicationComponent} from './subscribe-webhook/subscription-wizard/application/application.component';
+import {CallbackComponent} from './subscribe-webhook/subscription-wizard/pages/callback/callback.component';
+import {ApplicationComponent} from './subscribe-webhook/subscription-wizard/pages/application/application.component';
 import {WebhookCommonModule} from './common/webhook-common.module';
 import {CallbackTestComponent} from "./callback-test/callback-test.component";
 import {CallbackUrlComponent} from "./callback-test/callback-url/callback-url.component";
@@ -36,10 +36,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from '@angular/router';
 import {
   CreateApplicationComponent
-} from './subscribe-webhook/subscription-wizard/application/create-application/create-application.component';
+} from './subscribe-webhook/subscription-wizard/pages/application/create-application/create-application.component';
 import {
   CreateCallbackComponent
-} from './subscribe-webhook/subscription-wizard/callback/create-callback/create-callback.component';
+} from './subscribe-webhook/subscription-wizard/pages/callback/create-callback/create-callback.component';
 import {DotMenuComponent} from 'src/app/shared/components/dot-menu/dot-menu.component';
 import {SharedModule} from "../../shared/shared.module";
 import {CongratsSvgComponent} from './subscribe-webhook/congrats/congrats-svg/congrats-svg.component';
@@ -47,11 +47,16 @@ import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
 import {SubscriptionWizardComponent} from './subscribe-webhook/subscription-wizard/subscription-wizard.component';
 import {
   VerifyCallbackComponent
-} from './subscribe-webhook/subscription-wizard/verify-callback/verify-callback.component';
-import {WizardCongratsComponent} from "./subscribe-webhook/subscription-wizard/congrats/wizard-congrats.component";
+} from './subscribe-webhook/subscription-wizard/pages/verify-callback/verify-callback.component';
+import {
+  WizardCongratsComponent
+} from "./subscribe-webhook/subscription-wizard/pages/congrats/wizard-congrats.component";
 import {
   WizardStepBaseComponent
 } from './subscribe-webhook/subscription-wizard/steps/wizard-step-base/wizard-step-base.component';
+import {
+  ApprovalDetailsComponent
+} from './subscribe-webhook/subscription-wizard/pages/approval-details/approval-details.component';
 
 @NgModule({
   declarations: [
