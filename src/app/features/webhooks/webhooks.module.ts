@@ -26,7 +26,6 @@ import {WebhooksComponent} from './webhooks.component';
 import {CommonModule} from '@angular/common';
 import {WebhookPageModule} from './webhook-page/webhook-page.module';
 import {SubscribeWebhookComponent} from './subscribe-webhook/subscribe-webhook.component';
-import {CongratsComponent} from './subscribe-webhook/congrats/congrats.component';
 import {CallbackComponent} from './subscribe-webhook/subscription-wizard/pages/callback/callback.component';
 import {ApplicationComponent} from './subscribe-webhook/subscription-wizard/pages/application/application.component';
 import {WebhookCommonModule} from './common/webhook-common.module';
@@ -42,7 +41,9 @@ import {
 } from './subscribe-webhook/subscription-wizard/pages/callback/create-callback/create-callback.component';
 import {DotMenuComponent} from 'src/app/shared/components/dot-menu/dot-menu.component';
 import {SharedModule} from "../../shared/shared.module";
-import {CongratsSvgComponent} from './subscribe-webhook/congrats/congrats-svg/congrats-svg.component';
+import {
+  CongratsSvgComponent
+} from './subscribe-webhook/subscription-wizard/pages/congrats/congrats-svg/congrats-svg.component';
 import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
 import {SubscriptionWizardComponent} from './subscribe-webhook/subscription-wizard/subscription-wizard.component';
 import {
@@ -66,7 +67,6 @@ import {
     ApplicationComponent,
     CallbackUrlComponent,
     SubscribeWebhookComponent,
-    CongratsComponent,
     CreateApplicationComponent,
     CreateCallbackComponent,
     DotMenuComponent,

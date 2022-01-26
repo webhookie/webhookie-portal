@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,7 +25,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {SubscribeWebhookComponent} from './subscribe-webhook/subscribe-webhook.component';
 import {WebhookPageComponent} from './webhook-page/webhook-page.component';
 import {CallbackTestComponent} from "./callback-test/callback-test.component";
-import {CongratsComponent} from './subscribe-webhook/congrats/congrats.component';
 import {CanActivateSubscribe} from "./service/can-activate-subscribe";
 import {EditWebhookApiComponent} from "./webhook-page/webhook-form/edit-webhook-api/edit-webhook-api.component";
 import {CreateWebhookApiComponent} from "./webhook-page/webhook-form/create-webhook-api/create-webhook-api.component";
@@ -70,10 +69,6 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Update webhook API',
     },
-  },
-  {
-    path: 'congrats',
-    component: CongratsComponent,
  }
 ]
 

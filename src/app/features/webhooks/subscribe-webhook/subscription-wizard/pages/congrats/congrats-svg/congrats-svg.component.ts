@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -21,24 +21,11 @@
  */
 
 import {Component} from '@angular/core';
-import {WebhooksContext} from "../../webhooks-context";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
 
 @Component({
-  selector: 'app-congrats',
-  templateUrl: './congrats.component.html',
-  styleUrls: ['./congrats.component.css']
+  selector: 'app-congrats-svg',
+  templateUrl: './congrats-svg.component.html',
+  styleUrls: ['./congrats-svg.component.css']
 })
-export class CongratsComponent {
-
-  constructor(
-    private readonly context: WebhooksContext
-  ) {
-  }
-
-  get topic(): Observable<string> {
-    return this.context.topic$
-      .pipe(map(it => it.name))
-  }
+export class CongratsSvgComponent {
 }
