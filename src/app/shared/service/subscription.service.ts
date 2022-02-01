@@ -81,7 +81,7 @@ export class SubscriptionService {
       .set("Accept", "*/*")
     Object.keys(request.headers)
       .forEach(k => headers.set(k, request.headers[k]))
-    return this.api.post(`${this.SUBSCRIPTIONS_URI}/${subscription?.id}/validate`, request, httpParams, headers, HttpResponseType.TEXT)
+    return this.api.post(`${this.SUBSCRIPTIONS_URI}/${subscription?.id}/verify`, request, httpParams, headers, HttpResponseType.TEXT)
       .pipe(map((it: HttpResponse<any>) => new CallbackResponse(it.status, it.headers, it.body)))
   }
 
@@ -132,9 +132,25 @@ export class SubscriptionService {
         mergeMap(() => this.fetchSubscription(id))
       )
   }
+
+  submitForApproval(subscriptionId: string, approvalRequest: SubscriptionApprovalRequest): Observable<Subscription> {
+    this.log.debug(`Submitting subscription for approval: ${subscriptionId}`)
+    let httpParams = new HttpParams();
+    let headers = new HttpHeaders()
+      .set("Accept", ["application/json"]);
+    return this.api
+      .post(`${this.SUBSCRIPTIONS_URI}/${subscriptionId}/submit`, approvalRequest, httpParams, headers, HttpResponseType.JSON)
+      .pipe(tap(() => this.log.debug(`Subscription '${subscriptionId}' has been submitted for approval`)))
+      .pipe(map(it => this.adapter.adapt(it.body)))
+  }
 }
 
 export interface ValidateSubscriptionRequest {
   payload: any,
   headers: any
+}
+
+export interface SubscriptionApprovalRequest {
+  reason: string;
+  email: string;
 }

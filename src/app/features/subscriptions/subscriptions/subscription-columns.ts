@@ -83,6 +83,15 @@ class SubscriptionColumnUtils {
       case SubscriptionStatus.SUSPENDED:
         clazz = "danger";
         break;
+      case SubscriptionStatus.SUBMITTED:
+        clazz = "primary";
+        break;
+      case SubscriptionStatus.APPROVED:
+        clazz = "primary";
+        break;
+      case SubscriptionStatus.REJECTED:
+        clazz = "danger";
+        break;
       default:
         clazz = "dark";
         break;
@@ -92,6 +101,10 @@ class SubscriptionColumnUtils {
   }
 
   static status(status: SubscriptionStatus): string {
+    if(status == SubscriptionStatus.READY_TO_SUBMIT) {
+      return "READY TO SUBMIT"
+    }
+
     return status
   }
 }
