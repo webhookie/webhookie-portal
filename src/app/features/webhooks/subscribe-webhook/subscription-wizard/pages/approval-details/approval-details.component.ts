@@ -31,6 +31,8 @@ import {Observable, of} from "rxjs";
 import {ToastService} from "../../../../../../shared/service/toast.service";
 import {SubscriptionService} from "../../../../../../shared/service/subscription.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {tap} from "rxjs/operators";
+import {RouterService} from "../../../../../../shared/service/router.service";
 
 @Component({
   selector: 'app-subscription-approval-details',
@@ -42,8 +44,42 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
   step: WizardStep<any> = new ApprovalDetailsWizardStep();
 
   submitForm!: FormGroup
+  minReasonLength: number = 10
 
   extraButtons(): Array<WizardExtraButton> {
+    if(this.step.completed) {
+      return [
+        {
+          id: "managesub",
+          title: "Manage your subscription",
+          css: "ml-2",
+
+          action(step: ApprovalDetailsComponent): Observable<any> {
+            step.routerService.navigateToConsumerSubscriptions()
+            return of(1)
+          },
+
+          disabled(_: ApprovalDetailsComponent): Observable<boolean> {
+            return of(false)
+          }
+        },
+        {
+          id: "gohome",
+          title: "Go to webhooks page",
+          css: "ml-2 btn btn-default",
+
+          action(step: ApprovalDetailsComponent): Observable<any> {
+            step.routerService.navigateToWebhooks()
+            return of(1)
+          },
+
+          disabled(_: ApprovalDetailsComponent): Observable<boolean> {
+            return of(false)
+          }
+        }
+      ]
+    }
+
     return [
       {
         id: "submitBtn",
@@ -51,7 +87,7 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
         css: "",
 
         action(step: ApprovalDetailsComponent): Observable<any> {
-          return of(1)
+          return step.submitForApproval()
         },
 
         disabled(step: ApprovalDetailsComponent): Observable<boolean> {
@@ -61,6 +97,11 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
     ]
   }
 
+  submitForApproval(): Observable<Subscription> {
+    return this.subscriptionService.submitForApproval(this.subscription!.id, this.submitForm.value)
+      .pipe(tap(() => this.step.setComplete()))
+  }
+
   init(value: Optional<Subscription>): Observable<any> {
     this.subscription = value
     return super.init(value)
@@ -68,6 +109,7 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
 
   constructor(
     private readonly toastService: ToastService,
+    private readonly routerService: RouterService,
     private readonly subscriptionService: SubscriptionService
   ) {
     super();
@@ -77,7 +119,7 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
     this.submitForm = new FormGroup({
       reason: new FormControl("", [
         Validators.required,
-        Validators.minLength(40)
+        Validators.minLength(this.minReasonLength)
       ]),
       email: new FormControl("", [Validators.required, Validators.email])
     });

@@ -32,4 +32,5 @@ export class ApprovalDetailsWizardStep extends WizardStep<Subscription> {
   hasBack: boolean = false;
   hasNext: boolean = false;
   canGoNext: boolean = false;
+  hasCancel: boolean = false;
 }

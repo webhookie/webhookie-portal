@@ -20,7 +20,7 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<form *ngIf="visible" [formGroup]="submitForm">
+<form *ngIf="visible && !step.completed" [formGroup]="submitForm">
   <div class="modal-body">
     <div class="form-group">
       <label class="font14 font-weight-400" for="reason">Reason for subscription</label>
@@ -36,7 +36,7 @@
       Reason for subscription is required.
     </div>
     <div *ngIf="reason?.errors?.minlength">
-      Reason must be at least 40 characters long.
+      Reason must be at least {{minReasonLength}} characters long.
     </div>
   </div>
   <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
@@ -48,3 +48,6 @@
     </div>
   </div>
 </form>
+<div *ngIf="visible && step.completed">
+  Congrats!
+</div>
