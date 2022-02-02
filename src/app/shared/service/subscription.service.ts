@@ -32,6 +32,7 @@ import {HttpResponseType} from "./api.service";
 import {Pageable} from "../request/pageable";
 import {RequestUtils} from "../request/request-utils";
 import {CallbackResponse} from "../model/callback/callback-response";
+import {SubscriptionApprovalRequestAdapter} from "../adapter/subscription-approval-request.adapter";
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,7 @@ export class SubscriptionService {
   constructor(
     @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
+    private readonly approvalRequestAdapter: SubscriptionApprovalRequestAdapter,
     private readonly adapter: SubscriptionAdapter
   ) {
   }
@@ -133,7 +135,7 @@ export class SubscriptionService {
       )
   }
 
-  submitForApproval(subscriptionId: string, approvalRequest: SubscriptionApprovalRequest): Observable<Subscription> {
+  submitForApproval(subscriptionId: string, approvalRequest: SubscriptionApprovalDetails): Observable<Subscription> {
     this.log.debug(`Submitting subscription for approval: ${subscriptionId}`)
     let httpParams = new HttpParams();
     let headers = new HttpHeaders()
@@ -143,6 +145,11 @@ export class SubscriptionService {
       .pipe(tap(() => this.log.debug(`Subscription '${subscriptionId}' has been submitted for approval`)))
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
+
+  readSubmitRequest(id: string): Observable<SubscriptionApprovalDetails> {
+    return this.api.json(`${this.SUBSCRIPTIONS_URI}/${id}/submitRequest`)
+      .pipe(map(it => this.approvalRequestAdapter.adapt(it)))
+  }
 }
 
 export interface ValidateSubscriptionRequest {
@@ -150,7 +157,7 @@ export interface ValidateSubscriptionRequest {
   headers: any
 }
 
-export interface SubscriptionApprovalRequest {
+export interface SubscriptionApprovalDetails {
   reason: string;
   email: string;
 }
