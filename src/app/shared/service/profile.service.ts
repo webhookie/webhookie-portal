@@ -20,48 +20,40 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, Inject, TemplateRef, ViewChild} from '@angular/core';
-import {AuthService} from "../../../../shared/service/auth.service";
-import {ModalService} from "../../../../shared/service/modal.service";
-import {ApplicationContext} from "../../../../shared/application.context";
-import {Constants} from "../../../../shared/constants";
-import {ProfileService} from "../../../../shared/service/profile.service";
+import {Inject, Injectable} from '@angular/core';
+import {AuthService} from "./auth.service";
 
-@Component({
-  selector: 'app-profile-icon',
-  templateUrl: './profile-icon.component.html',
-  styleUrls: ['./profile-icon.component.css']
+@Injectable({
+  providedIn: 'root'
 })
-export class ProfileIconComponent {
-  @ViewChild("resultViewer") resultViewer!: TemplateRef<any>;
-  primaryColor!: string
-
+export class ProfileService {
   constructor(
-    private readonly appContext: ApplicationContext,
-    private readonly modalService: ModalService,
-    private readonly profileService: ProfileService,
-    @Inject("Auth") readonly authService: AuthService
+    @Inject("Auth") private readonly authService: AuthService
   ) {
-    this.primaryColor = Constants.CSS_PRIMARY_COLOR;
-  }
-
-  get picture(): string {
-    return this.profileService.picture
   }
 
   get name(): string {
-    return this.profileService.name
+    return this.authService.claims["name"];
   }
 
-  get hasDetails(): boolean {
-    return (this.name != undefined) || (this.picture != undefined)
+  get email(): string {
+    return this.authService.claims["email"];
   }
 
-  logout() {
-    this.authService.logout()
+  get picture(): string {
+    return this.authService.claims["picture"];
   }
 
-  showDetails() {
-    this.modalService.openJson(this.resultViewer, this.appContext.user);
+  get profile(): UserProfile {
+    return {
+      name: this.name,
+      email: this.email
+    }
   }
 }
+
+export interface UserProfile {
+  name: string;
+  email: string;
+}
+
