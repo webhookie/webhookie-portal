@@ -35,7 +35,11 @@ export class SubscriptionApprovalRequestAdapter extends BaseAdapter<Subscription
   adapt(item: any): SubscriptionApprovalDetails {
     return {
       reason: item.reason,
-      email: item.email
+      email: item.email,
+      requester: {
+        name: item.requester.name,
+        email: item.requester.email
+      }
     };
   }
 }

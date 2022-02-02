@@ -33,6 +33,7 @@ import {Pageable} from "../request/pageable";
 import {RequestUtils} from "../request/request-utils";
 import {CallbackResponse} from "../model/callback/callback-response";
 import {SubscriptionApprovalRequestAdapter} from "../adapter/subscription-approval-request.adapter";
+import {ProfileService, UserProfile} from "./profile.service";
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,7 @@ export class SubscriptionService {
   constructor(
     @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
+    private readonly profileService: ProfileService,
     private readonly approvalRequestAdapter: SubscriptionApprovalRequestAdapter,
     private readonly adapter: SubscriptionAdapter
   ) {
@@ -135,13 +137,18 @@ export class SubscriptionService {
       )
   }
 
-  submitForApproval(subscriptionId: string, approvalRequest: SubscriptionApprovalDetails): Observable<Subscription> {
+  submitForApproval(subscriptionId: string, approvalRequest: SubscriptionApprovalRequest): Observable<Subscription> {
     this.log.debug(`Submitting subscription for approval: ${subscriptionId}`)
     let httpParams = new HttpParams();
     let headers = new HttpHeaders()
       .set("Accept", ["application/json"]);
+    let body: SubscriptionApprovalDetails = {
+      reason: approvalRequest.reason,
+      email: approvalRequest.email,
+      requester: this.profileService.profile
+    }
     return this.api
-      .post(`${this.SUBSCRIPTIONS_URI}/${subscriptionId}/submit`, approvalRequest, httpParams, headers, HttpResponseType.JSON)
+      .post(`${this.SUBSCRIPTIONS_URI}/${subscriptionId}/submit`, body, httpParams, headers, HttpResponseType.JSON)
       .pipe(tap(() => this.log.debug(`Subscription '${subscriptionId}' has been submitted for approval`)))
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
@@ -158,6 +165,12 @@ export interface ValidateSubscriptionRequest {
 }
 
 export interface SubscriptionApprovalDetails {
+  reason: string;
+  email: string;
+  requester: UserProfile
+}
+
+export interface SubscriptionApprovalRequest {
   reason: string;
   email: string;
 }

@@ -33,6 +33,7 @@ import {SubscriptionService} from "../../../../../../shared/service/subscription
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {tap} from "rxjs/operators";
 import {RouterService} from "../../../../../../shared/service/router.service";
+import {ProfileService} from "../../../../../../shared/service/profile.service";
 
 @Component({
   selector: 'app-subscription-approval-details',
@@ -109,6 +110,7 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
 
   constructor(
     private readonly toastService: ToastService,
+    private readonly profileService: ProfileService,
     private readonly routerService: RouterService,
     private readonly subscriptionService: SubscriptionService
   ) {
@@ -121,7 +123,7 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
         Validators.required,
         Validators.minLength(this.minReasonLength)
       ]),
-      email: new FormControl("", [Validators.required, Validators.email])
+      email: new FormControl(this.profileService.email, [Validators.required, Validators.email])
     });
   }
 
