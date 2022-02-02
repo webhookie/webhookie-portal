@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,6 +22,7 @@
 
 import {Injectable, TemplateRef} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {JsonUtils} from "../json-utils";
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,11 @@ export class ModalService {
       backdrop: true,
       ignoreBackdropClick: true
     });
+  }
+
+  openJson(template: TemplateRef<any>, value: any, extraClass: string = "x-large-modal") {
+    this.open(template, extraClass);
+    JsonUtils.updateElement(value);
   }
 
   hide() {

@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -22,7 +22,6 @@
 
 import {Component, Inject, TemplateRef, ViewChild} from '@angular/core';
 import {AuthService} from "../../../../shared/service/auth.service";
-import {JsonUtils} from "../../../../shared/json-utils";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {ApplicationContext} from "../../../../shared/application.context";
 import {Constants} from "../../../../shared/constants";
@@ -61,7 +60,6 @@ export class ProfileIconComponent {
   }
 
   showDetails() {
-    this.modalService.open(this.resultViewer);
-    JsonUtils.updateElement(this.appContext.user);
+    this.modalService.openJson(this.resultViewer, this.appContext.user);
   }
 }

@@ -292,10 +292,7 @@ export class SubscriptionTrafficComponent extends GenericTable<Span, Span> imple
   details(): (span: Span, item: SpanContextMenu) => any {
     return (span: Span) => {
       this.spanService.fetchSpan(span.spanId)
-        .subscribe(it => {
-          this.modalService.open(this.resultViewer!);
-          JsonUtils.updateElement(it);
-        });
+        .subscribe(it => this.modalService.openJson(this.resultViewer!, it));
     }
   }
 
