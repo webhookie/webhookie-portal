@@ -157,6 +157,34 @@ export class SubscriptionService {
     return this.api.json(`${this.SUBSCRIPTIONS_URI}/${id}/submitRequest`)
       .pipe(map(it => this.approvalRequestAdapter.adapt(it)))
   }
+
+  approveSubscription(subscriptionId: string): Observable<Subscription> {
+    this.log.debug(`Sending Approve subscription request: ${subscriptionId}`)
+    let body: ApproveSubscriptionRequest = {
+      user: this.profileService.profile
+    }
+    return this.patchSubscription(subscriptionId, "approve", body)
+      .pipe(tap(() => this.log.debug(`Subscription '${subscriptionId}' has been submitted for approval`)))
+  }
+
+  rejectSubscription(subscriptionId: string, reason: string): Observable<Subscription> {
+    this.log.debug(`Sending Reject subscription request: ${subscriptionId}`)
+    let body: RejectSubscriptionRequest = {
+      user: this.profileService.profile,
+      reason: reason
+    }
+    return this.patchSubscription(subscriptionId, "reject", body)
+      .pipe(tap(() => this.log.debug(`Subscription '${subscriptionId}' has been submitted for approval`)))
+  }
+
+  patchSubscription(id: string, action: string, body: any): Observable<Subscription> {
+    let httpParams = new HttpParams();
+    let headers = new HttpHeaders()
+      .set("Accept", ["application/json"]);
+    return this.api
+      .patch(`${this.SUBSCRIPTIONS_URI}/${id}/${action}`, body, httpParams, headers, HttpResponseType.JSON)
+      .pipe(map(it => this.adapter.adapt(it.body)))
+  }
 }
 
 export interface ValidateSubscriptionRequest {
@@ -173,4 +201,12 @@ export interface SubscriptionApprovalDetails {
 export interface SubscriptionApprovalRequest {
   reason: string;
   email: string;
+}
+
+export interface ApproveSubscriptionRequest {
+  user: UserProfile
+}
+
+export interface RejectSubscriptionRequest extends ApproveSubscriptionRequest {
+  reason: string
 }

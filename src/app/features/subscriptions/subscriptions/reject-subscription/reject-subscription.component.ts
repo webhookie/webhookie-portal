@@ -62,6 +62,7 @@ export class RejectSubscriptionComponent extends SubscriptionApprovalDialogBaseC
   }
 
   reject() {
-    this.modalService.hide()
+    this.subscriptionService.rejectSubscription(this.subscription!.id, this.reason!.value)
+      .subscribe(_ => this.modalService.hide())
   }
 }

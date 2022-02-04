@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,7 +26,6 @@ import {Observable} from "rxjs";
 import {LogService} from "./log.service";
 import {Api} from "../api";
 import {environment} from "../../../environments/environment";
-import {tap} from "rxjs/operators";
 
 export enum HttpResponseType {
   JSON = 'json',
@@ -98,6 +97,10 @@ export class ApiService implements Api {
 
   post(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>> {
     return this.request("POST", uri, body, params, headers, responseType)
+  }
+
+  patch(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>> {
+    return this.request("PATCH", uri, body, params, headers, responseType)
   }
 
   put(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>> {

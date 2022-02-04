@@ -46,6 +46,7 @@ export class ApproveSubscriptionComponent extends SubscriptionApprovalDialogBase
   }
 
   approve() {
-    this.modalService.hide()
+    this.subscriptionService.approveSubscription(this.subscription!.id)
+      .subscribe(_ => this.modalService.hide())
   }
 }

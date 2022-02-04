@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -32,6 +32,7 @@ export interface Api {
   readLoadAsset(uri: string): Observable<any>
 
   post(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>>;
+  patch(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>>;
   put(uri: string, body: any, params: HttpParams, headers: HttpHeaders, responseType: HttpResponseType): Observable<HttpResponse<any>>;
   delete(uri: string, headers: HttpHeaders, responseType: HttpResponseType): Observable<any>
 }
