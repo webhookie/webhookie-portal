@@ -61,8 +61,8 @@ type SubscriptionContextMenu = ContextMenuItem<Subscription, SubscriptionMenu>;
 export class SubscriptionsComponent extends GenericTable<Subscription, Subscription> implements OnInit {
   // @ts-ignore
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
-  @ViewChild("resultViewer") resultViewer?: TemplateRef<any>;
   @ViewChild("approveTemplate") approveTemplate!: TemplateRef<any>;
+  @ViewChild("viewTemplate") viewTemplate!: TemplateRef<any>;
   @ViewChild("rejectTemplate") rejectTemplate!: TemplateRef<any>;
 
   readonly _subscriptions$: Subject<Array<Subscription>> = new ReplaySubject();
@@ -268,7 +268,11 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   viewSubscriptionRequest(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription) => {
       this.service.readSubmitRequest(subscription.id)
-        .subscribe(it => this.modalService.openJson(this.resultViewer!, it));
+        .subscribe(it => {
+          this.currentSubscription.next(subscription)
+          this.approvalDetails.next(it)
+          this.modalService.open(this.viewTemplate!)
+        });
     }
   }
 
@@ -287,6 +291,8 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     return (subscription) => {
       this.service.readSubmitRequest(subscription.id)
         .subscribe(it => {
+          this.currentSubscription.next(subscription)
+          this.approvalDetails.next(it)
           this.modalService.open(this.rejectTemplate)
         });
     }

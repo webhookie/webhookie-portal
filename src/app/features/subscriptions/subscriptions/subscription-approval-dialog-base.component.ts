@@ -20,32 +20,16 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
-import {SubscriptionService} from "../../../../shared/service/subscription.service";
-import {ModalService} from "../../../../shared/service/modal.service";
-import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-dialog-base.component";
+import {Component, Input} from '@angular/core';
+import {Subscription} from "../../../shared/model/subscription";
+import {Optional} from "../../../shared/model/optional";
+import {SubscriptionApprovalDetails} from "../../../shared/service/subscription.service";
 
 @Component({
-  selector: 'app-approve-subscription',
-  templateUrl: './approve-subscription.component.html',
-  styleUrls: ['./approve-subscription.component.css']
+  selector: 'app-subscription-approval-dialog-base-component',
+  template: `works!`
 })
-export class ApproveSubscriptionComponent extends SubscriptionApprovalDialogBaseComponent implements OnInit {
-  constructor(
-    private readonly subscriptionService: SubscriptionService,
-    private readonly modalService: ModalService
-  ) {
-    super();
-  }
-
-  ngOnInit(): void {
-  }
-
-  hide() {
-    this.modalService.hide()
-  }
-
-  approve() {
-    this.modalService.hide()
-  }
+export class SubscriptionApprovalDialogBaseComponent {
+  @Input() subscription: Optional<Subscription>;
+  @Input() details: Optional<SubscriptionApprovalDetails>;
 }

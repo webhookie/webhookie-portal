@@ -30,6 +30,8 @@ import {RejectSubscriptionComponent} from './subscriptions/reject-subscription/r
 import {
   ViewSubscriptionApprovalRequestComponent
 } from './subscriptions/view-subscription-approval-request/view-subscription-approval-request.component';
+import {SubscriptionApprovalDialogBaseComponent} from "./subscriptions/subscription-approval-dialog-base.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -38,10 +40,11 @@ import {
     SubscriptionsComponent,
     ApproveSubscriptionComponent,
     RejectSubscriptionComponent,
+    SubscriptionApprovalDialogBaseComponent,
     ViewSubscriptionApprovalRequestComponent
   ],
   imports: [
-    SharedModule, SubscriptionsRoutingModule
+    SharedModule, SubscriptionsRoutingModule, ReactiveFormsModule
   ]
 })
 export class SubscriptionsModule { }

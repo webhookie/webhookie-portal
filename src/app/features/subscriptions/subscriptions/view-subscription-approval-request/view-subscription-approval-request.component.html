@@ -20,4 +20,12 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<p>view-subscription-approval-request works!</p>
+<div>
+  Company: {{subscription?.application?.entity}}
+  <br/>
+  Application: {{subscription?.application?.name}}
+  <br/>
+  Requester name: {{details?.requester?.name}}
+  <br/>
+  Requester email: {{details?.requester?.email}}
+</div>

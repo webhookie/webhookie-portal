@@ -21,15 +21,18 @@
  */
 
 import {Component, OnInit} from '@angular/core';
+import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-dialog-base.component";
 
 @Component({
   selector: 'app-view-subscription-approval-request',
   templateUrl: './view-subscription-approval-request.component.html',
   styleUrls: ['./view-subscription-approval-request.component.css']
 })
-export class ViewSubscriptionApprovalRequestComponent implements OnInit {
+export class ViewSubscriptionApprovalRequestComponent extends SubscriptionApprovalDialogBaseComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    super()
+  }
 
   ngOnInit(): void {
   }

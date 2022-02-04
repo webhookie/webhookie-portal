@@ -21,17 +21,47 @@
  */
 
 import {Component, OnInit} from '@angular/core';
+import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-dialog-base.component";
+import {SubscriptionService} from "../../../../shared/service/subscription.service";
+import {ModalService} from "../../../../shared/service/modal.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-reject-subscription',
   templateUrl: './reject-subscription.component.html',
   styleUrls: ['./reject-subscription.component.css']
 })
-export class RejectSubscriptionComponent implements OnInit {
+export class RejectSubscriptionComponent extends SubscriptionApprovalDialogBaseComponent implements OnInit {
+  rejectForm!: FormGroup
+  minReasonLength: number = 40
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
+    private readonly subscriptionService: SubscriptionService,
+    private readonly modalService: ModalService
+  ) {
+    super()
   }
 
+  ngOnInit(): void {
+    this.rejectForm = new FormGroup({
+      reason: new FormControl("", [
+        Validators.required,
+        Validators.minLength(this.minReasonLength)
+      ])
+    });
+  }
+
+  get reason() { return this.rejectForm.get('reason'); }
+
+  get disabled(): boolean {
+    return !this.rejectForm.dirty || (this.rejectForm.dirty && !this.rejectForm.valid)
+  }
+
+  hide() {
+    this.modalService.hide()
+  }
+
+  reject() {
+    this.modalService.hide()
+  }
 }

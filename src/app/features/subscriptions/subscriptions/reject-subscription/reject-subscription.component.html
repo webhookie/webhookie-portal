@@ -20,4 +20,36 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<p>reject-subscription works!</p>
+<div>
+  Confirm you reject the subscription to the <strong>{{subscription?.topic}}</strong> webhook by:
+  <br/><br/>
+  Company: {{subscription?.application?.entity}}
+  <br/>
+  Application: {{subscription?.application?.name}}
+  <br/>
+  Requester name: {{details?.requester?.name}}
+  <br/>
+  Requester email: {{details?.requester?.email}}
+
+  <br/>
+  <form [formGroup]="rejectForm">
+    <div class="form-group">
+      <label class="font14 font-weight-400" for="reason">Reason</label>
+      <input type="text" id="reason" class="form-control" formControlName="reason" placeholder="Reason for subscription" required>
+    </div>
+
+    <div *ngIf="reason?.invalid && (reason?.dirty || reason?.touched)" class="alert alert-danger">
+      <div *ngIf="reason?.errors?.required">
+        Reason for subscription is required.
+      </div>
+      <div *ngIf="reason?.errors?.minlength">
+        Reason must be at least {{minReasonLength}} characters long.
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer">
+    <button (click)="hide()" aria-label="Close" class="btn btn-default cancel border" type="button">Cancel</button>
+    <button (click)="reject()" [disabled]="disabled" [class.disabled]="disabled" class="btn btn-danger" type="button">Reject</button>
+  </div>
+</div>

@@ -20,14 +20,8 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<app-generic-table
-  #tableComponent
-  [component]="this"
->
-</app-generic-table>
-<ng-template #resultViewer>
-  <app-json-viewer></app-json-viewer>
-</ng-template>
+<app-generic-table #tableComponent [component]="this"></app-generic-table>
+
 <div class="app-modal-w">
   <div class="modalSave">
     <ng-template #approveTemplate>
@@ -39,10 +33,27 @@
     </ng-template>
   </div>
 </div>
+
 <div class="app-modal-w">
   <div class="modalSave">
     <ng-template #rejectTemplate>
-      <app-reject-subscription></app-reject-subscription>
+      <app-reject-subscription
+        [subscription]="currentSubscription | async"
+        [details]="approvalDetails | async"
+      >
+      </app-reject-subscription>
+    </ng-template>
+  </div>
+</div>
+
+<div class="app-modal-w">
+  <div class="modalSave">
+    <ng-template #viewTemplate>
+      <app-view-subscription-approval-request
+        [subscription]="currentSubscription | async"
+        [details]="approvalDetails | async"
+      >
+      </app-view-subscription-approval-request>
     </ng-template>
   </div>
 </div>
