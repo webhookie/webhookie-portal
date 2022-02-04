@@ -265,36 +265,34 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   currentSubscription = new BehaviorSubject<Optional<Subscription>>(null);
   approvalDetails = new BehaviorSubject<Optional<SubscriptionApprovalDetails>>(null)
 
+  showApprovalDialog(
+    subscription: Subscription,
+    submitRequest: SubscriptionApprovalDetails,
+    template: TemplateRef<any>
+  ) {
+    this.currentSubscription.next(subscription)
+    this.approvalDetails.next(submitRequest)
+    this.modalService.open(template)
+  }
+
   viewSubscriptionRequest(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription) => {
       this.service.readSubmitRequest(subscription.id)
-        .subscribe(it => {
-          this.currentSubscription.next(subscription)
-          this.approvalDetails.next(it)
-          this.modalService.open(this.viewTemplate!)
-        });
+        .subscribe(it => this.showApprovalDialog(subscription, it, this.viewTemplate!));
     }
   }
 
   showApproveDialog(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription) => {
       this.service.readSubmitRequest(subscription.id)
-        .subscribe(it => {
-          this.currentSubscription.next(subscription)
-          this.approvalDetails.next(it)
-          this.modalService.open(this.approveTemplate)
-        });
+        .subscribe(it => this.showApprovalDialog(subscription, it, this.approveTemplate!));
     }
   }
 
   showRejectDialog(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription) => {
       this.service.readSubmitRequest(subscription.id)
-        .subscribe(it => {
-          this.currentSubscription.next(subscription)
-          this.approvalDetails.next(it)
-          this.modalService.open(this.rejectTemplate)
-        });
+        .subscribe(it => this.showApprovalDialog(subscription, it, this.rejectTemplate!));
     }
   }
 
