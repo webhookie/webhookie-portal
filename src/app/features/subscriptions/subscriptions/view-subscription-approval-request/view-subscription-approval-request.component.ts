@@ -20,28 +20,18 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {NgModule} from '@angular/core';
-import {SharedModule} from "../../shared/shared.module";
-import {SubscriptionsRoutingModule} from "./subscriptions-routing.module";
-import {SubscriptionsHomeComponent} from "./home/subscriptions-home.component";
-import {SubscriptionsComponent} from './subscriptions/subscriptions.component';
-import {ApproveSubscriptionComponent} from './subscriptions/approve-subscription/approve-subscription.component';
-import {RejectSubscriptionComponent} from './subscriptions/reject-subscription/reject-subscription.component';
-import {
-  ViewSubscriptionApprovalRequestComponent
-} from './subscriptions/view-subscription-approval-request/view-subscription-approval-request.component';
+import {Component, OnInit} from '@angular/core';
 
-
-@NgModule({
-  declarations: [
-    SubscriptionsHomeComponent,
-    SubscriptionsComponent,
-    ApproveSubscriptionComponent,
-    RejectSubscriptionComponent,
-    ViewSubscriptionApprovalRequestComponent
-  ],
-  imports: [
-    SharedModule, SubscriptionsRoutingModule
-  ]
+@Component({
+  selector: 'app-view-subscription-approval-request',
+  templateUrl: './view-subscription-approval-request.component.html',
+  styleUrls: ['./view-subscription-approval-request.component.css']
 })
-export class SubscriptionsModule { }
+export class ViewSubscriptionApprovalRequestComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}

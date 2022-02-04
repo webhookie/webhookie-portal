@@ -20,11 +20,11 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BehaviorSubject, Observable, of, ReplaySubject, Subject} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "../../../shared/model/subscription";
-import {SubscriptionService} from "../../../shared/service/subscription.service";
+import {SubscriptionApprovalDetails, SubscriptionService} from "../../../shared/service/subscription.service";
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {GenericTableComponent} from "../../../shared/components/generic-table/generic-table.component";
 import {Pageable} from "../../../shared/request/pageable";
@@ -48,6 +48,8 @@ import {WebhooksContext} from "../../webhooks/webhooks-context";
 import {WebhookApiService} from "../../webhooks/service/webhook-api.service";
 import {Webhook} from "../../webhooks/model/webhook";
 import {WebhookSelection} from "../../webhooks/model/webhook-selection";
+import {ModalService} from "../../../shared/service/modal.service";
+import {Optional} from "../../../shared/model/optional";
 
 type SubscriptionContextMenu = ContextMenuItem<Subscription, SubscriptionMenu>;
 
@@ -59,6 +61,9 @@ type SubscriptionContextMenu = ContextMenuItem<Subscription, SubscriptionMenu>;
 export class SubscriptionsComponent extends GenericTable<Subscription, Subscription> implements OnInit {
   // @ts-ignore
   @ViewChild("tableComponent") tableComponent: GenericTableComponent;
+  @ViewChild("resultViewer") resultViewer?: TemplateRef<any>;
+  @ViewChild("approveTemplate") approveTemplate!: TemplateRef<any>;
+  @ViewChild("rejectTemplate") rejectTemplate!: TemplateRef<any>;
 
   readonly _subscriptions$: Subject<Array<Subscription>> = new ReplaySubject();
   readonly tableData: Observable<Array<Subscription>> = this._subscriptions$.asObservable();
@@ -71,6 +76,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     private readonly activatedRoute: ActivatedRoute,
     private readonly contextMenuService: SubscriptionContextMenuService,
     private readonly route: ActivatedRoute,
+    private readonly modalService: ModalService,
     private readonly service: SubscriptionService
   ) {
     super();
@@ -170,6 +176,21 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
         .isAvailable(this.contextMenuService.canSuspend(this._role$))
         .build(),
       ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_SUBMIT_REQUEST)
+        .handler(this.viewSubscriptionRequest())
+        .isAvailable(this.contextMenuService.canViewSubmitRequest(this._role$))
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.APPROVE)
+        .handler(this.showApproveDialog())
+        .isAvailable(this.contextMenuService.canApprove(this._role$))
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.REJECT)
+        .handler(this.showRejectDialog())
+        .isAvailable(this.contextMenuService.canReject(this._role$))
+        .build(),
+      ContextMenuItemBuilder
         .create<Subscription, SubscriptionMenu>(SubscriptionMenu.UNSUSPEND)
         .handler(this.unsuspend())
         .isAvailable(this.contextMenuService.canUnsuspend(this._role$))
@@ -241,6 +262,36 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     }
   }
 
+  currentSubscription = new BehaviorSubject<Optional<Subscription>>(null);
+  approvalDetails = new BehaviorSubject<Optional<SubscriptionApprovalDetails>>(null)
+
+  viewSubscriptionRequest(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (subscription) => {
+      this.service.readSubmitRequest(subscription.id)
+        .subscribe(it => this.modalService.openJson(this.resultViewer!, it));
+    }
+  }
+
+  showApproveDialog(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (subscription) => {
+      this.service.readSubmitRequest(subscription.id)
+        .subscribe(it => {
+          this.currentSubscription.next(subscription)
+          this.approvalDetails.next(it)
+          this.modalService.open(this.approveTemplate)
+        });
+    }
+  }
+
+  showRejectDialog(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+    return (subscription) => {
+      this.service.readSubmitRequest(subscription.id)
+        .subscribe(it => {
+          this.modalService.open(this.rejectTemplate)
+        });
+    }
+  }
+
   unsuspend(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription) => {
       this.service.unsuspendSubscription(subscription)
@@ -271,6 +322,9 @@ enum SubscriptionMenu {
   VALIDATE = "Validate",
   DELETE = "Delete",
   SUSPEND = "Suspend",
+  VIEW_SUBMIT_REQUEST = "View Submit Request",
+  APPROVE = "Approve",
+  REJECT = "Reject",
   UNSUSPEND = "Unsuspend",
   UNBLOCK = "Unblock"
 }

@@ -20,28 +20,34 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {NgModule} from '@angular/core';
-import {SharedModule} from "../../shared/shared.module";
-import {SubscriptionsRoutingModule} from "./subscriptions-routing.module";
-import {SubscriptionsHomeComponent} from "./home/subscriptions-home.component";
-import {SubscriptionsComponent} from './subscriptions/subscriptions.component';
-import {ApproveSubscriptionComponent} from './subscriptions/approve-subscription/approve-subscription.component';
-import {RejectSubscriptionComponent} from './subscriptions/reject-subscription/reject-subscription.component';
-import {
-  ViewSubscriptionApprovalRequestComponent
-} from './subscriptions/view-subscription-approval-request/view-subscription-approval-request.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {Subscription} from "../../../../shared/model/subscription";
+import {Optional} from "../../../../shared/model/optional";
+import {SubscriptionApprovalDetails, SubscriptionService} from "../../../../shared/service/subscription.service";
+import {ModalService} from "../../../../shared/service/modal.service";
 
-
-@NgModule({
-  declarations: [
-    SubscriptionsHomeComponent,
-    SubscriptionsComponent,
-    ApproveSubscriptionComponent,
-    RejectSubscriptionComponent,
-    ViewSubscriptionApprovalRequestComponent
-  ],
-  imports: [
-    SharedModule, SubscriptionsRoutingModule
-  ]
+@Component({
+  selector: 'app-approve-subscription',
+  templateUrl: './approve-subscription.component.html',
+  styleUrls: ['./approve-subscription.component.css']
 })
-export class SubscriptionsModule { }
+export class ApproveSubscriptionComponent implements OnInit {
+  @Input() subscription: Optional<Subscription>;
+  @Input() details: Optional<SubscriptionApprovalDetails>;
+
+  constructor(
+    private readonly subscriptionService: SubscriptionService,
+    private readonly modalService: ModalService
+  ) { }
+
+  ngOnInit(): void {
+  }
+
+  hide() {
+    this.modalService.hide()
+  }
+
+  approve() {
+    this.modalService.hide()
+  }
+}

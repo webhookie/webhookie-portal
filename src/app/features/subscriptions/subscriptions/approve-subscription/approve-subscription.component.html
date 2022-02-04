@@ -20,29 +20,19 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<app-generic-table
-  #tableComponent
-  [component]="this"
->
-</app-generic-table>
-<ng-template #resultViewer>
-  <app-json-viewer></app-json-viewer>
-</ng-template>
-<div class="app-modal-w">
-  <div class="modalSave">
-    <ng-template #approveTemplate>
-      <app-approve-subscription
-        [subscription]="currentSubscription | async"
-        [details]="approvalDetails | async"
-      >
-      </app-approve-subscription>
-    </ng-template>
-  </div>
-</div>
-<div class="app-modal-w">
-  <div class="modalSave">
-    <ng-template #rejectTemplate>
-      <app-reject-subscription></app-reject-subscription>
-    </ng-template>
+<div>
+  Confirm you approve the subscription to the <strong>{{subscription?.topic}}</strong> webhook by:
+  <br/><br/>
+  Company: {{subscription?.application?.entity}}
+  <br/>
+  Application: {{subscription?.application?.name}}
+  <br/>
+  Requester name: {{details?.requester?.name}}
+  <br/>
+  Requester email: {{details?.requester?.email}}
+
+  <div class="modal-footer">
+    <button (click)="hide()" aria-label="Close" class="btn btn-default cancel border" type="button">Cancel</button>
+    <button (click)="approve()" class="btn btn-primary" type="button">Approve</button>
   </div>
 </div>

@@ -95,6 +95,22 @@ export class SubscriptionContextMenuService {
       && this.isProviderSubscriptions(role$);
   }
 
+  canViewSubmitRequest(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
+    return this.canApprove(role$)
+  }
+
+  canApprove(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
+    return (it) => this.context.hasProviderRole
+      && it.statusUpdate.status == SubscriptionStatus.SUBMITTED
+      && this.isProviderSubscriptions(role$);
+  }
+
+  canReject(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
+    return (it) => this.context.hasProviderRole
+      && it.statusUpdate.status == SubscriptionStatus.SUBMITTED
+      && this.isProviderSubscriptions(role$);
+  }
+
   canUnsuspend(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
     let validStatusList = [SubscriptionStatus.SUSPENDED]
     return (it) => this.context.hasProviderRole
