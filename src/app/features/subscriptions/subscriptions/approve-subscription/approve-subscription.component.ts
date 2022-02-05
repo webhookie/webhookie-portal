@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SubscriptionService} from "../../../../shared/service/subscription.service";
 import {ModalService} from "../../../../shared/service/modal.service";
 import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-dialog-base.component";
@@ -31,6 +31,8 @@ import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-
   styleUrls: ['./approve-subscription.component.css']
 })
 export class ApproveSubscriptionComponent extends SubscriptionApprovalDialogBaseComponent implements OnInit {
+  @Output("onStatusChange") onStatusChange: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private readonly subscriptionService: SubscriptionService,
     private readonly modalService: ModalService
@@ -47,6 +49,9 @@ export class ApproveSubscriptionComponent extends SubscriptionApprovalDialogBase
 
   approve() {
     this.subscriptionService.approveSubscription(this.subscription!.id)
-      .subscribe(_ => this.modalService.hide())
+      .subscribe(it => {
+        this.onStatusChange.emit(it.statusUpdate);
+        this.modalService.hide();
+      })
   }
 }

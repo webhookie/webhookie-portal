@@ -23,7 +23,7 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BehaviorSubject, Observable, of, ReplaySubject, Subject} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "../../../shared/model/subscription";
+import {StatusUpdate, Subscription} from "../../../shared/model/subscription";
 import {SubscriptionApprovalDetails, SubscriptionService} from "../../../shared/service/subscription.service";
 import {GenericTable} from "../../../shared/components/generic-table/generic-table";
 import {GenericTableComponent} from "../../../shared/components/generic-table/generic-table.component";
@@ -316,6 +316,10 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
   detailHeaders?: TableHeader[];
   detailColumns?: TableColumn[];
+
+  handleSubscriptionApprovalChange(status: StatusUpdate) {
+    this.currentSubscription.value!.statusUpdate = status
+  }
 }
 
 enum SubscriptionMenu {

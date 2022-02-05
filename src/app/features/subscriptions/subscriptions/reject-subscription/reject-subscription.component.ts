@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-dialog-base.component";
 import {SubscriptionService} from "../../../../shared/service/subscription.service";
 import {ModalService} from "../../../../shared/service/modal.service";
@@ -32,6 +32,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./reject-subscription.component.css']
 })
 export class RejectSubscriptionComponent extends SubscriptionApprovalDialogBaseComponent implements OnInit {
+  @Output("onStatusChange") onStatusChange: EventEmitter<any> = new EventEmitter();
+
   rejectForm!: FormGroup
   minReasonLength: number = 40
 
@@ -63,6 +65,9 @@ export class RejectSubscriptionComponent extends SubscriptionApprovalDialogBaseC
 
   reject() {
     this.subscriptionService.rejectSubscription(this.subscription!.id, this.reason!.value)
-      .subscribe(_ => this.modalService.hide())
+      .subscribe(it => {
+        this.onStatusChange.emit(it.statusUpdate);
+        this.modalService.hide();
+      })
   }
 }

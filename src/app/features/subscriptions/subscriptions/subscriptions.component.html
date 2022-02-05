@@ -28,6 +28,7 @@
       <app-approve-subscription
         [subscription]="currentSubscription | async"
         [details]="approvalDetails | async"
+        (onStatusChange)="handleSubscriptionApprovalChange($event)"
       >
       </app-approve-subscription>
     </ng-template>
@@ -40,6 +41,7 @@
       <app-reject-subscription
         [subscription]="currentSubscription | async"
         [details]="approvalDetails | async"
+        (onStatusChange)="handleSubscriptionApprovalChange($event)"
       >
       </app-reject-subscription>
     </ng-template>

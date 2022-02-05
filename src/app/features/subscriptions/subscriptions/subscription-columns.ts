@@ -87,7 +87,7 @@ class SubscriptionColumnUtils {
         clazz = "primary";
         break;
       case SubscriptionStatus.APPROVED:
-        clazz = "primary";
+        clazz = "info";
         break;
       case SubscriptionStatus.REJECTED:
         clazz = "danger";
