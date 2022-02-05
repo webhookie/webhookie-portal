@@ -134,7 +134,7 @@ input {
 input.invalid {
   background-color: #ffdddd;
 }
-button {
+button{
   background-color: #0151cc;
   color: #ffffff;
   border: none;
@@ -142,6 +142,10 @@ button {
   padding: 7px 15px;
   font-size: 14px;
   cursor: pointer;
+}
+.test:hover{
+  background-color: #0151cc;
+  color: #ffffff;
 }
 button.retest, #prevBtn, #cancel, #managesub, #deactive {
   background-color: #ffffff;
