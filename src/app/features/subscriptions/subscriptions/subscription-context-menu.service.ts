@@ -45,7 +45,9 @@ export class SubscriptionContextMenuService {
   }
 
   canViewTraffic(): (subscription: Subscription) => boolean {
-    return () => true;
+    let validStatusList = [SubscriptionStatus.ACTIVATED, SubscriptionStatus.DEACTIVATED, SubscriptionStatus.BLOCKED]
+    return (it) => this.context.hasConsumerRole
+      && validStatusList.includes(it.statusUpdate.status);
   }
 
   canActivate(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
@@ -75,7 +77,11 @@ export class SubscriptionContextMenuService {
   }
 
   canEdit(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
-    let validStatusList = [SubscriptionStatus.DRAFT, SubscriptionStatus.VALIDATED]
+    let validStatusList = [
+      SubscriptionStatus.DRAFT,
+      SubscriptionStatus.VALIDATED,
+      SubscriptionStatus.READY_TO_SUBMIT
+    ]
     let canWrite: (data: Subscription) => boolean = this.canWrite(role$)
     return (it) => canWrite(it)
       && validStatusList.includes(it.statusUpdate.status)

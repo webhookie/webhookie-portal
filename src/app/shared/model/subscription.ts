@@ -60,7 +60,7 @@ export class StatusUpdate {
 export enum SubscriptionStatus {
   DRAFT = "DRAFT",
   VALIDATED = "VALIDATED",
-  READY_TO_SUBMIT = "READY TO SUBMIT",
+  READY_TO_SUBMIT = "READY_TO_SUBMIT",
   SUBMITTED = "SUBMITTED",
   APPROVED = "APPROVED",
   REJECTED = "REJECTED",
