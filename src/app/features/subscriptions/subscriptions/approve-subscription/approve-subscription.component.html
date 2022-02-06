@@ -21,18 +21,16 @@
   -->
 
 <div>
-  Confirm you approve the subscription to the <strong>{{subscription?.topic}}</strong> webhook by:
-  <br/><br/>
-  Company: {{subscription?.application?.entity}}
-  <br/>
-  Application: {{subscription?.application?.name}}
-  <br/>
-  Requester name: {{details?.requester?.name}}
-  <br/>
-  Requester email: {{details?.requester?.email}}
-
+  <div class="modal-body">
+    <h5 class="font14 font-weight-bold">Confirm you approve</h5>
+    <div class="pt-2 pb-1">the subscription to the <strong>{{subscription?.topic}}</strong> webhook by:</div>
+    <div>Company: {{subscription?.application?.entity}}</div>
+    <div>Application: {{subscription?.application?.name}}</div>
+    <div>Requester name: {{details?.requester?.name}}</div>
+    <div>Requester email: {{details?.requester?.email}}</div>
+  </div>
   <div class="modal-footer">
-    <button (click)="hide()" aria-label="Close" class="btn btn-default cancel border" type="button">Cancel</button>
-    <button (click)="approve()" class="btn btn-primary" type="button">Approve</button>
+    <button (click)="hide()" aria-label="Close" class="btn btn-default cancel" type="button">Cancel</button>
+    <button (click)="approve()" class="btn btn-primary" type="button">Confirm</button>
   </div>
 </div>
