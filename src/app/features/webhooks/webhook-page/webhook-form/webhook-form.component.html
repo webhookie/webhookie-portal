@@ -24,7 +24,7 @@
 <div class="container-fluid create-webgroup">
   <form [formGroup]="webhookForm.form">
   <div class="row">
-    <div class="col-md-12 col-lg-5 consumer">
+    <div class="col-md-12 col-lg-3 consumer">
       <div class="webgroup-heading mb-3 mb-md-0">
         <app-webhook-access-group
           publicTitle="Public"
@@ -38,20 +38,32 @@
         </app-webhook-access-group>
         </div>
       </div>
-      <div class="col-md-12 col-lg-7 mt-md-3 mt-lg-0 d-md-flex justify-content-between align-items-center">
-      <div class="webgroup-heading">
-        <app-webhook-access-group
-          publicTitle="All"
-          id="providerAccess"
-          path="providergroups"
-          [control]="webhookForm.providerGroups"
-          title="Provider groups"
-          [formGroup]="webhookForm.form"
-          [filter]="providerGroupFilter()"
-          #providerGroupsComponent
-        >
-        </app-webhook-access-group>
+      <div class="col-md-12 col-lg-3 mt-md-3 mt-lg-0">
+        <div class="webgroup-heading mb-3 mb-md-0">
+          <app-webhook-access-group
+            publicTitle="All"
+            id="providerAccess"
+            path="providergroups"
+            [control]="webhookForm.providerGroups"
+            title="Provider groups"
+            [formGroup]="webhookForm.form"
+            [filter]="providerGroupFilter()"
+            #providerGroupsComponent
+          >
+          </app-webhook-access-group>
+        </div>
       </div>
+      <div class="col-md-12 col-lg-7 mt-md-3 mt-lg-0 d-md-flex justify-content-between align-items-center">
+        <div class="webgroup-heading">
+          <div>
+            <label class="font-weight-400 font14 pr-3" for="approve">Requires Approvals</label>
+            <input type="checkbox" id="approve" name="approve"/>
+          </div>
+          <div>
+            <label class="font-weight-400 font14 pr-3" for="email">Notification Email Address:</label>
+            <input type="email" id="email" name="email"/>
+          </div>
+        </div>
       <div class="dot-buttons mt-3 mt-md-0">
         <ul class="d-flex mb-0">
 <!--
