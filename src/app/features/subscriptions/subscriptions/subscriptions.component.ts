@@ -270,9 +270,9 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     submitRequest: SubscriptionApprovalDetails,
     template: TemplateRef<any>
   ) {
-    this.currentSubscription.next(subscription)
+    this.currentSubscription.next(subscription);
     this.approvalDetails.next(submitRequest)
-    this.modalService.open(template)
+    this.modalService.open(template,'large-modal')
   }
 
   viewSubscriptionRequest(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
