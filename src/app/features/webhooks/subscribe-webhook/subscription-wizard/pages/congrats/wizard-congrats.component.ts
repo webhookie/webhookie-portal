@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {WizardStep} from "../../steps/wizard-step";
 import {CongratsWizardStep} from "../../steps/congrats-wizard-step";
 import {WizardStepBaseComponent} from "../../steps/wizard-step-base/wizard-step-base.component";
@@ -39,6 +39,7 @@ import {Subscription} from "../../../../../../shared/model/subscription";
   styleUrls: ['./wizard-congrats.component.css']
 })
 export class WizardCongratsComponent extends WizardStepBaseComponent<any> implements OnInit {
+  @Input() visible:boolean=false;
   subscription: Optional<Subscription>
 
   step: WizardStep<any> = new CongratsWizardStep();
