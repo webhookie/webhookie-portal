@@ -628,7 +628,10 @@ input:focus{
 .asyncapi .asyncapi__collapse-button {
     background-color: aqua !important;
 }
-
+.cancel{
+  color: #0151cc;
+  border: 1px solid #0151cc;
+}
 @media (max-width: 1024px) {
     h1 {
         font-size: 30px;
