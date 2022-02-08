@@ -379,7 +379,9 @@ h1 {
 .mw-180 {
     min-width: 180px;
 }
-
+.mw-160{
+  min-width: 160px;
+}
 .date_wrapper {
     width: 140px !important;
 }
