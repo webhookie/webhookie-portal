@@ -143,6 +143,10 @@ button {
   font-size: 14px;
   cursor: pointer;
 }
+.test:hover{
+  background-color: #0151cc;
+  color: #ffffff;
+}
 button.retest, #prevBtn, #cancel, #managesub, #deactive {
   background-color: #ffffff;
   border: 1px solid #E1E1E1;
