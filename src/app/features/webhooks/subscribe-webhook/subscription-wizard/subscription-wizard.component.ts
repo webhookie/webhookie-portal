@@ -81,7 +81,7 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
         this.applicationComponent,
         this.callbackComponent,
         this.verifyCallbackComponent,
-        this.congratsComponent,
+        this.approvalComponent,
       ]);
     }
   }

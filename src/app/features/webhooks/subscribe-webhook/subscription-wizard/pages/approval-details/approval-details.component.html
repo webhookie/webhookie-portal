@@ -21,14 +21,14 @@
   -->
 <div *ngIf="visible && !step.completed" class="row justify-content-center">
   <div class="col-12 col-md-8">
-    <form [formGroup]="submitForm">
+    <form  [formGroup]="submitForm">
       <div class="modal-body">
         <div class="row">
           <div class="col-12 col-md-4">
-            <label class="font14 font-weight-400" for="reason">Reason for subscription</label>
+            <label class="font14 font-weight-400" for="reason">Reason for subscription:</label>
           </div>
           <div class="col-12 col-md-8">
-            <textarea id="reason" max="4" class="form-control" formControlName="reason" placeholder="Reason for subscription" required></textarea>
+          <textarea id="reason" max="4" class="form-control" formControlName="reason" placeholder="Reason for subscription" required></textarea>
             <div *ngIf="reason?.invalid && (reason?.dirty || reason?.touched)" class="my-1 alert alert-danger">
               <div *ngIf="reason?.errors?.required">
                 Reason for subscription is required.
@@ -39,9 +39,12 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row my-4">
+          <div class="col-12">
+            <h5 class="font14 font-weight-600">Notifications:</h5>
+          </div>
           <div class="col-12 col-md-4">
-            <label class="font14 font-weight-400" for="email">Notification Email</label>
+            <label class="font14 font-weight-400" for="email">Email:</label>
           </div>
           <div class="col-12 col-md-8">
             <input type="email" id="email" class="form-control" formControlName="email" placeholder="Notification Email" required>

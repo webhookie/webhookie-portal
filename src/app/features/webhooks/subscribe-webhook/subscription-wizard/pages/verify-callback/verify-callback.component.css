@@ -134,7 +134,7 @@ input {
 input.invalid {
   background-color: #ffdddd;
 }
-button {
+button{
   background-color: #0151cc;
   color: #ffffff;
   border: none;
