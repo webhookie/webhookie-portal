@@ -201,6 +201,8 @@ class EmailV {
         if(emailControl.value.trim() == "") {
           emailControl.setValue(defaultValue)
         }
+      } else {
+        emailControl.setValue("")
       }
       let validationResult = Validators.email(emailControl) || Validators.required(emailControl)
       return this.validate(emailControl, requiresApprovalControl.value, validationResult)
