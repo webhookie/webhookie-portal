@@ -102,7 +102,20 @@ export class SubscriptionContextMenuService {
   }
 
   canViewSubmitRequest(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
-    return this.canApprove(role$)
+    let validStatusList: Array<SubscriptionStatus> = [
+      SubscriptionStatus.SUBMITTED,
+      SubscriptionStatus.APPROVED,
+      SubscriptionStatus.REJECTED
+    ]
+    return (it) => validStatusList.includes(it.statusUpdate.status)
+      && (
+        this.isConsumerSubscriptions(role$)
+        ||
+        ( this.isProviderSubscriptions(role$)
+          &&
+          this.context.hasProviderRole
+        )
+      );
   }
 
   canApprove(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
