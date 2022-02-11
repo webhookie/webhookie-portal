@@ -20,20 +20,12 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn,} from "@angular/forms";
 import {DropdownEntry} from "../../../../shared/model/dropdownEntry";
 import {Observable, Observer} from "rxjs";
 import {ConsumerAccess, ProviderAccess} from "../../../../shared/model/access-group";
 import {WebhookieError} from "../../../../shared/error/webhookie-error";
-import {WebhookApi, WebhookApiApprovalDetails} from "../../model/webhook-api";
+import {WebhookApi} from "../../model/webhook-api";
 import {WebhookAPITemplate} from "./create-webhook-api/WebhookAPITemplate";
 import {ProfileService} from "../../../../shared/service/profile.service";
 
@@ -54,9 +46,6 @@ export class WebhookApiForm {
       if (providerGroups.hasError()) {
         errors.push("Select 'All' or at least one Provider Group");
       }
-      if(this.email.invalid) {
-        errors.push("Invalid Notification Email Address");
-      }
       if (errors.length > 0) {
         let msg = errors.reduce((value, current) => `${value} <br/> ${current}`)
         observer.error(new WebhookieError({
@@ -64,12 +53,6 @@ export class WebhookApiForm {
           name: "Webhook API Creation Error"
         }));
       } else {
-        let email = (this.requiresApproval.value) ? this.email.value : null
-        let approvalDetails: WebhookApiApprovalDetails = {
-          required: this.requiresApproval.value,
-          email: email
-        }
-
         observer.next(
           {
             consumerGroups: consumerGroups.items.map(it => it.key),
@@ -77,7 +60,7 @@ export class WebhookApiForm {
             consumerAccess: (consumerGroups.access == WebhookApiAccess.PUBLIC) ? ConsumerAccess.PUBLIC : ConsumerAccess.RESTRICTED,
             providerAccess: (providerGroups.access == WebhookApiAccess.PUBLIC) ? ProviderAccess.ALL : ProviderAccess.RESTRICTED,
             asyncApiSpec: this.spec.value,
-            approvalDetails: approvalDetails
+            requiresApproval: this.requiresApproval.value
           }
         )
       }
@@ -124,10 +107,7 @@ export class WebhookApiForm {
     let providerGroupSelection = AccessGroupSelection.initPublic();
     let consumerGroupSelection = AccessGroupSelection.initPublic();
     let spec = WebhookAPITemplate.WEBHOOK_API_TEMPLATE;
-    let approvalDetails: WebhookApiApprovalDetails = {
-      required: false,
-      email: ""
-    }
+    let requiresApproval: boolean = false
 
     if (webhookApi) {
       this.id = webhookApi.id;
@@ -140,7 +120,7 @@ export class WebhookApiForm {
         consumerGroupSelection = AccessGroupSelection.restricted(groups);
       }
       spec = webhookApi.spec
-      approvalDetails = webhookApi.approvalDetails
+      requiresApproval = webhookApi.requiresApproval
     }
 
     this.providerGroups = new FormControl(
@@ -152,15 +132,11 @@ export class WebhookApiForm {
       [AccessGroupSelection.validateFn("Select 'Public' or at least one Consumer Group")]
     )
     this.spec = new FormControl(spec)
-    this.requiresApproval = new FormControl(approvalDetails.required);
-    this.email = new FormControl(approvalDetails.email);
+    this.requiresApproval = new FormControl(requiresApproval);
 
-    this.requiresApproval.addValidators(EmailV.requiresApprovalValidateFn(this.email, this.profileService.email))
-    this.email.addValidators(EmailV.emailValidateFn(this.requiresApproval))
     const group = {
       "providerGroups": this.providerGroups,
       "consumerGroups": this.consumerGroups,
-      "email": this.email,
       "requiresApproval": this.requiresApproval,
       "spec": this.spec
     }
@@ -170,51 +146,9 @@ export class WebhookApiForm {
   providerGroups!: FormControl;
   consumerGroups!: FormControl;
   spec!: FormControl;
-  email!: FormControl;
   requiresApproval!: FormControl;
 
   form!: FormGroup;
-}
-
-class EmailV {
-  static MESSAGE = "Invalid Notification Email Address"
-
-  private static validate(emailControl: AbstractControl, required: boolean, validationResult: any): ValidationErrors | null {
-    if (required && validationResult) {
-      let error: ValidationErrors = {
-        error: {
-          message: this.MESSAGE,
-          value: emailControl.value
-        }
-      };
-      emailControl.setErrors(error)
-      return error
-    }
-
-    emailControl.setErrors(null);
-    return null;
-  }
-
-  static requiresApprovalValidateFn(emailControl: FormControl, defaultValue: string): ValidatorFn {
-    return (requiresApprovalControl: AbstractControl): ValidationErrors | null => {
-      if(requiresApprovalControl.value) {
-        if(emailControl.value.trim() == "") {
-          emailControl.setValue(defaultValue)
-        }
-      } else {
-        emailControl.setValue("")
-      }
-      let validationResult = Validators.email(emailControl) || Validators.required(emailControl)
-      return this.validate(emailControl, requiresApprovalControl.value, validationResult)
-    };
-  }
-
-  static emailValidateFn(requiresApprovalControl: FormControl): ValidatorFn {
-    return (emailControl: AbstractControl): ValidationErrors | null => {
-      let validationResult = Validators.email(emailControl) || Validators.required(emailControl)
-      return this.validate(emailControl, requiresApprovalControl.value, validationResult)
-    };
-  }
 }
 
 export class AccessGroupSelection {

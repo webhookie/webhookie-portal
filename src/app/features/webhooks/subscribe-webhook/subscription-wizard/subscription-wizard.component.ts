@@ -69,7 +69,7 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
 
   ngAfterViewInit(): void {
     this.applicationComponent.init(null);
-    if(this.webhookApi.approvalDetails.required) {
+    if(this.webhookApi.requiresApproval) {
       this.stepManager = new WizardStepManager([
         this.applicationComponent,
         this.callbackComponent,
@@ -81,7 +81,7 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
         this.applicationComponent,
         this.callbackComponent,
         this.verifyCallbackComponent,
-        this.approvalComponent,
+        this.congratsComponent,
       ]);
     }
   }

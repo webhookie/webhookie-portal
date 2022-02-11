@@ -56,11 +56,11 @@ export class VerifyCallbackComponent extends WizardStepBaseComponent<Callback> i
     return [
       {
         id: "subscribeBtn",
-        title: this.webhookApi.approvalDetails.required ? "Next" : "Subscribe",
+        title: this.webhookApi.requiresApproval ? "Next" : "Subscribe",
         css: "",
 
         action(step: VerifyCallbackComponent): Observable<any> {
-          if(step.webhookApi.approvalDetails.required) {
+          if(step.webhookApi.requiresApproval) {
             return of(1)
           }
 

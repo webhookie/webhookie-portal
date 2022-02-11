@@ -53,10 +53,6 @@ export class WebhookFormComponent implements OnInit {
     private readonly appCtx: ApplicationContext,
   ) { }
 
-  get requiresApproval(): boolean {
-    return !this.webhookForm.requiresApproval.value
-  }
-
   ngOnInit(): void {
     this.webhookForm.form.statusChanges
       .subscribe(it => {
