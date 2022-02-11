@@ -21,7 +21,7 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import { ModalService } from 'src/app/shared/service/modal.service';
+import {ModalService} from 'src/app/shared/service/modal.service';
 import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-dialog-base.component";
 
 @Component({
@@ -31,12 +31,15 @@ import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-
 })
 export class ViewSubscriptionApprovalRequestComponent extends SubscriptionApprovalDialogBaseComponent implements OnInit {
 
-  constructor(private readonly modalService: ModalService) {
+  constructor(
+    private readonly modalService: ModalService
+  ) {
     super()
   }
 
   ngOnInit(): void {
   }
+
   hide() {
     this.modalService.hide()
   }
