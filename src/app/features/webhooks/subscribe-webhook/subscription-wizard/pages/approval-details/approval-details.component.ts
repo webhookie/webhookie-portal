@@ -120,12 +120,9 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
     this.submitForm = new FormGroup({
       reason: new FormControl("", [
         Validators.required
-      ]),
-      email: new FormControl(this.profileService.email, [Validators.required, Validators.email])
+      ])
     });
   }
 
   get reason() { return this.submitForm.get('reason'); }
-
-  get email() { return this.submitForm.get('email'); }
 }
