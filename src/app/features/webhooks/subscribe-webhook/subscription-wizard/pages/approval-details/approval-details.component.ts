@@ -45,7 +45,6 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
   step: WizardStep<any> = new ApprovalDetailsWizardStep();
 
   submitForm!: FormGroup
-  minReasonLength: number = 10
 
   extraButtons(): Array<WizardExtraButton> {
     if(this.step.completed) {
@@ -120,8 +119,7 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
   ngOnInit(): void {
     this.submitForm = new FormGroup({
       reason: new FormControl("", [
-        Validators.required,
-        Validators.minLength(this.minReasonLength)
+        Validators.required
       ]),
       email: new FormControl(this.profileService.email, [Validators.required, Validators.email])
     });
