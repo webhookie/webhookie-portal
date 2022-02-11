@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -107,7 +107,13 @@ export class MockData {
       "consumerAccess": "PUBLIC",
       "consumerGroups": [],
       "providerAccess": "ALL",
-      "providerGroups": []
+      "providerGroups": [],
+      "approvalDetails": {
+        "required": true,
+        "email": {
+          "value": "bidadh@gmail.com"
+        }
+      }
     }
   ];
 
@@ -640,6 +646,123 @@ export class MockData {
     },
   ];
 
+  public static readonly health = {
+    "status": "UP",
+    "components": {
+      "IAM": {
+        "status": "UP",
+        "details": {
+          "jwt": {
+            "jwkSetUri": "https://auth.com/.well-known/jwks.json",
+            "jwsAlgorithm": "RS256",
+            "issuerUri": "https://auth.com/"
+          }
+        }
+      },
+      "diskSpace": {
+        "status": "UP",
+        "details": {
+          "total": 1995218165760,
+          "free": 1748734787584,
+          "threshold": 10485760,
+          "exists": true
+        }
+      },
+      "migration": {
+        "status": "UP",
+        "details": {
+          "Previous Version": "1.3.0",
+          "Current Version": "1.3.0"
+        }
+      },
+      "mongo": {
+        "status": "UP",
+        "details": {
+          "version": "4.4.12"
+        }
+      },
+      "ping": {
+        "status": "UP"
+      },
+      "rabbit": {
+        "status": "UP",
+        "details": {
+          "version": "3.8.8"
+        }
+      },
+      "webhookie": {
+        "status": "UP",
+        "details": {
+          "build": {
+            "version": "1.3.0",
+            "time": "2022-02-11T09:09:46.215Z"
+          },
+          "parser": {
+            "url": "http://localhost:3000"
+          },
+          "consumer": {
+            "queue": "wh-customer.event",
+            "addDefaultGroup": true,
+            "missingHeader": {
+              "exchange": "wh-customer",
+              "routingKey": "wh-missing-header"
+            }
+          },
+          "security": {
+            "audience": "http://localhost:8080",
+            "clientId": "1",
+            "roles": {
+              "jwkJsonPath": "$['https://webhookie.com/roles']",
+              "autoAssignConsumer": true,
+              "roleMapping": {
+                "USER": "WH_USER",
+                "ADMIN": "WH_ADMIN",
+                "PROVIDER": "WH_PROVIDER",
+                "CONSUMER": "WH_CONSUMER"
+              }
+            },
+            "groups": {
+              "jwkJsonPath": "$['https://webhookie.com/groups']"
+            },
+            "entity": {
+              "jwkJsonPath": "$['https://webhookie.com/entity']"
+            },
+            "oauth2": {
+              "authorizationUri": "authorize",
+              "tokenUri": "oauth/token",
+              "tokenName": "access_token"
+            },
+            "noAuth": {
+              "pathMatchers": {
+                "OPTIONS": [
+                  "/**"
+                ],
+                "GET": [
+                  "/manage/health/**",
+                  "/swagger-ui.html**",
+                  "/v3/**",
+                  "/webjars/swagger-ui/**",
+                  "/public/**"
+                ]
+              }
+            },
+            "allowedOrigins": [
+              "http://localhost:4200",
+              "http://localhost:4201"
+            ]
+          },
+          "subscription": {
+            "retry": {
+              "maxRetry": 2,
+              "initialInterval": 5,
+              "multiplier": 2
+            }
+          }
+        }
+      }
+    }
+  }
+
   static for(uri: string, params: HttpParams): Observable<any> {
     if (uri.startsWith("/public/config")) {
       return of(this.config)
@@ -680,6 +803,10 @@ export class MockData {
 
     if (uri.startsWith("/admin/consumergroups")) {
       return of(this.consumerGroups)
+    }
+
+    if(uri.startsWith("/manage/health")) {
+      return of(this.health)
     }
 
     return EMPTY;
