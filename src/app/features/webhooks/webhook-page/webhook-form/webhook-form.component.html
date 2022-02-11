@@ -1,6 +1,6 @@
 <!--
   ~ webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
-  ~ Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+  ~ Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as
@@ -56,12 +56,12 @@
       <div class="col-md-12 col-lg-6 mt-md-3 mt-lg-0 d-md-flex justify-content-between align-items-center">
       <div class="webgroup-heading">
         <div>
-          <label class="font-weight-400 font14 pr-3" for="approve">Requires Approvals</label>
-          <input type="checkbox" id="approve" name="approve"/>
+          <label class="font-weight-400 font14 pr-3" for="requiresApproval">Requires Approvals</label>
+          <input type="checkbox" id="requiresApproval" name="requiresApproval" formControlName="requiresApproval"/>
         </div>
         <div>
           <label class="font-weight-400 font14 pr-3" for="email">Notification Email Address:</label>
-          <input type="email" id="email" name="email"/>
+          <input type="email" id="email" name="email" formControlName="email" [readOnly]="requiresApproval"/>
         </div>
       </div>
       <div class="dot-buttons mt-3 mt-md-0">

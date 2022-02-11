@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {WebhookApiForm} from "../webhook-api-form";
 import {FormBuilder} from "@angular/forms";
 import {WebhooksContext} from "../../../webhooks-context";
@@ -29,25 +29,29 @@ import {WebhookApi} from "../../../model/webhook-api";
 import {WebhookApiService} from "../../../service/webhook-api.service";
 import {ToastService} from "../../../../../shared/service/toast.service";
 import {LogService} from "../../../../../shared/service/log.service";
+import {ProfileService} from "../../../../../shared/service/profile.service";
 
 @Component({
   selector: 'app-edit-webhook-api',
   templateUrl: './edit-webhook-api.component.html',
   styleUrls: ['./edit-webhook-api.component.css']
 })
-export class EditWebhookApiComponent implements OnInit {
+export class EditWebhookApiComponent {
   webhookForm!: WebhookApiForm;
 
   constructor(
-    private formBuilder: FormBuilder,
+    profileService: ProfileService,
+    formBuilder: FormBuilder,
     private readonly log: LogService,
     private readonly webhookApiService: WebhookApiService,
     private readonly toastService: ToastService,
     private readonly webhooksContext: WebhooksContext,
-  ) { }
-
-  ngOnInit(): void {
-    this.webhookForm = new WebhookApiForm(this.formBuilder, this.webhooksContext.editingWebhookApi);
+  ) {
+    this.webhookForm = new WebhookApiForm(
+      profileService,
+      formBuilder,
+      this.webhooksContext.editingWebhookApi
+    );
   }
 
   onSave(): (request: any) => Observable<WebhookApi> {

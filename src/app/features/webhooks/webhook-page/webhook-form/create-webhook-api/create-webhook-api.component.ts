@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {WebhookApiForm} from "../webhook-api-form";
 import {FormBuilder} from "@angular/forms";
 import {WebhooksContext} from "../../../webhooks-context";
@@ -29,6 +29,7 @@ import {WebhookApi} from "../../../model/webhook-api";
 import {WebhookApiService} from "../../../service/webhook-api.service";
 import {RouterService} from "../../../../../shared/service/router.service";
 import {LogService} from "../../../../../shared/service/log.service";
+import {ProfileService} from "../../../../../shared/service/profile.service";
 
 @Component({
   selector: 'app-create-webhook-api',
@@ -43,9 +44,10 @@ export class CreateWebhookApiComponent implements OnInit {
     private readonly webhookApiService: WebhookApiService,
     private readonly router: RouterService,
     private readonly log: LogService,
+    profileService: ProfileService,
     formBuilder: FormBuilder,
   ) {
-    this.webhookForm = new WebhookApiForm(formBuilder);
+    this.webhookForm = new WebhookApiForm(profileService, formBuilder);
   }
 
   ngOnInit(): void {
