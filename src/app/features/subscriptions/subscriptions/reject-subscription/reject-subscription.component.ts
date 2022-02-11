@@ -35,7 +35,6 @@ export class RejectSubscriptionComponent extends SubscriptionApprovalDialogBaseC
   @Output("onStatusChange") onStatusChange: EventEmitter<any> = new EventEmitter();
 
   rejectForm!: FormGroup
-  minReasonLength: number = 40
 
   constructor(
     private readonly subscriptionService: SubscriptionService,
@@ -47,8 +46,7 @@ export class RejectSubscriptionComponent extends SubscriptionApprovalDialogBaseC
   ngOnInit(): void {
     this.rejectForm = new FormGroup({
       reason: new FormControl("", [
-        Validators.required,
-        Validators.minLength(this.minReasonLength)
+        Validators.required
       ])
     });
   }
