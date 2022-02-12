@@ -30,7 +30,7 @@ import {Subscription} from "../../../../../../shared/model/subscription";
 import {Observable, of} from "rxjs";
 import {ToastService} from "../../../../../../shared/service/toast.service";
 import {SubscriptionService} from "../../../../../../shared/service/subscription.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {tap} from "rxjs/operators";
 import {RouterService} from "../../../../../../shared/service/router.service";
 import {ProfileService} from "../../../../../../shared/service/profile.service";
@@ -98,7 +98,7 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
   }
 
   submitForApproval(): Observable<Subscription> {
-    return this.subscriptionService.submitForApproval(this.subscription!.id, this.submitForm.value)
+    return this.subscriptionService.submitForApproval(this.subscription!.id, this.reason.value)
       .pipe(tap(() => this.step.setComplete()))
   }
 
@@ -124,5 +124,5 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
     });
   }
 
-  get reason() { return this.submitForm.get('reason'); }
+  get reason(): AbstractControl { return this.submitForm.get('reason')!; }
 }

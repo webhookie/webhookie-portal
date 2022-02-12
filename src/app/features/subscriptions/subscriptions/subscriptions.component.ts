@@ -267,11 +267,11 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
 
   showApprovalDialog(
     subscription: Subscription,
-    submitRequest: SubscriptionApprovalDetails,
+    submitDetails: SubscriptionApprovalDetails,
     template: TemplateRef<any>
   ) {
     this.currentSubscription.next(subscription)
-    this.approvalDetails.next(submitRequest)
+    this.approvalDetails.next(submitDetails)
     this.modalService.open(template,'large-modal')
   }
 

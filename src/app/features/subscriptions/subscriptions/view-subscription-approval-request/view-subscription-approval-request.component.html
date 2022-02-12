@@ -26,7 +26,8 @@
       class="pull-right font20" (click)="hide()"><i class="fa fa-times" aria-hidden="true"></i></span></div>
     <div>Company: {{subscription?.application?.entity}}</div>
     <div class="pb-1">Application: {{subscription?.application?.name}}</div>
-    <div>Reason for subscription: {{details?.requester?.name}}</div>
-    <div>Need pets in the PLM tool: {{details?.requester?.email}}</div>
+    <div>Requested by: {{details?.requester?.name}} ({{details?.requester?.email}})</div>
+    <div>Requested at: {{details?.at}}</div>
+    <div>Reason for subscription: {{details?.reason}}</div>
   </div>
 </div>

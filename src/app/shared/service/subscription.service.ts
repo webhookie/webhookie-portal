@@ -27,13 +27,14 @@ import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {Api} from "../api";
 import {LogService} from "./log.service";
 import {SubscriptionAdapter} from "../adapter/subscription.adapter";
-import {Subscription} from "../model/subscription";
+import {Subscription, SubscriptionStatus} from "../model/subscription";
 import {HttpResponseType} from "./api.service";
 import {Pageable} from "../request/pageable";
 import {RequestUtils} from "../request/request-utils";
 import {CallbackResponse} from "../model/callback/callback-response";
-import {SubscriptionApprovalRequestAdapter} from "../adapter/subscription-approval-request.adapter";
+import {SubscriptionApprovalDetailsAdapter} from "../adapter/subscription-approval-details.adapter";
 import {ProfileService, UserProfile} from "./profile.service";
+import {Optional} from "../model/optional";
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,7 @@ export class SubscriptionService {
     @Inject("Api") private readonly api: Api,
     private readonly log: LogService,
     private readonly profileService: ProfileService,
-    private readonly approvalRequestAdapter: SubscriptionApprovalRequestAdapter,
+    private readonly approvalDetailsAdapter: SubscriptionApprovalDetailsAdapter,
     private readonly adapter: SubscriptionAdapter
   ) {
   }
@@ -137,14 +138,13 @@ export class SubscriptionService {
       )
   }
 
-  submitForApproval(subscriptionId: string, approvalRequest: SubscriptionApprovalRequest): Observable<Subscription> {
+  submitForApproval(subscriptionId: string, reason: string): Observable<Subscription> {
     this.log.debug(`Submitting subscription for approval: ${subscriptionId}`)
     let httpParams = new HttpParams();
     let headers = new HttpHeaders()
       .set("Accept", ["application/json"]);
-    let body: SubscriptionApprovalDetails = {
-      reason: approvalRequest.reason,
-      email: approvalRequest.email,
+    let body = {
+      reason: reason,
       requester: this.profileService.profile
     }
     return this.api
@@ -155,7 +155,7 @@ export class SubscriptionService {
 
   readSubmitRequest(id: string): Observable<SubscriptionApprovalDetails> {
     return this.api.json(`${this.SUBSCRIPTIONS_URI}/${id}/submitRequest`)
-      .pipe(map(it => this.approvalRequestAdapter.adapt(it)))
+      .pipe(map(it => this.approvalDetailsAdapter.adapt(it)))
   }
 
   approveSubscription(subscriptionId: string): Observable<Subscription> {
@@ -194,13 +194,16 @@ export interface ValidateSubscriptionRequest {
 
 export interface SubscriptionApprovalDetails {
   reason: string;
-  email: string;
-  requester: UserProfile
+  requester: UserProfile;
+  at: Date
+  result: Optional<SubscriptionApprovalResult>;
 }
 
-export interface SubscriptionApprovalRequest {
-  reason: string;
-  email: string;
+export interface SubscriptionApprovalResult {
+  user: UserProfile
+  at: Date
+  status: SubscriptionStatus
+  reason: Optional<string>
 }
 
 export interface ApproveSubscriptionRequest {
