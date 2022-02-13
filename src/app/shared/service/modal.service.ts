@@ -28,18 +28,19 @@ import {JsonUtils} from "../json-utils";
   providedIn: 'root'
 })
 export class ModalService {
-  private modalRef?: BsModalRef
+  private modalRefs: Array<BsModalRef> = []
 
   constructor(
     private readonly modalService: BsModalService
   ) { }
 
   open(template: TemplateRef<any>, extraClass: string = "x-large-modal") {
-    this.modalRef = this.modalService.show(template, {
+    let ref = this.modalService.show(template, {
       class: `modal-dialog-centered modal-w ${extraClass}`,
       backdrop: true,
       ignoreBackdropClick: true
     });
+    this.modalRefs.push(ref)
   }
 
   openJson(template: TemplateRef<any>, value: any, extraClass: string = "x-large-modal") {
@@ -48,6 +49,8 @@ export class ModalService {
   }
 
   hide() {
-    this.modalRef?.hide();
+    if(this.modalRefs.length > 0) {
+      this.modalRefs.pop()?.hide();
+    }
   }
 }
