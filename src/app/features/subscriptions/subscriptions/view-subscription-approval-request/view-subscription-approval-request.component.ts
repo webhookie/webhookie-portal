@@ -20,9 +20,11 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ModalService} from 'src/app/shared/service/modal.service';
 import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-dialog-base.component";
+import {ApplicationContext} from "../../../../shared/application.context";
+import {StatusUpdate} from "../../../../shared/model/subscription";
 
 @Component({
   selector: 'app-view-subscription-approval-request',
@@ -30,8 +32,12 @@ import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-
   styleUrls: ['./view-subscription-approval-request.component.css']
 })
 export class ViewSubscriptionApprovalRequestComponent extends SubscriptionApprovalDialogBaseComponent implements OnInit {
+  @Input() isProviderSubscription: boolean = false
+  @ViewChild("approveTemplate") approveTemplate!: TemplateRef<any>;
+  @ViewChild("rejectTemplate") rejectTemplate!: TemplateRef<any>;
 
   constructor(
+    private readonly context: ApplicationContext,
     private readonly modalService: ModalService
   ) {
     super()
@@ -42,5 +48,18 @@ export class ViewSubscriptionApprovalRequestComponent extends SubscriptionApprov
 
   hide() {
     this.modalService.hide()
+  }
+
+  showApprove() {
+    this.modalService.open(this.approveTemplate,'large-modal')
+  }
+
+  showReject() {
+    this.modalService.open(this.rejectTemplate,'large-modal')
+  }
+
+  handleSubscriptionApprovalChange(status: StatusUpdate) {
+    this.subscription!.statusUpdate = status;
+    this.hide();
   }
 }

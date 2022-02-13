@@ -30,4 +30,35 @@
     <div>Requested at: {{details?.at}}</div>
     <div>Reason for subscription: {{details?.reason}}</div>
   </div>
+  <div class="modal-footer" *ngIf="isProviderSubscription">
+    <button (click)="showReject()" class="btn btn-danger" type="button">Reject</button>
+    <button (click)="showApprove()" class="btn btn-primary" type="button">Approve</button>
+  </div>
 </div>
+
+<div class="app-modal-w">
+  <div class="modalSave">
+    <ng-template #approveTemplate>
+      <app-approve-subscription
+        [subscription]="subscription"
+        [details]="details"
+        (onStatusChange)="handleSubscriptionApprovalChange($event)"
+      >
+      </app-approve-subscription>
+    </ng-template>
+  </div>
+</div>
+
+<div class="app-modal-w">
+  <div class="modalSave">
+    <ng-template #rejectTemplate>
+      <app-reject-subscription
+        [subscription]="subscription"
+        [details]="details"
+        (onStatusChange)="handleSubscriptionApprovalChange($event)"
+      >
+      </app-reject-subscription>
+    </ng-template>
+  </div>
+</div>
+

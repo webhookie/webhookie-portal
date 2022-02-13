@@ -54,6 +54,7 @@
       <app-view-subscription-approval-request
         [subscription]="currentSubscription | async"
         [details]="approvalDetails | async"
+        [isProviderSubscription]="isProviderSubscriptions"
       >
       </app-view-subscription-approval-request>
     </ng-template>

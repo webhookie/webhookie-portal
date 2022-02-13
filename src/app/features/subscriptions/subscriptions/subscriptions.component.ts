@@ -85,6 +85,10 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
       .subscribe(it => this.initialFilters = it);
   }
 
+  get isProviderSubscriptions(): boolean {
+    return this.contextMenuService.isProviderSubscriptions(this._role$)
+  }
+
   fetchData(filter: any, pageable: Pageable) {
     let queryFilter = {};
     Object.assign(queryFilter, filter);
