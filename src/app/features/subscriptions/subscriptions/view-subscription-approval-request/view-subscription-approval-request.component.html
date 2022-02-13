@@ -27,7 +27,7 @@
     <div>Company: {{subscription?.application?.entity}}</div>
     <div class="pb-1">Application: {{subscription?.application?.name}}</div>
     <div>Requested by: {{details?.requester?.name}} ({{details?.requester?.email}})</div>
-    <div>Requested at: {{details?.at}}</div>
+    <div>Requested at: {{requestDatetime}}</div>
     <div>Reason for subscription: {{details?.reason}}</div>
     <div *ngIf="isApproved" class="text-success">APPROVED!</div>
     <div *ngIf="isRejected">

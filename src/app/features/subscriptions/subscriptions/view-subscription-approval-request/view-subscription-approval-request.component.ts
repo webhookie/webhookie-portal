@@ -25,6 +25,7 @@ import {ModalService} from 'src/app/shared/service/modal.service';
 import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-dialog-base.component";
 import {ApplicationContext} from "../../../../shared/application.context";
 import {StatusUpdate, SubscriptionStatus} from "../../../../shared/model/subscription";
+import {DateUtils} from "../../../../shared/date-utils";
 
 @Component({
   selector: 'app-view-subscription-approval-request',
@@ -73,5 +74,9 @@ export class ViewSubscriptionApprovalRequestComponent extends SubscriptionApprov
 
   get decisionMade(): boolean {
     return this.details?.result != null
+  }
+
+  get requestDatetime(): string {
+    return DateUtils.toLocalString(this.details!.at)
   }
 }

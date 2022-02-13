@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -32,6 +32,10 @@ export class DateUtils {
     return moment(moment.utc(utcDate)).local();
   }
 
+  static toLocalString(utcDate: Date): string {
+    return this.toLocal(utcDate).format("DD/MM/YYYY HH:mm:ss");
+  }
+
   static toLocalDate(utcDate: Date): Date {
     return DateUtils.toLocal(utcDate).toDate();
   }
@@ -45,6 +49,6 @@ export class DateUtils {
       localTime.getMinutes(),
       0, 0
     );
-    return moment(d).utc().format()
+    return moment(d).utc().format("DD/MMM/YYYY HH:mm:dd")
   }
 }
