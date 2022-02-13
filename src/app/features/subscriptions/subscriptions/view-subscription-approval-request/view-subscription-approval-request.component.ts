@@ -24,7 +24,7 @@ import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ModalService} from 'src/app/shared/service/modal.service';
 import {SubscriptionApprovalDialogBaseComponent} from "../subscription-approval-dialog-base.component";
 import {ApplicationContext} from "../../../../shared/application.context";
-import {StatusUpdate} from "../../../../shared/model/subscription";
+import {StatusUpdate, SubscriptionStatus} from "../../../../shared/model/subscription";
 
 @Component({
   selector: 'app-view-subscription-approval-request',
@@ -61,5 +61,17 @@ export class ViewSubscriptionApprovalRequestComponent extends SubscriptionApprov
   handleSubscriptionApprovalChange(status: StatusUpdate) {
     this.subscription!.statusUpdate = status;
     this.hide();
+  }
+
+  get isRejected(): boolean {
+    return this.details?.result?.status == SubscriptionStatus.REJECTED
+  }
+
+  get isApproved(): boolean {
+    return this.details?.result?.status == SubscriptionStatus.APPROVED
+  }
+
+  get decisionMade(): boolean {
+    return this.details?.result != null
   }
 }

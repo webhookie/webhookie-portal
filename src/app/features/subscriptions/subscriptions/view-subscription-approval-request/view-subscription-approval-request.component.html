@@ -29,8 +29,13 @@
     <div>Requested by: {{details?.requester?.name}} ({{details?.requester?.email}})</div>
     <div>Requested at: {{details?.at}}</div>
     <div>Reason for subscription: {{details?.reason}}</div>
+    <div *ngIf="isApproved" class="text-success">APPROVED!</div>
+    <div *ngIf="isRejected">
+      <div class="text-danger">REJECTED</div>
+      <div>rejected reason: {{isApproved}}</div>
+    </div>
   </div>
-  <div class="modal-footer" *ngIf="isProviderSubscription">
+  <div class="modal-footer" *ngIf="isProviderSubscription && !decisionMade">
     <button (click)="showReject()" class="btn btn-danger" type="button">Reject</button>
     <button (click)="showApprove()" class="btn btn-primary" type="button">Approve</button>
   </div>
