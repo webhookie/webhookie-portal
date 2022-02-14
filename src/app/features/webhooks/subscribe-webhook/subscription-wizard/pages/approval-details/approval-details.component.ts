@@ -82,7 +82,7 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
 
     return [
       {
-        id: "submitBtn",
+        id: "submitForApprovalBtn",
         title: "Submit for approval",
         css: "",
 
@@ -91,10 +91,14 @@ export class ApprovalDetailsComponent extends WizardStepBaseComponent<any> imple
         },
 
         disabled(step: ApprovalDetailsComponent): Observable<boolean> {
-          return of(!step.submitForm.dirty || (step.submitForm.dirty && !step.submitForm.valid))
+          return of(step.canBeSubmitted)
         }
       }
     ]
+  }
+
+  get canBeSubmitted(): boolean {
+    return !this.submitForm.dirty || (this.submitForm.dirty && !this.submitForm.valid)
   }
 
   submitForApproval(): Observable<Subscription> {
