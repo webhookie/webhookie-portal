@@ -474,7 +474,7 @@ export class MockData {
         "signable": false
       },
       "statusUpdate": {
-        "status": "BLOCKED",
+        "status": "SUBMITTED",
         "reason": "connection timed out: /192.168.1.101:9001; nested exception is io.netty.channel.ConnectTimeoutException: connection timed out: /192.168.1.101:9001",
         "time": "2021-03-19T01:43:15.150Z"
       },
@@ -496,7 +496,7 @@ export class MockData {
         "signable": false
       },
       "statusUpdate": {
-        "status": "ACTIVATED",
+        "status": "REJECTED",
         "time": "2021-03-01T03:43:38.494Z"
       },
       "blocked": false
@@ -521,7 +521,7 @@ export class MockData {
         "signable": true
       },
       "statusUpdate": {
-        "status": "BLOCKED",
+        "status": "APPROVED",
         "reason": "connection timed out: /192.168.1.101:9004; nested exception is io.netty.channel.ConnectTimeoutException: connection timed out: /192.168.1.101:9004",
         "time": "2021-03-19T06:12:37.704Z"
       },
@@ -763,6 +763,50 @@ export class MockData {
     }
   }
 
+  public static readonly approvalRequest = {
+    SUBMITTED: {
+      "reason": "reason to subscribe!",
+      "requester": {
+        "name": "Arthur Kazemi",
+        "email": "bidadh@gmail.com"
+      },
+      "at": {"$date": "2022-02-13T07:17:03.664Z"}
+    },
+    APPROVED: {
+      "reason": "reason to subscribe!",
+      "requester": {
+        "name": "Arthur Kazemi",
+        "email": "bidadh@gmail.com"
+      },
+      "at": {"$date": "2022-02-13T07:17:03.664Z"},
+      "result": {
+        "user": {
+          "name": "Arthur Kazemi",
+          "email": "bidadh@gmail.com"
+        },
+        "at": {"$date": "2022-02-13T07:17:23.200Z"},
+        "status": "APPROVED"
+      }
+    },
+    REJECTED: {
+      "reason": "reason to subscribe!",
+      "requester": {
+        "name": "Arthur Kazemi",
+        "email": "bidadh@gmail.com"
+      },
+      "at": {"$date": "2022-02-13T07:17:03.664Z"},
+      "result": {
+        "user": {
+          "name": "Arthur Kazemi",
+          "email": "bidadh@gmail.com"
+        },
+        "at": {"$date": "2022-02-13T07:17:23.200Z"},
+        "status": "REJECTED",
+        "reason": "reason to reject!"
+      }
+    }
+  };
+
   static for(uri: string, params: HttpParams): Observable<any> {
     if (uri.startsWith("/public/config")) {
       return of(this.config)
@@ -798,6 +842,19 @@ export class MockData {
       if (params.get("role") == Constants.SUBSCRIPTIONS_VIEW_ROLE_CONSUMER) {
         return of(this.subscriptions)
       }
+
+      if(uri.endsWith("60362125d7582d3e57824b66/submitRequest")) {
+        return of(this.approvalRequest.SUBMITTED)
+      }
+
+      if(uri.endsWith("6036216bd7582d3e57824b69/submitRequest")) {
+        return of(this.approvalRequest.REJECTED)
+      }
+
+      if(uri.endsWith("603634d5d7582d3e57824b6b/submitRequest")) {
+        return of(this.approvalRequest.APPROVED)
+      }
+
       return of(this.providerSubscriptions)
     }
 
