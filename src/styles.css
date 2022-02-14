@@ -630,7 +630,7 @@ input:focus{
 .asyncapi .asyncapi__collapse-button {
     background-color: aqua !important;
 }
-.cancel{
+.cancel,.cancel:hover{
   color: #0151cc;
   border: 1px solid #0151cc;
 }
