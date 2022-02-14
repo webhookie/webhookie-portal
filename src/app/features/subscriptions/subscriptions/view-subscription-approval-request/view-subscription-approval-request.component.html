@@ -33,9 +33,9 @@
     <p class="mb-1"><span class="font-weight-bold">Requested by:</span> {{details?.requester?.name}} ({{details?.requester?.email}})</p>
     <p class="mb-1"><span class="font-weight-bold">Requested at:</span> {{requestDatetime}}</p>
     <p class="mb-3"><span class="font-weight-bold">Reason for subscription:</span> {{details?.reason}}</p>
-    <p class="mb-0" *ngIf="!isRejected"><span class="font-weight-bold">Rejected reason:</span> {{isApproved}}</p>
+    <p class="mb-0" *ngIf="isRejected"><span class="font-weight-bold">Rejected reason:</span> {{details?.result?.reason}}</p>
     <div class="mb-0" *ngIf="isApproved" class="sub-status approved"><span class="font20 font-weight-bold p-2">APPROVED!</span></div>
-    <div *ngIf="!isRejected" class="sub-status rejected">
+    <div *ngIf="isRejected" class="sub-status rejected">
       <span class="font20 font-weight-bold p-2">REJECTED</span>
     </div>
   </div>
