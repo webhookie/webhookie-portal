@@ -27,7 +27,7 @@ import {Constants} from "../constants";
 export class MockData {
   public static readonly webhookApis = [
     {
-      "id": "60b85be21fa763088d2b92ef",
+      "id": "1",
       "title": "Petstore Events API",
       "webhookVersion": "1.0.0",
       "description": "This is my first webhook API. It uses the ASYNC API Specification - check it out here [https://www.asyncapi.com/docs/specifications/2.0.0]",
@@ -114,6 +114,90 @@ export class MockData {
           "value": "bidadh@gmail.com"
         }
       }
+    },
+    {
+      "_id": {"$oid": "6135f78ef6a38375baa1baa3"},
+      "_class": "webhookApi",
+      "consumerAccess": "PUBLIC",
+      "consumerIAMGroups": [],
+      "createdBy": "auth0|5fdc19e1b10d6d006f621d6f",
+      "createdDate": {"$date": "2022-02-11T14:40:01.345Z"},
+      "description": "This is cathookie webhook API. It uses the ASYNC API Specification - check it out here [https://www.asyncapi.com/docs/specifications/2.0.0]",
+      "lastModifiedBy": "auth0|5fdc19e1b10d6d006f621d6f",
+      "lastModifiedDate": {"$date": "2022-02-11T14:40:01.345Z"},
+      "numberOfWebhooks": 9,
+      "providerAccess": "ALL",
+      "providerIAMGroups": [],
+      "raw": "asyncapi: 2.0.0\ninfo:\n  title: IoT Events API\n  version: 1.0.0\n  description: This is cathookie webhook API. It uses the ASYNC API Specification - check it out here [https://www.asyncapi.com/docs/specifications/2.0.0]\n  termsOfService: https://webhooks.mycompany.com/terms/\n  contact:\n    name: My Webhook API Support\n    url: https://mysupport.mycompany.com/\n    email: support@mycompany.com\n  license:\n    name: Apache 2.0\n    url: http://www.apache.org/licenses/LICENSE-2.0.html\nservers:\n  production:\n    # this url is not important. Only really need this section for the security part.\n    url: webhooks.mycompany.com\n    protocol: http\n    description: This is \"My Company\" webhook instance.\n\nchannels:\n  DevicePositionUpdate:\n    description: Receive all device position updates\n    subscribe:\n      tags:\n        - name: DevicePositionUpdateRequest\n      message:\n        $ref: '#/components/messages/DevicePositionUpdateRequest'\n  DeviceRoute:\n    description: Receive the route for a device moving from point A to point B\n    subscribe:\n      tags:\n        - name: RouteRequest\n      message:\n        $ref: '#/components/messages/RouteRequest'\n  DeliveredAt:\n    description: Receive when device reaches it's destination\n    subscribe:\n      tags:\n        - name: FinishLegRequest\n      message:\n        $ref: '#/components/messages/FinishLegRequest'\n  TEMPERATURE_APPROACHING:\n    description: When temperature approaching it's target\n    subscribe:\n      tags:\n        - name: DevicePositionUpdateRequest\n      message:\n        $ref: '#/components/messages/DevicePositionUpdateRequest'\n  TEMPERATURE_EXCEEDED:\n    description: When temperature exceeded it's target\n    subscribe:\n      tags:\n        - name: DevicePositionUpdateRequest\n      message:\n        $ref: '#/components/messages/DevicePositionUpdateRequest'\n  DG_ALERT:\n    description: When there is an alert for an asset\n    subscribe:\n      tags:\n        - name: DevicePositionUpdateRequest\n      message:\n        $ref: '#/components/messages/DevicePositionUpdateRequest'\n  SECURITY_ALERT:\n    description: When there is a security alert for an asset\n    subscribe:\n      tags:\n        - name: DevicePositionUpdateRequest\n      message:\n        $ref: '#/components/messages/DevicePositionUpdateRequest'\n  PERSONAL_ALERT:\n    description: When there is an alert for an asset\n    subscribe:\n      tags:\n        - name: DevicePositionUpdateRequest\n      message:\n        $ref: '#/components/messages/DevicePositionUpdateRequest'\n  SHOCK:\n    description: When there is a SHOCK alert for an asset\n    subscribe:\n      tags:\n        - name: DevicePositionUpdateRequest\n      message:\n        $ref: '#/components/messages/DevicePositionUpdateRequest'\ncomponents:\n  messages:\n    DevicePositionUpdateRequest:\n      contentType: application/json\n      payload:\n        type: object\n        required:\n          - deviceId\n          - enterpriseId\n          - position\n          - properties\n        properties:\n          enterpriseId:\n            type: string\n            example: \"enterprise_id\"\n          deviceId:\n            type: string\n            example: \"device_id\"\n          position:\n            type: object\n            properties:\n              x:\n                type: number\n                format: double\n                example: 151.75634\n              \"y\":\n                type: number\n                format: double\n                example: -123.67676\n              coordinates:\n                type: array\n                items:\n                  type: number\n                  format: double\n                example: [151.75634, -123.67676]\n          properties:\n            type: object\n            example:\n              key1: value1\n              key2: value2\n      traits:\n        - $ref: '#/components/messageTraits/commonHeaders'\n    FinishLegRequest:\n      contentType: application/json\n      payload:\n        type: object\n        required:\n          - assetId\n          - enterpriseId\n          - points\n        properties:\n          enterpriseId:\n            type: string\n            example: \"enterprise_id\"\n          assetId:\n            type: string\n            example: \"asset_id\"\n          points:\n            type: array\n            items:\n              type: array\n              items:\n                type: number\n                format: double\n            example: [[151.75634, -123.67676],[151.214313, -167.67676]]\n      traits:\n        - $ref: '#/components/messageTraits/commonHeaders'\n    RouteRequest:\n      contentType: application/json\n      payload:\n        required:\n          - assetId\n          - coordinates\n          - enterpriseId\n          - forceFit\n          - forceFollow\n        type: object\n        properties:\n          enterpriseId:\n            type: string\n            example: \"enterprise_id\"\n          assetId:\n            type: string\n            example: \"asset_id\"\n          coordinates:\n            type: array\n            items:\n              type: array\n              items:\n                type: number\n                format: double\n            example: [[151.75634, -123.67676],[151.214313, -167.67676]]\n          forceFit:\n            type: boolean\n            example: true\n          forceFollow:\n            type: boolean\n            example: true\n      traits:\n        - $ref: '#/components/messageTraits/commonHeaders'\n  messageTraits:\n    commonHeaders:\n      # headers\n      headers:\n        type: object\n        properties:\n          # header name\n          trace-id:\n            type: string\n            format: uuid\n            description: The Trace ID of the original message.\n          span-id:\n            type: string\n            format: uuid\n            description: The Span ID for the specific subscription message.\n\n",
+      "requiresApproval": true,
+      "title": "IoT Events API",
+      "version": 1,
+      "webhookVersion": "1.0.0",
+      "webhooks": [
+        {
+          "topic": {
+            "name": "DevicePositionUpdate",
+            "description": "Receive all device position updates"
+          },
+          "numberOfSubscriptions": 11
+        },
+        {
+          "topic": {
+            "name": "DeviceRoute",
+            "description": "Receive the route for a device moving from point A to point B"
+          },
+          "numberOfSubscriptions": 2
+        },
+        {
+          "topic": {
+            "name": "DeliveredAt",
+            "description": "Receive when device reaches it's destination"
+          },
+          "numberOfSubscriptions": 2
+        },
+        {
+          "topic": {
+            "name": "TEMPERATURE_APPROACHING",
+            "description": "When temperature approaching it's target"
+          },
+          "numberOfSubscriptions": 1
+        },
+        {
+          "topic": {
+            "name": "TEMPERATURE_EXCEEDED",
+            "description": "When temperature exceeded it's target"
+          },
+          "numberOfSubscriptions": 2
+        },
+        {
+          "topic": {
+            "name": "DG_ALERT",
+            "description": "When there is an alert for an asset"
+          },
+          "numberOfSubscriptions": 1
+        },
+        {
+          "topic": {
+            "name": "SECURITY_ALERT",
+            "description": "When there is a security alert for an asset"
+          },
+          "numberOfSubscriptions": 1
+        },
+        {
+          "topic": {
+            "name": "PERSONAL_ALERT",
+            "description": "When there is an alert for an asset"
+          },
+          "numberOfSubscriptions": 1
+        },
+        {
+          "topic": {
+            "name": "SHOCK",
+            "description": "When there is a SHOCK alert for an asset"
+          },
+          "numberOfSubscriptions": 1
+        }
+      ]
     }
   ];
 
