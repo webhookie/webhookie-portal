@@ -25,10 +25,10 @@
       <div class="modal-body">
         <div class="row mt-2">
           <div class="col-12 col-md-4">
-            <label class="font14 font-weight-400" for="reason">Reason for subscription:</label>
+            <label class="font14 font-weight-400" for="subscriptionReasonText">Reason for subscription:</label>
           </div>
           <div class="col-12 col-md-8">
-          <textarea id="reason" max="4" class="form-control" formControlName="reason" placeholder="Reason for subscription" required></textarea>
+          <textarea id="subscriptionReasonText" max="4" class="form-control" formControlName="reason" placeholder="Reason for subscription"></textarea>
             <div *ngIf="reason?.invalid && (reason?.dirty || reason?.touched)" class="my-1 alert alert-danger">
               <div *ngIf="reason?.errors?.required">
                 Reason for subscription is required.

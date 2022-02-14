@@ -85,7 +85,7 @@
             [class]="extraButton.css"
             [disabled]="stepManager.extraActionDisabled(extraButton) | async"
             [class.disabled]="stepManager.extraActionDisabled(extraButton) | async"
-            (click)="stepManager.extraAction(extraButton)">
+            (mousedown)="stepManager.extraAction(extraButton)">
       {{extraButton.title}}
     </button>
   </div>
