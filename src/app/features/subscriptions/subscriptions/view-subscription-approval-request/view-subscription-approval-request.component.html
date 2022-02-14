@@ -21,22 +21,26 @@
   -->
 
 <div>
-  <div class="modal-body">
-    <div class="pb-1">Subscription to <strong>{{subscription?.topic}}</strong> webhook by:<span
-      class="pull-right font20" (click)="hide()"><i class="fa fa-times" aria-hidden="true"></i></span></div>
-    <div>Company: {{subscription?.application?.entity}}</div>
-    <div class="pb-1">Application: {{subscription?.application?.name}}</div>
-    <div>Requested by: {{details?.requester?.name}} ({{details?.requester?.email}})</div>
-    <div>Requested at: {{requestDatetime}}</div>
-    <div>Reason for subscription: {{details?.reason}}</div>
-    <div *ngIf="isApproved" class="text-success">APPROVED!</div>
-    <div *ngIf="isRejected">
-      <div class="text-danger">REJECTED</div>
-      <div>rejected reason: {{isApproved}}</div>
+  <div class="modal-header">
+    <div class="modal-title pull-left font16 font-weight-bold">
+      Subscription to {{subscription?.topic}} webhook by:
+    </div>
+    <button aria-label="Close" (click)="hide()"  type="button" class="close pull-right"><span aria-hidden="true"><i class="lni lni-close font16"></i></span></button>
+  </div>
+  <div class="modal-body font16">
+    <p class="mb-1"><span class="font-weight-bold">Company:</span> {{subscription?.application?.entity}}</p>
+    <p class="mb-1"><span class="font-weight-bold">Application:</span> {{subscription?.application?.name}}</p>
+    <p class="mb-1"><span class="font-weight-bold">Requested by:</span> {{details?.requester?.name}} ({{details?.requester?.email}})</p>
+    <p class="mb-1"><span class="font-weight-bold">Requested at:</span> {{requestDatetime}}</p>
+    <p class="mb-3"><span class="font-weight-bold">Reason for subscription:</span> {{details?.reason}}</p>
+    <p class="mb-0" *ngIf="!isRejected"><span class="font-weight-bold">Rejected reason:</span> {{isApproved}}</p>
+    <div class="mb-0" *ngIf="isApproved" class="sub-status approved"><span class="font20 font-weight-bold p-2">APPROVED!</span></div>
+    <div *ngIf="!isRejected" class="sub-status rejected">
+      <span class="font20 font-weight-bold p-2">REJECTED</span>
     </div>
   </div>
   <div class="modal-footer" *ngIf="isProviderSubscription && !decisionMade">
-    <button (click)="showReject()" class="btn btn-danger" type="button">Reject</button>
+    <button (click)="showReject()" class="btn btn-reject" type="button">Reject</button>
     <button (click)="showApprove()" class="btn btn-primary" type="button">Approve</button>
   </div>
 </div>

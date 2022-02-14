@@ -21,13 +21,18 @@
   -->
 
 <div>
-  <div class="modal-body">
-    <h5 class="font14 font-weight-bold">Confirm you approve</h5>
-    <div class="pt-2 pb-1">the subscription to the <strong>{{subscription?.topic}}</strong> webhook by:</div>
-    <div>Company: {{subscription?.application?.entity}}</div>
-    <div>Application: {{subscription?.application?.name}}</div>
-    <div>Requester name: {{details?.requester?.name}}</div>
-    <div>Requester email: {{details?.requester?.email}}</div>
+  <div class="modal-header">
+    <div class="modal-title pull-left font16 font-weight-bold">
+      Confirm you approve
+    </div>
+    <button aria-label="Close" (click)="hide()" type="button" class="close pull-right"><span aria-hidden="true"><i class="lni lni-close font16"></i></span></button>
+  </div>
+  <div class="modal-body font16">
+    <p class="font-weight-bold mb-2">the subscription to the {{subscription?.topic}} webhook by:</p>
+    <p class="mb-1"><span class="font-weight-bold">Company:</span> {{subscription?.application?.entity}}</p>
+    <p class="mb-1"><span class="font-weight-bold">Application:</span> {{subscription?.application?.name}}</p>
+    <p class="mb-1"><span class="font-weight-bold">Requester name:</span> {{details?.requester?.name}}</p>
+    <p class="mb-1"><span class="font-weight-bold">Requester email:</span> {{details?.requester?.email}}</p>
   </div>
 
   <div class="modal-footer">

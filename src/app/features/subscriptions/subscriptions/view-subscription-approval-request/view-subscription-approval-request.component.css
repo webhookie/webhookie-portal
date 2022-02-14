@@ -19,4 +19,19 @@
  *
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
-
+ .sub-status{
+  position: absolute;
+  right: 35px;
+  top: 50%;
+  transform: rotate(-15deg);
+}
+.approved span{
+  border: 3px solid #00800078;
+  color:#00800078;
+  border-radius: 5px;
+}
+.rejected span{
+  border: 3px solid #dc354559;
+  color:#dc354559;
+  border-radius: 5px;
+}
