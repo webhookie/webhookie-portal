@@ -22,8 +22,10 @@
 
 <div class="tab min-wid" *ngIf="visible">
   <div class="text-center">
-    <h3 class="font16 font-weight-bold" style="color: #0151CC;">Your subscription has been sent for Approval</h3>
-    <p>You will receive a notification when subsccription is approved or rejected.</p>
+    <h3 *ngIf="!withApproval" class="font16 font-weight-bold" style="color: #0151CC;">Congratulations!</h3>
+    <p *ngIf="!withApproval">You have been successfully subscribed to order webhook.</p>
+    <h3 *ngIf="withApproval" class="font16 font-weight-bold" style="color: #0151CC;">Your subscription has been sent for Approval</h3>
+    <p *ngIf="withApproval">You will receive a notification when subsccription is approved or rejected.</p>
     <app-congrats-svg></app-congrats-svg>
   </div>
 </div>
