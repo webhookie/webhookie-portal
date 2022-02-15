@@ -23,21 +23,22 @@
 import {Injectable} from '@angular/core';
 import {BaseAdapter} from "./adapter";
 import {SubscriptionApprovalResult} from "../service/subscription.service";
+import {UserProfileAdapter} from "./user-profile.adapter";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscriptionApprovalResultAdapter extends BaseAdapter<SubscriptionApprovalResult> {
-  constructor() {
+  constructor(
+    private readonly profileAdapter: UserProfileAdapter
+  ) {
     super();
   }
 
   adapt(item: any): SubscriptionApprovalResult {
+    let profile = this.profileAdapter.adapt(item.user);
     return {
-      user: {
-        name: item.user.name,
-        email: item.user.email,
-      },
+      user: profile,
       at: new Date(item.at),
       status: item.status,
       reason: item.reason

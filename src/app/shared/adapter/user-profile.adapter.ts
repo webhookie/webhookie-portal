@@ -20,60 +20,19 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Inject, Injectable} from '@angular/core';
-import {AuthService} from "./auth.service";
-import {Optional} from "../model/optional";
+import {Injectable} from '@angular/core';
+import {BaseAdapter} from "./adapter";
+import {UserProfile} from "../service/profile.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
-  constructor(
-    @Inject("Auth") private readonly authService: AuthService
-  ) {
+export class UserProfileAdapter extends BaseAdapter<UserProfile> {
+  constructor() {
+    super();
   }
 
-  get name(): string {
-    return this.authService.claims["name"];
-  }
-
-  get userId(): string {
-    return this.authService.claims["sub"];
-  }
-
-  get email(): string {
-    return this.authService.claims["email"];
-  }
-
-  get picture(): string {
-    return this.authService.claims["picture"];
-  }
-
-  get profile(): UserProfile {
-    return new UserProfile(this.userId, this.name, this.email)
+  adapt(item: any): UserProfile {
+    return new UserProfile(item.userId, item.name, item.email);
   }
 }
-
-export class UserProfile {
-  constructor(
-    public userId: string,
-    public name: Optional<string>,
-    public email: Optional<string>,
-  ) {
-  }
-
-  display(): string {
-    let value = this.userId;
-
-    if(this.name) {
-      value = this.name
-    }
-
-    if(this.email) {
-      value = `${value} (${this.email})`
-    }
-
-    return value
-  }
-}
-

@@ -24,12 +24,14 @@ import {Injectable} from '@angular/core';
 import {BaseAdapter} from "./adapter";
 import {SubscriptionApprovalDetails} from "../service/subscription.service";
 import {SubscriptionApprovalResultAdapter} from "./subscription-approval-result.adapter";
+import {UserProfileAdapter} from "./user-profile.adapter";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscriptionApprovalDetailsAdapter extends BaseAdapter<SubscriptionApprovalDetails> {
   constructor(
+    private readonly profileAdapter: UserProfileAdapter,
     private readonly resultAdapter: SubscriptionApprovalResultAdapter
   ) {
     super();
@@ -37,12 +39,10 @@ export class SubscriptionApprovalDetailsAdapter extends BaseAdapter<Subscription
 
   adapt(item: any): SubscriptionApprovalDetails {
     let result = (item.result != null) ? this.resultAdapter.adapt(item.result) : null
+    let profile = this.profileAdapter.adapt(item.requester);
     return {
       reason: item.reason,
-      requester: {
-        name: item.requester.name,
-        email: item.requester.email
-      },
+      requester: profile,
       at: new Date(item.at),
       result: result
     };

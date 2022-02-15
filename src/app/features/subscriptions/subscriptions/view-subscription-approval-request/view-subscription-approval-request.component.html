@@ -30,7 +30,7 @@
   <div class="modal-body font16">
     <p class="mb-1"><span class="font-weight-bold">Company:</span> {{subscription?.application?.entity}}</p>
     <p class="mb-1"><span class="font-weight-bold">Application:</span> {{subscription?.application?.name}}</p>
-    <p class="mb-1"><span class="font-weight-bold">Requested by:</span> {{details?.requester?.name}} ({{details?.requester?.email}})</p>
+    <p class="mb-1"><span class="font-weight-bold">Requested by:</span> {{details?.requester?.display()}}</p>
     <p class="mb-1"><span class="font-weight-bold">Requested at:</span> {{requestDatetime}}</p>
     <p class="mb-3"><span class="font-weight-bold">Reason for subscription:</span> {{details?.reason}}</p>
     <p class="mb-0" *ngIf="isRejected"><span class="font-weight-bold">Rejected reason:</span> {{details?.result?.reason}}</p>
