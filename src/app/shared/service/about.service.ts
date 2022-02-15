@@ -20,39 +20,31 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import * as moment from "moment";
-import {Moment} from "moment";
+import {Injectable} from '@angular/core';
+import {HealthService} from "./health.service";
+import {DateUtils} from "../date-utils";
+import {Optional} from "../model/optional";
 
-export class DateUtils {
-  static format(localDate: Date): string {
-    return moment(localDate).format("DD MMM YYYY HH:mm:ss.SSS");
+@Injectable({
+  providedIn: 'root'
+})
+export class AboutService {
+  constructor(
+    private readonly healthService: HealthService
+  ) { }
+
+  get version(): Optional<string> {
+    return this.healthService.webhookieHealthComponent?.details?.build?.version
   }
 
-  static toLocal(utcDate: Date): Moment {
-    return moment(moment.utc(utcDate)).local();
+  get details(): any {
+    let buildProps = this.healthService.webhookieHealthComponent?.details?.build
+
+    return {
+      version: buildProps.version,
+      time: DateUtils.toMediumLocalString(buildProps.time),
+      "Database Version": (this.healthService.migrationHealthComponent?.details)["Current Version"]
+    }
   }
 
-  static toLocalString(utcDate: Date): string {
-    return this.toLocal(utcDate).format("DD/MM/YYYY HH:mm:ss");
-  }
-
-  static toMediumLocalString(utcDate: Date): string {
-    return this.toLocal(utcDate).format("DD MMM YYYY  HH:mm:ss");
-  }
-
-  static toLocalDate(utcDate: Date): Date {
-    return DateUtils.toLocal(utcDate).toDate();
-  }
-
-  static utcString(localDate: Date, localTime: Date): string {
-    let d = new Date(
-      localDate.getFullYear(),
-      localDate.getMonth(),
-      localDate.getDate(),
-      localTime.getHours(),
-      localTime.getMinutes(),
-      0, 0
-    );
-    return moment(d).utc().format("DD/MMM/YYYY HH:mm:dd")
-  }
 }

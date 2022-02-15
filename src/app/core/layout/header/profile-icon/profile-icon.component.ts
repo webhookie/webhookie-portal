@@ -26,6 +26,7 @@ import {ModalService} from "../../../../shared/service/modal.service";
 import {ApplicationContext} from "../../../../shared/application.context";
 import {Constants} from "../../../../shared/constants";
 import {ProfileService} from "../../../../shared/service/profile.service";
+import {AboutService} from "../../../../shared/service/about.service";
 
 @Component({
   selector: 'app-profile-icon',
@@ -40,6 +41,7 @@ export class ProfileIconComponent {
     private readonly appContext: ApplicationContext,
     private readonly modalService: ModalService,
     private readonly profileService: ProfileService,
+    private readonly aboutService: AboutService,
     @Inject("Auth") readonly authService: AuthService
   ) {
     this.primaryColor = Constants.CSS_PRIMARY_COLOR;
@@ -63,5 +65,9 @@ export class ProfileIconComponent {
 
   showDetails() {
     this.modalService.openJson(this.resultViewer, this.appContext.user);
+  }
+
+  about() {
+    this.modalService.openJson(this.resultViewer, this.aboutService.details);
   }
 }

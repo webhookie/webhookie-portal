@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,12 +20,14 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BaseAdapter} from "./adapter";
 import {
   HealthComponent,
   HealthResult,
-  HealthStatus, IAMHealthComponent,
+  HealthStatus,
+  IAMHealthComponent,
+  MigrationHealthComponent,
   MongoDBHealthComponent,
   WebhookieHealthComponent
 } from "../model/health-result";
@@ -53,6 +55,10 @@ class HealthComponentFactory {
 
     if(name == WebhookieHealthComponent.NAME) {
       return new WebhookieHealthComponent(value)
+    }
+
+    if(name == MigrationHealthComponent.NAME) {
+      return new MigrationHealthComponent(value)
     }
 
     if(name == IAMHealthComponent.NAME) {

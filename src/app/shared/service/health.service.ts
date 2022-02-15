@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -28,8 +28,14 @@ import {HttpParams} from "@angular/common/http";
 import {RequestUtils} from "../request/request-utils";
 import {ToastService} from "./toast.service";
 import {LogService} from "./log.service";
-import {HealthResult} from "../model/health-result";
+import {
+  HealthComponent,
+  HealthResult,
+  MigrationHealthComponent,
+  WebhookieHealthComponent
+} from "../model/health-result";
 import {HealthResultAdapter} from "../adapter/health-result.adapter";
+import {Optional} from "../model/optional";
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +64,20 @@ export class HealthService {
 
   private readHealth(): Observable<any> {
     return this.api.json(HealthService.HEALTH_URI, new HttpParams(), RequestUtils.hideLoadingHeader())
+  }
+
+  get webhookieHealthComponent(): Optional<HealthComponent> {
+    return this.healthComponent(WebhookieHealthComponent)
+  }
+
+  get migrationHealthComponent(): Optional<HealthComponent> {
+    return this.healthComponent(MigrationHealthComponent)
+  }
+
+  healthComponent(type: any): Optional<HealthComponent> {
+    let healthComponents = this._healthResult$.value.components
+      .filter(c => c instanceof type)
+    return healthComponents.pop()
   }
 
   clearDownTimer() {
