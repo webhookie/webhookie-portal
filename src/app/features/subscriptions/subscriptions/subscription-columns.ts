@@ -78,7 +78,7 @@ class SubscriptionColumnUtils {
         clazz = "warning";
         break;
       case SubscriptionStatus.BLOCKED:
-        clazz = "light";
+        clazz = "danger";
         break;
       case SubscriptionStatus.SUSPENDED:
         clazz = "secondary";
