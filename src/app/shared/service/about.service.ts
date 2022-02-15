@@ -34,7 +34,8 @@ export class AboutService {
   ) { }
 
   get version(): Optional<string> {
-    return this.healthService.webhookieHealthComponent?.details?.build?.version
+    let version = this.healthService.webhookieHealthComponent?.details?.build?.version;
+    return version ? `v${version}` : "";
   }
 
   get details(): any {
