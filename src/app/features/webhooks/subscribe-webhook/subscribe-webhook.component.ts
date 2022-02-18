@@ -22,12 +22,13 @@
 
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {WebhooksContext} from "../webhooks-context";
-import {filter, mergeMap} from "rxjs/operators";
+import {filter, mergeMap, tap} from "rxjs/operators";
 import {SubscriptionService} from "../../../shared/service/subscription.service";
 import {ActivatedRoute} from "@angular/router";
 import {WebhookBaseComponent} from "../common/webhook-base-component";
 import {LogService} from "../../../shared/service/log.service";
 import {SubscriptionWizardComponent} from "./subscription-wizard/subscription-wizard.component";
+import {SubscriptionAction} from "../../subscriptions/subscriptions/subscriptions.component";
 
 @Component({
   selector: 'app-subscribe-webhook',
@@ -36,6 +37,7 @@ import {SubscriptionWizardComponent} from "./subscription-wizard/subscription-wi
 })
 export class SubscribeWebhookComponent extends WebhookBaseComponent implements AfterViewInit {
   @ViewChild("wizardComponent") wizardComponent!: SubscriptionWizardComponent
+  subscriptionAction = SubscriptionAction.VALIDATE
 
   constructor(
     private readonly log: LogService,
@@ -49,10 +51,11 @@ export class SubscribeWebhookComponent extends WebhookBaseComponent implements A
   ngAfterViewInit() {
     this.activatedRoute.queryParams
       .pipe(
+        tap(it => this.subscriptionAction = it.action as SubscriptionAction),
         filter(it => it.subscriptionId != null),
         mergeMap(it => this.subscriptionService.fetchSubscription(it.subscriptionId))
       )
-      .subscribe(it => this.wizardComponent.prepareForEdit(it));
+      .subscribe(it => this.wizardComponent.prepareForEdit(it, this.subscriptionAction));
   }
 
   title() {

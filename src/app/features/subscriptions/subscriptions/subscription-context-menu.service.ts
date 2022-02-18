@@ -88,6 +88,13 @@ export class SubscriptionContextMenuService {
       && this.isConsumerSubscriptions(role$);
   }
 
+  canSubmit(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
+    let canWrite: (data: Subscription) => boolean = this.canWrite(role$)
+    return (it) => canWrite(it)
+      && it.statusUpdate.status == SubscriptionStatus.READY_TO_SUBMIT
+      && this.isConsumerSubscriptions(role$);
+  }
+
   canDeactivate(role$: BehaviorSubject<string>): (it: Subscription) => boolean {
     let validStatusList = [SubscriptionStatus.ACTIVATED]
     return (it) => this.context.hasConsumerRole

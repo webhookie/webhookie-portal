@@ -51,7 +51,7 @@ import {WebhookSelection} from "../../webhooks/model/webhook-selection";
 import {ModalService} from "../../../shared/service/modal.service";
 import {Optional} from "../../../shared/model/optional";
 
-type SubscriptionContextMenu = ContextMenuItem<Subscription, SubscriptionMenu>;
+type SubscriptionContextMenu = ContextMenuItem<Subscription, SubscriptionAction>;
 
 @Component({
   selector: 'app-subscriptions',
@@ -145,62 +145,67 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   private createContextMenuItems(): Array<SubscriptionContextMenu> {
     return [
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_TRAFFIC)
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.VIEW_TRAFFIC)
         .handler(this.viewTraffic())
         .isAvailable(this.contextMenuService.canViewTraffic())
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.ACTIVATE)
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.ACTIVATE)
         .handler(this.activate())
         .isAvailable(this.contextMenuService.canActivate(this._role$))
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.DEACTIVATE)
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.DEACTIVATE)
         .handler(this.deactivate())
         .isAvailable(this.contextMenuService.canDeactivate(this._role$))
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VALIDATE)
-        .handler(this.validate())
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.VALIDATE)
+        .handler(this.openWizard())
         .isAvailable(this.contextMenuService.canValidate(this._role$))
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.EDIT)
-        .handler(this.validate())
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.EDIT)
+        .handler(this.openWizard())
         .isAvailable(this.contextMenuService.canEdit(this._role$))
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.DELETE)
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.SUBMIT)
+        .handler(this.openWizard(SubscriptionAction.SUBMIT))
+        .isAvailable(this.contextMenuService.canSubmit(this._role$))
+        .build(),
+      ContextMenuItemBuilder
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.DELETE)
         .handler(this.delete())
         .isAvailable(this.contextMenuService.canDelete(this._role$))
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.SUSPEND)
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.SUSPEND)
         .handler(this.suspend())
         .isAvailable(this.contextMenuService.canSuspend(this._role$))
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.VIEW_SUBMIT_REQUEST)
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.VIEW_SUBMIT_REQUEST)
         .handler(this.viewSubscriptionRequest())
         .isAvailable(this.contextMenuService.canViewSubmitRequest(this._role$))
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.APPROVE)
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.APPROVE)
         .handler(this.showApproveDialog())
         .isAvailable(this.contextMenuService.canApprove(this._role$))
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.REJECT)
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.REJECT)
         .handler(this.showRejectDialog())
         .isAvailable(this.contextMenuService.canReject(this._role$))
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.UNSUSPEND)
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.UNSUSPEND)
         .handler(this.unsuspend())
         .isAvailable(this.contextMenuService.canUnsuspend(this._role$))
         .build(),
       ContextMenuItemBuilder
-        .create<Subscription, SubscriptionMenu>(SubscriptionMenu.UNBLOCK)
+        .create<Subscription, SubscriptionAction>(SubscriptionAction.UNBLOCK)
         .handler(this.unblock())
         .isAvailable(this.contextMenuService.canUnblock(this._role$))
         .build(),
@@ -230,14 +235,15 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
     }
   }
 
-  validate(): (subscription: Subscription, item: SubscriptionContextMenu) => any {
+  openWizard(action: SubscriptionAction = SubscriptionAction.VALIDATE): (subscription: Subscription, item: SubscriptionContextMenu) => any {
     return (subscription: Subscription) => {
       this.webhookApiService.fetchByTopic(subscription.topic)
         .subscribe(group => {
           this.context.selectWebhook(WebhookSelection.createByTopic(group, subscription.topic));
           // this.subscriptionContext.selectSubscription(subscription);
           const params = {
-            subscriptionId: subscription.id
+            subscriptionId: subscription.id,
+            action: action
           }
           this.routeService
             .navigateTo("webhooks/subscribe-webhook", params)
@@ -326,7 +332,7 @@ export class SubscriptionsComponent extends GenericTable<Subscription, Subscript
   }
 }
 
-enum SubscriptionMenu {
+export enum SubscriptionAction {
   VIEW_TRAFFIC = "View Traffic",
   ACTIVATE = "Activate",
   DEACTIVATE = "Deactivate",
@@ -336,6 +342,7 @@ enum SubscriptionMenu {
   SUSPEND = "Suspend",
   VIEW_SUBMIT_REQUEST = "View Submit Request",
   APPROVE = "Approve",
+  SUBMIT = "Submit",
   REJECT = "Reject",
   UNSUSPEND = "Unsuspend",
   UNBLOCK = "Unblock"

@@ -33,9 +33,10 @@ import {WebhookBaseComponent} from "../../common/webhook-base-component";
 import {WebhooksContext} from "../../webhooks-context";
 import {WizardStepComponent} from "./steps/wizard-step.component";
 import {Optional} from "../../../../shared/model/optional";
-import {Subscription} from "../../../../shared/model/subscription";
+import {Subscription, SubscriptionStatus} from "../../../../shared/model/subscription";
 import {mergeMap} from "rxjs/operators";
 import {ApprovalDetailsComponent} from "./pages/approval-details/approval-details.component";
+import {SubscriptionAction} from "../../../subscriptions/subscriptions/subscriptions.component";
 
 @Component({
   selector: 'app-subscription-wizard',
@@ -94,10 +95,22 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
     return this.stepManager?.stepIsReady$;
   }
 
-  prepareForEdit(subscription: Subscription) {
-    this.applicationComponent.editing(subscription)
-      .pipe(mergeMap((app) => this.stepManager?.moveNext(app)))
-      .pipe(mergeMap(() => this.callbackComponent.editing(subscription)))
-      .subscribe(() => this.stepManager?.goNext())
+  prepareForEdit(subscription: Subscription, action: string) {
+    let verifyPageObservable =
+      this.applicationComponent.editing(subscription)
+        .pipe(mergeMap((app) => this.stepManager?.moveNext(app)))
+        .pipe(mergeMap(() => this.callbackComponent.editing(subscription)));
+
+    let isSubmitAction = subscription.statusUpdate.status == SubscriptionStatus.READY_TO_SUBMIT &&
+      action == SubscriptionAction.SUBMIT;
+
+    if(isSubmitAction) {
+      verifyPageObservable
+        .pipe(mergeMap((subs) => this.stepManager?.moveNext(subs)))
+        .subscribe(() => this.stepManager?.goNext())
+    } else {
+      verifyPageObservable
+        .subscribe(() => this.stepManager?.goNext())
+    }
   }
 }
