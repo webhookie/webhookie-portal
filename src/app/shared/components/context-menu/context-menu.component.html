@@ -1,6 +1,6 @@
 <!--
   ~ webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
-  ~ Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+  ~ Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as
@@ -27,7 +27,7 @@
 <div class="dropdown-menu dropdown-menu-right px-2">
   <ul class="nav-vertical nav-small">
     <li *ngFor="let menuItem of getMenuItems()" class="nav-item">
-      <a href="javascript:void(0)" class="nav-link" (click)="handle(menuItem)">
+      <a class="nav-link menu-item" (click)="handle(menuItem)">
         <i *ngIf="hasIcon(menuItem)" class="fa fa-{{menuItem.icon}} px-1"></i>{{menuItem.item}}
       </a>
     </li>
