@@ -103,8 +103,15 @@ export class SubscriptionContextMenuService {
   }
 
   canSuspend(role$: BehaviorSubject<string>): (subscription: Subscription) => boolean {
+    let validStatusList = [
+      SubscriptionStatus.ACTIVATED,
+      SubscriptionStatus.DEACTIVATED,
+      SubscriptionStatus.APPROVED,
+      SubscriptionStatus.VALIDATED,
+      SubscriptionStatus.BLOCKED
+    ]
     return (it) => this.context.hasProviderRole
-      && it.statusUpdate.status != SubscriptionStatus.SUSPENDED
+      && validStatusList.includes(it.statusUpdate.status)
       && this.isProviderSubscriptions(role$);
   }
 
