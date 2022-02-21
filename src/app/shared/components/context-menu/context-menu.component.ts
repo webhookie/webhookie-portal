@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -43,6 +43,10 @@ export class ContextMenuComponent {
   getMenuItems<T extends TableData,E>(): Array<ContextMenuItem<T, E>> {
     return this.menuItems
       .filter(it => it.isAvailable(this.getData())) as Array<ContextMenuItem<T, E>>;
+  }
+
+  get hasItem(): boolean {
+    return this.getMenuItems().length > 0
   }
 
   handle<T extends TableData, E>(menuItem: ContextMenuItem<T, E>) {
