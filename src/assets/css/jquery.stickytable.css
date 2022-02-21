@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -47,10 +47,10 @@
 .sticky-table table tr.sticky-footer th, .sticky-table table tr.sticky-footer td {
     background-color: #fff;
     position: relative;
-    position: -webkit-sticky;
+  /* position: -webkit-sticky;
     position: -ms-sticky;
     position: sticky;
-    z-index: 5;
+  z-index: 5; */
 }
 .sticky-table table tr.sticky-header th, .sticky-table table tr.sticky-header td {
     top: 0;
@@ -62,10 +62,10 @@
 .sticky-table table td.sticky-cell-opposite, .sticky-table table th.sticky-cell-opposite {
     background-color: #fff;
     position: relative;
-    position: -webkit-sticky;
+  /* position: -webkit-sticky;
     position: -ms-sticky;
     position: sticky;
-    z-index: 10;
+  z-index: 10; */
 }
 .sticky-table.sticky-ltr-cells table td.sticky-cell, .sticky-table.sticky-ltr-cells table th.sticky-cell,
 .sticky-table.sticky-rtl-cells table td.sticky-cell-opposite, .sticky-table.sticky-rtl-cells table th.sticky-cell-opposite {
@@ -76,15 +76,15 @@
     right: 0
 }
 
-.sticky-table table tr.sticky-header td.sticky-cell, .sticky-table table tr.sticky-header th.sticky-cell,
+/* .sticky-table table tr.sticky-header td.sticky-cell, .sticky-table table tr.sticky-header th.sticky-cell,
 .sticky-table table tr.sticky-header td.sticky-cell-opposite, .sticky-table table tr.sticky-header th.sticky-cell-opposite,
 .sticky-table table tr.sticky-footer td.sticky-cell, .sticky-table table tr.sticky-footer th.sticky-cell,
 .sticky-table table tr.sticky-footer td.sticky-cell-opposite, .sticky-table table tr.sticky-footer th.sticky-cell-opposite {
     z-index: 15;
-}
+} */
 .sticky-cell-second-column {
     left: 33px !important;
 }
-.sticky-cell.show, .sticky-cell-opposite.show {
-    z-index: 16 !important;
-}
+/* .sticky-cell.show, .sticky-cell-opposite.show {
+z-index: 16;
+} */
