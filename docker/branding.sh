@@ -22,17 +22,63 @@
 # You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
 #
 
-update_page_title() {
-    export WH_PAGE_TITLE="$1"
-    echo "Updating page title with the host name: $WH_PAGE_TITLE"
-    echo "$WH_PAGE_TITLE" > /usr/share/nginx/html/assets/branding/page-title.txt
+hex2rgb() {
+    local color=`echo $1 | tr '[:lower:]' '[:upper:]'`
+
+    hex=$(echo "$color" | sed 's/#//g')
+
+    a=$(echo $hex | cut -c-2)
+    b=$(echo $hex | cut -c3-4)
+    c=$(echo $hex | cut -c5-6)
+
+    r=$(echo "ibase=16; $a" | bc)
+    g=$(echo "ibase=16; $b" | bc)
+    b=$(echo "ibase=16; $c" | bc)
+
+    echo $color
+    echo $r, $g, $b
+
+#     echo ':root {
+#   --main-color: '"${r}"', '"${g}"', '"${b}"';
+# }' > /usr/share/nginx/html/assets/css/vars.css
+
+#     cat <<< '
+# :root {
+#   --main-color: '"${r}"', '"${g}"', '"${b}"';
+# }
+#     ' > /usr/share/nginx/html/assets/css/vars.css
+
+cat <<EOF > /usr/share/nginx/html/assets/css/vars.css
+:root {
+  --main-color: ${r}, ${g}, ${b};
+}
+EOF
 }
 
-if [[ -z "${WEBHOOKIE_PAGE_TITLE}" ]]; then
-  title="webhookie"
+# hex2rgb "#FF0000"
+# hex2rgb "#00FF00"
+# hex2rgb "#0000FF"
+
+if [[ -z "${WEBHOOKIE_MAIN_COLOR}" ]]; then
+  MAIN_COLOR="#0151cc"
 else
-  title="${WEBHOOKIE_PAGE_TITLE}"
+  MAIN_COLOR="${WEBHOOKIE_MAIN_COLOR}"
 fi
 
-update_page_title "$title"
+hex2rgb $MAIN_COLOR
+
+if [[ "${WEBHOOKIE_PAGE_TITLE}" != "" ]]; then
+  # shellcheck disable=SC2086
+  echo ${WEBHOOKIE_PAGE_TITLE} > /usr/share/nginx/html/assets/branding/page-title.txt
+fi
+
+if [[ "${WEBHOOKIE_MAIN_TITLE_HTML}" != "" ]]; then
+  # shellcheck disable=SC2086
+  echo ${WEBHOOKIE_MAIN_TITLE_HTML} > /usr/share/nginx/html/assets/branding/title.html
+fi
+
+if [[ "${WEBHOOKIE_MAIN_BODY_HTML}" != "" ]]; then
+  # shellcheck disable=SC2086
+  echo  ${WEBHOOKIE_MAIN_BODY_HTML} > /usr/share/nginx/html/assets/branding/body.html
+fi
 

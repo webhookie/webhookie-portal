@@ -28,10 +28,8 @@ RUN apk update
 RUN apk upgrade
 RUN apk add bash
 
-COPY ./docker/hex2rgb.sh /docker-entrypoint.d/hex2rgb.sh
-COPY ./docker/page-title.sh /docker-entrypoint.d/page-title.sh
-RUN chmod +x /docker-entrypoint.d/page-title.sh
-RUN chmod +x /docker-entrypoint.d/hex2rgb.sh
+COPY ./docker/branding.sh /docker-entrypoint.d/branding.sh
+RUN chmod +x /docker-entrypoint.d/branding.sh
 
 RUN rm -rf /usr/share/nginx/html
 COPY ./docker/nginx-default.conf /etc/nginx/conf.d/default.conf
