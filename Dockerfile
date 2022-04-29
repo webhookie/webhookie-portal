@@ -35,16 +35,6 @@ RUN rm -rf /usr/share/nginx/html
 COPY ./docker/nginx-default.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /usr/src/webhookie-portal/dist/webhookie-portal /usr/share/nginx/html
 
-#branding
-COPY --from=builder /usr/src/webhookie-portal/dist/webhookie-portal/assets/branding /var/data/webhookie/branding
-RUN rm -rf /usr/share/nginx/html/assets/branding
-RUN ln -s /var/data/webhookie/branding /usr/share/nginx/html/assets/branding
-
-#favicon
-COPY --from=builder /usr/src/webhookie-portal/dist/webhookie-portal/favicon.ico /var/data/webhookie/branding
-RUN rm -rf /usr/share/nginx/html/favicon.ico
-RUN ln -s /var/data/webhookie/branding/favicon.ico /usr/share/nginx/html/favicon.ico
-
 #USER nginx
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -24,7 +24,7 @@ echo Building asyncapi-parser....
 
 REPO="hookiesolutions"
 name="webhookie-portal"
-VERSION="1.0.0"
+VERSION="2.0.0"
 
 echo "$VERSION"
 
@@ -32,8 +32,8 @@ load() {
   echo "Building docker image version: $VERSION in  $(pwd)"
   docker build \
     --build-arg APP_NAME="$name" \
-    -t "$REPO/$name:1.0.0" \
-    -t "$REPO/$name:1" \
+    -t "$REPO/$name:2.0.0" \
+    -t "$REPO/$name:2" \
     -t "$REPO/$name:latest" \
     --load \
     .

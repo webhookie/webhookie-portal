@@ -22,21 +22,22 @@
 # You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
 #
 
+# shellcheck disable=SC2001
 hex2rgb() {
-    local color=`echo $1 | tr '[:lower:]' '[:upper:]'`
+    local color;color=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 
-    hex=$(echo "$color" | sed 's/#//g')
+    local hex;hex=$(echo "$color" | sed 's/#//g')
 
-    a=$(echo $hex | cut -c-2)
-    b=$(echo $hex | cut -c3-4)
-    c=$(echo $hex | cut -c5-6)
+    local a;a=$(echo "$hex" | cut -c-2)
+    local b;b=$(echo "$hex" | cut -c3-4)
+    local c;c=$(echo "$hex" | cut -c5-6)
 
-    r=$(echo "ibase=16; $a" | bc)
-    g=$(echo "ibase=16; $b" | bc)
-    b=$(echo "ibase=16; $c" | bc)
+    local r;r=$(echo "ibase=16; $a" | bc)
+    local g;g=$(echo "ibase=16; $b" | bc)
+    local b;b=$(echo "ibase=16; $c" | bc)
 
-    echo $color
-    echo $r, $g, $b
+    echo "$color"
+    echo "$r", "$g", "$b"
 
 #     echo ':root {
 #   --main-color: '"${r}"', '"${g}"', '"${b}"';
@@ -65,7 +66,7 @@ else
   MAIN_COLOR="${WEBHOOKIE_MAIN_COLOR}"
 fi
 
-hex2rgb $MAIN_COLOR
+hex2rgb "$MAIN_COLOR"
 
 if [[ "${WEBHOOKIE_PAGE_TITLE}" != "" ]]; then
   # shellcheck disable=SC2086
@@ -82,3 +83,34 @@ if [[ "${WEBHOOKIE_MAIN_BODY_HTML}" != "" ]]; then
   echo  ${WEBHOOKIE_MAIN_BODY_HTML} > /usr/share/nginx/html/assets/branding/body.html
 fi
 
+replace() {
+  local current_file=$1
+  local path=$2
+
+  if [ -e "$path" ]; then
+    echo "Replacing $current_file with $path"
+    rm -rf "$current_file"
+    ln -s "$path" "$current_file"
+  fi
+}
+
+rebrand() {
+  declare files=(
+    "body.html"
+    "hero.svg"
+    "logo.svg"
+    "title.html"
+    "page-title.txt"
+  )
+  declare -r branding_path="/var/data/webhookie/branding"
+  declare -r assets_path="/usr/share/nginx/html/assets/branding"
+
+  for file in "${files[@]}"; do
+    replace "$assets_path//$file" "$branding_path/$file"
+  done
+
+  declare -r favicon="favicon.ico"
+  replace "/usr/share/nginx/html/$favicon" "$branding_path/$favicon"
+}
+
+rebrand
