@@ -58,6 +58,9 @@ import {
 import {
   ApprovalDetailsComponent
 } from './subscribe-webhook/subscription-wizard/pages/approval-details/approval-details.component';
+import {
+  PayloadMappingComponent
+} from "./subscribe-webhook/subscription-wizard/pages/payload-mapping/payload-mapping.component";
 
 @NgModule({
   declarations: [
@@ -73,6 +76,7 @@ import {
     CongratsSvgComponent,
     SubscriptionWizardComponent,
     VerifyCallbackComponent,
+    PayloadMappingComponent,
     WizardCongratsComponent,
     WizardStepBaseComponent,
     ApprovalDetailsComponent

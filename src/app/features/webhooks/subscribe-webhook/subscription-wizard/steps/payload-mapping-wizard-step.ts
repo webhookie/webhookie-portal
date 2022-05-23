@@ -23,12 +23,18 @@
 import {Callback} from "../../../../../shared/model/callback/callback";
 import {WizardStep} from "./wizard-step";
 import {Optional} from "../../../../../shared/model/optional";
+import {Observable, of} from "rxjs";
 
-export class VerifyCallbackWizardStep extends WizardStep<any> {
-  title: string = "3. Test callback";
+export class PayloadMappingWizardStep extends WizardStep<any> {
+  title: string = "3. Payload mapping";
   icon: string = "bi bi-gear";
-  order = 4;
+  order = 3;
   valueMapper = (v: Optional<Callback>): string => v?.name ?? "";
   canGoNext: boolean = true;
-  hasNext: boolean = false;
+  hasNext: boolean = true;
+
+
+  isReady$(): Observable<boolean> {
+    return of(true)
+  }
 }

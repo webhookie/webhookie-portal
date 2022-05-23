@@ -27,7 +27,7 @@ import {Optional} from "../../../../../shared/model/optional";
 export class CongratsWizardStep extends WizardStep<any> {
   title: string = "4. Subscribe";
   icon: string = "bi bi-snow2";
-  order = 4;
+  order = 5;
   valueMapper = (v: Optional<Callback>): string => v?.name ?? "";
   hasCancel: boolean = false;
   hasBack: boolean = false;

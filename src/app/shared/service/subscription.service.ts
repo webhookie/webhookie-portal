@@ -185,6 +185,18 @@ export class SubscriptionService {
       .patch(`${this.SUBSCRIPTIONS_URI}/${id}/${action}`, body, httpParams, headers, HttpResponseType.JSON)
       .pipe(map(it => this.adapter.adapt(it.body)))
   }
+
+  updateTransformation(id: string, transformation: string): Observable<Subscription> {
+    let httpParams = new HttpParams();
+    let headers = new HttpHeaders()
+      .set("Accept", ["application/json"]);
+    let body = {
+      transform: transformation
+    }
+    return this.api
+      .patch(`${this.SUBSCRIPTIONS_URI}/${id}/transformation`, body, httpParams, headers, HttpResponseType.JSON)
+      .pipe(map(it => this.adapter.adapt(it.body)))
+  }
 }
 
 export interface ValidateSubscriptionRequest {

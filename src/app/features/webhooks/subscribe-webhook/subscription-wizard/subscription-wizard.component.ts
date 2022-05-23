@@ -37,6 +37,7 @@ import {Subscription, SubscriptionStatus} from "../../../../shared/model/subscri
 import {mergeMap} from "rxjs/operators";
 import {ApprovalDetailsComponent} from "./pages/approval-details/approval-details.component";
 import {SubscriptionAction} from "../../../subscriptions/subscriptions/subscriptions.component";
+import {PayloadMappingComponent} from "./pages/payload-mapping/payload-mapping.component";
 
 @Component({
   selector: 'app-subscription-wizard',
@@ -47,6 +48,7 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   @ViewChild('applicationComponent') applicationComponent!: ApplicationComponent
   @ViewChild('callbackComponent') callbackComponent!: CallbackComponent
   @ViewChild('verifyCallbackComponent') verifyCallbackComponent!: VerifyCallbackComponent
+  @ViewChild('payloadMappingComponent') payloadMappingComponent!: PayloadMappingComponent
   @ViewChild('congratsComponent') congratsComponent!: WizardCongratsComponent
   @ViewChild('approvalComponent') approvalComponent!: ApprovalDetailsComponent
 
@@ -74,6 +76,7 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
       this.stepManager = new WizardStepManager([
         this.applicationComponent,
         this.callbackComponent,
+        this.payloadMappingComponent,
         this.verifyCallbackComponent,
         this.approvalComponent,
       ]);
@@ -81,6 +84,7 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
       this.stepManager = new WizardStepManager([
         this.applicationComponent,
         this.callbackComponent,
+        this.payloadMappingComponent,
         this.verifyCallbackComponent,
         this.congratsComponent,
       ]);

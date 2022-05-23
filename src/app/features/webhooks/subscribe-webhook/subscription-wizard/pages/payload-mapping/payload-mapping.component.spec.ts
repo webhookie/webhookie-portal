@@ -20,15 +20,28 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Callback} from "../../../../../shared/model/callback/callback";
-import {WizardStep} from "./wizard-step";
-import {Optional} from "../../../../../shared/model/optional";
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-export class VerifyCallbackWizardStep extends WizardStep<any> {
-  title: string = "3. Test callback";
-  icon: string = "bi bi-gear";
-  order = 4;
-  valueMapper = (v: Optional<Callback>): string => v?.name ?? "";
-  canGoNext: boolean = true;
-  hasNext: boolean = false;
-}
+import {PayloadMappingComponent} from './payload-mapping.component';
+
+describe('VerifyCallbackComponent', () => {
+  let component: PayloadMappingComponent;
+  let fixture: ComponentFixture<PayloadMappingComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ PayloadMappingComponent ]
+    })
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(PayloadMappingComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

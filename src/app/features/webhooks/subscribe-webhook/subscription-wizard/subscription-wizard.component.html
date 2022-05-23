@@ -21,7 +21,7 @@
   -->
 
 <div class="row justify-content-between steppers" *ngIf="stepManager">
-  <div *ngFor="let component of stepManager.components" class="col-3 col-md-3 text-center step-div"
+  <div *ngFor="let component of stepManager.components" class="col-2 col-md-2 text-center step-div"
        [class.finish]="component.step.completed"
        [class.active]="component.step.current">
   <span class="step d-flex align-items-center justify-content-center mb-3"><i
@@ -46,6 +46,10 @@
     [webhook]="webhook"
     [webhookApi]="webhookApi">
   </app-subscription-wizard-verify-callback>
+  <app-subscription-wizard-payload-mapping #payloadMappingComponent
+    [webhook]="webhook"
+    [webhookApi]="webhookApi">
+  </app-subscription-wizard-payload-mapping>
   <app-subscription-wizard-congrats #congratsComponent>
   </app-subscription-wizard-congrats>
   <app-subscription-approval-details #approvalComponent>
