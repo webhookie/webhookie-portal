@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -21,29 +21,29 @@
  */
 
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DescriptionComponent } from './description/description.component';
-import { DetailsComponent } from './details/details.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { SidebarSearchComponent } from './sidebar/sidebar-search/sidebar-search.component';
-import { TitleToggleComponent } from './sidebar/title-toggle/title-toggle.component';
-import { SidebarListComponent } from './sidebar/sidebar-list/sidebar-list.component';
-import { WebhookPageComponent } from './webhook-page.component';
-import { WebhookPageRoutingModule } from './webhook-page-routing.module';
-import { WebhookModule } from './details/webhook/webhook.module'
-import { WebhookCommonModule } from '../common/webhook-common.module';
-import { WebhookFormComponent } from './webhook-form/webhook-form.component';
-import { WelcomeComponent } from './details/welcome/welcome.component';
-import { WelcomeWithDataComponent } from './details/welcome/welcome-with-data/welcome-with-data.component';
+import {CommonModule} from '@angular/common';
+import {DescriptionComponent} from './description/description.component';
+import {DetailsComponent} from './details/details.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {SidebarSearchComponent} from './sidebar/sidebar-search/sidebar-search.component';
+import {TitleToggleComponent} from './sidebar/title-toggle/title-toggle.component';
+import {SidebarListComponent} from './sidebar/sidebar-list/sidebar-list.component';
+import {WebhookPageComponent} from './webhook-page.component';
+import {WebhookPageRoutingModule} from './webhook-page-routing.module';
+import {WebhookModule} from './details/webhook/webhook.module'
+import {WebhookCommonModule} from '../common/webhook-common.module';
+import {WebhookFormComponent} from './webhook-form/webhook-form.component';
+import {WelcomeComponent} from './details/welcome/welcome.component';
+import {WelcomeWithDataComponent} from './details/welcome/welcome-with-data/welcome-with-data.component';
 import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../../../shared/shared.module";
-import { WebhookAccessGroupComponent } from './webhook-form/webhook-access-group/webhook-access-group.component';
+import {WebhookAccessGroupComponent} from './webhook-form/webhook-access-group/webhook-access-group.component';
 import {NgbAlertModule, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
-import { CreateWebhookApiComponent } from './webhook-form/create-webhook-api/create-webhook-api.component';
-import { EditWebhookApiComponent } from './webhook-form/edit-webhook-api/edit-webhook-api.component';
+import {CreateWebhookApiComponent} from './webhook-form/create-webhook-api/create-webhook-api.component';
+import {EditWebhookApiComponent} from './webhook-form/edit-webhook-api/edit-webhook-api.component';
 import {LandingPageModule} from "../../../landing-page/landing-page.module";
-import { ResizableDirective } from './resizable.directive';
+
 @NgModule({
   declarations: [
     WebhookPageComponent,
@@ -58,9 +58,7 @@ import { ResizableDirective } from './resizable.directive';
     WelcomeWithDataComponent,
     WebhookAccessGroupComponent,
     CreateWebhookApiComponent,
-    EditWebhookApiComponent,
-    ResizableDirective
-
+    EditWebhookApiComponent
   ],
   imports: [
     CommonModule,

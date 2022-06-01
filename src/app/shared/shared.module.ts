@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -49,16 +49,17 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {HttpTokenInterceptor} from "./interceptor/http.token.interceptor";
 import {HttpLogInterceptor} from "./interceptor/http-log.interceptor";
 import {HttpErrorInterceptor} from "./interceptor/http-error.interceptor";
-import { ToastsContainerComponent } from './components/toasts-container/toasts-container.component';
+import {ToastsContainerComponent} from './components/toasts-container/toasts-container.component';
 import {NgbAlertModule, NgbToastModule, NgbTypeaheadModule} from "@ng-bootstrap/ng-bootstrap";
-import { SearchableSelectComponent } from './components/searchable-select/searchable-select.component';
+import {SearchableSelectComponent} from './components/searchable-select/searchable-select.component';
 import {HttpLoaderInterceptor} from "./interceptor/http.loader.interceptor";
 import {AuthService} from "./service/auth.service";
 import {MockAuthService} from "./mock/mock-auth.service";
-import { TableSelectHeaderComponent } from './components/generic-table/table-select-header/table-select-header.component';
-import { ArrowRightComponent } from './components/arrow-right/arrow-right.component';
-import { HealthIndicatorComponent } from './components/health-indicator/health-indicator.component';
-import { ScrollingTextComponent } from './components/scrolling-text/scrolling-text.component';
+import {TableSelectHeaderComponent} from './components/generic-table/table-select-header/table-select-header.component';
+import {ArrowRightComponent} from './components/arrow-right/arrow-right.component';
+import {HealthIndicatorComponent} from './components/health-indicator/health-indicator.component';
+import {ScrollingTextComponent} from './components/scrolling-text/scrolling-text.component';
+import {ResizableDirective} from "./resizable.directive";
 
 let apiProvider;
 let authProvider;
@@ -91,6 +92,7 @@ if (environment.mock) {
     ArrowRightComponent,
     HealthIndicatorComponent,
     ScrollingTextComponent,
+    ResizableDirective
   ],
   imports: [
     FormsModule,
@@ -123,7 +125,8 @@ if (environment.mock) {
     ToastsContainerComponent,
     SearchableSelectComponent,
     ArrowRightComponent,
-    HealthIndicatorComponent
+    HealthIndicatorComponent,
+    ResizableDirective
   ],
   providers: [
     {
