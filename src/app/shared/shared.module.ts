@@ -59,7 +59,7 @@ import {TableSelectHeaderComponent} from './components/generic-table/table-selec
 import {ArrowRightComponent} from './components/arrow-right/arrow-right.component';
 import {HealthIndicatorComponent} from './components/health-indicator/health-indicator.component';
 import {ScrollingTextComponent} from './components/scrolling-text/scrolling-text.component';
-import {ResizableDirective} from "./resizable.directive";
+import {ResizableDirective} from "../features/webhooks/webhook-page/resizable.directive";
 
 let apiProvider;
 let authProvider;
