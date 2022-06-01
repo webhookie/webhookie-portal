@@ -44,7 +44,7 @@ export class AboutService {
     return {
       version: buildProps.version,
       time: DateUtils.toMediumLocalString(buildProps.time),
-      "Database Version": (this.healthService.migrationHealthComponent?.details)["Current Version"]
+      // "Database Version": (this.healthService.migrationHealthComponent?.details)["Current Version"]
     }
   }
 
