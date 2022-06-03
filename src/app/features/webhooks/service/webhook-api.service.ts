@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -132,5 +132,14 @@ export class WebhookApiService {
     let uri = `${this.WEBHOOKAPIS_URI}/${id}`;
     return this.api.put(uri, request, new HttpParams(), new HttpHeaders(), HttpResponseType.JSON)
       .pipe(mergeMap((it: HttpResponse<any>) => this.webhookApiAdapter.adapt(it.body)));
+  }
+
+  readJsonSchemaFor(topic: string, webhookApiId: string): Observable<any> {
+    this.log.info(`Reading JSON schema for topic: '${topic}' , id: ${webhookApiId}...`);
+    let uri = `${this.WEBHOOKAPIS_URI}/${webhookApiId}/schema?topic=${topic}`;
+    return this.api.json(uri, new HttpParams())
+      .pipe(tap( it => {
+        console.warn(it)
+      }))
   }
 }
