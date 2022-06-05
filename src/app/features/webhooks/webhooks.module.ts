@@ -61,6 +61,7 @@ import {
 import {
   PayloadMappingComponent
 } from "./subscribe-webhook/subscription-wizard/pages/payload-mapping/payload-mapping.component";
+import {MonacoEditorModule} from "@materia-ui/ngx-monaco-editor";
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import {
     ReactiveFormsModule,
     SharedModule,
     NgbAlertModule,
+    MonacoEditorModule,
   ],
 
 })

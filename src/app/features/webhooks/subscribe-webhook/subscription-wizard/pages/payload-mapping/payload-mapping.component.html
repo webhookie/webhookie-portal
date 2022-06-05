@@ -22,15 +22,11 @@
 
 <div class="row justify-content-center tab" *ngIf="visible">
   <div>
-    <input class="form-control form-control-lg" id="formFileLg" type="file" (change)="mappingFile($event)" #fileUpload>
+    <input class="form-control form-control-lg" id="formFileLg" type="file" (change)="mappingFile($event)">
   </div>
   <div>
-    <app-json-viewer
-      [darkMode]="false"
-      [showHeader]="false"
-      #transformViewer
-    >
-    </app-json-viewer>
+
+    <pre>{{jsonSchema$ | async | json}}</pre>
   </div>
 </div>
 

@@ -20,19 +20,19 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Optional} from "../../../../../../shared/model/optional";
 import {Callback} from "../../../../../../shared/model/callback/callback";
 import {WizardStep} from "../../steps/wizard-step";
-import {Observable, of} from "rxjs";
+import {BehaviorSubject, Observable, of} from "rxjs";
 import {WizardStepBaseComponent} from "../../steps/wizard-step-base/wizard-step-base.component";
 import {Subscription} from "../../../../../../shared/model/subscription";
 import {map, mergeMap} from "rxjs/operators";
 import {Webhook} from "../../../../model/webhook";
 import {WebhookApi} from "../../../../model/webhook-api";
 import {PayloadMappingWizardStep} from "../../steps/payload-mapping-wizard-step";
-import {JsonViewerComponent} from "../../../../../../shared/components/json-viewer/json-viewer.component";
 import {SubscriptionService} from "../../../../../../shared/service/subscription.service";
+import {WebhookApiService} from "../../../../service/webhook-api.service";
 
 @Component({
   selector: 'app-subscription-wizard-payload-mapping',
@@ -42,12 +42,18 @@ import {SubscriptionService} from "../../../../../../shared/service/subscription
 export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> implements OnInit {
   @Input() webhook!: Webhook
   @Input() webhookApi!: WebhookApi
-  @ViewChild("transformViewer") transformViewer?: JsonViewerComponent
   subscription: Optional<Subscription>
 
   step: WizardStep<any> = new PayloadMappingWizardStep();
+  private readonly _jsonSchema$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  public readonly jsonSchema$: Observable<any> = this._jsonSchema$.asObservable();
+
 
   init(value: Optional<Subscription>): Observable<any> {
+    this.webhookApiService.readJsonSchemaFor(this.webhook.topic.name, this.webhookApi.id)
+      .subscribe(it => {
+        this._jsonSchema$.next(it)
+      });
     this.subscription = value
     return super.init(value)
   }
@@ -67,6 +73,7 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
 
   constructor(
     private readonly subscriptionService: SubscriptionService,
+    private readonly webhookApiService: WebhookApiService,
   ) {
     super();
   }
@@ -80,7 +87,6 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
     let fileReader = new FileReader();
     fileReader.onload = () => {
       this.transformation = fileReader.result as string;
-      this.transformViewer?.show(fileReader.result);
     }
     fileReader.readAsText(file);
   }
