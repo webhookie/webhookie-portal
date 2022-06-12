@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Optional} from "../../../../../../shared/model/optional";
 import {Callback} from "../../../../../../shared/model/callback/callback";
 import {WizardStep} from "../../steps/wizard-step";
@@ -33,6 +33,10 @@ import {WebhookApi} from "../../../../model/webhook-api";
 import {PayloadMappingWizardStep} from "../../steps/payload-mapping-wizard-step";
 import {SubscriptionService} from "../../../../../../shared/service/subscription.service";
 import {WebhookApiService} from "../../../../service/webhook-api.service";
+import {MonacoEditorComponent} from "@materia-ui/ngx-monaco-editor";
+import {ValidationErrors} from "@angular/forms";
+import {JsonViewerComponent} from "../../../../../../shared/components/json-viewer/json-viewer.component";
+import {TransformationService} from "../../../../../../shared/service/transformation.service";
 
 @Component({
   selector: 'app-subscription-wizard-payload-mapping',
@@ -46,14 +50,24 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
 
   step: WizardStep<any> = new PayloadMappingWizardStep();
   private readonly _jsonSchema$: BehaviorSubject<any> = new BehaviorSubject<any>({});
-  public readonly jsonSchema$: Observable<any> = this._jsonSchema$.asObservable();
+  private readonly _callbackValue$: BehaviorSubject<Optional<any>> = new BehaviorSubject<Optional<any>>({});
 
+
+  @ViewChild(JsonViewerComponent, {static: false}) jsonViewerComponent!: JsonViewerComponent;
+  @ViewChild(MonacoEditorComponent, {static: false}) monacoComponent!: MonacoEditorComponent;
+  modelUri!: monaco.Uri;
+  editor: any;
+
+  editorOptions = {theme: 'vs-dark', language: 'json'};
+  code = "";
 
   init(value: Optional<Subscription>): Observable<any> {
     this.webhookApiService.readJsonSchemaFor(this.webhook.topic.name, this.webhookApi.id)
       .subscribe(it => {
         this._jsonSchema$.next(it)
+        this.registerMonacoJsonSchemaValidator(it);
       });
+    this.code = JSON.stringify(this.webhook.example, null, 2);
     this.subscription = value
     return super.init(value)
   }
@@ -73,6 +87,7 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
 
   constructor(
     private readonly subscriptionService: SubscriptionService,
+    private readonly transformationService: TransformationService,
     private readonly webhookApiService: WebhookApiService,
   ) {
     super();
@@ -92,4 +107,52 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
   }
 
   transformation: Optional<string>
+
+  get canTransform(): boolean {
+    return this.transformation != null && this.isValid;
+  }
+
+  get isValid(): boolean {
+    if(this.monacoComponent) {
+      let errors: ValidationErrors = this.monacoComponent!.validate();
+      return errors == null;
+    }
+    return true;
+  }
+
+  // noinspection JSUnusedGlobalSymbols
+  get isDirty(): boolean {
+    if(this.monacoComponent) {
+      return this.code != this.monacoComponent.value;
+    }
+    return false;
+  }
+
+  editorInit(editor: any) {
+    this.editor = editor;
+  }
+
+  registerMonacoJsonSchemaValidator(schema: any) {
+    this.modelUri = monaco.Uri.parse('a://b/message.json');
+
+    monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+      validate: true,
+      schemas: [
+        {
+          uri: 'https://webhookie.com/webhook-schema.json', // id of the first schema
+          fileMatch: ['message*.json'],
+          schema: schema
+        }
+      ]
+    });
+  }
+
+  transform() {
+    this.transformationService
+      .transform(this.monacoComponent.value, this.transformation!)
+      .subscribe(it => {
+        this._callbackValue$.next(it);
+        this.jsonViewerComponent.show(it);
+      })
+  }
 }
