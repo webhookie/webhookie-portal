@@ -25,7 +25,7 @@ import {WizardStep} from "./wizard-step";
 import {Optional} from "../../../../../shared/model/optional";
 
 export class VerifyCallbackWizardStep extends WizardStep<any> {
-  title: string = "3. Test callback";
+  title: string = "4. Test callback";
   icon: string = "bi bi-gear";
   order = 4;
   valueMapper = (v: Optional<Callback>): string => v?.name ?? "";

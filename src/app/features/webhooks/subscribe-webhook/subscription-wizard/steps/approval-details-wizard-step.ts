@@ -25,7 +25,7 @@ import {Optional} from "../../../../../shared/model/optional";
 import {Subscription} from "../../../../../shared/model/subscription";
 
 export class ApprovalDetailsWizardStep extends WizardStep<Subscription> {
-  title = "4. Approval Details";
+  title = "5. Approval Details";
   icon = "bi bi-folder2-open";
   order = 5;
   valueMapper = (v: Optional<Subscription>): string => v?.topic ?? "";
