@@ -60,7 +60,8 @@ import {ArrowRightComponent} from './components/arrow-right/arrow-right.componen
 import {HealthIndicatorComponent} from './components/health-indicator/health-indicator.component';
 import {ScrollingTextComponent} from './components/scrolling-text/scrolling-text.component';
 import {ResizableDirective} from "../features/webhooks/webhook-page/resizable.directive";
-
+import { DragDirective } from './components/resizable/drag.directive';
+import { RegionComponent } from './components/resizable/resizable.component';
 let apiProvider;
 let authProvider;
 if (environment.mock) {
@@ -92,7 +93,9 @@ if (environment.mock) {
     ArrowRightComponent,
     HealthIndicatorComponent,
     ScrollingTextComponent,
-    ResizableDirective
+    ResizableDirective,
+    DragDirective,
+    RegionComponent
   ],
   imports: [
     FormsModule,
@@ -126,7 +129,9 @@ if (environment.mock) {
     SearchableSelectComponent,
     ArrowRightComponent,
     HealthIndicatorComponent,
-    ResizableDirective
+    ResizableDirective,
+    DragDirective,
+    RegionComponent
   ],
   providers: [
     {
