@@ -27,7 +27,7 @@ import {Observable, of} from "rxjs";
 
 export class PayloadMappingWizardStep extends WizardStep<any> {
   title: string = "3. Payload mapping";
-  icon: string = "bi bi-gear";
+  icon: string = "bi bi-textarea";
   order = 3;
   valueMapper = (v: Optional<Callback>): string => v?.name ?? "";
   canGoNext: boolean = true;

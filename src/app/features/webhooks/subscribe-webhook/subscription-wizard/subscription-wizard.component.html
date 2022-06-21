@@ -30,32 +30,33 @@
     <p>{{component.step.displayValue | async}}</p>
   </div>
 </div>
-
-<form id="subForm">
-  <app-subscription-wizard-application
-    #applicationComponent
-    (onSelect)="updateStepValue($event)">
-  </app-subscription-wizard-application>
-  <app-subscription-wizard-callback
-    #callbackComponent
-    [webhook]="webhook"
-    [webhookApi]="webhookApi"
-    (onSelect)="updateStepValue($event)">
-  </app-subscription-wizard-callback>
-  <app-subscription-wizard-verify-callback #verifyCallbackComponent
-    [webhook]="webhook"
-    [webhookApi]="webhookApi">
-  </app-subscription-wizard-verify-callback>
-  <app-subscription-wizard-payload-mapping #payloadMappingComponent
-    [webhook]="webhook"
-    [webhookApi]="webhookApi">
-  </app-subscription-wizard-payload-mapping>
-  <app-subscription-wizard-congrats #congratsComponent>
-  </app-subscription-wizard-congrats>
-  <app-subscription-approval-details #approvalComponent>
-  </app-subscription-approval-details>
-</form>
-
+<div id="subForm">
+  <form class="sub-form-inner">
+    <app-subscription-wizard-application
+      #applicationComponent
+      (onSelect)="updateStepValue($event)">
+    </app-subscription-wizard-application>
+    <app-subscription-wizard-callback
+      #callbackComponent
+      [webhook]="webhook"
+      [webhookApi]="webhookApi"
+      (onSelect)="updateStepValue($event)">
+    </app-subscription-wizard-callback>
+    <app-subscription-wizard-verify-callback #verifyCallbackComponent
+      [webhook]="webhook"
+      [webhookApi]="webhookApi">
+    </app-subscription-wizard-verify-callback>
+    <app-subscription-wizard-payload-mapping #payloadMappingComponent
+      [webhook]="webhook"
+      [webhookApi]="webhookApi"
+      class="app-subscription-wizard">
+    </app-subscription-wizard-payload-mapping>
+    <app-subscription-wizard-congrats #congratsComponent>
+    </app-subscription-wizard-congrats>
+    <app-subscription-approval-details #approvalComponent>
+    </app-subscription-approval-details>
+  </form>
+</div>
 <div class="subscribe-btns" *ngIf="current">
   <div class="left-btn">
     <button type="button" id="cancel" *ngIf="current?.step?.hasCancel" routerLink="/">Cancel</button>

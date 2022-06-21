@@ -20,30 +20,63 @@
   ~ You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
   -->
 
-<div class="editor-content" role="main" *ngIf="visible">
-  <ngx-monaco-editor
-    [(ngModel)]="code"
-    [options]="editorOptions"
-    [uri]="modelUri"
-    (init)="editorInit($event)"
-    #monacoComponent
-  >
-  </ngx-monaco-editor>
-</div>
-<div style="border-width: 10px; border-color: #1e324c" class="row justify-content-center tab" *ngIf="visible">
-  <div>
-    <input class="form-control form-control-lg" id="formFileLg" type="file" (change)="mappingFile($event)">
-    <pre>
-      {{transformation}}
-    </pre>
-    <button *ngIf="canTransform" (click)="transform()" class="btn-primary">Transform</button>
-    <app-json-viewer
-      [darkMode]="false"
-      [showHeader]="false"
-      #jsonViewerComponent
-    >
-    </app-json-viewer>
+<div class="main" *ngIf="visible">
+  <div class="main-content">
+    <div class="main-row">
+      <region-component class="section" [directions]="['right']" [rFlex]="true">
+          <div class="content">
+            <ngx-monaco-editor
+              [(ngModel)]="code"
+              [options]="editorOptions"
+              [uri]="modelUri"
+              (init)="editorInit($event)"
+              #monacoComponent
+            >
+            </ngx-monaco-editor>
+          </div>
+      </region-component>
+      <region-component class="section" [directions]="['right']" [rFlex]="true">
+        <div class="content-payload p-3 d-flex flex-column flex-nowrap">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <label *ngIf="canTransform" class="file-upload" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
+                <input class="form-control form-control-lg d-none" id="formFileLg" type="file" (change)="onChange($event)">
+                <i class="bi bi-cloud-arrow-up-fill mr-1"></i><span>{{file_name?file_name:'Drag & Drop or Upload'}}</span>
+              </label>
+            </div>
+            <div class="col-4">
+              <button class="btn btn-block" [disabled]="!canTransform" (click)="transform()">
+                <i *ngIf="!canTransform" class="bi bi-caret-right"></i> <i *ngIf="canTransform" class="bi bi-caret-right-fill"></i>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="!canTransform" class="row align-items-center h-100">
+            <div class="col-12 h-100">
+              <label class="file-upload full-height" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
+                <input class="form-control form-control-lg d-none" id="formFileLg" type="file" (change)="onChange($event)">
+                <i class="fas fa-cloud-upload-alt mr-1"></i><span>{{file_name?file_name:'Drag & Drop or Upload'}}</span>
+              </label>
+            </div>
+          </div>
+          <pre *ngIf="transformation">
+            {{transformation}}
+          </pre>
+          <button *ngIf="canTransform" (click)="transform()" class="btn-primary btn-block mt-2">Transform</button>
+        </div>
+      </region-component>
+      <div class="section">
+        <div class="content">
+          <app-json-viewer
+            [darkMode]="false"
+            [showHeader]="false"
+            #jsonViewerComponent
+          >
+          </app-json-viewer>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 <!--
   err = {{this.monacoComponent.parsedError}}
 
@@ -65,5 +98,3 @@
     <pre>{{jsonSchema$ | async | json}}</pre>
   </div>
 -->
-</div>
-

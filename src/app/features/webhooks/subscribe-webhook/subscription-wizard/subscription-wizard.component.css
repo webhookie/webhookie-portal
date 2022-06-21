@@ -19,7 +19,15 @@
  *
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
-
+ .app-subscription-wizard{
+  display:inline-block;
+  width:100%;
+  height:100%;
+}
+.sub-form-inner{
+  min-height:300px;
+  height:100%;
+}
 .dot-buttons ul {
   list-style-type: none;
   padding: 0;

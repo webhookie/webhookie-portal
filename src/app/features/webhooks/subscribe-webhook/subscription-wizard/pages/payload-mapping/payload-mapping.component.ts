@@ -60,6 +60,7 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
 
   editorOptions = {theme: 'vs-dark', language: 'json'};
   code = "";
+  file_name: any;
 
   init(value: Optional<Subscription>): Observable<any> {
     this.webhookApiService.readJsonSchemaFor(this.webhook.topic.name, this.webhookApi.id)
@@ -96,9 +97,21 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
   ngOnInit(): void {
   }
 
-  mappingFile(e: any) {
-    let file = e.target.files[0];
+  onDragOver(event:any) {
+    event.preventDefault();
+  }
 
+  onDropSuccess(event:any) {
+    event.preventDefault();
+
+    this.mappingFile(event.dataTransfer.files);
+  }
+  onChange(e:any) {
+    this.mappingFile(e.target.files);
+  }
+  mappingFile(files: any) {
+    let file = files[0];
+    this.file_name=file.name;
     let fileReader = new FileReader();
     fileReader.onload = () => {
       this.transformation = fileReader.result as string;
