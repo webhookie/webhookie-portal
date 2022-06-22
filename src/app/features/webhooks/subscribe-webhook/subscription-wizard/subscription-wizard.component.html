@@ -30,7 +30,7 @@
     <p>{{component.step.displayValue | async}}</p>
   </div>
 </div>
-<div id="subForm">
+<div id="subForm" [class.steppers]="current?.step?.title=='3. Payload mapping'">
   <form class="sub-form-inner">
     <app-subscription-wizard-application
       #applicationComponent

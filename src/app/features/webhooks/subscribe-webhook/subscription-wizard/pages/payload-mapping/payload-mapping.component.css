@@ -68,17 +68,12 @@
   background-color: #0151cc !important;
 }
 .file-upload {
-  border: 1px solid #ccc;
   display: inline-block;
-  padding: 15px;
-  margin:10px 0;
   cursor: pointer;
   border-radius:4px;
   width: 100%;
   color:#0151cc;
   text-align: center;
-}
-.file-upload.full-height {
   height: 100%;
   display: flex;
   align-items: center;
@@ -87,9 +82,12 @@
 .file-upload label{
   margin-bottom:0;
 }
+.transform-block{
+   height:85%;
+}
 pre{
-  height: 240px !important;
-  margin:10px 0px;
+  height: 100% !important;
+  margin:0px;
   padding:5px;
   overflow: auto;
 }
@@ -101,17 +99,17 @@ pre::-webkit-scrollbar {
 pre::-webkit-scrollbar-thumb {
   background-color: #0151cc !important;
 }
-.btn.disabled, .btn:disabled{
-  border: 1px solid #C6C6C6;
-  border-radius: 4px;
+.action-btns{
+  position: absolute;
+  right:5%;
+  top:3%;
 }
 .btn{
-  color: #2eaf53;
-  border: 1px solid #2851cc;
-  border-radius: 4px;
   font-size: 25px;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
+  padding: 0px !important;
+}
+.btn-play{
+  color: #2eaf53;
 }
 .btn-primary{
   background-color: #0151cc;

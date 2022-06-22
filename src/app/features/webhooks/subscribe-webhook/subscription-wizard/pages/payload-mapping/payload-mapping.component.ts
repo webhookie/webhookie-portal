@@ -109,6 +109,10 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
   onChange(e:any) {
     this.mappingFile(e.target.files);
   }
+  clearTransform(){
+    this.transformation=null;
+    this.file_name='';
+  }
   mappingFile(files: any) {
     let file = files[0];
     this.file_name=file.name;

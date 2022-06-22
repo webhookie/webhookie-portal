@@ -36,31 +36,28 @@
           </div>
       </region-component>
       <region-component class="section" [directions]="['right']" [rFlex]="true">
-        <div class="content-payload p-3 d-flex flex-column flex-nowrap">
-          <div class="row align-items-center">
-            <div class="col-8">
-              <label *ngIf="canTransform" class="file-upload" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
-                <input class="form-control form-control-lg d-none" id="formFileLg" type="file" (change)="onChange($event)">
-                <i class="bi bi-cloud-arrow-up-fill mr-1"></i><span>{{file_name?file_name:'Drag & Drop or Upload'}}</span>
-              </label>
-            </div>
-            <div class="col-4">
-              <button class="btn btn-block" [disabled]="!canTransform" (click)="transform()">
-                <i *ngIf="!canTransform" class="bi bi-caret-right"></i> <i *ngIf="canTransform" class="bi bi-caret-right-fill"></i>
-              </button>
-            </div>
+        <div class="content-payload p-2 d-flex flex-column flex-nowrap">
+          <div class="action-btns">
+            <button class="btn btn-play" [disabled]="!canTransform" (click)="transform()">
+              <i *ngIf="!canTransform" class="bi bi-caret-right"></i> <i *ngIf="canTransform" class="bi bi-caret-right-fill"></i>
+            </button>
+            <button [disabled]="!canTransform" class="btn mx-1" (click)="clearTransform()">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+          <div *ngIf="canTransform" class="transform-block">
+            <pre>
+              {{transformation}}
+            </pre>
           </div>
           <div *ngIf="!canTransform" class="row align-items-center h-100">
             <div class="col-12 h-100">
-              <label class="file-upload full-height" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
+              <label class="file-upload" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
                 <input class="form-control form-control-lg d-none" id="formFileLg" type="file" (change)="onChange($event)">
                 <i class="fas fa-cloud-upload-alt mr-1"></i><span>{{file_name?file_name:'Drag & Drop or Upload'}}</span>
               </label>
             </div>
           </div>
-          <pre *ngIf="transformation">
-            {{transformation}}
-          </pre>
           <button *ngIf="canTransform" (click)="transform()" class="btn-primary btn-block mt-2">Transform</button>
         </div>
       </region-component>
