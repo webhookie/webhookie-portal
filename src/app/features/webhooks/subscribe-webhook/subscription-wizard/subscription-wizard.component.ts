@@ -64,7 +64,6 @@ export class SubscriptionWizardComponent extends WebhookBaseComponent implements
   }
 
   get current(): Optional<WizardStepComponent<any>> {
-    console.log("current",this.stepManager?.currentComponent)
     return this.stepManager?.currentComponent;
   }
 

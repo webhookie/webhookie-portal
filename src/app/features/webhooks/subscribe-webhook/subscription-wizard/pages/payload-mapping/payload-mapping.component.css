@@ -74,13 +74,10 @@
   width: 100%;
   color:#0151cc;
   text-align: center;
-}
-.file-upload.full-height {
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: auto;
 }
 .file-upload label{
   margin-bottom:0;

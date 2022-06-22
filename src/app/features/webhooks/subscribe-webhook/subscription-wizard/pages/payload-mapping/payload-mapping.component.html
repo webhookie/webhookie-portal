@@ -52,7 +52,7 @@
           </div>
           <div *ngIf="!canTransform" class="row align-items-center h-100">
             <div class="col-12 h-100">
-              <label class="file-upload full-height" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
+              <label class="file-upload" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
                 <input class="form-control form-control-lg d-none" id="formFileLg" type="file" (change)="onChange($event)">
                 <i class="fas fa-cloud-upload-alt mr-1"></i><span>{{file_name?file_name:'Drag & Drop or Upload'}}</span>
               </label>
