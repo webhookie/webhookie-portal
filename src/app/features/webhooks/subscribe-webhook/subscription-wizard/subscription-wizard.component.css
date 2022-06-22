@@ -185,7 +185,7 @@ button.test, button.retest{
   opacity: 1;
 }
 .steppers {
-  width: 80%;
+  width: 80% !important;
   margin: 0 auto;
 }
 .steppers ul {
