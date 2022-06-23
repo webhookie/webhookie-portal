@@ -45,19 +45,15 @@
               <i class="bi bi-x"></i>
             </button>
           </div>
-          <div *ngIf="canTransform" class="transform-block">
-            <pre>
-              {{transformation}}
-            </pre>
-          </div>
-          <div *ngIf="!canTransform" class="row align-items-center h-100">
-            <div class="col-12 h-100">
-              <label class="file-upload" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
+          <div class="row align-items-center">
+            <div class="col-10">
+              <label class="file-upload py-2" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
                 <input class="form-control form-control-lg d-none" id="formFileLg" type="file" (change)="onChange($event)">
                 <i class="fas fa-cloud-upload-alt mr-1"></i><span>{{file_name?file_name:'Drag & Drop or Upload'}}</span>
               </label>
             </div>
           </div>
+          <textarea [(ngModel)]="transformation" [class.h-100]="!canTransform" [class.h-80]="canTransform" class="w-100" (input)="!transformation && clearTransform()"></textarea>
           <button *ngIf="canTransform" (click)="transform()" class="btn-primary btn-block mt-2">Transform</button>
         </div>
       </region-component>
