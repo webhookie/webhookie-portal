@@ -166,7 +166,7 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
 
   transform() {
     this.transformationService
-      .transform(this.monacoComponent.value, this.transformation!)
+      .transform(this.editor.getValue(), this.transformation!)
       .subscribe(it => {
         this._callbackValue$.next(it);
         this.jsonViewerComponent.show(it);
