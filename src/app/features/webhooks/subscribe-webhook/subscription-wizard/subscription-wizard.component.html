@@ -49,7 +49,7 @@
     <app-subscription-wizard-payload-mapping #payloadMappingComponent
       [webhook]="webhook"
       [webhookApi]="webhookApi"
-      class="app-subscription-wizard">
+      [class.app-subscription-wizard]="current?.step?.title=='3. Payload mapping'">
     </app-subscription-wizard-payload-mapping>
     <app-subscription-wizard-congrats #congratsComponent>
     </app-subscription-wizard-congrats>
