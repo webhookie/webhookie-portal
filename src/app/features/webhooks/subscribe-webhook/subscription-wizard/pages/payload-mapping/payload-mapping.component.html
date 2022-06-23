@@ -46,7 +46,7 @@
             </button>
           </div>
           <div class="row align-items-center">
-            <div class="col-8">
+            <div class="col-10">
               <label class="file-upload py-2" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
                 <input class="form-control form-control-lg d-none" id="formFileLg" type="file" (change)="onChange($event)">
                 <i class="fas fa-cloud-upload-alt mr-1"></i><span>{{file_name?file_name:'Drag & Drop or Upload'}}</span>
