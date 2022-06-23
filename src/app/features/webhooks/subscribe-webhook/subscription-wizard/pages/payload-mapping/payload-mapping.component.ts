@@ -37,6 +37,7 @@ import {MonacoEditorComponent} from "@materia-ui/ngx-monaco-editor";
 import {ValidationErrors} from "@angular/forms";
 import {JsonViewerComponent} from "../../../../../../shared/components/json-viewer/json-viewer.component";
 import {TransformationService} from "../../../../../../shared/service/transformation.service";
+import {CallbackVerification} from "../callback-verification";
 
 @Component({
   selector: 'app-subscription-wizard-payload-mapping',
@@ -73,7 +74,9 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
     return super.init(value)
   }
 
-  onNext(): Observable<Optional<Subscription>> {
+  result: Optional<CallbackVerification>
+
+  onNext(): Observable<Optional<CallbackVerification>> {
     let subscriptionObservable;
     if(this.transformation) {
       subscriptionObservable = this.subscriptionService.updateTransformation(this.subscription!.id, this.transformation)
@@ -82,8 +85,9 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
     }
 
     return subscriptionObservable
+      .pipe(map( it => this.result = new CallbackVerification(it, this._callbackValue$.value)))
       .pipe(mergeMap(() => super.onNext()))
-      .pipe(map(() => this.subscription))
+      .pipe(map(() => this.result))
   }
 
   constructor(

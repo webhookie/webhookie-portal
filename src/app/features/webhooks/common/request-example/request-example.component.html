@@ -1,6 +1,6 @@
 <!--
   ~ webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
-  ~ Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+  ~ Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as
@@ -32,6 +32,6 @@
         <label class="custom-control-label mode-switcher font12" for="customSwitch1" (click)="toggleDarkMode()">Dark mode</label>
       </div>
     </div>
-    <app-request-body [webhook]="webhook" #bodyComponent></app-request-body>
+    <app-request-body [body]="body" [webhook]="webhook" #bodyComponent></app-request-body>
     <app-request-headers *ngIf="fullRequest" [webhook]="webhook" #headersComponent></app-request-headers>
 </div>

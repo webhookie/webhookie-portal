@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,6 +25,7 @@ import {RequestBodyComponent} from "./request-body/request-body.component";
 import {RequestHeadersComponent} from "./request-headers/request-headers.component";
 import {WebhookBaseComponent} from "../webhook-base-component";
 import {WebhooksContext} from "../../webhooks-context";
+import {Optional} from "../../../../shared/model/optional";
 
 @Component({
   selector: 'app-request-example',
@@ -34,6 +35,7 @@ import {WebhooksContext} from "../../webhooks-context";
 export class RequestExampleComponent extends WebhookBaseComponent implements OnInit {
   @Input() title: string = ""
   @Input() fullRequest: boolean = true
+  @Input() body: Optional<any> = null
   @ViewChild('bodyComponent') bodyComponent!: RequestBodyComponent
   @ViewChild('headersComponent') headersComponent!: RequestHeadersComponent
 

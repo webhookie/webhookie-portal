@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,6 +25,7 @@ import * as $ from 'jquery';
 import {JsonUtils} from "../../../../../shared/json-utils";
 import {Webhook} from "../../../model/webhook";
 import {Constants} from "../../../../../shared/constants";
+import {Optional} from "../../../../../shared/model/optional";
 
 @Component({
   selector: 'app-request-body',
@@ -34,13 +35,17 @@ import {Constants} from "../../../../../shared/constants";
 export class RequestBodyComponent implements OnInit, AfterViewChecked {
   @Input() webhook!: Webhook
   @Input() show: boolean = true
+  @Input() body: Optional<any> = null
 
   ngOnInit(): void {
 
   }
 
   ngAfterViewChecked(){
-    const str = JSON.stringify(this.webhook.example, null, '\t');
+    let str = JSON.stringify(this.webhook.example, null, '\t');
+    if(this.body != null) {
+      str = JSON.stringify(this.body!, null, '\t');
+    }
     this.output(JsonUtils.syntaxHighlight(str));
     $(".key").attr('contentEditable', 'false');
     $(".boolean").attr('contentEditable', 'true');

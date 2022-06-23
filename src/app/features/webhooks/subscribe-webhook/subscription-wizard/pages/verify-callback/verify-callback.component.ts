@@ -37,6 +37,7 @@ import {WizardExtraButton} from "../../steps/wizard-step.component";
 import {map} from "rxjs/operators";
 import {Webhook} from "../../../../model/webhook";
 import {WebhookApi} from "../../../../model/webhook-api";
+import {CallbackVerification} from "../callback-verification";
 
 @Component({
   selector: 'app-subscription-wizard-verify-callback',
@@ -51,6 +52,7 @@ export class VerifyCallbackComponent extends WizardStepBaseComponent<Callback> i
   subscription: Optional<Subscription>
 
   step: WizardStep<any> = new VerifyCallbackWizardStep();
+  request: any
 
   extraButtons(): Array<WizardExtraButton> {
     return [
@@ -74,8 +76,9 @@ export class VerifyCallbackComponent extends WizardStepBaseComponent<Callback> i
     ]
   }
 
-  init(value: Optional<Subscription>): Observable<any> {
-    this.subscription = value
+  init(value: Optional<CallbackVerification>): Observable<any> {
+    this.subscription = value!.subscription
+    this.request = value!.request
     this.inProgress = false
     this.testResult = TestResult.UNKNOWN
     return super.init(value)
