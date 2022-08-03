@@ -48,4 +48,13 @@ beta() {
     .
 }
 
+push() {
+  echo "Building BETA docker image for $name"
+  docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    -t $REPO/"$name":push \
+    --push \
+    .
+}
+
 $1
