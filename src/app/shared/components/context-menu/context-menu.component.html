@@ -26,7 +26,7 @@
 </a>
 <div *ngIf="hasItem" class="dropdown-menu dropdown-menu-right px-2">
   <ul class="nav-vertical nav-small">
-    <li *ngFor="let menuItem of getMenuItems()" class="nav-item">
+    <li *ngFor="let menuItem of getMenuItems(); trackBy:trackByHeader" class="nav-item">
       <a class="nav-link menu-item" (click)="handle(menuItem)">
         <i *ngIf="hasIcon(menuItem)" class="fa fa-{{menuItem.icon}} px-1"></i>{{menuItem.item}}
       </a>

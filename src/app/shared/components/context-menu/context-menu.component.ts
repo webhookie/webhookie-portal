@@ -45,6 +45,11 @@ export class ContextMenuComponent {
       .filter(it => it.isAvailable(this.getData())) as Array<ContextMenuItem<T, E>>;
   }
 
+  trackByHeader<T extends TableData,E>(index: number, filter: ContextMenuItem<T, E>) {
+    // @ts-ignore
+    return filter.item.id;
+  }
+
   get hasItem(): boolean {
     return this.getMenuItems().length > 0
   }
