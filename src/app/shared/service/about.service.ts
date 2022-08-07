@@ -24,6 +24,7 @@ import {Injectable} from '@angular/core';
 import {HealthService} from "./health.service";
 import {DateUtils} from "../date-utils";
 import {Optional} from "../model/optional";
+import build from "../../../build";
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +35,10 @@ export class AboutService {
   ) { }
 
   get version(): Optional<string> {
-    let version = this.healthService.webhookieHealthComponent?.details?.build?.version;
-    return version ? `v${version}` : "";
+    let version = this.healthService.webhookieHealthComponent?.details?.build?.version?.replace("-SNAPSHOT", "");
+    let buildNumber = this.healthService.webhookieHealthComponent?.details?.build?.buildNumber;
+    let result = version ? `v${version} b${buildNumber}` : "";
+    return result;
   }
 
   get details(): any {
@@ -44,6 +47,13 @@ export class AboutService {
     return {
       version: buildProps.version,
       time: DateUtils.toMediumLocalString(buildProps.time),
+      buildNumber: buildProps.buildNumber,
+      ui: {
+        time: build.timestamp,
+        version: build.version,
+        message: build.message || "<no message>",
+        code: build.git.hash
+      }
       // "Database Version": (this.healthService.migrationHealthComponent?.details)["Current Version"]
     }
   }
