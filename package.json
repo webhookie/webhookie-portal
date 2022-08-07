@@ -6,7 +6,6 @@
     "auth0": "ng serve -c auth0",
     "mock": "ng serve -c mock",
     "kc": "ng serve -c kc",
-    "prebuild": "npm --no-git-tag-version version patch",
     "build": "angular-build-info && ng build",
     "release": "release-it",
     "test": "ng test",
