@@ -6,7 +6,7 @@
     "auth0": "ng serve -c auth0",
     "mock": "ng serve -c mock",
     "kc": "ng serve -c kc",
-    "build": "angular-build-info && ng build",
+    "build": "angular-build-info -g && ng build",
     "release": "release-it",
     "test": "ng test",
     "lint": "ng lint",
