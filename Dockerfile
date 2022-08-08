@@ -2,8 +2,6 @@
 
 FROM node:14-slim as builder
 
-RUN npm i -g angular-build-info
-
 ENV SRC_HOME /usr/src/webhookie-portal
 
 RUN mkdir -p $SRC_HOME

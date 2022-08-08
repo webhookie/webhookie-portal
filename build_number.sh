@@ -19,49 +19,19 @@
 #
 # You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
 #
+jsonFile="src/build_number.json"
+tsFile="src/build_number.ts"
+current=$(cat $jsonFile | jq -r .last)
+last=$(( $current + 1 ))
+cat >$tsFile <<EOL
+const build_number = {
+    last: $last
+};
 
-echo Building asyncapi-parser....
-
-REPO="hookiesolutions"
-name="webhookie-portal"
-VERSION="2.0.0"
-
-echo "$VERSION"
-
-load() {
-  echo "Building docker image version: $VERSION in  $(pwd)"
-  docker build \
-    --build-arg APP_NAME="$name" \
-    -t "$REPO/$name:2.0.0" \
-    -t "$REPO/$name:2" \
-    -t "$REPO/$name:latest" \
-    --load \
-    .
+export default build_number;
+EOL
+cat >$jsonFile <<EOL
+{
+  "last": $last
 }
-
-beta() {
-  echo "Building BETA docker image for $name"
-  docker buildx build \
-    --platform linux/amd64,linux/arm64 \
-    -t $REPO/"$name":beta \
-    --push \
-    .
-}
-
-push() {
-  echo "Building BETA docker image for $name"
-  docker buildx build \
-    --platform linux/amd64,linux/arm64 \
-    -t "$REPO/$name:2.0.0" \
-    -t "$REPO/$name:2" \
-    -t $REPO/"$name":latest \
-    -t $REPO/"$name":beta \
-    --push \
-    .
-}
-
-angular-build-info
-
-./build_number.sh
-
-$1
+EOL

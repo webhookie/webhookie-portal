@@ -25,6 +25,7 @@ import {HealthService} from "./health.service";
 import {DateUtils} from "../date-utils";
 import {Optional} from "../model/optional";
 import build from "../../../build";
+import build_number from "../../../build_number";
 
 @Injectable({
   providedIn: 'root'
@@ -37,8 +38,8 @@ export class AboutService {
   get version(): Optional<string> {
     let version = this.healthService.webhookieHealthComponent?.details?.build?.version?.replace("-SNAPSHOT", "");
     let buildNumber = this.healthService.webhookieHealthComponent?.details?.build?.buildNumber;
-    let result = version ? `v${version} b${buildNumber}` : "";
-    return result;
+    let uiBuildNumber = `ui-${build_number.last}`
+    return version ? `v${version} b${buildNumber} ${uiBuildNumber}` : "";
   }
 
   get details(): any {
@@ -51,6 +52,7 @@ export class AboutService {
       ui: {
         time: build.timestamp,
         version: build.version,
+        build: build_number.last,
         message: build.message || "<no message>",
         code: build.git.hash
       }
