@@ -26,6 +26,7 @@ import {SecuritySchemeType} from "./security/security-scheme-type";
 import {CallbackSecurityScheme} from "./security/callback-security-scheme";
 import {HmacSecurityScheme} from "./security/hmac-security-scheme";
 import {OAuthSecurityScheme} from "./security/o-auth-security-scheme";
+import {ApiKeySecurityScheme} from "./security/apikey-security-scheme";
 
 export class Callback extends TableDetailData implements SelectableItem {
   constructor(
@@ -48,6 +49,14 @@ export class Callback extends TableDetailData implements SelectableItem {
     return null
   }
 
+  get apikey(): ApiKeySecurityScheme | null {
+    if(this.isApiKey) {
+      return this.security as ApiKeySecurityScheme
+    }
+
+    return null
+  }
+
   get oauth2(): OAuthSecurityScheme | null {
     if(this.isOAuth) {
       return this.security as OAuthSecurityScheme
@@ -60,12 +69,17 @@ export class Callback extends TableDetailData implements SelectableItem {
     return this.security?.method == SecuritySchemeType.HMAC
   }
 
+  get isApiKey(): Boolean {
+    return this.security?.method == SecuritySchemeType.API_KEY
+  }
+
   get isOAuth(): Boolean {
     return this.security?.method == SecuritySchemeType.OAUTH2
   }
 }
 
 export enum CallbackEditStatus {
+  // noinspection JSUnusedGlobalSymbols
   LOCKED = "LOCKED",
   OPEN = "OPEN"
 }

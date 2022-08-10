@@ -20,29 +20,9 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Injectable} from '@angular/core';
-import {BaseAdapter} from "./adapter";
-import {SecuritySchemeType} from "../model/callback/security/security-scheme-type";
-import {CallbackSecurityScheme} from "../model/callback/security/callback-security-scheme";
-import {HmacSecurityScheme} from "../model/callback/security/hmac-security-scheme";
-import {OAuthSecurityScheme} from "../model/callback/security/o-auth-security-scheme";
-import {ApiKeySecurityScheme} from "../model/callback/security/apikey-security-scheme";
+import {CallbackSecurityDetails} from "./callback-security-details";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class CallbackSecuritySchemeAdapter extends BaseAdapter<CallbackSecurityScheme|null> {
-  adapt(item: any): CallbackSecurityScheme | null {
-    if(item != null) {
-      if(item.method == SecuritySchemeType.HMAC) {
-        return new HmacSecurityScheme(item.details)
-      } else if(item.method == SecuritySchemeType.API_KEY) {
-        return new ApiKeySecurityScheme(item.details)
-      } else if(item.method == SecuritySchemeType.OAUTH2) {
-        return new OAuthSecurityScheme(item.details);
-      }
-    }
-
-    return null;
-  }
+export interface ApiKeyCallbackSecurityDetails extends CallbackSecurityDetails {
+  name: string,
+  value: string
 }
