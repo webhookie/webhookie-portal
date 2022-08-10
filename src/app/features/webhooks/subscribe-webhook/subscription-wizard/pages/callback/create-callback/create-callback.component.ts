@@ -35,6 +35,7 @@ import {HmacSecurityScheme} from "../../../../../../../shared/model/callback/sec
 import {OAuthSecurityScheme} from "../../../../../../../shared/model/callback/security/o-auth-security-scheme";
 import {Application} from "../../../../../model/application";
 import {Optional} from "../../../../../../../shared/model/optional";
+import {ApiKeySecurityScheme} from "../../../../../../../shared/model/callback/security/apikey-security-scheme";
 
 @Component({
   selector: 'app-create-callback',
@@ -103,6 +104,15 @@ export class CreateCallbackComponent {
         {
           keyId: this.callbackComponent.keyId,
           secret: this.callbackComponent.secret
+        }
+      )
+    }
+
+    if(this.callbackComponent.isApiKey) {
+      request.securityScheme = new ApiKeySecurityScheme(
+        {
+          name: this.callbackComponent.apiKeyHeaderName,
+          value: this.callbackComponent.apiKeyHeaderValue
         }
       )
     }

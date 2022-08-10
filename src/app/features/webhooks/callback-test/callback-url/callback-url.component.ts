@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,6 +26,7 @@ import {environment} from "../../../../../environments/environment";
 import {HmacSecurityScheme} from "../../../../shared/model/callback/security/hmac-security-scheme";
 import {OAuthSecurityScheme} from "../../../../shared/model/callback/security/o-auth-security-scheme";
 import {Optional} from "../../../../shared/model/optional";
+import {ApiKeySecurityScheme} from "../../../../shared/model/callback/security/apikey-security-scheme";
 
 @Component({
   selector: 'app-callback-url',
@@ -46,6 +47,13 @@ export class CallbackUrlComponent {
         this.keyId = scheme.details.keyId
       }
 
+      if(callback.isApiKey) {
+        this.securityModel = CallbackUrlComponent.API_KEY_SECURITY
+        this.apiKeyHeaderValue = CallbackUrlComponent.ENCODED_SECRET
+        let scheme: ApiKeySecurityScheme = callback.security as ApiKeySecurityScheme
+        this.apiKeyHeaderName = scheme.details.name
+      }
+
       if(callback.isOAuth) {
         this.securityModel = CallbackUrlComponent.OAUTH_SECURITY
         this.secret = CallbackUrlComponent.ENCODED_SECRET
@@ -59,9 +67,10 @@ export class CallbackUrlComponent {
   }
   public static OAUTH_SECURITY = "OAuth 2.0"
   public static HMAC_SECURITY = "HMAC Signature"
+  public static API_KEY_SECURITY = "Api Key"
   public static ENCODED_SECRET = "****"
 
-  securityModels: any = [CallbackUrlComponent.OAUTH_SECURITY, CallbackUrlComponent.HMAC_SECURITY, 'None'];
+  securityModels: any = [CallbackUrlComponent.OAUTH_SECURITY, CallbackUrlComponent.API_KEY_SECURITY, CallbackUrlComponent.HMAC_SECURITY, 'None'];
   securityModel: any = "None"
 
   name: string = ""
@@ -69,6 +78,8 @@ export class CallbackUrlComponent {
   url: string = ""
   secret: string = ""
   keyId: string = ""
+  apiKeyHeaderValue: string = ""
+  apiKeyHeaderName: string = ""
   tokenEndpoint: string = ""
   clientId: string = ""
   clientSecret: string = ""
@@ -88,6 +99,10 @@ export class CallbackUrlComponent {
 
   get isHmac() {
     return this.securityModel == CallbackUrlComponent.HMAC_SECURITY
+  }
+
+  get isApiKey() {
+    return this.securityModel == CallbackUrlComponent.API_KEY_SECURITY
   }
 
   get isOAuth() {

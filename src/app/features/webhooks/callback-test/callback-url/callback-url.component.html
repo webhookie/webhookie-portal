@@ -1,6 +1,6 @@
 <!--
   ~ webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
-  ~ Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+  ~ Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as
@@ -74,6 +74,20 @@
             <label class="font14 font-weight-400 mb-1" for="secret">Secret API Key</label>
             <input [(ngModel)]="secret" class="form-control" id="secret" name="secret"
                    placeholder="Secret API Key example" type="text">
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isApiKey" class="callback-test-key mt-3">
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label class="font14 font-weight-400 mb-1" for="headerName">Header Name</label>
+            <input [(ngModel)]="apiKeyHeaderName" class="form-control" id="headerName" name="headerName" placeholder="API Key header name" type="text">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label class="font14 font-weight-400 mb-1" for="headerValue">API Key</label>
+            <input [(ngModel)]="apiKeyHeaderValue" class="form-control" id="headerValue" name="headerValue" placeholder="API Key" type="text">
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 /*
  * webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
- * Copyright (C) 2021 Hookie Solutions AB, info@hookiesolutions.com
+ * Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -34,6 +34,7 @@ import {
 } from "../../../shared/model/callback/security/client-credentials-o-auth2-details";
 import {HmacSecurityScheme} from "../../../shared/model/callback/security/hmac-security-scheme";
 import {OAuthSecurityScheme} from "../../../shared/model/callback/security/o-auth-security-scheme";
+import {ApiKeySecurityScheme} from "../../../shared/model/callback/security/apikey-security-scheme";
 
 @Component({
   selector: 'app-callback-test',
@@ -78,6 +79,15 @@ export class CallbackTestComponent extends WebhookBaseComponent {
         {
           secret: this.callback!.secret,
           keyId: this.callback!.keyId
+        }
+      )
+    }
+
+    if(this.callback!.isApiKey) {
+      request.securityScheme = new ApiKeySecurityScheme(
+        {
+          value: this.callback!.apiKeyHeaderValue,
+          name: this.callback!.apiKeyHeaderName
         }
       )
     }

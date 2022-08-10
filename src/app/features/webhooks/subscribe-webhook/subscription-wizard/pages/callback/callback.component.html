@@ -99,6 +99,21 @@
             </div>
           </div>
 
+          <label *ngIf="selectedCallback?.isApiKey" class="font12 pt-1">API Key</label>
+          <div *ngIf="selectedCallback?.isApiKey" class="mt-1">
+            <div class="form-group">
+              <label class="font14 font-weight-400 mb-1">Header Key</label>
+              <input class="form-control" readonly type="text" placeholder="Key ID example" value="{{selectedCallback?.apikey?.details?.name}}">
+            </div>
+          </div>
+          <div *ngIf="selectedCallback?.isApiKey">
+            <div class="form-group">
+              <!-- <h4 class="font14 font-weight-400 mb-1">Secret API Key: {{encodedSecret}}</h4> -->
+              <label class="font14 font-weight-400 mb-1">Header Value</label>
+              <input class="form-control" readonly type="text" placeholder="Header Value" value="{{encodedSecret}}">
+            </div>
+          </div>
+
           <label *ngIf="selectedCallback?.isOAuth" class="font12 pt-1">OAuth 2.0 details</label>
           <div *ngIf="selectedCallback?.isOAuth" class="mt-1">
             <div class="form-group">
