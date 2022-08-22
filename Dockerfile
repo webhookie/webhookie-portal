@@ -16,7 +16,7 @@ RUN npm rebuild node-sass
 
 COPY . $SRC_HOME
 
-RUN npm run build
+RUN ng build -c staging
 
 
 ### STAGE 2: Setup ###
