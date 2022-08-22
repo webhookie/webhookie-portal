@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # webhookie - webhook infrastructure that can be incorporated into any microservice or integration architecture.
 # Copyright (C) 2022 Hookie Solutions AB, info@hookiesolutions.com
@@ -28,7 +29,7 @@ VERSION="2.0.0"
 
 echo "$VERSION"
 
-load() {
+run_load() {
   echo "Building docker image version: $VERSION in  $(pwd)"
   docker build \
     --build-arg APP_NAME="$name" \
@@ -39,7 +40,7 @@ load() {
     .
 }
 
-beta() {
+run_beta() {
   echo "Building BETA docker image for $name"
   docker buildx build \
     --platform linux/amd64,linux/arm64 \
@@ -48,7 +49,7 @@ beta() {
     .
 }
 
-push() {
+run_latest() {
   echo "Building BETA docker image for $name"
   docker buildx build \
     --platform linux/amd64,linux/arm64 \
@@ -60,8 +61,36 @@ push() {
     .
 }
 
+declare ver="latest"
+
+init() {
+  while [ $# -gt 0 ]; do
+    case "$1" in
+    --beta)
+      ver="beta"
+      ;;
+    -b)
+      ver="beta"
+      ;;
+    --push)
+      ver="latest"
+      ;;
+    -p)
+      ver="latest"
+      ;;
+    esac
+    shift
+  done
+}
+
+init "$@"
+
 angular-build-info
 
-./build_number.sh
+./build_number.sh $ver
 
-$1
+deploy() {
+  eval "run_$ver"
+}
+
+deploy

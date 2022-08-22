@@ -22,10 +22,12 @@
 jsonFile="src/build_number.json"
 tsFile="src/build_number.ts"
 current=$(cat $jsonFile | jq -r .last)
+# shellcheck disable=SC2004
 last=$(( $current + 1 ))
 cat >$tsFile <<EOL
 const build_number = {
-    last: $last
+    last: $last,
+    version: "$1"
 };
 
 export default build_number;

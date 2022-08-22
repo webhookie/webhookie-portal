@@ -39,6 +39,9 @@ export class AboutService {
     let version = this.healthService.webhookieHealthComponent?.details?.build?.version?.replace("-SNAPSHOT", "");
     let buildNumber = this.healthService.webhookieHealthComponent?.details?.build?.buildNumber;
     let uiBuildNumber = `ui-${build_number.last}`
+    if (build_number.version == "beta") {
+      uiBuildNumber = `${uiBuildNumber}-BETA`
+    }
     return version ? `v${version} b${buildNumber} ${uiBuildNumber}` : "";
   }
 
