@@ -30,6 +30,7 @@
               [options]="editorOptions"
               [uri]="modelUri"
               (init)="editorInit($event)"
+              (ngModelChange)="inputChanged()"
               #monacoComponent
             >
             </ngx-monaco-editor>

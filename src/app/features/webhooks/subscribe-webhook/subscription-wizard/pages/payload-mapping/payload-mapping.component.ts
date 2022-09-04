@@ -38,7 +38,6 @@ import {ValidationErrors} from "@angular/forms";
 import {JsonViewerComponent} from "../../../../../../shared/components/json-viewer/json-viewer.component";
 import {TransformationService} from "../../../../../../shared/service/transformation.service";
 import {CallbackVerification} from "../callback-verification";
-import {LogService} from "../../../../../../shared/service/log.service";
 
 @Component({
   selector: 'app-subscription-wizard-payload-mapping',
@@ -75,15 +74,19 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
     return super.init(value)
   }
 
-  initialized(value: Optional<any>) {
+  getRequestObject(value: string): any {
     let request;
     try {
-      request = JSON.parse(this.code);
+      request = JSON.parse(value);
     } catch (e) {
-      this.log.warn(`Unable to parse string as JSON: ${this.code}`)
       request = this.code
     }
-    this.showRequest(request)
+
+    return request
+  }
+
+  initialized(value: Optional<any>) {
+    this.showRequest(this.getRequestObject(this.code))
     super.initialized(value);
   }
 
@@ -108,7 +111,6 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
   }
 
   constructor(
-    private readonly log: LogService,
     private readonly subscriptionService: SubscriptionService,
     private readonly transformationService: TransformationService,
     private readonly webhookApiService: WebhookApiService,
@@ -172,6 +174,10 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
 
   editorInit(editor: any) {
     this.editor = editor;
+  }
+
+  inputChanged() {
+    this._callbackValue$.next(this.getRequestObject(this.code))
   }
 
   registerMonacoJsonSchemaValidator(schema: any) {
