@@ -20,7 +20,7 @@
  * You should also get your employer (if you work as a programmer) or school, if any, to sign a "copyright disclaimer" for the program, if necessary. For more information on this, and how to apply and follow the GNU AGPL, see <https://www.gnu.org/licenses/>.
  */
 
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, DoCheck, Input, OnInit, ViewChild} from '@angular/core';
 import {Optional} from "../../../../../../shared/model/optional";
 import {Callback} from "../../../../../../shared/model/callback/callback";
 import {WizardStep} from "../../steps/wizard-step";
@@ -44,7 +44,7 @@ import {CallbackVerification} from "../callback-verification";
   templateUrl: './payload-mapping.component.html',
   styleUrls: ['./payload-mapping.component.css']
 })
-export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> implements OnInit {
+export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> implements OnInit, DoCheck {
   @Input() webhook!: Webhook
   @Input() webhookApi!: WebhookApi
   subscription: Optional<Subscription>
@@ -72,6 +72,11 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
     this.code = JSON.stringify(this.webhook.example, null, 2);
     this.subscription = value
     return super.init(value)
+  }
+
+  initialized(value: Optional<any>) {
+    this.jsonViewerComponent?.show(this.code)
+    super.initialized(value);
   }
 
   result: Optional<CallbackVerification>
@@ -175,5 +180,8 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
         this._callbackValue$.next(it);
         this.jsonViewerComponent.show(it);
       })
+  }
+
+  ngDoCheck(): void {
   }
 }

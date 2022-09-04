@@ -29,6 +29,7 @@ export interface WizardStepComponent<T> {
   step: WizardStep<T>
   visible: boolean;
   init(value: Optional<any>): Observable<any>;
+  initialized(value: Optional<any>): void;
   onNext(): Observable<any>;
   editing(subscription: Subscription): Observable<any>
   onPrev(): void;

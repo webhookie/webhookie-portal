@@ -23,7 +23,7 @@
 import {Observable} from "rxjs";
 import {Optional} from "../../../../../shared/model/optional";
 import {WizardExtraButton, WizardStepComponent} from "./wizard-step.component";
-import {map, mergeMap, tap} from "rxjs/operators";
+import {delay, map, mergeMap, tap} from "rxjs/operators";
 
 export class WizardStepManager {
   goBack() {
@@ -42,6 +42,8 @@ export class WizardStepManager {
     return this.currentComponent!.onNext()
       .pipe(mergeMap(it => nextComponent.init(it)))
       .pipe(tap(() => this.nextPrev(1)))
+      .pipe(delay(100)) //TODO: try a better solution to make sure ui is initialized
+      .pipe(tap(it => nextComponent.initialized(it)))
       .pipe(map(() => value))
   }
 

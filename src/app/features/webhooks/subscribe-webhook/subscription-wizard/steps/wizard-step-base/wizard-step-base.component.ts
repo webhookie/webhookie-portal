@@ -48,6 +48,9 @@ export class WizardStepBaseComponent<T> implements WizardStepComponent<T> {
     return of(1);
   }
 
+  initialized(value: Optional<any>) {
+  }
+
   onNext(): Observable<any> {
     this.step.setComplete();
     this.hide();
