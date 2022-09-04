@@ -59,7 +59,7 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
   modelUri!: monaco.Uri;
   editor: any;
 
-  editorOptions = {theme: 'vs-dark', language: 'json'};
+  editorOptions = {theme: 'vs-light', language: 'json'};
   code = "";
   file_name: any;
 
