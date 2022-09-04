@@ -27,7 +27,7 @@ import {WizardStep} from "../../steps/wizard-step";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {WizardStepBaseComponent} from "../../steps/wizard-step-base/wizard-step-base.component";
 import {Subscription} from "../../../../../../shared/model/subscription";
-import {map, mergeMap} from "rxjs/operators";
+import {map, mergeMap, skip} from "rxjs/operators";
 import {Webhook} from "../../../../model/webhook";
 import {WebhookApi} from "../../../../model/webhook-api";
 import {PayloadMappingWizardStep} from "../../steps/payload-mapping-wizard-step";
@@ -89,7 +89,6 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
 
   showRequest(request: any) {
     this._callbackValue$.next(request);
-    this.jsonViewerComponent.show(request);
   }
 
   result: Optional<CallbackVerification>
@@ -118,6 +117,9 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
   }
 
   ngOnInit(): void {
+    this._callbackValue$.asObservable()
+      .pipe(skip(1))
+      .subscribe(it => this.jsonViewerComponent.show(it))
   }
 
   onDragOver(event:any) {
