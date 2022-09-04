@@ -34,7 +34,7 @@ export class WizardStepManager {
 
   goNext() {
     this.moveNext("")
-      .subscribe(() => console.warn("Going Next..."))
+      .subscribe(() => {})
   }
 
   moveNext(value: any): Observable<any> {

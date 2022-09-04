@@ -38,6 +38,7 @@ import {ValidationErrors} from "@angular/forms";
 import {JsonViewerComponent} from "../../../../../../shared/components/json-viewer/json-viewer.component";
 import {TransformationService} from "../../../../../../shared/service/transformation.service";
 import {CallbackVerification} from "../callback-verification";
+import {LogService} from "../../../../../../shared/service/log.service";
 
 @Component({
   selector: 'app-subscription-wizard-payload-mapping',
@@ -75,8 +76,20 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
   }
 
   initialized(value: Optional<any>) {
-    this.jsonViewerComponent?.show(this.code)
+    let request;
+    try {
+      request = JSON.parse(this.code);
+    } catch (e) {
+      this.log.warn(`Unable to parse string as JSON: ${this.code}`)
+      request = this.code
+    }
+    this.showRequest(request)
     super.initialized(value);
+  }
+
+  showRequest(request: any) {
+    this._callbackValue$.next(request);
+    this.jsonViewerComponent.show(request);
   }
 
   result: Optional<CallbackVerification>
@@ -96,6 +109,7 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
   }
 
   constructor(
+    private readonly log: LogService,
     private readonly subscriptionService: SubscriptionService,
     private readonly transformationService: TransformationService,
     private readonly webhookApiService: WebhookApiService,
@@ -176,10 +190,7 @@ export class PayloadMappingComponent extends WizardStepBaseComponent<Callback> i
   transform() {
     this.transformationService
       .transform(this.editor.getValue(), this.transformation!)
-      .subscribe(it => {
-        this._callbackValue$.next(it);
-        this.jsonViewerComponent.show(it);
-      })
+      .subscribe(it => this.showRequest(it))
   }
 
   ngDoCheck(): void {
