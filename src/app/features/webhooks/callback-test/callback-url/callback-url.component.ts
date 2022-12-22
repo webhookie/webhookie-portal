@@ -22,7 +22,6 @@
 
 import {Component, Input} from '@angular/core';
 import {Callback} from "../../../../shared/model/callback/callback";
-import {environment} from "../../../../../environments/environment";
 import {HmacSecurityScheme} from "../../../../shared/model/callback/security/hmac-security-scheme";
 import {OAuthSecurityScheme} from "../../../../shared/model/callback/security/o-auth-security-scheme";
 import {Optional} from "../../../../shared/model/optional";
@@ -90,7 +89,7 @@ export class CallbackUrlComponent {
   ];
 
   notAvailable(mode: string): boolean {
-    return !environment.enterprise && (mode == CallbackUrlComponent.OAUTH_SECURITY)
+    return false
   }
 
   setMethod(method: string) {

@@ -49,6 +49,16 @@ run_beta() {
     .
 }
 
+run_trial() {
+  echo "Building BETA docker image for $name"
+  docker buildx build \
+    -f Dockerfile-trial \
+    --platform linux/amd64,linux/arm64 \
+    -t $REPO/"$name":trial \
+    --push \
+    .
+}
+
 run_latest() {
   echo "Building BETA docker image for $name"
   docker buildx build \
@@ -71,6 +81,12 @@ init() {
       ;;
     -b)
       ver="beta"
+      ;;
+    --trial)
+      ver="trial"
+      ;;
+    -t)
+      ver="trial"
       ;;
     --push)
       ver="latest"

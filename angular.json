@@ -132,6 +132,14 @@
                 }
               ]
             },
+            "trial": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment-trial.ts"
+                }
+              ]
+            },
             "mock": {
               "fileReplacements": [
                 {
@@ -159,6 +167,9 @@
             },
             "staging": {
               "browserTarget": "webhookie-portal:build:staging"
+            },
+            "trial": {
+              "browserTarget": "webhookie-portal:build:trial"
             },
             "mock": {
               "browserTarget": "webhookie-portal:build:mock"

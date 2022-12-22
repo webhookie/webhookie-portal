@@ -29,9 +29,9 @@ export const environment = {
   enterprise: true,
   mock: false,
   debug: false,
-  apiUrl: window.location.protocol + "//" + window.location.host + "/api",
+  apiUrl: "http://localhost:8080",
   iam: {
-    redirectUri: window.location.protocol + "//" + window.location.host,
+    redirectUri: "http://localhost:4200",
     requireHttps: false,
     showDebugInformation: true,
     disableAtHashCheck: true
